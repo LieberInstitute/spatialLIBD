@@ -7,6 +7,7 @@ library('plotly')
 library('rafalib')
 library('viridisLite')
 library('shinyWidgets')
+library('Polychrome')
 library('sessioninfo')
 
 # options(googleAuthR.scopes.selected = c("https://www.googleapis.com/auth/plus.me", "https://www.googleapis.com/auth/userinfo.email"))
@@ -25,6 +26,7 @@ colnames(clust_k5) <- paste0('SNN_k50_', colnames(clust_k5))
 rownames(clust_k5) <- NULL
 colData(sce) <- cbind(colData(sce), clust_k5)
 
+sce$Cluster10X <- sce$Cluster
 sce$Maynard <- clust_10x_layer_maynard
 sce$Martinowich <- clust_10x_layer_martinowich
 
@@ -84,17 +86,13 @@ get_colors <- function(colors = NULL, clusters) {
         ## From https://medialab.github.io/iwanthue/
         ## which I found the link to from
         ## https://stackoverflow.com/questions/15282580/how-to-generate-a-number-of-most-distinctive-colors-in-r
-        
         ## Used the colorblind friendly and default palette
         
-        ## Color-blind friendly
-        # colors <- if(n_clus > 10) c("#573487", "#96b43d", "#5771dd", "#d39830", "#a874d7", "#64c36f", "#c86ebd", "#47bb8a", "#892862", "#33d4d1", "#db5358", "#6a98e4", "#c55e32", "#516bba", "#b3ad52", "#d55f90", "#588234", "#b8465e", "#a97a35", "#a44739") else if (n_clus <= 6) c("#98a441", "#6778d0", "#50b47b","#9750a1", "#ba6437", "#ba496b") else c("#bfa239", "#5a3a8e", "#799f44", "#c771c4", "#54b06c", "#b0457b", "#43c9b0", "#b8434e", "#6e81da", "#b86738")
-        ## Default one
-        # colors <- if(n_clus > 10) c("#aab539", "#6f66d7", "#59b94d", "#bd54c1", "#598124", "#d1478f", "#58bd91", "#d4465a", "#48bbd2", "#d6542d", "#6288cc", "#d69938", "#8d61ab", "#a3b26a", "#da8dc6", "#407e4a", "#a24b66", "#86712e", "#e39178", "#a75932") else if (n_clus <= 6) c("#b88f40", "#7a75cd", "#6ca74d", "#c45ca2", "#49adaa", "#cb584c") else c("#6ab64c", "#8761cc", "#c1a942", "#688bcc", "#d35238", "#4db598", "#c361aa", "#677e39", "#c9566e", "#c07b44")
+        ## From https://developer.r-project.org/Blog/public/2019/11/21/a-new-palette-for-r/index.html
+        ## they point to https://cran.r-project.org/web/packages/Polychrome/vignettes/polychrome.html
         
-        ## Default one if n_clus > 12, otherwise original colors (re-ordered a bit)
-        #colors <- if(n_clus > 12) c("#aab539", "#6f66d7", "#59b94d", "#bd54c1", "#598124", "#d1478f", "#58bd91", "#d4465a", "#48bbd2", "#d6542d", "#6288cc", "#d69938", "#8d61ab", "#a3b26a", "#da8dc6", "#407e4a", "#a24b66", "#86712e", "#e39178", "#a75932") else c("#377eb8", "gold", "#ff7f00", "#e41a1c", "#4daf4a", "#b2df8a","#a65628", "#999999", "black", "grey", "white", "purple")
-        colors <- if(n_clus > 12) c("#de84b0", "#78bb40", "#9c45bd", "#46c06f", "#cb3e97", "#488733", "#b978e9", "#beae36", "#5c6ade", "#db9443", "#5985dc", "#cf4e32", "#43c4c4", "#d84068", "#5fb88e", "#e471d1", "#327e58", "#7454b1", "#a4b266", "#964f95", "#72722a", "#c18cd3", "#a06332","#54a4d6", "#dc8074", "#5465a4", "#9f4765", "#a09cdf") else c("#377eb8", "gold", "#ff7f00", "#e41a1c", "#4daf4a", "#b2df8a","#a65628", "#999999", "black", "grey", "white", "purple")
+        
+        colors <- if(n_clus > 12) Polychrome::palette36.colors(n_clus) else c("#b2df8a","#e41a1c","#377eb8","#4daf4a","#ff7f00","gold", "#a65628", "#999999", "black", "grey", "white", "purple")
         names(colors) <- seq_len(length(colors))
         
     }

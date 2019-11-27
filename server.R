@@ -41,10 +41,10 @@ shinyServer(function(input, output, session) {
                 sidebarLayout(
                     sidebarPanel(
                         selectInput(inputId = 'sample', label = 'Sample to plot', choices = unique(sce$sample_name)),
-                        selectInput(inputId = 'cluster', label = 'Clusters to plot', choices = c('Cluster', 'Layer', 'Maynard', 'Martinowich', colnames(clust_k5))),
+                        selectInput(inputId = 'cluster', label = 'Clusters to plot', choices = c('Cluster10X', 'Layer', 'Maynard', 'Martinowich', colnames(clust_k5))),
                         pickerInput(inputId = 'geneid', label = 'Gene', choices = sort(genes), selected = genes[17856], options = pickerOptions(liveSearch = TRUE)),
                         selectInput(inputId = 'assayname', label = 'Gene scale', choices = c('counts', 'logcounts'), selected = 'logcounts'),
-                        numericInput(inputId = 'minExpr', label = 'Minimum expression value', value = 0, min = 0, max = max(assays(sce)$logcounts), step = 1),
+                        numericInput(inputId = 'minExpr', label = 'Minimum expression value', value = -1, min = -1, max = max(assays(sce)$logcounts), step = 1),
                         hr(),
                         downloadButton('downloadData', 'Download layer guesses'),
                         helpText('Save your layer guesses frequently to avoid losing your work!'),
@@ -171,6 +171,7 @@ shinyServer(function(input, output, session) {
                                 tags$br()
                             ),
                             tabPanel('Documentation',
+                                p('There can be a maximum of 36 unique guessed layers before we run out of colors.'),
                                 p('todo')
                             )
                         )
@@ -197,7 +198,7 @@ shinyServer(function(input, output, session) {
     
     ## Set the max based on the assay
     observeEvent(input$assayname, {
-        updateNumericInput(session, inputId = 'minExpr', value = 0, min = 0, max = max(assays(sce)[[input$assayname]]), step = 1)
+        updateNumericInput(session, inputId = 'minExpr', value = -1, min = -1, max = max(assays(sce)[[input$assayname]]), step = 1)
     })
     
     
@@ -209,7 +210,7 @@ shinyServer(function(input, output, session) {
         }
         if(input$cluster == 'Layer') {
             sce$Layer <- rv$layer
-            colors <- cols_layers_martinowich[seq_len(length(unique(rv$layer)))]
+            colors <- Polychrome::palette36.colors(length(unique(rv$layer)))
             names(colors) <- unique(rv$layer)
         }
         
@@ -232,7 +233,7 @@ shinyServer(function(input, output, session) {
         }
         if(isolate(input$cluster == 'Layer')) {
             sce$Layer <- rv$layer
-            colors <- cols_layers_martinowich[seq_len(length(unique(rv$layer)))]
+            colors <- Polychrome::palette36.colors(length(unique(rv$layer)))
             names(colors) <- unique(rv$layer)
         }
         sce_sub <- sce[, sce$sample_name %in% isolate(input$grid_samples)]
@@ -269,7 +270,7 @@ shinyServer(function(input, output, session) {
         }
         if(input$cluster == 'Layer') {
             sce$Layer <- rv$layer
-            colors <- cols_layers_martinowich[seq_len(length(unique(rv$layer)))]
+            colors <- Polychrome::palette36.colors(length(unique(rv$layer)))
             names(colors) <- unique(rv$layer)
         }
         pen <- png::readPNG(file.path('data', input$sample, 'tissue_lowres_image.png'))
@@ -323,7 +324,7 @@ shinyServer(function(input, output, session) {
         }
         if(isolate(input$cluster == 'Layer')) {
             sce$Layer <- rv$layer
-            colors <- cols_layers_martinowich[seq_len(length(unique(rv$layer)))]
+            colors <- Polychrome::palette36.colors(length(unique(rv$layer)))
             names(colors) <- unique(rv$layer)
         }
         sce_sub <- sce[, sce$sample_name %in% isolate(input$grid_samples_plotly)]
@@ -429,7 +430,7 @@ shinyServer(function(input, output, session) {
             tagList(
                 textInput('label_layer_gene', 'Layer label', 'Your Guess'),
                 actionButton('update_layer_gene', 'Label selected points with layer'),
-                helpText('This feature does not work when you are plotting the "Layer" clusters.')
+                helpText('This feature does not work when you are plotting the "Layer" clusters. Note that only spots passing the minimum expression value will be updated.')
             )
         } else {
             helpText('Select points to label them with a layer guess.')
