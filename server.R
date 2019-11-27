@@ -4,7 +4,7 @@ options(shiny.maxRequestSize = 50 * 1024^2)
 shinyServer(function(input, output, session) {
 
     ## Global variables needed throughout the app
-    rv <- reactiveValues(login = FALSE, layer = rep(NA, ncol(sce)))
+    rv <- reactiveValues(login = FALSE, layer = rep('NA', ncol(sce)))
 
     ## Authentication
     accessToken <- shiny::callModule(googleSignIn, "gauth_login")
@@ -44,12 +44,13 @@ shinyServer(function(input, output, session) {
                         selectInput(inputId = 'cluster', label = 'Clusters to plot', choices = c('Cluster10X', 'Layer', 'Maynard', 'Martinowich', colnames(clust_k5))),
                         pickerInput(inputId = 'geneid', label = 'Gene', choices = sort(genes), selected = genes[17856], options = pickerOptions(liveSearch = TRUE)),
                         selectInput(inputId = 'assayname', label = 'Gene scale', choices = c('counts', 'logcounts'), selected = 'logcounts'),
-                        numericInput(inputId = 'minExpr', label = 'Minimum expression value', value = -1, min = -1, max = max(assays(sce)$logcounts), step = 1),
+                        numericInput(inputId = 'minExpr', label = 'Minimum expression value', value = 0, min = -1, max = max(assays(sce)$logcounts), step = 1),
                         hr(),
+                        checkboxInput('dropNA', 'Drop NA layer entries in the CSV file?', value = TRUE),
                         downloadButton('downloadData', 'Download layer guesses'),
                         helpText('Save your layer guesses frequently to avoid losing your work!'),
                         hr(),
-                        fileInput('priorGuesses', 'Overwrite "Layer" with your prior guesses.',
+                        fileInput('priorGuesses', 'Overwrite "Layer" with your prior guesses. You can combine multiple files and re-download the merged results, though note that the order matters though as results are overwritten sequentially!.',
                             accept = c('text/csv', '.csv',
                             'text/comma-separated-values,text/plain')
                         ),
@@ -78,8 +79,11 @@ shinyServer(function(input, output, session) {
                             tabPanel('Clusters (interactive)',
                                 plotlyOutput('histology_plotly', width = '600px', height = '600px'),
                                 plotlyOutput('histology_plotly_gene'),
-                                uiOutput('controls_layer'),
-                                helpText("Subsetting the clusters with Plotly breaks the mapping, so don't do it when assigning layers!"),
+                                textInput('label_layer', 'Layer label', 'Your Guess'),
+                                checkboxInput('label_click', 'Enable layer-labelling by clicking on points', value = FALSE),
+                                verbatimTextOutput("click"),
+                                actionButton('update_layer', 'Label selected points (from lasso) with layer'),
+                                helpText('Select points (lasso) to label them with a layer guess.'),
                                 tags$br(),
                                 tags$br(),
                                 tags$br(),
@@ -139,9 +143,15 @@ shinyServer(function(input, output, session) {
                                 tags$br()
                             ),
                             tabPanel('Gene (interactive)',
+                                uiOutput('gene_plotly_cluster_subset_ui'),
                                 plotlyOutput('gene_plotly', width = '600px', height = '600px'),
                                 plotlyOutput('gene_plotly_clusters'),
-                                uiOutput('controls_layer_gene'),
+                                textInput('label_layer_gene', 'Layer label', 'Your Guess'),
+                                checkboxInput('label_click_gene', 'Enable layer-labelling by clicking on points', value = FALSE),
+                                verbatimTextOutput("click_gene"),
+                                actionButton('update_layer_gene', 'Label selected points (from lasso) with layer'),
+                                helpText('Select points to label them with a layer guess.'),
+                                helpText('Note that only spots passing the minimum expression value will be updated.'),
                                 tags$br(),
                                 tags$br(),
                                 tags$br(),
@@ -198,7 +208,7 @@ shinyServer(function(input, output, session) {
     
     ## Set the max based on the assay
     observeEvent(input$assayname, {
-        updateNumericInput(session, inputId = 'minExpr', value = -1, min = -1, max = max(assays(sce)[[input$assayname]]), step = 1)
+        updateNumericInput(session, inputId = 'minExpr', value = 0, min = -1, max = max(assays(sce)[[input$assayname]]), step = 1)
     })
     
     
@@ -286,7 +296,7 @@ shinyServer(function(input, output, session) {
             xanchor = "left", yanchor = "bottom",
             opacity = 1, layer = 'below',
             sizing = 'stretch'
-        )))
+        )), dragmode = 'select')
     })
     
     output$histology_plotly_gene <- renderPlotly({
@@ -294,16 +304,11 @@ shinyServer(function(input, output, session) {
         if(is.null(event.data)) return(NULL)
             
         ## Find which points were selected
-        sce_sub <- sce[, sce$sample_name == input$sample]
-        clus_i_sce <- rafalib::splitit(sce_sub[[input$cluster]])
-        clus_i_plotly <- split(event.data$pointNumber + 1, event.data$curveNumber + 1)
-        clus_i <- mapply(function(i, index) {
-            i[index]
-        }, clus_i_sce[as.integer(names(clus_i_plotly))], clus_i_plotly, SIMPLIFY = FALSE)
+        sce_sub <- sce[, sce$key %in% event.data$key]
         
         d <- as.data.frame(colData(sce_sub))
         d$UMI <- assays(sce_sub)[[input$assayname]][which(genes == input$geneid), ]
-        # d$UMI[d$UMI <= input$minExpr] <- NA
+        d$UMI[d$UMI <= input$minExpr] <- NA
         p <- ggplot(d, aes(x = UMI)) + geom_density() + ggtitle(rowData(sce_sub)$gene_name[which(genes == input$geneid)]) + xlab(input$assayname)
         ggplotly(p)
     })
@@ -343,15 +348,35 @@ shinyServer(function(input, output, session) {
                 xanchor = "left", yanchor = "bottom",
                 opacity = 1, layer = 'below',
                 sizing = 'stretch'
-            )))
+            )), dragmode = 'select')
         }, plots, names(plots), SIMPLIFY = FALSE)
         layout(subplot(plots2, nrows = isolate(input$grid_nrow_plotly)), width = 600 * isolate(input$grid_ncol_plotly), height = 600 * isolate(input$grid_nrow_plotly))
         
     })
     
+    ## Set the cluster subset options
+    output$gene_plotly_cluster_subset_ui <- renderUI({
+        input$clusters
+        
+        if(input$cluster == 'Layer') {
+            cluster_opts <- unique(rv$layer)
+        } else {
+            cluster_opts <- unique(colData(sce)[[input$cluster]])
+        }
+        checkboxGroupInput('gene_plotly_cluster_subset', label = 'Select clusters to show in this plot', choices = sort(cluster_opts), selected = cluster_opts, inline = TRUE)
+    })
+    
     output$gene_plotly <- renderPlotly({
+        if(is.null(input$gene_plotly_cluster_subset)) return(NULL)
+        
         pen <- png::readPNG(file.path('data', input$sample, 'tissue_lowres_image.png'))
-        p <- sce_image_clus_gene(sce, sampleid = input$sample, geneid = which(genes == input$geneid), assayname = input$assayname, minExpr = input$minExpr, spatial = FALSE)
+        if(input$cluster == 'Layer') {
+            cluster_opts <- rv$layer %in% input$gene_plotly_cluster_subset
+        } else {
+            cluster_opts <- as.character(colData(sce)[[input$cluster]]) %in% input$gene_plotly_cluster_subset
+        }
+        
+        p <- sce_image_clus_gene(sce[, cluster_opts], sampleid = input$sample, geneid = which(genes == input$geneid), assayname = input$assayname, minExpr = input$minExpr, spatial = FALSE)
         layout(
             ggplotly(p, width = 600, height = 600, source = 'plotly_gene'),
             images = list(list(
@@ -363,7 +388,7 @@ shinyServer(function(input, output, session) {
             xanchor = "left", yanchor = "bottom",
             opacity = 1, layer = 'below',
             sizing = 'stretch'
-        )))
+        )), dragmode = 'select')
     })
     
     
@@ -372,14 +397,12 @@ shinyServer(function(input, output, session) {
         if(is.null(event.data)) return(NULL)
             
         ## Prepare the data
-        sce_sub <- sce[, sce$sample_name == input$sample]
+        sce$Layer <- rv$layer
+        sce_sub <- sce[, sce$key %in% event.data$key]
         d <- as.data.frame(colData(sce_sub))
         d$UMI <- assays(sce_sub)[[input$assayname]][which(genes == input$geneid), ]
         d$UMI[d$UMI <= input$minExpr] <- NA
-        
-        ## Find which points were selected
-        d <- d[event.data$pointNumber + 1, ]
-        
+                
         ## Plot the cluster frequency
         p <- ggplot(subset(d, !is.na(UMI)), aes(x = !!sym(input$cluster))) + geom_bar() + ggtitle(input$cluster)
         ggplotly(p)
@@ -390,68 +413,63 @@ shinyServer(function(input, output, session) {
     
     
     
-    ## Add layer guess controls from interactive clusters
-    output$controls_layer <- renderUI({
+    observeEvent(input$update_layer, {
         event.data <- event_data('plotly_selected', source = 'plotly_histology')
-        if(!is.null(event.data)) {
-            tagList(
-                textInput('label_layer', 'Layer label', 'Your Guess'),
-                actionButton('update_layer', 'Label selected points with layer'),
-                helpText('This feature does not work when you are plotting the "Layer" clusters.')
-            )
-        } else {
-            helpText('Select points to label them with a layer guess.')
+        if (!is.null(event.data)) {
+            isolate({
+                ## Now update with the layer input
+                rv$layer[sce$key %in% event.data$key] <- input$label_layer
+            })
         }
     })
     
-    observeEvent(input$update_layer, {
-        event.data <- event_data('plotly_selected', source = 'plotly_histology')
-        
-            ## Find which points were selected
-            sce_sub <- sce[, sce$sample_name == input$sample]
-            clus_i_sce <- rafalib::splitit(sce_sub[[input$cluster]])
-            clus_i_plotly <- split(event.data$pointNumber + 1, event.data$curveNumber + 1)
-            clus_i <- mapply(function(i, index) {
-                i[index]
-            }, clus_i_sce[as.integer(names(clus_i_plotly))], clus_i_plotly, SIMPLIFY = FALSE)
-        
-        isolate({
-            ## Now update with the layer input
-            rv$layer[sce$sample_name == input$sample][unlist(clus_i)] <- input$label_layer
-        })
-    })
-    
-    
-    
-    ## Add layer guess controls from interactive genes
-    output$controls_layer_gene <- renderUI({
-        event.data <- event_data('plotly_selected', source = 'plotly_gene')
-        if(!is.null(event.data)) {
-            tagList(
-                textInput('label_layer_gene', 'Layer label', 'Your Guess'),
-                actionButton('update_layer_gene', 'Label selected points with layer'),
-                helpText('This feature does not work when you are plotting the "Layer" clusters. Note that only spots passing the minimum expression value will be updated.')
-            )
+    output$click <- renderPrint({
+        event.data <- event_data("plotly_click", source = 'plotly_histology')
+        if (is.null(event.data)) {
+            return("Single points clicked and updated with a layer guess appear here (double-click to clear)" )
         } else {
-            helpText('Select points to label them with a layer guess.')
+            isolate({
+                ## Now update with the layer input
+                if(input$label_click) rv$layer[sce$key %in% event.data$key] <- input$label_layer
+            })
+            return(event.data$key)
         }
     })
     
     observeEvent(input$update_layer_gene, {
         event.data <- event_data('plotly_selected', source = 'plotly_gene')
+        if (!is.null(event.data)) {
+            ## Prepare the data
+            sce_sub <- sce[, sce$key %in% event.data$key]
+            d <- as.data.frame(colData(sce_sub))
+            d$UMI <- assays(sce_sub)[[input$assayname]][which(genes == input$geneid), ]
+            d$UMI[d$UMI <= input$minExpr] <- NA
         
-        ## Prepare the data
-        sce_sub <- sce[, sce$sample_name == input$sample]
-        d <- as.data.frame(colData(sce_sub))
-        d$UMI <- assays(sce_sub)[[input$assayname]][which(genes == input$geneid), ]
-        d$UMI[d$UMI <= input$minExpr] <- NA
-        
-        isolate({
-            ## Now update with the layer input
-            rv$layer[sce$sample_name == input$sample][intersect(event.data$pointNumber + 1, which(!is.na(d$UMI)))] <- input$label_layer_gene
-        })
+            isolate({
+                ## Now update with the layer input
+                rv$layer[sce$key %in% d$key[!is.na(d$UMI)]] <- input$label_layer_gene
+            })
+        }   
     })
     
+    output$click_gene <- renderPrint({
+        event.data <- event_data("plotly_click", source = 'plotly_gene')
+        if (is.null(event.data)) {
+            return("Single points clicked and updated with a layer guess appear here (double-click to clear)" )
+        } else {
+            ## Prepare the data
+            sce_sub <- sce[, sce$key %in% event.data$key]
+            d <- as.data.frame(colData(sce_sub))
+            d$UMI <- assays(sce_sub)[[input$assayname]][which(genes == input$geneid), ]
+            d$UMI[d$UMI <= input$minExpr] <- NA
+        
+            isolate({
+                ## Now update with the layer input
+                if(input$label_click_gene) rv$layer[sce$key %in% d$key[!is.na(d$UMI)]] <- input$label_layer_gene
+            })
+            return(event.data$key)
+        }
+    })
 
     ## Raw summary
     output$raw_summary <- renderPrint(
@@ -469,6 +487,8 @@ shinyServer(function(input, output, session) {
                 layer = rv$layer,
                 stringsAsFactors = FALSE
             )
+            ## Keep the NAs?
+            if(input$dropNA) current <- subset(current, layer != 'NA')
             write.csv(current, file, row.names = FALSE)
         }
     )
@@ -477,10 +497,11 @@ shinyServer(function(input, output, session) {
     observeEvent(input$priorGuesses, {
         if(!is.null(input$priorGuesses)) {
             previous_work <- read.csv(input$priorGuesses$datapath, header = TRUE,
-                stringsAsFactors = FALSE)
+                stringsAsFactors = FALSE, na.strings = "")
+            ## Update the non-NA
+            previous_work <- subset(previous_work, layer != 'NA')
             previous_work$key <- paste0(previous_work$sample_name, '_', previous_work$spot_name)
-            sce_key <- paste0(sce$sample_name, '_', colnames(sce))
-            m <- match(previous_work$key, sce_key)
+            m <- match(previous_work$key, sce$key)
             rv$layer[m[!is.na(m)]] <- previous_work$layer[!is.na(m)]
         }
     })

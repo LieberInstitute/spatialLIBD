@@ -4,7 +4,6 @@ library('SingleCellExperiment')
 library('ggplot2')
 library('cowplot')
 library('plotly')
-library('rafalib')
 library('viridisLite')
 library('shinyWidgets')
 library('Polychrome')
@@ -30,7 +29,9 @@ sce$Cluster10X <- sce$Cluster
 sce$Maynard <- clust_10x_layer_maynard
 sce$Martinowich <- clust_10x_layer_martinowich
 
-sce$Layer <- NA
+sce$key <- paste0(sce$sample_name, '_', colnames(sce))
+
+sce$Layer <- "NA"
 
 genes <- paste0(rowData(sce)$gene_name, '; ', rowData(sce)$gene_id)
 
@@ -108,7 +109,7 @@ sce_image_clus <- function(sce, sampleid, clustervar,
     d <- as.data.frame(colData(sce[, sce$sample_name == sampleid]))
     colors <- get_colors(colors, d[, clustervar])
     p <- ggplot(d,
-        aes(x = imagecol, y = imagerow, fill = factor(!!sym(clustervar))))
+        aes(x = imagecol, y = imagerow, fill = factor(!!sym(clustervar)), key =  key))
     if(spatial) {
         p <- p + geom_spatial(data = subset(metadata(sce)$image, sample == sampleid), aes(grob = grob), x = 0.5, y = 0.5)
     }
@@ -120,7 +121,7 @@ sce_image_clus <- function(sce, sampleid, clustervar,
     	ylim(max(sce$height), 0) +
     	xlab("") + ylab("") +
     	labs(fill = clustervar)+
-    	guides(fill = guide_legend(override.aes = list(size=3)))+
+        guides(fill = guide_legend(override.aes = list(size=3)))+
     	ggtitle(paste0(sampleid, ...)) +
     	theme_set(theme_bw(base_size = 10))+
     	theme(panel.grid.major = element_blank(), 
@@ -137,7 +138,7 @@ sce_image_clus_gene <- function(sce, sampleid, geneid = 17856, spatial = TRUE, a
     d <- as.data.frame(colData(sce_sub))
     d$UMI <- assays(sce_sub)[[assayname]][geneid, ]
     d$UMI[d$UMI <= minExpr] <- NA
-    p <- ggplot(d, aes(x = imagecol, y = imagerow, fill = UMI, color = UMI))
+    p <- ggplot(d, aes(x = imagecol, y = imagerow, fill = UMI, color = UMI, key =  key))
     if(spatial) {
         p <- p + geom_spatial(data = subset(metadata(sce)$image, sample == sampleid), aes(grob = grob), x = 0.5, y = 0.5)
     }
