@@ -1,25 +1,31 @@
-shinyUI(navbarPage(title = 'spatialLIBD',
-    tabPanel('Login',
-        p('Welcome to spatialLIBD'),
-        googleSignInUI('gauth_login'),
-        textOutput('display_username')
-    ),
-    tabPanel('spatialLIBD data', uiOutput('sceUI')),
-    tabPanel('Help or feedback', uiOutput('helpUI')),
-    hr(),
-    p('This shiny application was developed by the data science team at the Lieber Institute for Brain Development.'),
-    hr(),
-    #HTML('<a href="http://www.libd.org/">'),
-    img(src='http://aejaffe.com/media/LIBD_logo.jpg', align = 'left', width = '250'),
-    # HTML('</a>'),
-    tags$br(),
-    tags$br(),
-    tags$br(),
-    tags$br(),
-    tags$br(),
-    tags$br(),
-    tags$br(),
-    tags$br(),
-    tags$br(),
-    tags$br()
-))
+shinyUI(
+    navbarPage(
+        title = 'spatialLIBD',
+        tabPanel(
+            'Login',
+            p('Welcome to spatialLIBD'),
+            googleSignInUI('gauth_login'),
+            textOutput('display_username')
+        ),
+        tabPanel('spatialLIBD data', uiOutput('sceUI')),
+        tabPanel('Help or feedback', uiOutput('helpUI')),
+        hr(),
+        p(
+            'This shiny application was developed by the data science team at the Lieber Institute for Brain Development.'
+        ),
+        hr(),
+        #HTML('<a href="http://www.libd.org/">'),
+        img(src = 'http://aejaffe.com/media/LIBD_logo.jpg', align = 'left', width = '250'),
+        # HTML('</a>'),
+        tags$br(),
+        tags$br(),
+        tags$br(),
+        tags$br(),
+        tags$br(),
+        tags$br(),
+        tags$br(),
+        tags$br(),
+        tags$br(),
+        tags$br()
+    )
+)

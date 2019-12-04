@@ -47,10 +47,19 @@
 library('rsconnect')
 # setwd(here::here())
 load('.deploy_info.Rdata')
-rsconnect::setAccountInfo(name=deploy_info$name, token=deploy_info$token,
-    secret=deploy_info$secret)
+rsconnect::setAccountInfo(name = deploy_info$name,
+    token = deploy_info$token,
+    secret = deploy_info$secret)
 options(repos = BiocManager::repositories())
-deployApp(appFiles = c('ui.R', 'server.R', 'global.R', dir('data', full.names = TRUE, recursive = TRUE)),
-    appName = 'spatialLIBD', account = 'jhubiostatistics', server = 'shinyapps.io')
+deployApp(
+    appFiles = c(
+        'ui.R',
+        'server.R',
+        'global.R',
+        dir('data', full.names = TRUE, recursive = TRUE)
+    ),
+    appName = 'spatialLIBD',
+    account = 'jhubiostatistics',
+    server = 'shinyapps.io'
+)
 Y
-

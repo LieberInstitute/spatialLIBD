@@ -1,3 +1,4 @@
 .*.Rdata
 data
 deploy_info.R
+.Rproj.user
