@@ -7,7 +7,7 @@ library('plotly')
 library('viridisLite')
 library('shinyWidgets')
 library('Polychrome')
-library('scater')
+# library('scater') ## not needed since I didn't use plotReducedDim()
 library('sessioninfo')
 
 # options(googleAuthR.scopes.selected = c("https://www.googleapis.com/auth/plus.me", "https://www.googleapis.com/auth/userinfo.email"))
