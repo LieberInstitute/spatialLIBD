@@ -453,7 +453,7 @@ shinyServer(function(input, output, session) {
         minExpr <- input$minExpr
         clustervar <- input$cluster
         reduced_name <- input$reduced_name
-        # 
+        #
         # ## Testing:
         # sampleid <- '151507'
         # geneid <- 17856
@@ -474,7 +474,7 @@ shinyServer(function(input, output, session) {
         ## From sce_image_clus_gene() in global.R
         sce_sub <- sce[, sce$sample_name == sampleid]
         d <- as.data.frame(colData(sce_sub))
-        d$UMI <- assays(sce_sub)[[assayname]][geneid,]
+        d$UMI <- assays(sce_sub)[[assayname]][geneid, ]
         d$UMI[d$UMI <= minExpr] <- NA
         
         ## Add the reduced dims
@@ -484,7 +484,7 @@ shinyServer(function(input, output, session) {
         
         
         ## Use client-side highlighting
-        d_key <- highlight_key(d, ~key)
+        d_key <- highlight_key(d, ~ key)
         
         ## Make the cluster plot
         p_clus <-  sce_image_clus_p(
@@ -598,24 +598,22 @@ shinyServer(function(input, output, session) {
             dragmode = 'select'
         )
         
-        plotly_dim <- layout(
-            ggplotly(
-                p_dim,
-                width = 600,
-                height = 600,
-                source = 'plotly_histology'
-            )
-        )
+        plotly_dim <- layout(ggplotly(
+            p_dim,
+            width = 600,
+            height = 600,
+            source = 'plotly_histology'
+        ))
         
         # for(i in length(plotly_dim$x$data)) {
         #     plotly_dim$x$data[[i]]$legendgroup <- as.character(i)
         # }
-        # 
-        # 
+        #
+        #
         # for(i in length(plotly_dim$x$data)) {
         #     plotly_merged$x$data[[i + 2 + length(plotly_dim$x$data)]]$legendgroup <- FALSE
         # }
-        # 
+        #
         # plotly_dim$x$layout$showlegend <- FALSE
         
         ## It's 0.5, but I want this smaller so the cluster
@@ -644,14 +642,14 @@ shinyServer(function(input, output, session) {
         )
         
         ## Restore some axis titles
-        plotly_merged$x$layout$xaxis3$title <- plotly_dim$x$layout$xaxis$title
-        plotly_merged$x$layout$yaxis2$title <- plotly_dim$x$layout$yaxis$title
+        plotly_merged$x$layout$xaxis3$title <-
+            plotly_dim$x$layout$xaxis$title
+        plotly_merged$x$layout$yaxis2$title <-
+            plotly_dim$x$layout$yaxis$title
         
-        highlight(
-            plotly_merged,
+        highlight(plotly_merged,
             on = 'plotly_selected',
-            off = 'plotly_deselect'
-        )
+            off = 'plotly_deselect')
     })
     
     output$histology_plotly_gene <- renderPlotly({
@@ -665,7 +663,7 @@ shinyServer(function(input, output, session) {
         
         d <- as.data.frame(colData(sce_sub))
         d$UMI <-
-            assays(sce_sub)[[input$assayname]][which(genes == input$geneid),]
+            assays(sce_sub)[[input$assayname]][which(genes == input$geneid), ]
         d$UMI[d$UMI <= input$minExpr] <- NA
         p <-
             ggplot(d, aes(x = UMI)) + geom_density() + ggtitle(rowData(sce_sub)$gene_name[which(genes == input$geneid)]) + xlab(input$assayname)
@@ -750,7 +748,7 @@ shinyServer(function(input, output, session) {
         sce_sub <- sce[, sce$key %in% event.data$key]
         d <- as.data.frame(colData(sce_sub))
         d$UMI <-
-            assays(sce_sub)[[input$assayname]][which(genes == input$geneid),]
+            assays(sce_sub)[[input$assayname]][which(genes == input$geneid), ]
         d$UMI[d$UMI <= input$minExpr] <- NA
         
         ## Plot the cluster frequency
@@ -787,7 +785,8 @@ shinyServer(function(input, output, session) {
             isolate({
                 ## Now update with the layer input
                 if (input$label_click)
-                    rv$layer[sce$key %in% event.data$key] <- input$label_layer
+                    rv$layer[sce$key %in% event.data$key] <-
+                        input$label_layer
             })
             return(event.data$key)
         }
@@ -800,7 +799,7 @@ shinyServer(function(input, output, session) {
             sce_sub <- sce[, sce$key %in% event.data$key]
             d <- as.data.frame(colData(sce_sub))
             d$UMI <-
-                assays(sce_sub)[[input$assayname]][which(genes == input$geneid),]
+                assays(sce_sub)[[input$assayname]][which(genes == input$geneid), ]
             d$UMI[d$UMI <= input$minExpr] <- NA
             
             isolate({
@@ -822,7 +821,7 @@ shinyServer(function(input, output, session) {
             sce_sub <- sce[, sce$key %in% event.data$key]
             d <- as.data.frame(colData(sce_sub))
             d$UMI <-
-                assays(sce_sub)[[input$assayname]][which(genes == input$geneid),]
+                assays(sce_sub)[[input$assayname]][which(genes == input$geneid), ]
             d$UMI[d$UMI <= input$minExpr] <- NA
             
             isolate({
