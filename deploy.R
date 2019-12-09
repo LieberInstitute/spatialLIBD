@@ -1,5 +1,5 @@
 # scp e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/Human_DLPFC_Visium_processedData_sce_scran.Rdata data/
-# scp e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/rda_scran/cl ust_k5_list.Rdata data/
+# scp e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/rda_scran/clust_k5_list.Rdata data/
 # scp e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/rda_scran/clust_10x_layer_maynard_martinowich.Rdata data/
 
 # cat(sapply(unique(sce$sample_name), function(x) { paste0('mkdir data/', x, '\n') }))

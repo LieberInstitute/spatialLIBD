@@ -7,6 +7,7 @@ library('plotly')
 library('viridisLite')
 library('shinyWidgets')
 library('Polychrome')
+library('scater')
 library('sessioninfo')
 
 # options(googleAuthR.scopes.selected = c("https://www.googleapis.com/auth/plus.me", "https://www.googleapis.com/auth/userinfo.email"))
@@ -29,7 +30,8 @@ sce$Cluster10X <- sce$Cluster
 sce$Maynard <- clust_10x_layer_maynard
 sce$Martinowich <- clust_10x_layer_martinowich
 
-sce$key <- paste0(sce$sample_name, '_', colnames(sce))
+# No longer needed as of 2019-12-06
+# sce$key <- paste0(sce$sample_name, '_', colnames(sce))
 
 sce$Layer <- "NA"
 
@@ -138,69 +140,35 @@ sce_image_clus <- function(sce,
     ),
     spatial = TRUE,
     ...) {
-    d <- as.data.frame(colData(sce[, sce$sample_name == sampleid]))
-    colors <- get_colors(colors, d[, clustervar])
-    p <- ggplot(d,
-        aes(
-            x = imagecol,
-            y = imagerow,
-            fill = factor(!!sym(clustervar)),
-            key =  key
-        ))
-    if (spatial) {
-        p <-
-            p + geom_spatial(
-                data = subset(metadata(sce)$image, sample == sampleid),
-                aes(grob = grob),
-                x = 0.5,
-                y = 0.5
-            )
-    }
-    p <- p +
-        geom_point(shape = 21,
-            size = 1.25,
-            stroke = 0.25) +
-        coord_cartesian(expand = FALSE) +
-        scale_fill_manual(values = colors) +
-        xlim(0, max(sce$width)) +
-        ylim(max(sce$height), 0) +
-        xlab("") + ylab("") +
-        labs(fill = clustervar) +
-        guides(fill = guide_legend(override.aes = list(size = 3))) +
-        ggtitle(paste0(sampleid, ...)) +
-        theme_set(theme_bw(base_size = 10)) +
-        theme(
-            panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank(),
-            panel.background = element_blank(),
-            axis.line = element_line(colour = "black"),
-            axis.text = element_blank(),
-            axis.ticks = element_blank()
-        )
-    return(p)
+    sce_sub <- sce[, sce$sample_name == sampleid]
+    d <- as.data.frame(colData(sce_sub))
+    sce_image_clus_p(
+        sce = sce_sub,
+        d = d,
+        clustervar = clustervar,
+        sampleid = sampleid,
+        spatial = spatial,
+        title = paste0(sampleid, ...),
+        colors = get_colors(colors, d[, clustervar])
+    )
 }
 
-sce_image_clus_gene <-
+sce_image_clus_p <-
     function(sce,
+        d,
+        clustervar,
         sampleid,
-        geneid = 17856,
-        spatial = TRUE,
-        assayname = 'logcounts',
-        minExpr = 0,
-        ...) {
-        sce_sub <- sce[, sce$sample_name == sampleid]
-        d <- as.data.frame(colData(sce_sub))
-        d$UMI <- assays(sce_sub)[[assayname]][geneid,]
-        d$UMI[d$UMI <= minExpr] <- NA
-        p <-
-            ggplot(d,
-                aes(
-                    x = imagecol,
-                    y = imagerow,
-                    fill = UMI,
-                    color = UMI,
-                    key =  key
-                ))
+        colors,
+        spatial,
+        title) {
+        
+        p <- ggplot(d,
+            aes(
+                x = imagecol,
+                y = imagerow,
+                fill = factor(!!sym(clustervar)),
+                key =  key
+            ))
         if (spatial) {
             p <-
                 p + geom_spatial(
@@ -215,20 +183,13 @@ sce_image_clus_gene <-
                 size = 1.25,
                 stroke = 0.25) +
             coord_cartesian(expand = FALSE) +
-            scale_fill_gradientn(colours = viridis(100)) +
-            scale_color_gradientn(colors = viridis(100)) +
+            scale_fill_manual(values = colors) +
             xlim(0, max(sce$width)) +
             ylim(max(sce$height), 0) +
             xlab("") + ylab("") +
-            labs(fill = "UMI") +
-            ggtitle(paste(
-                unique(sce_sub$sample_name),
-                rowData(sce_sub)$gene_name[geneid],
-                assayname,
-                paste0('min Expr: >', minExpr),
-                ...,
-                sep = " - "
-            )) +
+            labs(fill = clustervar) +
+            guides(fill = guide_legend(override.aes = list(size = 3))) +
+            ggtitle(title) +
             theme_set(theme_bw(base_size = 10)) +
             theme(
                 panel.grid.major = element_blank(),
@@ -240,6 +201,77 @@ sce_image_clus_gene <-
             )
         return(p)
     }
+
+sce_image_clus_gene <-
+    function(sce,
+        sampleid,
+        geneid = 17856,
+        spatial = TRUE,
+        assayname = 'logcounts',
+        minExpr = 0,
+        ...) {
+        sce_sub <- sce[, sce$sample_name == sampleid]
+        d <- as.data.frame(colData(sce_sub))
+        d$UMI <- assays(sce_sub)[[assayname]][geneid,]
+        d$UMI[d$UMI <= minExpr] <- NA
+        sce_image_clus_gene_p(
+            sce = sce_sub,
+            d = d,
+            sampleid = sampleid,
+            spatial = spatial,
+            title = paste(
+                sampleid,
+                rowData(sce_sub)$gene_name[geneid],
+                assayname,
+                paste0('min Expr: >', minExpr),
+                ...,
+                sep = " - "
+            )
+        )
+    }
+
+sce_image_clus_gene_p <- function(sce, d, sampleid, spatial, title) {
+    p <-
+        ggplot(d,
+            aes(
+                x = imagecol,
+                y = imagerow,
+                fill = UMI,
+                color = UMI,
+                key =  key
+            ))
+    if (spatial) {
+        p <-
+            p + geom_spatial(
+                data = subset(metadata(sce)$image, sample == sampleid),
+                aes(grob = grob),
+                x = 0.5,
+                y = 0.5
+            )
+    }
+    p <- p +
+        geom_point(shape = 21,
+            size = 1.25,
+            stroke = 0.25) +
+        coord_cartesian(expand = FALSE) +
+        scale_fill_gradientn(colours = viridis(100)) +
+        scale_color_gradientn(colors = viridis(100)) +
+        xlim(0, max(sce$width)) +
+        ylim(max(sce$height), 0) +
+        xlab("") + ylab("") +
+        labs(fill = "UMI") +
+        ggtitle(title) +
+        theme_set(theme_bw(base_size = 10)) +
+        theme(
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank(),
+            panel.background = element_blank(),
+            axis.line = element_line(colour = "black"),
+            axis.text = element_blank(),
+            axis.ticks = element_blank()
+        )
+    return(p)
+}
 
 # sce_image_clus_gene(sce, '151507')
 # sce_image_clus_gene(sce, '151507', minExpr = 3)
@@ -317,32 +349,32 @@ sce_image_grid_gene <-
 # plots <- sce_image_grid_gene(sce, minExpr = 3, return_plots = TRUE)
 # print(cowplot::plot_grid(plotlist = plots))
 
-sce_image_grid_comp <-
-    function(sce,
-        clus1,
-        clus2,
-        pdf_file,
-        map_subset = NULL,
-        colors = NULL,
-        return_plots = FALSE,
-        ...) {
-        clus1 <- sort_clusters(clus1, map_subset)
-        clus2 <- sort_clusters(clus2, map_subset)
-        if (is.null(colors)) {
-            colors <- c('FALSE' = 'red', 'TRUE' = 'grey80')
-        }
-        clus_agree <-
-            factor(clus1 == clus2, levels = c('FALSE', 'TRUE'))
-        sce_image_grid(
-            sce,
-            clus_agree,
-            pdf_file,
-            sort_clust = FALSE,
-            colors = colors,
-            return_plots = return_plots,
-            ...
-        )
-    }
+# sce_image_grid_comp <-
+#     function(sce,
+#         clus1,
+#         clus2,
+#         pdf_file,
+#         map_subset = NULL,
+#         colors = NULL,
+#         return_plots = FALSE,
+#         ...) {
+#         clus1 <- sort_clusters(clus1, map_subset)
+#         clus2 <- sort_clusters(clus2, map_subset)
+#         if (is.null(colors)) {
+#             colors <- c('FALSE' = 'red', 'TRUE' = 'grey80')
+#         }
+#         clus_agree <-
+#             factor(clus1 == clus2, levels = c('FALSE', 'TRUE'))
+#         sce_image_grid(
+#             sce,
+#             clus_agree,
+#             pdf_file,
+#             sort_clust = FALSE,
+#             colors = colors,
+#             return_plots = return_plots,
+#             ...
+#         )
+#     }
 
 
 sce_image_grid_by_clus <-

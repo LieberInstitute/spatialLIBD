@@ -57,6 +57,11 @@ shinyServer(function(input, output, session) {
                             colnames(clust_k5)
                         )
                     ),
+                    selectInput(
+                        inputId = 'reduced_name',
+                        label = 'Reduced dimensions',
+                        choices = reducedDimNames(sce)[-1]
+                    ),
                     pickerInput(
                         inputId = 'geneid',
                         label = 'Gene',
@@ -126,8 +131,8 @@ shinyServer(function(input, output, session) {
                             'Clusters (interactive)',
                             plotlyOutput(
                                 'histology_plotly',
-                                width = '600px',
-                                height = '600px'
+                                width = '1200px',
+                                height = '1200px'
                             ),
                             plotlyOutput('histology_plotly_gene'),
                             textInput('label_layer', 'Layer label', 'Your Guess'),
@@ -180,42 +185,6 @@ shinyServer(function(input, output, session) {
                             ),
                             actionButton('grid_update', label = 'Update grid plot'),
                             uiOutput('grid_static'),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br()
-                        ),
-                        tabPanel(
-                            'Clusters grid (interactive)',
-                            checkboxGroupInput(
-                                'grid_samples_plotly',
-                                label = 'Select samples to show in the grid',
-                                choices = unique(sce$sample_name),
-                                selected = unique(sce$sample_name)[seq(1, 11, by = 4)],
-                                inline = TRUE
-                            ),
-                            numericInput(
-                                'grid_nrow_plotly',
-                                label = 'N rows',
-                                value = 1,
-                                min = 1,
-                                max = 3
-                            ),
-                            numericInput(
-                                'grid_ncol_plotly',
-                                label = 'N columns',
-                                value = 3,
-                                min = 1,
-                                max = 4
-                            ),
-                            actionButton('grid_update_plotly', label = 'Update grid plot'),
-                            uiOutput('grid_plotly'),
                             tags$br(),
                             tags$br(),
                             tags$br(),
@@ -476,20 +445,110 @@ shinyServer(function(input, output, session) {
                 Polychrome::palette36.colors(length(unique(rv$layer)))
             names(colors) <- unique(rv$layer)
         }
+        
+        ## Define some common arguments
+        sampleid <- input$sample
+        geneid <- which(genes == input$geneid)
+        assayname <- input$assayname
+        minExpr <- input$minExpr
+        clustervar <- input$cluster
+        reduced_name <- input$reduced_name
+        # 
+        # ## Testing:
+        # sampleid <- '151507'
+        # geneid <- 17856
+        # assayname <- 'logcounts'
+        # minExpr <- 0
+        # clustervar <- 'Cluster10X'
+        # colors <- get_colors(NULL, sce$Cluster10X)
+        # reduced_name <- 'TSNE_perplexity50'
+        
+        ## Read in the histology image
         pen <-
-            png::readPNG(file.path('data', input$sample, 'tissue_lowres_image.png'))
-        p <-
-            sce_image_clus(
-                sce,
-                sampleid = input$sample,
-                clustervar = input$cluster,
-                spatial = FALSE,
-                colors = colors,
-                ... = paste(' with', input$cluster)
+            png::readPNG(file.path('data', sampleid, 'tissue_lowres_image.png'))
+        
+        
+        
+        
+        
+        ## From sce_image_clus_gene() in global.R
+        sce_sub <- sce[, sce$sample_name == sampleid]
+        d <- as.data.frame(colData(sce_sub))
+        d$UMI <- assays(sce_sub)[[assayname]][geneid,]
+        d$UMI[d$UMI <= minExpr] <- NA
+        
+        ## Add the reduced dims
+        red_dims <- reducedDim(sce_sub, reduced_name)
+        colnames(red_dims) <- paste(reduced_name, 'dim', 1:2)
+        d <- cbind(d, red_dims)
+        
+        
+        ## Use client-side highlighting
+        d_key <- highlight_key(d, ~key)
+        
+        ## Make the cluster plot
+        p_clus <-  sce_image_clus_p(
+            sce = sce_sub,
+            d = d_key,
+            clustervar = clustervar,
+            sampleid = sampleid,
+            colors = get_colors(colors, d[, clustervar]),
+            spatial = FALSE,
+            title = paste(
+                sampleid,
+                'with',
+                clustervar,
+                '-',
+                rowData(sce_sub)$gene_name[geneid],
+                assayname,
+                'min Expr: >',
+                minExpr
             )
-        layout(
+        )
+        
+        ## Next the gene plot
+        p_gene <- sce_image_clus_gene_p(
+            sce = sce_sub,
+            d = d_key,
+            sampleid = sampleid,
+            spatial = FALSE,
+            title = ""
+        )
+        
+        ## Make the reduced dimensions ggplot
+        p_dim <- ggplot(d_key,
+            aes(
+                x = !!sym(colnames(red_dims)[1]),
+                y = !!sym(colnames(red_dims)[2]),
+                fill = factor(!!sym(clustervar)),
+                key =  key,
+                legendgroup = factor(!!sym(clustervar))
+            )) +
+            geom_point(shape = 21,
+                size = 1.25,
+                stroke = 0.25) +
+            scale_fill_manual(values = get_colors(colors, colData(sce_sub)[[clustervar]])) +
+            guides(fill = FALSE) +
+            ggtitle("") +
+            theme_set(theme_bw(base_size = 10)) +
+            theme(
+                panel.grid.major = element_blank(),
+                panel.grid.minor = element_blank(),
+                panel.background = element_blank(),
+                axis.line = element_line(colour = "black"),
+                axis.text = element_blank(),
+                axis.ticks = element_blank()
+            )
+        
+        
+        # p_dim2 <-
+        #     plotReducedDim(sce, dimred = reduced_name, colour_by = clustervar)
+        
+        
+        ## Make the plotly objects with histology in the background
+        plotly_clus <- layout(
             ggplotly(
-                p,
+                p_clus,
                 width = 600,
                 height = 600,
                 source = 'plotly_histology'
@@ -512,6 +571,87 @@ shinyServer(function(input, output, session) {
             ),
             dragmode = 'select'
         )
+        
+        plotly_gene <- layout(
+            ggplotly(
+                p_gene,
+                width = 600,
+                height = 600,
+                source = 'plotly_histology'
+            ),
+            images = list(
+                list(
+                    source = raster2uri(as.raster(pen)),
+                    xref = "paper",
+                    yref = "paper",
+                    x = 0,
+                    y = 0,
+                    sizex = 1,
+                    sizey = 1,
+                    xanchor = "left",
+                    yanchor = "bottom",
+                    opacity = 1,
+                    layer = 'below',
+                    sizing = 'stretch'
+                )
+            ),
+            dragmode = 'select'
+        )
+        
+        plotly_dim <- layout(
+            ggplotly(
+                p_dim,
+                width = 600,
+                height = 600,
+                source = 'plotly_histology'
+            )
+        )
+        
+        # for(i in length(plotly_dim$x$data)) {
+        #     plotly_dim$x$data[[i]]$legendgroup <- as.character(i)
+        # }
+        # 
+        # 
+        # for(i in length(plotly_dim$x$data)) {
+        #     plotly_merged$x$data[[i + 2 + length(plotly_dim$x$data)]]$legendgroup <- FALSE
+        # }
+        # 
+        # plotly_dim$x$layout$showlegend <- FALSE
+        
+        ## It's 0.5, but I want this smaller so the cluster
+        ## labels will fit
+        plotly_gene$x$data[[2]]$marker$colorbar$len <- 0.1
+        
+        plotly_merged <- layout(
+            subplot(
+                subplot(
+                    plotly_gene,
+                    plotly_clus,
+                    nrows = 1,
+                    shareX = TRUE,
+                    shareY = TRUE,
+                    which_layout = 2
+                ),
+                plotly_dim,
+                nrows = 2,
+                shareX = FALSE,
+                shareY = FALSE,
+                which_layout = 1
+            ),
+            width = 600 * 2,
+            height = 600 * 2,
+            legend = list(tracegroupgap = 0)
+        )
+        
+        ## Restore some axis titles
+        plotly_merged$x$layout$xaxis3$title <- plotly_dim$x$layout$xaxis$title
+        plotly_merged$x$layout$yaxis2$title <- plotly_dim$x$layout$yaxis$title
+        
+        highlight(
+            plotly_merged,
+            on = 'plotly_selected',
+            off = 'plotly_deselect'
+        )
     })
     
     output$histology_plotly_gene <- renderPlotly({
@@ -530,80 +670,6 @@ shinyServer(function(input, output, session) {
         p <-
             ggplot(d, aes(x = UMI)) + geom_density() + ggtitle(rowData(sce_sub)$gene_name[which(genes == input$geneid)]) + xlab(input$assayname)
         ggplotly(p)
-    })
-    
-    
-    output$grid_plotly <- renderUI({
-        input$grid_update_plotly
-        
-        plotlyOutput(
-            'histology_grid_plotly',
-            width = 600 * isolate(input$grid_ncol_plotly),
-            height = 600 * isolate(input$grid_nrow_plotly)
-        )
-    })
-    
-    output$histology_grid_plotly <- renderPlotly({
-        input$grid_update_plotly
-        
-        colors <- NULL
-        if (isolate(input$cluster) %in% c('Maynard', 'Martinowich')) {
-            colors <- cols_layers_martinowich
-        }
-        if (isolate(input$cluster == 'Layer')) {
-            sce$Layer <- rv$layer
-            colors <-
-                Polychrome::palette36.colors(length(unique(rv$layer)))
-            names(colors) <- unique(rv$layer)
-        }
-        sce_sub <-
-            sce[, sce$sample_name %in% isolate(input$grid_samples_plotly)]
-        plots <-
-            sce_image_grid(
-                sce_sub,
-                colData(sce_sub)[[isolate(input$cluster)]],
-                sort_clust = FALSE,
-                colors = colors,
-                return_plots = TRUE,
-                spatial = FALSE,
-                ... = paste(' with', isolate(input$cluster))
-            )
-        
-        plots2 <- mapply(function(p, samplename) {
-            pen <-
-                png::readPNG(file.path('data', samplename, 'tissue_lowres_image.png'))
-            layout(
-                ggplotly(
-                    p,
-                    width = 600,
-                    height = 600,
-                    source = 'plotly_histology_grid'
-                ),
-                images = list(
-                    list(
-                        source = raster2uri(as.raster(pen)),
-                        xref = "paper",
-                        yref = "paper",
-                        x = 0,
-                        y = 0,
-                        sizex = 1,
-                        sizey = 1,
-                        xanchor = "left",
-                        yanchor = "bottom",
-                        opacity = 1,
-                        layer = 'below',
-                        sizing = 'stretch'
-                    )
-                ),
-                dragmode = 'select'
-            )
-        }, plots, names(plots), SIMPLIFY = FALSE)
-        layout(
-            subplot(plots2, nrows = isolate(input$grid_nrow_plotly)),
-            width = 600 * isolate(input$grid_ncol_plotly),
-            height = 600 * isolate(input$grid_nrow_plotly)
-        )
-        
     })
     
     ## Set the cluster subset options
