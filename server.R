@@ -65,9 +65,9 @@ shinyServer(function(input, output, session) {
                     ),
                     pickerInput(
                         inputId = 'geneid',
-                        label = 'Gene',
-                        choices = sort(genes),
-                        selected = genes[17856],
+                        label = 'Gene (or count variable)',
+                        choices = c('cell_count', 'sum_umi', 'sum_gene', sort(genes)),
+                        selected = 'cell_count',
                         options = pickerOptions(liveSearch = TRUE)
                     ),
                     selectInput(
@@ -77,8 +77,8 @@ shinyServer(function(input, output, session) {
                         selected = 'logcounts'
                     ),
                     numericInput(
-                        inputId = 'minExpr',
-                        label = 'Minimum expression value',
+                        inputId = 'minCount',
+                        label = 'Minimum count value',
                         value = 0,
                         min = -1,
                         max = max(assays(sce)$logcounts),
@@ -233,7 +233,7 @@ shinyServer(function(input, output, session) {
                             ),
                             helpText('Select points to label them with a layer guess.'),
                             helpText(
-                                'Note that only spots passing the minimum expression value will be updated.'
+                                'Note that only spots passing the minimum count value will be updated.'
                             ),
                             tags$br(),
                             tags$br(),
@@ -318,7 +318,7 @@ shinyServer(function(input, output, session) {
     observeEvent(input$assayname, {
         updateNumericInput(
             session,
-            inputId = 'minExpr',
+            inputId = 'minCount',
             value = 0,
             min = -1,
             max = max(assays(sce)[[input$assayname]]),
@@ -396,9 +396,9 @@ shinyServer(function(input, output, session) {
         sce_image_clus_gene(
             sce,
             sampleid = input$sample,
-            geneid = which(genes == input$geneid),
+            geneid = input$geneid,
             assayname = input$assayname,
-            minExpr = input$minExpr
+            minCount = input$minCount
         )
     }, width = 600, height = 600)
     
@@ -421,9 +421,9 @@ shinyServer(function(input, output, session) {
         plots <-
             sce_image_grid_gene(
                 sce_sub,
-                geneid = isolate(which(genes == input$geneid)),
+                geneid = isolate(input$geneid),
                 assayname = isolate(input$assayname),
-                minExpr = isolate(input$minExpr),
+                minCount = isolate(input$minCount),
                 return_plots = TRUE
             )
         print(cowplot::plot_grid(
@@ -449,17 +449,17 @@ shinyServer(function(input, output, session) {
         
         ## Define some common arguments
         sampleid <- input$sample
-        geneid <- which(genes == input$geneid)
+        geneid <- input$geneid
         assayname <- input$assayname
-        minExpr <- input$minExpr
+        minCount <- input$minCount
         clustervar <- input$cluster
         reduced_name <- input$reduced_name
         #
         # ## Testing:
         # sampleid <- '151507'
-        # geneid <- 17856
+        # geneid <- genes[17856]
         # assayname <- 'logcounts'
-        # minExpr <- 0
+        # minCount <- 0
         # clustervar <- 'Cluster10X'
         # colors <- get_colors(NULL, sce$Cluster10X)
         # reduced_name <- 'TSNE_perplexity50'
@@ -472,16 +472,20 @@ shinyServer(function(input, output, session) {
         ## From sce_image_clus_gene() in global.R
         sce_sub <- sce[, sce$sample_name == sampleid]
         d <- as.data.frame(colData(sce_sub))
-        d$UMI <- assays(sce_sub)[[assayname]][geneid,]
-        d$UMI[d$UMI <= minExpr] <- NA
+        if(geneid %in% c('cell_count', 'sum_umi', 'sum_gene')) {
+            d$COUNT <- colData(sce_sub)[[geneid]]
+        } else {
+            d$COUNT <- assays(sce_sub)[[assayname]][which(genes == geneid),]
+        }
+        d$COUNT[d$COUNT <= minCount] <- NA
         
         ## Add the reduced dims
         red_dims <- reducedDim(sce_sub, reduced_name)
         colnames(red_dims) <- paste(reduced_name, 'dim', 1:2)
         d <- cbind(d, red_dims)
         
-        ## Drop points below minExpr
-        d <- subset(d, !is.na(UMI))
+        ## Drop points below minCount
+        d <- subset(d, !is.na(COUNT))
         
         ## Use client-side highlighting
         d_key <- highlight_key(d, ~ key)
@@ -499,10 +503,10 @@ shinyServer(function(input, output, session) {
                 'with',
                 clustervar,
                 '-',
-                rowData(sce_sub)$gene_name[geneid],
-                assayname,
-                'min Expr: >',
-                minExpr
+                geneid,
+                if(!geneid %in% c('cell_count', 'sum_umi', 'sum_gene')) assayname,
+                'min Count: >',
+                minCount
             )
         )
         
@@ -528,6 +532,30 @@ shinyServer(function(input, output, session) {
                 stroke = 0.25) +
             scale_fill_manual(values = get_colors(colors, colData(sce_sub)[[clustervar]])) +
             guides(fill = FALSE) +
+            ggtitle("") +
+            theme_set(theme_bw(base_size = 10)) +
+            theme(
+                panel.grid.major = element_blank(),
+                panel.grid.minor = element_blank(),
+                panel.background = element_blank(),
+                axis.line = element_line(colour = "black"),
+                axis.text = element_blank(),
+                axis.ticks = element_blank()
+            )
+        
+        p_dim_gene <- ggplot(d_key,
+            aes(
+                x = !!sym(colnames(red_dims)[1]),
+                y = !!sym(colnames(red_dims)[2]),
+                fill = COUNT,
+                color = COUNT,
+                key =  key
+            )) + geom_point(shape = 21,
+                size = 1.25,
+                stroke = 0.25) +
+            scale_fill_gradientn(colors = viridis(21), guide = FALSE) +
+            scale_color_gradientn(colors = viridis(21), guide = FALSE) +
+            labs(fill = "COUNT") +
             ggtitle("") +
             theme_set(theme_bw(base_size = 10)) +
             theme(
@@ -599,6 +627,13 @@ shinyServer(function(input, output, session) {
             source = 'plotly_histology'
         ))
         
+        plotly_dim_gene <- layout(ggplotly(
+            p_dim_gene,
+            width = 600,
+            height = 600,
+            source = 'plotly_histology'
+        ))
+        
         ## It's 0.5, but I want this smaller so the cluster
         ## labels will fit
         ## Not needed now that I moved the legend further right using 'x'
@@ -614,7 +649,14 @@ shinyServer(function(input, output, session) {
                     shareY = TRUE,
                     which_layout = 2
                 ),
-                plotly_dim,
+                subplot(
+                    plotly_dim_gene,
+                    plotly_dim,
+                    nrows = 1,
+                    shareX = TRUE,
+                    shareY = TRUE,
+                    which_layout = 2
+                ),
                 nrows = 2,
                 shareX = FALSE,
                 shareY = FALSE,
@@ -627,6 +669,7 @@ shinyServer(function(input, output, session) {
         
         ## Restore some axis titles for the reduced dim plot
         plotly_merged$x$layout$xaxis3$title <-
+            plotly_merged$x$layout$xaxis4$title <-
             plotly_dim$x$layout$xaxis$title
         plotly_merged$x$layout$yaxis2$title <-
             plotly_dim$x$layout$yaxis$title
@@ -647,11 +690,19 @@ shinyServer(function(input, output, session) {
         sce_sub <- sce[, sce$key %in% event.data$key]
         
         d <- as.data.frame(colData(sce_sub))
-        d$UMI <-
-            assays(sce_sub)[[input$assayname]][which(genes == input$geneid),]
-        d$UMI[d$UMI <= input$minExpr] <- NA
+        if (input$geneid %in% c('cell_count', 'sum_umi', 'sum_gene')) {
+            d$COUNT <- colData(sce_sub)[[input$geneid]]
+        } else {
+            d$COUNT <-
+                assays(sce_sub)[[input$assayname]][which(genes == input$geneid),]
+        }
+        d$COUNT[d$COUNT <= input$minCount] <- NA
         p <-
-            ggplot(d, aes(x = UMI)) + geom_density() + ggtitle(rowData(sce_sub)$gene_name[which(genes == input$geneid)]) + xlab(input$assayname)
+            ggplot(d, aes(x = COUNT)) + geom_density() + ggtitle(input$geneid) + xlab(ifelse(
+                !input$geneid %in% c('cell_count', 'sum_umi', 'sum_gene'),
+                input$assayname,
+                input$geneid
+            ))
         ggplotly(p)
     })
     
@@ -690,9 +741,9 @@ shinyServer(function(input, output, session) {
             sce_image_clus_gene(
                 sce[, cluster_opts],
                 sampleid = input$sample,
-                geneid = which(genes == input$geneid),
+                geneid = input$geneid,
                 assayname = input$assayname,
-                minExpr = input$minExpr,
+                minCount = input$minCount,
                 spatial = FALSE
             )
         layout(
@@ -732,13 +783,17 @@ shinyServer(function(input, output, session) {
         sce$Layer <- rv$layer
         sce_sub <- sce[, sce$key %in% event.data$key]
         d <- as.data.frame(colData(sce_sub))
-        d$UMI <-
-            assays(sce_sub)[[input$assayname]][which(genes == input$geneid),]
-        d$UMI[d$UMI <= input$minExpr] <- NA
+        if (input$geneid %in% c('cell_count', 'sum_umi', 'sum_gene')) {
+            d$COUNT <- colData(sce_sub)[[input$geneid]]
+        } else {
+            d$COUNT <-
+                assays(sce_sub)[[input$assayname]][which(genes == input$geneid), ]
+        }
+        d$COUNT[d$COUNT <= input$minCount] <- NA
         
         ## Plot the cluster frequency
         p <-
-            ggplot(subset(d, !is.na(UMI)), aes(x = !!sym(input$cluster))) + geom_bar() + ggtitle(input$cluster)
+            ggplot(subset(d, !is.na(COUNT)), aes(x = !!sym(input$cluster))) + geom_bar() + ggtitle(input$cluster)
         ggplotly(p)
     })
     
@@ -783,13 +838,17 @@ shinyServer(function(input, output, session) {
             ## Prepare the data
             sce_sub <- sce[, sce$key %in% event.data$key]
             d <- as.data.frame(colData(sce_sub))
-            d$UMI <-
-                assays(sce_sub)[[input$assayname]][which(genes == input$geneid),]
-            d$UMI[d$UMI <= input$minExpr] <- NA
+            if (input$geneid %in% c('cell_count', 'sum_umi', 'sum_gene')) {
+                d$COUNT <- colData(sce_sub)[[input$geneid]]
+            } else {
+                d$COUNT <-
+                    assays(sce_sub)[[input$assayname]][which(genes == input$geneid),]
+            }
+            d$COUNT[d$COUNT <= input$minCount] <- NA
             
             isolate({
                 ## Now update with the layer input
-                rv$layer[sce$key %in% d$key[!is.na(d$UMI)]] <-
+                rv$layer[sce$key %in% d$key[!is.na(d$COUNT)]] <-
                     input$label_layer_gene
             })
         }
@@ -805,14 +864,18 @@ shinyServer(function(input, output, session) {
             ## Prepare the data
             sce_sub <- sce[, sce$key %in% event.data$key]
             d <- as.data.frame(colData(sce_sub))
-            d$UMI <-
-                assays(sce_sub)[[input$assayname]][which(genes == input$geneid),]
-            d$UMI[d$UMI <= input$minExpr] <- NA
+            if (input$geneid %in% c('cell_count', 'sum_umi', 'sum_gene')) {
+                d$COUNT <- colData(sce_sub)[[input$geneid]]
+            } else {
+                d$COUNT <-
+                    assays(sce_sub)[[input$assayname]][which(genes == input$geneid),]
+            }
+            d$COUNT[d$COUNT <= input$minCount] <- NA
             
             isolate({
                 ## Now update with the layer input
                 if (input$label_click_gene)
-                    rv$layer[sce$key %in% d$key[!is.na(d$UMI)]] <-
+                    rv$layer[sce$key %in% d$key[!is.na(d$COUNT)]] <-
                         input$label_layer_gene
             })
             return(event.data$key)

@@ -204,15 +204,20 @@ sce_image_clus_p <-
 sce_image_clus_gene <-
     function(sce,
         sampleid,
-        geneid = 17856,
+        geneid = genes[17856],
         spatial = TRUE,
         assayname = 'logcounts',
-        minExpr = 0,
+        minCount = 0,
         ...) {
         sce_sub <- sce[, sce$sample_name == sampleid]
         d <- as.data.frame(colData(sce_sub))
-        d$UMI <- assays(sce_sub)[[assayname]][geneid,]
-        d$UMI[d$UMI <= minExpr] <- NA
+        
+        if(geneid %in% c('cell_count', 'sum_umi', 'sum_gene')) {
+            d$COUNT <- colData(sce_sub)[[geneid]]
+        } else {
+            d$COUNT <- assays(sce_sub)[[assayname]][which(genes == geneid),]
+        }
+        d$COUNT[d$COUNT <= minCount] <- NA
         sce_image_clus_gene_p(
             sce = sce_sub,
             d = d,
@@ -220,9 +225,9 @@ sce_image_clus_gene <-
             spatial = spatial,
             title = paste(
                 sampleid,
-                rowData(sce_sub)$gene_name[geneid],
-                assayname,
-                paste0('min Expr: >', minExpr),
+                geneid,
+                if(!geneid %in% c('cell_count', 'sum_umi', 'sum_gene')) assayname,
+                paste0('min Count: >', minCount),
                 ...,
                 sep = " - "
             )
@@ -237,8 +242,8 @@ sce_image_clus_gene_p <-
                 aes(
                     x = imagecol,
                     y = imagerow,
-                    fill = UMI,
-                    color = UMI,
+                    fill = COUNT,
+                    color = COUNT,
                     key =  key
                 ))
         
@@ -265,7 +270,7 @@ sce_image_clus_gene_p <-
             xlim(0, max(sce$width)) +
             ylim(max(sce$height), 0) +
             xlab("") + ylab("") +
-            labs(fill = "UMI") +
+            labs(fill = "COUNT") +
             ggtitle(title) +
             theme_set(theme_bw(base_size = 10)) +
             theme(
@@ -280,8 +285,8 @@ sce_image_clus_gene_p <-
     }
 
 # sce_image_clus_gene(sce, '151507')
-# sce_image_clus_gene(sce, '151507', minExpr = 3)
-# sce_image_clus_gene(sce, '151507', minExpr = 3, assayname = 'counts')
+# sce_image_clus_gene(sce, '151507', minCount = 3)
+# sce_image_clus_gene(sce, '151507', minCount = 3, assayname = 'counts')
 
 
 sort_clusters <- function(clusters, map_subset = NULL) {
@@ -331,15 +336,15 @@ sce_image_grid <-
 
 sce_image_grid_gene <-
     function(sce,
-        geneid = 17856,
+        geneid = genes[17856],
         pdf_file,
         assayname = 'logcounts',
-        minExpr = 0,
+        minCount = 0,
         return_plots = FALSE,
         spatial = TRUE,
         ...) {
         plots <- lapply(unique(sce$sample_name), function(sampleid) {
-            sce_image_clus_gene(sce, sampleid, geneid, spatial, assayname, minExpr, ...)
+            sce_image_clus_gene(sce, sampleid, geneid, spatial, assayname, minCount, ...)
         })
         names(plots) <- unique(sce$sample_name)
         if (!return_plots) {
@@ -353,7 +358,7 @@ sce_image_grid_gene <-
         }
     }
 
-# plots <- sce_image_grid_gene(sce, minExpr = 3, return_plots = TRUE)
+# plots <- sce_image_grid_gene(sce, minCount = 3, return_plots = TRUE)
 # print(cowplot::plot_grid(plotlist = plots))
 
 # sce_image_grid_comp <-
