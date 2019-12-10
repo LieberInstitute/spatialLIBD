@@ -242,10 +242,6 @@ sce_image_clus_gene_p <-
                     key =  key
                 ))
         
-        col_breaks <-
-            quantile(p_gene$data$UMI, probs = seq(0, 1, by = 0.05))
-        names(col_breaks) <- round(col_breaks, 2)
-        
         if (spatial) {
             p <-
                 p + geom_spatial(
@@ -261,16 +257,10 @@ sce_image_clus_gene_p <-
                 stroke = 0.25) +
             coord_cartesian(expand = FALSE) +
             scale_fill_gradientn(
-                colors = viridis(21),
-                breaks = col_breaks,
-                values = scales::rescale(col_breaks),
-                labels = names(col_breaks)
+                colors = viridis(21)
             ) +
             scale_color_gradientn(
-                colors = viridis(21),
-                breaks = col_breaks,
-                values = scales::rescale(col_breaks),
-                labels = names(col_breaks)
+                colors = viridis(21)
             ) +
             xlim(0, max(sce$width)) +
             ylim(max(sce$height), 0) +
