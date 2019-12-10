@@ -229,6 +229,7 @@ sce_image_clus_gene <-
         )
     }
 
+
 sce_image_clus_gene_p <-
     function(sce, d, sampleid, spatial, title) {
         p <-
@@ -240,6 +241,7 @@ sce_image_clus_gene_p <-
                     color = UMI,
                     key =  key
                 ))
+        
         if (spatial) {
             p <-
                 p + geom_spatial(
@@ -254,8 +256,12 @@ sce_image_clus_gene_p <-
                 size = 1.25,
                 stroke = 0.25) +
             coord_cartesian(expand = FALSE) +
-            scale_fill_gradientn(colours = viridis(100)) +
-            scale_color_gradientn(colors = viridis(100)) +
+            scale_fill_gradientn(
+                colors = viridis(21)
+            ) +
+            scale_color_gradientn(
+                colors = viridis(21)
+            ) +
             xlim(0, max(sce$width)) +
             ylim(max(sce$height), 0) +
             xlab("") + ylab("") +
