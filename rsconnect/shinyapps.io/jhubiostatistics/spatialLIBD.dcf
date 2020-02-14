@@ -5,6 +5,6 @@ account: jhubiostatistics
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1533341
-bundleId: 2656434
+bundleId: 2779795
 url: https://jhubiostatistics.shinyapps.io/spatialLIBD/
-when: 1576000006.18899
+when: 1581001717.50754

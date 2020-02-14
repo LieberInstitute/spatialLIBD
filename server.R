@@ -18,7 +18,8 @@ shinyServer(function(input, output, session) {
             'stephaniechicks@gmail.com',
             'lukas.weber.edu@gmail.com',
             'zach.besich@gmail.com',
-            'stephanie.cerceo.page@gmail.com'
+            'stephanie.cerceo.page@gmail.com',
+            'jdaylab@gmail.com'
         )) {
             rv$login <- TRUE
             return(TRUE)
