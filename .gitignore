@@ -1,4 +1,4 @@
-.*.Rdata
-data
-deploy_info.R
 .Rproj.user
+.Rhistory
+.RData
+.Ruserdata
