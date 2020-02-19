@@ -12,6 +12,7 @@
 #' @export
 #'
 #' @examples
+#'
 
 sce_image_clus_gene_p <-
     function(sce,
@@ -71,16 +72,17 @@ sce_image_clus_gene_p <-
             xlim(0, max(sce$width)) +
             ylim(max(sce$height), 0) +
             xlab("") + ylab("") +
-            labs(fill = assayname, color = assayname) +
+            labs(fill = NULL, color = NULL) +
             ggtitle(title) +
-            theme_set(theme_bw(base_size = 10)) +
+            theme_set(theme_bw(base_size = 20)) +
             theme(
                 panel.grid.major = element_blank(),
                 panel.grid.minor = element_blank(),
                 panel.background = element_blank(),
-                axis.line = element_line(colour = "black"),
+                axis.line = element_blank(),
                 axis.text = element_blank(),
-                axis.ticks = element_blank()
+                axis.ticks = element_blank(),
+                legend.position = c(0.95, 0.10)
             )
         return(p)
     }

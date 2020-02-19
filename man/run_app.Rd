@@ -8,7 +8,7 @@ run_app(
   sce = fetch_data(type = "sce"),
   sce_layer = fetch_data(type = "sce_layer"),
   modeling_results = fetch_data(type = "modeling_results"),
-  image_path = "data",
+  image_path = system.file("app/www/data", package = "spatialLIBD"),
   ...
 )
 }

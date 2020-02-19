@@ -8,6 +8,7 @@
 #' @importFrom sessioninfo session_info
 #' @import plotly
 #' @importFrom grDevices as.raster
+#' @importFrom png readPNG
 
 app_server <- function(input, output, session) {
     ## Get options
@@ -73,7 +74,7 @@ app_server <- function(input, output, session) {
         plots <-
             sce_image_grid(
                 sce_sub,
-                colData(sce_sub)[[isolate(input$cluster)]],
+                isolate(input$cluster),
                 sort_clust = FALSE,
                 colors = colors,
                 return_plots = TRUE,
@@ -182,7 +183,7 @@ app_server <- function(input, output, session) {
             )
         },
         content = function(file) {
-            pdf(file = file, useDingbats = FALSE, height = 8, width = 9)
+            pdf(file = file, useDingbats = FALSE, height = 8, width = 8)
             print(static_gene())
             dev.off()
         }
@@ -205,7 +206,7 @@ app_server <- function(input, output, session) {
             )
         },
         content = function(file) {
-            pdf(file = file, useDingbats = FALSE, height = 8 * isolate(input$gene_grid_nrow), width = 9 * isolate(input$gene_grid_ncol))
+            pdf(file = file, useDingbats = FALSE, height = 8 * isolate(input$gene_grid_nrow), width = 8 * isolate(input$gene_grid_ncol))
             print(static_gene_grid())
             dev.off()
         }
@@ -323,13 +324,11 @@ app_server <- function(input, output, session) {
             spatial = FALSE,
             title = paste(
                 sampleid,
-                'with',
                 clustervar,
-                '-',
                 geneid,
                 if (!geneid %in% colnames(colData(sce_sub)))
-                    assayname,
-                'min Count: >',
+                    assayname else NULL,
+                'min >',
                 minCount
             )
         )
@@ -359,12 +358,12 @@ app_server <- function(input, output, session) {
             scale_fill_manual(values = get_colors(colors, colData(sce_sub)[[clustervar]])) +
             guides(fill = FALSE) +
             ggtitle("") +
-            theme_set(theme_bw(base_size = 10)) +
+            theme_set(theme_bw(base_size = 20)) +
             theme(
                 panel.grid.major = element_blank(),
                 panel.grid.minor = element_blank(),
                 panel.background = element_blank(),
-                axis.line = element_line(colour = "black"),
+                axis.line = element_blank(),
                 axis.text = element_blank(),
                 axis.ticks = element_blank()
             )
@@ -406,14 +405,14 @@ app_server <- function(input, output, session) {
         }
 
         p_dim_gene <- p_dim_gene +
-            labs(fill = assayname) +
+            labs(fill = NULL) +
             ggtitle("") +
-            theme_set(theme_bw(base_size = 10)) +
+            theme_set(theme_bw(base_size = 20)) +
             theme(
                 panel.grid.major = element_blank(),
                 panel.grid.minor = element_blank(),
                 panel.background = element_blank(),
-                axis.line = element_line(colour = "black"),
+                axis.line = element_blank(),
                 axis.text = element_blank(),
                 axis.ticks = element_blank()
             )

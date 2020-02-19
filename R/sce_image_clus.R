@@ -11,6 +11,18 @@
 #' @export
 #'
 #' @examples
+#'
+#' ori_sce <- fetch_data('sce')
+#'
+#' cols <- c(Polychrome::palette36.colors(7), 'transparent')
+#' names(cols) <- c(levels(ori_sce$layer_guess), 'NA')
+#' sce_image_clus(
+#'     sce = ori_sce,
+#'     clustervar = 'layer_guess',
+#'     sampleid = '151507',
+#'     colors = cols
+#' )
+#'
 
 sce_image_clus <- function(sce,
     sampleid,
