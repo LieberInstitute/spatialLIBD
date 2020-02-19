@@ -6,6 +6,7 @@
 #' @param spatial
 #' @param assayname
 #' @param minCount
+#' @param viridis
 #' @param ...
 #'
 #' @return
@@ -21,6 +22,7 @@ sce_image_clus_gene <-
         spatial = TRUE,
         assayname = 'logcounts',
         minCount = 0,
+        viridis = TRUE,
         ...) {
         sce_sub <- sce[, sce$sample_name == sampleid]
         d <- as.data.frame(colData(sce_sub))
@@ -44,6 +46,7 @@ sce_image_clus_gene <-
                 ...,
                 sep = " - "
             ),
-            assayname = assayname
+            assayname = assayname,
+            viridis = viridis
         )
     }

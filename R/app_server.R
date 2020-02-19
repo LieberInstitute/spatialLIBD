@@ -33,8 +33,8 @@ app_server <- function(input, output, session) {
     })
 
 
-    ## Clusters/Layers
-    output$histology <- renderPlot({
+    ## Static plotting functions
+    static_histology <- reactive({
         colors <- NULL
         if (input$cluster %in% c('Maynard', 'Martinowich')) {
             colors <- cols_layers_martinowich
@@ -53,20 +53,9 @@ app_server <- function(input, output, session) {
             colors = colors,
             ... = paste(' with', input$cluster)
         )
-    }, width = 600, height = 600)
-
-
-    output$grid_static <- renderUI({
-        input$grid_update
-
-        plotOutput(
-            'histology_grid',
-            width = 600 * isolate(input$grid_ncol),
-            height = 600 * isolate(input$grid_nrow)
-        )
     })
 
-    output$histology_grid <- renderPlot({
+    static_histology_grid <- reactive({
         input$grid_update
 
         colors <- NULL
@@ -90,22 +79,161 @@ app_server <- function(input, output, session) {
                 return_plots = TRUE,
                 ... = paste(' with', isolate(input$cluster))
             )
-        print(cowplot::plot_grid(
-            plotlist = plots,
-            nrow = isolate(input$grid_nrow),
-            ncol = isolate(input$grid_ncol)
-        ))
-    }, width = 'auto', height = 'auto')
+        cowplot::plot_grid(
+                plotlist = plots,
+                nrow = isolate(input$grid_nrow),
+                ncol = isolate(input$grid_ncol)
+            )
+    })
 
-
-    output$gene <- renderPlot({
+    static_gene <- reactive({
         sce_image_clus_gene(
             sce,
             sampleid = input$sample,
             geneid = input$geneid,
             assayname = input$assayname,
-            minCount = input$minCount
+            minCount = input$minCount,
+            viridis = input$genecolor == 'viridis'
         )
+    })
+
+    static_gene_grid <- reactive({
+        input$gene_grid_update
+
+        sce_sub <-
+            sce[, sce$sample_name %in% isolate(input$gene_grid_samples)]
+        plots <-
+            sce_image_grid_gene(
+                sce_sub,
+                geneid = isolate(input$geneid),
+                assayname = isolate(input$assayname),
+                minCount = isolate(input$minCount),
+                return_plots = TRUE,
+                viridis = isolate(input$genecolor == 'viridis')
+            )
+        cowplot::plot_grid(
+            plotlist = plots,
+            nrow = isolate(input$gene_grid_nrow),
+            ncol = isolate(input$gene_grid_ncol)
+        )
+    })
+
+    ## Download static plots as PDFs
+    output$downloadPlotHistology <- downloadHandler(
+        filename = function() {
+            gsub(
+                ' ',
+                '_',
+                paste0(
+                    'spatialLIBD_static_cluster_',
+                    input$cluster,
+                    '_',
+                    input$sample,
+                    '_',
+                    Sys.time(),
+                    '.pdf'
+                )
+            )
+        },
+        content = function(file) {
+            pdf(file = file, useDingbats = FALSE, height = 8, width = 9)
+            print(static_histology())
+            dev.off()
+        }
+    )
+
+    output$downloadPlotHistologyGrid <- downloadHandler(
+        filename = function() {
+            gsub(
+                ' ',
+                '_',
+                paste0(
+                    'spatialLIBD_static_cluster_grid_',
+                    input$cluster,
+                    '_',
+                    paste0(input$grid_samples, collapse = '_'),
+                    '_',
+                    Sys.time(),
+                    '.pdf'
+                )
+            )
+        },
+        content = function(file) {
+            pdf(file = file, useDingbats = FALSE, height = 8 * isolate(input$grid_nrow), width = 9 * isolate(input$grid_ncol))
+            print(static_histology_grid())
+            dev.off()
+        }
+    )
+
+    output$downloadPlotGene <- downloadHandler(
+        filename = function() {
+            gsub(
+                ' ',
+                '_',
+                paste0(
+                    'spatialLIBD_static_gene_',
+                    input$geneid,
+                    '_',
+                    input$sample,
+                    '_',
+                    Sys.time(),
+                    '.pdf'
+                )
+            )
+        },
+        content = function(file) {
+            pdf(file = file, useDingbats = FALSE, height = 8, width = 9)
+            print(static_gene())
+            dev.off()
+        }
+    )
+
+    output$downloadPlotGeneGrid <- downloadHandler(
+        filename = function() {
+            gsub(
+                ' ',
+                '_',
+                paste0(
+                    'spatialLIBD_static_gene_grid_',
+                    input$geneid,
+                    '_',
+                    paste0(input$grid_samples, collapse = '_'),
+                    '_',
+                    Sys.time(),
+                    '.pdf'
+                )
+            )
+        },
+        content = function(file) {
+            pdf(file = file, useDingbats = FALSE, height = 8 * isolate(input$gene_grid_nrow), width = 9 * isolate(input$gene_grid_ncol))
+            print(static_gene_grid())
+            dev.off()
+        }
+    )
+
+    ## Clusters/Layers
+    output$histology <- renderPlot({
+        static_histology()
+    }, width = 600, height = 600)
+
+
+    output$grid_static <- renderUI({
+        input$grid_update
+
+        plotOutput(
+            'histology_grid',
+            width = 600 * isolate(input$grid_ncol),
+            height = 600 * isolate(input$grid_nrow)
+        )
+    })
+
+    output$histology_grid <- renderPlot({
+        print(static_histology_grid())
+    }, width = 'auto', height = 'auto')
+
+
+    output$gene <- renderPlot({
+        static_gene()
     }, width = 600, height = 600)
 
 
@@ -120,23 +248,7 @@ app_server <- function(input, output, session) {
     })
 
     output$gene_grid <- renderPlot({
-        input$gene_grid_update
-
-        sce_sub <-
-            sce[, sce$sample_name %in% isolate(input$gene_grid_samples)]
-        plots <-
-            sce_image_grid_gene(
-                sce_sub,
-                geneid = isolate(input$geneid),
-                assayname = isolate(input$assayname),
-                minCount = isolate(input$minCount),
-                return_plots = TRUE
-            )
-        print(cowplot::plot_grid(
-            plotlist = plots,
-            nrow = isolate(input$gene_grid_nrow),
-            ncol = isolate(input$gene_grid_ncol)
-        ))
+        print(static_gene_grid())
     }, width = 'auto', height = 'auto')
 
 
@@ -172,7 +284,11 @@ app_server <- function(input, output, session) {
 
         ## Read in the histology image
         pen <-
-            png::readPNG(file.path(resourcePaths()['imagedata'], sampleid, 'tissue_lowres_image.png'))
+            png::readPNG(file.path(
+                resourcePaths()['imagedata'],
+                sampleid,
+                'tissue_lowres_image.png'
+            ))
 
 
         ## From sce_image_clus_gene() in global.R
@@ -181,7 +297,8 @@ app_server <- function(input, output, session) {
         if (geneid %in% colnames(colData(sce_sub))) {
             d$COUNT <- colData(sce_sub)[[geneid]]
         } else {
-            d$COUNT <- assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid),]
+            d$COUNT <-
+                assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid), ]
         }
         d$COUNT[d$COUNT <= minCount] <- NA
 
@@ -224,7 +341,8 @@ app_server <- function(input, output, session) {
             sampleid = sampleid,
             spatial = FALSE,
             title = "",
-            assayname = assayname
+            assayname = assayname,
+            viridis = input$genecolor == 'viridis'
         )
 
         ## Make the reduced dimensions ggplot
@@ -260,9 +378,34 @@ app_server <- function(input, output, session) {
                 key =  key
             )) + geom_point(shape = 21,
                 size = 1.25,
-                stroke = 0.25) +
-            scale_fill_gradientn(colors = viridis(21), guide = FALSE) +
-            scale_color_gradientn(colors = viridis(21), guide = FALSE) +
+                stroke = 0.25)
+
+
+        if (input$genecolor == 'viridis') {
+            p_dim_gene <-
+                p_dim_gene + scale_fill_gradientn(
+                    colors = viridis(21),
+                    na.value = c('black' = '#0000002D'),
+                    guide = FALSE
+                ) +
+                scale_color_gradientn(
+                    colors = viridis(21),
+                    na.value = c('black' = '#0000002D'),
+                    guide = FALSE
+                )
+        } else {
+            p_dim_gene <- p_dim_gene +  scale_fill_gradientn(
+                colors = c('aquamarine4', 'springgreen', 'goldenrod', 'red'),
+                na.value = c('black' = '#0000002D'),
+                guide = FALSE
+            ) + scale_color_gradientn(
+                colors = c('aquamarine4', 'springgreen', 'goldenrod', 'red'),
+                na.value = c('black' = '#0000002D'),
+                guide = FALSE
+            )
+        }
+
+        p_dim_gene <- p_dim_gene +
             labs(fill = assayname) +
             ggtitle("") +
             theme_set(theme_bw(base_size = 10)) +
@@ -402,7 +545,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[input$geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
+                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
         }
         d$COUNT[d$COUNT <= input$minCount] <- NA
         p <-
@@ -437,7 +580,11 @@ app_server <- function(input, output, session) {
             return(NULL)
 
         pen <-
-            png::readPNG(file.path(resourcePaths()['imagedata'], input$sample, 'tissue_lowres_image.png'))
+            png::readPNG(file.path(
+                resourcePaths()['imagedata'],
+                input$sample,
+                'tissue_lowres_image.png'
+            ))
         if (input$cluster == 'Layer') {
             cluster_opts <- rv$layer %in% input$gene_plotly_cluster_subset
         } else {
@@ -452,7 +599,8 @@ app_server <- function(input, output, session) {
                 geneid = input$geneid,
                 assayname = input$assayname,
                 minCount = input$minCount,
-                spatial = FALSE
+                spatial = FALSE,
+                viridis = input$genecolor == 'viridis'
             )
         layout(
             ggplotly(
@@ -495,7 +643,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[input$geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
+                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
         }
         d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -550,7 +698,7 @@ app_server <- function(input, output, session) {
                 d$COUNT <- colData(sce_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
+                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -576,7 +724,7 @@ app_server <- function(input, output, session) {
                 d$COUNT <- colData(sce_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
+                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -597,7 +745,9 @@ app_server <- function(input, output, session) {
     ## Download results
     output$downloadData <- downloadHandler(
         filename = function() {
-            paste0('spatialLIBD_layerGuesses_', Sys.time(), '.csv')
+            gsub(' ',
+                '_',
+                paste0('spatialLIBD_layerGuesses_', Sys.time(), '.csv'))
         },
         content = function(file) {
             current <- data.frame(
