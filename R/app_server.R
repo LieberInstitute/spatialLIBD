@@ -21,6 +21,46 @@ app_server <- function(input, output, session) {
     ## Global variables needed throughout the app
     rv <- reactiveValues(layer = rep('NA', ncol(sce)))
 
+    ## From /dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/rda_scran/clust_10x_layer_maynard_martinowich.Rdata
+    # cat(paste0("'", names(cols_layers_martinowich), "' = '", cols_layers_martinowich, "',\n"))
+    cols_layers_martinowich <- c(
+        'WM' = '#b2df8a',
+        '6' = '#e41a1c',
+        '1' = '#377eb8',
+        '5' = '#4daf4a',
+        '4' = '#ff7f00',
+        '2_3' = 'gold',
+        '5_6' = '#a65628',
+        '4_5' = '#999999',
+        '1_6' = 'black',
+        '3' = 'grey',
+        '2' = 'white',
+        '1_5' = 'purple'
+    )
+
+    ## For layer_guess and related variables
+    cols_layers_paper <- c(Polychrome::palette36.colors(7), 'transparent')
+    names(cols_layers_paper) <- c(levels(sce$layer_guess), 'NA')
+
+    cols_layers_paper_short <- cols_layers_paper
+    names(cols_layers_paper_short) <- gsub('ayer', '', names(cols_layers_paper_short))
+
+    cluster_colors <- reactive({
+        colors <- NULL
+        if (input$cluster %in% c('Maynard', 'Martinowich')) {
+            colors <- cols_layers_martinowich
+        } else if (input$cluster == 'Layer') {
+            colors <-
+                Polychrome::palette36.colors(length(unique(rv$layer)))
+            names(colors) <- unique(rv$layer)
+        } else if (input$cluster %in% c('layer_guess', 'layer_guess_reordered')) {
+            colors <- cols_layers_paper
+        } else if (input$cluster == 'layer_guess_reordered_short') {
+            colors <- cols_layers_paper_short
+        }
+        return(colors)
+    })
+
     # Set the max based on the assay
     observeEvent(input$assayname, {
         updateNumericInput(
@@ -36,22 +76,12 @@ app_server <- function(input, output, session) {
 
     ## Static plotting functions
     static_histology <- reactive({
-        colors <- NULL
-        if (input$cluster %in% c('Maynard', 'Martinowich')) {
-            colors <- cols_layers_martinowich
-        }
-        if (input$cluster == 'Layer') {
-            sce$Layer <- rv$layer
-            colors <-
-                Polychrome::palette36.colors(length(unique(rv$layer)))
-            names(colors) <- unique(rv$layer)
-        }
-
+        if (input$cluster == 'Layer') sce$Layer <- rv$layer
         sce_image_clus(
             sce,
             sampleid = input$sample,
             clustervar = input$cluster,
-            colors = colors,
+            colors = cluster_colors(),
             ... = paste(' with', input$cluster)
         )
     })
@@ -59,16 +89,7 @@ app_server <- function(input, output, session) {
     static_histology_grid <- reactive({
         input$grid_update
 
-        colors <- NULL
-        if (isolate(input$cluster) %in% c('Maynard', 'Martinowich')) {
-            colors <- cols_layers_martinowich
-        }
-        if (isolate(input$cluster == 'Layer')) {
-            sce$Layer <- rv$layer
-            colors <-
-                Polychrome::palette36.colors(length(unique(rv$layer)))
-            names(colors) <- unique(rv$layer)
-        }
+        if (isolate(input$cluster == 'Layer')) sce$Layer <- rv$layer
         sce_sub <-
             sce[, sce$sample_name %in% isolate(input$grid_samples)]
         plots <-
@@ -76,15 +97,15 @@ app_server <- function(input, output, session) {
                 sce_sub,
                 isolate(input$cluster),
                 sort_clust = FALSE,
-                colors = colors,
+                colors = cluster_colors(),
                 return_plots = TRUE,
                 ... = paste(' with', isolate(input$cluster))
             )
         cowplot::plot_grid(
-                plotlist = plots,
-                nrow = isolate(input$grid_nrow),
-                ncol = isolate(input$grid_ncol)
-            )
+            plotlist = plots,
+            nrow = isolate(input$grid_nrow),
+            ncol = isolate(input$grid_ncol)
+        )
     })
 
     static_gene <- reactive({
@@ -137,7 +158,12 @@ app_server <- function(input, output, session) {
             )
         },
         content = function(file) {
-            pdf(file = file, useDingbats = FALSE, height = 8, width = 9)
+            pdf(
+                file = file,
+                useDingbats = FALSE,
+                height = 8,
+                width = 9
+            )
             print(static_histology())
             dev.off()
         }
@@ -160,7 +186,12 @@ app_server <- function(input, output, session) {
             )
         },
         content = function(file) {
-            pdf(file = file, useDingbats = FALSE, height = 8 * isolate(input$grid_nrow), width = 9 * isolate(input$grid_ncol))
+            pdf(
+                file = file,
+                useDingbats = FALSE,
+                height = 8 * isolate(input$grid_nrow),
+                width = 9 * isolate(input$grid_ncol)
+            )
             print(static_histology_grid())
             dev.off()
         }
@@ -183,7 +214,12 @@ app_server <- function(input, output, session) {
             )
         },
         content = function(file) {
-            pdf(file = file, useDingbats = FALSE, height = 8, width = 8)
+            pdf(
+                file = file,
+                useDingbats = FALSE,
+                height = 8,
+                width = 8
+            )
             print(static_gene())
             dev.off()
         }
@@ -206,7 +242,12 @@ app_server <- function(input, output, session) {
             )
         },
         content = function(file) {
-            pdf(file = file, useDingbats = FALSE, height = 8 * isolate(input$gene_grid_nrow), width = 8 * isolate(input$gene_grid_ncol))
+            pdf(
+                file = file,
+                useDingbats = FALSE,
+                height = 8 * isolate(input$gene_grid_nrow),
+                width = 8 * isolate(input$gene_grid_ncol)
+            )
             print(static_gene_grid())
             dev.off()
         }
@@ -255,16 +296,8 @@ app_server <- function(input, output, session) {
 
     ## Plotly versions
     output$histology_plotly <- renderPlotly({
-        colors <- NULL
-        if (input$cluster %in% c('Maynard', 'Martinowich')) {
-            colors <- cols_layers_martinowich
-        }
-        if (input$cluster == 'Layer') {
-            sce$Layer <- rv$layer
-            colors <-
-                Polychrome::palette36.colors(length(unique(rv$layer)))
-            names(colors) <- unique(rv$layer)
-        }
+        if (input$cluster == 'Layer') sce$Layer <- rv$layer
+        colors <- cluster_colors()
 
         ## Define some common arguments
         sampleid <- input$sample
@@ -327,7 +360,9 @@ app_server <- function(input, output, session) {
                 clustervar,
                 geneid,
                 if (!geneid %in% colnames(colData(sce_sub)))
-                    assayname else NULL,
+                    assayname
+                else
+                    NULL,
                 'min >',
                 minCount
             )

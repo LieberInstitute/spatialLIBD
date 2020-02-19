@@ -26,6 +26,9 @@ app_ui <- function() {
                             choices = c(
                                 'Cluster10X',
                                 'Layer',
+                                'layer_guess',
+                                'layer_guess_reordered',
+                                'layer_guess_reordered_short',
                                 'Maynard',
                                 'Martinowich',
                                 paste0('SNN_k50_k', 4:28)
