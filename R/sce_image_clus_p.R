@@ -21,8 +21,10 @@ sce_image_clus_p <-
         colors,
         spatial,
         title) {
-
-        if(clustervar %in% c('layer_guess', 'layer_guess_reordered', 'layer_guess_reordered_short')) {
+        if (clustervar %in% c('layer_guess',
+            'layer_guess_reordered',
+            'layer_guess_reordered_short',
+            'spatialLIBD')) {
             title <- gsub(clustervar, 'LIBD Layers', title)
         }
 
