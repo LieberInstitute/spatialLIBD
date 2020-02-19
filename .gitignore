@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+inst/doc
+data-raw/spatialLIBD_files
