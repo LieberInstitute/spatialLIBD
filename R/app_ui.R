@@ -12,7 +12,7 @@ app_ui <- function() {
         # List the first level UI elements here
         navbarPage(
             title = 'spatialLIBD',
-            tabPanel('spatialLIBD data', tagList(
+            tabPanel('spot-level data', tagList(
                 sidebarLayout(
                     sidebarPanel(
                         selectInput(
@@ -40,9 +40,16 @@ app_ui <- function() {
                         pickerInput(
                             inputId = 'geneid',
                             label = 'Gene (or count variable)',
-                            choices = c('cell_count', 'sum_umi', 'sum_gene', sort(
-                                paste0(rowData(sce)$gene_name, '; ', rowData(sce)$gene_id)
-                            )),
+                            choices = c(
+                                'cell_count',
+                                'sum_umi',
+                                'sum_gene',
+                                'expr_chrM',
+                                'expr_chrM_ratio',
+                                sort(paste0(
+                                    rowData(sce)$gene_name, '; ', rowData(sce)$gene_id
+                                ))
+                            ),
                             selected = 'cell_count',
                             options = pickerOptions(liveSearch = TRUE)
                         ),
@@ -59,6 +66,12 @@ app_ui <- function() {
                             min = -1,
                             max = max(assays(sce)$logcounts),
                             step = 1
+                        ),
+                        selectInput(
+                            inputId = 'genecolor',
+                            label = 'Gene color scale',
+                            choices = c('viridis', 'paper'),
+                            selected = 'viridis'
                         ),
                         hr(),
                         checkboxInput('dropNA',
@@ -88,6 +101,7 @@ app_ui <- function() {
                                 verbatimTextOutput('raw_summary')),
                             tabPanel(
                                 'Clusters (static)',
+                                downloadButton('downloadPlotHistology', 'Download PDF'),
                                 plotOutput('histology'),
                                 tags$br(),
                                 tags$br(),
@@ -153,6 +167,7 @@ app_ui <- function() {
                                     max = 4
                                 ),
                                 actionButton('grid_update', label = 'Update grid plot'),
+                                downloadButton('downloadPlotHistologyGrid', 'Download PDF'),
                                 uiOutput('grid_static'),
                                 tags$br(),
                                 tags$br(),
@@ -167,6 +182,7 @@ app_ui <- function() {
                             ),
                             tabPanel(
                                 'Gene (static)',
+                                downloadButton('downloadPlotGene', 'Download PDF'),
                                 plotOutput('gene'),
                                 tags$br(),
                                 tags$br(),
@@ -236,6 +252,7 @@ app_ui <- function() {
                                     max = 4
                                 ),
                                 actionButton('gene_grid_update', label = 'Update grid plot'),
+                                downloadButton('downloadPlotGeneGrid', 'Download PDF'),
                                 uiOutput('gene_grid_static'),
                                 tags$br(),
                                 tags$br(),
@@ -259,6 +276,7 @@ app_ui <- function() {
                     )
                 )
             )),
+            tabPanel('layer-level data', tagList(p('TODO'))),
             tabPanel(
                 'Help or feedback',
                 tagList(
@@ -270,7 +288,7 @@ app_ui <- function() {
             ),
             hr(),
             p(
-                'This shiny application was developed by the data science team at the Lieber Institute for Brain Development.'
+                'This shiny application was developed by the Data Science Team 1 at the Lieber Institute for Brain Development.'
             ),
             hr(),
             #HTML('<a href="http://www.libd.org/">'),
@@ -300,10 +318,9 @@ golem_add_external_resources <- function(image_path) {
     addResourcePath('imagedata', image_path)
 
     tags$head(golem::activate_js(),
-        golem::favicon()
         # Add here all the external resources
         # If you have a custom.css in the inst/app/www
         # Or for example, you can add shinyalert::useShinyalert() here
         #tags$link(rel="stylesheet", type="text/css", href="www/custom.css")
-    )
+        golem::favicon())
 }

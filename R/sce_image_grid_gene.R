@@ -7,6 +7,7 @@
 #' @param minCount
 #' @param return_plots
 #' @param spatial
+#' @param viridis
 #' @param ...
 #'
 #' @return
@@ -23,9 +24,10 @@ sce_image_grid_gene <-
         minCount = 0,
         return_plots = FALSE,
         spatial = TRUE,
+        viridis = TRUE,
         ...) {
         plots <- lapply(unique(sce$sample_name), function(sampleid) {
-            sce_image_clus_gene(sce, sampleid, geneid, spatial, assayname, minCount, ...)
+            sce_image_clus_gene(sce, sampleid, geneid, spatial, assayname, minCount, viridis, ...)
         })
         names(plots) <- unique(sce$sample_name)
         if (!return_plots) {
