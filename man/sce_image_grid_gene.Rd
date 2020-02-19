@@ -12,6 +12,7 @@ sce_image_grid_gene(
   minCount = 0,
   return_plots = FALSE,
   spatial = TRUE,
+  viridis = TRUE,
   ...
 )
 }

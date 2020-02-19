@@ -46,15 +46,15 @@ sce_image_clus_p <-
             xlim(0, max(sce$width)) +
             ylim(max(sce$height), 0) +
             xlab("") + ylab("") +
-            labs(fill = clustervar) +
+            labs(fill = NULL) +
             guides(fill = guide_legend(override.aes = list(size = 3))) +
             ggtitle(title) +
-            theme_set(theme_bw(base_size = 10)) +
+            theme_set(theme_bw(base_size = 20)) +
             theme(
                 panel.grid.major = element_blank(),
                 panel.grid.minor = element_blank(),
                 panel.background = element_blank(),
-                axis.line = element_line(colour = "black"),
+                axis.line = element_blank(),
                 axis.text = element_blank(),
                 axis.ticks = element_blank()
             )

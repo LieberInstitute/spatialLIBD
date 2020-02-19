@@ -11,6 +11,7 @@ sce_image_clus_gene(
   spatial = TRUE,
   assayname = "logcounts",
   minCount = 0,
+  viridis = TRUE,
   ...
 )
 }
@@ -24,5 +25,17 @@ sce_image_clus_gene(
 Title
 }
 \examples{
+
+ori_sce <- fetch_data('sce')
+sce_image_clus_gene(
+    sce = ori_sce,
+    sampleid = '151507'
+)
+
+sce_image_clus_gene(
+    sce = ori_sce,
+    sampleid = '151507',
+    geneid = 'expr_chrM_ratio'
+)
 
 }

@@ -4,14 +4,25 @@
 \alias{sce_image_clus_gene_p}
 \title{Title}
 \usage{
-sce_image_clus_gene_p(sce, d, sampleid, spatial, title, assayname)
+sce_image_clus_gene_p(
+  sce,
+  d,
+  sampleid,
+  spatial,
+  title,
+  assayname,
+  viridis = TRUE
+)
 }
 \arguments{
-\item{title}{}
+\item{viridis}{}
 }
 \value{
 
 }
 \description{
 Title
+}
+\examples{
+
 }

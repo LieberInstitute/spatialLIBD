@@ -25,15 +25,12 @@ sce_image_grid <-
         spatial = TRUE,
         ...) {
         colors <- get_colors(colors, clusters)
-        sce$Clus <- if (sort_clust)
-            sort_clusters(clusters)
-        else
-            clusters
+        if (sort_clust) colData(sce)[[clusters]] <- sort_clusters(colData(sce)[[clusters]])
         plots <-
             lapply(unique(sce$sample_name), function(sampleid) {
                 sce_image_clus(sce,
                     sampleid,
-                    'Clus',
+                    clusters,
                     colors = colors,
                     spatial = spatial,
                     ...)

@@ -8,6 +8,13 @@
 #'
 #' @examples
 #'
+#' ori_sce <- fetch_data('sce')
+#'
+#' cols <- c(Polychrome::palette36.colors(7), 'transparent')
+#' names(cols) <- c(levels(ori_sce$layer_guess), 'NA')
+#'
+#' get_colors(cols, ori_sce$layer_guess)
+#'
 
 get_colors <- function(colors = NULL, clusters) {
     n_clus <- length(unique(clusters))

@@ -29,6 +29,7 @@ usethis::use_package('grDevices')
 usethis::use_package('methods')
 usethis::use_package('AnnotationHub')
 usethis::use_package('utils')
+usethis::use_package('png')
 
 ## 2.3 Add tests
 
