@@ -16,6 +16,10 @@ app_server <- function(input, output, session) {
     sce_layer <- golem::get_golem_options('sce_layer')
     modeling_results <- golem::get_golem_options('modeling_results')
 
+    ## Rename some variables
+    sce$spatialLIBD <- sce$layer_guess_reordered_short
+    sce_layer$spatialLIBD <- sce_layer$layer_guess_reordered_short
+
     # List the first level callModules here
 
     ## Global variables needed throughout the app
@@ -39,11 +43,13 @@ app_server <- function(input, output, session) {
     )
 
     ## For layer_guess and related variables
-    cols_layers_paper <- c(Polychrome::palette36.colors(7), 'transparent')
+    cols_layers_paper <-
+        c(Polychrome::palette36.colors(7), 'transparent')
     names(cols_layers_paper) <- c(levels(sce$layer_guess), 'NA')
 
     cols_layers_paper_short <- cols_layers_paper
-    names(cols_layers_paper_short) <- gsub('ayer', '', names(cols_layers_paper_short))
+    names(cols_layers_paper_short) <-
+        gsub('ayer', '', names(cols_layers_paper_short))
 
     cluster_colors <- reactive({
         colors <- NULL
@@ -55,7 +61,7 @@ app_server <- function(input, output, session) {
             names(colors) <- unique(rv$layer)
         } else if (input$cluster %in% c('layer_guess', 'layer_guess_reordered')) {
             colors <- cols_layers_paper
-        } else if (input$cluster == 'layer_guess_reordered_short') {
+        } else if (input$cluster %in% c('layer_guess_reordered_short', 'spatialLIBD')) {
             colors <- cols_layers_paper_short
         }
         return(colors)
@@ -76,7 +82,8 @@ app_server <- function(input, output, session) {
 
     ## Static plotting functions
     static_histology <- reactive({
-        if (input$cluster == 'Layer') sce$Layer <- rv$layer
+        if (input$cluster == 'Layer')
+            sce$Layer <- rv$layer
         sce_image_clus(
             sce,
             sampleid = input$sample,
@@ -89,7 +96,8 @@ app_server <- function(input, output, session) {
     static_histology_grid <- reactive({
         input$grid_update
 
-        if (isolate(input$cluster == 'Layer')) sce$Layer <- rv$layer
+        if (isolate(input$cluster == 'Layer'))
+            sce$Layer <- rv$layer
         sce_sub <-
             sce[, sce$sample_name %in% isolate(input$grid_samples)]
         plots <-
@@ -296,7 +304,8 @@ app_server <- function(input, output, session) {
 
     ## Plotly versions
     output$histology_plotly <- renderPlotly({
-        if (input$cluster == 'Layer') sce$Layer <- rv$layer
+        if (input$cluster == 'Layer')
+            sce$Layer <- rv$layer
         colors <- cluster_colors()
 
         ## Define some common arguments
@@ -332,7 +341,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid), ]
+                assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid),]
         }
         d$COUNT[d$COUNT <= minCount] <- NA
 
@@ -579,7 +588,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[input$geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
+                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
         }
         d$COUNT[d$COUNT <= input$minCount] <- NA
         p <-
@@ -677,7 +686,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[input$geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
+                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
         }
         d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -732,7 +741,7 @@ app_server <- function(input, output, session) {
                 d$COUNT <- colData(sce_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
+                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -758,7 +767,7 @@ app_server <- function(input, output, session) {
                 d$COUNT <- colData(sce_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
+                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
