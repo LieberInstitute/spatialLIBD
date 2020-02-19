@@ -2,10 +2,19 @@
 % Please edit documentation in R/run_app.R
 \name{run_app}
 \alias{run_app}
-\title{run the Shiny Application}
+\title{Run the Shiny Application}
 \usage{
-run_app()
+run_app(
+  sce = fetch_data(type = "sce"),
+  sce_layer = fetch_data(type = "sce_layer"),
+  modeling_results = fetch_data(type = "modeling_results"),
+  image_path = "data",
+  ...
+)
+}
+\arguments{
+\item{...}{}
 }
 \description{
-run the Shiny Application
+Run the Shiny Application
 }

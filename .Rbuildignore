@@ -4,3 +4,8 @@
 dev_history.R
 ^dev$
 $run_dev.*
+^README\.Rmd$
+^CODE_OF_CONDUCT\.md$
+^\.travis\.yml$
+^app\.R$
+^data-raw/spatialLIBD_files$
