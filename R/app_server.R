@@ -344,7 +344,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid),]
+                assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid), ]
         }
         d$COUNT[d$COUNT <= minCount] <- NA
 
@@ -591,7 +591,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[input$geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
+                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
         }
         d$COUNT[d$COUNT <= input$minCount] <- NA
         p <-
@@ -689,7 +689,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[input$geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
+                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
         }
         d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -744,7 +744,7 @@ app_server <- function(input, output, session) {
                 d$COUNT <- colData(sce_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
+                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -770,7 +770,7 @@ app_server <- function(input, output, session) {
                 d$COUNT <- colData(sce_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
+                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -832,9 +832,9 @@ app_server <- function(input, output, session) {
 
 
 
-
-    ### Layer portion
-
+    #####################
+    ### Layer portion ###
+    #####################
 
     output$layer_raw_summary <- renderPrint(print(sce_layer),
         width = 80)
@@ -943,6 +943,32 @@ app_server <- function(input, output, session) {
 
     static_layer_gene_set_enrichment_plot <- reactive({
         gene_set_enrichment_plot(static_layer_gene_set_enrichment())
+    })
+
+
+    static_layer_external_tstat <- reactive({
+        if (!is.null(input$externalTstat)) {
+            input_stat <-
+                read.csv(
+                    input$externalTstat$datapath,
+                    header = TRUE,
+                    stringsAsFactors = FALSE,
+                    na.strings = "",
+                    check.names = FALSE,
+                    row.names = 1
+                )
+        } else {
+            ## Provide a working example when there's no data
+            input_stat <-
+                tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer
+        }
+
+        ## Compute the correlations
+        layer_stat_cor(input_stat, modeling_results, input$layer_model)
+    })
+
+    static_layer_external_tstat_plot <- reactive({
+        layer_stat_cor_plot(static_layer_external_tstat(), input$layer_tstat_max)
     })
 
     ## layer download PDF buttons
@@ -1057,6 +1083,32 @@ app_server <- function(input, output, session) {
         }
     )
 
+    output$layer_downloadTstatCor <- downloadHandler(
+        filename = function() {
+            gsub(
+                ' ',
+                '_',
+                paste0(
+                    'spatialLIBD_layer_TstatCorHeatmap_',
+                    input$layer_model,
+                    '_',
+                    Sys.time(),
+                    '.pdf'
+                )
+            )
+        },
+        content = function(file) {
+            pdf(
+                file = file,
+                useDingbats = FALSE,
+                height = 8,
+                width = 12
+            )
+            print(static_layer_external_tstat_plot())
+            dev.off()
+        }
+    )
+
     ## layer plots
     output$layer_reduced_dim <- renderPlot({
         print(static_layer_reducedDim())
@@ -1070,16 +1122,18 @@ app_server <- function(input, output, session) {
         print(static_layer_gene_set_enrichment_plot())
     }, width = 600, height = 600)
 
+    output$layer_tstat_cor_plot <- renderPlot({
+        print(static_layer_external_tstat_plot())
+    }, width = 800, height = 600)
+
 
     ## interactive tables
     layer_model_table_reactive <- reactive({
-        as.data.frame(
-            subset(
-                sig_genes[, seq_len(which(colnames(sig_genes) == 'ensembl'))],
-                model_type == input$layer_model &
-                    ensembl == gsub('.*; ', '', input$layer_geneid)
-            )
-        )
+        as.data.frame(subset(
+            sig_genes[, seq_len(which(colnames(sig_genes) == 'ensembl'))],
+            model_type == input$layer_model &
+                ensembl == gsub('.*; ', '', input$layer_geneid)
+        ))
     })
 
     output$layer_model_table <- DT::renderDT(
@@ -1109,6 +1163,20 @@ app_server <- function(input, output, session) {
             pageLength = 10,
             lengthMenu = c(5, 10, 25, 50, 100),
             order = list(list(0, 'desc'))
+        )
+    )
+
+    output$layer_tstat_cor_table <- DT::renderDT(
+        static_layer_external_tstat(),
+        style = 'bootstrap',
+        rownames = TRUE,
+        filter = 'top',
+        options = list(
+            columnDefs = list(list(
+                className = 'dt-center', targets = 1
+            )),
+            pageLength = 10,
+            lengthMenu = c(5, 10, 25, 50, 100)
         )
     )
 
@@ -1163,6 +1231,30 @@ app_server <- function(input, output, session) {
                 file = file,
                 quote = FALSE,
                 row.names = FALSE
+            )
+        }
+    )
+
+    output$layer_downloadTstatCorTable <- downloadHandler(
+        filename = function() {
+            gsub(
+                ' ',
+                '_',
+                paste0(
+                    'spatialLIBD_layer_TstatCor_',
+                    input$layer_model,
+                    '_',
+                    Sys.time(),
+                    '.csv'
+                )
+            )
+        },
+        content = function(file) {
+            write.csv(
+                static_layer_external_tstat(),
+                file = file,
+                quote = FALSE,
+                row.names = TRUE
             )
         }
     )

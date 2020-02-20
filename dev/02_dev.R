@@ -67,6 +67,8 @@ usethis::use_r('sig_genes_extract_all')
 usethis::use_r('layer_boxplot')
 usethis::use_r('gene_set_enrichment')
 usethis::use_r('gene_set_enrichment_plot')
+usethis::use_r('layer_stat_cor')
+usethis::use_r('layer_stat_cor_plot')
 
 ## 2.7 Create files for ExperimentHub
 
@@ -97,7 +99,99 @@ sapply(unique(sce$sample_name), function(x) {
 })
 
 ## 2.9 Misc
-system('scp e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/Layer_Guesses/gene_sets/SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv inst/extdata/')
+system(
+    'scp e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/Layer_Guesses/gene_sets/SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv inst/extdata/'
+)
+
+
+## T-stats from comparing vs snRNA-seq data from Matt Nguyen et al (LIBD)
+## Run on JHPCE
+## Extract data from https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R
+
+library('SingleCellExperiment')
+load(
+    here::here(
+        'Analysis',
+        'Layer_Guesses',
+        'rda',
+        'dlpfc_snRNAseq_pseudobulked_specific_Ts.Rdata'
+    ),
+    verbose = TRUE
+)
+load(
+    here::here(
+        'Analysis',
+        'Layer_Guesses',
+        'rda',
+        'dlpfc_snRNAseq_pseudobulked.Rdata'
+    ),
+    verbose = TRUE
+)
+t0_contrasts_cell <- sapply(eb0_list_cell, function(x) {
+    x$t[, 2, drop = FALSE]
+})
+rownames(t0_contrasts_cell) <- rowData(sce_pseudobulk)$ID
+head(t0_contrasts_cell)
+
+## Fix the column names and order
+ct = colData(sce_pseudobulk)
+ct = ct[!duplicated(sce_pseudobulk$prelimCluster),]
+ct = ct[order(ct$collapsedCluster, ct$prelimCluster),]
+ct$lab = paste0(ct$prelimCluster, " (", ct$collapsedCluster, ")")
+
+t0_contrasts_cell <-
+    t0_contrasts_cell[, as.character(ct$prelimCluster)]
+colnames(t0_contrasts_cell) <- ct$lab
+
+pryr::object_size(t0_contrasts_cell)
+# 10.7 MB
+
+## Subset further for illustration purposes
+load(here::here('Analysis', 'Layer_Guesses', 'rda', 'modeling_results.Rdata'),
+    verbose = TRUE)
+
+tstats <-
+    results_specificity[, grep('[f|t]_stat_', colnames(results_specificity))]
+pvals <-
+    results_specificity[, grep('p_value_', colnames(results_specificity))]
+
+layer_specific_indices = mapply(function(t, p) {
+    oo = order(t, decreasing = TRUE)[1:100]
+},
+    as.data.frame(tstats),
+    as.data.frame(pvals))
+layer_ind = unique(as.numeric(layer_specific_indices))
+
+
+tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer <-
+    t0_contrasts_cell[results_specificity$ensembl[layer_ind],]
+pryr::object_size(tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer)
+# 224 kB
+save(
+    tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
+    file = here::here(
+        'Analysis',
+        'Layer_Guesses',
+        'rda',
+        'tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.Rdata'
+    )
+)
+
+## Save the big one too just in case
+tstats_Human_DLPFC_snRNAseq_Nguyen <- t0_contrasts_cell
+save(
+    tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
+    file = here::here(
+        'Analysis',
+        'Layer_Guesses',
+        'rda',
+        'tstats_Human_DLPFC_snRNAseq_Nguyen.Rdata'
+    )
+)
+
+## Then copy to data-raw (outside of JHPCE)
+system('scp e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/Layer_Guesses/rda/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.Rdata data-raw/')
+usethis::use_data_raw( name = "tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer" )
 
 # 3. Documentation
 

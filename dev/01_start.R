@@ -33,6 +33,7 @@ usethis::use_lifecycle_badge( "Experimental" )
 
 usethis::use_news_md( open = FALSE )
 usethis::use_git()
+usethis::use_package_doc()
 
 ## 1.3 - Add a data-raw folder
 ##

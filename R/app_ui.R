@@ -408,6 +408,49 @@ app_ui <- function() {
                                 DT::DTOutput('layer_gene_set_table')
                             ),
                             tabPanel(
+                                't-stat correlation',
+                                fileInput(
+                                    'externalTstat',
+                                    'Upload a CSV file with one column per cell type or layer that contains the specificity t-stat equivalent and with Ensembl gene IDs as the rownames.',
+                                    accept = c(
+                                        'text/csv',
+                                        '.csv',
+                                        'text/comma-separated-values,text/plain'
+                                    )
+                                ),
+                                helpText('It should be a CSV file similar to ', HTML('<a href = "">this example file.</a>')),
+                                hr(),
+                                numericInput(
+                                    'layer_tstat_max',
+                                    label = 'Maximum correlation',
+                                    value = 0.81,
+                                    min = 0,
+                                    max = 1,
+                                    step = 0.01
+                                ),
+                                hr(),
+                                downloadButton('layer_downloadTstatCor', 'Download PDF'),
+                                plotOutput('layer_tstat_cor_plot'),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                hr(),
+                                downloadButton('layer_downloadTstatCorTable', 'Download CSV'),
+                                tags$br(),
+                                tags$br(),
+                                DT::DTOutput('layer_tstat_cor_table')
+                            ),
+                            tabPanel(
                                 'Documentation',
                                 p(
                                     'TODO.'
