@@ -344,7 +344,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid), ]
+                assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid),]
         }
         d$COUNT[d$COUNT <= minCount] <- NA
 
@@ -591,7 +591,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[input$geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
+                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
         }
         d$COUNT[d$COUNT <= input$minCount] <- NA
         p <-
@@ -689,7 +689,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[input$geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
+                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
         }
         d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -744,7 +744,7 @@ app_server <- function(input, output, session) {
                 d$COUNT <- colData(sce_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
+                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -770,7 +770,7 @@ app_server <- function(input, output, session) {
                 d$COUNT <- colData(sce_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
+                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -907,15 +907,14 @@ app_server <- function(input, output, session) {
 
     static_layer_gene_set_enrichment <- reactive({
         if (!is.null(input$geneSet)) {
-            input_gene_list <-
+            gene_list <-
                 read.csv(
                     input$geneSet$datapath,
                     header = TRUE,
                     stringsAsFactors = FALSE,
-                    na.strings = ""
+                    check.names = FALSE,
+                    row.names = NULL
                 )
-            ## Process the csv?
-            gene_list <- input_gene_list
         } else {
             ## Provide a working example when there's no data
             asd_sfari <- utils::read.csv(
@@ -968,7 +967,8 @@ app_server <- function(input, output, session) {
     })
 
     static_layer_external_tstat_plot <- reactive({
-        layer_stat_cor_plot(static_layer_external_tstat(), input$layer_tstat_max)
+        layer_stat_cor_plot(static_layer_external_tstat(),
+            input$layer_tstat_max)
     })
 
     ## layer download PDF buttons
