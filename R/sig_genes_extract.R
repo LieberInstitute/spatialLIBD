@@ -80,7 +80,7 @@ sig_genes_extract <- function(
         model_type = model_type,
         test = rep(colnames(sig_genes), each = n),
         gene = as.character(sig_genes),
-        tstat = as.numeric(sig_genes_tstats),
+        stat = as.numeric(sig_genes_tstats),
         pval = as.numeric(sig_genes_pvals),
         fdr = as.numeric(sig_genes_fdr),
         gene_index = as.integer(sig_i),

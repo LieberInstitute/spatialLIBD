@@ -96,9 +96,9 @@ layer_boxplot <- function(i = 1,
             sig_genes$layer[i],
             '\n',
 
-            'tstat',
+            'stat',
             formatC(
-                sig_genes$tstat[i],
+                sig_genes$stat[i],
                 format = "e",
                 digits = 2
             ),
