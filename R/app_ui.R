@@ -1,6 +1,7 @@
 #' @import shiny
 #' @importFrom shinyWidgets pickerInput pickerOptions
 #' @import SingleCellExperiment
+#' @importFrom DT DTOutput
 app_ui <- function() {
     ## Get options
     sce <- golem::get_golem_options('sce')
@@ -285,12 +286,7 @@ app_ui <- function() {
                             choices = c('specificity', 'pairwise', 'anova'),
                             selected = 'specificity'
                         ),
-                        selectInput(
-                            inputId = 'layer_model_test',
-                            label = 'Model test',
-                            choices = c(paste0('Layer', 1:6), 'WM'),
-                            selected = 'Layer1'
-                        ),
+                        hr(),
                         pickerInput(
                             inputId = 'layer_geneid',
                             label = 'Gene',
@@ -299,60 +295,127 @@ app_ui <- function() {
                             selected = sort(rowData(sce_layer)$gene_search)[1],
                             options = pickerOptions(liveSearch = TRUE)
                         ),
-                        selectInput(
-                            inputId = 'layer_boxcolor',
-                            label = 'Boxplot color scale',
-                            choices = c('viridis', 'paper'),
-                            selected = 'viridis'
-                        ),
-                        checkboxInput(
-                            'layer_box_shortitle',
-                            'Enable short title on boxplots.',
-                            value = TRUE
-                        ),
                         hr(),
                         width = 2
                     ),
-                    mainPanel(tabsetPanel(
-                        tabPanel('Raw summary',
-                            verbatimTextOutput('layer_raw_summary')),
-                        tabPanel(
-                            'Reduced Dim',
-                            selectInput(
-                                inputId = 'layer_which_dim',
-                                label = 'Reduced Dimension',
-                                choices = reducedDimNames(sce_layer),
-                                selected = 'PCA'
+                    mainPanel(
+                        tabsetPanel(
+                            tabPanel('Raw summary',
+                                verbatimTextOutput('layer_raw_summary')),
+                            tabPanel(
+                                'Reduced Dim',
+                                selectInput(
+                                    inputId = 'layer_which_dim',
+                                    label = 'Reduced Dimension',
+                                    choices = reducedDimNames(sce_layer),
+                                    selected = 'PCA'
+                                ),
+                                downloadButton('layer_downloadReducedDim', 'Download PDF'),
+                                plotOutput('layer_reduced_dim'),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br()
                             ),
-                            downloadButton('layer_downloadReducedDim', 'Download PDF'),
-                            plotOutput('layer_reduced_dim'),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br()
-                        ),
-                        tabPanel(
-                            'Model boxplots',
-                            downloadButton('layer_downloadBoxplot', 'Download PDF'),
-                            plotOutput('layer_boxplot'),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br(),
-                            tags$br()
+                            tabPanel(
+                                'Model boxplots',
+                                selectInput(
+                                    inputId = 'layer_model_test',
+                                    label = 'Model test',
+                                    choices = c(paste0('Layer', 1:6), 'WM'),
+                                    selected = 'Layer1'
+                                ),
+                                selectInput(
+                                    inputId = 'layer_boxcolor',
+                                    label = 'Boxplot color scale',
+                                    choices = c('viridis', 'paper'),
+                                    selected = 'viridis'
+                                ),
+                                checkboxInput(
+                                    'layer_box_shortitle',
+                                    'Enable short title on boxplots.',
+                                    value = TRUE
+                                ),
+                                hr(),
+                                downloadButton('layer_downloadBoxplot', 'Download PDF'),
+                                plotOutput('layer_boxplot'),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                hr(),
+                                downloadButton('layer_downloadModelTable', 'Download CSV'),
+                                tags$br(),
+                                tags$br(),
+                                DT::DTOutput('layer_model_table')
+                            ),
+                            tabPanel(
+                                'Gene Set Enrichment',
+                                fileInput(
+                                    'geneSet',
+                                    'Upload a CSV file with one column per gene set and TODO.',
+                                    accept = c(
+                                        'text/csv',
+                                        '.csv',
+                                        'text/comma-separated-values,text/plain'
+                                    )
+                                ),
+                                helpText('It should be a CSV file with TODO.'),
+                                hr(),
+                                numericInput(
+                                    'layer_gene_fdrcut',
+                                    label = 'FDR cutoff',
+                                    value = 0.1,
+                                    min = 0,
+                                    max = 1,
+                                    step = 0.01
+                                ),
+                                hr(),
+                                downloadButton('layer_downloadGeneSet', 'Download PDF'),
+                                plotOutput('layer_gene_set_plot'),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                hr(),
+                                downloadButton('layer_downloadGeneSetTable', 'Download CSV'),
+                                tags$br(),
+                                tags$br(),
+                                DT::DTOutput('layer_gene_set_table')
+                            ),
+                            tabPanel(
+                                'Documentation',
+                                p(
+                                    'TODO.'
+                                ),
+                                p('todo')
+                            )
                         )
-                    ))
+                    )
                 )
             )),
             tabPanel(
@@ -366,7 +429,7 @@ app_ui <- function() {
             ),
             hr(),
             p(
-                'This shiny application was developed by the Data Science Team 1 at the Lieber Institute for Brain Development.'
+                'This shiny application was developed by the Data Science Team I at the Lieber Institute for Brain Development.'
             ),
             hr(),
             #HTML('<a href="http://www.libd.org/">'),
