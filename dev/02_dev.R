@@ -60,6 +60,9 @@ usethis::use_r('sce_image_grid')
 usethis::use_r('sce_image_grid_gene')
 usethis::use_r('sce_image_grid_by_clus')
 usethis::use_r('fetch_data')
+usethis::use_r('sig_genes_extract')
+usethis::use_r('sig_genes_extract_all')
+usethis::use_r('layer_boxplot')
 
 ## 2.7 Create files for ExperimentHub
 

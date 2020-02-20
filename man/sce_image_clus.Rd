@@ -33,7 +33,8 @@ sce_image_clus(
     sce = ori_sce,
     clustervar = 'layer_guess',
     sampleid = '151507',
-    colors = cols
+    colors = cols,
+    ... = ' layer_guess'
 )
 
 }
