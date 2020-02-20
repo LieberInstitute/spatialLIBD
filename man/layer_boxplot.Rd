@@ -33,26 +33,17 @@ ori_modeling_results <- fetch_data(type = 'modeling_results')
 ori_sce_layer <- fetch_data(type = 'sce_layer')
 
 ## Top 2 genes from the specificity model
-sig_genes_specificity <- sig_genes_extract(
+sig_genes <- sig_genes_extract_all(
     n = 2,
     modeling_results = ori_modeling_results,
-    model_type = 'specificity',
     sce_layer = ori_sce_layer
 )
 
-layer_boxplot(sig_genes = sig_genes_specificity, sce_layer = ori_sce_layer)
-layer_boxplot(sig_genes = sig_genes_specificity, short_title = FALSE, sce_layer = ori_sce_layer)
+layer_boxplot(sig_genes = sig_genes, sce_layer = ori_sce_layer)
+layer_boxplot(sig_genes = sig_genes, short_title = FALSE, sce_layer = ori_sce_layer)
 
-
-## Top 2 genes from the anova model
-sig_genes_anova <- sig_genes_extract(
-    n = 2,
-    modeling_results = ori_modeling_results,
-    model_type = 'anova',
-    sce_layer = ori_sce_layer
-)
-layer_boxplot(sig_genes = sig_genes_anova, sce_layer = ori_sce_layer)
-layer_boxplot(i = 3, sig_genes = sig_genes_anova, sce_layer = ori_sce_layer)
+layer_boxplot(i = which(sig_genes$model_type == 'anova')[1], sig_genes = sig_genes, sce_layer = ori_sce_layer)
+layer_boxplot(i = which(sig_genes$model_type == 'pairwise')[1], sig_genes = sig_genes, sce_layer = ori_sce_layer)
 
 }
 \references{

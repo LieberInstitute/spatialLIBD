@@ -9,6 +9,8 @@ run_app(
   sce_layer = fetch_data(type = "sce_layer"),
   modeling_results = fetch_data(type = "modeling_results"),
   image_path = system.file("app/www/data", package = "spatialLIBD"),
+  sig_genes = sig_genes_extract_all(n = nrow(sce_layer), modeling_results =
+    modeling_results),
   ...
 )
 }
