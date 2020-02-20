@@ -15,17 +15,11 @@ app_server <- function(input, output, session) {
     sce <- golem::get_golem_options('sce')
     sce_layer <- golem::get_golem_options('sce_layer')
     modeling_results <- golem::get_golem_options('modeling_results')
+    sig_genes <- golem::get_golem_options('sig_genes')
 
     ## Rename some variables
     sce$spatialLIBD <- sce$layer_guess_reordered_short
     sce_layer$spatialLIBD <- sce_layer$layer_guess_reordered_short
-
-    ## Extract gene info
-    sig_genes <- sig_genes_extract_all(
-        n = nrow(sce_layer),
-        modeling_results = modeling_results,
-        sce_layer = sce_layer
-    )
 
     # List the first level callModules here
 
