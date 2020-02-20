@@ -10,6 +10,7 @@
 #' @importFrom grDevices as.raster
 #' @importFrom png readPNG
 #' @importFrom scater plotReducedDim
+#' @importFrom DT renderDT
 
 app_server <- function(input, output, session) {
     ## Get options
@@ -903,6 +904,47 @@ app_server <- function(input, output, session) {
             )
     })
 
+
+    static_layer_gene_set_enrichment <- reactive({
+        if (!is.null(input$geneSet)) {
+            input_gene_list <-
+                read.csv(
+                    input$geneSet$datapath,
+                    header = TRUE,
+                    stringsAsFactors = FALSE,
+                    na.strings = ""
+                )
+            ## Process the csv?
+            gene_list <- input_gene_list
+        } else {
+            ## Provide a working example when there's no data
+            asd_sfari <- utils::read.csv(
+                system.file(
+                    'extdata',
+                    'SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv',
+                    package = 'spatialLIBD'
+                ),
+                as.is = TRUE
+            )
+            asd_sfari_geneList <- list(
+                Gene_SFARI_all = asd_sfari$ensembl.id,
+                Gene_SFARI_high = asd_sfari$ensembl.id[asd_sfari$gene.score < 3],
+                Gene_SFARI_syndromic = asd_sfari$ensembl.id[asd_sfari$syndromic == 1]
+            )
+            gene_list <- asd_sfari_geneList
+        }
+
+        ## Run the enrichment
+        gene_set_enrichment(gene_list,
+            input$layer_gene_fdrcut,
+            modeling_results,
+            input$layer_model)
+    })
+
+    static_layer_gene_set_enrichment_plot <- reactive({
+        gene_set_enrichment_plot(static_layer_gene_set_enrichment())
+    })
+
     ## layer download PDF buttons
     output$layer_downloadReducedDim <- downloadHandler(
         filename = function() {
@@ -987,6 +1029,34 @@ app_server <- function(input, output, session) {
         }
     )
 
+    output$layer_downloadGeneSet <- downloadHandler(
+        filename = function() {
+            gsub(
+                ' ',
+                '_',
+                paste0(
+                    'spatialLIBD_layer_GeneSetEnrichment_',
+                    input$layer_model,
+                    '_fdrcut',
+                    input$layer_gene_fdrcut,
+                    '_',
+                    Sys.time(),
+                    '.pdf'
+                )
+            )
+        },
+        content = function(file) {
+            pdf(
+                file = file,
+                useDingbats = FALSE,
+                height = 8,
+                width = 8
+            )
+            print(static_layer_gene_set_enrichment_plot())
+            dev.off()
+        }
+    )
+
     ## layer plots
     output$layer_reduced_dim <- renderPlot({
         print(static_layer_reducedDim())
@@ -995,6 +1065,108 @@ app_server <- function(input, output, session) {
     output$layer_boxplot <- renderPlot({
         static_layer_boxplot()
     }, width = 600, height = 600)
+
+    output$layer_gene_set_plot <- renderPlot({
+        print(static_layer_gene_set_enrichment_plot())
+    }, width = 600, height = 600)
+
+
+    ## interactive tables
+    layer_model_table_reactive <- reactive({
+        as.data.frame(
+            subset(
+                sig_genes[, seq_len(which(colnames(sig_genes) == 'ensembl'))],
+                model_type == input$layer_model &
+                    ensembl == gsub('.*; ', '', input$layer_geneid)
+            )
+        )
+    })
+
+    output$layer_model_table <- DT::renderDT(
+        layer_model_table_reactive(),
+        style = 'bootstrap',
+        rownames = FALSE,
+        filter = 'top',
+        options = list(
+            columnDefs = list(list(
+                className = 'dt-center', targets = 1
+            )),
+            pageLength = 10,
+            lengthMenu = c(5, 10, 25, 50, 100),
+            order = list(list(0, 'asc'))
+        )
+    )
+
+    output$layer_gene_set_table <- DT::renderDT(
+        static_layer_gene_set_enrichment(),
+        style = 'bootstrap',
+        rownames = FALSE,
+        filter = 'top',
+        options = list(
+            columnDefs = list(list(
+                className = 'dt-center', targets = 1
+            )),
+            pageLength = 10,
+            lengthMenu = c(5, 10, 25, 50, 100),
+            order = list(list(0, 'desc'))
+        )
+    )
+
+    ## Download tables
+    output$layer_downloadModelTable <- downloadHandler(
+        filename = function() {
+            gsub(
+                ' ',
+                '_',
+                paste0(
+                    'spatialLIBD_layer_',
+                    input$layer_model,
+                    '_',
+                    input$layer_model_test,
+                    '_',
+                    input$layer_geneid,
+                    '_',
+                    Sys.time(),
+                    '.csv'
+                )
+            )
+        },
+        content = function(file) {
+            write.csv(
+                layer_model_table_reactive(),
+                file = file,
+                quote = FALSE,
+                row.names = FALSE
+            )
+        }
+    )
+
+    output$layer_downloadGeneSetTable <- downloadHandler(
+        filename = function() {
+            gsub(
+                ' ',
+                '_',
+                paste0(
+                    'spatialLIBD_layer_GeneSetEnrichment_',
+                    input$layer_model,
+                    '_fdrcut',
+                    input$layer_gene_fdrcut,
+                    '_',
+                    Sys.time(),
+                    '.csv'
+                )
+            )
+        },
+        content = function(file) {
+            write.csv(
+                static_layer_gene_set_enrichment(),
+                file = file,
+                quote = FALSE,
+                row.names = FALSE
+            )
+        }
+    )
+
 
 
     ## Reproducibility info

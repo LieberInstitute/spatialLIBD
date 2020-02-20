@@ -28,7 +28,8 @@ Imports:
     AnnotationHub,
     utils,
     png,
-    scater
+    scater,
+    DT
 RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/LieberInstitute/spatialLIBD

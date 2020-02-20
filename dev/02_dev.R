@@ -31,6 +31,7 @@ usethis::use_package('AnnotationHub')
 usethis::use_package('utils')
 usethis::use_package('png')
 usethis::use_package('scater')
+usethis::use_package('DT')
 
 ## 2.3 Add tests
 
@@ -64,6 +65,8 @@ usethis::use_r('fetch_data')
 usethis::use_r('sig_genes_extract')
 usethis::use_r('sig_genes_extract_all')
 usethis::use_r('layer_boxplot')
+usethis::use_r('gene_set_enrichment')
+usethis::use_r('gene_set_enrichment_plot')
 
 ## 2.7 Create files for ExperimentHub
 
@@ -92,6 +95,9 @@ sapply(unique(sce$sample_name), function(x) {
         )
     )
 })
+
+## 2.9 Misc
+system('scp e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/Layer_Guesses/gene_sets/SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv inst/extdata/')
 
 # 3. Documentation
 
