@@ -9,6 +9,7 @@
 #' @import plotly
 #' @importFrom grDevices as.raster
 #' @importFrom png readPNG
+#' @importFrom scater plotReducedDim
 
 app_server <- function(input, output, session) {
     ## Get options

@@ -21,4 +21,13 @@ Title
 }
 \examples{
 
+ori_modeling_results <- fetch_data(type = 'modeling_results')
+ori_sce_layer <- fetch_data(type = 'sce_layer')
+
+## top 10 genes for all models
+sig_genes_extract_all(
+    modeling_results = ori_modeling_results,
+    sce_layer = ori_sce_layer
+)
+
 }
