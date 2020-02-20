@@ -418,7 +418,7 @@ app_ui <- function() {
                                         'text/comma-separated-values,text/plain'
                                     )
                                 ),
-                                helpText('It should be a CSV file similar to ', HTML('<a href = "">this example file.</a>')),
+                                helpText('It should be a CSV file similar to ', HTML('<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv">this example file.</a>')),
                                 hr(),
                                 numericInput(
                                     'layer_tstat_max',
