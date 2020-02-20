@@ -20,6 +20,13 @@ app_server <- function(input, output, session) {
     sce$spatialLIBD <- sce$layer_guess_reordered_short
     sce_layer$spatialLIBD <- sce_layer$layer_guess_reordered_short
 
+    ## Extract gene info
+    sig_genes <- sig_genes_extract_all(
+        n = nrow(sce_layer),
+        modeling_results = modeling_results,
+        sce_layer = sce_layer
+    )
+
     # List the first level callModules here
 
     ## Global variables needed throughout the app
@@ -826,6 +833,174 @@ app_server <- function(input, output, session) {
             rv$layer[m[!is.na(m)]] <- previous_work$layer[!is.na(m)]
         }
     })
+
+
+
+
+    ### Layer portion
+
+
+    output$layer_raw_summary <- renderPrint(print(sce_layer),
+        width = 80)
+
+    # Set the options based on the model
+    observeEvent(input$layer_model, {
+        if (!is.null(input$layer_model)) {
+            sig_genes_sub <- subset(sig_genes, model_type == input$layer_model)
+            updateSelectInput(
+                session,
+                inputId = 'layer_model_test',
+                choices = sort(unique(sig_genes_sub$test)),
+                selected = sort(unique(sig_genes_sub$test))[1]
+            )
+        }
+    })
+
+    ## layer static plots
+    static_layer_reducedDim <- reactive({
+        scater::plotReducedDim(
+            sce_layer,
+            dimred = input$layer_which_dim,
+            colour_by = 'layer_guess_reordered',
+            theme_size = 20,
+            point_size = 5
+        ) +
+            ggplot2::scale_fill_manual(values =  unname(Polychrome::palette36.colors(7))[c(2:7, 1)],
+                name = 'Layer')
+    })
+
+
+    static_layer_boxplot_i <- reactive({
+        which(
+            sig_genes$gene_index == which(rowData(sce_layer)$gene_search == input$layer_geneid) &
+                sig_genes$test == input$layer_model_test &
+                sig_genes$model_type == input$layer_model
+        )
+    })
+    static_layer_boxplot <- reactive({
+        i <- static_layer_boxplot_i()
+        if (length(i) > 0)
+            layer_boxplot(
+                i = i,
+                sig_genes = sig_genes,
+                short_title = input$layer_box_shortitle,
+                sce_layer = sce_layer,
+                col_bkg_box = ifelse(input$layer_boxcolor == 'viridis', 'grey80', 'grey80'),
+                col_bkg_point = ifelse(input$layer_boxcolor == 'viridis', 'grey40', 'grey40'),
+                col_low_box = ifelse(
+                    input$layer_boxcolor == 'viridis',
+                    viridis(4)[2],
+                    'springgreen'
+                ),
+                col_low_point = ifelse(
+                    input$layer_boxcolor == 'viridis',
+                    viridis(4)[1],
+                    'aquamarine4'
+                ),
+                col_high_box = ifelse(
+                    input$layer_boxcolor == 'viridis',
+                    viridis(4)[3],
+                    'goldenrod'
+                ),
+                col_high_point = ifelse(input$layer_boxcolor == 'viridis',
+                    viridis(4)[4],
+                    'red')
+            )
+    })
+
+    ## layer download PDF buttons
+    output$layer_downloadReducedDim <- downloadHandler(
+        filename = function() {
+            gsub(
+                ' ',
+                '_',
+                paste0(
+                    'spatialLIBD_layer_reducedDim_',
+                    input$layer_which_dim,
+                    '_',
+                    Sys.time(),
+                    '.pdf'
+                )
+            )
+        },
+        content = function(file) {
+            pdf(
+                file = file,
+                useDingbats = FALSE,
+                height = 8,
+                width = 8
+            )
+            print(static_layer_reducedDim())
+            dev.off()
+        }
+    )
+
+    output$layer_downloadBoxplot <- downloadHandler(
+        filename = function() {
+            gsub(
+                ' ',
+                '_',
+                paste0(
+                    'spatialLIBD_layer_boxplot_',
+                    input$layer_model,
+                    '_',
+                    input$layer_model_test,
+                    '_',
+                    input$layer_geneid,
+                    '_',
+                    Sys.time(),
+                    '.pdf'
+                )
+            )
+        },
+        content = function(file) {
+            pdf(
+                file = file,
+                useDingbats = FALSE,
+                height = 8,
+                width = 8
+            )
+            i <- static_layer_boxplot_i()
+            if (length(i) > 0)
+                layer_boxplot(
+                    i = i,
+                    sig_genes = sig_genes,
+                    short_title = input$layer_box_shortitle,
+                    sce_layer = sce_layer,
+                    col_bkg_box = ifelse(input$layer_boxcolor == 'viridis', 'grey80', 'grey80'),
+                    col_bkg_point = ifelse(input$layer_boxcolor == 'viridis', 'grey40', 'grey40'),
+                    col_low_box = ifelse(
+                        input$layer_boxcolor == 'viridis',
+                        viridis(4)[2],
+                        'springgreen'
+                    ),
+                    col_low_point = ifelse(
+                        input$layer_boxcolor == 'viridis',
+                        viridis(4)[1],
+                        'aquamarine4'
+                    ),
+                    col_high_box = ifelse(
+                        input$layer_boxcolor == 'viridis',
+                        viridis(4)[3],
+                        'goldenrod'
+                    ),
+                    col_high_point = ifelse(input$layer_boxcolor == 'viridis',
+                        viridis(4)[4],
+                        'red')
+                )
+            dev.off()
+        }
+    )
+
+    ## layer plots
+    output$layer_reduced_dim <- renderPlot({
+        print(static_layer_reducedDim())
+    }, width = 600, height = 600)
+
+    output$layer_boxplot <- renderPlot({
+        static_layer_boxplot()
+    }, width = 600, height = 600)
+
 
     ## Reproducibility info
     output$session_info <-

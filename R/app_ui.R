@@ -4,6 +4,7 @@
 app_ui <- function() {
     ## Get options
     sce <- golem::get_golem_options('sce')
+    sce_layer <- golem::get_golem_options('sce_layer')
     image_path <- golem::get_golem_options('image_path')
 
     tagList(
@@ -47,9 +48,7 @@ app_ui <- function() {
                                 'sum_gene',
                                 'expr_chrM',
                                 'expr_chrM_ratio',
-                                sort(paste0(
-                                    rowData(sce)$gene_name, '; ', rowData(sce)$gene_id
-                                ))
+                                sort(rowData(sce)$gene_search)
                             ),
                             selected = 'cell_count',
                             options = pickerOptions(liveSearch = TRUE)
@@ -277,7 +276,85 @@ app_ui <- function() {
                     )
                 )
             )),
-            tabPanel('layer-level data', tagList(p('TODO'))),
+            tabPanel('layer-level data', tagList(
+                sidebarLayout(
+                    sidebarPanel(
+                        selectInput(
+                            inputId = 'layer_model',
+                            label = 'Model results',
+                            choices = c('specificity', 'pairwise', 'anova'),
+                            selected = 'specificity'
+                        ),
+                        selectInput(
+                            inputId = 'layer_model_test',
+                            label = 'Model test',
+                            choices = c(paste0('Layer', 1:6), 'WM'),
+                            selected = 'Layer1'
+                        ),
+                        pickerInput(
+                            inputId = 'layer_geneid',
+                            label = 'Gene',
+                            choices =
+                                sort(rowData(sce_layer)$gene_search),
+                            selected = sort(rowData(sce_layer)$gene_search)[1],
+                            options = pickerOptions(liveSearch = TRUE)
+                        ),
+                        selectInput(
+                            inputId = 'layer_boxcolor',
+                            label = 'Boxplot color scale',
+                            choices = c('viridis', 'paper'),
+                            selected = 'viridis'
+                        ),
+                        checkboxInput(
+                            'layer_box_shortitle',
+                            'Enable short title on boxplots.',
+                            value = TRUE
+                        ),
+                        hr(),
+                        width = 2
+                    ),
+                    mainPanel(tabsetPanel(
+                        tabPanel('Raw summary',
+                            verbatimTextOutput('layer_raw_summary')),
+                        tabPanel(
+                            'Reduced Dim',
+                            selectInput(
+                                inputId = 'layer_which_dim',
+                                label = 'Reduced Dimension',
+                                choices = reducedDimNames(sce_layer),
+                                selected = 'PCA'
+                            ),
+                            downloadButton('layer_downloadReducedDim', 'Download PDF'),
+                            plotOutput('layer_reduced_dim'),
+                            tags$br(),
+                            tags$br(),
+                            tags$br(),
+                            tags$br(),
+                            tags$br(),
+                            tags$br(),
+                            tags$br(),
+                            tags$br(),
+                            tags$br(),
+                            tags$br()
+                        ),
+                        tabPanel(
+                            'Model boxplots',
+                            downloadButton('layer_downloadBoxplot', 'Download PDF'),
+                            plotOutput('layer_boxplot'),
+                            tags$br(),
+                            tags$br(),
+                            tags$br(),
+                            tags$br(),
+                            tags$br(),
+                            tags$br(),
+                            tags$br(),
+                            tags$br(),
+                            tags$br(),
+                            tags$br()
+                        )
+                    ))
+                )
+            )),
             tabPanel(
                 'Help or feedback',
                 tagList(
