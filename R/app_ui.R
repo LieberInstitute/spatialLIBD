@@ -368,14 +368,14 @@ app_ui <- function() {
                                 'Gene Set Enrichment',
                                 fileInput(
                                     'geneSet',
-                                    'Upload a CSV file with one column per gene set and TODO.',
+                                    'Upload a CSV file with one column per gene set with a header row and then Ensembl gene IDs as values.',
                                     accept = c(
                                         'text/csv',
                                         '.csv',
                                         'text/comma-separated-values,text/plain'
                                     )
                                 ),
-                                helpText('It should be a CSV file with TODO.'),
+                                helpText('It should be a CSV file without row names and similar to ', HTML('<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/asd_sfari_geneList.csv">this example file.</a>')),
                                 hr(),
                                 numericInput(
                                     'layer_gene_fdrcut',
@@ -411,7 +411,7 @@ app_ui <- function() {
                                 't-stat correlation',
                                 fileInput(
                                     'externalTstat',
-                                    'Upload a CSV file with one column per cell type or layer that contains the specificity t-stat equivalent and with Ensembl gene IDs as the rownames.',
+                                    'Upload a CSV file with one column per cell type or layer that contains the specificity t-stat equivalent and with Ensembl gene IDs as the row names.',
                                     accept = c(
                                         'text/csv',
                                         '.csv',
