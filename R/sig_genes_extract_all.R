@@ -12,7 +12,7 @@
 #' ori_modeling_results <- fetch_data(type = 'modeling_results')
 #' ori_sce_layer <- fetch_data(type = 'sce_layer')
 #'
-#' ## anova top 10 genes
+#' ## top 10 genes for all models
 #' sig_genes_extract_all(
 #'     modeling_results = ori_modeling_results,
 #'     sce_layer = ori_sce_layer
@@ -60,13 +60,15 @@ sig_genes_extract_all <- function(n = 10,
         sig_genes_anova
     ))
 
-    sig_genes_unique <- rafalib::splitit(sig_genes$ensembl)
+    ## from rafalib
+    splitit <- function(x) { split(seq(along.with = x), x)}
+    sig_genes_unique <- splitit(sig_genes$ensembl)
 
     sig_genes$in_rows <-
         IntegerList(sig_genes_unique)[sig_genes$ensembl]
 
 
-    sig_genes_unique_top20 <- rafalib::splitit(sig_genes$ensembl[sig_genes$top <= 20])
+    sig_genes_unique_top20 <- split(which(sig_genes$top <= 20), sig_genes$ensembl[sig_genes$top <= 20])
     sig_genes$in_rows_top20 <-  IntegerList(lapply(sig_genes$in_rows, function(x)
             NULL))
     sig_genes$in_rows_top20[names(sig_genes_unique_top20)] <- IntegerList(sig_genes_unique_top20)
@@ -75,7 +77,7 @@ sig_genes_extract_all <- function(n = 10,
         CharacterList(lapply(sig_genes$in_rows_top20 , function(x) {
             if(length(x) == 0) return(NULL)
             paste0(sig_genes$test[x], '_top', sig_genes$top[x])
-        }))
+        }))[sig_genes$ensembl]
 
 
     return(sig_genes)
