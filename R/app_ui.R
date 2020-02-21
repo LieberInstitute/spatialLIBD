@@ -307,8 +307,14 @@ app_ui <- function() {
                                 selectInput(
                                     inputId = 'layer_which_dim',
                                     label = 'Reduced Dimension',
-                                    choices = reducedDimNames(sce_layer),
+                                    choices = sort(reducedDimNames(sce_layer)),
                                     selected = 'PCA'
+                                ),
+                                selectInput(
+                                    inputId = 'layer_which_dim_color',
+                                    label = 'Reduced Dimension',
+                                    choices = sort(colnames(colData(sce_layer))),
+                                    selected = 'layer_guess_reordered'
                                 ),
                                 downloadButton('layer_downloadReducedDim', 'Download PDF'),
                                 plotOutput('layer_reduced_dim'),

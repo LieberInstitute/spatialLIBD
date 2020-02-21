@@ -33,17 +33,46 @@ ori_modeling_results <- fetch_data(type = 'modeling_results')
 ori_sce_layer <- fetch_data(type = 'sce_layer')
 
 ## Top 2 genes from the specificity model
-sig_genes <- sig_genes_extract_all(
-    n = 2,
+sig_genes <- sig_genes_extract_all(n = 2,
     modeling_results = ori_modeling_results,
+    sce_layer = ori_sce_layer)
+
+layer_boxplot(sig_genes = sig_genes, sce_layer = ori_sce_layer)
+layer_boxplot(sig_genes = sig_genes,
+    short_title = FALSE,
+    sce_layer = ori_sce_layer)
+
+layer_boxplot(
+    i = which(sig_genes$model_type == 'anova')[1],
+    sig_genes = sig_genes,
+    sce_layer = ori_sce_layer
+)
+layer_boxplot(
+    i = which(sig_genes$model_type == 'pairwise')[1],
+    sig_genes = sig_genes,
     sce_layer = ori_sce_layer
 )
 
-layer_boxplot(sig_genes = sig_genes, sce_layer = ori_sce_layer)
-layer_boxplot(sig_genes = sig_genes, short_title = FALSE, sce_layer = ori_sce_layer)
+## Viridis colors
+library('viridisLite')
+layer_boxplot(
+    sig_genes = sig_genes,
+    sce_layer = ori_sce_layer,
+    col_low_box = viridis(4)[2],
+    col_low_point = viridis(4)[1],
+    col_high_box = viridis(4)[3],
+    col_high_point = viridis(4)[4]
+)
 
-layer_boxplot(i = which(sig_genes$model_type == 'anova')[1], sig_genes = sig_genes, sce_layer = ori_sce_layer)
-layer_boxplot(i = which(sig_genes$model_type == 'pairwise')[1], sig_genes = sig_genes, sce_layer = ori_sce_layer)
+## Paper colors
+layer_boxplot(
+    sig_genes = sig_genes,
+    sce_layer = ori_sce_layer,
+    col_low_box = 'steelblue2',
+    col_low_point = 'royalblue4',
+    col_high_box = 'darkred',
+    col_high_point = 'red'
+)
 
 }
 \references{

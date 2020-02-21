@@ -19,9 +19,8 @@ Title
 
 ori_sce <- fetch_data('sce')
 
-cols <- c(Polychrome::palette36.colors(7), 'transparent')
-names(cols) <- c(levels(ori_sce$layer_guess), 'NA')
 
-get_colors(cols, ori_sce$layer_guess)
+get_colors(libd_layer_colors, ori_sce$layer_guess)
+get_colors(libd_layer_colors, ori_sce$layer_guess_reordered_short)
 
 }

@@ -10,10 +10,9 @@
 #'
 #' ori_sce <- fetch_data('sce')
 #'
-#' cols <- c(Polychrome::palette36.colors(7), 'transparent')
-#' names(cols) <- c(levels(ori_sce$layer_guess), 'NA')
 #'
-#' get_colors(cols, ori_sce$layer_guess)
+#' get_colors(libd_layer_colors, ori_sce$layer_guess)
+#' get_colors(libd_layer_colors, ori_sce$layer_guess_reordered_short)
 #'
 
 get_colors <- function(colors = NULL, clusters) {
@@ -53,6 +52,8 @@ get_colors <- function(colors = NULL, clusters) {
             )
         names(colors) <- seq_len(length(colors))
 
+    } else if (all(unique(as.character(clusters)) %in% c(gsub('ayer', '', names(colors)), NA))) {
+        names(colors) <- gsub('ayer', '', names(colors))
     }
     return(colors)
 }
