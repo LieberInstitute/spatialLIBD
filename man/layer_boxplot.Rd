@@ -68,10 +68,10 @@ layer_boxplot(
 layer_boxplot(
     sig_genes = sig_genes,
     sce_layer = ori_sce_layer,
-    col_low_box = 'steelblue2',
-    col_low_point = 'royalblue4',
-    col_high_box = 'darkred',
-    col_high_point = 'red'
+    col_low_box = 'palegreen3',
+    col_low_point = 'springgreen2',
+    col_high_box = 'darkorange2',
+    col_high_point = 'orange1'
 )
 
 }
