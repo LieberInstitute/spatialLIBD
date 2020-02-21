@@ -47,9 +47,7 @@ app_server <- function(input, output, session) {
 
     ## For layer_guess and related variables
     cols_layers_paper <-
-        c(Polychrome::palette36.colors(7), 'transparent')
-    names(cols_layers_paper) <- c(levels(sce$layer_guess), 'NA')
-
+        libd_layer_colors[-length(libd_layer_colors)]
     cols_layers_paper_short <- cols_layers_paper
     names(cols_layers_paper_short) <-
         gsub('ayer', '', names(cols_layers_paper_short))
@@ -854,15 +852,25 @@ app_server <- function(input, output, session) {
 
     ## layer static plots
     static_layer_reducedDim <- reactive({
-        scater::plotReducedDim(
+        p <- scater::plotReducedDim(
             sce_layer,
             dimred = input$layer_which_dim,
-            colour_by = 'layer_guess_reordered',
+            colour_by = input$layer_which_dim_color,
             theme_size = 20,
             point_size = 5
-        ) +
-            ggplot2::scale_fill_manual(values =  unname(Polychrome::palette36.colors(7))[c(2:7, 1)],
-                name = 'Layer')
+        )
+        if (input$layer_which_dim_color %in% c('layer_guess',
+            'layer_guess_reordered')) {
+            p <-
+                p + ggplot2::scale_fill_manual(values =  cols_layers_paper,
+                    name = 'Layer')
+        } else if (input$layer_which_dim_color %in% 'layer_guess_reordered_short') {
+            p <-
+                p + ggplot2::scale_fill_manual(values =  cols_layers_paper_short,
+                    name = 'Layer')
+        }
+        return(p)
+
     })
 
 
@@ -991,7 +999,7 @@ app_server <- function(input, output, session) {
                 file = file,
                 useDingbats = FALSE,
                 height = 8,
-                width = 8
+                width = 9
             )
             print(static_layer_reducedDim())
             dev.off()
@@ -1112,7 +1120,7 @@ app_server <- function(input, output, session) {
     ## layer plots
     output$layer_reduced_dim <- renderPlot({
         print(static_layer_reducedDim())
-    }, width = 600, height = 600)
+    }, width = 700, height = 600)
 
     output$layer_boxplot <- renderPlot({
         static_layer_boxplot()

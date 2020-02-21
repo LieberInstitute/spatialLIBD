@@ -28,23 +28,11 @@ Title
 ori_sce <- fetch_data('sce')
 
 ## Use the manual color palette by Lukas M Weber
-cols <-
-    c(
-        "#F0027F",
-        "#377EB8",
-        "#4DAF4A",
-        "#984EA3",
-        "#FFD700",
-        "#FF8C00",
-        "grey25",
-        'transparent'
-    )
-names(cols) <- c(levels(ori_sce$layer_guess_reordered), 'NA')
 sce_image_clus(
     sce = ori_sce,
     clustervar = 'layer_guess_reordered',
     sampleid = '151673',
-    colors = cols,
+    colors = libd_layer_colors,
     ... = ' LIBD Layers'
 )
 

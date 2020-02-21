@@ -173,7 +173,6 @@ layer_boxplot <- function(i = 1,
             sce_layer$layer_guess_reordered_short
         )),
         pch = 21,
-        # bg = Polychrome::palette36.colors(7)[as.integer(sce_layer$layer_guess)],
         bg = add_col(sig_genes$test[i])[as.character(sce_layer$layer_guess_reordered_short)],
         cex = 2
     )
