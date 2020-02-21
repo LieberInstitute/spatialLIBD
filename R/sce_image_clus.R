@@ -14,12 +14,23 @@
 #'
 #' ori_sce <- fetch_data('sce')
 #'
-#' cols <- c(Polychrome::palette36.colors(7), 'transparent')
-#' names(cols) <- c(levels(ori_sce$layer_guess), 'NA')
+#' ## Use the manual color palette by Lukas M Weber
+#' cols <-
+#'     c(
+#'         "#F0027F",
+#'         "#377EB8",
+#'         "#4DAF4A",
+#'         "#984EA3",
+#'         "#FFD700",
+#'         "#FF8C00",
+#'         "#666666",
+#'         'transparent'
+#'     )
+#' names(cols) <- c(levels(ori_sce$layer_guess_reordered), 'NA')
 #' sce_image_clus(
 #'     sce = ori_sce,
-#'     clustervar = 'layer_guess',
-#'     sampleid = '151507',
+#'     clustervar = 'layer_guess_reordered',
+#'     sampleid = '151673',
 #'     colors = cols,
 #'     ... = ' layer_guess'
 #' )
