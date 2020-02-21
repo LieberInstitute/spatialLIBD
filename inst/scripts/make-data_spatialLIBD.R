@@ -203,6 +203,16 @@ system(
         '/'
     )
 )
+
+## Update on 2020-02-21 the modeling results only
+# system(
+#     paste0(
+#         'scp e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/spatialLIBD_files/Human_DLPFC_Visium_modeling_results.Rdata ',
+#         here::here('data-raw/spatialLIBD_files'),
+#         '/'
+#     )
+# )
+
 system(paste(
     'echo data-raw/spatialLIBD_files >>',
     here::here('.gitignore')
