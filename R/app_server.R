@@ -889,26 +889,24 @@ app_server <- function(input, output, session) {
                 sig_genes = sig_genes,
                 short_title = input$layer_box_shortitle,
                 sce_layer = sce_layer,
-                col_bkg_box = ifelse(input$layer_boxcolor == 'viridis', 'grey80', 'grey80'),
-                col_bkg_point = ifelse(input$layer_boxcolor == 'viridis', 'grey40', 'grey40'),
                 col_low_box = ifelse(
                     input$layer_boxcolor == 'viridis',
                     viridis(4)[2],
-                    'springgreen'
+                    'palegreen3'
                 ),
                 col_low_point = ifelse(
                     input$layer_boxcolor == 'viridis',
                     viridis(4)[1],
-                    'aquamarine4'
+                    'springgreen2'
                 ),
                 col_high_box = ifelse(
                     input$layer_boxcolor == 'viridis',
                     viridis(4)[3],
-                    'goldenrod'
+                    'darkorange2'
                 ),
                 col_high_point = ifelse(input$layer_boxcolor == 'viridis',
                     viridis(4)[4],
-                    'red')
+                    'orange1')
             )
     })
 
@@ -1038,26 +1036,24 @@ app_server <- function(input, output, session) {
                     sig_genes = sig_genes,
                     short_title = input$layer_box_shortitle,
                     sce_layer = sce_layer,
-                    col_bkg_box = ifelse(input$layer_boxcolor == 'viridis', 'grey80', 'grey80'),
-                    col_bkg_point = ifelse(input$layer_boxcolor == 'viridis', 'grey40', 'grey40'),
                     col_low_box = ifelse(
                         input$layer_boxcolor == 'viridis',
                         viridis(4)[2],
-                        'springgreen'
+                        'palegreen3'
                     ),
                     col_low_point = ifelse(
                         input$layer_boxcolor == 'viridis',
                         viridis(4)[1],
-                        'aquamarine4'
+                        'springgreen2'
                     ),
                     col_high_box = ifelse(
                         input$layer_boxcolor == 'viridis',
                         viridis(4)[3],
-                        'goldenrod'
+                        'darkorange2'
                     ),
                     col_high_point = ifelse(input$layer_boxcolor == 'viridis',
                         viridis(4)[4],
-                        'red')
+                        'orange1')
                 )
             dev.off()
         }
