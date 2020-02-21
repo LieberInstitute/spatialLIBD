@@ -23,7 +23,7 @@
 #'         "#984EA3",
 #'         "#FFD700",
 #'         "#FF8C00",
-#'         "#666666",
+#'         "grey25",
 #'         'transparent'
 #'     )
 #' names(cols) <- c(levels(ori_sce$layer_guess_reordered), 'NA')
@@ -32,7 +32,7 @@
 #'     clustervar = 'layer_guess_reordered',
 #'     sampleid = '151673',
 #'     colors = cols,
-#'     ... = ' layer_guess'
+#'     ... = ' LIBD Layers'
 #' )
 #'
 
