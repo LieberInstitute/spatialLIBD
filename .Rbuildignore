@@ -9,3 +9,6 @@ $run_dev.*
 ^\.travis\.yml$
 ^app\.R$
 ^data-raw/spatialLIBD_files$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
