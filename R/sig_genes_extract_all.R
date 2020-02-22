@@ -1,14 +1,18 @@
-#' Title
+#' Extract significant genes for all modeling results
 #'
-#' @param n
-#' @param modeling_results
-#' @param sce_layer
+#' This function combines the output of `sig_genes_extract()` from all the
+#' layer-level (group-level) modeling results and builds the data required for
+#' functions such as `layer_boxplot()`.
 #'
-#' @return
+#' @inheritParams sig_genes_extract
+#'
+#' @return A `DataFrame` with the extracted statistics in long format.
 #' @export
+#' @family Layer modeling functions
 #'
 #' @examples
 #'
+#' ## Obtain the necessary data
 #' ori_modeling_results <- fetch_data(type = 'modeling_results')
 #' ori_sce_layer <- fetch_data(type = 'sce_layer')
 #'
@@ -18,6 +22,7 @@
 #'     sce_layer = ori_sce_layer
 #' )
 #'
+
 sig_genes_extract_all <- function(n = 10,
     modeling_results = fetch_data(type = 'modeling_results'),
     sce_layer = fetch_data(type = 'sce_layer')) {

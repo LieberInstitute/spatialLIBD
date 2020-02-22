@@ -2,7 +2,7 @@
 % Please edit documentation in R/sig_genes_extract.R
 \name{sig_genes_extract}
 \alias{sig_genes_extract}
-\title{Title}
+\title{Extract significant genes}
 \usage{
 sig_genes_extract(
   n = 10,
@@ -13,16 +13,48 @@ sig_genes_extract(
 )
 }
 \arguments{
-\item{sce_layer}{}
+\item{n}{The number of the top ranked genes to extract.}
+
+\item{modeling_results}{Defaults to the output of
+\code{fetch_data(type = 'modeling_results')}. This is a list of tables with the
+columns \verb{f_stat_*} or \verb{t_stat_*} as well as \verb{p_value_*} and \verb{fdr_*} plus
+\code{ensembl}. The column name is used to extract the statistic results, the
+p-values, and the FDR adjusted p-values. Then the \code{ensembl} column is used
+for matching in some cases. See \code{fetch_data()} for more details.}
+
+\item{model_type}{A named element of the \code{modeling_results} list. By default
+that is either \code{specificity} for the model that tests one human brain layer
+against the rest (one group vs the rest), \code{pairwise} which compares two
+layers (groups) denoted by \code{layerA-layerB} such that \code{layerA} is greater
+than \code{layerB}, and \code{anova} which determines if any layer (group) is different
+from the rest adjusting for the mean expression level. The statistics for
+\code{specificity} and \code{pairwise} are t-statistics while the \code{anova} model ones
+are F-statistics.}
+
+\item{reverse}{A \code{logical(1)} indicating whether to multiply by \code{-1} the
+input statistics and reverse the \code{layerA-layerB} column names (using the \code{-})
+into \code{layerB-layerA}.}
+
+\item{sce_layer}{Defaults to the output of
+\code{fetch_data(type = 'sce_layer')}. This is a
+\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
+object with the spot-level Visium data compressed via pseudo-bulking to the
+layer-level (group-level) resolution. See \code{fetch_data()} for more details.}
 }
 \value{
-
+A \code{data.frame()} with the top \code{n} significant genes
+(as ordered by their statistics in decreasing order) in long format.
 }
 \description{
-Title
+From the layer-level modeling results, this function extracts the top \code{n}
+significant genes. This is the workhorse function used by
+\code{sig_genes_extract_all()} through which we obtain the information that can
+then be used by functions such as \code{layer_boxplot()} for constructing
+informative titles.
 }
 \examples{
 
+## Obtain the necessary data
 ori_modeling_results <- fetch_data(type = 'modeling_results')
 ori_sce_layer <- fetch_data(type = 'sce_layer')
 
@@ -32,6 +64,7 @@ sig_genes_extract(
     sce_layer = ori_sce_layer
 )
 
+## Extract all genes
 sig_genes_extract(
     modeling_results = ori_modeling_results,
     sce_layer = ori_sce_layer,
@@ -43,3 +76,9 @@ sig_genes_extract(
 Adapted from
 https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/layer_specificity_functions.R
 }
+\seealso{
+Other Layer modeling functions: 
+\code{\link{layer_boxplot}()},
+\code{\link{sig_genes_extract_all}()}
+}
+\concept{Layer modeling functions}

@@ -1,15 +1,37 @@
-#' Title
+#' Layer-level (group-level) boxplots
 #'
-#' @param sce_layer
-#' @param sig_genes
+#' This function uses the output of `sig_genes_extract_all()` as well as the
+#' logcounts from the layer-level (group-level) data to visualize the expression
+#' of a given gene and display the modeling results for the given gene.
 #'
-#' @return
+#' @param i Which row of `sig_genes` do you want to plot?
+#' @param sig_genes The output of `sig_genes_extract_all()`.
+#' @param short_title A `logical(1)` indicating whether to print a short title
+#' or not.
+#' @inheritParams sig_genes_extract
+#' @param col_bkg_box Box background color for layers not used when visualizing
+#' the `pairwise` model results.
+#' @param col_bkg_point Similar to `col_bkg_box` but for the points.
+#' @param col_low_box Box background color for layer(s) with the expected
+#' lower expression based on the actual test for row `i` of `sig_genes`.
+#' @param col_low_point Similar to `col_low_box` but for the points.
+#' @param col_high_box Similar to `col_low_box` but for the expected layer(s)
+#' with higher expression.
+#' @param col_high_point Similar to `col_high_box` but for the points.
+#' @param seed The random seed used to make the point jittering reproducible.
+#'
+#' @return This function creates a boxplot of the layer-level data
+#' (group-level) separated by layer and colored based on the model type from row
+#' `i` of `sig_genes`.
+#'
 #' @references Adapted from
 #' https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/layer_specificity.R
 #' @export
+#' @family Layer modeling functions
 #'
 #' @examples
 #'
+#' ## Obtain the necessary data
 #' ori_modeling_results <- fetch_data(type = 'modeling_results')
 #' ori_sce_layer <- fetch_data(type = 'sce_layer')
 #'
@@ -18,7 +40,10 @@
 #'     modeling_results = ori_modeling_results,
 #'     sce_layer = ori_sce_layer)
 #'
+#' ## Example default boxplot
 #' layer_boxplot(sig_genes = sig_genes, sce_layer = ori_sce_layer)
+#'
+#' ## Now show the long title version
 #' layer_boxplot(sig_genes = sig_genes,
 #'     short_title = FALSE,
 #'     sce_layer = ori_sce_layer)
@@ -34,7 +59,7 @@
 #'     sce_layer = ori_sce_layer
 #' )
 #'
-#' ## Viridis colors
+#' ## Viridis colors displayed in the shiny app
 #' library('viridisLite')
 #' layer_boxplot(
 #'     sig_genes = sig_genes,
@@ -45,7 +70,7 @@
 #'     col_high_point = viridis(4)[4]
 #' )
 #'
-#' ## Paper colors
+#' ## Paper colors displayed in the shiny app
 #' layer_boxplot(
 #'     sig_genes = sig_genes,
 #'     sce_layer = ori_sce_layer,

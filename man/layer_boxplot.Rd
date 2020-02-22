@@ -2,7 +2,7 @@
 % Please edit documentation in R/layer_boxplot.R
 \name{layer_boxplot}
 \alias{layer_boxplot}
-\title{Title}
+\title{Layer-level (group-level) boxplots}
 \usage{
 layer_boxplot(
   i = 1,
@@ -19,16 +19,49 @@ layer_boxplot(
 )
 }
 \arguments{
-\item{sig_genes}{}
+\item{i}{Which row of \code{sig_genes} do you want to plot?}
+
+\item{sig_genes}{The output of \code{sig_genes_extract_all()}.}
+
+\item{short_title}{A \code{logical(1)} indicating whether to print a short title
+or not.}
+
+\item{sce_layer}{Defaults to the output of
+\code{fetch_data(type = 'sce_layer')}. This is a
+\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
+object with the spot-level Visium data compressed via pseudo-bulking to the
+layer-level (group-level) resolution. See \code{fetch_data()} for more details.}
+
+\item{col_bkg_box}{Box background color for layers not used when visualizing
+the \code{pairwise} model results.}
+
+\item{col_bkg_point}{Similar to \code{col_bkg_box} but for the points.}
+
+\item{col_low_box}{Box background color for layer(s) with the expected
+lower expression based on the actual test for row \code{i} of \code{sig_genes}.}
+
+\item{col_low_point}{Similar to \code{col_low_box} but for the points.}
+
+\item{col_high_box}{Similar to \code{col_low_box} but for the expected layer(s)
+with higher expression.}
+
+\item{col_high_point}{Similar to \code{col_high_box} but for the points.}
+
+\item{seed}{The random seed used to make the point jittering reproducible.}
 }
 \value{
-
+This function creates a boxplot of the layer-level data
+(group-level) separated by layer and colored based on the model type from row
+\code{i} of \code{sig_genes}.
 }
 \description{
-Title
+This function uses the output of \code{sig_genes_extract_all()} as well as the
+logcounts from the layer-level (group-level) data to visualize the expression
+of a given gene and display the modeling results for the given gene.
 }
 \examples{
 
+## Obtain the necessary data
 ori_modeling_results <- fetch_data(type = 'modeling_results')
 ori_sce_layer <- fetch_data(type = 'sce_layer')
 
@@ -37,7 +70,10 @@ sig_genes <- sig_genes_extract_all(n = 2,
     modeling_results = ori_modeling_results,
     sce_layer = ori_sce_layer)
 
+## Example default boxplot
 layer_boxplot(sig_genes = sig_genes, sce_layer = ori_sce_layer)
+
+## Now show the long title version
 layer_boxplot(sig_genes = sig_genes,
     short_title = FALSE,
     sce_layer = ori_sce_layer)
@@ -53,7 +89,7 @@ layer_boxplot(
     sce_layer = ori_sce_layer
 )
 
-## Viridis colors
+## Viridis colors displayed in the shiny app
 library('viridisLite')
 layer_boxplot(
     sig_genes = sig_genes,
@@ -64,7 +100,7 @@ layer_boxplot(
     col_high_point = viridis(4)[4]
 )
 
-## Paper colors
+## Paper colors displayed in the shiny app
 layer_boxplot(
     sig_genes = sig_genes,
     sce_layer = ori_sce_layer,
@@ -79,3 +115,9 @@ layer_boxplot(
 Adapted from
 https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/layer_specificity.R
 }
+\seealso{
+Other Layer modeling functions: 
+\code{\link{sig_genes_extract_all}()},
+\code{\link{sig_genes_extract}()}
+}
+\concept{Layer modeling functions}
