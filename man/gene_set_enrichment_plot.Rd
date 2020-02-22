@@ -2,20 +2,24 @@
 % Please edit documentation in R/gene_set_enrichment_plot.R
 \name{gene_set_enrichment_plot}
 \alias{gene_set_enrichment_plot}
-\title{Title}
+\title{Plot the gene set enrichment results}
 \usage{
 gene_set_enrichment_plot(enrichment)
 }
 \arguments{
-\item{enrichment}{}
+\item{enrichment}{The output of \code{gene_set_enrichment()}.}
 }
 \value{
-
+A \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} object visualizing the gene set enrichment
+odds ratio and p-value results.
 }
 \description{
-Title
+This function takes the output of \code{gene_set_enrichment()} and creates a
+dotplot visualization of the results.
 }
 \examples{
+
+## Read in the SFARI gene sets included in the package
 asd_sfari <- utils::read.csv(
     system.file(
         'extdata',
@@ -24,23 +28,33 @@ asd_sfari <- utils::read.csv(
     ),
     as.is = TRUE
 )
+
+## Format them appropriately
 asd_sfari_geneList <- list(
     Gene_SFARI_all = asd_sfari$ensembl.id,
     Gene_SFARI_high = asd_sfari$ensembl.id[asd_sfari$gene.score < 3],
     Gene_SFARI_syndromic = asd_sfari$ensembl.id[asd_sfari$syndromic == 1]
 )
 
+## Obtain the necessary data
 ori_modeling_results <- fetch_data(type = 'modeling_results')
 
+## Compute the gene set enrichment results
 asd_sfari_enrichment <- gene_set_enrichment(
     gene_list = asd_sfari_geneList,
     modeling_results = ori_modeling_results,
     model_type = 'specificity'
 )
 
+## Visualize the gene set enrichment results
 gene_set_enrichment_plot(asd_sfari_enrichment)
 
+}
+\seealso{
+Other Gene set enrichment functions: 
+\code{\link{gene_set_enrichment}()}
 }
 \author{
 Andrew E Jaffe, Leonardo Collado-Torres
 }
+\concept{Gene set enrichment functions}

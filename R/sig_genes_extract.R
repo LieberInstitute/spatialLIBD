@@ -1,19 +1,46 @@
-#' Title
+#' Extract significant genes
 #'
-#' @param n
-#' @param modeling_results
-#' @param model_type
-#' @param reverse
-#' @param sce_layer
+#' From the layer-level modeling results, this function extracts the top `n`
+#' significant genes. This is the workhorse function used by
+#' `sig_genes_extract_all()` through which we obtain the information that can
+#' then be used by functions such as `layer_boxplot()` for constructing
+#' informative titles.
 #'
-#' @return
+#' @param n The number of the top ranked genes to extract.
+#' @param modeling_results Defaults to the output of
+#' `fetch_data(type = 'modeling_results')`. This is a list of tables with the
+#' columns `f_stat_*` or `t_stat_*` as well as `p_value_*` and `fdr_*` plus
+#' `ensembl`. The column name is used to extract the statistic results, the
+#' p-values, and the FDR adjusted p-values. Then the `ensembl` column is used
+#' for matching in some cases. See `fetch_data()` for more details.
+#' @param model_type A named element of the `modeling_results` list. By default
+#' that is either `specificity` for the model that tests one human brain layer
+#' against the rest (one group vs the rest), `pairwise` which compares two
+#' layers (groups) denoted by `layerA-layerB` such that `layerA` is greater
+#' than `layerB`, and `anova` which determines if any layer (group) is different
+#' from the rest adjusting for the mean expression level. The statistics for
+#' `specificity` and `pairwise` are t-statistics while the `anova` model ones
+#' are F-statistics.
+#' @param reverse A `logical(1)` indicating whether to multiply by `-1` the
+#' input statistics and reverse the `layerA-layerB` column names (using the `-`)
+#' into `layerB-layerA`.
+#' @param sce_layer Defaults to the output of
+#' `fetch_data(type = 'sce_layer')`. This is a
+#' [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class]
+#' object with the spot-level Visium data compressed via pseudo-bulking to the
+#' layer-level (group-level) resolution. See `fetch_data()` for more details.
+#'
+#' @return A `data.frame()` with the top `n` significant genes
+#' (as ordered by their statistics in decreasing order) in long format.
+#'
 #' @references Adapted from
 #' https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/layer_specificity_functions.R
 #' @export
-#' @importFrom rafalib splitit
+#' @family Layer modeling functions
 #'
 #' @examples
 #'
+#' ## Obtain the necessary data
 #' ori_modeling_results <- fetch_data(type = 'modeling_results')
 #' ori_sce_layer <- fetch_data(type = 'sce_layer')
 #'
@@ -23,12 +50,14 @@
 #'     sce_layer = ori_sce_layer
 #' )
 #'
+#' ## Extract all genes
 #' sig_genes_extract(
 #'     modeling_results = ori_modeling_results,
 #'     sce_layer = ori_sce_layer,
 #'     n = nrow(ori_sce_layer)
 #' )
 #'
+
 sig_genes_extract <- function(
     n = 10,
     modeling_results = fetch_data(type = 'modeling_results'),

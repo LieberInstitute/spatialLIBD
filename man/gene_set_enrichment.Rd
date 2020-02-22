@@ -2,7 +2,7 @@
 % Please edit documentation in R/gene_set_enrichment.R
 \name{gene_set_enrichment}
 \alias{gene_set_enrichment}
-\title{Title}
+\title{Evaluate the enrichment for a list of gene sets}
 \usage{
 gene_set_enrichment(
   gene_list,
@@ -13,16 +13,24 @@ gene_set_enrichment(
 )
 }
 \arguments{
-\item{reverse}{}
+\item{gene_list}{A named \code{list} object (could be a \code{data.frame}) where each
+element of the list is a character vector of Ensembl gene IDs.}
+
+\item{fdr_cut}{A \code{numeric(1)} specifying the FDR cutoff to use for
+determining significance among the}
 }
 \value{
-
+A table in long format with the enrichment results using
+\code{fisher.test()}.
 }
 \description{
-Title
+Using the layer-level (group-level) data, this function evaluates whether
+list of gene sets (Ensembl gene IDs) are enrichment among the significant
+genes (FDR < 0.1 by default) genes for a given model type result.
 }
 \examples{
 
+## Read in the SFARI gene sets included in the package
 asd_sfari <- utils::read.csv(
     system.file(
         'extdata',
@@ -31,23 +39,33 @@ asd_sfari <- utils::read.csv(
     ),
     as.is = TRUE
 )
+
+## Format them appropriately
 asd_sfari_geneList <- list(
     Gene_SFARI_all = asd_sfari$ensembl.id,
     Gene_SFARI_high = asd_sfari$ensembl.id[asd_sfari$gene.score < 3],
     Gene_SFARI_syndromic = asd_sfari$ensembl.id[asd_sfari$syndromic == 1]
 )
 
+## Obtain the necessary data
 ori_modeling_results <- fetch_data(type = 'modeling_results')
 
+## Compute the gene set enrichment results
 asd_sfari_enrichment <- gene_set_enrichment(
     gene_list = asd_sfari_geneList,
     modeling_results = ori_modeling_results,
     model_type = 'specificity'
 )
 
+## Explore the results
 asd_sfari_enrichment
 
+}
+\seealso{
+Other Gene set enrichment functions: 
+\code{\link{gene_set_enrichment_plot}()}
 }
 \author{
 Andrew E Jaffe, Leonardo Collado-Torres
 }
+\concept{Gene set enrichment functions}

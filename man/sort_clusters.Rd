@@ -2,19 +2,34 @@
 % Please edit documentation in R/sort_clusters.R
 \name{sort_clusters}
 \alias{sort_clusters}
-\title{Title}
+\title{Sort clusters by frequency}
 \usage{
 sort_clusters(clusters, map_subset = NULL)
 }
 \arguments{
-\item{map_subset}{}
+\item{clusters}{A vector with cluster labels.}
+
+\item{map_subset}{A logical vector of length equal to \code{clusters} specifying
+which elements of \code{clusters} to use to determine the ranking of the clusters.}
 }
 \value{
-
+A factor of length equal to \code{clusters} where the levels are the new
+ordered clusters and the names of the factor are the original values from
+\code{clusters}.
 }
 \description{
-Title
+This function takes a vector with cluster labels and sorts it by frequency
+such that the most frequent cluster is the first one and so on.
 }
 \examples{
+
+## Build an initial set of cluster labels
+clus <- letters[unlist(lapply(4:1, function(x) rep(x, x)))]
+
+## In this case, it's a character vector
+class(clus)
+
+## Sort them and obtain a factor
+sort_clusters(clus)
 
 }
