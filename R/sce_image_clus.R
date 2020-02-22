@@ -1,18 +1,36 @@
-#' Title
+#' Sample spatial cluster visualization
 #'
-#' @param sce
-#' @param sampleid
-#' @param clustervar
-#' @param colors
-#' @param spatial
-#' @param ...
+#' This function visualizes the clusters for one given sample at the spot-level
+#' using (by default) the histology information on the background. To visualize
+#' gene-level (or any continuous variable) use [sce_image_gene()].
 #'
-#' @return
+#' @inheritParams run_app
+#' @param sampleid A `character(1)` specifying which sample to plot from
+#' `colData(sce)$sample_name`.
+#' @param clustervar A `character(1)` with the name of the `colData(sce)`
+#' column that has the cluster values.
+#' @param colors A vector of colors to use for visualizing the clusters
+#' from `clustervar`. If the vector has names, then those should match the
+#' values of `clustervar`.
+#' @param spatial A `logical(1)` indicating whether to include the histology
+#' layer from [geom_spatial()]. If you plan to use
+#' [ggplotly()][plotly::ggplotly] then it's best to set this to `FALSE`.
+#' @param ... Passed to [paste0()][base::paste0] for making the title of the
+#' plot following the `sampleid`.
+#'
+#' @return A [ggplot2][ggplot2::ggplot] object.
+#' @family Spatial cluster visualization functions
 #' @export
+#' @details This function subsets `sce` to the given sample and prepares the
+#' data and title for [sce_image_clus_p()].
 #'
 #' @examples
 #'
+#' ## Obtain the necessary data
 #' ori_sce <- fetch_data('sce')
+#'
+#' ## Check the colors defined by Lukas M Weber
+#' libd_layer_colors
 #'
 #' ## Use the manual color palette by Lukas M Weber
 #' sce_image_clus(
@@ -21,6 +39,16 @@
 #'     sampleid = '151673',
 #'     colors = libd_layer_colors,
 #'     ... = ' LIBD Layers'
+#' )
+#'
+#' ## Without histology
+#' sce_image_clus(
+#'     sce = ori_sce,
+#'     clustervar = 'layer_guess_reordered',
+#'     sampleid = '151673',
+#'     colors = libd_layer_colors,
+#'     ... = ' LIBD Layers',
+#'     spatial = FALSE
 #' )
 #'
 

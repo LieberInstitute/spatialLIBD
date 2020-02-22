@@ -6,7 +6,7 @@
 #' @importFrom cowplot plot_grid
 #' @importFrom viridisLite viridis
 #' @importFrom sessioninfo session_info
-#' @import plotly
+#' @rawNamespace import(plotly, except = last_plot)
 #' @importFrom grDevices as.raster
 #' @importFrom png readPNG
 #' @importFrom scater plotReducedDim
@@ -118,7 +118,7 @@ app_server <- function(input, output, session) {
     })
 
     static_gene <- reactive({
-        sce_image_clus_gene(
+        sce_image_gene(
             sce,
             sampleid = input$sample,
             geneid = input$geneid,
@@ -335,7 +335,7 @@ app_server <- function(input, output, session) {
             ))
 
 
-        ## From sce_image_clus_gene() in global.R
+        ## From sce_image_gene() in global.R
         sce_sub <- sce[, sce$sample_name == sampleid]
         d <- as.data.frame(colData(sce_sub))
         if (geneid %in% colnames(colData(sce_sub))) {
@@ -379,7 +379,7 @@ app_server <- function(input, output, session) {
         )
 
         ## Next the gene plot
-        p_gene <- sce_image_clus_gene_p(
+        p_gene <- sce_image_gene_p(
             sce = sce_sub,
             d = d_key,
             sampleid = sampleid,
@@ -637,7 +637,7 @@ app_server <- function(input, output, session) {
         }
 
         p <-
-            sce_image_clus_gene(
+            sce_image_gene(
                 sce[, cluster_opts],
                 sampleid = input$sample,
                 geneid = input$geneid,

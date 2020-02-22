@@ -3,7 +3,7 @@
 #' This function defines a [ggplot2::layer()] for visualizing the histology
 #' image from Visium. It can be combined with other ggplot2 functions for
 #' visualizing the clusters as in [sce_image_clus_p()] or gene-level information
-#' as in [sce_image_clus_gene_p()].
+#' as in [sce_image_gene_p()].
 #'
 #' @param mapping Passed to `ggplot2::layer(mapping)` where `grob`, `x` and `y`
 #' are required.

@@ -1,26 +1,48 @@
-#' Title
+#' Sample spatial gene visualization workhorse function
 #'
-#' @param sce
-#' @param d
-#' @param sampleid
-#' @param spatial
-#' @param title
-#' @param assayname
-#' @param viridis
+#' This function visualizes the gene expression stored in `assays(sce)` or any
+#' continuous variable stored in `colData(sce)` for one given sample at the
+#' spot-level using (by default) the histology information on the background.
+#' This is the function that does all the plotting behind [sce_image_gene()].
+#' To visualize clusters (or any discrete variable) use [sce_image_clus_p()].
 #'
-#' @return
+#' @param d A data.frame with the sample-level information. This is typically
+#' obtained using `as.data.frame(colData(sce))`. The data.frame has to contain
+#' a column with the continuous variable data to plot stored under `d$COUNT`.
+#' @inheritParams sce_image_clus_p
+#' @inheritParams sce_image_gene
+#'
+#' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
+#' @family Spatial gene visualization functions
 #'
 #' @examples
 #'
+#' ## Obtain the necessary data
+#' ori_sce <- fetch_data('sce')
+#'
+#' ## Prepare the data for the plotting function
+#' sce_sub <- ori_sce[, ori_sce$sample_name == '151673']
+#' df <- as.data.frame(colData(sce_sub))
+#' df$COUNT <- df$expr_chrM_ratio
+#'
+#' ## Use the manual color palette by Lukas M Weber
+#' ## Don't plot the histology information
+#' sce_image_gene_p(
+#'     sce = sce_sub,
+#'     d = df,
+#'     sampleid = '151673',
+#'     title = '151673 chrM expr ratio',
+#'     spatial = FALSE
+#' )
+#'
 
-sce_image_clus_gene_p <-
+sce_image_gene_p <-
     function(sce,
         d,
         sampleid,
         spatial,
         title,
-        assayname,
         viridis = TRUE) {
         p <-
             ggplot(d,
@@ -55,7 +77,7 @@ sce_image_clus_gene_p <-
 
         if (viridis) {
             p <- p + scale_fill_gradientn(colors = viridis(21),
-                    na.value = c('black' = '#0000002D')) +
+                na.value = c('black' = '#0000002D')) +
                 scale_color_gradientn(colors = viridis(21),
                     na.value = c('black' = '#0000002D'))
         } else {

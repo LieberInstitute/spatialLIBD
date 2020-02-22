@@ -1,17 +1,37 @@
-#' Title
+#' Sample spatial cluster visualization workhorse function
 #'
-#' @param sce
-#' @param d
-#' @param clustervar
-#' @param sampleid
-#' @param colors
-#' @param spatial
-#' @param title
+#' This function visualizes the clusters for one given sample at the spot-level
+#' using (by default) the histology information on the background. This is the
+#' function that does all the plotting behind [sce_image_clus()]. To visualize
+#' gene-level (or any continuous variable) use [sce_image_gene_p()].
 #'
-#' @return
+#' @param inheritParams sce_image_clus
+#' @param d A data.frame with the sample-level information. This is typically
+#' obtained using `as.data.frame(colData(sce))`.
+#' @param title The title for the plot.
+#'
+#' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
+#' @family Spatial cluster visualization functions
 #'
 #' @examples
+#'
+#' ## Obtain the necessary data
+#' ori_sce <- fetch_data('sce')
+#' sce_sub <- ori_sce[, ori_sce$sample_name == '151673']
+#'
+#' ## Use the manual color palette by Lukas M Weber
+#' ## Don't plot the histology information
+#' sce_image_clus_p(
+#'     sce = sce_sub,
+#'     d = as.data.frame(colData(sce_sub)),
+#'     clustervar = 'layer_guess_reordered',
+#'     sampleid = '151673',
+#'     colors = libd_layer_colors,
+#'     title = '151673 LIBD Layers',
+#'     spatial = FALSE
+#' )
+#'
 
 sce_image_clus_p <-
     function(sce,
@@ -21,10 +41,12 @@ sce_image_clus_p <-
         colors,
         spatial,
         title) {
-        if (clustervar %in% c('layer_guess',
+        if (clustervar %in% c(
+            'layer_guess',
             'layer_guess_reordered',
             'layer_guess_reordered_short',
-            'spatialLIBD')) {
+            'spatialLIBD'
+        )) {
             title <- gsub(clustervar, 'LIBD Layers', title)
         }
 

@@ -8,7 +8,7 @@
 #' element of the list is a character vector of Ensembl gene IDs.
 #' @param fdr_cut A `numeric(1)` specifying the FDR cutoff to use for
 #' determining significance among the
-#' @inheritParam sig_genes_extract
+#' @inheritParams sig_genes_extract
 #'
 #' @return A table in long format with the enrichment results using
 #' [stats::fisher.test()].
