@@ -38,9 +38,12 @@ run_app <- function(sce = fetch_data(type = 'sce'),
     sce_layer = fetch_data(type = 'sce_layer'),
     modeling_results = fetch_data(type = 'modeling_results'),
     image_path = system.file('app/www/data', package = 'spatialLIBD'),
-    sig_genes = sig_genes_extract_all(n = nrow(sce_layer), modeling_results = modeling_results),
+    sig_genes = sig_genes_extract_all(
+        n = nrow(sce_layer),
+        modeling_results = modeling_results,
+        sce_layer = sce_layer
+    ),
     ...) {
-
     with_golem_options(
         app = shinyApp(ui = app_ui, server = app_server),
         golem_opts = list(
