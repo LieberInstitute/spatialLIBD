@@ -213,7 +213,6 @@ app_ui <- function() {
                                 plotlyOutput('gene_plotly',
                                     width = '600px',
                                     height = '600px'),
-                                plotlyOutput('gene_plotly_clusters'),
                                 textInput('label_layer_gene', 'Layer label', 'Your Guess'),
                                 checkboxInput(
                                     'label_click_gene',
