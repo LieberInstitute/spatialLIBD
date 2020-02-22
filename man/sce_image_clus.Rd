@@ -53,7 +53,7 @@ data and title for \code{\link[=sce_image_clus_p]{sce_image_clus_p()}}.
 \examples{
 
 ## Obtain the necessary data
-ori_sce <- fetch_data('sce')
+if (!exists('ori_sce')) ori_sce <- fetch_data('sce')
 
 ## Check the colors defined by Lukas M Weber
 libd_layer_colors

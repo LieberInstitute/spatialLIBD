@@ -23,7 +23,8 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' ori_modeling_results <- fetch_data(type = 'modeling_results')
+#' if (!exists('ori_modeling_results'))
+#'     ori_modeling_results <- fetch_data(type = 'modeling_results')
 #'
 #' ## Compute the correlations
 #' cor_stats_layer <- layer_stat_cor(
@@ -33,7 +34,7 @@
 #' )
 #'
 #' ## Explore the correlation matrix
-#' head(cor_stats_layer[, 1:3])
+#' head(cor_stats_layer[, seq_len(3)])
 #'
 
 layer_stat_cor <-

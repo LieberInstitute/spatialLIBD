@@ -28,7 +28,8 @@ layer-level (group-level) resolution. See \code{\link[=fetch_data]{fetch_data()}
 }
 \value{
 A \link[S4Vectors:DataFrame-class]{DataFrame-class} with the extracted
-statistics in long format.
+statistics in long format. The specific columns are described further in
+the vignette.
 }
 \description{
 This function combines the output of \code{\link[=sig_genes_extract]{sig_genes_extract()}} from all the
@@ -38,8 +39,9 @@ functions such as \code{\link[=layer_boxplot]{layer_boxplot()}}.
 \examples{
 
 ## Obtain the necessary data
-ori_modeling_results <- fetch_data(type = 'modeling_results')
-ori_sce_layer <- fetch_data(type = 'sce_layer')
+if (!exists('ori_modeling_results'))
+    ori_modeling_results <- fetch_data(type = 'modeling_results')
+if (!exists('ori_sce_layer')) ori_sce_layer <- fetch_data(type = 'sce_layer')
 
 ## top 10 genes for all models
 sig_genes_extract_all(

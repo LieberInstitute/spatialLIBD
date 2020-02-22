@@ -43,7 +43,8 @@ layer-level (group-level) resolution. See \code{\link[=fetch_data]{fetch_data()}
 }
 \value{
 A \code{data.frame()} with the top \code{n} significant genes
-(as ordered by their statistics in decreasing order) in long format.
+(as ordered by their statistics in decreasing order) in long format. The
+specific columns are described further in the vignette.
 }
 \description{
 From the layer-level modeling results, this function extracts the top \code{n}
@@ -55,8 +56,9 @@ informative titles.
 \examples{
 
 ## Obtain the necessary data
-ori_modeling_results <- fetch_data(type = 'modeling_results')
-ori_sce_layer <- fetch_data(type = 'sce_layer')
+if (!exists('ori_modeling_results'))
+    ori_modeling_results <- fetch_data(type = 'modeling_results')
+if (!exists('ori_sce_layer')) ori_sce_layer <- fetch_data(type = 'sce_layer')
 
 ## anova top 10 genes
 sig_genes_extract(

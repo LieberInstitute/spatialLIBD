@@ -66,7 +66,7 @@ data and title for \code{\link[=sce_image_gene_p]{sce_image_gene_p()}}. It also 
 \examples{
 
 ## Obtain the necessary data
-ori_sce <- fetch_data('sce')
+if (!exists('ori_sce')) ori_sce <- fetch_data('sce')
 
 ## Valid `geneid` values are those in
 head(rowData(ori_sce)$gene_search)

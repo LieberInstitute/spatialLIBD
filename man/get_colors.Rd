@@ -27,7 +27,7 @@ names. It can be used to automatically assign colors.
 \examples{
 
 ## Obtain the necessary data
-ori_sce_layer <- fetch_data('sce')
+if (!exists('ori_sce_layer')) ori_sce_layer <- fetch_data('sce')
 
 ## Example layer colors with the corresponding names
 get_colors(libd_layer_colors, ori_sce_layer$layer_guess)
