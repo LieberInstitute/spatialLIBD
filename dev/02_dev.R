@@ -33,6 +33,7 @@ usethis::use_package('png')
 usethis::use_package('scater')
 usethis::use_package('DT')
 usethis::use_package('lattice')
+usethis::use_package('RColorBrewer')
 
 ## 2.3 Add tests
 

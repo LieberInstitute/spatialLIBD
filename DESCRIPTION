@@ -36,7 +36,8 @@ Imports:
     scater,
     DT,
     lattice,
-    ExperimentHub
+    ExperimentHub,
+    RColorBrewer
 RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/LieberInstitute/spatialLIBD
