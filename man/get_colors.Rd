@@ -2,25 +2,42 @@
 % Please edit documentation in R/get_colors.R
 \name{get_colors}
 \alias{get_colors}
-\title{Title}
+\title{Obtain the colors for a set of cluster names}
 \usage{
 get_colors(colors = NULL, clusters)
 }
 \arguments{
-\item{clusters}{}
+\item{colors}{A vector of colors. If \code{NULL} then a set of default colors will
+be used when \code{clusters} has less than 12 unique values, otherwise
+\link[Polychrome:palette36.colors]{palette36.colors} will be used which can
+generate up to 36 unique colors. If the number of unique clusters is beyond
+36 then this function will fail.}
+
+\item{clusters}{A vector of cluster names.}
 }
 \value{
-
+A named vector where the values are the colors to use for
+displaying them different clusters. For some use cases, you might have to
+either change the names or use \link[base:unname]{unname()}.
 }
 \description{
-Title
+This function returns a vector of colors based on a vector of cluster
+names. It can be used to automatically assign colors.
 }
 \examples{
 
-ori_sce <- fetch_data('sce')
+## Obtain the necessary data
+ori_sce_layer <- fetch_data('sce')
 
+## Example layer colors with the corresponding names
+get_colors(libd_layer_colors, ori_sce_layer$layer_guess)
+get_colors(libd_layer_colors, ori_sce_layer$layer_guess_reordered_short)
 
-get_colors(libd_layer_colors, ori_sce$layer_guess)
-get_colors(libd_layer_colors, ori_sce$layer_guess_reordered_short)
+## Example where colors are assigned automatically
+## based on a pre-defined set of colors
+get_colors(clusters = ori_sce_layer$kmeans_k7)
+
+## Example where Polychrome::palette36.colors() gets used
+get_colors(clusters = letters[seq_len(13)])
 
 }

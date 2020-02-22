@@ -2,16 +2,49 @@
 % Please edit documentation in R/sce_image_clus_p.R
 \name{sce_image_clus_p}
 \alias{sce_image_clus_p}
-\title{Title}
+\title{Sample spatial cluster visualization workhorse function}
 \usage{
 sce_image_clus_p(sce, d, clustervar, sampleid, colors, spatial, title)
 }
 \arguments{
-\item{title}{}
+\item{d}{A data.frame with the sample-level information. This is typically
+obtained using \code{as.data.frame(colData(sce))}.}
+
+\item{title}{The title for the plot.}
+
+\item{inheritParams}{sce_image_clus}
 }
 \value{
-
+A \link[ggplot2:ggplot]{ggplot2} object.
 }
 \description{
-Title
+This function visualizes the clusters for one given sample at the spot-level
+using (by default) the histology information on the background. This is the
+function that does all the plotting behind \code{\link[=sce_image_clus]{sce_image_clus()}}. To visualize
+gene-level (or any continuous variable) use \code{\link[=sce_image_gene_p]{sce_image_gene_p()}}.
 }
+\examples{
+
+## Obtain the necessary data
+ori_sce <- fetch_data('sce')
+sce_sub <- ori_sce[, ori_sce$sample_name == '151673']
+
+## Use the manual color palette by Lukas M Weber
+## Don't plot the histology information
+sce_image_clus_p(
+    sce = sce_sub,
+    d = as.data.frame(colData(sce_sub)),
+    clustervar = 'layer_guess_reordered',
+    sampleid = '151673',
+    colors = libd_layer_colors,
+    title = '151673 LIBD Layers',
+    spatial = FALSE
+)
+
+}
+\seealso{
+Other Spatial cluster visualization functions: 
+\code{\link{sce_image_clus}()},
+\code{\link{sce_image_grid}()}
+}
+\concept{Spatial cluster visualization functions}

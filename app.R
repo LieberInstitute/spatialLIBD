@@ -11,6 +11,9 @@ options("golem.app.prod" = TRUE)
 ## Easier to re-use the data
 library('spatialLIBD') ## requires Bioconductor version 3.10
 ## check with BiocManager::version()
+
+## In this case, I'm using my local files instead of downloading them
+## by telling fetch_data(destdir) where my local files are stored at.
 ori_sce <-
     fetch_data('sce', here::here('data-raw/spatialLIBD_files'))
 ori_sce_layer <-

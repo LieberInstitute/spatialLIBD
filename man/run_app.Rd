@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_app.R
 \name{run_app}
 \alias{run_app}
-\title{Run the Shiny Application}
+\title{Run the spatialLIBD Shiny Application}
 \usage{
 run_app(
   sce = fetch_data(type = "sce"),
@@ -15,8 +15,50 @@ run_app(
 )
 }
 \arguments{
-\item{...}{}
+\item{sce}{Defaults to the output of
+\code{fetch_data(type = 'sce')}. This is a
+\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
+object with the spot-level Visium data and information required for
+visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
+
+\item{sce_layer}{Defaults to the output of
+\code{fetch_data(type = 'sce_layer')}. This is a
+\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
+object with the spot-level Visium data compressed via pseudo-bulking to the
+layer-level (group-level) resolution. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
+
+\item{modeling_results}{Defaults to the output of
+\code{fetch_data(type = 'modeling_results')}. This is a list of tables with the
+columns \verb{f_stat_*} or \verb{t_stat_*} as well as \verb{p_value_*} and \verb{fdr_*} plus
+\code{ensembl}. The column name is used to extract the statistic results, the
+p-values, and the FDR adjusted p-values. Then the \code{ensembl} column is used
+for matching in some cases. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
+
+\item{image_path}{A path to the directory containing the low resolution
+histology images that is needed for the interactive visualizations with
+\code{plotly}. See
+https://github.com/LieberInstitute/spatialLIBD/tree/master/inst/app/www/data
+for an example of how these files should be organized.}
+
+\item{...}{Other arguments passed to the list of golem options for running
+the application.}
+}
+\value{
+A \link[shiny:shiny.appobj]{shiny.appobj} that contains the input data.
 }
 \description{
-Run the Shiny Application
+This function runs the shiny application that allows users to interact
+with the Visium spatial transcriptomics data from LIBD (by default) or
+any other data that you have shaped according to our object structure.
+}
+\examples{
+
+if(interactive()) {
+    ## The default arguments will download the data from the web
+    ## using fetch_data(). If this is the first time you have run this,
+    ## the files will need to be cached by ExperimentHub. Otherwise it
+    ## will re-use the files you have previously downloaded.
+    run_app()
+}
+
 }
