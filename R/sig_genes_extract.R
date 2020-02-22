@@ -31,7 +31,8 @@
 #' layer-level (group-level) resolution. See [fetch_data()] for more details.
 #'
 #' @return A `data.frame()` with the top `n` significant genes
-#' (as ordered by their statistics in decreasing order) in long format.
+#' (as ordered by their statistics in decreasing order) in long format. The
+#' specific columns are described further in the vignette.
 #'
 #' @references Adapted from
 #' https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/layer_specificity_functions.R
@@ -41,8 +42,9 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' ori_modeling_results <- fetch_data(type = 'modeling_results')
-#' ori_sce_layer <- fetch_data(type = 'sce_layer')
+#' if (!exists('ori_modeling_results'))
+#'     ori_modeling_results <- fetch_data(type = 'modeling_results')
+#' if (!exists('ori_sce_layer')) ori_sce_layer <- fetch_data(type = 'sce_layer')
 #'
 #' ## anova top 10 genes
 #' sig_genes_extract(

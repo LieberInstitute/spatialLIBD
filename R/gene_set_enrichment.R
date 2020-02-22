@@ -40,7 +40,8 @@
 #' )
 #'
 #' ## Obtain the necessary data
-#' ori_modeling_results <- fetch_data(type = 'modeling_results')
+#' if (!exists('ori_modeling_results'))
+#'     ori_modeling_results <- fetch_data(type = 'modeling_results')
 #'
 #' ## Compute the gene set enrichment results
 #' asd_sfari_enrichment <- gene_set_enrichment(

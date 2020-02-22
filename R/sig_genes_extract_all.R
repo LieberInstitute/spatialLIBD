@@ -7,15 +7,17 @@
 #' @inheritParams sig_genes_extract
 #'
 #' @return A [DataFrame-class][S4Vectors::DataFrame-class] with the extracted
-#' statistics in long format.
+#' statistics in long format. The specific columns are described further in
+#' the vignette.
 #' @export
 #' @family Layer modeling functions
 #'
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' ori_modeling_results <- fetch_data(type = 'modeling_results')
-#' ori_sce_layer <- fetch_data(type = 'sce_layer')
+#' if (!exists('ori_modeling_results'))
+#'     ori_modeling_results <- fetch_data(type = 'modeling_results')
+#' if (!exists('ori_sce_layer')) ori_sce_layer <- fetch_data(type = 'sce_layer')
 #'
 #' ## top 10 genes for all models
 #' sig_genes_extract_all(

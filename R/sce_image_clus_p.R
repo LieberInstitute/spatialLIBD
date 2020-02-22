@@ -17,7 +17,7 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' ori_sce <- fetch_data('sce')
+#' if (!exists('ori_sce')) ori_sce <- fetch_data('sce')
 #' sce_sub <- ori_sce[, ori_sce$sample_name == '151673']
 #'
 #' ## Use the manual color palette by Lukas M Weber

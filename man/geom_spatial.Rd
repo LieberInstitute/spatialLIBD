@@ -44,7 +44,7 @@ as in \code{\link[=sce_image_gene_p]{sce_image_gene_p()}}.
 }
 \examples{
 ## Obtain the necessary data
-ori_sce <- fetch_data('sce')
+if (!exists('ori_sce')) ori_sce <- fetch_data('sce')
 
 ## Select the first sample and extract the data
 sample_id <- unique(ori_sce$sample_name)[1]

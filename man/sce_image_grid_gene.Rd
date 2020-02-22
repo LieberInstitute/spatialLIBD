@@ -71,7 +71,7 @@ objects.
 \examples{
 
 ## Obtain the necessary data
-ori_sce <- fetch_data('sce')
+if (!exists('ori_sce')) ori_sce <- fetch_data('sce')
 
 ## Subset to two samples of interest
 sce_sub <- ori_sce[, ori_sce$sample_name \%in\% c('151673', '151674')]

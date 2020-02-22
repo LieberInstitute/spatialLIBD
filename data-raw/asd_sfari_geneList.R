@@ -53,7 +53,8 @@ testthat::expect_equivalent(asd_sfari_geneList_table, as.matrix(test))
 
 
 ## Test that the input data works for gene_set_enrichment()
-ori_modeling_results <- fetch_data(type = 'modeling_results')
+if (!exists('ori_modeling_results'))
+    ori_modeling_results <- fetch_data(type = 'modeling_results')
 
 asd_sfari_enrichment <- gene_set_enrichment(
     gene_list = asd_sfari_geneList,
