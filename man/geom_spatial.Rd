@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom_spatial.R
 \name{geom_spatial}
 \alias{geom_spatial}
-\title{Title}
+\title{A ggplot2 layer for visualizing the Visium histology}
 \usage{
 geom_spatial(
   mapping = NULL,
@@ -16,13 +16,54 @@ geom_spatial(
 )
 }
 \arguments{
-\item{...}{}
+\item{mapping}{Passed to \code{ggplot2::layer(mapping)} where \code{grob}, \code{x} and \code{y}
+are required.}
+
+\item{data}{Passed to \code{ggplot2::layer(data)}.}
+
+\item{stat}{Passed to \code{ggplot2::layer(stat)}.}
+
+\item{position}{Passed to \code{ggplot2::layer(position)}.}
+
+\item{na.rm}{Passed to \code{ggplot2::layer(params = list(na.rm))}.}
+
+\item{show.legend}{Passed to \code{ggplot2::layer(show.legend)}.}
+
+\item{inherit.aes}{Passed to \code{ggplot2::layer(inherit.aes)}.}
+
+\item{...}{Other arguments passed to \code{ggplot2::layer(params = list(...))}.}
 }
 \value{
-
+A \code{\link[ggplot2:layer]{ggplot2::layer()}} for the histology information.
 }
 \description{
-Title
+This function defines a \code{\link[ggplot2:layer]{ggplot2::layer()}} for visualizing the histology
+image from Visium. It can be combined with other ggplot2 functions for
+visualizing the clusters as in \code{\link[=sce_image_clus_p]{sce_image_clus_p()}} or gene-level information
+as in \code{\link[=sce_image_clus_gene_p]{sce_image_clus_gene_p()}}.
+}
+\examples{
+## Obtain the necessary data
+ori_sce <- fetch_data('sce')
+
+## Select the first sample and extract the data
+sample_id <- unique(ori_sce$sample_name)[1]
+sce_sub <- ori_sce[, ori_sce$sample_name == sample_id]
+sample_df <- as.data.frame(colData(sce_sub))
+
+## Make a plot using geom_spatial
+ggplot2::ggplot(sample_df,
+    ggplot2::aes(
+        x = imagecol,
+        y = imagerow,
+        fill = layer_guess
+    )) + geom_spatial(
+        data = subset(metadata(sce_sub)$image, sample == sample_id),
+        aes(grob = grob),
+        x = 0.5,
+        y = 0.5
+    )
+
 }
 \author{
 10x Genomics

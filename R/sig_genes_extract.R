@@ -2,8 +2,8 @@
 #'
 #' From the layer-level modeling results, this function extracts the top `n`
 #' significant genes. This is the workhorse function used by
-#' `sig_genes_extract_all()` through which we obtain the information that can
-#' then be used by functions such as `layer_boxplot()` for constructing
+#' [sig_genes_extract_all()] through which we obtain the information that can
+#' then be used by functions such as [layer_boxplot()] for constructing
 #' informative titles.
 #'
 #' @param n The number of the top ranked genes to extract.
@@ -12,7 +12,7 @@
 #' columns `f_stat_*` or `t_stat_*` as well as `p_value_*` and `fdr_*` plus
 #' `ensembl`. The column name is used to extract the statistic results, the
 #' p-values, and the FDR adjusted p-values. Then the `ensembl` column is used
-#' for matching in some cases. See `fetch_data()` for more details.
+#' for matching in some cases. See [fetch_data()] for more details.
 #' @param model_type A named element of the `modeling_results` list. By default
 #' that is either `specificity` for the model that tests one human brain layer
 #' against the rest (one group vs the rest), `pairwise` which compares two
@@ -28,7 +28,7 @@
 #' `fetch_data(type = 'sce_layer')`. This is a
 #' [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class]
 #' object with the spot-level Visium data compressed via pseudo-bulking to the
-#' layer-level (group-level) resolution. See `fetch_data()` for more details.
+#' layer-level (group-level) resolution. See [fetch_data()] for more details.
 #'
 #' @return A `data.frame()` with the top `n` significant genes
 #' (as ordered by their statistics in decreasing order) in long format.

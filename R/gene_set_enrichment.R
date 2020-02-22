@@ -11,11 +11,14 @@
 #' @inheritParam sig_genes_extract
 #'
 #' @return A table in long format with the enrichment results using
-#' `fisher.test()`.
+#' [stats::fisher.test()].
 #'
 #' @export
 #' @family Gene set enrichment functions
 #' @author Andrew E Jaffe, Leonardo Collado-Torres
+#' @details Check
+#' https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/check_clinical_gene_sets.R
+#' to see a full script from where this family of functions is derived from.
 #'
 #' @examples
 #'

@@ -1,12 +1,13 @@
 #' Extract significant genes for all modeling results
 #'
-#' This function combines the output of `sig_genes_extract()` from all the
+#' This function combines the output of [sig_genes_extract()] from all the
 #' layer-level (group-level) modeling results and builds the data required for
-#' functions such as `layer_boxplot()`.
+#' functions such as [layer_boxplot()].
 #'
 #' @inheritParams sig_genes_extract
 #'
-#' @return A `DataFrame` with the extracted statistics in long format.
+#' @return A [DataFrame-class][S4Vectors::DataFrame-class] with the extracted
+#' statistics in long format.
 #' @export
 #' @family Layer modeling functions
 #'

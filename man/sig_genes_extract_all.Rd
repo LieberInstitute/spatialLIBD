@@ -18,21 +18,22 @@ sig_genes_extract_all(
 columns \verb{f_stat_*} or \verb{t_stat_*} as well as \verb{p_value_*} and \verb{fdr_*} plus
 \code{ensembl}. The column name is used to extract the statistic results, the
 p-values, and the FDR adjusted p-values. Then the \code{ensembl} column is used
-for matching in some cases. See \code{fetch_data()} for more details.}
+for matching in some cases. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
 \item{sce_layer}{Defaults to the output of
 \code{fetch_data(type = 'sce_layer')}. This is a
 \link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
 object with the spot-level Visium data compressed via pseudo-bulking to the
-layer-level (group-level) resolution. See \code{fetch_data()} for more details.}
+layer-level (group-level) resolution. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 }
 \value{
-A \code{DataFrame} with the extracted statistics in long format.
+A \link[S4Vectors:DataFrame-class]{DataFrame-class} with the extracted
+statistics in long format.
 }
 \description{
-This function combines the output of \code{sig_genes_extract()} from all the
+This function combines the output of \code{\link[=sig_genes_extract]{sig_genes_extract()}} from all the
 layer-level (group-level) modeling results and builds the data required for
-functions such as \code{layer_boxplot()}.
+functions such as \code{\link[=layer_boxplot]{layer_boxplot()}}.
 }
 \examples{
 

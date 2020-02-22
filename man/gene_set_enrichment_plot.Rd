@@ -7,15 +7,20 @@
 gene_set_enrichment_plot(enrichment)
 }
 \arguments{
-\item{enrichment}{The output of \code{gene_set_enrichment()}.}
+\item{enrichment}{The output of \code{\link[=gene_set_enrichment]{gene_set_enrichment()}}.}
 }
 \value{
 A \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} object visualizing the gene set enrichment
 odds ratio and p-value results.
 }
 \description{
-This function takes the output of \code{gene_set_enrichment()} and creates a
+This function takes the output of \code{\link[=gene_set_enrichment]{gene_set_enrichment()}} and creates a
 dotplot visualization of the results.
+}
+\details{
+Check
+https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/check_clinical_gene_sets.R
+to see a full script from where this family of functions is derived from.
 }
 \examples{
 

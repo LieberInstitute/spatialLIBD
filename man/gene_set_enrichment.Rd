@@ -21,12 +21,17 @@ determining significance among the}
 }
 \value{
 A table in long format with the enrichment results using
-\code{fisher.test()}.
+\code{\link[stats:fisher.test]{stats::fisher.test()}}.
 }
 \description{
 Using the layer-level (group-level) data, this function evaluates whether
 list of gene sets (Ensembl gene IDs) are enrichment among the significant
 genes (FDR < 0.1 by default) genes for a given model type result.
+}
+\details{
+Check
+https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/check_clinical_gene_sets.R
+to see a full script from where this family of functions is derived from.
 }
 \examples{
 

@@ -1,9 +1,9 @@
 #' Plot the gene set enrichment results
 #'
-#' This function takes the output of `gene_set_enrichment()` and creates a
+#' This function takes the output of [gene_set_enrichment()] and creates a
 #' dotplot visualization of the results.
 #'
-#' @param enrichment The output of `gene_set_enrichment()`.
+#' @param enrichment The output of [gene_set_enrichment()].
 #'
 #' @return A [ggplot2::ggplot()] object visualizing the gene set enrichment
 #' odds ratio and p-value results.
@@ -11,6 +11,9 @@
 #' @import ggplot2
 #' @family Gene set enrichment functions
 #' @author Andrew E Jaffe, Leonardo Collado-Torres
+#' @details Check
+#' https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/check_clinical_gene_sets.R
+#' to see a full script from where this family of functions is derived from.
 #'
 #' @examples
 #'
