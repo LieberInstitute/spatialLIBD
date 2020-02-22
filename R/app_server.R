@@ -669,34 +669,6 @@ app_server <- function(input, output, session) {
     })
 
 
-    output$gene_plotly_clusters <- renderPlotly({
-        if (is.null(input$gene_plotly_cluster_subset))
-            return(NULL)
-
-        event.data <-
-            event_data('plotly_selected', source = 'plotly_gene')
-        if (is.null(event.data))
-            return(NULL)
-
-        ## Prepare the data
-        sce$Layer <- rv$layer
-        sce_sub <- sce[, sce$key %in% event.data$key]
-        d <- as.data.frame(colData(sce_sub))
-        if (input$geneid %in% colnames(colData(sce_sub))) {
-            d$COUNT <- colData(sce_sub)[[input$geneid]]
-        } else {
-            d$COUNT <-
-                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
-        }
-        d$COUNT[d$COUNT <= input$minCount] <- NA
-
-        ## Plot the cluster frequency
-        p <-
-            ggplot(subset(d, !is.na(COUNT)), aes(x = !!sym(input$cluster))) + geom_bar() + ggtitle(input$cluster)
-        ggplotly(p)
-    })
-
-
 
 
 
