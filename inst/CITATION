@@ -1,0 +1,46 @@
+pkgVer <- function(pkg) {
+    if (!exists("meta") || is.null(meta)) meta <- packageDescription(pkg)
+    ver <- meta$Version
+    paste0('https://github.com/LieberInstitute/', pkg, ' - R package version ', ver)
+}
+
+c(
+
+    bibentry(bibtype="manual",
+        title = "LIBD Visium spatial transcriptomics human pilot data inspector",
+        author = personList(
+            as.person("Leonardo Collado-Torres"),
+            as.person("Andrew E. Jaffe")
+        ),
+        year = format(Sys.Date(), "%Y"),
+        url = "http://www.bioconductor.org/packages/spatialLIBD",
+        note = pkgVer('spatialLIBD'),
+        doi = '10.18129/B9.bioc.spatialLIBD'
+    ),
+    bibentry(bibtype="article",
+        title = "Transcriptome-scale spatial gene expression in the human dorsolateral prefrontal cortex",
+        author = personList(
+            as.person("Kristen R. Maynard"),
+            as.person("Leonardo Collado-Torres"),
+            as.person("Lukas M. Weber"),
+            as.person("Cedric Uytingco"),
+            as.person("Stephen R. Williams"),
+            as.person("Joseph L. Catallini II"),
+            as.person("Brianna K. Barry"),
+            as.person("Matthew N. Tran"),
+            as.person("Zachary Besich"),
+            as.person("Madhavi Tippani"),
+            as.person("Jennifer Chew"),
+            as.person("Yifeng Yin"),
+            as.person("Thomas M. Hyde"),
+            as.person("Nikhil Rao"),
+            as.person("Stephanie C. Hicks"),
+            as.person("Keri Martinowich"),
+            as.person("Andrew E. Jaffe")
+        ),
+        year = 2020,
+        journal = "bioRxiv",
+        doi = "10.1101/xxxyyy",
+        url = "https://doi.org/10.1101/xxxyyy"
+    )
+)

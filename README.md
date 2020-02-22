@@ -26,8 +26,8 @@ The `spatialLIBD` package contains functions for:
 ## Installation instructions
 
 Get the latest stable `R` release from
-[CRAN](http://cran.r-project.org/). Then install `spatialLIBD` using the
-following code:
+[CRAN](http://cran.r-project.org/). Then install `spatialLIBD` using
+from [Bioconductor](http://bioconductor.org/) the following code:
 
 ``` r
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -45,21 +45,22 @@ Please run this yourself to check for any updates on how to cite
 ``` r
 citation('spatialLIBD')
 #> 
-#> To cite package 'spatialLIBD' in publications use:
+#> Collado-Torres L, Jaffe AE (2020). _LIBD Visium spatial transcriptomics
+#> human pilot data inspector_. doi: 10.18129/B9.bioc.spatialLIBD (URL:
+#> https://doi.org/10.18129/B9.bioc.spatialLIBD),
+#> https://github.com/LieberInstitute/spatialLIBD - R package version
+#> 0.99.0, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
-#>   Leonardo Collado-Torres (2020). spatialLIBD: LIBD Visium spatial
-#>   transcriptomics human pilot data inspector. R package version 0.99.0.
-#>   https://github.com/LieberInstitute/spatialLIBD
+#> Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Williams SR, II
+#> JLC, Barry BK, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Hyde TM,
+#> Rao N, Hicks SC, Martinowich K, Jaffe AE (2020). "Transcriptome-scale
+#> spatial gene expression in the human dorsolateral prefrontal cortex."
+#> _bioRxiv_. doi: 10.1101/xxxyyy (URL: https://doi.org/10.1101/xxxyyy),
+#> <URL: https://doi.org/10.1101/xxxyyy>.
 #> 
-#> A BibTeX entry for LaTeX users is
-#> 
-#>   @Manual{,
-#>     title = {spatialLIBD: LIBD Visium spatial transcriptomics human pilot data inspector},
-#>     author = {Leonardo Collado-Torres},
-#>     year = {2020},
-#>     note = {R package version 0.99.0},
-#>     url = {https://github.com/LieberInstitute/spatialLIBD},
-#>   }
+#> To see these entries in BibTeX format, use 'print(<citation>,
+#> bibtex=TRUE)', 'toBibtex(.)', or set
+#> 'options(citation.bibtex.max=999)'.
 ```
 
 ## Code of conduct

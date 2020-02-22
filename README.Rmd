@@ -29,7 +29,7 @@ The `spatialLIBD` package contains functions for:
 
 ## Installation instructions
 
-Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `spatialLIBD` using the following code:
+Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `spatialLIBD` using from [Bioconductor](http://bioconductor.org/) the following code:
 
 ```{r 'install', eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE))
