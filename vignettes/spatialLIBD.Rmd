@@ -55,6 +55,7 @@ bib <- c(
     pkgload = citation('pkgload'),
     plotly = citation('plotly'),
     Polychrome = citation('Polychrome'),
+    RColorBrewer = citation('RColorBrewer'),
     rmarkdown = citation('rmarkdown')[1],
     scater = citation('scater'),
     sessioninfo = citation('sessioninfo'),
@@ -572,6 +573,7 @@ The `r Biocpkg('spatialLIBD')` package `r citep(bib[['spatialLIBD']])` was made 
 * `r CRANpkg('pkgload')` `r citep(bib[['pkgload']])`
 * `r CRANpkg('plotly')` `r citep(bib[['plotly']])`
 * `r CRANpkg('Polychrome')` `r citep(bib[['Polychrome']])`
+* `r CRANpkg('RColorBrewer')` `r citep(bib[['RColorBrewer']])`
 * `r CRANpkg('rmarkdown')` `r citep(bib[['rmarkdown']])`
 * `r Biocpkg('scater')` `r citep(bib[['scater']])`
 * `r CRANpkg('sessioninfo')` `r citep(bib[['sessioninfo']])`
