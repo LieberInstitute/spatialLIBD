@@ -202,8 +202,13 @@ devtools::build_vignettes()
 ## 3.2 Code coverage
 ## You'll need GitHub there
 usethis::use_github()
-# usethis::use_travis()
+usethis::use_travis(ext = 'com')
 # usethis::use_appveyor()
+
+## 3.3 build a documentation website
+usethis::use_pkgdown()
+usethis::use_pkgdown_travis()
+travis::use_travis_deploy(endpoint = '.com')
 
 # You're now set!
 # go to dev/03_deploy.R
