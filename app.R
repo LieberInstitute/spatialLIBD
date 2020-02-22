@@ -9,7 +9,7 @@ options("golem.app.prod" = TRUE)
 # spatialLIBD::run_app()
 
 ## Easier to re-use the data
-library('spatialLIBD') ## requires Bioconductor version 3.10
+# library('spatialLIBD') ## requires Bioconductor version 3.10
 ## check with BiocManager::version()
 
 ## In this case, I'm using my local files instead of downloading them
@@ -22,10 +22,14 @@ ori_modeling_results <-
     fetch_data('modeling_results',
         here::here('data-raw/spatialLIBD_files'))
 
-ori_sig_genes <- sig_genes_extract_all(n = nrow(ori_sce_layer), ori_modeling_results)
+ori_sig_genes <-
+    sig_genes_extract_all(n = nrow(ori_sce_layer),
+        ori_modeling_results,
+        sce_layer = ori_sce_layer)
 
 
-spatialLIBD::run_app(sce = ori_sce,
+spatialLIBD::run_app(
+    sce = ori_sce,
     sce_layer = ori_sce_layer,
     modeling_results = ori_modeling_results,
     sig_genes = ori_sig_genes,

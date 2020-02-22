@@ -385,7 +385,6 @@ app_server <- function(input, output, session) {
             sampleid = sampleid,
             spatial = FALSE,
             title = "",
-            assayname = assayname,
             viridis = input$genecolor == 'viridis'
         )
 
@@ -466,8 +465,8 @@ app_server <- function(input, output, session) {
         plotly_clus <- layout(
             ggplotly(
                 p_clus,
-                width = 600,
-                height = 600,
+                width = 600 * 2,
+                height = 600 * 2,
                 source = 'plotly_histology'
             ),
             images = list(
@@ -492,8 +491,6 @@ app_server <- function(input, output, session) {
         plotly_gene <- layout(
             ggplotly(
                 p_gene,
-                width = 600,
-                height = 600,
                 source = 'plotly_histology'
             ),
             images = list(
@@ -517,15 +514,11 @@ app_server <- function(input, output, session) {
 
         plotly_dim <- layout(ggplotly(
             p_dim,
-            width = 600,
-            height = 600,
             source = 'plotly_histology'
         ))
 
         plotly_dim_gene <- layout(ggplotly(
             p_dim_gene,
-            width = 600,
-            height = 600,
             source = 'plotly_histology'
         ))
 
@@ -557,8 +550,6 @@ app_server <- function(input, output, session) {
                 shareY = FALSE,
                 which_layout = 1
             ),
-            width = 600 * 2,
-            height = 600 * 2,
             legend = list(tracegroupgap = 0, x = 1.1)
         )
 

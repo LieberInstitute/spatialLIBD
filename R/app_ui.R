@@ -98,8 +98,19 @@ app_ui <- function() {
                     ),
                     mainPanel(
                         tabsetPanel(
-                            tabPanel('Raw summary',
-                                verbatimTextOutput('raw_summary')),
+                            tabPanel(
+                                'Raw summary',
+                                tags$br(),
+                                HTML(
+                                    'Basic information overview about the spot-level SingleCellExperiment object. You can download it using <code>spatialLIBD::fetch_data(type = "sce")</code>.'
+                                ),
+                                tags$br(),
+                                tags$br(),
+                                verbatimTextOutput('raw_summary'),
+                                helpText(
+                                    'When this information has been displayed it means that the shiny web application has finished loading and you can start exploring the rest of it. For more information check the Documentation tab.'
+                                )
+                            ),
                             tabPanel(
                                 'Clusters (static)',
                                 downloadButton('downloadPlotHistology', 'Download PDF'),
@@ -300,8 +311,19 @@ app_ui <- function() {
                     ),
                     mainPanel(
                         tabsetPanel(
-                            tabPanel('Raw summary',
-                                verbatimTextOutput('layer_raw_summary')),
+                            tabPanel(
+                                'Raw summary',
+                                tags$br(),
+                                HTML(
+                                    'Basic information overview about the layer-level SingleCellExperiment object (pseudo-bulked from the spot-level data). You can download it using <code>spatialLIBD::fetch_data(type = "sce_layer")</code>.'
+                                ),
+                                tags$br(),
+                                tags$br(),
+                                verbatimTextOutput('layer_raw_summary'),
+                                helpText(
+                                    'When this information has been displayed it means that the shiny web application has finished loading and you can start exploring the rest of it. For more information check the Documentation tab.'
+                                )
+                            ),
                             tabPanel(
                                 'Reduced Dim',
                                 selectInput(
@@ -381,7 +403,12 @@ app_ui <- function() {
                                         'text/comma-separated-values,text/plain'
                                     )
                                 ),
-                                helpText('It should be a CSV file without row names and similar to ', HTML('<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/asd_sfari_geneList.csv">this example file.</a>')),
+                                helpText(
+                                    'It should be a CSV file without row names and similar to ',
+                                    HTML(
+                                        '<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/asd_sfari_geneList.csv">this example file.</a>'
+                                    )
+                                ),
                                 hr(),
                                 numericInput(
                                     'layer_gene_fdrcut',
@@ -414,7 +441,7 @@ app_ui <- function() {
                                 DT::DTOutput('layer_gene_set_table')
                             ),
                             tabPanel(
-                                't-stat correlation',
+                                'stat correlation',
                                 fileInput(
                                     'externalTstat',
                                     'Upload a CSV file with one column per cell type or layer that contains the specificity t-stat equivalent and with Ensembl gene IDs as the row names.',
@@ -424,7 +451,12 @@ app_ui <- function() {
                                         'text/comma-separated-values,text/plain'
                                     )
                                 ),
-                                helpText('It should be a CSV file similar to ', HTML('<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv">this example file.</a>')),
+                                helpText(
+                                    'It should be a CSV file similar to ',
+                                    HTML(
+                                        '<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv">this example file.</a>'
+                                    )
+                                ),
                                 hr(),
                                 numericInput(
                                     'layer_tstat_max',
@@ -456,13 +488,9 @@ app_ui <- function() {
                                 tags$br(),
                                 DT::DTOutput('layer_tstat_cor_table')
                             ),
-                            tabPanel(
-                                'Documentation',
-                                p(
-                                    'TODO.'
-                                ),
-                                p('todo')
-                            )
+                            tabPanel('Documentation',
+                                p('TODO.'),
+                                p('todo'))
                         )
                     )
                 )
