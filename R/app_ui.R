@@ -37,7 +37,7 @@ app_ui <- function() {
                         selectInput(
                             inputId = 'reduced_name',
                             label = 'Reduced dimensions',
-                            choices = reducedDimNames(sce)[-1],
+                            choices = sort(reducedDimNames(sce)),
                             selected = reducedDimNames(sce)[length(reducedDimNames(sce))]
                         ),
                         pickerInput(
@@ -245,7 +245,7 @@ app_ui <- function() {
                                     'gene_grid_samples',
                                     label = 'Select samples to show in the grid',
                                     choices = unique(sce$sample_name),
-                                    selected = unique(sce$sample_name)[seq(1, 11, by = 4)],
+                                    selected = unique(sce$sample_name)[seq(1, length(unique(sce$sample_name)), by = 4)],
                                     inline = TRUE
                                 ),
                                 numericInput(
