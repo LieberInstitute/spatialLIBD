@@ -91,7 +91,7 @@ fetch_data <- function(type = c('sce', 'sce_layer', 'modeling_results'),
         ## ExperimentHub backup: download from Dropbox
         file_path <- file.path(destdir, file_name)
         if (!file.exists(file_path)) {
-            utils::download.file(url, destfile = file_path)
+            utils::download.file(url, destfile = file_path, quiet = TRUE)
         }
 
         load(file_path, verbose = TRUE)
