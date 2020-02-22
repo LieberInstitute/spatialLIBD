@@ -342,7 +342,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid),]
+                assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid), ]
         }
         d$COUNT[d$COUNT <= minCount] <- NA
 
@@ -580,7 +580,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[input$geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
+                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
         }
         d$COUNT[d$COUNT <= input$minCount] <- NA
         p <-
@@ -594,7 +594,7 @@ app_server <- function(input, output, session) {
 
     ## Set the cluster subset options
     output$gene_plotly_cluster_subset_ui <- renderUI({
-        input$clusters
+        input$cluster
 
         if (input$cluster == 'Layer') {
             cluster_opts <- unique(rv$layer)
@@ -614,18 +614,21 @@ app_server <- function(input, output, session) {
         if (is.null(input$gene_plotly_cluster_subset))
             return(NULL)
 
-        pen <-
-            png::readPNG(file.path(
-                resourcePaths()['imagedata'],
-                input$sample,
-                'tissue_lowres_image.png'
-            ))
         if (input$cluster == 'Layer') {
             cluster_opts <- rv$layer %in% input$gene_plotly_cluster_subset
         } else {
             cluster_opts <-
                 as.character(colData(sce)[[input$cluster]]) %in% input$gene_plotly_cluster_subset
         }
+        ## For when you change the input$cluster and no data is available yet
+        if(sum(cluster_opts) == 0) return(NULL)
+
+        pen <-
+            png::readPNG(file.path(
+                resourcePaths()['imagedata'],
+                input$sample,
+                'tissue_lowres_image.png'
+            ))
 
         p <-
             sce_image_gene(
@@ -637,6 +640,7 @@ app_server <- function(input, output, session) {
                 spatial = FALSE,
                 viridis = input$genecolor == 'viridis'
             )
+
         layout(
             ggplotly(
                 p,
@@ -666,7 +670,11 @@ app_server <- function(input, output, session) {
 
 
     output$gene_plotly_clusters <- renderPlotly({
-        event.data <- event_data('plotly_selected', source = 'plotly_gene')
+        if (is.null(input$gene_plotly_cluster_subset))
+            return(NULL)
+
+        event.data <-
+            event_data('plotly_selected', source = 'plotly_gene')
         if (is.null(event.data))
             return(NULL)
 
@@ -678,7 +686,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[input$geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
+                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
         }
         d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -724,7 +732,11 @@ app_server <- function(input, output, session) {
     })
 
     observeEvent(input$update_layer_gene, {
-        event.data <- event_data('plotly_selected', source = 'plotly_gene')
+        if (!is.null(input$gene_plotly_cluster_subset)) {
+            event.data <- event_data('plotly_selected', source = 'plotly_gene')
+        } else {
+            event.data <- NULL
+        }
         if (!is.null(event.data)) {
             ## Prepare the data
             sce_sub <- sce[, sce$key %in% event.data$key]
@@ -733,7 +745,7 @@ app_server <- function(input, output, session) {
                 d$COUNT <- colData(sce_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
+                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -746,7 +758,11 @@ app_server <- function(input, output, session) {
     })
 
     output$click_gene <- renderPrint({
-        event.data <- event_data("plotly_click", source = 'plotly_gene')
+        if (!is.null(input$gene_plotly_cluster_subset)) {
+            event.data <- event_data('plotly_selected', source = 'plotly_gene')
+        } else {
+            event.data <- NULL
+        }
         if (is.null(event.data)) {
             return(
                 "Single points clicked and updated with a layer guess appear here (double-click to clear)"
@@ -759,7 +775,7 @@ app_server <- function(input, output, session) {
                 d$COUNT <- colData(sce_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
+                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -895,9 +911,11 @@ app_server <- function(input, output, session) {
                     viridis(4)[3],
                     'darkorange2'
                 ),
-                col_high_point = ifelse(input$layer_boxcolor == 'viridis',
+                col_high_point = ifelse(
+                    input$layer_boxcolor == 'viridis',
                     viridis(4)[4],
-                    'orange1')
+                    'orange1'
+                )
             )
     })
 
@@ -1042,9 +1060,11 @@ app_server <- function(input, output, session) {
                         viridis(4)[3],
                         'darkorange2'
                     ),
-                    col_high_point = ifelse(input$layer_boxcolor == 'viridis',
+                    col_high_point = ifelse(
+                        input$layer_boxcolor == 'viridis',
                         viridis(4)[4],
-                        'orange1')
+                        'orange1'
+                    )
                 )
             dev.off()
         }
