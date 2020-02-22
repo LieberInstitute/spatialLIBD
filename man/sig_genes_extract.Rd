@@ -20,7 +20,7 @@ sig_genes_extract(
 columns \verb{f_stat_*} or \verb{t_stat_*} as well as \verb{p_value_*} and \verb{fdr_*} plus
 \code{ensembl}. The column name is used to extract the statistic results, the
 p-values, and the FDR adjusted p-values. Then the \code{ensembl} column is used
-for matching in some cases. See \code{fetch_data()} for more details.}
+for matching in some cases. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
 \item{model_type}{A named element of the \code{modeling_results} list. By default
 that is either \code{specificity} for the model that tests one human brain layer
@@ -39,7 +39,7 @@ into \code{layerB-layerA}.}
 \code{fetch_data(type = 'sce_layer')}. This is a
 \link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
 object with the spot-level Visium data compressed via pseudo-bulking to the
-layer-level (group-level) resolution. See \code{fetch_data()} for more details.}
+layer-level (group-level) resolution. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 }
 \value{
 A \code{data.frame()} with the top \code{n} significant genes
@@ -48,8 +48,8 @@ A \code{data.frame()} with the top \code{n} significant genes
 \description{
 From the layer-level modeling results, this function extracts the top \code{n}
 significant genes. This is the workhorse function used by
-\code{sig_genes_extract_all()} through which we obtain the information that can
-then be used by functions such as \code{layer_boxplot()} for constructing
+\code{\link[=sig_genes_extract_all]{sig_genes_extract_all()}} through which we obtain the information that can
+then be used by functions such as \code{\link[=layer_boxplot]{layer_boxplot()}} for constructing
 informative titles.
 }
 \examples{

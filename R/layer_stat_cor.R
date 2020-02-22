@@ -1,25 +1,41 @@
-#' Title
+#' Layer modeling correlation of statistics
 #'
-#' @param stats
-#' @param modeling_results
-#' @param model_type
-#' @param reverse
+#' @param stats A data.frame where the row names are Ensembl gene IDs, the
+#' column names are labels for clusters of cells or cell types, and where
+#' each cell contains the given statistic for that gene and cell type. These
+#' statistics should be computed similarly to the modeling results from
+#' the data we provide. For example, like the `specificity` t-statistics that
+#' are derived from comparing one layer against the rest. The `stats` will be
+#' matched and then correlated with our statistics.
+#' @inheritParams sig_genes_extract
 #'
-#' @return
+#' @return A correlation matrix between `stats` and our statistics using only
+#' the Ensembl gene IDs present in both tables. The columns are sorted using
+#' a hierarchical cluster.
+#'
 #' @export
 #' @author Andrew E Jaffe, Leonardo Collado-Torres
+#' @family Layer correlation functions
+#' @details Check
+#' https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R
+#' for a full analysis from which this family of functions is derived from.
 #'
 #' @examples
 #'
+#' ## Obtain the necessary data
 #' ori_modeling_results <- fetch_data(type = 'modeling_results')
 #'
+#' ## Compute the correlations
 #' cor_stats_layer <- layer_stat_cor(
 #'     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
 #'     ori_modeling_results,
 #'     'specificity'
 #' )
+#'
+#' ## Explore the correlation matrix
 #' head(cor_stats_layer[, 1:3])
 #'
+
 layer_stat_cor <-
     function(stats,
         modeling_results = fetch_data(type = 'modeling_results'),
@@ -52,6 +68,11 @@ layer_stat_cor <-
         if (identical(colnames(tstats), c('WM', paste0('Layer', 1:6)))) {
             cor_res <- cor_res[, c(1, 7:2), drop = FALSE]
         }
+
+        ## Re-order the rows
+        dd <- dist(1-cor_res)
+        hc <- hclust(dd)
+        cor_res <- cor_res[hc$order, , drop = FALSE]
         return(cor_res)
 
     }

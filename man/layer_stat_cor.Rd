@@ -2,7 +2,7 @@
 % Please edit documentation in R/layer_stat_cor.R
 \name{layer_stat_cor}
 \alias{layer_stat_cor}
-\title{Title}
+\title{Layer modeling correlation of statistics}
 \usage{
 layer_stat_cor(
   stats,
@@ -12,26 +12,68 @@ layer_stat_cor(
 )
 }
 \arguments{
-\item{reverse}{}
+\item{stats}{A data.frame where the row names are Ensembl gene IDs, the
+column names are labels for clusters of cells or cell types, and where
+each cell contains the given statistic for that gene and cell type. These
+statistics should be computed similarly to the modeling results from
+the data we provide. For example, like the \code{specificity} t-statistics that
+are derived from comparing one layer against the rest. The \code{stats} will be
+matched and then correlated with our statistics.}
+
+\item{modeling_results}{Defaults to the output of
+\code{fetch_data(type = 'modeling_results')}. This is a list of tables with the
+columns \verb{f_stat_*} or \verb{t_stat_*} as well as \verb{p_value_*} and \verb{fdr_*} plus
+\code{ensembl}. The column name is used to extract the statistic results, the
+p-values, and the FDR adjusted p-values. Then the \code{ensembl} column is used
+for matching in some cases. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
+
+\item{model_type}{A named element of the \code{modeling_results} list. By default
+that is either \code{specificity} for the model that tests one human brain layer
+against the rest (one group vs the rest), \code{pairwise} which compares two
+layers (groups) denoted by \code{layerA-layerB} such that \code{layerA} is greater
+than \code{layerB}, and \code{anova} which determines if any layer (group) is different
+from the rest adjusting for the mean expression level. The statistics for
+\code{specificity} and \code{pairwise} are t-statistics while the \code{anova} model ones
+are F-statistics.}
+
+\item{reverse}{A \code{logical(1)} indicating whether to multiply by \code{-1} the
+input statistics and reverse the \code{layerA-layerB} column names (using the \code{-})
+into \code{layerB-layerA}.}
 }
 \value{
-
+A correlation matrix between \code{stats} and our statistics using only
+the Ensembl gene IDs present in both tables. The columns are sorted using
+a hierarchical cluster.
 }
 \description{
-Title
+Layer modeling correlation of statistics
+}
+\details{
+Check
+https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R
+for a full analysis from which this family of functions is derived from.
 }
 \examples{
 
+## Obtain the necessary data
 ori_modeling_results <- fetch_data(type = 'modeling_results')
 
+## Compute the correlations
 cor_stats_layer <- layer_stat_cor(
     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
     ori_modeling_results,
     'specificity'
 )
+
+## Explore the correlation matrix
 head(cor_stats_layer[, 1:3])
 
+}
+\seealso{
+Other Layer correlation functions: 
+\code{\link{layer_stat_cor_plot}()}
 }
 \author{
 Andrew E Jaffe, Leonardo Collado-Torres
 }
+\concept{Layer correlation functions}

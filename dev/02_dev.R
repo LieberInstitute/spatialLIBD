@@ -15,7 +15,7 @@
 # usethis::use_package( "thinkr" ) # To call each time you need a new package
 usethis::use_package('BiocStyle', 'Suggests')
 usethis::use_package('knitcitations', 'Suggests')
-usethis::use_package('ExperimentHub', 'Depends')
+usethis::use_package('ExperimentHub')
 usethis::use_package('SingleCellExperiment', 'Depends')
 usethis::use_package('ggplot2')
 usethis::use_package('cowplot')
@@ -32,6 +32,7 @@ usethis::use_package('utils')
 usethis::use_package('png')
 usethis::use_package('scater')
 usethis::use_package('DT')
+usethis::use_package('lattice')
 
 ## 2.3 Add tests
 

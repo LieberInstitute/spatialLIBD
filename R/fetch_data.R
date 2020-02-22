@@ -1,7 +1,30 @@
-#' Title
+#' Download the Human DLPFC Visium data from LIBD
 #'
-#' @param type
-#' @param destdir
+#' This function downloads from `ExperimentHub` the dorsolateral prefrontal
+#' cortex (DLPFC) human Visium data and results analyzed by LIBD. If
+#' `ExperimentHub` is not available, it will download the files from Dropbox
+#' using [utils::download.file()] unless the files are present already at
+#' `destdir`. Note that `ExperimentHub` will cache the data and automatically
+#' detect if you have previously downloaded it, thus making it the preferred
+#' way to interact with the data.
+#'
+#' @param type A `character(1)` specifying which file you want to download. It
+#' can either be: `sce` for the
+#' [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class]
+#' object containing the spot-level data that includes the information for
+#' visualizing the clusters/genes on top of the Visium histology, `sce_layer`
+#' for the
+#' [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class]
+#' object containing the layer-level data (pseudo-bulked from the spot-level),
+#' or `modeling_results` for the list of tables with the `specificity`,
+#' `pairwise`, and `anova` model results from the layer-level data.
+#'
+#' @param destdir The destination directory to where files will be downloaded
+#' to in case the `ExperimentHub` resource is not available. If you already
+#' downloaded the files, you can set this to the current path where the files
+#' were previously downloaded to avoid re-downloading them.
+#' @param eh An `ExperimentHub` object
+#' [ExperimentHub-class][ExperimentHub::ExperimentHub-class].
 #'
 #' @return
 #' @export
@@ -9,16 +32,21 @@
 #' @importFrom AnnotationHub query
 #' @importFrom methods is
 #' @importFrom utils download.file
+#' @details The data was initially prepared by scripts at
+#' https://github.com/LieberInstitute/HumanPilot and further refined by
+#' https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-data_spatialLIBD.R.
 #'
 #' @examples
 #'
 #' ## Download the SingleCellExperiment object
 #' ## at the layer-level
 #' sce_layer <- fetch_data('sce_layer')
+#'
+#' ## Explore the data
 #' sce_layer
 #'
-#'
-fetch_data <- function(type = 'sce',
+
+fetch_data <- function(type = c('sce', 'sce_layer', 'modeling_results'),
     destdir = tempdir(),
     eh = ExperimentHub::ExperimentHub()) {
     ## Check inputs
@@ -77,6 +105,4 @@ fetch_data <- function(type = 'sce',
     } else {
         return(q[[1]])
     }
-
-
 }

@@ -21,5 +21,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Leonardo Collado-Torres \email{lcolladotor@gmail.com} (\href{https://orcid.org/0000-0003-2140-308X}{ORCID})
 
+Other contributors:
+\itemize{
+  \item Andrew E. Jaffe \email{andrew.jaffe@libd.org} (\href{https://orcid.org/0000-0001-6886-1454}{ORCID}) [contributor]
+}
+
 }
 \keyword{internal}

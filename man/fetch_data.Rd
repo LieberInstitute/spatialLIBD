@@ -2,29 +2,58 @@
 % Please edit documentation in R/fetch_data.R
 \name{fetch_data}
 \alias{fetch_data}
-\title{Title}
+\title{Download the Human DLPFC Visium data from LIBD}
 \usage{
 fetch_data(
-  type = "sce",
+  type = c("sce", "sce_layer", "modeling_results"),
   destdir = tempdir(),
   eh = ExperimentHub::ExperimentHub()
 )
 }
 \arguments{
-\item{destdir}{}
+\item{type}{A \code{character(1)} specifying which file you want to download. It
+can either be: \code{sce} for the
+\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
+object containing the spot-level data that includes the information for
+visualizing the clusters/genes on top of the Visium histology, \code{sce_layer}
+for the
+\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
+object containing the layer-level data (pseudo-bulked from the spot-level),
+or \code{modeling_results} for the list of tables with the \code{specificity},
+\code{pairwise}, and \code{anova} model results from the layer-level data.}
+
+\item{destdir}{The destination directory to where files will be downloaded
+to in case the \code{ExperimentHub} resource is not available. If you already
+downloaded the files, you can set this to the current path where the files
+were previously downloaded to avoid re-downloading them.}
+
+\item{eh}{An \code{ExperimentHub} object
+\link[ExperimentHub:ExperimentHub-class]{ExperimentHub-class}.}
 }
 \value{
 
 }
 \description{
-Title
+This function downloads from \code{ExperimentHub} the dorsolateral prefrontal
+cortex (DLPFC) human Visium data and results analyzed by LIBD. If
+\code{ExperimentHub} is not available, it will download the files from Dropbox
+using \code{\link[utils:download.file]{utils::download.file()}} unless the files are present already at
+\code{destdir}. Note that \code{ExperimentHub} will cache the data and automatically
+detect if you have previously downloaded it, thus making it the preferred
+way to interact with the data.
+}
+\details{
+The data was initially prepared by scripts at
+https://github.com/LieberInstitute/HumanPilot and further refined by
+https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-data_spatialLIBD.R.
 }
 \examples{
 
 ## Download the SingleCellExperiment object
 ## at the layer-level
 sce_layer <- fetch_data('sce_layer')
-sce_layer
 
+## Explore the data
+sce_layer
 
 }

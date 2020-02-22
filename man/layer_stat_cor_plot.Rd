@@ -2,28 +2,54 @@
 % Please edit documentation in R/layer_stat_cor_plot.R
 \name{layer_stat_cor_plot}
 \alias{layer_stat_cor_plot}
-\title{Title}
+\title{Visualize the layer modeling correlation of statistics}
 \usage{
 layer_stat_cor_plot(cor_stats_layer, max = 0.81, min = -max)
 }
 \arguments{
-\item{min}{}
+\item{cor_stats_layer}{The output of \code{\link[=layer_stat_cor]{layer_stat_cor()}}.}
+
+\item{max}{A \code{numeric(1)} specifying the highest correlation value for the
+color scale (should be between 0 and 1).}
+
+\item{min}{A \code{numeric(1)} specifying the lowest correlation value for the
+color scale (should be between 0 and -1).}
 }
 \value{
-
+A heatmap for the correlation matrix between statistics.
 }
 \description{
-Title
+This function makes a heatmap from the \code{\link[=layer_stat_cor]{layer_stat_cor()}} correlation matrix
+between a given set of cell cluster/type statistics derived from scRNA-seq
+or snRNA-seq data (among other types) and the layer statistics from the
+Human DLPFC Visium data (when using the default arguments).
+}
+\details{
+Check
+https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R
+for a full analysis from which this family of functions is derived from.
 }
 \examples{
 
+## Obtain the necessary data
 ori_modeling_results <- fetch_data(type = 'modeling_results')
 
-cor_stats_layer <- layer_stat_cor(tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer, ori_modeling_results, 'specificity')
+## Compute the correlations
+cor_stats_layer <- layer_stat_cor(
+    tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
+    ori_modeling_results,
+    'specificity'
+)
 
+## Visualize the correlation matrix
 layer_stat_cor_plot(cor_stats_layer)
 
+}
+\seealso{
+Other Layer correlation functions: 
+\code{\link{layer_stat_cor}()}
 }
 \author{
 Andrew E Jaffe, Leonardo Collado-Torres
 }
+\concept{Layer correlation functions}

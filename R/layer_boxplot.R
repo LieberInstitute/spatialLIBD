@@ -1,11 +1,12 @@
 #' Layer-level (group-level) boxplots
 #'
-#' This function uses the output of `sig_genes_extract_all()` as well as the
+#' This function uses the output of [sig_genes_extract_all()] as well as the
 #' logcounts from the layer-level (group-level) data to visualize the expression
 #' of a given gene and display the modeling results for the given gene.
 #'
-#' @param i Which row of `sig_genes` do you want to plot?
-#' @param sig_genes The output of `sig_genes_extract_all()`.
+#' @param i A `integer(1)` indicating which row of `sig_genes` do you want to
+#' plot.
+#' @param sig_genes The output of [sig_genes_extract_all()].
 #' @param short_title A `logical(1)` indicating whether to print a short title
 #' or not.
 #' @inheritParams sig_genes_extract

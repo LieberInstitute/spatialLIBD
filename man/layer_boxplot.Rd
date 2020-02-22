@@ -19,9 +19,10 @@ layer_boxplot(
 )
 }
 \arguments{
-\item{i}{Which row of \code{sig_genes} do you want to plot?}
+\item{i}{A \code{integer(1)} indicating which row of \code{sig_genes} do you want to
+plot.}
 
-\item{sig_genes}{The output of \code{sig_genes_extract_all()}.}
+\item{sig_genes}{The output of \code{\link[=sig_genes_extract_all]{sig_genes_extract_all()}}.}
 
 \item{short_title}{A \code{logical(1)} indicating whether to print a short title
 or not.}
@@ -30,7 +31,7 @@ or not.}
 \code{fetch_data(type = 'sce_layer')}. This is a
 \link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
 object with the spot-level Visium data compressed via pseudo-bulking to the
-layer-level (group-level) resolution. See \code{fetch_data()} for more details.}
+layer-level (group-level) resolution. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
 \item{col_bkg_box}{Box background color for layers not used when visualizing
 the \code{pairwise} model results.}
@@ -55,7 +56,7 @@ This function creates a boxplot of the layer-level data
 \code{i} of \code{sig_genes}.
 }
 \description{
-This function uses the output of \code{sig_genes_extract_all()} as well as the
+This function uses the output of \code{\link[=sig_genes_extract_all]{sig_genes_extract_all()}} as well as the
 logcounts from the layer-level (group-level) data to visualize the expression
 of a given gene and display the modeling results for the given gene.
 }
