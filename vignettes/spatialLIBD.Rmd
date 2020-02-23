@@ -170,7 +170,16 @@ sapply(modeling_results, dim)
 sapply(modeling_results, function(x)
     head(colnames(x)))
 ```
+
 The modeling statistics are in wide format, which can make some visualizations complicated. The function `sig_genes_extract_all()` provides a way to convert them into long format and add some useful information. Let's do so below.
+
+```{r 'subset_to_reduce_mem_on_travis', echo = FALSE}
+## Maybe subsetting the sce object will help
+## with the memory issues at 
+## https://travis-ci.com/LieberInstitute/spatialLIBD/builds/150177257?utm_medium=notification&utm_source=slack
+sce <- sce[, sce$sample_name == '151673']
+```
+
 
 ```{r 'create_sig_genes'}
 ## Convert to a long format the modeling results
