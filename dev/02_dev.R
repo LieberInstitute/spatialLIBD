@@ -210,6 +210,7 @@ devtools::build_vignettes()
 ## You'll need GitHub there
 usethis::use_github()
 usethis::use_travis(ext = 'com')
+usethis::use_coverage()
 # usethis::use_appveyor()
 
 ## 3.3 build a documentation website

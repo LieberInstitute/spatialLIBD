@@ -9,6 +9,10 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build
 status](https://travis-ci.org/LieberInstitute/spatialLIBD.svg?branch=master)](https://travis-ci.org/LieberInstitute/spatialLIBD)
+[![BioC
+status](http://www.bioconductor.org/shields/build/release/bioc/spatialLIBD.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/spatialLIBD)
+[![Codecov test
+coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?token=GcSS9zWSp7)
 <!-- badges: end -->
 
 The `spatialLIBD` package contains functions for:
@@ -22,6 +26,11 @@ The `spatialLIBD` package contains functions for:
     clusters.
   - Inspecting the data interactively either on your computer or through
     [jhubiostatistics.shinyapps.io/spatialLIBD/](https://jhubiostatistics.shinyapps.io/spatialLIBD/).
+
+For more details, please check the [documentation
+website](http://lieberinstitute.github.io/spatialLIBD) or the
+Bioconductor package landing page
+[here](https://bioconductor.org/packages/spatialLIBD).
 
 ## Installation instructions
 
@@ -68,3 +77,15 @@ citation('spatialLIBD')
 Please note that the `spatialLIBD` project is released with a
 [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to
 this project, you agree to abide by its terms.
+
+## Development tools
+
+  - Testing on Bioc-devel is possible thanks to [R
+    Travis](http://docs.travis-ci.com/user/languages/r/).
+  - Code coverage assessment is possible thanks to
+    [codecov](https://codecov.io/gh).
+  - The [documentation
+    website](http://lieberinstitute.github.io/spatialLIBD) is
+    automatically updated thanks to
+    *[pkgdown](https://CRAN.R-project.org/package=pkgdown)* and
+    *[travis](https://github.com/ropenscilabs/travis)*.
