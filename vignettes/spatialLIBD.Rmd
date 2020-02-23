@@ -49,18 +49,20 @@ bib <- c(
     ExperimentHub = citation('ExperimentHub'),
     ggplot2 = citation('ggplot2'),
     golem = citation('golem'),
+    IRanges = citation('IRanges'),
     knitcitations = citation('knitcitations'),
     knitr = citation('knitr')[3],
     lattice = citation('lattice'),
-    pkgload = citation('pkgload'),
     plotly = citation('plotly'),
     Polychrome = citation('Polychrome'),
     RColorBrewer = citation('RColorBrewer'),
     rmarkdown = citation('rmarkdown')[1],
+    S4Vectors = citation('S4Vectors'),
     scater = citation('scater'),
     sessioninfo = citation('sessioninfo'),
     SingleCellExperiment = citation('SingleCellExperiment'),
     shiny = citation('shiny'),
+    SummarizedExperiment = citation('SummarizedExperiment'),
     testthat = citation('testthat'),
     viridisLite = citation('viridisLite'),
     spatialLIBD = citation('spatialLIBD')[1],
@@ -532,7 +534,9 @@ stopifnot(all(c('counts', 'logcounts') %in% assayNames(sce)))
 ## For the layer-level data, some of the shiny code is tailored to our data
 ## though you could change it. Hence they requirements are fairly specific.
 stopifnot('layer_guess_reordered' %in% colnames(colData(sce_layer)))
-stopifnot(all(c(paste0('Layer', 1:6), 'WM') %in% sce_layer$layer_guess_reordered))
+stopifnot(all(c(paste0('Layer', seq_len(
+    6
+)), 'WM') %in% sce_layer$layer_guess_reordered))
 stopifnot(all(
     c('specificity', 'pairwise', 'anova') %in% names(modeling_results)
 ))
@@ -567,18 +571,20 @@ The `r Biocpkg('spatialLIBD')` package `r citep(bib[['spatialLIBD']])` was made 
 * `r Biocpkg('ExperimentHub')` `r citep(bib[['ExperimentHub']])`
 * `r CRANpkg('ggplot2')` `r citep(bib[['ggplot2']])`
 * `r CRANpkg('golem')` `r citep(bib[['golem']])`
+* `r Biocpkg('IRanges')` `r citep(bib[['IRanges']])`
 * `r CRANpkg('knitcitations')` `r citep(bib[['knitcitations']])`
 * `r CRANpkg('knitr')` `r citep(bib[['knitr']])`
 * `r CRANpkg('lattice')` `r citep(bib[['lattice']])`
-* `r CRANpkg('pkgload')` `r citep(bib[['pkgload']])`
 * `r CRANpkg('plotly')` `r citep(bib[['plotly']])`
 * `r CRANpkg('Polychrome')` `r citep(bib[['Polychrome']])`
 * `r CRANpkg('RColorBrewer')` `r citep(bib[['RColorBrewer']])`
 * `r CRANpkg('rmarkdown')` `r citep(bib[['rmarkdown']])`
+* `r Biocpkg('S4Vectors')` `r citep(bib[['S4Vectors']])`
 * `r Biocpkg('scater')` `r citep(bib[['scater']])`
 * `r CRANpkg('sessioninfo')` `r citep(bib[['sessioninfo']])`
 * `r Biocpkg('SingleCellExperiment')` `r citep(bib[['SingleCellExperiment']])`
 * `r CRANpkg('shiny')` `r citep(bib[['shiny']])`
+* `r Biocpkg('SummarizedExperiment')` `r citep(bib[['SummarizedExperiment']])`
 * `r CRANpkg('testthat')` `r citep(bib[['testthat']])`
 * `r CRANpkg('viridisLite')` `r citep(bib[['viridisLite']])`
 

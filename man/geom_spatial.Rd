@@ -59,7 +59,7 @@ ggplot2::ggplot(sample_df,
         fill = layer_guess
     )) + geom_spatial(
         data = subset(metadata(sce_sub)$image, sample == sample_id),
-        aes(grob = grob),
+        ggplot2::aes(grob = grob),
         x = 0.5,
         y = 0.5
     )

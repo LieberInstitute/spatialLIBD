@@ -34,6 +34,11 @@ usethis::use_package('scater')
 usethis::use_package('DT')
 usethis::use_package('lattice')
 usethis::use_package('RColorBrewer')
+usethis::use_package('SummarizedExperiment')
+usethis::use_package('stats')
+usethis::use_package('graphics')
+usethis::use_package('S4Vectors')
+usethis::use_package('IRanges')
 
 ## 2.3 Add tests
 
@@ -70,6 +75,7 @@ usethis::use_r('gene_set_enrichment')
 usethis::use_r('gene_set_enrichment_plot')
 usethis::use_r('layer_stat_cor')
 usethis::use_r('layer_stat_cor_plot')
+usethis::use_r('data')
 
 ## 2.7 Create files for ExperimentHub
 
@@ -157,7 +163,7 @@ pvals <-
     results_specificity[, grep('p_value_', colnames(results_specificity))]
 
 layer_specific_indices = mapply(function(t, p) {
-    oo = order(t, decreasing = TRUE)[1:100]
+    oo = order(t, decreasing = TRUE)[seq_len(100)]
 },
     as.data.frame(tstats),
     as.data.frame(pvals))

@@ -53,16 +53,16 @@ m <- match(sce$key, layer_guess_tab$key)
 sce$layer_guess[!is.na(m)] <- layer_guess_tab$layer[m[!is.na(m)]]
 sce$layer_guess[which(sce$layer_guess == 'Layer 2/3')] <- 'Layer 3'
 sce$layer_guess <-
-    factor(gsub(' ', '', sce$layer_guess), levels = c('WM', paste0('Layer', 1:6)))
+    factor(gsub(' ', '', sce$layer_guess), levels = c('WM', paste0('Layer', seq_len(6))))
 sce$layer_guess_reordered <-
-    factor(sce$layer_guess, levels = c(paste0('Layer', 1:6), 'WM'))
+    factor(sce$layer_guess, levels = c(paste0('Layer', seq_len(6)), 'WM'))
 sce$layer_guess_reordered_short <- sce$layer_guess_reordered
 levels(sce$layer_guess_reordered_short) <-
     gsub('ayer', '', levels(sce$layer_guess_reordered))
 
 ## From https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/misc_numbers.R
 ix_mito <- grep("^MT-", rowData(sce)$gene_name)
-sce$expr_chrM <- colSums(assays(sce)$counts[ix_mito, ])
+sce$expr_chrM <- colSums(assays(sce)$counts[ix_mito,])
 sce$expr_chrM_ratio <- sce$expr_chrM / sce$sum_umi
 ## Manually compare vs the info from the other script
 summary(sce$expr_chrM_ratio)
@@ -86,7 +86,7 @@ gtf = rtracklayer::import(
 gtf = gtf[gtf$type	== "gene"]
 names(gtf) = gtf$gene_id
 gtf = gtf[map$EnsemblID]
-seqlevels(gtf)[1:25] = paste0("chr", seqlevels(gtf)[1:25])
+seqlevels(gtf)[seq_len(25)] = paste0("chr", seqlevels(gtf)[seq_len(25)])
 # mcols(gtf) = mcols(gtf)[,c(5:9)]
 
 ## Keep the non-empty mcols()
@@ -141,7 +141,7 @@ load(here('Analysis', 'Layer_Guesses', 'rda', 'sce_layer.Rdata'),
 
 ## Fix the rowRanges info
 rowRanges(sce_layer) <-
-    rowRanges(sce)[match(rownames(sce_layer), rownames(sce)),]
+    rowRanges(sce)[match(rownames(sce_layer), rownames(sce)), ]
 
 ## Save the top HVG (layer-level) info
 rowData(sce_layer)$is_top_hvg_sce_layer <-
@@ -149,7 +149,7 @@ rowData(sce_layer)$is_top_hvg_sce_layer <-
 
 ## For the different plots
 sce_layer$layer_guess_reordered <-
-    factor(sce_layer$layer_guess, levels = c(paste0('Layer', 1:6), 'WM'))
+    factor(sce_layer$layer_guess, levels = c(paste0('Layer', seq_len(6)), 'WM'))
 sce_layer$layer_guess_reordered_short <-
     sce_layer$layer_guess_reordered
 levels(sce_layer$layer_guess_reordered_short) <-

@@ -10,6 +10,8 @@
 #' statistics in long format. The specific columns are described further in
 #' the vignette.
 #' @export
+#' @importFrom S4Vectors DataFrame
+#' @importFrom IRanges IntegerList CharacterList
 #' @family Layer modeling functions
 #'
 #' @examples

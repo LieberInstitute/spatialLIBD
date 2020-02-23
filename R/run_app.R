@@ -10,6 +10,8 @@
 #' object with the spot-level Visium data and information required for
 #' visualizing the histology. See [fetch_data()] for more details.
 #' @inheritParams sig_genes_extract
+#' @param sig_genes The output of [sig_genes_extract_all()] which is a table
+#' in long format with the modeling results.
 #' @param image_path A path to the directory containing the low resolution
 #' histology images that is needed for the interactive visualizations with
 #' `plotly`. See
@@ -37,12 +39,12 @@
 run_app <- function(sce = fetch_data(type = 'sce'),
     sce_layer = fetch_data(type = 'sce_layer'),
     modeling_results = fetch_data(type = 'modeling_results'),
-    image_path = system.file('app/www/data', package = 'spatialLIBD'),
     sig_genes = sig_genes_extract_all(
         n = nrow(sce_layer),
         modeling_results = modeling_results,
         sce_layer = sce_layer
     ),
+    image_path = system.file('app/www/data', package = 'spatialLIBD'),
     ...) {
     with_golem_options(
         app = shinyApp(ui = app_ui, server = app_server),

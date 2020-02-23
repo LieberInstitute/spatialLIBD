@@ -14,6 +14,7 @@
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
+#' @importFrom S4Vectors metadata
 #' @family Spatial gene visualization functions
 #'
 #' @examples
@@ -44,6 +45,10 @@ sce_image_gene_p <-
         spatial,
         title,
         viridis = TRUE) {
+
+        ## Some variables
+        imagecol <- imagerow <- key <- COUNT <- NULL
+
         p <-
             ggplot(d,
                 aes(

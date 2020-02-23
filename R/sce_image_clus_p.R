@@ -5,13 +5,14 @@
 #' function that does all the plotting behind [sce_image_clus()]. To visualize
 #' gene-level (or any continuous variable) use [sce_image_gene_p()].
 #'
-#' @param inheritParams sce_image_clus
+#' @inheritParams sce_image_clus
 #' @param d A data.frame with the sample-level information. This is typically
 #' obtained using `as.data.frame(colData(sce))`.
 #' @param title The title for the plot.
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
+#' @importFrom S4Vectors metadata
 #' @family Spatial cluster visualization functions
 #'
 #' @examples
@@ -41,6 +42,10 @@ sce_image_clus_p <-
         colors,
         spatial,
         title) {
+
+        ## Some variables
+        imagecol <- imagerow <- key <- NULL
+
         if (clustervar %in% c(
             'layer_guess',
             'layer_guess_reordered',

@@ -14,6 +14,8 @@
 #'
 #' @return A list of [ggplot2][ggplot2::ggplot] objects.
 #' @export
+#' @importFrom grDevices pdf dev.off
+#' @importFrom SummarizedExperiment colData<-
 #' @family Spatial cluster visualization functions
 #' @details This function prepares the data and then loops through
 #' [sce_image_clus()] for computing the list of [ggplot2][ggplot2::ggplot]

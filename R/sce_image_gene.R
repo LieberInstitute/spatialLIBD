@@ -23,6 +23,7 @@
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
+#' @importFrom SummarizedExperiment assays
 #' @family Spatial gene visualization functions
 #' @details This function subsets `sce` to the given sample and prepares the
 #' data and title for [sce_image_gene_p()]. It also adds a caption to the plot.

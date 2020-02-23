@@ -14,6 +14,7 @@
 #' [stats::fisher.test()].
 #'
 #' @export
+#' @importFrom stats fisher.test
 #' @family Gene set enrichment functions
 #' @author Andrew E Jaffe, Leonardo Collado-Torres
 #' @details Check
@@ -110,7 +111,8 @@ gene_set_enrichment <-
         enrichTab$fdr_cut <- fdr_cut
 
         enrichTab$P_thresh <- enrichTab$Pval
-        enrichTab$P_thresh[which(enrichTab$P_thresh < 2.2e-16)] <- 2.2e-16
+        enrichTab$P_thresh[which(enrichTab$P_thresh < 2.2e-16)] <-
+            2.2e-16
 
         return(enrichTab)
 
