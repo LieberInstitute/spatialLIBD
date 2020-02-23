@@ -19,7 +19,6 @@ LazyData: true
 Imports: 
     shiny,
     golem,
-    pkgload,
     ggplot2,
     cowplot,
     plotly,
@@ -37,7 +36,12 @@ Imports:
     DT,
     lattice,
     ExperimentHub,
-    RColorBrewer
+    RColorBrewer,
+    SummarizedExperiment,
+    stats,
+    graphics,
+    S4Vectors,
+    IRanges
 RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/LieberInstitute/spatialLIBD
@@ -49,7 +53,8 @@ Suggests:
     knitcitations,
     testthat (>= 2.1.0)
 VignetteBuilder: knitr
-biocViews: Homo_sapiens, ExperimentHub, GeneExpression, Transcriptomics,
-    Sequencing, SingleCell
+biocViews: Homo_sapiens_Data, ExperimentHub, SequencingData, SingleCellData,
+    ExpressionData, Tissue
 Depends:
-    SingleCellExperiment
+    SingleCellExperiment,
+    R (>= 3.6.2)

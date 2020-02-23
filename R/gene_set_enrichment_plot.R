@@ -50,6 +50,9 @@
 #'
 
 gene_set_enrichment_plot <- function(enrichment) {
+    ## Some variables
+    test <- set <- OR <- P_thresh <- NULL
+
     ggplot(enrichment, aes(
         x = test,
         y = set,

@@ -36,7 +36,7 @@
 #'         fill = layer_guess
 #'     )) + geom_spatial(
 #'         data = subset(metadata(sce_sub)$image, sample == sample_id),
-#'         aes(grob = grob),
+#'         ggplot2::aes(grob = grob),
 #'         x = 0.5,
 #'         y = 0.5
 #'     )
@@ -50,6 +50,12 @@ geom_spatial <-  function(mapping = NULL,
     show.legend = NA,
     inherit.aes = FALSE,
     ...) {
+    ## To avoid a NOTE on R CMD check
+    ggname <- function(prefix, grob) {
+        grob$name <- grid::grobName(grob, prefix)
+        grob
+    }
+
     GeomCustom <- ggproto(
         "GeomCustom",
         Geom,
@@ -61,7 +67,7 @@ geom_spatial <-  function(mapping = NULL,
         draw_group = function(data, panel_scales, coord) {
             vp <- grid::viewport(x = data$x, y = data$y)
             g <- grid::editGrob(data$grob[[1]], vp = vp)
-            ggplot2:::ggname("geom_spatial", g)
+            ggname("geom_spatial", g)
         },
 
         required_aes = c("grob", "x", "y")

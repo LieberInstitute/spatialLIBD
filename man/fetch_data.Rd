@@ -31,7 +31,9 @@ were previously downloaded to avoid re-downloading them.}
 \link[ExperimentHub:ExperimentHub-class]{ExperimentHub-class}.}
 }
 \value{
-
+The requested object: \code{sce}, \code{sce_layer} or \code{modeling_results} that
+you have to assign to an object. If you didn't you can still avoid
+re-loading the object by using \code{.Last.value}.
 }
 \description{
 This function downloads from \code{ExperimentHub} the dorsolateral prefrontal

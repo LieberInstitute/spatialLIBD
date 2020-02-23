@@ -7,12 +7,17 @@
 #' @importFrom viridisLite viridis
 #' @importFrom sessioninfo session_info
 #' @rawNamespace import(plotly, except = last_plot)
-#' @importFrom grDevices as.raster
+#' @importFrom grDevices as.raster pdf dev.off
 #' @importFrom png readPNG
 #' @importFrom scater plotReducedDim
 #' @importFrom DT renderDT
+#' @importFrom utils read.csv write.csv
+#' @importFrom SummarizedExperiment assays
 
 app_server <- function(input, output, session) {
+    ## Some variables
+    COUNT <- model_type <- ensembl <- key <- NULL
+
     ## Get options
     sce <- golem::get_golem_options('sce')
     sce_layer <- golem::get_golem_options('sce_layer')
@@ -47,7 +52,7 @@ app_server <- function(input, output, session) {
 
     ## For layer_guess and related variables
     cols_layers_paper <-
-        libd_layer_colors[-length(libd_layer_colors)]
+        spatialLIBD::libd_layer_colors[-length(spatialLIBD::libd_layer_colors)]
     cols_layers_paper_short <- cols_layers_paper
     names(cols_layers_paper_short) <-
         gsub('ayer', '', names(cols_layers_paper_short))
@@ -348,7 +353,7 @@ app_server <- function(input, output, session) {
 
         ## Add the reduced dims
         red_dims <- reducedDim(sce_sub, reduced_name)
-        colnames(red_dims) <- paste(reduced_name, 'dim', 1:2)
+        colnames(red_dims) <- paste(reduced_name, 'dim', seq_len(2))
         d <- cbind(d, red_dims)
 
         ## Drop points below minCount
@@ -946,7 +951,7 @@ app_server <- function(input, output, session) {
         } else {
             ## Provide a working example when there's no data
             input_stat <-
-                tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer
+                spatialLIBD::tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer
         }
 
         ## Compute the correlations

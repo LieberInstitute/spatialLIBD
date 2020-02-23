@@ -14,6 +14,7 @@
 #' a hierarchical cluster.
 #'
 #' @export
+#' @importFrom stats cor dist hclust
 #' @author Andrew E Jaffe, Leonardo Collado-Torres
 #' @family Layer correlation functions
 #' @details Check
@@ -66,8 +67,8 @@ layer_stat_cor <-
         cor_res <- cor(external_stats, tstats)
 
         ## Re-order just in case the layer names match our names
-        if (identical(colnames(tstats), c('WM', paste0('Layer', 1:6)))) {
-            cor_res <- cor_res[, c(1, 7:2), drop = FALSE]
+        if (identical(colnames(tstats), c('WM', paste0('Layer', seq_len(6))))) {
+            cor_res <- cor_res[, c(1, seq(7, 2)), drop = FALSE]
         }
 
         ## Re-order the rows

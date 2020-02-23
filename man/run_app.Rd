@@ -8,9 +8,9 @@ run_app(
   sce = fetch_data(type = "sce"),
   sce_layer = fetch_data(type = "sce_layer"),
   modeling_results = fetch_data(type = "modeling_results"),
-  image_path = system.file("app/www/data", package = "spatialLIBD"),
   sig_genes = sig_genes_extract_all(n = nrow(sce_layer), modeling_results =
     modeling_results, sce_layer = sce_layer),
+  image_path = system.file("app/www/data", package = "spatialLIBD"),
   ...
 )
 }
@@ -33,6 +33,9 @@ columns \verb{f_stat_*} or \verb{t_stat_*} as well as \verb{p_value_*} and \verb
 \code{ensembl}. The column name is used to extract the statistic results, the
 p-values, and the FDR adjusted p-values. Then the \code{ensembl} column is used
 for matching in some cases. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
+
+\item{sig_genes}{The output of \code{\link[=sig_genes_extract_all]{sig_genes_extract_all()}} which is a table
+in long format with the modeling results.}
 
 \item{image_path}{A path to the directory containing the low resolution
 histology images that is needed for the interactive visualizations with

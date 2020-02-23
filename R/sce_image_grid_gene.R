@@ -10,6 +10,7 @@
 #'
 #' @return A list of [ggplot2][ggplot2::ggplot] objects.
 #' @export
+#' @importFrom grDevices pdf dev.off
 #' @family Spatial gene visualization functions
 #' @details This function prepares the data and then loops through
 #' [sce_image_gene()] for computing the list of [ggplot2][ggplot2::ggplot]

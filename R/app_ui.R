@@ -2,6 +2,7 @@
 #' @importFrom shinyWidgets pickerInput pickerOptions
 #' @import SingleCellExperiment
 #' @importFrom DT DTOutput
+#' @importFrom SummarizedExperiment assays
 app_ui <- function() {
     ## Get options
     sce <- golem::get_golem_options('sce')
@@ -355,7 +356,7 @@ app_ui <- function() {
                                 selectInput(
                                     inputId = 'layer_model_test',
                                     label = 'Model test',
-                                    choices = c(paste0('Layer', 1:6), 'WM'),
+                                    choices = c(paste0('Layer', seq_len(6)), 'WM'),
                                     selected = 'Layer1'
                                 ),
                                 selectInput(

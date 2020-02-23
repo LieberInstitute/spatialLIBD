@@ -7,12 +7,30 @@
 sce_image_clus_p(sce, d, clustervar, sampleid, colors, spatial, title)
 }
 \arguments{
+\item{sce}{Defaults to the output of
+\code{fetch_data(type = 'sce')}. This is a
+\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
+object with the spot-level Visium data and information required for
+visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
+
 \item{d}{A data.frame with the sample-level information. This is typically
 obtained using \code{as.data.frame(colData(sce))}.}
 
-\item{title}{The title for the plot.}
+\item{clustervar}{A \code{character(1)} with the name of the \code{colData(sce)}
+column that has the cluster values.}
 
-\item{inheritParams}{sce_image_clus}
+\item{sampleid}{A \code{character(1)} specifying which sample to plot from
+\code{colData(sce)$sample_name}.}
+
+\item{colors}{A vector of colors to use for visualizing the clusters
+from \code{clustervar}. If the vector has names, then those should match the
+values of \code{clustervar}.}
+
+\item{spatial}{A \code{logical(1)} indicating whether to include the histology
+layer from \code{\link[=geom_spatial]{geom_spatial()}}. If you plan to use
+\link[plotly:ggplotly]{ggplotly()} then it's best to set this to \code{FALSE}.}
+
+\item{title}{The title for the plot.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2} object.

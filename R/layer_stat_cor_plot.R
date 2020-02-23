@@ -18,6 +18,7 @@
 #'
 #' @importFrom RColorBrewer brewer.pal
 #' @importFrom lattice levelplot
+#' @importFrom grDevices colorRampPalette
 #' @details Check
 #' https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R
 #' for a full analysis from which this family of functions is derived from.
