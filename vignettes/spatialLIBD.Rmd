@@ -72,7 +72,7 @@ bib <- c(
 
 # Basics
 
-## Install `r Biocpkg('spatialLIBD')`
+## Install `spatialLIBD`
 
 `R` is an open-source statistical environment which can be easily modified to enhance its functionality via packages. `r Biocpkg('spatialLIBD')` is a `R` package available via Bioconductor. `R` can be installed on any operating system from [CRAN](https://cran.r-project.org/) after which you can install `r Biocpkg('spatialLIBD')` by using the following commands in your `R` session:
 
@@ -96,7 +96,7 @@ If you are asking yourself the question "Where do I start using Bioconductor?" y
 
 As package developers, we try to explain clearly how to use our packages and in which order to use the functions. But `R` and `Bioconductor` have a steep learning curve so it is critical to learn where to ask for help. The blog post quoted above mentions some but we would like to highlight the [Bioconductor support site](https://support.bioconductor.org/) as the main resource for getting help regarding Bioconductor. Other alternatives are available such as creating GitHub issues and tweeting. However, please note that if you want to receive help you should adhere to the [posting guidelines](http://www.bioconductor.org/help/support/posting-guide/). It is particularly critical that you provide a small reproducible example and your session information so package developers can track down the source of the error.
 
-## Citing `r Biocpkg('spatialLIBD')`
+## Citing `spatialLIBD`
 
 We hope that `r Biocpkg('spatialLIBD')` will be useful for your research. Please use the following information to cite the package and the research article describing the data provided by `r Biocpkg('spatialLIBD')`. Thank you!
 
@@ -141,7 +141,7 @@ In summary,
 * `modeling_results` contains the layer-level `specificity`, `pairwise` and `anova` statistics.
 
 
-## Downloading the data with `r Biocpkg('spatialLIBD')`
+## Downloading the data with `spatialLIBD`
 
 Using `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` you can download all of these R objects. They are hosted by [Bioconductor](http://bioconductor.org/)'s `r Biocpkg('ExperimentHub')` `r citep(bib[['ExperimentHub']])` resource and you can download them using `spatialLIBD::fetch_data()`. `fetch_data()` will query `r Biocpkg('ExperimentHub')` which in turn will download the data and cache it so you don't have to download it again. If `r Biocpkg('ExperimentHub')` is unavailable, then `fetch_data()` has a backup option that does not cache the files ^[You can change the `destdir` argument and specific a specific location that you will use and re-use. However the default value of `destdir` is a temporary directory that will be wiped out once you close your R session.] Below we obtain all of these objects.
 
@@ -251,7 +251,7 @@ class(sig_genes)
 dim(sig_genes)
 ```
 
-# Interactively explore the `r Biocpkg('spatialLIBD')` data
+# Interactively explore the `spatialLIBD` data
 
 Now that you have downloaded the data, you can interactively explore the data using a `r CRANpkg('shiny')` `r citep(bib[['shiny']])` web application contained within `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])`. To do so, use the `run_app()` function as shown below:
 
@@ -271,7 +271,7 @@ The `r Biocpkg('spatialLIBD')` `r CRANpkg('shiny')` application allows you to br
 Though overall, this application allows you to export all static visualizations as PDF files or all interactive visualizations as PNG files, as well as all result table as CSV files. This is what produces the version you can access without any R use from your side at [jhubiostatistics.shinyapps.io/spatialLIBD/](https://jhubiostatistics.shinyapps.io/spatialLIBD/).
 
 
-# `r Biocpkg('spatialLIBD')` functions
+# `spatialLIBD` functions
 
 We already covered `fetch_data()` which allows you to download the Human DLPFC Visium data from LIBD researchers and colleagues `r citep(bib[['spatialLIBDpaper']])`.
 
