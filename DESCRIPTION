@@ -59,4 +59,4 @@ biocViews: Homo_sapiens_Data, ExperimentHub, SequencingData, SingleCellData,
     ExpressionData, Tissue
 Depends:
     SingleCellExperiment,
-    R (>= 3.6.2)
+    R (>= 3.6.1)
