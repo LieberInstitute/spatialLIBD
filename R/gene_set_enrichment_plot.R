@@ -1,7 +1,7 @@
 #' Plot the gene set enrichment results
 #'
 #' This function takes the output of [gene_set_enrichment()] and creates a
-#' dotplot visualization of the results.
+#' heatmap visualization of the results.
 #'
 #' @param enrichment The output of [gene_set_enrichment()].
 #' @param xlabs A vector of names in the same order and length as

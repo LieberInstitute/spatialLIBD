@@ -48,7 +48,7 @@ odds ratio and p-value results.
 }
 \description{
 This function takes the output of \code{\link[=gene_set_enrichment]{gene_set_enrichment()}} and creates a
-dotplot visualization of the results.
+heatmap visualization of the results.
 }
 \details{
 Check
