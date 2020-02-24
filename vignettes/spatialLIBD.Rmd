@@ -53,7 +53,6 @@ bib <- c(
     IRanges = citation('IRanges'),
     knitcitations = citation('knitcitations'),
     knitr = citation('knitr')[3],
-    lattice = citation('lattice'),
     plotly = citation('plotly'),
     Polychrome = citation('Polychrome'),
     RColorBrewer = citation('RColorBrewer'),
@@ -642,7 +641,6 @@ The `r Biocpkg('spatialLIBD')` package `r citep(bib[['spatialLIBD']])` was made 
 * `r Biocpkg('IRanges')` `r citep(bib[['IRanges']])`
 * `r CRANpkg('knitcitations')` `r citep(bib[['knitcitations']])`
 * `r CRANpkg('knitr')` `r citep(bib[['knitr']])`
-* `r CRANpkg('lattice')` `r citep(bib[['lattice']])`
 * `r CRANpkg('plotly')` `r citep(bib[['plotly']])`
 * `r CRANpkg('Polychrome')` `r citep(bib[['Polychrome']])`
 * `r CRANpkg('RColorBrewer')` `r citep(bib[['RColorBrewer']])`

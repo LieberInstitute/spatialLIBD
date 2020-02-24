@@ -34,7 +34,6 @@ Imports:
     png,
     scater,
     DT,
-    lattice,
     ExperimentHub,
     RColorBrewer,
     SummarizedExperiment,

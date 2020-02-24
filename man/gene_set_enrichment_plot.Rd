@@ -12,14 +12,14 @@ gene_set_enrichment_plot(
   enrichOnly = FALSE,
   layerHeights = c(0, seq_len(length(unique(enrichment$test)))) * 15,
   mypal = c("white", (grDevices::colorRampPalette(RColorBrewer::brewer.pal(9,
-    "BuGn")))(50))
+    "YlOrRd")))(50))
 )
 }
 \arguments{
 \item{enrichment}{The output of \code{\link[=gene_set_enrichment]{gene_set_enrichment()}}.}
 
 \item{xlabs}{A vector of names in the same order and length as
-\code{unique(enrichment$ID)}.}
+\code{unique(enrichment$ID)}. Gets passed to \code{\link[=layer_matrix_plot]{layer_matrix_plot()}}.}
 
 \item{PThresh}{A \code{numeric(1)} specifying the P-value threshold for the
 maximum value in the \code{-log10(p)} scale.}
@@ -34,9 +34,10 @@ values greater than 1.}
 \item{layerHeights}{A \code{numeric()} vector of length equal to
 \code{length(unique(enrichment$test)) + 1} that starts at 0 specifying where
 to plot the y-axis breaks which can be used for re-creating the length of
-each brain layer.}
+each brain layer. Gets passed to \code{\link[=layer_matrix_plot]{layer_matrix_plot()}}.}
 
-\item{mypal}{A vector with the color palette to use.}
+\item{mypal}{A vector with the color palette to use. Gets passed to
+\code{\link[=layer_matrix_plot]{layer_matrix_plot()}}.}
 }
 \value{
 A plot visualizing the gene set enrichment
@@ -82,9 +83,15 @@ asd_sfari_enrichment <- gene_set_enrichment(
 )
 
 ## Visualize the gene set enrichment results
+## with a custom color palette
 gene_set_enrichment_plot(
     asd_sfari_enrichment,
-    xlabs = gsub('.*_', '', unique(asd_sfari_enrichment$ID))
+    xlabs = gsub('.*_', '', unique(asd_sfari_enrichment$ID)),
+    mypal = c("white",
+           grDevices::colorRampPalette(
+               RColorBrewer::brewer.pal(9, "BuGn")
+           )(50)
+    )
 )
 
 ## Specify the layer heights so it resembles more the length of each
@@ -92,11 +99,13 @@ gene_set_enrichment_plot(
 gene_set_enrichment_plot(
     asd_sfari_enrichment,
     xlabs = gsub('.*_', '', unique(asd_sfari_enrichment$ID)),
-    layerHeights = c(0, 40, 55, 75, 85, 110, 120, 135)
+    layerHeights = c(0, 40, 55, 75, 85, 110, 120, 135),
 )
 
 }
 \seealso{
+layer_matrix_plot
+
 Other Gene set enrichment functions: 
 \code{\link{gene_set_enrichment}()}
 }

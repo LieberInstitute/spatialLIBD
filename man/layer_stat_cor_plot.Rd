@@ -4,7 +4,12 @@
 \alias{layer_stat_cor_plot}
 \title{Visualize the layer modeling correlation of statistics}
 \usage{
-layer_stat_cor_plot(cor_stats_layer, max = 0.81, min = -max)
+layer_stat_cor_plot(
+  cor_stats_layer,
+  max = 0.81,
+  min = -max,
+  layerHeights = NULL
+)
 }
 \arguments{
 \item{cor_stats_layer}{The output of \code{\link[=layer_stat_cor]{layer_stat_cor()}}.}
@@ -47,6 +52,8 @@ layer_stat_cor_plot(cor_stats_layer)
 
 }
 \seealso{
+layer_matrix_plot
+
 Other Layer correlation functions: 
 \code{\link{layer_stat_cor}()}
 }
