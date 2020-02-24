@@ -14,7 +14,8 @@ layer_matrix_plot(
   breaks = NULL,
   axis.args = NULL,
   srt = 45,
-  mar = c(8, 4, 4, 2) + 0.1
+  mar = c(8, 4, 4, 2) + 0.1,
+  cex = 1.2
 )
 }
 \arguments{
@@ -44,6 +45,8 @@ each brain layer.}
 \item{srt}{The angle for the x-axis labels. Used by \code{\link[=layer_stat_cor_plot]{layer_stat_cor_plot()}}.}
 
 \item{mar}{Passed to \code{\link[graphics:par]{graphics::par()}}.}
+
+\item{cex}{Used for the x-axis labels and the text inside the cells.}
 }
 \value{
 A base R plot visualizing the input \code{matrix_values} with optional
@@ -74,7 +77,11 @@ layer_matrix_plot(mat, mat_text)
 layer_matrix_plot(
     mat,
     mat_text,
-    layerHeights = c(0, 40, 55, 75, 85, 110, 120, 135)
+    layerHeights = c(0, 40, 55, 75, 85, 110, 120, 135),
+    cex = 2
 )
 
+}
+\author{
+Andrew E Jaffe, Leonardo Collado-Torres
 }

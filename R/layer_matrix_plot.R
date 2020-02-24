@@ -23,12 +23,14 @@
 #' [layer_stat_cor_plot()].
 #' @param srt The angle for the x-axis labels. Used by [layer_stat_cor_plot()].
 #' @param mar Passed to [graphics::par()].
+#' @param cex Used for the x-axis labels and the text inside the cells.
 #'
 #' @return A base R plot visualizing the input `matrix_values` with optional
 #' text labels for `matrix_labels`.
 #' @importFrom fields image.plot
 #' @importFrom graphics axis text abline par
 #' @export
+#' @author Andrew E Jaffe, Leonardo Collado-Torres
 #'
 #' @examples
 #'
@@ -49,7 +51,8 @@
 #' layer_matrix_plot(
 #'     mat,
 #'     mat_text,
-#'     layerHeights = c(0, 40, 55, 75, 85, 110, 120, 135)
+#'     layerHeights = c(0, 40, 55, 75, 85, 110, 120, 135),
+#'     cex = 2
 #' )
 #'
 
@@ -63,7 +66,8 @@ layer_matrix_plot <-
         breaks = NULL,
         axis.args = NULL,
         srt = 45,
-        mar = c(8, 4, 4, 2) + 0.1) {
+        mar = c(8, 4, 4, 2) + 0.1,
+        cex = 1.2) {
         ## Create some default values in case the user didn't specify them
         if (is.null(xlabs)) {
             if (is.null(colnames(matrix_values))) {
@@ -121,11 +125,11 @@ layer_matrix_plot <-
         axis(1, rep("", ncol(matrix_values)), at = seq(0.5, ncol(matrix_values) - 0.5))
         text(
             x = seq(0.5, ncol(matrix_values) - 0.5),
-            y = -1 * max(nchar(xlabs)) / 2,
+            y = -1 * max(nchar(xlabs)),
             xlabs,
             xpd = TRUE,
             srt = srt,
-            cex = 2,
+            cex = cex,
             adj = 1
         )
         abline(h = layerHeights, v = c(0, seq_len(ncol(matrix_values))))
@@ -133,7 +137,7 @@ layer_matrix_plot <-
             x = rep(seq(0.5, ncol(matrix_values) - 0.5), each = nrow(matrix_values)),
             y = rep(midpoint(layerHeights), ncol(matrix_values)),
             as.character(matrix_labels),
-            cex = 1.5,
+            cex = cex * 3/4,
             font = 2
         )
 

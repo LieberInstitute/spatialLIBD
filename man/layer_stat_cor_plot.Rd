@@ -8,7 +8,8 @@ layer_stat_cor_plot(
   cor_stats_layer,
   max = 0.81,
   min = -max,
-  layerHeights = NULL
+  layerHeights = NULL,
+  cex = 1.2
 )
 }
 \arguments{
@@ -19,6 +20,13 @@ color scale (should be between 0 and 1).}
 
 \item{min}{A \code{numeric(1)} specifying the lowest correlation value for the
 color scale (should be between 0 and -1).}
+
+\item{layerHeights}{A \code{numeric()} vector of length equal to
+\code{ncol(cor_stats_layer) + 1} that starts at 0 specifying where
+to plot the y-axis breaks which can be used for re-creating the length of
+each brain layer. Gets passed to \code{\link[=layer_matrix_plot]{layer_matrix_plot()}}.}
+
+\item{cex}{Passed to \code{\link[=layer_matrix_plot]{layer_matrix_plot()}}.}
 }
 \value{
 A heatmap for the correlation matrix between statistics.
