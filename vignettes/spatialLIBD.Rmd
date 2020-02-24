@@ -47,6 +47,7 @@ bib <- c(
     cowplot = citation('cowplot'),
     DT = citation('DT'),
     ExperimentHub = citation('ExperimentHub'),
+    fields = citation('fields'),
     ggplot2 = citation('ggplot2'),
     golem = citation('golem'),
     IRanges = citation('IRanges'),
@@ -502,11 +503,15 @@ asd_sfari_enrichment <- gene_set_enrichment(
 ## Explore the results
 head(asd_sfari_enrichment)
 ```
-Using the above enrichment table, we can then visualize the odds ratios on a dot plot as shown below. NOte that we use the thresholded p-values at 2.2e-16 for visualization purposes.
+Using the above enrichment table, we can then visualize the odds ratios on a dot plot as shown below. Note that we use the thresholded p-values at `-log10(p) = 12` for visualization purposes and only show the odds ratios for `-log10(p) > 3` by default.
 
 ```{r 'sfari_enrichment_plot'}
 ## Visualize gene set enrichment results
-gene_set_enrichment_plot(asd_sfari_enrichment)
+gene_set_enrichment_plot(
+    asd_sfari_enrichment,
+    xlabs = gsub('.*_', '', unique(asd_sfari_enrichment$ID)),
+    layerHeights = c(0, 40, 55, 75, 85, 110, 120, 135)
+)
 ```
 
 The `r CRANpkg('shiny')` application provided by `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` allows users to upload CSV file their gene lists, compute the enrichments, visualize them, download the PDF, and download the enrichment table. An example CSV file is provided [here](https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/asd_sfari_geneList.csv).
@@ -631,6 +636,7 @@ The `r Biocpkg('spatialLIBD')` package `r citep(bib[['spatialLIBD']])` was made 
 * `r CRANpkg('cowplot')` `r citep(bib[['cowplot']])`
 * `r CRANpkg('DT')` `r citep(bib[['DT']])`
 * `r Biocpkg('ExperimentHub')` `r citep(bib[['ExperimentHub']])`
+* `r CRANpkg('fields')` `r citep(bib[['fields']])`
 * `r CRANpkg('ggplot2')` `r citep(bib[['ggplot2']])`
 * `r CRANpkg('golem')` `r citep(bib[['golem']])`
 * `r Biocpkg('IRanges')` `r citep(bib[['IRanges']])`

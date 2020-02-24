@@ -102,17 +102,13 @@ gene_set_enrichment <-
                     test = colnames(tstats)[i],
                     stringsAsFactors = FALSE
                 )
-                o$set <- gsub(".odds ratio", "", rownames(o))
+                o$ID <- gsub(".odds ratio", "", rownames(o))
                 rownames(o) <- NULL
                 return(o)
             }))
 
         enrichTab$model_type <- model_type
         enrichTab$fdr_cut <- fdr_cut
-
-        enrichTab$P_thresh <- enrichTab$Pval
-        enrichTab$P_thresh[which(enrichTab$P_thresh < 2.2e-16)] <-
-            2.2e-16
 
         return(enrichTab)
 

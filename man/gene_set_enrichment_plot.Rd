@@ -4,13 +4,42 @@
 \alias{gene_set_enrichment_plot}
 \title{Plot the gene set enrichment results}
 \usage{
-gene_set_enrichment_plot(enrichment)
+gene_set_enrichment_plot(
+  enrichment,
+  xlabs = unique(enrichment$ID),
+  PThresh = 12,
+  ORcut = 3,
+  enrichOnly = FALSE,
+  layerHeights = c(0, seq_len(length(unique(enrichment$test)))) * 15,
+  mypal = c("white", (grDevices::colorRampPalette(RColorBrewer::brewer.pal(9,
+    "BuGn")))(50))
+)
 }
 \arguments{
 \item{enrichment}{The output of \code{\link[=gene_set_enrichment]{gene_set_enrichment()}}.}
+
+\item{xlabs}{A vector of names in the same order and length as
+\code{unique(enrichment$ID)}.}
+
+\item{PThresh}{A \code{numeric(1)} specifying the P-value threshold for the
+maximum value in the \code{-log10(p)} scale.}
+
+\item{ORcut}{A \code{numeric(1)} specifying the P-value threshold for the
+minimum value in the \code{-log10(p)} scale for printing the odds ratio values
+in the cells of the resulting plot.}
+
+\item{enrichOnly}{A \code{logical(1)} indicating whether to show only odds ratio
+values greater than 1.}
+
+\item{layerHeights}{A \code{numeric()} vector of length equal to
+\code{length(unique(enrichment$test)) + 1} that starts at 0 specifying where
+to plot the y-axis breaks which can be used for re-creating the length of
+each brain layer.}
+
+\item{mypal}{A vector with the color palette to use.}
 }
 \value{
-A \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} object visualizing the gene set enrichment
+A plot visualizing the gene set enrichment
 odds ratio and p-value results.
 }
 \description{
@@ -53,7 +82,18 @@ asd_sfari_enrichment <- gene_set_enrichment(
 )
 
 ## Visualize the gene set enrichment results
-gene_set_enrichment_plot(asd_sfari_enrichment)
+gene_set_enrichment_plot(
+    asd_sfari_enrichment,
+    xlabs = gsub('.*_', '', unique(asd_sfari_enrichment$ID))
+)
+
+## Specify the layer heights so it resembles more the length of each
+## layer in the brain
+gene_set_enrichment_plot(
+    asd_sfari_enrichment,
+    xlabs = gsub('.*_', '', unique(asd_sfari_enrichment$ID)),
+    layerHeights = c(0, 40, 55, 75, 85, 110, 120, 135)
+)
 
 }
 \seealso{
