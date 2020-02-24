@@ -73,7 +73,8 @@ layer_stat_cor_plot <-
         delta <- (midpoints[2] - midpoints[1])/2
         breaks <- c(midpoints[1] - delta, midpoints + delta)
 
-        legend_cuts <- seq(round(min * 10, 0) / 10, round(max * 10, 0) / 10, by = 0.1)
+        legend_cuts <- seq(-1, 1, by = 0.1)
+        legend_cuts <- legend_cuts[legend_cuts >= min & legend_cuts <= max]
         axis.args <- list(
             at = legend_cuts,
             labels = legend_cuts
