@@ -455,12 +455,14 @@ layer_stat_cor_plot(cor_stats_layer, max = max(cor_stats_layer))
 
 In order to fully interpret the resulting heatmap you need to know what each of the cell clusters labels mean. In this case, the syntax is `xx (Y)` where `xx` is the cluster number and `Y` is:
 
-1. TODO
-2. TODO
-3. TODO
-4. TODO
-5. TODO
-6. TODO
+1. `Excit`: excitatory neurons.
+2. `Inhib`: inhibitory neurons.
+3. `Oligo`: oligodendrocytes.
+4. `Astro`: astrocytes.
+5. `OPC`: oligodendrocyte progenitor cells.
+6. `Drop`: an ambiguous cluster of cells that potentially should be dropped.
+
+You can find the version with the full names [here](https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/pdf/snRNAseq_overlap_heatmap.pdf) if you are interested in it.
 
 The `r CRANpkg('shiny')` application provided by `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` allows users to upload CSV file with these t-statistics, view the correlation heatmaps, download them, and download the correlation matrix. An example CSV file is provided [here](https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv).
 
@@ -502,7 +504,7 @@ asd_sfari_enrichment <- gene_set_enrichment(
 ## Explore the results
 head(asd_sfari_enrichment)
 ```
-Using the above enrichment table, we can then visualize the odds ratios on a dot plot as shown below. Note that we use the thresholded p-values at `-log10(p) = 12` for visualization purposes and only show the odds ratios for `-log10(p) > 3` by default.
+Using the above enrichment table, we can then visualize the odds ratios on a heatmap as shown below. Note that we use the thresholded p-values at `-log10(p) = 12` for visualization purposes and only show the odds ratios for `-log10(p) > 3` by default.
 
 ```{r 'sfari_enrichment_plot'}
 ## Visualize gene set enrichment results
