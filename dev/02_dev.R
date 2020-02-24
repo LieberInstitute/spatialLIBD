@@ -39,6 +39,7 @@ usethis::use_package('stats')
 usethis::use_package('graphics')
 usethis::use_package('S4Vectors')
 usethis::use_package('IRanges')
+usethis::use_package('fields')
 
 ## 2.3 Add tests
 
