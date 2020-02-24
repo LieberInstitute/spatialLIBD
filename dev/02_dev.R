@@ -32,7 +32,6 @@ usethis::use_package('utils')
 usethis::use_package('png')
 usethis::use_package('scater')
 usethis::use_package('DT')
-usethis::use_package('lattice')
 usethis::use_package('RColorBrewer')
 usethis::use_package('SummarizedExperiment')
 usethis::use_package('stats')
@@ -77,6 +76,7 @@ usethis::use_r('gene_set_enrichment_plot')
 usethis::use_r('layer_stat_cor')
 usethis::use_r('layer_stat_cor_plot')
 usethis::use_r('data')
+usethis::use_r('layer_matrix_plot')
 
 ## 2.7 Create files for ExperimentHub
 

@@ -15,9 +15,9 @@
 #' @export
 #' @author Andrew E Jaffe, Leonardo Collado-Torres
 #' @family Layer correlation functions
+#' @seealso layer_matrix_plot
 #'
 #' @importFrom RColorBrewer brewer.pal
-#' @importFrom lattice levelplot
 #' @importFrom grDevices colorRampPalette
 #' @details Check
 #' https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R
@@ -39,19 +39,48 @@
 #' ## Visualize the correlation matrix
 #' layer_stat_cor_plot(cor_stats_layer)
 #'
-layer_stat_cor_plot <- function(cor_stats_layer, max = 0.81, min = -max) {
+layer_stat_cor_plot <-
+    function(cor_stats_layer,
+        max = 0.81,
+        min = -max,
+        layerHeights  = NULL) {
+        ## From https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R
+        theSeq <- seq(min, max, by = 0.01)
+        my.col <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(7, "PRGn"))(length(theSeq))
 
-    ## From https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R
-    theSeq <- seq(min, max, by = 0.01)
-    my.col <- colorRampPalette(RColorBrewer::brewer.pal(7, "PRGn"))(length(theSeq))
+        ## Re-shape the matrix
+        mat_vals <- t(cor_stats_layer)
 
-    lattice::levelplot(
-        cor_stats_layer,
-        aspect = "fill",
-        at = theSeq,
-        col.regions = my.col,
-        ylab = "",
-        xlab = "",
-        scales = list(x = list(rot = 90, cex = 1.5), y = list(cex = 1.5))
-    )
-}
+        ## Re-order and shorten names if they match our data
+        if (all(rownames(mat_vals) %in% c('WM', paste0('Layer', seq_len(6))))) {
+            rownames(mat_vals) <- gsub('ayer', '', rownames(mat_vals))
+            mat_vals <- mat_vals[c('WM', paste0('L', rev(seq_len(6)))), , drop = FALSE]
+
+            ## Use our default layer heights also
+            if(is.null(layerHeights)) {
+                layerHeights <- c(0, 40, 55, 75, 85, 110, 120, 135)
+            }
+        }
+
+        ## From fields:::imagePlotInfo
+        midpoints <- seq(min, max, length.out = length(my.col))
+        delta <- (midpoints[2] - midpoints[1])/2
+        breaks <- c(midpoints[1] - delta, midpoints + delta)
+
+        legend_cuts <- seq(round(min * 10, 0) / 10, round(max * 10, 0) / 10, by = 0.1)
+        axis.args <- list(
+            at = legend_cuts,
+            labels = legend_cuts
+        )
+
+        layer_matrix_plot(
+            matrix_values = mat_vals,
+            matrix_labels = NULL,
+            xlabs = NULL,
+            layerHeights = layerHeights,
+            mypal = my.col,
+            breaks = breaks,
+            axis.args = axis.args,
+            srt = 90
+        )
+    }
