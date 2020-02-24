@@ -19,6 +19,7 @@
 #' each brain layer. Gets passed to [layer_matrix_plot()].
 #' @param mypal A vector with the color palette to use. Gets passed to
 #' [layer_matrix_plot()].
+#' @param cex Passed to [layer_matrix_plot()].
 #'
 #' @return A plot visualizing the gene set enrichment
 #' odds ratio and p-value results.
@@ -90,7 +91,8 @@ gene_set_enrichment_plot <-
         enrichOnly = FALSE,
         layerHeights = c(0, seq_len(length(unique(enrichment$test)))) * 15,
         mypal = c("white",
-            grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "YlOrRd"))(50))) {
+            grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "YlOrRd"))(50)),
+        cex = 1.2) {
         ## Re-order and shorten names if they match our data
         if (all(unique(enrichment$test) %in% c('WM', paste0('Layer', seq_len(6))))) {
             enrichment$test <-
@@ -143,6 +145,7 @@ gene_set_enrichment_plot <-
             matrix_labels = wide_or,
             xlabs = xlabs,
             layerHeights = layerHeights,
-            mypal = mypal
+            mypal = mypal,
+            cex = cex
         )
     }

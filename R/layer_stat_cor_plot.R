@@ -10,6 +10,11 @@
 #' color scale (should be between 0 and 1).
 #' @param min A `numeric(1)` specifying the lowest correlation value for the
 #' color scale (should be between 0 and -1).
+#' @param layerHeights A `numeric()` vector of length equal to
+#' `ncol(cor_stats_layer) + 1` that starts at 0 specifying where
+#' to plot the y-axis breaks which can be used for re-creating the length of
+#' each brain layer. Gets passed to [layer_matrix_plot()].
+#' @param cex Passed to [layer_matrix_plot()].
 #'
 #' @return A heatmap for the correlation matrix between statistics.
 #' @export
@@ -43,7 +48,8 @@ layer_stat_cor_plot <-
     function(cor_stats_layer,
         max = 0.81,
         min = -max,
-        layerHeights  = NULL) {
+        layerHeights = NULL,
+        cex = 1.2) {
         ## From https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R
         theSeq <- seq(min, max, by = 0.01)
         my.col <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(7, "PRGn"))(length(theSeq))
@@ -81,6 +87,7 @@ layer_stat_cor_plot <-
             mypal = my.col,
             breaks = breaks,
             axis.args = axis.args,
-            srt = 90
+            srt = 90,
+            cex = cex
         )
     }

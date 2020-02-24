@@ -12,7 +12,8 @@ gene_set_enrichment_plot(
   enrichOnly = FALSE,
   layerHeights = c(0, seq_len(length(unique(enrichment$test)))) * 15,
   mypal = c("white", (grDevices::colorRampPalette(RColorBrewer::brewer.pal(9,
-    "YlOrRd")))(50))
+    "YlOrRd")))(50)),
+  cex = 1.2
 )
 }
 \arguments{
@@ -38,6 +39,8 @@ each brain layer. Gets passed to \code{\link[=layer_matrix_plot]{layer_matrix_pl
 
 \item{mypal}{A vector with the color palette to use. Gets passed to
 \code{\link[=layer_matrix_plot]{layer_matrix_plot()}}.}
+
+\item{cex}{Passed to \code{\link[=layer_matrix_plot]{layer_matrix_plot()}}.}
 }
 \value{
 A plot visualizing the gene set enrichment
