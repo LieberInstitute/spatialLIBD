@@ -125,7 +125,7 @@ layer_matrix_plot <-
         axis(1, rep("", ncol(matrix_values)), at = seq(0.5, ncol(matrix_values) - 0.5))
         text(
             x = seq(0.5, ncol(matrix_values) - 0.5),
-            y = -1 * max(nchar(xlabs)),
+            y = -1 * max(nchar(xlabs)) / 2,
             xlabs,
             xpd = TRUE,
             srt = srt,

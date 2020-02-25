@@ -146,6 +146,7 @@ gene_set_enrichment_plot <-
             xlabs = xlabs,
             layerHeights = layerHeights,
             mypal = mypal,
-            cex = cex
+            cex = cex,
+            mar = c(12, 4, 4, 2) + 0.1
         )
     }
