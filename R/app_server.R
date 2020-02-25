@@ -961,7 +961,7 @@ app_server <- function(input, output, session) {
 
     static_layer_external_tstat_plot <- reactive({
         layer_stat_cor_plot(static_layer_external_tstat(),
-            input$layer_tstat_max)
+            max(c(0.1, input$layer_tstat_max)))
     })
 
     ## layer download PDF buttons
@@ -1098,7 +1098,7 @@ app_server <- function(input, output, session) {
                 width = 12
             )
             layer_stat_cor_plot(static_layer_external_tstat(),
-                input$layer_tstat_max)
+                max(c(0.1, input$layer_tstat_max)))
             dev.off()
         }
     )
