@@ -10,7 +10,7 @@ run_app(
   modeling_results = fetch_data(type = "modeling_results"),
   sig_genes = sig_genes_extract_all(n = nrow(sce_layer), modeling_results =
     modeling_results, sce_layer = sce_layer),
-  image_path = system.file("app/www/data", package = "spatialLIBD"),
+  image_path = system.file("app", "www", "data", package = "spatialLIBD"),
   sce_discrete_vars = c("Cluster10X", "Layer", "Maynard", "Martinowich",
     paste0("SNN_k50_k", 4:28)),
   sce_continuous_vars = c("cell_count", "sum_umi", "sum_gene", "expr_chrM",
