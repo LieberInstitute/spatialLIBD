@@ -125,7 +125,6 @@ app_ui <- function() {
                                 plotlyOutput('histology_plotly',
                                     width = '1200px',
                                     height = '1200px'),
-                                plotlyOutput('histology_plotly_gene'),
                                 textInput('label_layer', 'Layer label', 'Your Guess'),
                                 checkboxInput(
                                     'label_click',
