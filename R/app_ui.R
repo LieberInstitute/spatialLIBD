@@ -28,7 +28,10 @@ app_ui <- function() {
                         selectInput(
                             inputId = 'cluster',
                             label = 'Clusters to plot',
-                            choices = c('spatialLIBD', golem::get_golem_options('sce_discrete_vars'))
+                            choices = c(
+                                'spatialLIBD',
+                                golem::get_golem_options('sce_discrete_vars')
+                            )
                         ),
                         selectInput(
                             inputId = 'reduced_name',
@@ -267,13 +270,10 @@ app_ui <- function() {
                                 tags$br(),
                                 tags$br()
                             ),
-                            tabPanel(
-                                'Documentation',
-                                p(
-                                    'There can be a maximum of 36 unique guessed layers before we run out of colors.'
-                                ),
-                                p('todo')
-                            )
+                            tabPanel('Documentation',
+                                includeMarkdown(
+                                    file.path(resourcePaths()['www'], 'documentation_sce.md')
+                                ))
                         )
                     )
                 )
@@ -323,7 +323,7 @@ app_ui <- function() {
                                 ),
                                 selectInput(
                                     inputId = 'layer_which_dim_color',
-                                    label = 'Reduced Dimension',
+                                    label = 'Color by',
                                     choices = sort(colnames(colData(sce_layer))),
                                     selected = spatial_libd_var
                                 ),
@@ -477,8 +477,9 @@ app_ui <- function() {
                                 DT::DTOutput('layer_tstat_cor_table')
                             ),
                             tabPanel('Documentation',
-                                p('TODO.'),
-                                p('todo'))
+                                includeMarkdown(
+                                    file.path(resourcePaths()['www'], 'documentation_sce_layer.md')
+                                ))
                         )
                     )
                 )
@@ -486,7 +487,7 @@ app_ui <- function() {
             tabPanel(
                 'Help or feedback',
                 tagList(
-                    p('Please get in touch with Leonardo Collado Torres.'),
+                    p('Please get in touch with the spatialLIBD authors through the ', HTML('<a href="https://support.bioconductor.org/">Bioconductor Support Website</a> (using the spatialLIBD tag) or through <a href="https://github.com/LieberInstitute/spatialLIBD/issues">GitHub</a>. Remember to help others help you by including all the information required to reproduce the problem you noticed. Thank you!')),
                     hr(),
                     p('The following information will be useful to them:'),
                     verbatimTextOutput('session_info')
@@ -520,7 +521,8 @@ app_ui <- function() {
 
 #' @import shiny
 golem_add_external_resources <- function(image_path) {
-    addResourcePath('www', system.file('app/www', package = 'spatialLIBD'))
+    addResourcePath('www',
+        system.file('inst', 'app', 'www', package = 'spatialLIBD'))
     addResourcePath('imagedata', image_path)
 
     tags$head(golem::activate_js(),
