@@ -571,32 +571,6 @@ app_server <- function(input, output, session) {
             off = 'plotly_deselect')
     })
 
-    output$histology_plotly_gene <- renderPlotly({
-        event.data <-
-            event_data('plotly_selected', source = 'plotly_histology')
-        if (is.null(event.data))
-            return(NULL)
-
-        ## Find which points were selected
-        sce_sub <- sce[, sce$key %in% event.data$key]
-
-        d <- as.data.frame(colData(sce_sub))
-        if (input$geneid %in% colnames(colData(sce_sub))) {
-            d$COUNT <- colData(sce_sub)[[input$geneid]]
-        } else {
-            d$COUNT <-
-                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
-        }
-        d$COUNT[d$COUNT <= input$minCount] <- NA
-        p <-
-            ggplot(d, aes(x = COUNT)) + geom_density() + ggtitle(input$geneid) + xlab(ifelse(
-                !input$geneid %in% colnames(colData(sce_sub)),
-                input$assayname,
-                input$geneid
-            ))
-        ggplotly(p)
-    })
-
     ## Set the cluster subset options
     output$gene_plotly_cluster_subset_ui <- renderUI({
         input$cluster
