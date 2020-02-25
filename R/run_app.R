@@ -17,6 +17,15 @@
 #' `plotly`. See
 #' https://github.com/LieberInstitute/spatialLIBD/tree/master/inst/app/www/data
 #' for an example of how these files should be organized.
+#' @param sce_discrete_vars A `character()` vector of discrete variables that
+#' will be available to visualize in the app. Basically, the set of variables
+#' with spot-level groups. They will have to be present in `colData(sce)`.
+#' @param sce_continuous_vars A `character()` vector of continuous variables
+#' that will be available to visualize in the app using the same scale
+#' as genes. They will have to be present in `colData(sce)`.
+#' @param spatial_libd_var A `character(1)` with the name of the main cluster
+#' variable to use. It will have to be present in both `colData(sce)` and
+#' `colData(sce_layer)`.
 #' @param ... Other arguments passed to the list of golem options for running
 #' the application.
 #'
@@ -45,7 +54,29 @@ run_app <- function(sce = fetch_data(type = 'sce'),
         sce_layer = sce_layer
     ),
     image_path = system.file('app/www/data', package = 'spatialLIBD'),
+    sce_discrete_vars = c('Cluster10X',
+        'Layer',
+        'Maynard',
+        'Martinowich',
+        paste0('SNN_k50_k', 4:28)),
+    sce_continuous_vars = c('cell_count',
+        'sum_umi',
+        'sum_gene',
+        'expr_chrM',
+        'expr_chrM_ratio'),
+    spatial_libd_var = 'layer_guess_reordered_short',
     ...) {
+    ## Run the checks in the relevant order
+    stopifnot(length(spatial_libd_var) == 1)
+    sce <-
+        check_sce(sce,
+            variables = c(spatial_libd_var, sce_discrete_vars, sce_continuous_vars))
+    sce_layer <-
+        check_sce_layer(sce_layer, variables = spatial_libd_var)
+    modeling_results <- check_modeling_results(modeling_results)
+    image_path <- check_image_path(image_path, sce)
+    ## No need to check sig_genes since sig_genes_extract_all() will fail
+
     with_golem_options(
         app = shinyApp(ui = app_ui, server = app_server),
         golem_opts = list(
@@ -54,6 +85,9 @@ run_app <- function(sce = fetch_data(type = 'sce'),
             modeling_results = modeling_results,
             image_path = image_path,
             sig_genes = sig_genes,
+            sce_discrete_vars = sce_discrete_vars,
+            sce_continuous_vars = sce_continuous_vars,
+            spatial_libd_var = spatial_libd_var,
             ...
         )
     )

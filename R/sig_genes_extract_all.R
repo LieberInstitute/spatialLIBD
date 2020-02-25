@@ -32,6 +32,10 @@ sig_genes_extract_all <- function(n = 10,
     modeling_results = fetch_data(type = 'modeling_results'),
     sce_layer = fetch_data(type = 'sce_layer')) {
 
+    ## Run checks since this function is run by default by run_app()
+    ## before the checks have been run elsewhere
+    sce_layer <- check_sce_layer(sce_layer)
+    modeling_results <- check_modeling_results(modeling_results)
 
     sig_genes_specificity <-
         sig_genes_extract(
@@ -63,29 +67,37 @@ sig_genes_extract_all <- function(n = 10,
             sce_layer = sce_layer
         )
 
-    sig_genes <- DataFrame(rbind(
-        sig_genes_specificity,
-        sig_genes_pairwise,
-        sig_genes_pairwise_rev,
-        sig_genes_anova
-    ))
+    sig_genes <- DataFrame(
+        rbind(
+            sig_genes_specificity,
+            sig_genes_pairwise,
+            sig_genes_pairwise_rev,
+            sig_genes_anova
+        )
+    )
 
     ## from rafalib
-    splitit <- function(x) { split(seq(along.with = x), x)}
+    splitit <- function(x) {
+        split(seq(along.with = x), x)
+    }
     sig_genes_unique <- splitit(sig_genes$ensembl)
 
     sig_genes$in_rows <-
         IntegerList(sig_genes_unique)[sig_genes$ensembl]
 
 
-    sig_genes_unique_top20 <- split(which(sig_genes$top <= 20), sig_genes$ensembl[sig_genes$top <= 20])
-    sig_genes$in_rows_top20 <-  IntegerList(lapply(sig_genes$in_rows, function(x)
+    sig_genes_unique_top20 <-
+        split(which(sig_genes$top <= 20), sig_genes$ensembl[sig_genes$top <= 20])
+    sig_genes$in_rows_top20 <-
+        IntegerList(lapply(sig_genes$in_rows, function(x)
             NULL))
-    sig_genes$in_rows_top20[names(sig_genes_unique_top20)] <- IntegerList(sig_genes_unique_top20)
+    sig_genes$in_rows_top20[names(sig_genes_unique_top20)] <-
+        IntegerList(sig_genes_unique_top20)
 
     sig_genes$results <-
         CharacterList(lapply(sig_genes$in_rows_top20 , function(x) {
-            if(length(x) == 0) return(NULL)
+            if (length(x) == 0)
+                return(NULL)
             paste0(sig_genes$test[x], '_top', sig_genes$top[x])
         }))[sig_genes$ensembl]
 
