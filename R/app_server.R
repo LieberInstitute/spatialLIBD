@@ -353,7 +353,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid), ]
+                assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid),]
         }
         d$COUNT[d$COUNT <= minCount] <- NA
 
@@ -585,7 +585,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[input$geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
+                assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
         }
         d$COUNT[d$COUNT <= input$minCount] <- NA
         p <-
@@ -723,7 +723,7 @@ app_server <- function(input, output, session) {
                 d$COUNT <- colData(sce_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
+                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -753,7 +753,7 @@ app_server <- function(input, output, session) {
                 d$COUNT <- colData(sce_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
+                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -1071,7 +1071,7 @@ app_server <- function(input, output, session) {
                 height = 8,
                 width = 8
             )
-            print(static_layer_gene_set_enrichment_plot())
+            gene_set_enrichment_plot(static_layer_gene_set_enrichment())
             dev.off()
         }
     )
@@ -1097,7 +1097,8 @@ app_server <- function(input, output, session) {
                 height = 8,
                 width = 12
             )
-            print(static_layer_external_tstat_plot())
+            layer_stat_cor_plot(static_layer_external_tstat(),
+                input$layer_tstat_max)
             dev.off()
         }
     )
@@ -1112,11 +1113,11 @@ app_server <- function(input, output, session) {
     }, width = 600, height = 600)
 
     output$layer_gene_set_plot <- renderPlot({
-        print(static_layer_gene_set_enrichment_plot())
+        static_layer_gene_set_enrichment_plot()
     }, width = 600, height = 600)
 
     output$layer_tstat_cor_plot <- renderPlot({
-        print(static_layer_external_tstat_plot())
+        static_layer_external_tstat_plot()
     }, width = 800, height = 600)
 
 
