@@ -544,7 +544,7 @@ head(metadata(sce)$image)
 
 ## Ensembl gene IDs are rownames with the symbol (gene_name) and Ensembl
 ## ID (gene_name) pasted into `gene_search`
-## gene_search <- paste(gene_name, ';', gene_id)
+## gene_search <- paste0(gene_name, '; ', gene_id)
 rowData(sce)[, c('gene_id', 'gene_name', 'gene_search')]
 ## This information also has to be present in sce_layer
 stopifnot(all(
@@ -565,9 +565,8 @@ stopifnot(length(unique(sce$key)) == ncol(sce))
 ## Here's how we made those unique keys
 identical(sce$key, paste0(sce$sample_name, '_', sce$barcode))
 
-## Some cluster variables, though you could potentially edit
-## spatialLIBD::app_ui()
-## or this could be made into a run_app() argument.
+## Some cluster variables that you can specify with run_app().
+## For example:
 cluster_variables <- c(
     'Cluster10X',
     'Layer',
@@ -579,8 +578,9 @@ cluster_variables <- c(
 stopifnot(all(cluster_variables %in% colnames(colData(sce))))
 ## The last one gets renamed to spatialLIBD in spatialLIBD::app_server()
 
-## Some continuous variables
+## Some continuous variables that you can specify in run_app()
 ## as well as the already mentioned rowData(sce)$gene_search
+## For example:
 continuous_variables <- c('cell_count',
     'sum_umi',
     'sum_gene',
@@ -593,18 +593,16 @@ stopifnot(all(continuous_variables %in% colnames(colData(sce))))
 stopifnot(!all(rowData(sce)$gene_search %in% colnames(colData(sce))))
 
 ## No column named COUNT as that's used by sce_image_gene_p() and related
-## funtions.
+## functions.
 stopifnot(!'COUNT' %in% colnames(colData(sce)))
 
 ## The counts and logcounts assays
 stopifnot(all(c('counts', 'logcounts') %in% assayNames(sce)))
 
-## For the layer-level data, some of the shiny code is tailored to our data
-## though you could change it. Hence they requirements are fairly specific.
+## For the layer-level data we also need layer_guess_reordered
+## although this is a parameter you can change in run_app()
 stopifnot('layer_guess_reordered' %in% colnames(colData(sce_layer)))
-stopifnot(all(c(paste0('Layer', seq_len(
-    6
-)), 'WM') %in% sce_layer$layer_guess_reordered))
+
 stopifnot(all(
     c('specificity', 'pairwise', 'anova') %in% names(modeling_results)
 ))
@@ -623,6 +621,17 @@ stopifnot(all(sapply(modeling_results, function(model_table) {
         ))))
 })))
 ```
+
+If you want to run these checks, you can do so using the `check_*` family of functions.
+
+```{r 'run_check_functions'}
+check_sce(sce)
+check_sce_layer(sce_layer)
+## The output here is too long to print
+xx <- check_modeling_results(modeling_results)
+identical(xx, modeling_results)
+```
+
 
 As we generate more data at LIBD, we might make `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` more general if the need arises and we have the resources to work on this.
 

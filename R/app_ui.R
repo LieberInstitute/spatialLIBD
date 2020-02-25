@@ -8,6 +8,8 @@ app_ui <- function() {
     sce <- golem::get_golem_options('sce')
     sce_layer <- golem::get_golem_options('sce_layer')
     image_path <- golem::get_golem_options('image_path')
+    sig_genes <- golem::get_golem_options('sig_genes')
+    spatial_libd_var <- golem::get_golem_options('spatial_libd_var')
 
     tagList(
         # Leave this function for adding external resources
@@ -26,14 +28,7 @@ app_ui <- function() {
                         selectInput(
                             inputId = 'cluster',
                             label = 'Clusters to plot',
-                            choices = c(
-                                'Cluster10X',
-                                'Layer',
-                                'spatialLIBD',
-                                'Maynard',
-                                'Martinowich',
-                                paste0('SNN_k50_k', 4:28)
-                            )
+                            choices = c('spatialLIBD', golem::get_golem_options('sce_discrete_vars'))
                         ),
                         selectInput(
                             inputId = 'reduced_name',
@@ -45,14 +40,9 @@ app_ui <- function() {
                             inputId = 'geneid',
                             label = 'Gene (or count variable)',
                             choices = c(
-                                'cell_count',
-                                'sum_umi',
-                                'sum_gene',
-                                'expr_chrM',
-                                'expr_chrM_ratio',
+                                golem::get_golem_options('sce_continuous_vars'),
                                 sort(rowData(sce)$gene_search)
                             ),
-                            selected = 'cell_count',
                             options = pickerOptions(liveSearch = TRUE)
                         ),
                         selectInput(
@@ -303,7 +293,6 @@ app_ui <- function() {
                             label = 'Gene',
                             choices =
                                 sort(rowData(sce_layer)$gene_search),
-                            selected = sort(rowData(sce_layer)$gene_search)[1],
                             options = pickerOptions(liveSearch = TRUE)
                         ),
                         hr(),
@@ -336,7 +325,7 @@ app_ui <- function() {
                                     inputId = 'layer_which_dim_color',
                                     label = 'Reduced Dimension',
                                     choices = sort(colnames(colData(sce_layer))),
-                                    selected = 'layer_guess_reordered'
+                                    selected = spatial_libd_var
                                 ),
                                 downloadButton('layer_downloadReducedDim', 'Download PDF'),
                                 plotOutput('layer_reduced_dim'),
@@ -356,8 +345,7 @@ app_ui <- function() {
                                 selectInput(
                                     inputId = 'layer_model_test',
                                     label = 'Model test',
-                                    choices = c(paste0('Layer', seq_len(6)), 'WM'),
-                                    selected = 'Layer1'
+                                    choices = sort(unique(sig_genes$test[sig_genes$model_type == 'specificity']))
                                 ),
                                 selectInput(
                                     inputId = 'layer_boxcolor',

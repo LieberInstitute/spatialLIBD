@@ -23,10 +23,11 @@ app_server <- function(input, output, session) {
     sce_layer <- golem::get_golem_options('sce_layer')
     modeling_results <- golem::get_golem_options('modeling_results')
     sig_genes <- golem::get_golem_options('sig_genes')
+    spatial_libd_var <- golem::get_golem_options('spatial_libd_var')
 
     ## Rename some variables
-    sce$spatialLIBD <- sce$layer_guess_reordered_short
-    sce_layer$spatialLIBD <- sce_layer$layer_guess_reordered_short
+    sce$spatialLIBD <- colData(sce)[[spatial_libd_var]]
+    sce_layer$spatialLIBD <- colData(sce_layer)[[spatial_libd_var]]
 
     # List the first level callModules here
 
@@ -51,11 +52,16 @@ app_server <- function(input, output, session) {
     )
 
     ## For layer_guess and related variables
-    cols_layers_paper <-
+    cols_layers_paper <- function() {
         spatialLIBD::libd_layer_colors[-length(spatialLIBD::libd_layer_colors)]
-    cols_layers_paper_short <- cols_layers_paper
-    names(cols_layers_paper_short) <-
-        gsub('ayer', '', names(cols_layers_paper_short))
+    }
+    cols_layers_paper_short <- function() {
+        res <- cols_layers_paper()
+        names(res) <- gsub('ayer', '', names(res))
+        return(res)
+    }
+
+
 
     cluster_colors <- reactive({
         colors <- NULL
@@ -66,9 +72,9 @@ app_server <- function(input, output, session) {
                 Polychrome::palette36.colors(length(unique(rv$layer)))
             names(colors) <- unique(rv$layer)
         } else if (input$cluster %in% c('layer_guess', 'layer_guess_reordered')) {
-            colors <- cols_layers_paper
+            colors <- cols_layers_paper()
         } else if (input$cluster %in% c('layer_guess_reordered_short', 'spatialLIBD')) {
-            colors <- cols_layers_paper_short
+            colors <- cols_layers_paper_short()
         }
         return(colors)
     })
@@ -494,10 +500,8 @@ app_server <- function(input, output, session) {
         )
 
         plotly_gene <- layout(
-            ggplotly(
-                p_gene,
-                source = 'plotly_histology'
-            ),
+            ggplotly(p_gene,
+                source = 'plotly_histology'),
             images = list(
                 list(
                     source = raster2uri(as.raster(pen)),
@@ -517,15 +521,11 @@ app_server <- function(input, output, session) {
             dragmode = 'select'
         )
 
-        plotly_dim <- layout(ggplotly(
-            p_dim,
-            source = 'plotly_histology'
-        ))
+        plotly_dim <- layout(ggplotly(p_dim,
+            source = 'plotly_histology'))
 
-        plotly_dim_gene <- layout(ggplotly(
-            p_dim_gene,
-            source = 'plotly_histology'
-        ))
+        plotly_dim_gene <- layout(ggplotly(p_dim_gene,
+            source = 'plotly_histology'))
 
         ## It's 0.5, but I want this smaller so the cluster
         ## labels will fit
@@ -626,7 +626,8 @@ app_server <- function(input, output, session) {
                 as.character(colData(sce)[[input$cluster]]) %in% input$gene_plotly_cluster_subset
         }
         ## For when you change the input$cluster and no data is available yet
-        if(sum(cluster_opts) == 0) return(NULL)
+        if (sum(cluster_opts) == 0)
+            return(NULL)
 
         pen <-
             png::readPNG(file.path(
@@ -846,11 +847,11 @@ app_server <- function(input, output, session) {
         if (input$layer_which_dim_color %in% c('layer_guess',
             'layer_guess_reordered')) {
             p <-
-                p + ggplot2::scale_fill_manual(values =  cols_layers_paper,
+                p + ggplot2::scale_fill_manual(values =  cols_layers_paper(),
                     name = 'Layer')
         } else if (input$layer_which_dim_color %in% 'layer_guess_reordered_short') {
             p <-
-                p + ggplot2::scale_fill_manual(values =  cols_layers_paper_short,
+                p + ggplot2::scale_fill_manual(values =  cols_layers_paper_short(),
                     name = 'Layer')
         }
         return(p)

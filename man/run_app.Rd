@@ -11,6 +11,11 @@ run_app(
   sig_genes = sig_genes_extract_all(n = nrow(sce_layer), modeling_results =
     modeling_results, sce_layer = sce_layer),
   image_path = system.file("app/www/data", package = "spatialLIBD"),
+  sce_discrete_vars = c("Cluster10X", "Layer", "Maynard", "Martinowich",
+    paste0("SNN_k50_k", 4:28)),
+  sce_continuous_vars = c("cell_count", "sum_umi", "sum_gene", "expr_chrM",
+    "expr_chrM_ratio"),
+  spatial_libd_var = "layer_guess_reordered_short",
   ...
 )
 }
@@ -42,6 +47,18 @@ histology images that is needed for the interactive visualizations with
 \code{plotly}. See
 https://github.com/LieberInstitute/spatialLIBD/tree/master/inst/app/www/data
 for an example of how these files should be organized.}
+
+\item{sce_discrete_vars}{A \code{character()} vector of discrete variables that
+will be available to visualize in the app. Basically, the set of variables
+with spot-level groups. They will have to be present in \code{colData(sce)}.}
+
+\item{sce_continuous_vars}{A \code{character()} vector of continuous variables
+that will be available to visualize in the app using the same scale
+as genes. They will have to be present in \code{colData(sce)}.}
+
+\item{spatial_libd_var}{A \code{character(1)} with the name of the main cluster
+variable to use. It will have to be present in both \code{colData(sce)} and
+\code{colData(sce_layer)}.}
 
 \item{...}{Other arguments passed to the list of golem options for running
 the application.}

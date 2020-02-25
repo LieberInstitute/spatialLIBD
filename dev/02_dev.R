@@ -77,6 +77,10 @@ usethis::use_r('layer_stat_cor')
 usethis::use_r('layer_stat_cor_plot')
 usethis::use_r('data')
 usethis::use_r('layer_matrix_plot')
+usethis::use_r('check_sce')
+usethis::use_r('check_sce_layer')
+usethis::use_r('check_modeling_results')
+usethis::use_r('check_image_path')
 
 ## 2.7 Create files for ExperimentHub
 
