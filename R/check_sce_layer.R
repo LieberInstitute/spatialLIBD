@@ -35,7 +35,7 @@ check_sce_layer <- function(sce_layer, variables = 'layer_guess_reordered_short'
         c('gene_id', 'gene_name', 'gene_search') %in% colnames(rowData(sce_layer))
     ))
     stopifnot(identical(
-        paste0(rowData(sce_layer)$gene_name, '; ', rowRanges(sce_layer)$gene_id),
+        paste0(rowData(sce_layer)$gene_name, '; ', rowData(sce_layer)$gene_id),
         rowData(sce_layer)$gene_search
     ))
 
