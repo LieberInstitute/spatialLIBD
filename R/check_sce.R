@@ -10,6 +10,7 @@
 #' @return The input object if all checks are passed.
 #' @export
 #' @importFrom methods is
+#' @importFrom SummarizedExperiment assayNames
 #' @family Check input functions
 #'
 #' @examples
@@ -48,7 +49,7 @@ check_sce <- function(sce,
         c('gene_id', 'gene_name', 'gene_search') %in% colnames(rowData(sce))
     ))
     stopifnot(identical(
-        paste0(rowData(sce)$gene_name, '; ', rowRanges(sce)$gene_id),
+        paste0(rowData(sce)$gene_name, '; ', rowData(sce)$gene_id),
         rowData(sce)$gene_search
     ))
 
