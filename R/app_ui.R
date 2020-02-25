@@ -522,7 +522,7 @@ app_ui <- function() {
 #' @import shiny
 golem_add_external_resources <- function(image_path) {
     addResourcePath('www',
-        system.file('inst', 'app', 'www', package = 'spatialLIBD'))
+        system.file('app', 'www', package = 'spatialLIBD'))
     addResourcePath('imagedata', image_path)
 
     tags$head(golem::activate_js(),

@@ -53,7 +53,7 @@ run_app <- function(sce = fetch_data(type = 'sce'),
         modeling_results = modeling_results,
         sce_layer = sce_layer
     ),
-    image_path = system.file('app/www/data', package = 'spatialLIBD'),
+    image_path = system.file('app', 'www', 'data', package = 'spatialLIBD'),
     sce_discrete_vars = c('Cluster10X',
         'Layer',
         'Maynard',
