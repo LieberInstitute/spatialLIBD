@@ -6,6 +6,14 @@ author:
     - &libd Lieber Institute for Brain Development, Johns Hopkins Medical Campus
     - &ccb Center for Computational Biology, Johns Hopkins University
     email: lcolladotor@gmail.com
+  - name: Kristen R. Maynard"
+    affiliation:
+    - *libd
+    email: Kristen.Maynard@libd.org
+  - name: Andrew E. Jaffe
+    affiliation:
+    - *libd
+    email: andrew.jaffe@libd.org
 date: "`r doc_date()`"
 package: "`r pkg_ver('spatialLIBD')`"
 output: 

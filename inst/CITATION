@@ -10,6 +10,7 @@ c(
         title = "LIBD Visium spatial transcriptomics human pilot data inspector",
         author = personList(
             as.person("Leonardo Collado-Torres"),
+            as.person("Kristen R. Maynard"),
             as.person("Andrew E. Jaffe")
         ),
         year = format(Sys.Date(), "%Y"),
