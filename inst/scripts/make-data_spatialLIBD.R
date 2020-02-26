@@ -225,6 +225,7 @@ library('SingleCellExperiment')
 load(
     here::here(
         'data-raw',
+        'spatialLIBD_files',
         'Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata'
     ),
     verbose = TRUE
@@ -293,6 +294,7 @@ save(
     sce,
     file = here::here(
         'data-raw',
+        'spatialLIBD_files',
         'Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata'
     )
 )

@@ -88,7 +88,7 @@ sce_image_clus(
     clustervar = 'layer_guess_reordered',
     sampleid = '151673',
     colors = libd_layer_colors,
-    ... = ' LIBD Layers'
+    ... = ' DLPFC Human Brain Layers\nMade with github.com/LieberInstitute/spatialLIBD'
 )
 ```
 

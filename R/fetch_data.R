@@ -71,7 +71,7 @@ fetch_data <-
             file_name <-
                 'Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata'
             url <-
-                'https://www.dropbox.com/s/o9ra66h3yfdidhc/Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata?dl=1'
+                'https://www.dropbox.com/s/f4wcvtdq428y73p/Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata?dl=1'
         } else if (type == 'sce_layer')  {
             hub_title <- 'Human_Pilot_DLPFC_Visium_spatialLIBD_layer_level_SCE'
 
