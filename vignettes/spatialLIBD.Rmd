@@ -157,7 +157,7 @@ Using `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` you can downloa
 ```{r 'experiment_hub'}
 ## Connect to ExperimentHub
 ehub <- ExperimentHub::ExperimentHub()
-sce <- vignette_data()
+sce <- fetch_data(type = 'sce', eh = ehub)
 sce_layer <- fetch_data(type = 'sce_layer', eh = ehub)
 modeling_results <- fetch_data('modeling_results', eh = ehub)
 ```
