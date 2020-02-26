@@ -333,8 +333,8 @@ app_server <- function(input, output, session) {
         # geneid <- "SCGB2A2; ENSG00000110484"
         # assayname <- 'logcounts'
         # minCount <- 0
-        # clustervar <- 'Cluster10X'
-        # colors <- get_colors(NULL, sce$Cluster10X)
+        # clustervar <- 'GraphBased'
+        # colors <- get_colors(NULL, sce$GraphBased)
         # reduced_name <- 'TSNE_perplexity50'
 
         ## Read in the histology image
