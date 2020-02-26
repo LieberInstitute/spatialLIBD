@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# spatialLIBD
+# spatialLIBD <img src="man/figures/logo.png" align="right" />
 
 <!-- badges: start -->
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
@@ -46,15 +46,27 @@ BiocManager::install("spatialLIBD")
 
 Using `spatialLIBD` you can access the Human DLPFC spatial transcriptomics data from the 10x Genomics Visium platform. For example, this is the code you can use to access the layer-level data. For more details, check the help file for `fetch_data()`.
 
-```{r 'access_data', message=FALSE}
+```{r 'access_data', message=FALSE, fig.path = "man/figures/", fig.height = 8, fig.width = 9}
 ## Load the package
 library('spatialLIBD')
 
-## Download the layer-level data
-sce_layer <- fetch_data(type = 'sce_layer')
+## Download the spot-level data
+sce <- fetch_data(type = 'sce')
 
 ## This is a SingleCellExperiment object
-sce_layer
+sce
+
+## Note the memory size
+pryr::object_size(sce)
+
+## Remake the logo image with histology information
+sce_image_clus(
+    sce = sce,
+    clustervar = 'layer_guess_reordered',
+    sampleid = '151673',
+    colors = libd_layer_colors,
+    ... = ' LIBD Layers'
+)
 ```
 
 

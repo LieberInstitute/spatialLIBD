@@ -6,6 +6,8 @@
 \alias{spatialLIBD-package}
 \title{spatialLIBD: LIBD Visium spatial transcriptomics human pilot data inspector}
 \description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
 Inspect interactively the spatial transcriptomics 10x Genomics
     Visium data from Maynard, Collado-Torres et al, 2020 analyzed by Lieber
     Institute for Brain Development researchers and collaborators.
