@@ -16,7 +16,7 @@
 #' for the
 #' [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class]
 #' object containing the layer-level data (pseudo-bulked from the spot-level),
-#' or `modeling_results` for the list of tables with the `specificity`,
+#' or `modeling_results` for the list of tables with the `enrichment`,
 #' `pairwise`, and `anova` model results from the layer-level data.
 #'
 #' @param destdir The destination directory to where files will be downloaded

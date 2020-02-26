@@ -283,8 +283,8 @@ app_ui <- function() {
                         selectInput(
                             inputId = 'layer_model',
                             label = 'Model results',
-                            choices = c('specificity', 'pairwise', 'anova'),
-                            selected = 'specificity'
+                            choices = c('enrichment', 'pairwise', 'anova'),
+                            selected = 'enrichment'
                         ),
                         hr(),
                         pickerInput(
@@ -344,7 +344,7 @@ app_ui <- function() {
                                 selectInput(
                                     inputId = 'layer_model_test',
                                     label = 'Model test',
-                                    choices = sort(unique(sig_genes$test[sig_genes$model_type == 'specificity']))
+                                    choices = sort(unique(sig_genes$test[sig_genes$model_type == 'enrichment']))
                                 ),
                                 selectInput(
                                     inputId = 'layer_boxcolor',
@@ -431,7 +431,7 @@ app_ui <- function() {
                                 'stat correlation',
                                 fileInput(
                                     'externalTstat',
-                                    'Upload a CSV file with one column per cell type or layer that contains the specificity t-stat equivalent and with Ensembl gene IDs as the row names.',
+                                    'Upload a CSV file with one column per cell type or layer that contains the enrichment t-stat equivalent and with Ensembl gene IDs as the row names.',
                                     accept = c(
                                         'text/csv',
                                         '.csv',

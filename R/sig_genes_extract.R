@@ -14,12 +14,12 @@
 #' p-values, and the FDR adjusted p-values. Then the `ensembl` column is used
 #' for matching in some cases. See [fetch_data()] for more details.
 #' @param model_type A named element of the `modeling_results` list. By default
-#' that is either `specificity` for the model that tests one human brain layer
+#' that is either `enrichment` for the model that tests one human brain layer
 #' against the rest (one group vs the rest), `pairwise` which compares two
 #' layers (groups) denoted by `layerA-layerB` such that `layerA` is greater
 #' than `layerB`, and `anova` which determines if any layer (group) is different
 #' from the rest adjusting for the mean expression level. The statistics for
-#' `specificity` and `pairwise` are t-statistics while the `anova` model ones
+#' `enrichment` and `pairwise` are t-statistics while the `anova` model ones
 #' are F-statistics.
 #' @param reverse A `logical(1)` indicating whether to multiply by `-1` the
 #' input statistics and reverse the `layerA-layerB` column names (using the `-`)

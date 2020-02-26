@@ -37,11 +37,11 @@ sig_genes_extract_all <- function(n = 10,
     sce_layer <- check_sce_layer(sce_layer)
     modeling_results <- check_modeling_results(modeling_results)
 
-    sig_genes_specificity <-
+    sig_genes_enrichment <-
         sig_genes_extract(
             n = n,
             modeling_results = modeling_results,
-            model_type = 'specificity',
+            model_type = 'enrichment',
             sce_layer = sce_layer
         )
     sig_genes_pairwise <-
@@ -69,7 +69,7 @@ sig_genes_extract_all <- function(n = 10,
 
     sig_genes <- DataFrame(
         rbind(
-            sig_genes_specificity,
+            sig_genes_enrichment,
             sig_genes_pairwise,
             sig_genes_pairwise_rev,
             sig_genes_anova

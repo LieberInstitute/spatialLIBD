@@ -38,7 +38,7 @@
 #' cor_stats_layer <- layer_stat_cor(
 #'     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
 #'     ori_modeling_results,
-#'     'specificity'
+#'     'enrichment'
 #' )
 #'
 #' ## Visualize the correlation matrix

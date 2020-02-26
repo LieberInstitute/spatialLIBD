@@ -18,7 +18,7 @@ tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer
 }
 \description{
 Using the DLPFC snRNA-seq data from Matthew N Tran et al we computed
-specificity t-statistics for the cell clusters. This is a subset of them
+enrichment t-statistics for the cell clusters. This is a subset of them
 used in examples such as in \code{\link[=layer_stat_cor_plot]{layer_stat_cor_plot()}}.
 }
 \keyword{datasets}

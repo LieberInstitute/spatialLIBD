@@ -48,7 +48,7 @@
 #' asd_sfari_enrichment <- gene_set_enrichment(
 #'     gene_list = asd_sfari_geneList,
 #'     modeling_results = ori_modeling_results,
-#'     model_type = 'specificity'
+#'     model_type = 'enrichment'
 #' )
 #'
 #' ## Explore the results

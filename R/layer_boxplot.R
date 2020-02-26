@@ -40,7 +40,7 @@
 #'     ori_modeling_results <- fetch_data(type = 'modeling_results')
 #' if (!exists('ori_sce_layer')) ori_sce_layer <- fetch_data(type = 'sce_layer')
 #'
-#' ## Top 2 genes from the specificity model
+#' ## Top 2 genes from the enrichment model
 #' sig_genes <- sig_genes_extract_all(n = 2,
 #'     modeling_results = ori_modeling_results,
 #'     sce_layer = ori_sce_layer)

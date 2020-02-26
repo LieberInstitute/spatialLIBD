@@ -30,7 +30,7 @@ sig_genes <-
 ## Common options
 
 * `Model results`: the statistical modeling results to use. We computed three different types of models:
-  1. `specificity`: one layer against all the the other layers. Results in t-statistics.
+  1. `enrichment`: one layer against all the the other layers. Results in t-statistics.
   2. `pairwise`: one layer against another one. Results in t-statistics with two-sided p-values.
   3. `anova`: changes among the layers (adjusting more the mean expression) using the data from either all layers (`full`) or after dropping the white matter layer (`noWM`) since the rest of the layers have a richer concentration of neurons.
 * `Gene`: the gene to display. You can search your gene by typing either the symbol or the Ensembl gene ID.
@@ -46,7 +46,7 @@ scater::plotReducedDim(sce_layer)
 
 ## Model boxplots
 
-This tab allows you to make a boxplot of the `logcounts` gene expression from the layer-level data (`sce_layer`) for a given gene. The model result information displayed in the title of the plot is based on which `model results` you selected and whether you are using the short title version or not (controlled by a checkbox). We provide two different color scales you can use: the color blind friendly `viridis` as well as a custom one we used for the `paper`. Through the `Model test` selector, you can choose which particular comparison to display. For example, `Layer1` for the `specificity` model means that you would display the results of comparing Layer1 against the rest of the layers. `Layer1-Layer2` for the `pairwise` model means that you would display the results of Layer1 being greater than Layer2, while `Layer2-Layer` is the reverse scenario. Under `pairwise`, the layers not used are display in gray.
+This tab allows you to make a boxplot of the `logcounts` gene expression from the layer-level data (`sce_layer`) for a given gene. The model result information displayed in the title of the plot is based on which `model results` you selected and whether you are using the short title version or not (controlled by a checkbox). We provide two different color scales you can use: the color blind friendly `viridis` as well as a custom one we used for the `paper`. Through the `Model test` selector, you can choose which particular comparison to display. For example, `Layer1` for the `enrichment` model means that you would display the results of comparing Layer1 against the rest of the layers. `Layer1-Layer2` for the `pairwise` model means that you would display the results of Layer1 being greater than Layer2, while `Layer2-Layer` is the reverse scenario. Under `pairwise`, the layers not used are display in gray.
 
 Below the plot you can find the subset of the table of results  (`sig_genes` from earlier), sort the table by the different columns, and download it as a CSV if you want. For more details about what each of these columns mean, check the [`spatialLIBD` vignette documentation](http://LieberInstitute.github.io/spatialLIBD/articles/spatialLIBD.html#extract-significant-genes).
 
@@ -63,7 +63,7 @@ This tab allows you to upload a CSV file that has a particular format as illustr
 * no row names, 
 * and human Ensembl gene IDs as values in the cells. 
 
-Once you have uploaded a CSV file following this specific format, you can then check if the genes on each of your gene sets are enriched among the statistics from `model results` (`specificity`, etc) that have a false discovery rate (FDR) adjusted p-value less than `FDR cutoff` (0.1 by default).
+Once you have uploaded a CSV file following this specific format, you can then check if the genes on each of your gene sets are enriched among the statistics from `model results` (`enrichment`, etc) that have a false discovery rate (FDR) adjusted p-value less than `FDR cutoff` (0.1 by default).
 
 Similar to the `Model boxplots` tab, you can interact with the results table or download it.
 
@@ -75,7 +75,7 @@ spatialLIBD::gene_set_enrichment_plot()
 
 ## stat correlation
 
-If you have a single nucleus or single cell RNA-sequencing (snRNA-seq)  (scRNA-seq) dataset, you might group your cells into clusters. Once you do, you could compress the data by pseudo-bulking (like we did to go from `sce` to `sce_layer`). You could then compute `specificity` (`pairwise`, `anova`) statistics for your cell clusters. If you do so, you can then upload a specially formatted CSV file just like the one in [this example file](https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv). This file has:
+If you have a single nucleus or single cell RNA-sequencing (snRNA-seq)  (scRNA-seq) dataset, you might group your cells into clusters. Once you do, you could compress the data by pseudo-bulking (like we did to go from `sce` to `sce_layer`). You could then compute `enrichment` (`pairwise`, `anova`) statistics for your cell clusters. If you do so, you can then upload a specially formatted CSV file just like the one in [this example file](https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv). This file has:
 
 * column names,
 * human Ensembl gene IDs as the row names (first column, no name for the column),

@@ -174,7 +174,7 @@ load(here('Analysis',
     verbose = TRUE)
 
 modeling_results <- list('anova' = results_anova,
-    'specificity' = results_specificity,
+    'enrichment' = results_specificity,
     'pairwise' = results_pairwise)
 
 save(
