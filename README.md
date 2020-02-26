@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# spatialLIBD
+# spatialLIBD <img src="man/figures/logo.png" align="right" />
 
 <!-- badges: start -->
 
@@ -56,27 +56,43 @@ details, check the help file for `fetch_data()`.
 ## Load the package
 library('spatialLIBD')
 
-## Download the layer-level data
-sce_layer <- fetch_data(type = 'sce_layer')
+## Download the spot-level data
+sce <- fetch_data(type = 'sce')
 #> Loading objects:
-#>   sce_layer
+#>   sce
 
 ## This is a SingleCellExperiment object
-sce_layer
+sce
 #> class: SingleCellExperiment 
-#> dim: 22331 76 
-#> metadata(0):
+#> dim: 33538 47681 
+#> metadata(1): image
 #> assays(2): counts logcounts
-#> rownames(22331): ENSG00000243485 ENSG00000238009 ... ENSG00000278384
-#>   ENSG00000271254
-#> rowData names(10): source type ... is_top_hvg is_top_hvg_sce_layer
-#> colnames(76): 151507_Layer1 151507_Layer2 ... 151676_Layer6 151676_WM
-#> colData names(12): sample_name layer_guess ... layer_guess_reordered
-#>   layer_guess_reordered_short
-#> reducedDimNames(6): PCA TSNE_perplexity5 ... UMAP_neighbors15 PCAsub
+#> rownames(33538): ENSG00000243485 ENSG00000237613 ... ENSG00000277475
+#>   ENSG00000268674
+#> rowData names(9): source type ... gene_search is_top_hvg
+#> colnames(47681): AAACAACGAATAGTTC-1 AAACAAGTATCTCCCA-1 ...
+#>   TTGTTTCCATACAACT-1 TTGTTTGTGTAAATTC-1
+#> colData names(53): barcode sample_name ... expr_chrM expr_chrM_ratio
+#> reducedDimNames(6): PCA TSNE_perplexity50 ... TSNE_perplexity80
+#>   UMAP_neighbors15
 #> spikeNames(0):
 #> altExpNames(0):
+
+## Note the memory size
+pryr::object_size(sce)
+#> 2.08 GB
+
+## Remake the logo image with histology information
+sce_image_clus(
+    sce = sce,
+    clustervar = 'layer_guess_reordered',
+    sampleid = '151673',
+    colors = libd_layer_colors,
+    ... = ' LIBD Layers'
+)
 ```
+
+<img src="man/figures/access_data-1.png" width="100%" />
 
 ## Citation
 
