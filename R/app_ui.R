@@ -486,7 +486,9 @@ app_ui <- function() {
             tabPanel(
                 'Help or feedback',
                 tagList(
-                    p('Please get in touch with the spatialLIBD authors through the ', HTML('<a href="https://support.bioconductor.org/">Bioconductor Support Website</a> (using the spatialLIBD tag) or through <a href="https://github.com/LieberInstitute/spatialLIBD/issues">GitHub</a>. Remember to help others help you by including all the information required to reproduce the problem you noticed. Thank you!')),
+                    HTML(
+                        'Please get in touch with the <code>spatialLIBD</code> authors through the <a href="https://support.bioconductor.org/">Bioconductor Support Website</a> (using the <code>spatialLIBD</code> <a href="https://support.bioconductor.org/t/spatialLIBD/">tag</a>) or through <a href="https://github.com/LieberInstitute/spatialLIBD/issues">GitHub</a>. Remember to help others help you by including all the information required to reproduce the problem you noticed. Thank you!'
+                    ),
                     hr(),
                     p('The following information will be useful to them:'),
                     verbatimTextOutput('session_info')
@@ -529,5 +531,11 @@ golem_add_external_resources <- function(image_path) {
         # If you have a custom.css in the inst/app/www
         # Or for example, you can add shinyalert::useShinyalert() here
         #tags$link(rel="stylesheet", type="text/css", href="www/custom.css")
+        tags$head(
+            includeScript(
+                file.path(resourcePaths()['www'], 'gtag.js'),
+                'async src="https://www.googletagmanager.com/gtag/js?id=UA-159132967-1"'
+            )
+        ),
         golem::favicon())
 }

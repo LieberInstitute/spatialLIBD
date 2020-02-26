@@ -16,11 +16,11 @@ knitr::opts_chunk$set(
 # spatialLIBD
 
 <!-- badges: start -->
-![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Travis build status](https://travis-ci.org/LieberInstitute/spatialLIBD.svg?branch=master)](https://travis-ci.org/LieberInstitute/spatialLIBD)
 [![BioC status](http://www.bioconductor.org/shields/build/release/bioc/spatialLIBD.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/spatialLIBD)
 [![Codecov test coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?token=GcSS9zWSp7)
-[<!-- badges: end -->
+<!-- badges: end -->
 
 The `spatialLIBD` package contains functions for:
 
@@ -81,3 +81,5 @@ Please note that the `spatialLIBD` project is released with a
 * Testing on Bioc-devel is possible thanks to [R Travis](http://docs.travis-ci.com/user/languages/r/).
 * Code coverage assessment is possible thanks to [codecov](https://codecov.io/gh).
 * The [documentation website](http://lieberinstitute.github.io/spatialLIBD) is automatically updated thanks to `r BiocStyle::CRANpkg('pkgdown')` and `r BiocStyle::Githubpkg('ropenscilabs/travis')`.
+
+<a href="https://www.libd.org/"><img src="http://aejaffe.com/media/LIBD_logo.jpg" width="250px"></a>
