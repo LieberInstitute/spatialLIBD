@@ -12,7 +12,7 @@ status](https://travis-ci.org/LieberInstitute/spatialLIBD.svg?branch=master)](ht
 [![BioC
 status](http://www.bioconductor.org/shields/build/release/bioc/spatialLIBD.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/spatialLIBD)
 [![Codecov test
-coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?token=GcSS9zWSp7)
+coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?branch=master)
 <!-- badges: end -->
 
 The `spatialLIBD` package contains functions for:
@@ -72,7 +72,8 @@ sce
 #> rowData names(9): source type ... gene_search is_top_hvg
 #> colnames(47681): AAACAACGAATAGTTC-1 AAACAAGTATCTCCCA-1 ...
 #>   TTGTTTCCATACAACT-1 TTGTTTGTGTAAATTC-1
-#> colData names(53): barcode sample_name ... expr_chrM expr_chrM_ratio
+#> colData names(73): barcode sample_name ... pseudobulk_UMAP_spatial
+#>   markers_UMAP_spatial
 #> reducedDimNames(6): PCA TSNE_perplexity50 ... TSNE_perplexity80
 #>   UMAP_neighbors15
 #> spikeNames(0):
@@ -92,7 +93,7 @@ sce_image_clus(
 )
 ```
 
-<img src="man/figures/access_data-1.png" width="100%" />
+<img src="man/figures/README-access_data-1.png" width="100%" />
 
 ## Citation
 
