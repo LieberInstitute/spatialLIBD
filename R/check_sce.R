@@ -24,7 +24,7 @@
 
 check_sce <- function(sce,
     variables = c(
-        'Cluster10X',
+        'GraphBased',
         'Layer',
         'Maynard',
         'Martinowich',
@@ -34,7 +34,27 @@ check_sce <- function(sce,
         'sum_umi',
         'sum_gene',
         'expr_chrM',
-        'expr_chrM_ratio'
+        'expr_chrM_ratio',
+        'SpatialDE_PCA',
+        'SpatialDE_pool_PCA',
+        'HVG_PCA',
+        'pseudobulk_PCA',
+        'markers_PCA',
+        'SpatialDE_UMAP',
+        'SpatialDE_pool_UMAP',
+        'HVG_UMAP',
+        'pseudobulk_UMAP',
+        'markers_UMAP',
+        'SpatialDE_PCA_spatial',
+        'SpatialDE_pool_PCA_spatial',
+        'HVG_PCA_spatial',
+        'pseudobulk_PCA_spatial',
+        'markers_PCA_spatial',
+        'SpatialDE_UMAP_spatial',
+        'SpatialDE_pool_UMAP_spatial',
+        'HVG_UMAP_spatial',
+        'pseudobulk_UMAP_spatial',
+        'markers_UMAP_spatial'
     )) {
     ## Should be a SingleCellExperiment object
     stopifnot(is(sce, 'SingleCellExperiment'))

@@ -193,8 +193,10 @@ dir(here('Analysis',
 # [2] "Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata"
 # [3] "Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata"
 
+######################################
+##### Run locally (not on JHPCE) #####
+######################################
 
-## Run locally (not on JHPCE)
 usethis::use_directory("data-raw/spatialLIBD_files", ignore = TRUE)
 system(
     paste0(
@@ -217,6 +219,83 @@ system(paste(
     'echo data-raw/spatialLIBD_files >>',
     here::here('.gitignore')
 ))
+
+## Add the clusters from Lukas M Weber and Stephanie Hicks
+library('SingleCellExperiment')
+load(
+    here::here(
+        'data-raw',
+        'Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata'
+    ),
+    verbose = TRUE
+)
+
+local_cluster_csvs <-
+    dir(
+        '~/Dropbox/code/HumanPilot/outputs/SpatialDE_clustering/',
+        pattern = '^cluster_labels_.*.csv',
+        full.names = TRUE
+    )
+csv_file <- local_cluster_csvs[1]
+spatial_clus <-
+    do.call(rbind,
+        lapply(local_cluster_csvs, read.csv, stringsAsFactors = FALSE))
+
+## It's too big to include as data in the pkg
+pryr::object_size(spatial_clus)
+# 8.01 MB
+
+## Check the order
+stopifnot(identical(spatial_clus$key, sce$key))
+
+## Drop the 'key' and 'ground_truth' since we don't need it
+spatial_clus <-
+    spatial_clus[, -which(colnames(spatial_clus) %in% c('key', 'ground_truth'))]
+
+## Append
+colData(sce) <- cbind(colData(sce), spatial_clus)
+
+## Rename Cluster10X to something else
+colnames(colData(sce))[colnames(colData(sce)) == 'Cluster10X'] <-
+    'GraphBased'
+
+## Double check that it all works!
+# ori_sce_layer <-
+#     fetch_data('sce_layer', here::here('data-raw/spatialLIBD_files'))
+# ori_modeling_results <-
+#     fetch_data('modeling_results',
+#         here::here('data-raw/spatialLIBD_files'))
+#
+# ori_sig_genes <-
+#     sig_genes_extract_all(n = nrow(ori_sce_layer),
+#         ori_modeling_results,
+#         sce_layer = ori_sce_layer)
+#
+#
+# spatialLIBD::run_app(
+#     sce = sce,
+#     sce_layer = ori_sce_layer,
+#     modeling_results = ori_modeling_results,
+#     sig_genes = ori_sig_genes,
+#     sce_discrete_vars = c('GraphBased',
+#         'Layer',
+#         'Maynard',
+#         'Martinowich',
+#         paste0('SNN_k50_k', 4:28), colnames(spatial_clus))
+# )
+## It does! =)
+
+paste0("c('", paste(colnames(spatial_clus), collapse = "', '"), "')")
+# c('SpatialDE_PCA', 'SpatialDE_pool_PCA', 'HVG_PCA', 'pseudobulk_PCA', 'markers_PCA', 'SpatialDE_UMAP', 'SpatialDE_pool_UMAP', 'HVG_UMAP', 'pseudobulk_UMAP', 'markers_UMAP', 'SpatialDE_PCA_spatial', 'SpatialDE_pool_PCA_spatial', 'HVG_PCA_spatial', 'pseudobulk_PCA_spatial', 'markers_PCA_spatial', 'SpatialDE_UMAP_spatial', 'SpatialDE_pool_UMAP_spatial', 'HVG_UMAP_spatial', 'pseudobulk_UMAP_spatial', 'markers_UMAP_spatial')"
+
+## Overwrite the file
+save(
+    sce,
+    file = here::here(
+        'data-raw',
+        'Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata'
+    )
+)
 
 ## Reproducibility information
 print('Reproducibility information:')
