@@ -349,7 +349,7 @@ app_ui <- function() {
                                 selectInput(
                                     inputId = 'layer_boxcolor',
                                     label = 'Boxplot color scale',
-                                    choices = c('viridis', 'paper'),
+                                    choices = c('viridis', 'paper', 'bluered'),
                                     selected = 'viridis'
                                 ),
                                 checkboxInput(

@@ -815,8 +815,8 @@ app_server <- function(input, output, session) {
             sce_layer,
             dimred = input$layer_which_dim,
             colour_by = input$layer_which_dim_color,
-            theme_size = 20,
-            point_size = 5
+            theme_size = 30,
+            point_size = 7
         )
         if (input$layer_which_dim_color %in% c('layer_guess',
             'layer_guess_reordered')) {
@@ -848,26 +848,53 @@ app_server <- function(input, output, session) {
                 sig_genes = sig_genes,
                 short_title = input$layer_box_shortitle,
                 sce_layer = sce_layer,
+                col_bkg_box = ifelse(
+                    input$layer_boxcolor %in% c('viridis', 'paper'),
+                    'grey80',
+                    'grey90'
+                ),
+                col_bkg_point = ifelse(
+                    input$layer_boxcolor %in% c('viridis', 'paper'),
+                    'grey90',
+                    'grey60'
+                ),
                 col_low_box = ifelse(
                     input$layer_boxcolor == 'viridis',
                     viridis(4)[2],
-                    'palegreen3'
+                    ifelse(
+                        input$layer_boxcolor == 'paper',
+                        'palegreen3',
+                        'lightcyan'
+                    )
                 ),
                 col_low_point = ifelse(
                     input$layer_boxcolor == 'viridis',
                     viridis(4)[1],
-                    'springgreen2'
+                    ifelse(
+                        input$layer_boxcolor == 'paper',
+                        'springgreen2',
+                        'lightblue4'
+                    )
                 ),
                 col_high_box = ifelse(
                     input$layer_boxcolor == 'viridis',
                     viridis(4)[3],
-                    'darkorange2'
+                    ifelse(
+                        input$layer_boxcolor == 'paper',
+                        'darkorange2',
+                        'tomato2'
+                    )
                 ),
                 col_high_point = ifelse(
                     input$layer_boxcolor == 'viridis',
                     viridis(4)[4],
-                    'orange1'
-                )
+                    ifelse(
+                        input$layer_boxcolor == 'paper',
+                        'orange1',
+                        'firebrick4'
+                    )
+                ),
+                cex = 2.7
             )
     })
 
@@ -997,26 +1024,53 @@ app_server <- function(input, output, session) {
                     sig_genes = sig_genes,
                     short_title = input$layer_box_shortitle,
                     sce_layer = sce_layer,
+                    col_bkg_box = ifelse(
+                        input$layer_boxcolor %in% c('viridis', 'paper'),
+                        'grey80',
+                        'grey90'
+                    ),
+                    col_bkg_point = ifelse(
+                        input$layer_boxcolor %in% c('viridis', 'paper'),
+                        'grey90',
+                        'grey60'
+                    ),
                     col_low_box = ifelse(
                         input$layer_boxcolor == 'viridis',
                         viridis(4)[2],
-                        'palegreen3'
+                        ifelse(
+                            input$layer_boxcolor == 'paper',
+                            'palegreen3',
+                            'lightcyan'
+                        )
                     ),
                     col_low_point = ifelse(
                         input$layer_boxcolor == 'viridis',
                         viridis(4)[1],
-                        'springgreen2'
+                        ifelse(
+                            input$layer_boxcolor == 'paper',
+                            'springgreen2',
+                            'lightblue4'
+                        )
                     ),
                     col_high_box = ifelse(
                         input$layer_boxcolor == 'viridis',
                         viridis(4)[3],
-                        'darkorange2'
+                        ifelse(
+                            input$layer_boxcolor == 'paper',
+                            'darkorange2',
+                            'tomato2'
+                        )
                     ),
                     col_high_point = ifelse(
                         input$layer_boxcolor == 'viridis',
                         viridis(4)[4],
-                        'orange1'
-                    )
+                        ifelse(
+                            input$layer_boxcolor == 'paper',
+                            'orange1',
+                            'firebrick4'
+                        )
+                    ),
+                    cex = 2.7
                 )
             dev.off()
         }

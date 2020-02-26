@@ -20,6 +20,7 @@
 #' with higher expression.
 #' @param col_high_point Similar to `col_high_box` but for the points.
 #' @param seed The random seed used to make the point jittering reproducible.
+#' @param cex Controls the size of the text, points and axis legends.
 #'
 #' @return This function creates a boxplot of the layer-level data
 #' (group-level) separated by layer and colored based on the model type from row
@@ -84,6 +85,21 @@
 #'     col_high_point = 'orange1'
 #' )
 #'
+#' ## Blue/red colors displayed in the shiny app
+#' layer_boxplot(
+#'     i = which(sig_genes$model_type == 'pairwise')[1],
+#'     sig_genes = sig_genes,
+#'     sce_layer = ori_sce_layer,
+#'     col_bkg_box = 'grey90',
+#'     col_bkg_point = 'grey60',
+#'     col_low_box = 'lightcyan',
+#'     col_low_point = 'lightblue4',
+#'     col_high_box = 'tomato2',
+#'     col_high_point = 'firebrick4',
+#'     cex = 3
+#' )
+#'
+
 
 layer_boxplot <- function(i = 1,
     sig_genes = sig_genes_extract(),
@@ -95,6 +111,7 @@ layer_boxplot <- function(i = 1,
     col_low_point = 'darkviolet',
     col_high_box = 'skyblue',
     col_high_point = 'dodgerblue4',
+    cex = 2,
     seed = 20200206) {
     ## Extract the logcounts
     mat <- assays(sce_layer)$logcounts
@@ -179,9 +196,9 @@ layer_boxplot <- function(i = 1,
 
     set.seed(seed)
     if (short_title) {
-        par(mar = c(2, 5, 2, 1) + 0.1)
+        par(mar = c(3, 6, 3, 1) + 0.1)
     } else {
-        par(mar = c(2, 5, 6, 1) + 0.1)
+        par(mar = c(3, 6, 7, 1) + 0.1)
     }
 
     # message(paste(Sys.time(), 'making the plot for', i, 'gene', sig_genes$gene[i]))
@@ -191,10 +208,10 @@ layer_boxplot <- function(i = 1,
         ylab = 'logcounts',
         main = title,
         outline = FALSE,
-        cex = 2,
-        cex.axis = 2,
-        cex.lab = 2,
-        cex.main = ifelse(short_title, 2, 1.5),
+        cex = cex,
+        cex.axis = cex * 4/5,
+        cex.lab = cex,
+        cex.main = ifelse(short_title, cex, cex * 3/4),
         col = add_bkg_col(sig_genes$test[i])
     )
     points(
@@ -203,6 +220,6 @@ layer_boxplot <- function(i = 1,
         )),
         pch = 21,
         bg = add_col(sig_genes$test[i])[as.character(sce_layer$layer_guess_reordered_short)],
-        cex = 2
+        cex = cex
     )
 }
