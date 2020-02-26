@@ -15,6 +15,7 @@ layer_boxplot(
   col_low_point = "darkviolet",
   col_high_box = "skyblue",
   col_high_point = "dodgerblue4",
+  cex = 2,
   seed = 20200206
 )
 }
@@ -47,6 +48,8 @@ lower expression based on the actual test for row \code{i} of \code{sig_genes}.}
 with higher expression.}
 
 \item{col_high_point}{Similar to \code{col_high_box} but for the points.}
+
+\item{cex}{Controls the size of the text, points and axis legends.}
 
 \item{seed}{The random seed used to make the point jittering reproducible.}
 }
@@ -110,6 +113,20 @@ layer_boxplot(
     col_low_point = 'springgreen2',
     col_high_box = 'darkorange2',
     col_high_point = 'orange1'
+)
+
+## Blue/red colors displayed in the shiny app
+layer_boxplot(
+    i = which(sig_genes$model_type == 'pairwise')[1],
+    sig_genes = sig_genes,
+    sce_layer = ori_sce_layer,
+    col_bkg_box = 'grey90',
+    col_bkg_point = 'grey60',
+    col_low_box = 'lightcyan',
+    col_low_point = 'lightblue4',
+    col_high_box = 'tomato2',
+    col_high_point = 'firebrick4',
+    cex = 3
 )
 
 }
