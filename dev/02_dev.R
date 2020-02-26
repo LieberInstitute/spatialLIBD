@@ -39,6 +39,8 @@ usethis::use_package('graphics')
 usethis::use_package('S4Vectors')
 usethis::use_package('IRanges')
 usethis::use_package('fields')
+usethis::use_package('here', 'Suggests')
+usethis::use_package('BiocManager', 'Suggests')
 
 ## 2.3 Add tests
 

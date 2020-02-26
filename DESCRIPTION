@@ -52,7 +52,9 @@ Suggests:
     BiocStyle,
     knitcitations,
     testthat (>= 2.1.0),
-    covr
+    covr,
+    here,
+    BiocManager
 VignetteBuilder: knitr
 biocViews: Homo_sapiens_Data, ExperimentHub, SequencingData, SingleCellData,
     ExpressionData, Tissue
