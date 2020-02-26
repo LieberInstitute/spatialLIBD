@@ -27,7 +27,7 @@ ori_sig_genes <-
         ori_modeling_results,
         sce_layer = ori_sce_layer)
 
-
+options(repos = BiocManager::repositories())
 spatialLIBD::run_app(
     sce = ori_sce,
     sce_layer = ori_sce_layer,
