@@ -212,7 +212,8 @@ layer_boxplot <- function(i = 1,
         cex.axis = cex * 4/5,
         cex.lab = cex,
         cex.main = ifelse(short_title, cex, cex * 3/4),
-        col = add_bkg_col(sig_genes$test[i])
+        col = add_bkg_col(sig_genes$test[i]),
+        ylim = range(mat[sig_genes$gene_index[i], ])
     )
     points(
         mat[sig_genes$gene_index[i], ] ~ jitter(as.integer(
