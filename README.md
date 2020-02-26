@@ -5,15 +5,15 @@
 
 <!-- badges: start -->
 
-![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)\](<https://www.tidyverse.org/lifecycle/#maturing>)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Travis build
 status](https://travis-ci.org/LieberInstitute/spatialLIBD.svg?branch=master)](https://travis-ci.org/LieberInstitute/spatialLIBD)
 [![BioC
 status](http://www.bioconductor.org/shields/build/release/bioc/spatialLIBD.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/spatialLIBD)
 [![Codecov test
 coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?token=GcSS9zWSp7)
-\[<!-- badges: end -->
+<!-- badges: end -->
 
 The `spatialLIBD` package contains functions for:
 
@@ -87,8 +87,9 @@ Please run this yourself to check for any updates on how to cite
 ``` r
 citation('spatialLIBD')
 #> 
-#> Collado-Torres L, Jaffe AE (2020). _LIBD Visium spatial transcriptomics
-#> human pilot data inspector_. doi: 10.18129/B9.bioc.spatialLIBD (URL:
+#> Collado-Torres L, Maynard KR, Jaffe AE (2020). _LIBD Visium spatial
+#> transcriptomics human pilot data inspector_. doi:
+#> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
 #> 0.99.0, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
@@ -122,3 +123,5 @@ this project, you agree to abide by its terms.
     automatically updated thanks to
     *[pkgdown](https://CRAN.R-project.org/package=pkgdown)* and
     *[travis](https://github.com/ropenscilabs/travis)*.
+
+<a href="https://www.libd.org/"><img src="http://aejaffe.com/media/LIBD_logo.jpg" width="250px"></a>
