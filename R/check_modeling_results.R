@@ -25,7 +25,7 @@ check_modeling_results <- function(modeling_results) {
     stopifnot(is(modeling_results, 'list'))
 
     stopifnot(all(
-        c('specificity', 'pairwise', 'anova') %in% names(modeling_results)
+        c('enrichment', 'pairwise', 'anova') %in% names(modeling_results)
     ))
 
     ## All the model tables contain the ensembl column

@@ -140,13 +140,13 @@ The human DLPFC 10x Genomics Visium dataset analyzed by LIBD researchers and col
 
 ## Data specifics
 
-We combined all the Visium data into a single `r Biocpkg('SingleCellExperiment')` `r citep(bib[['SingleCellExperiment']])` object that we typically refer to as __`sce`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis) for details on how we built the `sce` object. In particular check `convert_sce.R` and `sce_scran.R`.]. It has 33,538 genes (rows) and 47,681 spots (columns). This is the initial point for most of our analyses ([code available on GitHub](https://github.com/LieberInstitute/HumanPilot)). Using `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` we manually assigned each spot across all 12 images to a layer (L1 through L6 or WM). We then compressed the spot-level data at the layer-level using a pseudo-bulking approach resulting in the `r Biocpkg('SingleCellExperiment')` object we typically refer to as __`sce_layer`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis/Layer_Guesses) for details on how we built the `sce_layer` object. In particular check `spots_per_layer.R` and `layer_specificity.R`.]. We then computed for each gene t or F statistics assessing whether the gene had higher expression in a given layer compared to the rest (`specificity`; t-stat), between one layer and another layer (`pairwise`; t-stat), or had any expression variability across all layers (`anova`; F-stat). The results from the models are stored in what we refer to as __`modeling_results`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis/Layer_Guesses) for details on how we built the `modeling_results` object. In particular check `layer_specificity_fstats.R`, `layer_specificity.R`, and `misc_numbers.R`.].
+We combined all the Visium data into a single `r Biocpkg('SingleCellExperiment')` `r citep(bib[['SingleCellExperiment']])` object that we typically refer to as __`sce`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis) for details on how we built the `sce` object. In particular check `convert_sce.R` and `sce_scran.R`.]. It has 33,538 genes (rows) and 47,681 spots (columns). This is the initial point for most of our analyses ([code available on GitHub](https://github.com/LieberInstitute/HumanPilot)). Using `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` we manually assigned each spot across all 12 images to a layer (L1 through L6 or WM). We then compressed the spot-level data at the layer-level using a pseudo-bulking approach resulting in the `r Biocpkg('SingleCellExperiment')` object we typically refer to as __`sce_layer`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis/Layer_Guesses) for details on how we built the `sce_layer` object. In particular check `spots_per_layer.R` and `layer_enrichment.R`.]. We then computed for each gene t or F statistics assessing whether the gene had higher expression in a given layer compared to the rest (`enrichment`; t-stat), between one layer and another layer (`pairwise`; t-stat), or had any expression variability across all layers (`anova`; F-stat). The results from the models are stored in what we refer to as __`modeling_results`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis/Layer_Guesses) for details on how we built the `modeling_results` object. In particular check `layer_specificity_fstats.R`, `layer_specificity.R`, and `misc_numbers.R`.].
 
 In summary,
 
 * `sce` is the `r Biocpkg('SingleCellExperiment')` object with all the spot-level data and the histology information for visualization of the data.
 * `sce_layer` is the `r Biocpkg('SingleCellExperiment')` object with the layer-level data.
-* `modeling_results` contains the layer-level `specificity`, `pairwise` and `anova` statistics.
+* `modeling_results` contains the layer-level `enrichment`, `pairwise` and `anova` statistics.
 
 
 ## Downloading the data with `spatialLIBD`
@@ -380,7 +380,7 @@ head(sig_genes)
 The output of `sig_genes_extract_all()` contains the following columns:
 
 * `top`: the rank of the gene for the given `test`.
-* `model_type`: either `specificity`, `pairwise` or `anova`.
+* `model_type`: either `enrichment`, `pairwise` or `anova`.
 * `test`: the short notation for the test performed. For example, `WM` is white matter versus the other layers while `WM-Layer1` is white matter greater than layer 1.
 * `gene`: the gene symbol.
 * `stat`: the corresponding F or t-statistic.
@@ -430,24 +430,24 @@ layer_boxplot(
 
 ## Correlation of layer-level statistics
 
-Just like we compressed our `sce` object into `sce_layer` by pseudo-bulking ^[For more details, check [this script](https://github.com/LieberInstitute/HumanPilot/blob/ab52559957624538f8dc08b0533e4106fab4066b/Analysis/Layer_Guesses/layer_specificity.R).], we can do the same for other single nucleus or single cell RNA sequencing datasets (snRNA-seq, scRNA-seq) and then compute specificity t-statistics (one group vs the rest; could be one cell type vs the rest or one cluster of cells vs the rest). In our analysis `r citep(bib[['spatialLIBDpaper']])`, we did this for several datasets including one of our LIBD Human DLPFC snRNA-seq data generated by Matthew N Tran et al ^[For more details, check [this script](https://github.com/LieberInstitute/HumanPilot/blob/ab52559957624538f8dc08b0533e4106fab4066b/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R).]. In `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` we include a small set of these statistics for the 31 cell clusters identified by Matthew N Tran et al.
+Just like we compressed our `sce` object into `sce_layer` by pseudo-bulking ^[For more details, check [this script](https://github.com/LieberInstitute/HumanPilot/blob/ab52559957624538f8dc08b0533e4106fab4066b/Analysis/Layer_Guesses/layer_specificity.R).], we can do the same for other single nucleus or single cell RNA sequencing datasets (snRNA-seq, scRNA-seq) and then compute enrichment t-statistics (one group vs the rest; could be one cell type vs the rest or one cluster of cells vs the rest). In our analysis `r citep(bib[['spatialLIBDpaper']])`, we did this for several datasets including one of our LIBD Human DLPFC snRNA-seq data generated by Matthew N Tran et al ^[For more details, check [this script](https://github.com/LieberInstitute/HumanPilot/blob/ab52559957624538f8dc08b0533e4106fab4066b/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R).]. In `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` we include a small set of these statistics for the 31 cell clusters identified by Matthew N Tran et al.
 
 ```{r 'matt_t_stats'}
-## Explore the specificity t-statistics derived from Tran et al's snRNA-seq
+## Explore the enrichment t-statistics derived from Tran et al's snRNA-seq
 ## DLPFC data
 dim(tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer)
 tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer[seq_len(3), seq_len(6)]
 ```
 
-The function `layer_stat_cor()` will take as input one such matrix of statistics and correlate them against our layer specificity results (or other model types) using the subset of Ensembl gene IDs that are observed in both tables.
+The function `layer_stat_cor()` will take as input one such matrix of statistics and correlate them against our layer enrichment results (or other model types) using the subset of Ensembl gene IDs that are observed in both tables.
 
 ```{r 'layer_stat_cor'}
-## Compute the correlation matrix of specificity t-statistics between our data
+## Compute the correlation matrix of enrichment t-statistics between our data
 ## and Tran et al's snRNA-seq data
 cor_stats_layer <- layer_stat_cor(
     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
     modeling_results,
-    'specificity'
+    'enrichment'
 )
 
 ## Explore the correlation matrix
@@ -506,7 +506,7 @@ After reading the list of genes, we can then compute the enrichment odds ratios 
 asd_sfari_enrichment <- gene_set_enrichment(
     gene_list = asd_sfari_geneList,
     modeling_results = modeling_results,
-    model_type = 'specificity'
+    model_type = 'enrichment'
 )
 
 ## Explore the results
@@ -612,7 +612,7 @@ stopifnot(all(c('counts', 'logcounts') %in% assayNames(sce)))
 stopifnot('layer_guess_reordered' %in% colnames(colData(sce_layer)))
 
 stopifnot(all(
-    c('specificity', 'pairwise', 'anova') %in% names(modeling_results)
+    c('enrichment', 'pairwise', 'anova') %in% names(modeling_results)
 ))
 
 ## All the model tables contain the ensembl column

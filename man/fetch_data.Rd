@@ -19,7 +19,7 @@ visualizing the clusters/genes on top of the Visium histology, \code{sce_layer}
 for the
 \link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
 object containing the layer-level data (pseudo-bulked from the spot-level),
-or \code{modeling_results} for the list of tables with the \code{specificity},
+or \code{modeling_results} for the list of tables with the \code{enrichment},
 \code{pairwise}, and \code{anova} model results from the layer-level data.}
 
 \item{destdir}{The destination directory to where files will be downloaded

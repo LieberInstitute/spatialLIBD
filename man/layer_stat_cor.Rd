@@ -16,7 +16,7 @@ layer_stat_cor(
 column names are labels for clusters of cells or cell types, and where
 each cell contains the given statistic for that gene and cell type. These
 statistics should be computed similarly to the modeling results from
-the data we provide. For example, like the \code{specificity} t-statistics that
+the data we provide. For example, like the \code{enrichment} t-statistics that
 are derived from comparing one layer against the rest. The \code{stats} will be
 matched and then correlated with our statistics.}
 
@@ -28,12 +28,12 @@ p-values, and the FDR adjusted p-values. Then the \code{ensembl} column is used
 for matching in some cases. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
 \item{model_type}{A named element of the \code{modeling_results} list. By default
-that is either \code{specificity} for the model that tests one human brain layer
+that is either \code{enrichment} for the model that tests one human brain layer
 against the rest (one group vs the rest), \code{pairwise} which compares two
 layers (groups) denoted by \code{layerA-layerB} such that \code{layerA} is greater
 than \code{layerB}, and \code{anova} which determines if any layer (group) is different
 from the rest adjusting for the mean expression level. The statistics for
-\code{specificity} and \code{pairwise} are t-statistics while the \code{anova} model ones
+\code{enrichment} and \code{pairwise} are t-statistics while the \code{anova} model ones
 are F-statistics.}
 
 \item{reverse}{A \code{logical(1)} indicating whether to multiply by \code{-1} the
@@ -63,7 +63,7 @@ if (!exists('ori_modeling_results'))
 cor_stats_layer <- layer_stat_cor(
     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
     ori_modeling_results,
-    'specificity'
+    'enrichment'
 )
 
 ## Explore the correlation matrix

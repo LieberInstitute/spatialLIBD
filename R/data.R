@@ -11,7 +11,7 @@
 #' Cell cluster t-statistics from Tran et al
 #'
 #' Using the DLPFC snRNA-seq data from Matthew N Tran et al we computed
-#' specificity t-statistics for the cell clusters. This is a subset of them
+#' enrichment t-statistics for the cell clusters. This is a subset of them
 #' used in examples such as in [layer_stat_cor_plot()].
 #'
 #' @format A matrix with 692 rows and 31 variables where each column is

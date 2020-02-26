@@ -4,7 +4,7 @@
 #' column names are labels for clusters of cells or cell types, and where
 #' each cell contains the given statistic for that gene and cell type. These
 #' statistics should be computed similarly to the modeling results from
-#' the data we provide. For example, like the `specificity` t-statistics that
+#' the data we provide. For example, like the `enrichment` t-statistics that
 #' are derived from comparing one layer against the rest. The `stats` will be
 #' matched and then correlated with our statistics.
 #' @inheritParams sig_genes_extract
@@ -31,7 +31,7 @@
 #' cor_stats_layer <- layer_stat_cor(
 #'     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
 #'     ori_modeling_results,
-#'     'specificity'
+#'     'enrichment'
 #' )
 #'
 #' ## Explore the correlation matrix
