@@ -16,11 +16,11 @@ knitr::opts_chunk$set(
 # spatialLIBD
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Travis build status](https://travis-ci.org/LieberInstitute/spatialLIBD.svg?branch=master)](https://travis-ci.org/LieberInstitute/spatialLIBD)
 [![BioC status](http://www.bioconductor.org/shields/build/release/bioc/spatialLIBD.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/spatialLIBD)
 [![Codecov test coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?token=GcSS9zWSp7)
-<!-- badges: end -->
+[<!-- badges: end -->
 
 The `spatialLIBD` package contains functions for:
 
@@ -40,6 +40,23 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 
 BiocManager::install("spatialLIBD")
 ```
+
+
+## Access the data
+
+Using `spatialLIBD` you can access the Human DLPFC spatial transcriptomics data from the 10x Genomics Visium platform. For example, this is the code you can use to access the layer-level data. For more details, check the help file for `fetch_data()`.
+
+```{r 'access_data', message=FALSE}
+## Load the package
+library('spatialLIBD')
+
+## Download the layer-level data
+sce_layer <- fetch_data(type = 'sce_layer')
+
+## This is a SingleCellExperiment object
+sce_layer
+```
+
 
 
 ## Citation

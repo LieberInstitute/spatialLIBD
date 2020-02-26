@@ -5,15 +5,15 @@
 
 <!-- badges: start -->
 
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)\](<https://www.tidyverse.org/lifecycle/#maturing>)
 [![Travis build
 status](https://travis-ci.org/LieberInstitute/spatialLIBD.svg?branch=master)](https://travis-ci.org/LieberInstitute/spatialLIBD)
 [![BioC
 status](http://www.bioconductor.org/shields/build/release/bioc/spatialLIBD.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/spatialLIBD)
 [![Codecov test
 coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?token=GcSS9zWSp7)
-<!-- badges: end -->
+\[<!-- badges: end -->
 
 The `spatialLIBD` package contains functions for:
 
@@ -43,6 +43,39 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
 BiocManager::install("spatialLIBD")
+```
+
+## Access the data
+
+Using `spatialLIBD` you can access the Human DLPFC spatial
+transcriptomics data from the 10x Genomics Visium platform. For example,
+this is the code you can use to access the layer-level data. For more
+details, check the help file for `fetch_data()`.
+
+``` r
+## Load the package
+library('spatialLIBD')
+
+## Download the layer-level data
+sce_layer <- fetch_data(type = 'sce_layer')
+#> Loading objects:
+#>   sce_layer
+
+## This is a SingleCellExperiment object
+sce_layer
+#> class: SingleCellExperiment 
+#> dim: 22331 76 
+#> metadata(0):
+#> assays(2): counts logcounts
+#> rownames(22331): ENSG00000243485 ENSG00000238009 ... ENSG00000278384
+#>   ENSG00000271254
+#> rowData names(10): source type ... is_top_hvg is_top_hvg_sce_layer
+#> colnames(76): 151507_Layer1 151507_Layer2 ... 151676_Layer6 151676_WM
+#> colData names(12): sample_name layer_guess ... layer_guess_reordered
+#>   layer_guess_reordered_short
+#> reducedDimNames(6): PCA TSNE_perplexity5 ... UMAP_neighbors15 PCAsub
+#> spikeNames(0):
+#> altExpNames(0):
 ```
 
 ## Citation
