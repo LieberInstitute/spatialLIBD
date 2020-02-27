@@ -1,3 +1,9 @@
+# spatialLIBD 0.99.3
+
+* Further refine the READMEs (pkg and shiny). They now include the list of
+links to the raw 10x Genomics files as well as a short description of the
+project at the top. This was in response to feedback by Andrew Jaffe.
+
 # spatialLIBD 0.99.2
 
 * Update main package READMEs to reflect the changes to the shiny web app README.md.
