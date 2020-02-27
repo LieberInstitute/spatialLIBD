@@ -1,3 +1,7 @@
+# spatialLIBD 0.99.2
+
+* Update main package READMEs to reflect the changes to the shiny web app README.md.
+
 # spatialLIBD 0.99.1
 
 * Added Kristen R Maynard to the DESCRIPTION file.
