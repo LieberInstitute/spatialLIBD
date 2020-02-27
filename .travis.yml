@@ -12,6 +12,10 @@ deploy:
   script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE, ssh_id = Sys.getenv("TRAVIS_DEPLOY_KEY", ""))'
   skip_cleanup: true
 
+## Related to https://github.com/LTLA/BiocNeighbors/issues/10
+install:
+    - R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/RcppAnnoy/RcppAnnoy_0.0.14.tar.gz', repos=NULL, type='source')"
+
 r_packages:
   - covr
   - pkgdown
