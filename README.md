@@ -15,6 +15,65 @@ status](http://www.bioconductor.org/shields/build/release/bioc/spatialLIBD.svg)]
 coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?branch=master)
 <!-- badges: end -->
 
+Welcome to the `spatialLIBD` project\! It is composed by a
+[shiny](https://shiny.rstudio.com/) web application at
+[jhubiostatistics.shinyapps.io/spatialLIBD/](https://jhubiostatistics.shinyapps.io/spatialLIBD/),
+a Bioconductor package at
+[bioconductor.org/packages/spatialLIBD](http://bioconductor.org/packages/spatialLIBD)
+(or from [here](http://research.libd.org/spatialLIBD/)), and a [research
+article](https://www.biorxiv.org/search/maynard%252Bcollado%252Bweber%252Bhicks%252Bmartinowich%252Bjaffe)
+with the scientific knowledge we drew from this dataset.
+
+The web application allows you to browse the LIBD human dorsolateral
+pre-frontal cortex (DLPFC) spatial transcriptomics data generated with
+the 10x Genomics Visium platform. Through the [R/Bioconductor
+package](https://bioconductor.org/packages/spatialLIBD) you can also
+download the data as well as visualize your own datasets using this web
+application. Please check the [bioRxiv
+pre-print](https://www.biorxiv.org/search/maynard%252Bcollado%252Bweber%252Bhicks%252Bmartinowich%252Bjaffe)
+for more details about this project.
+
+## Study design
+
+As a quick overview, the data presented here is from portion of the
+DLPFC that spans six neuronal layers plus white matter (**A**) for a
+total of three subjects with two pairs of spatially adjacent replicates
+(**B**). Each dissection of DLPFC was designed to span all six layers
+plus white matter (**C**). Using this web application you can explore
+the expression of known genes such as *SNAP25* (**D**, a neuronal gene),
+*MOBP* (**E**, an oligodendrocyte gene), and known layer markers from
+mouse studies such as *PCP4* (**F**, a known layer 5 marker gene).
+
+<img src="man/figures/paper_figure1.jpg" align="center" width="800px" />
+
+This web application was built such that we could annotate the spots to
+layers as you can see under the **spot-level data** tab. Once we
+annotated each spot to a layer, we compressed the information by a
+pseudo-bulking approach into **layer-level data**. We then analyzed the
+expression through a set of models whose results you can also explore
+through this web application. Finally, you can upload your own gene sets
+of interest as well as layer enrichment statistics and compare them with
+our LIBD Human DLPFC Visium dataset.
+
+If you are interested in running this web application locally, you can
+do so thanks to the `spatialLIBD` R/Bioconductor package that powers
+this web application as shown below.
+
+``` r
+## Run this web application locally
+spatialLIBD::run_app()
+
+## You will have more control about the length of the
+## session and memory usage.
+
+## You could also use this function to visualize your
+## own data given some requirements described
+## in detail in the package vignette documentation
+## at http://research.libd.org/spatialLIBD/.
+```
+
+## R/Bioconductor package
+
 The `spatialLIBD` package contains functions for:
 
   - Accessing the spatial transcriptomics data from the LIBD Human Pilot
@@ -109,7 +168,7 @@ citation('spatialLIBD')
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 0.99.1, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 0.99.2, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
 #> Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Williams SR, II
 #> JLC, Barry BK, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Hyde TM,
