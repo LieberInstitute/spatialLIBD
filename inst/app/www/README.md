@@ -1,7 +1,4 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# spatialLIBD <img src="man/figures/logo.png" align="right" />
+# spatialLIBD <img src="http://research.libd.org/spatialLIBD/reference/figures/logo.png" align="right" />
 
 <!-- badges: start -->
 
@@ -14,6 +11,34 @@ status](http://www.bioconductor.org/shields/build/release/bioc/spatialLIBD.svg)]
 [![Codecov test
 coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?branch=master)
 <!-- badges: end -->
+
+Welcome to the `spatialLIBD` [shiny](https://shiny.rstudio.com/) web application! This web application allows you to browse the LIBD human dorsolateral pre-frontal cortex (DLPFC) spatial transcriptomics data generated with the 10x Genomics Visium platform. Through the [R/Bioconductor package](https://bioconductor.org/packages/spatialLIBD) you can also download the data as well as visualize your own datasets using this web application. Please check the [bioRxiv pre-print](https://www.biorxiv.org/search/maynard%252Bcollado%252Bweber%252Bhicks%252Bmartinowich%252Bjaffe) for more details about this project.
+
+## Study design
+
+As a quick overview, the data presented here is from portion of the DLPFC that spans six neuronal layers plus white matter (**A**) for a total of three subjects with two pairs of spatially adjacent replicates (**B**). Each dissection of DLPFC was designed to span all six layers plus white matter (**C**). Using this web application you can explore the expression of known genes such as _SNAP25_ (**D**, a neuronal gene), _MOBP_ (**E**, an oligodendrocyte gene), and known layer markers from mouse studies such as _PCP4_ (**F**, a known layer 5 marker gene).
+
+<img src="http://research.libd.org/spatialLIBD/reference/figures/paper_figure1.jpg" align="center" width="800px" />
+
+This web application was built such that we could annotate the spots to layers as you can see under the **spot-level data** tab. Once we annotated each spot to a layer, we compressed the information by a pseudo-bulking approach into **layer-level data**. We then analyzed the expression through a set of models whose results you can also explore through this web application. Finally, you can upload your own gene sets of interest as well as layer enrichment statistics and compare them with our LIBD Human DLPFC Visium dataset.
+
+If you are interested in running this web application locally, you can do so thanks to the `spatialLIBD` R/Bioconductor package that powers this web application as shown below.
+
+``` r
+## Run this web application locally
+spatialLIBD::run_app()
+
+## You will have more control about the length of the
+## session and memory usage.
+
+## You could also use this function to visualize your
+## own data given some requirements described
+## in detail in the package vignette documentation
+## at http://research.libd.org/spatialLIBD/.
+```
+
+
+## R/Bioconductor package
 
 The `spatialLIBD` package contains functions for:
 
@@ -93,7 +118,7 @@ sce_image_clus(
 )
 ```
 
-<img src="man/figures/README-access_data-1.png" width="100%" />
+<img src="http://research.libd.org/spatialLIBD/reference/figures/README-access_data-1.png" width="600px" align="center" />
 
 ## Citation
 
@@ -122,41 +147,3 @@ citation('spatialLIBD')
 #> bibtex=TRUE)', 'toBibtex(.)', or set
 #> 'options(citation.bibtex.max=999)'.
 ```
-
-## Code of conduct
-
-Please note that the `spatialLIBD` project is released with a
-[Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to
-this project, you agree to abide by its terms.
-
-## Development tools
-
-  - Testing on Bioc-devel is possible thanks to [R
-    Travis](http://docs.travis-ci.com/user/languages/r/).
-  - Code coverage assessment is possible thanks to
-    [codecov](https://codecov.io/gh).
-  - The [documentation
-    website](http://lieberinstitute.github.io/spatialLIBD) is
-    automatically updated thanks to
-    *[pkgdown](https://CRAN.R-project.org/package=pkgdown)* and
-    *[travis](https://github.com/ropenscilabs/travis)*.
-
-<a href="https://www.libd.org/"><img src="http://aejaffe.com/media/LIBD_logo.jpg" width="250px"></a>
-
-<center>
-
-<script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=300&t=n&d=FRs8oQ9HVpMg6QLJJKAExpF8seGfPVlH-YOnwqUE8Hg'></script>
-
-</center>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159132967-1"></script>
-
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-159132967-1');
-</script>

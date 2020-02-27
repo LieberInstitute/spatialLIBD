@@ -1,3 +1,10 @@
+# spatialLIBD 0.99.1
+
+* Added Kristen R Maynard to the DESCRIPTION file.
+* Improved the shiny app page footer.
+* Moved around the documentation and added a new main tab with an overview in
+response to the feedback by Stephanie Hicks.
+
 # spatialLIBD 0.99.0
 
 * Added a `NEWS.md` file to track changes to the package.
@@ -5,3 +12,4 @@
 the `ExperimentHub::ExperimentHub()` functionality won't work until they
 approve the package. However, for now `fetch_data()` has a backup mechanism
 in place.
+* Submitted to Bioconductor [here](https://github.com/Bioconductor/Contributions/issues/1389).

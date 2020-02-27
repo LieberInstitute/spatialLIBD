@@ -5,7 +5,7 @@ This document describes the layer-level portion of the shiny web application mad
 
 ## Raw summary
 
-This tab displays the [SingleCellExperiment](https://bioconductor.org/packages/SingleCellExperiment) object that contains the layer-level data. It's basically useful to know that the data has been loaded and that you can start navigating the app. If you wish to download this data, use the following command.
+Before the documetation, his tab displays the [SingleCellExperiment](https://bioconductor.org/packages/SingleCellExperiment) object that contains the layer-level data. It's basically useful to know that the data has been loaded and that you can start navigating the app. If you wish to download this data, use the following command.
 
 ```{r}
 ## Download sce data

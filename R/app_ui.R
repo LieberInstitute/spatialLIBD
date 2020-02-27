@@ -17,6 +17,9 @@ app_ui <- function() {
         # List the first level UI elements here
         navbarPage(
             title = 'spatialLIBD',
+            tabPanel('Overview', tagList(includeMarkdown(
+                file.path(resourcePaths()['www'], 'README.md')
+            ))),
             tabPanel('spot-level data', tagList(
                 sidebarLayout(
                     sidebarPanel(
@@ -93,7 +96,7 @@ app_ui <- function() {
                     mainPanel(
                         tabsetPanel(
                             tabPanel(
-                                'Raw summary',
+                                'Documentation',
                                 tags$br(),
                                 HTML(
                                     'Basic information overview about the spot-level SingleCellExperiment object. You can download it using <code>spatialLIBD::fetch_data(type = "sce")</code>.'
@@ -102,8 +105,14 @@ app_ui <- function() {
                                 tags$br(),
                                 verbatimTextOutput('raw_summary'),
                                 helpText(
-                                    'When this information has been displayed it means that the shiny web application has finished loading and you can start exploring the rest of it. For more information check the Documentation tab.'
-                                )
+                                    'When this information has been displayed it means that the shiny web application has finished loading and you can start exploring the rest of it.'
+                                ),
+                                tags$br(),
+                                hr(),
+                                includeMarkdown(file.path(
+                                    resourcePaths()['www'], 'documentation_sce.md'
+                                )),
+                                hr()
                             ),
                             tabPanel(
                                 'Clusters (static)',
@@ -268,11 +277,7 @@ app_ui <- function() {
                                 tags$br(),
                                 tags$br(),
                                 tags$br()
-                            ),
-                            tabPanel('Documentation',
-                                includeMarkdown(
-                                    file.path(resourcePaths()['www'], 'documentation_sce.md')
-                                ))
+                            )
                         )
                     )
                 )
@@ -300,7 +305,7 @@ app_ui <- function() {
                     mainPanel(
                         tabsetPanel(
                             tabPanel(
-                                'Raw summary',
+                                'Documentation',
                                 tags$br(),
                                 HTML(
                                     'Basic information overview about the layer-level SingleCellExperiment object (pseudo-bulked from the spot-level data). You can download it using <code>spatialLIBD::fetch_data(type = "sce_layer")</code>.'
@@ -309,8 +314,13 @@ app_ui <- function() {
                                 tags$br(),
                                 verbatimTextOutput('layer_raw_summary'),
                                 helpText(
-                                    'When this information has been displayed it means that the shiny web application has finished loading and you can start exploring the rest of it. For more information check the Documentation tab.'
-                                )
+                                    'When this information has been displayed it means that the shiny web application has finished loading and you can start exploring the rest of it.'
+                                ),
+                                tags$br(),
+                                hr(),
+                                includeMarkdown(
+                                    file.path(resourcePaths()['www'], 'documentation_sce_layer.md')
+                                ),
                             ),
                             tabPanel(
                                 'Reduced Dim',
@@ -474,11 +484,7 @@ app_ui <- function() {
                                 tags$br(),
                                 tags$br(),
                                 DT::DTOutput('layer_tstat_cor_table')
-                            ),
-                            tabPanel('Documentation',
-                                includeMarkdown(
-                                    file.path(resourcePaths()['www'], 'documentation_sce_layer.md')
-                                ))
+                            )
                         )
                     )
                 )
@@ -495,17 +501,32 @@ app_ui <- function() {
                 )
             ),
             hr(),
-            p(
-                'This shiny application was developed by the Data Science Team I at the Lieber Institute for Brain Development.'
+            tagList(
+                HTML(
+                    'This <a href="https://shiny.rstudio.com/">shiny</a> application was developed by the <a href="http://aejaffe.com/">Data Science Team I</a> at the <a href="https://www.libd.org/">Lieber Institute for Brain Development</a> and is hosted thanks to the <a href="https://www.jhsph.edu/departments/biostatistics/">Department of Biostatistics at the Johns Hopkins Bloomberg School of Public Health</a>. It is powered by the <code>spatialLIBD</code> R package which you can find described in <a href="http://research.libd.org/spatialLIBD/">its documentation website</a> and you can use to run locally this shiny application by running the command <code>spatialLIBD::run_app()</code>.'
+                ),
+                hr(),
+                HTML(
+                    'If you tweet about this website, the data or the R package please use the <code>#spatialLIBD</code> hashtag. You can find previous tweets that way as shown <a href="https://twitter.com/search?q=%23spatialLIBD&src=typed_query">here</a>. Thank you! <a href="https://twitter.com/intent/tweet?button_hashtag=spatialLIBD&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #spatialLIBD</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'
+                ),
+                hr(),
+                HTML(
+                    'The <code>spatialLIBD</code> R package is currently under review at <a href="https://github.com/Bioconductor/Contributions/issues/1389">Bioconductor</a>.'
+                ),
+                hr(),
+                HTML('<a href="http://www.libd.org/">'),
+                img(
+                    src = 'http://aejaffe.com/media/LIBD_logo.jpg',
+                    align = 'left',
+                    width = '250'
+                ),
+                HTML('</a>'),
+                HTML(
+                    "<center>
+      <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=300&t=n&d=bVDeWoXdUvfe25nnGnwxdflUS7pyHC-jHAG7gVqyXYI'></script>
+      </center>"
+                )
             ),
-            hr(),
-            #HTML('<a href="http://www.libd.org/">'),
-            img(
-                src = 'http://aejaffe.com/media/LIBD_logo.jpg',
-                align = 'left',
-                width = '250'
-            ),
-            # HTML('</a>'),
             tags$br(),
             tags$br(),
             tags$br(),
