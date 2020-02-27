@@ -95,3 +95,15 @@ Please note that the `spatialLIBD` project is released with a
 * The [documentation website](http://lieberinstitute.github.io/spatialLIBD) is automatically updated thanks to `r BiocStyle::CRANpkg('pkgdown')` and `r BiocStyle::Githubpkg('ropenscilabs/travis')`.
 
 <a href="https://www.libd.org/"><img src="http://aejaffe.com/media/LIBD_logo.jpg" width="250px"></a>
+
+<center><script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=300&t=n&d=FRs8oQ9HVpMg6QLJJKAExpF8seGfPVlH-YOnwqUE8Hg'></script></center>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159132967-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-159132967-1');
+</script>
