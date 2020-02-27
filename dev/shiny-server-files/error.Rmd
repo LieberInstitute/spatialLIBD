@@ -1,0 +1,61 @@
+---
+title: spatialLIBD
+output: js4shiny::html_document_js
+---
+
+<img src="http://research.libd.org/spatialLIBD/reference/figures/logo.png" align="right" />
+
+<!-- js4shiny is available through remotes::install_github('gadenbuie/js4shiny') -->
+
+Thank you for your interest in `spatialLIBD`! We apologize for the error you see below.
+
+Due to some limitations our web application can only handle a [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2) number of concurrent users. However, fear not, as we have multiple mirrors of our web application that you can use. Please try accessing another mirror.
+
+* [Main shiny application website](http://spatial.libd.org/spatialLIBD)
+* [Shinyapps](https://jhubiostatistics.shinyapps.io/spatialLIBD/)
+* [Shinyapps Mirror 1](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror01/)
+* [Shinyapps Mirror 2](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror02/)
+
+## Error
+
+```{r 'error_template', echo = FALSE}
+shiny::HTML('<h1>{{title}}</h1>
+{{#if message}}
+<p id="message">{{message}}</p>
+{{/if}}
+{{#if detail}}
+<p id="detail">{{detail}}</p>
+{{/if}}
+{{#if detailHTML}}
+<p id="detail">{{{detailHTML}}}</p>
+{{/if}}
+{{#if console}}
+<p id="console"><code>{{console}}</code></p>
+{{/if}}'
+)
+```
+
+
+
+```{r 'add_map', echo = FALSE}
+shiny::HTML(
+    "<center>
+<script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=300&t=n&d=O0-J9HIlFG7Lp9zsQk6P8Uqz98Ny3K8cygM4qhvJabQ'></script>
+</center>"
+)
+```
+
+```{r 'add_google_tag', echo = FALSE}
+shiny::HTML(
+    "<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src='https://www.googletagmanager.com/gtag/js?id=UA-159132967-1'></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-159132967-1');
+</script>
+      "
+)
+```

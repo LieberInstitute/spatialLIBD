@@ -20,7 +20,7 @@ Welcome to the `spatialLIBD` project\! It is composed of:
 
   - a [shiny](https://shiny.rstudio.com/) web application that we are
     hosting at
-    [jhubiostatistics.shinyapps.io/spatialLIBD/](https://jhubiostatistics.shinyapps.io/spatialLIBD/)
+    [spatial.libd.org/spatialLIBD/](https://spatial.libd.org/spatialLIBD/)
     that can handle a
     [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2)
     set of concurrent users,
@@ -93,6 +93,16 @@ spatialLIBD::run_app()
 ## at http://research.libd.org/spatialLIBD/.
 ```
 
+## Shiny website mirrors
+
+  - [Main shiny application
+    website](http://spatial.libd.org/spatialLIBD)
+  - [Shinyapps](https://jhubiostatistics.shinyapps.io/spatialLIBD/)
+  - [Shinyapps
+    Mirror 1](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror01/)
+  - [Shinyapps
+    Mirror 2](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror02/)
+
 ## R/Bioconductor package
 
 The `spatialLIBD` package contains functions for:
@@ -105,7 +115,7 @@ The `spatialLIBD` package contains functions for:
   - Visualizing the spot-level spatial gene expression data and
     clusters.
   - Inspecting the data interactively either on your computer or through
-    [jhubiostatistics.shinyapps.io/spatialLIBD/](https://jhubiostatistics.shinyapps.io/spatialLIBD/).
+    [spatial.libd.org/spatialLIBD/](https://spatial.libd.org/spatialLIBD/).
 
 For more details, please check the [documentation
 website](http://lieberinstitute.github.io/spatialLIBD) or the
@@ -215,7 +225,7 @@ citation('spatialLIBD')
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 0.99.2, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 0.99.5, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
 #> Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Williams SR, II
 #> JLC, Barry BK, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Hyde TM,

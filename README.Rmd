@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 
 Welcome to the `spatialLIBD` project! It is composed of:
 
-* a [shiny](https://shiny.rstudio.com/) web application that we are hosting at [jhubiostatistics.shinyapps.io/spatialLIBD/](https://jhubiostatistics.shinyapps.io/spatialLIBD/) that can handle a [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2) set of concurrent users,
+* a [shiny](https://shiny.rstudio.com/) web application that we are hosting at [spatial.libd.org/spatialLIBD/](https://spatial.libd.org/spatialLIBD/) that can handle a [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2) set of concurrent users,
 * a Bioconductor package at [bioconductor.org/packages/spatialLIBD](http://bioconductor.org/packages/spatialLIBD) (or from [here](http://research.libd.org/spatialLIBD/)) that lets you analyze the data and run a local version of our web application (with our data or yours),
 * and a [research article](https://www.biorxiv.org/search/maynard%252Bcollado%252Bweber%252Bhicks%252Bmartinowich%252Bjaffe) with the scientific knowledge we drew from this dataset. The analysis code for our project is available [here](https://github.com/LieberInstitute/HumanPilot/).
 
@@ -56,6 +56,12 @@ spatialLIBD::run_app()
 ## at http://research.libd.org/spatialLIBD/.
 ```
 
+## Shiny website mirrors
+
+* [Main shiny application website](http://spatial.libd.org/spatialLIBD)
+* [Shinyapps](https://jhubiostatistics.shinyapps.io/spatialLIBD/)
+* [Shinyapps Mirror 1](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror01/)
+* [Shinyapps Mirror 2](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror02/)
 
 ## R/Bioconductor package
 
@@ -63,7 +69,7 @@ The `spatialLIBD` package contains functions for:
 
 * Accessing the spatial transcriptomics data from the LIBD Human Pilot project ([code on GitHub](https://github.com/LieberInstitute/HumanPilot)) generated with the Visium platform from 10x Genomics. The data is retrieved from [Bioconductor](http://bioconductor.org/)'s `ExperimentHub`.
 * Visualizing the spot-level spatial gene expression data and clusters.
-* Inspecting the data interactively either on your computer or through [jhubiostatistics.shinyapps.io/spatialLIBD/](https://jhubiostatistics.shinyapps.io/spatialLIBD/).
+* Inspecting the data interactively either on your computer or through [spatial.libd.org/spatialLIBD/](https://spatial.libd.org/spatialLIBD/).
 
 For more details, please check the [documentation website](http://lieberinstitute.github.io/spatialLIBD) or the Bioconductor package landing page [here](https://bioconductor.org/packages/spatialLIBD).
 
