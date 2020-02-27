@@ -14,7 +14,7 @@ deploy:
 
 ## Related to https://github.com/LTLA/BiocNeighbors/issues/10
 install:
-    - R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/RcppAnnoy/RcppAnnoy_0.0.14.tar.gz', repos=NULL, type='source')"
+    - Rscript -e "remotes::install_version('RcppAnnoy', version = '0.0.14')"
 
 r_packages:
   - covr
