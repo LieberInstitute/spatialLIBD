@@ -96,7 +96,7 @@ fetch_data <-
                 AnnotationHub::query(eh,
                     pattern = c('Human_Pilot_DLPFC_Visium_spatialLIBD', hub_title))
 
-            if (length(q) == 0) {
+            if (length(q) == 1) {
                 ## ExperimentHub has the data =)
                 return(q[[1]])
             } else {
