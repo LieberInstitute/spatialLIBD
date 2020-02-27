@@ -6,7 +6,7 @@ author:
     - &libd Lieber Institute for Brain Development, Johns Hopkins Medical Campus
     - &ccb Center for Computational Biology, Johns Hopkins University
     email: lcolladotor@gmail.com
-  - name: Kristen R. Maynard"
+  - name: Kristen R. Maynard
     affiliation:
     - *libd
     email: Kristen.Maynard@libd.org
@@ -77,6 +77,32 @@ bib <- c(
     spatialLIBDpaper = citation('spatialLIBD')[2]
 )
 ```
+# Welcome
+
+Welcome to the `spatialLIBD` project! It is composed of:
+
+* a [shiny](https://shiny.rstudio.com/) web application that we are hosting at [jhubiostatistics.shinyapps.io/spatialLIBD/](https://jhubiostatistics.shinyapps.io/spatialLIBD/) that can handle a [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2) set of concurrent users,
+* a Bioconductor package at [bioconductor.org/packages/spatialLIBD](http://bioconductor.org/packages/spatialLIBD) (or from [here](http://research.libd.org/spatialLIBD/)) that lets you analyze the data and run a local version of our web application (with our data or yours),
+* and a [research article](https://www.biorxiv.org/search/maynard%252Bcollado%252Bweber%252Bhicks%252Bmartinowich%252Bjaffe) with the scientific knowledge we drew from this dataset. The analysis code for our project is available [here](https://github.com/LieberInstitute/HumanPilot/).
+
+The web application allows you to browse the LIBD human dorsolateral pre-frontal cortex (DLPFC) spatial transcriptomics data generated with the 10x Genomics Visium platform. Through the [R/Bioconductor package](https://bioconductor.org/packages/spatialLIBD) you can also download the data as well as visualize your own datasets using this web application. Please check the [bioRxiv pre-print](https://www.biorxiv.org/search/maynard%252Bcollado%252Bweber%252Bhicks%252Bmartinowich%252Bjaffe) for more details about this project.
+
+If you tweet about this website, the data or the R package please use the <code>#spatialLIBD</code> hashtag. You can find previous tweets that way as shown <a href="https://twitter.com/search?q=%23spatialLIBD&src=typed_query">here</a>. Thank you! <a href="https://twitter.com/intent/tweet?button_hashtag=spatialLIBD&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #spatialLIBD</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+## Study design
+
+As a quick overview, the data presented here is from portion of the DLPFC that spans six neuronal layers plus white matter (**A**) for a total of three subjects with two pairs of spatially adjacent replicates (**B**). Each dissection of DLPFC was designed to span all six layers plus white matter (**C**). Using this web application you can explore the expression of known genes such as _SNAP25_ (**D**, a neuronal gene), _MOBP_ (**E**, an oligodendrocyte gene), and known layer markers from mouse studies such as _PCP4_ (**F**, a known layer 5 marker gene).
+
+
+
+
+```{r 'paper_fig1', echo=FALSE, results = 'asis'}
+cat(paste0(
+    '<img src="',
+    system.file('help', 'figures', 'paper_figure1.jpg', package = 'spatialLIBD'),
+    '" align="center" width="800px">'
+))
+```
 
 # Basics
 
@@ -137,6 +163,7 @@ The human DLPFC 10x Genomics Visium dataset analyzed by LIBD researchers and col
 * Three brain subjects (all controls; two males, one female; ages 30-46; [details](https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/visium_dlpfc_pilot_sample_metrics.tsv)).
 * Four images per subject: two spatially adjacent replicates at position 0, then two more spatially adjacent replicates 300 micrometers away.
 * Slices designed to cover layers 1 through 6 and the white matter (WM) of the dorsolateral prefrontal cortex (DLPFC).
+
 
 ## Data specifics
 

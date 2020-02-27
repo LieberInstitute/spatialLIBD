@@ -1,3 +1,12 @@
+# spatialLIBD 0.99.4
+
+* Fix Travis badges
+* Fix Kristen's name on the vignette
+* Add the same welcome information to the top of the vignette, since this will
+be what Bioconductor users see first. Basically, we have made sure that users
+will see the same information first regardless if they find the package README,
+open the shiny app, or find the package vignette.
+
 # spatialLIBD 0.99.3
 
 * Further refine the READMEs (pkg and shiny). They now include the list of
