@@ -12,17 +12,69 @@ status](http://www.bioconductor.org/shields/build/release/bioc/spatialLIBD.svg)]
 coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?branch=master)
 <!-- badges: end -->
 
-Welcome to the `spatialLIBD` [shiny](https://shiny.rstudio.com/) web application! This web application allows you to browse the LIBD human dorsolateral pre-frontal cortex (DLPFC) spatial transcriptomics data generated with the 10x Genomics Visium platform. Through the [R/Bioconductor package](https://bioconductor.org/packages/spatialLIBD) you can also download the data as well as visualize your own datasets using this web application. Please check the [bioRxiv pre-print](https://www.biorxiv.org/search/maynard%252Bcollado%252Bweber%252Bhicks%252Bmartinowich%252Bjaffe) for more details about this project.
+Welcome to the `spatialLIBD` project\! It is composed of:
+
+  - a [shiny](https://shiny.rstudio.com/) web application that we are
+    hosting at
+    [jhubiostatistics.shinyapps.io/spatialLIBD/](https://jhubiostatistics.shinyapps.io/spatialLIBD/)
+    that can handle a
+    [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2)
+    set of concurrent users,
+  - a Bioconductor package at
+    [bioconductor.org/packages/spatialLIBD](http://bioconductor.org/packages/spatialLIBD)
+    (or from [here](http://research.libd.org/spatialLIBD/)) that lets
+    you analyze the data and run a local version of our web application
+    (with our data or yours),
+  - and a [research
+    article](https://www.biorxiv.org/search/maynard%252Bcollado%252Bweber%252Bhicks%252Bmartinowich%252Bjaffe)
+    with the scientific knowledge we drew from this dataset. The
+    analysis code for our project is available
+    [here](https://github.com/LieberInstitute/HumanPilot/).
+
+This web application allows you to browse the LIBD human dorsolateral
+pre-frontal cortex (DLPFC) spatial transcriptomics data generated with
+the 10x Genomics Visium platform. Through the [R/Bioconductor
+package](https://bioconductor.org/packages/spatialLIBD) you can also
+download the data as well as visualize your own datasets using this web
+application. Please check the [bioRxiv
+pre-print](https://www.biorxiv.org/search/maynard%252Bcollado%252Bweber%252Bhicks%252Bmartinowich%252Bjaffe)
+for more details about this project.
+
+If you tweet about this website, the data or the R package please use
+the <code>\#spatialLIBD</code> hashtag. You can find previous tweets
+that way as shown
+<a href="https://twitter.com/search?q=%23spatialLIBD&src=typed_query">here</a>.
+Thank you\!
+<a href="https://twitter.com/intent/tweet?button_hashtag=spatialLIBD&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet
+\#spatialLIBD</a>
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ## Study design
 
-As a quick overview, the data presented here is from portion of the DLPFC that spans six neuronal layers plus white matter (**A**) for a total of three subjects with two pairs of spatially adjacent replicates (**B**). Each dissection of DLPFC was designed to span all six layers plus white matter (**C**). Using this web application you can explore the expression of known genes such as _SNAP25_ (**D**, a neuronal gene), _MOBP_ (**E**, an oligodendrocyte gene), and known layer markers from mouse studies such as _PCP4_ (**F**, a known layer 5 marker gene).
+As a quick overview, the data presented here is from portion of the
+DLPFC that spans six neuronal layers plus white matter (**A**) for a
+total of three subjects with two pairs of spatially adjacent replicates
+(**B**). Each dissection of DLPFC was designed to span all six layers
+plus white matter (**C**). Using this web application you can explore
+the expression of known genes such as *SNAP25* (**D**, a neuronal gene),
+*MOBP* (**E**, an oligodendrocyte gene), and known layer markers from
+mouse studies such as *PCP4* (**F**, a known layer 5 marker gene).
 
 <img src="http://research.libd.org/spatialLIBD/reference/figures/paper_figure1.jpg" align="center" width="800px" />
 
-This web application was built such that we could annotate the spots to layers as you can see under the **spot-level data** tab. Once we annotated each spot to a layer, we compressed the information by a pseudo-bulking approach into **layer-level data**. We then analyzed the expression through a set of models whose results you can also explore through this web application. Finally, you can upload your own gene sets of interest as well as layer enrichment statistics and compare them with our LIBD Human DLPFC Visium dataset.
+This web application was built such that we could annotate the spots to
+layers as you can see under the **spot-level data** tab. Once we
+annotated each spot to a layer, we compressed the information by a
+pseudo-bulking approach into **layer-level data**. We then analyzed the
+expression through a set of models whose results you can also explore
+through this web application. Finally, you can upload your own gene sets
+of interest as well as layer enrichment statistics and compare them with
+our LIBD Human DLPFC Visium dataset.
 
-If you are interested in running this web application locally, you can do so thanks to the `spatialLIBD` R/Bioconductor package that powers this web application as shown below.
+If you are interested in running this web application locally, you can
+do so thanks to the `spatialLIBD` R/Bioconductor package that powers
+this web application as shown below.
 
 ``` r
 ## Run this web application locally
@@ -72,6 +124,12 @@ BiocManager::install("spatialLIBD")
 
 ## Access the data
 
+Through the `spatialLIBD` package you can access the processed data in
+it’s final R format. However, we also provide a table of links so you
+can download the raw data we received from 10x Genomics.
+
+### Processed data
+
 Using `spatialLIBD` you can access the Human DLPFC spatial
 transcriptomics data from the 10x Genomics Visium platform. For example,
 this is the code you can use to access the layer-level data. For more
@@ -120,6 +178,26 @@ sce_image_clus(
 
 <img src="http://research.libd.org/spatialLIBD/reference/figures/README-access_data-1.png" width="600px" align="center" />
 
+### Raw data
+
+Below you can find the links to the raw data we received from 10x
+Genomics.
+
+| SampleID | h5\_filtered                                                                                    | h5\_raw                                                                                    | image\_hi                                                                                    | image\_lo                                                                                     | loupe                                                                       |
+| -------: | :---------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------- |
+|   151507 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151507_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151507_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151507.cloupe) |
+|   151508 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151508_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151508_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151508.cloupe) |
+|   151509 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151509_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151509_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151509.cloupe) |
+|   151510 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151510_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151510_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151510_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151510_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151510.cloupe) |
+|   151669 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151669_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151669_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151669.cloupe) |
+|   151670 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151670_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151670_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151670_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151670_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151670.cloupe) |
+|   151671 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151671_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151671_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151671_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151671_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151671.cloupe) |
+|   151672 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151672_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151672_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151672_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151672_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151672.cloupe) |
+|   151673 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151673_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151673_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151673.cloupe) |
+|   151674 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151674_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151674_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151674_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151674_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151674.cloupe) |
+|   151675 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151675_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151675_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151675_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151675_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151675.cloupe) |
+|   151676 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151676_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151676_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151676_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151676_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151676.cloupe) |
+
 ## Citation
 
 Below is the citation output from using `citation('spatialLIBD')` in R.
@@ -134,7 +212,7 @@ citation('spatialLIBD')
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 0.99.1, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 0.99.2, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
 #> Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Williams SR, II
 #> JLC, Barry BK, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Hyde TM,
@@ -147,3 +225,7 @@ citation('spatialLIBD')
 #> bibtex=TRUE)', 'toBibtex(.)', or set
 #> 'options(citation.bibtex.max=999)'.
 ```
+
+Please note that the `spatialLIBD` was only made possible thanks to many
+other R and bioinformatics software authors. We have cited their work
+either in the pre-print or the vignette of the R package.
