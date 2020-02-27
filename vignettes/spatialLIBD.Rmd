@@ -93,16 +93,7 @@ If you tweet about this website, the data or the R package please use the <code>
 
 As a quick overview, the data presented here is from portion of the DLPFC that spans six neuronal layers plus white matter (**A**) for a total of three subjects with two pairs of spatially adjacent replicates (**B**). Each dissection of DLPFC was designed to span all six layers plus white matter (**C**). Using this web application you can explore the expression of known genes such as _SNAP25_ (**D**, a neuronal gene), _MOBP_ (**E**, an oligodendrocyte gene), and known layer markers from mouse studies such as _PCP4_ (**F**, a known layer 5 marker gene).
 
-
-
-
-```{r 'paper_fig1', echo=FALSE, results = 'asis'}
-cat(paste0(
-    '<img src="',
-    system.file('help', 'figures', 'paper_figure1.jpg', package = 'spatialLIBD'),
-    '" align="center" width="800px">'
-))
-```
+<img src="http://research.libd.org/spatialLIBD/reference/figures/paper_figure1.jpg" align="center" width="800px" />
 
 # Basics
 
