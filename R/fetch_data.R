@@ -89,26 +89,34 @@ fetch_data <-
                 'https://www.dropbox.com/s/se6rrgb9yhm5gfh/Human_DLPFC_Visium_modeling_results.Rdata?dl=1'
         }
 
-        q <-
-            AnnotationHub::query(eh,
-                pattern = c('Human_Pilot_DLPFC_Visium_spatialLIBD', hub_title))
+        file_path <- file.path(destdir, file_name)
+        ## Use local data if present
+        if (!file.exists(file_path)) {
+            q <-
+                AnnotationHub::query(eh,
+                    pattern = c('Human_Pilot_DLPFC_Visium_spatialLIBD', hub_title))
 
-        if (length(q) == 0) {
-            ## ExperimentHub backup: download from Dropbox
-            file_path <- file.path(destdir, file_name)
-            if (!file.exists(file_path)) {
+            if (length(q) == 0) {
+                ## ExperimentHub has the data =)
+                return(q[[1]])
+            } else {
+                ## ExperimentHub backup: download from Dropbox
+                ## Create the destination directory if it doesn't exist
+                dir.create(destdir,
+                    showWarnings = FALSE,
+                    recursive = TRUE)
                 utils::download.file(url, destfile = file_path, quiet = TRUE)
             }
-
-            load(file_path, verbose = TRUE)
-            if (type == 'sce') {
-                return(sce)
-            } else if (type == 'sce_layer') {
-                return(sce_layer)
-            } else if (type == 'modeling_results') {
-                return(modeling_results)
-            }
-        } else {
-            return(q[[1]])
         }
+
+        ## Now load the data
+        load(file_path, verbose = TRUE)
+        if (type == 'sce') {
+            return(sce)
+        } else if (type == 'sce_layer') {
+            return(sce_layer)
+        } else if (type == 'modeling_results') {
+            return(modeling_results)
+        }
+
     }

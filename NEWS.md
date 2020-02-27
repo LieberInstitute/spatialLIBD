@@ -1,3 +1,7 @@
+# spatialLIBD 0.99.5
+
+* Make `fetch_data()` more flexible. Should now work when the data is absent.
+
 # spatialLIBD 0.99.4
 
 * Fix Travis badges
