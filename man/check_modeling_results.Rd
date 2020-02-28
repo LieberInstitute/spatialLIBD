@@ -23,11 +23,11 @@ For more details please check the vignette documentation.
 }
 \examples{
 
-if (!exists('ori_modeling_results'))
-    ori_modeling_results <- fetch_data(type = 'modeling_results')
+if (!exists('modeling_results'))
+    modeling_results <- fetch_data(type = 'modeling_results')
 
 ## Check the object
-xx <- check_modeling_results(ori_modeling_results)
+xx <- check_modeling_results(modeling_results)
 
 }
 \seealso{

@@ -27,15 +27,15 @@ names. It can be used to automatically assign colors.
 \examples{
 
 ## Obtain the necessary data
-if (!exists('ori_sce_layer')) ori_sce_layer <- fetch_data('sce')
+if (!exists('sce_layer')) sce_layer <- fetch_data('sce')
 
 ## Example layer colors with the corresponding names
-get_colors(libd_layer_colors, ori_sce_layer$layer_guess)
-get_colors(libd_layer_colors, ori_sce_layer$layer_guess_reordered_short)
+get_colors(libd_layer_colors, sce_layer$layer_guess)
+get_colors(libd_layer_colors, sce_layer$layer_guess_reordered_short)
 
 ## Example where colors are assigned automatically
 ## based on a pre-defined set of colors
-get_colors(clusters = ori_sce_layer$kmeans_k7)
+get_colors(clusters = sce_layer$kmeans_k7)
 
 ## Example where Polychrome::palette36.colors() gets used
 get_colors(clusters = letters[seq_len(13)])

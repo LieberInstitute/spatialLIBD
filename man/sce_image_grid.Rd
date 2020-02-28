@@ -61,10 +61,10 @@ objects.
 \examples{
 
 ## Obtain the necessary data
-if (!exists('ori_sce')) ori_sce <- fetch_data('sce')
+if (!exists('sce')) sce <- fetch_data('sce')
 
 ## Subset to two samples of interest
-sce_sub <- ori_sce[, ori_sce$sample_name \%in\% c('151673', '151674')]
+sce_sub <- sce[, sce$sample_name \%in\% c('151673', '151674')]
 
 ## Obtain the plot list
 p_list <-
@@ -76,6 +76,9 @@ p_list <-
         sort_clust = FALSE,
         colors = libd_layer_colors
     )
+
+## Clean up
+rm(sce_sub)
 
 ## Visualize the spatial adjacent replicates for position = 0 micro meters
 ## for subject 3

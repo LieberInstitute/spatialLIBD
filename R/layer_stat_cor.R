@@ -24,13 +24,13 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' if (!exists('ori_modeling_results'))
-#'     ori_modeling_results <- fetch_data(type = 'modeling_results')
+#' if (!exists('modeling_results'))
+#'     modeling_results <- fetch_data(type = 'modeling_results')
 #'
 #' ## Compute the correlations
 #' cor_stats_layer <- layer_stat_cor(
 #'     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
-#'     ori_modeling_results,
+#'     modeling_results,
 #'     'enrichment'
 #' )
 #'

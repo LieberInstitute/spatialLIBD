@@ -53,14 +53,14 @@ data and title for \code{\link[=sce_image_clus_p]{sce_image_clus_p()}}.
 \examples{
 
 ## Obtain the necessary data
-if (!exists('ori_sce')) ori_sce <- fetch_data('sce')
+if (!exists('sce')) sce <- fetch_data('sce')
 
 ## Check the colors defined by Lukas M Weber
 libd_layer_colors
 
 ## Use the manual color palette by Lukas M Weber
 sce_image_clus(
-    sce = ori_sce,
+    sce = sce,
     clustervar = 'layer_guess_reordered',
     sampleid = '151673',
     colors = libd_layer_colors,
@@ -69,7 +69,7 @@ sce_image_clus(
 
 ## Without histology
 sce_image_clus(
-    sce = ori_sce,
+    sce = sce,
     clustervar = 'layer_guess_reordered',
     sampleid = '151673',
     colors = libd_layer_colors,

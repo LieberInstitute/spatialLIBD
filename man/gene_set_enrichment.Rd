@@ -73,13 +73,13 @@ asd_sfari_geneList <- list(
 )
 
 ## Obtain the necessary data
-if (!exists('ori_modeling_results'))
-    ori_modeling_results <- fetch_data(type = 'modeling_results')
+if (!exists('modeling_results'))
+    modeling_results <- fetch_data(type = 'modeling_results')
 
 ## Compute the gene set enrichment results
 asd_sfari_enrichment <- gene_set_enrichment(
     gene_list = asd_sfari_geneList,
-    modeling_results = ori_modeling_results,
+    modeling_results = modeling_results,
     model_type = 'enrichment'
 )
 

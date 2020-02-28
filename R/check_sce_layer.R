@@ -15,10 +15,10 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' if (!exists('ori_sce_layer')) ori_sce_layer <- fetch_data('sce_layer')
+#' if (!exists('sce_layer')) sce_layer <- fetch_data('sce_layer')
 #'
 #' ## Check the object
-#' check_sce_layer(ori_sce_layer)
+#' check_sce_layer(sce_layer)
 #'
 
 check_sce_layer <- function(sce_layer, variables = 'layer_guess_reordered_short') {

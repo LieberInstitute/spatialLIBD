@@ -16,10 +16,10 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' if (!exists('ori_sce')) ori_sce <- fetch_data('sce')
+#' if (!exists('sce')) sce <- fetch_data('sce')
 #'
 #' ## Check the object
-#' check_sce(ori_sce)
+#' check_sce(sce)
 #'
 
 check_sce <- function(sce,

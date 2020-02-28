@@ -20,10 +20,10 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' if (!exists('ori_sce')) ori_sce <- fetch_data('sce')
+#' if (!exists('sce')) sce <- fetch_data('sce')
 #'
 #' ## Prepare the data for the plotting function
-#' sce_sub <- ori_sce[, ori_sce$sample_name == '151673']
+#' sce_sub <- sce[, sce$sample_name == '151673']
 #' df <- as.data.frame(colData(sce_sub))
 #' df$COUNT <- df$expr_chrM_ratio
 #'
@@ -36,6 +36,9 @@
 #'     title = '151673 chrM expr ratio',
 #'     spatial = FALSE
 #' )
+#'
+#' ## Clean up
+#' rm(sce_sub)
 #'
 
 sce_image_gene_p <-

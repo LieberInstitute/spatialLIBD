@@ -188,7 +188,7 @@ ehub <- ExperimentHub::ExperimentHub()
 ## Maybe subsetting the sce object will help
 ## with the memory issues at 
 ## https://travis-ci.com/LieberInstitute/spatialLIBD/builds/150177257?utm_medium=notification&utm_source=slack
-sce <- fetch_data(type = 'sce', eh = ehub)
+if (!exists('sce')) sce <- fetch_data(type = 'sce', eh = ehub)
 pryr::object_size(sce)
 # 2.08 
 # GB
@@ -220,7 +220,7 @@ system(paste('ls -lh', here::here('data-raw', 'sce_sub_for_vignette.Rdata')))
 
 ```{r 'download_fake', eval = FALSE}
 ## Query ExperimentHub and download the data
-sce <- fetch_data(type = 'sce', eh = ehub)
+if (!exists('sce')) sce <- fetch_data(type = 'sce', eh = ehub)
 ```
 
 
@@ -237,12 +237,12 @@ vignette_data <- function(destdir = tempdir()) {
     load(file_path, verbose = FALSE)
     return(sce_sub)
 }
-sce <- vignette_data()
+if (!exists('sce')) sce <- vignette_data()
 ```
 
 
 ```{r 'download_rest'}
-sce_layer <- fetch_data(type = 'sce_layer', eh = ehub)
+if (!exists('sce_layer')) sce_layer <- fetch_data(type = 'sce_layer', eh = ehub)
 modeling_results <- fetch_data('modeling_results', eh = ehub)
 ```
 

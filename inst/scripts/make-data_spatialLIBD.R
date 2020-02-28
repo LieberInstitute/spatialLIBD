@@ -261,23 +261,23 @@ colnames(colData(sce))[colnames(colData(sce)) == 'Cluster10X'] <-
     'GraphBased'
 
 ## Double check that it all works!
-# ori_sce_layer <-
+# sce_layer <-
 #     fetch_data('sce_layer', here::here('data-raw/spatialLIBD_files'))
-# ori_modeling_results <-
+# modeling_results <-
 #     fetch_data('modeling_results',
 #         here::here('data-raw/spatialLIBD_files'))
 #
-# ori_sig_genes <-
-#     sig_genes_extract_all(n = nrow(ori_sce_layer),
-#         ori_modeling_results,
-#         sce_layer = ori_sce_layer)
+# sig_genes <-
+#     sig_genes_extract_all(n = nrow(sce_layer),
+#         modeling_results,
+#         sce_layer = sce_layer)
 #
 #
 # spatialLIBD::run_app(
 #     sce = sce,
-#     sce_layer = ori_sce_layer,
-#     modeling_results = ori_modeling_results,
-#     sig_genes = ori_sig_genes,
+#     sce_layer = sce_layer,
+#     modeling_results = modeling_results,
+#     sig_genes = sig_genes,
 #     sce_discrete_vars = c('GraphBased',
 #         'Layer',
 #         'Maynard',

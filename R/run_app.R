@@ -93,7 +93,7 @@ run_app <- function(sce = fetch_data(type = 'sce'),
     sce <-
         check_sce(sce,
             variables = c(spatial_libd_var, sce_discrete_vars, sce_continuous_vars))
-    sce_layer <-
+    if (!exists('sce_layer')) sce_layer <-
         check_sce_layer(sce_layer, variables = spatial_libd_var)
     modeling_results <- check_modeling_results(modeling_results)
     image_path <- check_image_path(image_path, sce)

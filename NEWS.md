@@ -1,3 +1,7 @@
+# spatialLIBD 0.99.7
+
+* Run a test that might help with https://github.com/r-lib/pkgdown/issues/1230.
+
 # spatialLIBD 0.99.6
 
 * Add mirrors for the shiny app and change the main location.

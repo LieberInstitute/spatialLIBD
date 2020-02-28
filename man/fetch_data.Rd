@@ -53,7 +53,7 @@ https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-dat
 
 ## Download the SingleCellExperiment object
 ## at the layer-level
-sce_layer <- fetch_data('sce_layer')
+if (!exists('sce_layer')) sce_layer <- fetch_data('sce_layer')
 
 ## Explore the data
 sce_layer

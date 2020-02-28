@@ -18,8 +18,8 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' if (!exists('ori_sce')) ori_sce <- fetch_data('sce')
-#' sce_sub <- ori_sce[, ori_sce$sample_name == '151673']
+#' if (!exists('sce')) sce <- fetch_data('sce')
+#' sce_sub <- sce[, sce$sample_name == '151673']
 #'
 #' ## Use the manual color palette by Lukas M Weber
 #' ## Don't plot the histology information
@@ -32,6 +32,9 @@
 #'     title = '151673 LIBD Layers',
 #'     spatial = FALSE
 #' )
+#'
+#' ## Clean up
+#' rm(sce_sub)
 #'
 
 sce_image_clus_p <-

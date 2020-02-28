@@ -66,15 +66,15 @@ data and title for \code{\link[=sce_image_gene_p]{sce_image_gene_p()}}. It also 
 \examples{
 
 ## Obtain the necessary data
-if (!exists('ori_sce')) ori_sce <- fetch_data('sce')
+if (!exists('sce')) sce <- fetch_data('sce')
 
 ## Valid `geneid` values are those in
-head(rowData(ori_sce)$gene_search)
-## or continuous variables stored in colData(ori_sce)
+head(rowData(sce)$gene_search)
+## or continuous variables stored in colData(sce)
 
 ## Visualize a default gene on the non-viridis scale
 sce_image_gene(
-    sce = ori_sce,
+    sce = sce,
     sampleid = '151507',
     viridis = FALSE
 )
@@ -82,7 +82,7 @@ sce_image_gene(
 ## Visualize a continuous variable, in this case, the ratio of chrM
 ## gene expression compared to the total expression at the spot-level
 sce_image_gene(
-    sce = ori_sce,
+    sce = sce,
     sampleid = '151507',
     geneid = 'expr_chrM_ratio'
 )

@@ -66,39 +66,39 @@ of a given gene and display the modeling results for the given gene.
 \examples{
 
 ## Obtain the necessary data
-if (!exists('ori_modeling_results'))
-    ori_modeling_results <- fetch_data(type = 'modeling_results')
-if (!exists('ori_sce_layer')) ori_sce_layer <- fetch_data(type = 'sce_layer')
+if (!exists('modeling_results'))
+    modeling_results <- fetch_data(type = 'modeling_results')
+if (!exists('sce_layer')) sce_layer <- fetch_data(type = 'sce_layer')
 
 ## Top 2 genes from the enrichment model
 sig_genes <- sig_genes_extract_all(n = 2,
-    modeling_results = ori_modeling_results,
-    sce_layer = ori_sce_layer)
+    modeling_results = modeling_results,
+    sce_layer = sce_layer)
 
 ## Example default boxplot
-layer_boxplot(sig_genes = sig_genes, sce_layer = ori_sce_layer)
+layer_boxplot(sig_genes = sig_genes, sce_layer = sce_layer)
 
 ## Now show the long title version
 layer_boxplot(sig_genes = sig_genes,
     short_title = FALSE,
-    sce_layer = ori_sce_layer)
+    sce_layer = sce_layer)
 
 layer_boxplot(
     i = which(sig_genes$model_type == 'anova')[1],
     sig_genes = sig_genes,
-    sce_layer = ori_sce_layer
+    sce_layer = sce_layer
 )
 layer_boxplot(
     i = which(sig_genes$model_type == 'pairwise')[1],
     sig_genes = sig_genes,
-    sce_layer = ori_sce_layer
+    sce_layer = sce_layer
 )
 
 ## Viridis colors displayed in the shiny app
 library('viridisLite')
 layer_boxplot(
     sig_genes = sig_genes,
-    sce_layer = ori_sce_layer,
+    sce_layer = sce_layer,
     col_low_box = viridis(4)[2],
     col_low_point = viridis(4)[1],
     col_high_box = viridis(4)[3],
@@ -108,7 +108,7 @@ layer_boxplot(
 ## Paper colors displayed in the shiny app
 layer_boxplot(
     sig_genes = sig_genes,
-    sce_layer = ori_sce_layer,
+    sce_layer = sce_layer,
     col_low_box = 'palegreen3',
     col_low_point = 'springgreen2',
     col_high_box = 'darkorange2',
@@ -119,7 +119,7 @@ layer_boxplot(
 layer_boxplot(
     i = which(sig_genes$model_type == 'pairwise')[1],
     sig_genes = sig_genes,
-    sce_layer = ori_sce_layer,
+    sce_layer = sce_layer,
     col_bkg_box = 'grey90',
     col_bkg_point = 'grey60',
     col_low_box = 'lightcyan',

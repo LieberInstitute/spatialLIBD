@@ -44,11 +44,11 @@ as in \code{\link[=sce_image_gene_p]{sce_image_gene_p()}}.
 }
 \examples{
 ## Obtain the necessary data
-if (!exists('ori_sce')) ori_sce <- fetch_data('sce')
+if (!exists('sce')) sce <- fetch_data('sce')
 
 ## Select the first sample and extract the data
-sample_id <- unique(ori_sce$sample_name)[1]
-sce_sub <- ori_sce[, ori_sce$sample_name == sample_id]
+sample_id <- unique(sce$sample_name)[1]
+sce_sub <- sce[, sce$sample_name == sample_id]
 sample_df <- as.data.frame(colData(sce_sub))
 
 ## Make a plot using geom_spatial
@@ -63,6 +63,9 @@ ggplot2::ggplot(sample_df,
         x = 0.5,
         y = 0.5
     )
+
+## Clean up
+rm(sce_sub)
 
 }
 \author{
