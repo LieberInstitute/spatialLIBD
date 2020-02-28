@@ -2,7 +2,7 @@
 # To deploy, run: rsconnect::deployApp()
 # Or use the blue button on top of this file
 
-library('spatialLIBD')
+pkgload::load_all()
 options("golem.app.prod" = TRUE)
 
 ## will download the data automatically
