@@ -1,3 +1,9 @@
+# spatialLIBD 0.99.8
+
+* https://spatial.libd.org/spatialLIBD is not supported since we
+are using Shiny Server and not Shiny Server Pro. So all links have
+now been updated to http://spatial.libd.org/spatialLIBD.
+
 # spatialLIBD 0.99.7
 
 * Run a test that might help with https://github.com/r-lib/pkgdown/issues/1230.

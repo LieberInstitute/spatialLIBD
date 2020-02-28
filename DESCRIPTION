@@ -1,7 +1,7 @@
 Package: spatialLIBD
 Title: LIBD Visium spatial transcriptomics human pilot data inspector
-Version: 0.99.7
-Date: 2020-02-27
+Version: 0.99.8
+Date: 2020-02-28
 Authors@R:
     c(
     person("Leonardo", "Collado-Torres", role = c("aut", "cre"), 

@@ -81,7 +81,7 @@ bib <- c(
 
 Welcome to the `spatialLIBD` project! It is composed of:
 
-* a [shiny](https://shiny.rstudio.com/) web application that we are hosting at [spatial.libd.org/spatialLIBD/](https://spatial.libd.org/spatialLIBD/) that can handle a [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2) set of concurrent users,
+* a [shiny](https://shiny.rstudio.com/) web application that we are hosting at [spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/) that can handle a [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2) set of concurrent users,
 * a Bioconductor package at [bioconductor.org/packages/spatialLIBD](http://bioconductor.org/packages/spatialLIBD) (or from [here](http://research.libd.org/spatialLIBD/)) that lets you analyze the data and run a local version of our web application (with our data or yours),
 * and a [research article](https://www.biorxiv.org/search/maynard%252Bcollado%252Bweber%252Bhicks%252Bmartinowich%252Bjaffe) with the scientific knowledge we drew from this dataset. The analysis code for our project is available [here](https://github.com/LieberInstitute/HumanPilot/).
 
@@ -300,7 +300,7 @@ if(interactive()) {
 
 The `r Biocpkg('spatialLIBD')` `r CRANpkg('shiny')` application allows you to browse the spot-level data and interactively label spots, as well as explore the layer-level results. Once you launch it, check the _Documentation_ tab for each view for more details. In order to avoid duplicating the documentation, we provide all the details on the `r CRANpkg('shiny')` application itself.
 
-Though overall, this application allows you to export all static visualizations as PDF files or all interactive visualizations as PNG files, as well as all result table as CSV files. This is what produces the version you can access without any R use from your side at [spatial.libd.org/spatialLIBD/](https://spatial.libd.org/spatialLIBD/).
+Though overall, this application allows you to export all static visualizations as PDF files or all interactive visualizations as PNG files, as well as all result table as CSV files. This is what produces the version you can access without any R use from your side at [spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/).
 
 
 # `spatialLIBD` functions

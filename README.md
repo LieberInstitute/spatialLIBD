@@ -20,7 +20,7 @@ Welcome to the `spatialLIBD` project\! It is composed of:
 
   - a [shiny](https://shiny.rstudio.com/) web application that we are
     hosting at
-    [spatial.libd.org/spatialLIBD/](https://spatial.libd.org/spatialLIBD/)
+    [spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/)
     that can handle a
     [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2)
     set of concurrent users,
@@ -115,7 +115,7 @@ The `spatialLIBD` package contains functions for:
   - Visualizing the spot-level spatial gene expression data and
     clusters.
   - Inspecting the data interactively either on your computer or through
-    [spatial.libd.org/spatialLIBD/](https://spatial.libd.org/spatialLIBD/).
+    [spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/).
 
 For more details, please check the [documentation
 website](http://lieberinstitute.github.io/spatialLIBD) or the
