@@ -7,10 +7,10 @@ warnings_are_errors: false
 cache: packages
 root: linux
 
-deploy:
-  provider: script
-  script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE, ssh_id = Sys.getenv("TRAVIS_DEPLOY_KEY", ""))'
-  skip_cleanup: true
+# deploy:
+#   provider: script
+#   script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE, ssh_id = Sys.getenv("TRAVIS_DEPLOY_KEY", ""))'
+#   skip_cleanup: true
 
 ## Related to https://github.com/LTLA/BiocNeighbors/issues/10
 install:
