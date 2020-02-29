@@ -41,7 +41,7 @@ c(
         ),
         year = 2020,
         journal = "bioRxiv",
-        doi = "10.1101/xxxyyy",
-        url = "https://doi.org/10.1101/xxxyyy"
+        doi = "10.1101/2020.02.28.969931",
+        url = "https://doi.org/10.1101/2020.02.28.969931"
     )
 )

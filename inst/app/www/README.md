@@ -27,7 +27,7 @@ Welcome to the `spatialLIBD` project\! It is composed of:
     you analyze the data and run a local version of our web application
     (with our data or yours),
   - and a [research
-    article](https://www.biorxiv.org/search/maynard%252Bcollado%252Bweber%252Bhicks%252Bmartinowich%252Bjaffe)
+    article](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1)
     with the scientific knowledge we drew from this dataset. The
     analysis code for our project is available
     [here](https://github.com/LieberInstitute/HumanPilot/).
@@ -38,7 +38,7 @@ the 10x Genomics Visium platform. Through the [R/Bioconductor
 package](https://bioconductor.org/packages/spatialLIBD) you can also
 download the data as well as visualize your own datasets using this web
 application. Please check the [bioRxiv
-pre-print](https://www.biorxiv.org/search/maynard%252Bcollado%252Bweber%252Bhicks%252Bmartinowich%252Bjaffe)
+pre-print](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1)
 for more details about this project.
 
 If you tweet about this website, the data or the R package please use
@@ -222,14 +222,14 @@ citation('spatialLIBD')
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 0.99.5, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 0.99.9, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
 #> Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Williams SR, II
 #> JLC, Barry BK, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Hyde TM,
 #> Rao N, Hicks SC, Martinowich K, Jaffe AE (2020). "Transcriptome-scale
 #> spatial gene expression in the human dorsolateral prefrontal cortex."
-#> _bioRxiv_. doi: 10.1101/xxxyyy (URL: https://doi.org/10.1101/xxxyyy),
-#> <URL: https://doi.org/10.1101/xxxyyy>.
+#> _bioRxiv_. doi: 10.1101/2020.02.28.969931 (URL: https://doi.org/10.1101/2020.02.28.969931),
+#> <URL: https://doi.org/10.1101/2020.02.28.969931>.
 #> 
 #> To see these entries in BibTeX format, use 'print(<citation>,
 #> bibtex=TRUE)', 'toBibtex(.)', or set

@@ -1,3 +1,8 @@
+# spatialLIBD 0.99.9
+
+* Link to https://doi.org/10.1101/2020.02.28.969931 now that its
+public.
+
 # spatialLIBD 0.99.8
 
 * https://spatial.libd.org/spatialLIBD is not supported since we
