@@ -25,14 +25,15 @@ c(
             as.person("Leonardo Collado-Torres"),
             as.person("Lukas M. Weber"),
             as.person("Cedric Uytingco"),
+            as.person("Brianna K. Barry"),
             as.person("Stephen R. Williams"),
             as.person("Joseph L. Catallini II"),
-            as.person("Brianna K. Barry"),
             as.person("Matthew N. Tran"),
             as.person("Zachary Besich"),
             as.person("Madhavi Tippani"),
             as.person("Jennifer Chew"),
             as.person("Yifeng Yin"),
+            as.person("Joel E. Kleinman"),
             as.person("Thomas M. Hyde"),
             as.person("Nikhil Rao"),
             as.person("Stephanie C. Hicks"),
@@ -42,6 +43,6 @@ c(
         year = 2020,
         journal = "bioRxiv",
         doi = "10.1101/2020.02.28.969931",
-        url = "https://doi.org/10.1101/2020.02.28.969931"
+        url = "https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1"
     )
 )
