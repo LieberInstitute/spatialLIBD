@@ -224,17 +224,19 @@ citation('spatialLIBD')
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
 #> 0.99.9, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
-#> Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Williams SR, II
-#> JLC, Barry BK, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Hyde TM,
-#> Rao N, Hicks SC, Martinowich K, Jaffe AE (2020). "Transcriptome-scale
-#> spatial gene expression in the human dorsolateral prefrontal cortex."
-#> _bioRxiv_. doi: 10.1101/2020.02.28.969931 (URL: https://doi.org/10.1101/2020.02.28.969931),
-#> <URL: https://doi.org/10.1101/2020.02.28.969931>.
+#> Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK, Williams
+#> SR, II JLC, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Kleinman JE,
+#> Hyde TM, Rao N, Hicks SC, Martinowich K, Jaffe AE (2020).
+#> "Transcriptome-scale spatial gene expression in the human dorsolateral
+#> prefrontal cortex." _bioRxiv_. doi: 10.1101/2020.02.28.969931 (URL:
+#> https://doi.org/10.1101/2020.02.28.969931), <URL:
+#> https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1>.
 #> 
 #> To see these entries in BibTeX format, use 'print(<citation>,
 #> bibtex=TRUE)', 'toBibtex(.)', or set
 #> 'options(citation.bibtex.max=999)'.
 ```
+
 
 Please note that the `spatialLIBD` was only made possible thanks to many
 other R and bioinformatics software authors. We have cited their work
