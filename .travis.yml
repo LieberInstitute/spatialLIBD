@@ -13,8 +13,8 @@ root: linux
 #   skip_cleanup: true
 
 ## Related to https://github.com/LTLA/BiocNeighbors/issues/10
-install:
-    - Rscript -e "remotes::install_version('RcppAnnoy', version = '0.0.14')"
+# install:
+#     - Rscript -e "remotes::install_version('RcppAnnoy', version = '0.0.14')"
 
 r_packages:
   - covr

@@ -1,3 +1,9 @@
+# spatialLIBD 0.99.11
+
+* Check if removing the `RcppAnnoy` line in the DESCRIPTION actually works now
+based on Aaron Lun's comment at
+https://github.com/eddelbuettel/rcppannoy/issues/57#issuecomment-594097241.
+
 # spatialLIBD 0.99.10
 
 * Include AWS links to the image TIFF files (~500mb each) as requested by
