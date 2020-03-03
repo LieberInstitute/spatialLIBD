@@ -53,8 +53,8 @@ layer_stat_cor <-
         if (reverse) {
             tstats <- tstats * -1
             colnames(tstats) <-
-                sapply(strsplit(colnames(tstats), '-'), function(x)
-                    paste(rev(x), collapse = '-'))
+                vapply(strsplit(colnames(tstats), '-'), function(x)
+                    paste(rev(x), collapse = '-'), character(1))
         }
 
         ## Adapted from https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R

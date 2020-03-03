@@ -18,7 +18,7 @@ sce_image_grid(
 \arguments{
 \item{sce}{Defaults to the output of
 \code{fetch_data(type = 'sce')}. This is a
-\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
+\linkS4class{SingleCellExperiment}
 object with the spot-level Visium data and information required for
 visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
@@ -42,7 +42,7 @@ to a PDF or to return the list of plots that you can then print using
 layer from \code{\link[=geom_spatial]{geom_spatial()}}. If you plan to use
 \link[plotly:ggplotly]{ggplotly()} then it's best to set this to \code{FALSE}.}
 
-\item{...}{Passed to \link[base:paste0]{paste0()} for making the title of the
+\item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}
 }
 \value{

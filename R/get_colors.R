@@ -5,7 +5,7 @@
 #'
 #' @param colors A vector of colors. If `NULL` then a set of default colors will
 #' be used when `clusters` has less than 12 unique values, otherwise
-#' [palette36.colors][Polychrome::palette36.colors()] will be used which can
+#' [palette36.colors][Polychrome::palettes] will be used which can
 #' generate up to 36 unique colors. If the number of unique clusters is beyond
 #' 36 then this function will fail.
 #' @param clusters A vector of cluster names.

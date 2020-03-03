@@ -15,8 +15,7 @@ layer_boxplot(
   col_low_point = "darkviolet",
   col_high_box = "skyblue",
   col_high_point = "dodgerblue4",
-  cex = 2,
-  seed = 20200206
+  cex = 2
 )
 }
 \arguments{
@@ -30,7 +29,7 @@ or not.}
 
 \item{sce_layer}{Defaults to the output of
 \code{fetch_data(type = 'sce_layer')}. This is a
-\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
+\linkS4class{SingleCellExperiment}
 object with the spot-level Visium data compressed via pseudo-bulking to the
 layer-level (group-level) resolution. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
@@ -50,8 +49,6 @@ with higher expression.}
 \item{col_high_point}{Similar to \code{col_high_box} but for the points.}
 
 \item{cex}{Controls the size of the text, points and axis legends.}
-
-\item{seed}{The random seed used to make the point jittering reproducible.}
 }
 \value{
 This function creates a boxplot of the layer-level data
@@ -76,18 +73,23 @@ sig_genes <- sig_genes_extract_all(n = 2,
     sce_layer = sce_layer)
 
 ## Example default boxplot
+set.seed(20200206)
 layer_boxplot(sig_genes = sig_genes, sce_layer = sce_layer)
 
 ## Now show the long title version
+set.seed(20200206)
 layer_boxplot(sig_genes = sig_genes,
     short_title = FALSE,
     sce_layer = sce_layer)
 
+set.seed(20200206)
 layer_boxplot(
     i = which(sig_genes$model_type == 'anova')[1],
     sig_genes = sig_genes,
     sce_layer = sce_layer
 )
+
+set.seed(20200206)
 layer_boxplot(
     i = which(sig_genes$model_type == 'pairwise')[1],
     sig_genes = sig_genes,
@@ -96,6 +98,7 @@ layer_boxplot(
 
 ## Viridis colors displayed in the shiny app
 library('viridisLite')
+set.seed(20200206)
 layer_boxplot(
     sig_genes = sig_genes,
     sce_layer = sce_layer,
@@ -106,6 +109,7 @@ layer_boxplot(
 )
 
 ## Paper colors displayed in the shiny app
+set.seed(20200206)
 layer_boxplot(
     sig_genes = sig_genes,
     sce_layer = sce_layer,
@@ -116,14 +120,15 @@ layer_boxplot(
 )
 
 ## Blue/red colors displayed in the shiny app
+set.seed(20200206)
 layer_boxplot(
     i = which(sig_genes$model_type == 'pairwise')[1],
     sig_genes = sig_genes,
     sce_layer = sce_layer,
     col_bkg_box = 'grey90',
     col_bkg_point = 'grey60',
-    col_low_box = 'lightcyan',
-    col_low_point = 'lightblue4',
+    col_low_box = 'skyblue2',
+    col_low_point = 'royalblue3',
     col_high_box = 'tomato2',
     col_high_point = 'firebrick4',
     cex = 3

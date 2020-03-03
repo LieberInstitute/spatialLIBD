@@ -15,7 +15,7 @@
 #' @param spatial A `logical(1)` indicating whether to include the histology
 #' layer from [geom_spatial()]. If you plan to use
 #' [ggplotly()][plotly::ggplotly] then it's best to set this to `FALSE`.
-#' @param ... Passed to [paste0()][base::paste0] for making the title of the
+#' @param ... Passed to [paste0()][base::paste] for making the title of the
 #' plot following the `sampleid`.
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.

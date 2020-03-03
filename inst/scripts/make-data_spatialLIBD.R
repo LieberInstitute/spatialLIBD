@@ -198,9 +198,9 @@ dir(here('Analysis',
 ######################################
 
 usethis::use_directory("data-raw/spatialLIBD_files", ignore = TRUE)
-system(
+system2('scp',
     paste0(
-        'scp e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/spatialLIBD_files/* ',
+        'e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/spatialLIBD_files/* ',
         here::here('data-raw/spatialLIBD_files'),
         '/'
     )
@@ -215,8 +215,8 @@ system(
 #     )
 # )
 
-system(paste(
-    'echo data-raw/spatialLIBD_files >>',
+system2('echo', paste(
+    'data-raw/spatialLIBD_files >>',
     here::here('.gitignore')
 ))
 

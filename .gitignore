@@ -6,3 +6,4 @@ inst/doc
 data-raw/spatialLIBD_files
 docs/
 rsconnect
+*.Rproj

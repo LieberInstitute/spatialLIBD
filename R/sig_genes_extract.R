@@ -26,7 +26,7 @@
 #' into `layerB-layerA`.
 #' @param sce_layer Defaults to the output of
 #' `fetch_data(type = 'sce_layer')`. This is a
-#' [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class]
+#' \linkS4class{SingleCellExperiment}
 #' object with the spot-level Visium data compressed via pseudo-bulking to the
 #' layer-level (group-level) resolution. See [fetch_data()] for more details.
 #'
@@ -60,22 +60,22 @@
 #' )
 #'
 
-sig_genes_extract <- function(
-    n = 10,
+sig_genes_extract <- function(n = 10,
     modeling_results = fetch_data(type = 'modeling_results'),
     model_type = names(modeling_results)[1],
     reverse = FALSE,
     sce_layer = fetch_data(type = 'sce_layer')) {
-
     model_results <- modeling_results[[model_type]]
 
     tstats <-
         model_results[, grep('[f|t]_stat_', colnames(model_results))]
     colnames(tstats) <- gsub('[f|t]_stat_', '', colnames(tstats))
 
-    if(reverse) {
+    if (reverse) {
         tstats <- tstats * -1
-        colnames(tstats) <- sapply(strsplit(colnames(tstats), '-'), function(x) paste(rev(x), collapse = '-'))
+        colnames(tstats) <-
+            vapply(strsplit(colnames(tstats), '-'), function(x)
+                paste(rev(x), collapse = '-'), character(1))
     }
 
     pvals <-
@@ -90,17 +90,17 @@ sig_genes_extract <- function(
         order(x, decreasing = TRUE)[seq_len(n)]
     })
     sig_genes_tstats <-
-        sapply(seq_len(ncol(sig_i)), function(i) {
+        vapply(seq_len(ncol(sig_i)), function(i) {
             tstats[sig_i[, i], i]
-        })
+        }, numeric(n))
     sig_genes_pvals <-
-        sapply(seq_len(ncol(sig_i)), function(i) {
+        vapply(seq_len(ncol(sig_i)), function(i) {
             pvals[sig_i[, i], i]
-        })
+        }, numeric(n))
     sig_genes_fdr <-
-        sapply(seq_len(ncol(sig_i)), function(i) {
+        vapply(seq_len(ncol(sig_i)), function(i) {
             fdrs[sig_i[, i], i]
-        })
+        }, numeric(n))
     dimnames(sig_genes_fdr) <-
         dimnames(sig_genes_tstats) <-
         dimnames(sig_genes_pvals) <- dimnames(sig_genes)

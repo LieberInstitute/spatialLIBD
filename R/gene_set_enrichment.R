@@ -77,8 +77,8 @@ gene_set_enrichment <-
         if (reverse) {
             tstats <- tstats * -1
             colnames(tstats) <-
-                sapply(strsplit(colnames(tstats), '-'), function(x)
-                    paste(rev(x), collapse = '-'))
+                vapply(strsplit(colnames(tstats), '-'), function(x)
+                    paste(rev(x), collapse = '-'), character(ncol(tstats)))
         }
 
         fdrs <-
@@ -97,8 +97,8 @@ gene_set_enrichment <-
                     fisher.test(tt)
                 })
                 o <- data.frame(
-                    OR = sapply(enrichList, "[[", "estimate"),
-                    Pval = sapply(enrichList, "[[", "p.value"),
+                    OR = vapply(enrichList, "[[", numeric(1), "estimate"),
+                    Pval = vapply(enrichList, "[[", numeric(1), "p.value"),
                     test = colnames(tstats)[i],
                     stringsAsFactors = FALSE
                 )

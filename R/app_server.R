@@ -353,7 +353,7 @@ app_server <- function(input, output, session) {
             d$COUNT <- colData(sce_sub)[[geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid),]
+                assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid), ]
         }
         d$COUNT[d$COUNT <= minCount] <- NA
 
@@ -697,7 +697,7 @@ app_server <- function(input, output, session) {
                 d$COUNT <- colData(sce_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
+                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -727,7 +727,7 @@ app_server <- function(input, output, session) {
                 d$COUNT <- colData(sce_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid),]
+                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -843,6 +843,7 @@ app_server <- function(input, output, session) {
     static_layer_boxplot <- reactive({
         i <- static_layer_boxplot_i()
         if (length(i) > 0)
+            set.seed(20200206)
             layer_boxplot(
                 i = i,
                 sig_genes = sig_genes,
@@ -864,7 +865,7 @@ app_server <- function(input, output, session) {
                     ifelse(
                         input$layer_boxcolor == 'paper',
                         'palegreen3',
-                        'lightcyan'
+                        'skyblue2'
                     )
                 ),
                 col_low_point = ifelse(
@@ -873,7 +874,7 @@ app_server <- function(input, output, session) {
                     ifelse(
                         input$layer_boxcolor == 'paper',
                         'springgreen2',
-                        'lightblue4'
+                        'royalblue3'
                     )
                 ),
                 col_high_box = ifelse(
@@ -1019,6 +1020,7 @@ app_server <- function(input, output, session) {
             )
             i <- static_layer_boxplot_i()
             if (length(i) > 0)
+                set.seed(20200206)
                 layer_boxplot(
                     i = i,
                     sig_genes = sig_genes,
@@ -1040,7 +1042,7 @@ app_server <- function(input, output, session) {
                         ifelse(
                             input$layer_boxcolor == 'paper',
                             'palegreen3',
-                            'lightcyan'
+                            'skyblue2'
                         )
                     ),
                     col_low_point = ifelse(
@@ -1049,7 +1051,7 @@ app_server <- function(input, output, session) {
                         ifelse(
                             input$layer_boxcolor == 'paper',
                             'springgreen2',
-                            'lightblue4'
+                            'royalblue3'
                         )
                     ),
                     col_high_box = ifelse(

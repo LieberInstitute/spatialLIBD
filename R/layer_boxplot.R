@@ -19,7 +19,6 @@
 #' @param col_high_box Similar to `col_low_box` but for the expected layer(s)
 #' with higher expression.
 #' @param col_high_point Similar to `col_high_box` but for the points.
-#' @param seed The random seed used to make the point jittering reproducible.
 #' @param cex Controls the size of the text, points and axis legends.
 #'
 #' @return This function creates a boxplot of the layer-level data
@@ -46,18 +45,23 @@
 #'     sce_layer = sce_layer)
 #'
 #' ## Example default boxplot
+#' set.seed(20200206)
 #' layer_boxplot(sig_genes = sig_genes, sce_layer = sce_layer)
 #'
 #' ## Now show the long title version
+#' set.seed(20200206)
 #' layer_boxplot(sig_genes = sig_genes,
 #'     short_title = FALSE,
 #'     sce_layer = sce_layer)
 #'
+#' set.seed(20200206)
 #' layer_boxplot(
 #'     i = which(sig_genes$model_type == 'anova')[1],
 #'     sig_genes = sig_genes,
 #'     sce_layer = sce_layer
 #' )
+#'
+#' set.seed(20200206)
 #' layer_boxplot(
 #'     i = which(sig_genes$model_type == 'pairwise')[1],
 #'     sig_genes = sig_genes,
@@ -66,6 +70,7 @@
 #'
 #' ## Viridis colors displayed in the shiny app
 #' library('viridisLite')
+#' set.seed(20200206)
 #' layer_boxplot(
 #'     sig_genes = sig_genes,
 #'     sce_layer = sce_layer,
@@ -76,6 +81,7 @@
 #' )
 #'
 #' ## Paper colors displayed in the shiny app
+#' set.seed(20200206)
 #' layer_boxplot(
 #'     sig_genes = sig_genes,
 #'     sce_layer = sce_layer,
@@ -86,14 +92,15 @@
 #' )
 #'
 #' ## Blue/red colors displayed in the shiny app
+#' set.seed(20200206)
 #' layer_boxplot(
 #'     i = which(sig_genes$model_type == 'pairwise')[1],
 #'     sig_genes = sig_genes,
 #'     sce_layer = sce_layer,
 #'     col_bkg_box = 'grey90',
 #'     col_bkg_point = 'grey60',
-#'     col_low_box = 'lightcyan',
-#'     col_low_point = 'lightblue4',
+#'     col_low_box = 'skyblue2',
+#'     col_low_point = 'royalblue3',
 #'     col_high_box = 'tomato2',
 #'     col_high_point = 'firebrick4',
 #'     cex = 3
@@ -111,8 +118,7 @@ layer_boxplot <- function(i = 1,
     col_low_point = 'darkviolet',
     col_high_box = 'skyblue',
     col_high_point = 'dodgerblue4',
-    cex = 2,
-    seed = 20200206) {
+    cex = 2) {
     ## Extract the logcounts
     mat <- assays(sce_layer)$logcounts
 
@@ -135,7 +141,8 @@ layer_boxplot <- function(i = 1,
             col[levels(sce_layer$layer_guess_reordered) == x] <-
                 high
             if (grepl('noWM', x))
-                col[levels(sce_layer$layer_guess_reordered) == 'WM'] <- bkg
+                col[levels(sce_layer$layer_guess_reordered) == 'WM'] <-
+                bkg
         }
         names(col) <- levels(sce_layer$layer_guess_reordered_short)
         return(col)
@@ -189,12 +196,11 @@ layer_boxplot <- function(i = 1,
             gsub('top', 'r', gsub(
                 'Layer',
                 'L',
-                sapply(sig_genes$results[i], paste0, collapse = ';')
+                vapply(sig_genes$results[i], paste0, character(1), collapse = ';')
             ))
         )
     }
 
-    set.seed(seed)
     if (short_title) {
         par(mar = c(3, 6, 3, 1) + 0.1)
     } else {
@@ -203,20 +209,20 @@ layer_boxplot <- function(i = 1,
 
     # message(paste(Sys.time(), 'making the plot for', i, 'gene', sig_genes$gene[i]))
     boxplot(
-        mat[sig_genes$gene_index[i], ] ~ sce_layer$layer_guess_reordered_short,
+        mat[sig_genes$gene_index[i],] ~ sce_layer$layer_guess_reordered_short,
         xlab = '',
         ylab = 'logcounts',
         main = title,
         outline = FALSE,
         cex = cex,
-        cex.axis = cex * 4/5,
+        cex.axis = cex * 4 / 5,
         cex.lab = cex,
-        cex.main = ifelse(short_title, cex, cex * 3/4),
+        cex.main = ifelse(short_title, cex, cex * 3 / 4),
         col = add_bkg_col(sig_genes$test[i]),
-        ylim = range(mat[sig_genes$gene_index[i], ])
+        ylim = range(mat[sig_genes$gene_index[i],])
     )
     points(
-        mat[sig_genes$gene_index[i], ] ~ jitter(as.integer(
+        mat[sig_genes$gene_index[i],] ~ jitter(as.integer(
             sce_layer$layer_guess_reordered_short
         )),
         pch = 21,

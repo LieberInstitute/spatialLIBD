@@ -13,11 +13,11 @@ fetch_data(
 \arguments{
 \item{type}{A \code{character(1)} specifying which file you want to download. It
 can either be: \code{sce} for the
-\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
+\linkS4class{SingleCellExperiment}
 object containing the spot-level data that includes the information for
 visualizing the clusters/genes on top of the Visium histology, \code{sce_layer}
 for the
-\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
+\linkS4class{SingleCellExperiment}
 object containing the layer-level data (pseudo-bulked from the spot-level),
 or \code{modeling_results} for the list of tables with the \code{enrichment},
 \code{pairwise}, and \code{anova} model results from the layer-level data.}

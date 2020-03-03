@@ -19,7 +19,7 @@ sce_image_grid_gene(
 \arguments{
 \item{sce}{Defaults to the output of
 \code{fetch_data(type = 'sce')}. This is a
-\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
+\linkS4class{SingleCellExperiment}
 object with the spot-level Visium data and information required for
 visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
@@ -51,7 +51,7 @@ top of the histology image. One issue is being able to differentiate low
 values from NA ones due to the purple-ish histology information that is
 dependent on cell density.}
 
-\item{...}{Passed to \link[base:paste0]{paste0()} for making the title of the
+\item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}
 }
 \value{

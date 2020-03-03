@@ -222,7 +222,7 @@ citation('spatialLIBD')
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 0.99.11, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 0.99.12, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
 #> Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK, Williams
 #> SR, II JLC, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Kleinman JE,

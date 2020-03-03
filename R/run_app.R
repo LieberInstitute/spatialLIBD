@@ -6,7 +6,7 @@
 #'
 #' @param sce Defaults to the output of
 #' `fetch_data(type = 'sce')`. This is a
-#' [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class]
+#' \linkS4class{SingleCellExperiment}
 #' object with the spot-level Visium data and information required for
 #' visualizing the histology. See [fetch_data()] for more details.
 #' @inheritParams sig_genes_extract

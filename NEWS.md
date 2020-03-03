@@ -1,3 +1,19 @@
+# spatialLIBD 0.99.12
+
+* Remove the spatialLIBD.Rproj file =( since BioC's SBP is asking me to do so
+http://bioconductor.org/spb_reports/spatialLIBD_buildreport_20200303135350.html
+* Use `system2()` instead of `system()`.
+* Move the `set.seed()` call outside of `layer_boxplot()` as noted by
+Martin Morgan
+https://github.com/Bioconductor/Contributions/issues/1389#issuecomment-594099852
+.
+* Use `\linkS4class` as I see being done at
+https://github.com/drisso/SingleCellExperiment/search?q=linkS4class&unscoped_q=linkS4class.
+* Use `vapply()` instead of `sapply()`.
+* Fix (or attempt to) some doc links.
+
+
+
 # spatialLIBD 0.99.11
 
 * Check if removing the `RcppAnnoy` line in the DESCRIPTION actually works now

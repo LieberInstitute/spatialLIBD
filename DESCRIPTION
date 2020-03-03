@@ -1,6 +1,6 @@
 Package: spatialLIBD
 Title: LIBD Visium spatial transcriptomics human pilot data inspector
-Version: 0.99.11
+Version: 0.99.12
 Date: 2020-03-03
 Authors@R:
     c(
@@ -60,7 +60,7 @@ Suggests:
     BiocManager
 VignetteBuilder: knitr
 biocViews: Homo_sapiens_Data, ExperimentHub, SequencingData, SingleCellData,
-    ExpressionData, Tissue
+    ExpressionData, Tissue, PackageTypeData
 Depends:
     SingleCellExperiment,
-    R (>= 3.6.1)
+    R (>= 3.6)

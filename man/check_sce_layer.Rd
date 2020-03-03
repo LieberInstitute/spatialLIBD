@@ -9,7 +9,7 @@ check_sce_layer(sce_layer, variables = "layer_guess_reordered_short")
 \arguments{
 \item{sce_layer}{Defaults to the output of
 \code{fetch_data(type = 'sce_layer')}. This is a
-\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
+\linkS4class{SingleCellExperiment}
 object with the spot-level Visium data compressed via pseudo-bulking to the
 layer-level (group-level) resolution. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
