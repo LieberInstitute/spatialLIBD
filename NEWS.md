@@ -1,3 +1,15 @@
+# spatialLIBD 0.99.10
+
+* Include AWS links to the image TIFF files (~500mb each) as requested by
+Qian Zhu <zqian@jimmy.harvard.edu> for visualizing the data on the Giotto
+Viewer https://www.biorxiv.org/content/10.1101/701680v1.
+
+BUG FIXES
+
+* Fix `fetch_data()` and the vignette by specifying the `mode = "wb"` for
+`utils::download.file()` in order to resolve an issue with Windows OS reported
+here http://bioconductor.org/spb_reports/spatialLIBD_buildreport_20200302120158.html#tokay2_buildsrc_anchor.
+
 # spatialLIBD 0.99.9
 
 * Link to https://doi.org/10.1101/2020.02.28.969931 now that its

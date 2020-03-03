@@ -105,7 +105,10 @@ fetch_data <-
                 dir.create(destdir,
                     showWarnings = FALSE,
                     recursive = TRUE)
-                utils::download.file(url, destfile = file_path, quiet = TRUE)
+                utils::download.file(url,
+                    destfile = file_path,
+                    quiet = TRUE,
+                    mode = 'wb')
             }
         }
 

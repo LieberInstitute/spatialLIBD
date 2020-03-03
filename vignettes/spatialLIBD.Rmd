@@ -228,16 +228,21 @@ if (!exists('sce')) sce <- fetch_data(type = 'sce', eh = ehub)
 vignette_data <- function(destdir = tempdir()) {
     sce_sub <- NULL
     file_name <- 'sce_sub_for_vignette.Rdata'
-    url <- 'https://www.dropbox.com/s/5ra9o8ku9iyyf70/sce_sub_for_vignette.Rdata?dl=1'
+    url <-
+        'https://www.dropbox.com/s/5ra9o8ku9iyyf70/sce_sub_for_vignette.Rdata?dl=1'
     file_path <- file.path(destdir, file_name)
     if (!file.exists(file_path)) {
-        utils::download.file(url, destfile = file_path, quiet = TRUE)
+        utils::download.file(url,
+            destfile = file_path,
+            quiet = TRUE,
+            mode = 'wb')
     }
     
     load(file_path, verbose = FALSE)
     return(sce_sub)
 }
-if (!exists('sce')) sce <- vignette_data()
+if (!exists('sce'))
+    sce <- vignette_data()
 ```
 
 
