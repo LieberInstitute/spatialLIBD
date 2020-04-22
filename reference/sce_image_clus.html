@@ -82,7 +82,7 @@ gene-level (or any continuous variable) use sce_image_gene()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.14</span>
       </span>
     </div>
 
@@ -200,31 +200,33 @@ data and title for <code><a href='sce_image_clus_p.html'>sce_image_clus_p()</a><
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'>## Obtain the necessary data</span>
-<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"sce"</span>)) <span class='no'>sce</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='st'>"sce"</span>)</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-04-03</span></div><div class='output co'>#&gt; Loading objects:
-#&gt;   sce</div><div class='input'>
-<span class='co'>## Check the colors defined by Lukas M Weber</span>
-<span class='no'>libd_layer_colors</span></div><div class='output co'>#&gt;        Layer1        Layer2        Layer3        Layer4        Layer5 
-#&gt;     "#F0027F"     "#377EB8"     "#4DAF4A"     "#984EA3"     "#FFD700" 
-#&gt;        Layer6            WM            NA           WM2 
-#&gt;     "#FF7F00"     "#1A1A1A" "transparent"     "#666666" </div><div class='input'>
-<span class='co'>## Use the manual color palette by Lukas M Weber</span>
-<span class='fu'>sce_image_clus</span>(
-    <span class='kw'>sce</span> <span class='kw'>=</span> <span class='no'>sce</span>,
-    <span class='kw'>clustervar</span> <span class='kw'>=</span> <span class='st'>"layer_guess_reordered"</span>,
-    <span class='kw'>sampleid</span> <span class='kw'>=</span> <span class='st'>"151673"</span>,
-    <span class='kw'>colors</span> <span class='kw'>=</span> <span class='no'>libd_layer_colors</span>,
-    <span class='kw'>...</span> <span class='kw'>=</span> <span class='st'>" LIBD Layers"</span>
-)</div><div class='img'><img src='sce_image_clus-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Without histology</span>
-<span class='fu'>sce_image_clus</span>(
-    <span class='kw'>sce</span> <span class='kw'>=</span> <span class='no'>sce</span>,
-    <span class='kw'>clustervar</span> <span class='kw'>=</span> <span class='st'>"layer_guess_reordered"</span>,
-    <span class='kw'>sampleid</span> <span class='kw'>=</span> <span class='st'>"151673"</span>,
-    <span class='kw'>colors</span> <span class='kw'>=</span> <span class='no'>libd_layer_colors</span>,
-    <span class='kw'>...</span> <span class='kw'>=</span> <span class='st'>" LIBD Layers"</span>,
-    <span class='kw'>spatial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</div><div class='img'><img src='sce_image_clus-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='kw'>if</span> (<span class='fu'><a href='enough_ram.html'>enough_ram</a></span>()) {
+    <span class='co'>## Obtain the necessary data</span>
+    <span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"sce"</span>)) <span class='no'>sce</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='st'>"sce"</span>)
+
+    <span class='co'>## Check the colors defined by Lukas M Weber</span>
+    <span class='no'>libd_layer_colors</span>
+
+    <span class='co'>## Use the manual color palette by Lukas M Weber</span>
+    <span class='fu'>sce_image_clus</span>(
+        <span class='kw'>sce</span> <span class='kw'>=</span> <span class='no'>sce</span>,
+        <span class='kw'>clustervar</span> <span class='kw'>=</span> <span class='st'>"layer_guess_reordered"</span>,
+        <span class='kw'>sampleid</span> <span class='kw'>=</span> <span class='st'>"151673"</span>,
+        <span class='kw'>colors</span> <span class='kw'>=</span> <span class='no'>libd_layer_colors</span>,
+        <span class='kw'>...</span> <span class='kw'>=</span> <span class='st'>" LIBD Layers"</span>
+    )
+
+    <span class='co'>## Without histology</span>
+    <span class='fu'>sce_image_clus</span>(
+        <span class='kw'>sce</span> <span class='kw'>=</span> <span class='no'>sce</span>,
+        <span class='kw'>clustervar</span> <span class='kw'>=</span> <span class='st'>"layer_guess_reordered"</span>,
+        <span class='kw'>sampleid</span> <span class='kw'>=</span> <span class='st'>"151673"</span>,
+        <span class='kw'>colors</span> <span class='kw'>=</span> <span class='no'>libd_layer_colors</span>,
+        <span class='kw'>...</span> <span class='kw'>=</span> <span class='st'>" LIBD Layers"</span>,
+        <span class='kw'>spatial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+    )
+}</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-04-03</span></div><div class='output co'>#&gt; Loading objects:
+#&gt;   sce</div><div class='img'><img src='sce_image_clus-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

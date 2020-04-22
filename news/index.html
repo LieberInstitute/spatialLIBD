@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.14</span>
       </span>
     </div>
 
@@ -125,6 +125,21 @@
       <small>Source: <a href='https://github.com/LieberInstitute/spatialLIBD/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="spatiallibd-0-99-14" class="section level1">
+<h1 class="page-header" data-toc-text="0.99.14">
+<a href="#spatiallibd-0-99-14" class="anchor"></a>spatialLIBD 0.99.14</h1>
+<p>SIGNIFICANT USER-VISIBLE CHANGES</p>
+<ul>
+<li>Added the function <code><a href="../reference/enough_ram.html">enough_ram()</a></code> which is used to control the execution of examples. If it fails when using <code><a href="../reference/fetch_data.html">fetch_data("sce")</a></code> then <code><a href="../reference/fetch_data.html">fetch_data()</a></code> will show a warning.</li>
+<li>
+<code><a href="../reference/fetch_data.html">fetch_data(type = "sce_example")</a></code> is now supported and used visibly in the vignette, eliminating the need for <code>eval = FALSE</code> chunks. This should enable testing the vignette code on the Bioconductor Single Package Builder on Windows (max 2.5 GB of RAM available).</li>
+</ul>
+<p>BUG FIXES</p>
+<ul>
+<li>Fixed the example in <code><a href="../reference/get_colors.html">get_colors()</a></code>.</li>
+<li>Fixed <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> for when <code>min</code> and/or <code>max</code> are specified.</li>
+</ul>
+</div>
     <div id="spatiallibd-0-99-13" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.13">
 <a href="#spatiallibd-0-99-13" class="anchor"></a>spatialLIBD 0.99.13</h1>

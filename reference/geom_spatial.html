@@ -83,7 +83,7 @@ as in sce_image_gene_p()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.14</span>
       </span>
     </div>
 
@@ -191,31 +191,36 @@ are required.</p></td>
     <p>A <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>ggplot2::layer()</a></code> for the histology information.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Obtain the necessary data</span>
-<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"sce"</span>)) <span class='no'>sce</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='st'>"sce"</span>)</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-04-03</span></div><div class='output co'>#&gt; Loading objects:
-#&gt;   sce</div><div class='input'>
-<span class='co'>## Select the first sample and extract the data</span>
-<span class='no'>sample_id</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>sce</span>$<span class='no'>sample_name</span>)[<span class='fl'>1</span>]
-<span class='no'>sce_sub</span> <span class='kw'>&lt;-</span> <span class='no'>sce</span>[, <span class='no'>sce</span>$<span class='no'>sample_name</span> <span class='kw'>==</span> <span class='no'>sample_id</span>]
-<span class='no'>sample_df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='fu'>colData</span>(<span class='no'>sce_sub</span>))
+    <pre class="examples"><div class='input'>
+<span class='kw'>if</span> (<span class='fu'><a href='enough_ram.html'>enough_ram</a></span>()) {
+    <span class='co'>## Obtain the necessary data</span>
+    <span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"sce"</span>)) <span class='no'>sce</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='st'>"sce"</span>)
 
-<span class='co'>## Make a plot using geom_spatial</span>
-<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(
-    <span class='no'>sample_df</span>,
-    <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(
-        <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>imagecol</span>,
-        <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>imagerow</span>,
-        <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>layer_guess</span>
-    )
-) +
-    <span class='fu'>geom_spatial</span>(
-        <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='fu'>metadata</span>(<span class='no'>sce_sub</span>)$<span class='no'>image</span>, <span class='no'>sample</span> <span class='kw'>==</span> <span class='no'>sample_id</span>),
-        <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>grob</span> <span class='kw'>=</span> <span class='no'>grob</span>),
-        <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-        <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>0.5</span>
-    )</div><div class='img'><img src='geom_spatial-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Clean up</span>
-<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>sce_sub</span>)</div></pre>
+    <span class='co'>## Select the first sample and extract the data</span>
+    <span class='no'>sample_id</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>sce</span>$<span class='no'>sample_name</span>)[<span class='fl'>1</span>]
+    <span class='no'>sce_sub</span> <span class='kw'>&lt;-</span> <span class='no'>sce</span>[, <span class='no'>sce</span>$<span class='no'>sample_name</span> <span class='kw'>==</span> <span class='no'>sample_id</span>]
+    <span class='no'>sample_df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='fu'>colData</span>(<span class='no'>sce_sub</span>))
+
+    <span class='co'>## Make a plot using geom_spatial</span>
+    <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(
+        <span class='no'>sample_df</span>,
+        <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(
+            <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>imagecol</span>,
+            <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>imagerow</span>,
+            <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>layer_guess</span>
+        )
+    ) +
+        <span class='fu'>geom_spatial</span>(
+            <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='fu'>metadata</span>(<span class='no'>sce_sub</span>)$<span class='no'>image</span>, <span class='no'>sample</span> <span class='kw'>==</span> <span class='no'>sample_id</span>),
+            <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>grob</span> <span class='kw'>=</span> <span class='no'>grob</span>),
+            <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+            <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>0.5</span>
+        )
+
+    <span class='co'>## Clean up</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>sce_sub</span>)
+}</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-04-03</span></div><div class='output co'>#&gt; Loading objects:
+#&gt;   sce</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

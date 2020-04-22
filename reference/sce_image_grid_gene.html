@@ -83,7 +83,7 @@ To visualize clusters (or any discrete variable) use sce_image_grid()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.14</span>
       </span>
     </div>
 
@@ -225,26 +225,29 @@ objects.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'>## Obtain the necessary data</span>
-<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"sce"</span>)) <span class='no'>sce</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='st'>"sce"</span>)</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-04-03</span></div><div class='output co'>#&gt; Loading objects:
-#&gt;   sce</div><div class='input'>
-<span class='co'>## Subset to two samples of interest</span>
-<span class='no'>sce_sub</span> <span class='kw'>&lt;-</span> <span class='no'>sce</span>[, <span class='no'>sce</span>$<span class='no'>sample_name</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"151673"</span>, <span class='st'>"151674"</span>)]
+<span class='kw'>if</span> (<span class='fu'><a href='enough_ram.html'>enough_ram</a></span>()) {
+    <span class='co'>## Obtain the necessary data</span>
+    <span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"sce"</span>)) <span class='no'>sce</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='st'>"sce"</span>)
 
-<span class='co'>## Obtain the plot list</span>
-<span class='no'>p_list</span> <span class='kw'>&lt;-</span>
-    <span class='fu'>sce_image_grid_gene</span>(
-        <span class='no'>sce_sub</span>,
-        <span class='kw'>spatial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-        <span class='kw'>return_plots</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-    )
+    <span class='co'>## Subset to two samples of interest</span>
+    <span class='no'>sce_sub</span> <span class='kw'>&lt;-</span> <span class='no'>sce</span>[, <span class='no'>sce</span>$<span class='no'>sample_name</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"151673"</span>, <span class='st'>"151674"</span>)]
 
-<span class='co'>## Clean up</span>
-<span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>sce_sub</span>)
+    <span class='co'>## Obtain the plot list</span>
+    <span class='no'>p_list</span> <span class='kw'>&lt;-</span>
+        <span class='fu'>sce_image_grid_gene</span>(
+            <span class='no'>sce_sub</span>,
+            <span class='kw'>spatial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+            <span class='kw'>return_plots</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+        )
 
-<span class='co'>## Visualize the spatial adjacent replicates for position = 0 micro meters</span>
-<span class='co'>## for subject 3</span>
-<span class='kw pkg'>cowplot</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/cowplot/man/plot_grid.html'>plot_grid</a></span>(<span class='kw'>plotlist</span> <span class='kw'>=</span> <span class='no'>p_list</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='sce_image_grid_gene-1.png' alt='' width='700' height='433' /></div></pre>
+    <span class='co'>## Clean up</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='no'>sce_sub</span>)
+
+    <span class='co'>## Visualize the spatial adjacent replicates for position = 0 micro meters</span>
+    <span class='co'>## for subject 3</span>
+    <span class='kw pkg'>cowplot</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/cowplot/man/plot_grid.html'>plot_grid</a></span>(<span class='kw'>plotlist</span> <span class='kw'>=</span> <span class='no'>p_list</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+}</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-04-03</span></div><div class='output co'>#&gt; Loading objects:
+#&gt;   sce</div><div class='img'><img src='sce_image_grid_gene-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

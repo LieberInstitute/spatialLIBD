@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.14</span>
       </span>
     </div>
 
@@ -172,7 +172,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt; 10.18129/B9.bioc.spatialLIBD (URL:</span>
 <span class="co">#&gt; https://doi.org/10.18129/B9.bioc.spatialLIBD),</span>
 <span class="co">#&gt; https://github.com/LieberInstitute/spatialLIBD - R package version</span>
-<span class="co">#&gt; 0.99.13, &lt;URL: http://www.bioconductor.org/packages/spatialLIBD&gt;.</span>
+<span class="co">#&gt; 0.99.14, &lt;URL: http://www.bioconductor.org/packages/spatialLIBD&gt;.</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK, Williams</span>
 <span class="co">#&gt; SR, II JLC, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Kleinman JE,</span>
@@ -230,18 +230,27 @@ If you tweet about this website, the data or the R package please use the <code>
 <p>Using <em><a href="https://bioconductor.org/packages/3.11/spatialLIBD">spatialLIBD</a></em> (<a href="http://www.bioconductor.org/packages/spatialLIBD">Collado-Torres, Maynard, and Jaffe, 2020</a>) you can download all of these R objects. They are hosted by <a href="http://bioconductor.org/">Bioconductor</a>’s <em><a href="https://bioconductor.org/packages/3.11/ExperimentHub">ExperimentHub</a></em> <a id="cite-Morgan_2020"></a>(<a href="#bib-Morgan_2020">Morgan and Shepherd, 2020</a>) resource and you can download them using <code><a href="../reference/fetch_data.html">spatialLIBD::fetch_data()</a></code>. <code><a href="../reference/fetch_data.html">fetch_data()</a></code> will query <em><a href="https://bioconductor.org/packages/3.11/ExperimentHub">ExperimentHub</a></em> which in turn will download the data and cache it so you don’t have to download it again. If <em><a href="https://bioconductor.org/packages/3.11/ExperimentHub">ExperimentHub</a></em> is unavailable, then <code><a href="../reference/fetch_data.html">fetch_data()</a></code> has a backup option that does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Below we obtain all of these objects.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co">## Connect to ExperimentHub</span>
 <span class="no">ehub</span> <span class="kw">&lt;-</span> <span class="kw pkg">ExperimentHub</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ExperimentHub/man/ExperimentHub-class.html">ExperimentHub</a></span>()
-<span class="co">#&gt; using temporary cache /tmp/RtmpioavUI/BiocFileCache</span>
+<span class="co">#&gt; using temporary cache /tmp/Rtmpa9SZAr/BiocFileCache</span>
 <span class="co">#&gt; snapshotDate(): 2020-04-03</span></pre></body></html></div>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co">## Query ExperimentHub and download the data</span>
-<span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/exists.html">exists</a></span>(<span class="st">"sce"</span>)) <span class="no">sce</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"sce"</span>, <span class="kw">eh</span> <span class="kw">=</span> <span class="no">ehub</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/exists.html">exists</a></span>(<span class="st">"sce_layer"</span>)) <span class="no">sce_layer</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"sce_layer"</span>, <span class="kw">eh</span> <span class="kw">=</span> <span class="no">ehub</span>)
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co">## Downloa small example sce data</span>
+<span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/exists.html">exists</a></span>(<span class="st">"sce"</span>)) <span class="no">sce</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"sce_example"</span>, <span class="kw">eh</span> <span class="kw">=</span> <span class="no">ehub</span>)
+<span class="co">#&gt; Loading objects:</span>
+<span class="co">#&gt;   sce_sub</span>
+
+<span class="co">## If you want to download the full real data (about 2.1 GB in RAM) use:</span>
+<span class="kw">if</span> (<span class="fl">FALSE</span>) {
+    <span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/exists.html">exists</a></span>(<span class="st">"sce"</span>)) <span class="no">sce</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"sce"</span>, <span class="kw">eh</span> <span class="kw">=</span> <span class="no">ehub</span>)
+}
+
+<span class="co">## Query ExperimentHub and download the data</span>
+<span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/exists.html">exists</a></span>(<span class="st">"sce_layer"</span>)) <span class="no">sce_layer</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"sce_layer"</span>, <span class="kw">eh</span> <span class="kw">=</span> <span class="no">ehub</span>)
 <span class="co">#&gt; Loading objects:</span>
 <span class="co">#&gt;   sce_layer</span>
 <span class="no">modeling_results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span>(<span class="st">"modeling_results"</span>, <span class="kw">eh</span> <span class="kw">=</span> <span class="no">ehub</span>)
 <span class="co">#&gt; Loading objects:</span>
 <span class="co">#&gt;   modeling_results</span></pre></body></html></div>
 <p>Once you have downloaded the objects, we can explore them a little bit</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co">## spot-level data</span>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co">## spot-level data</span>
 <span class="no">sce</span>
 <span class="co">#&gt; class: SingleCellExperiment </span>
 <span class="co">#&gt; dim: 33538 47681 </span>
@@ -292,7 +301,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt; [5,] "f_stat_noWM"  "t_stat_Layer4" "t_stat_WM-Layer5"</span>
 <span class="co">#&gt; [6,] "p_value_noWM" "t_stat_Layer5" "t_stat_WM-Layer6"</span></pre></body></html></div>
 <p>The modeling statistics are in wide format, which can make some visualizations complicated. The function <code><a href="../reference/sig_genes_extract_all.html">sig_genes_extract_all()</a></code> provides a way to convert them into long format and add some useful information. Let’s do so below.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co">## Convert to a long format the modeling results</span>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co">## Convert to a long format the modeling results</span>
 <span class="co">## This takes a few seconds to run</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(
     <span class="no">sig_genes</span> <span class="kw">&lt;-</span>
@@ -303,7 +312,7 @@ If you tweet about this website, the data or the R package please use the <code>
         )
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;  11.502   0.784  28.591</span>
+<span class="co">#&gt;  10.513   1.112  31.863</span>
 
 <span class="co">## Explore the result</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">sig_genes</span>)
@@ -318,7 +327,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <h1 class="hasAnchor">
 <a href="#interactively-explore-the-spatiallibd-data" class="anchor"></a>Interactively explore the <code>spatialLIBD</code> data</h1>
 <p>Now that you have downloaded the data, you can interactively explore the data using a <em><a href="https://CRAN.R-project.org/package=shiny">shiny</a></em> <a id="cite-Chang_2020"></a>(<a href="https://CRAN.R-project.org/package=shiny">Chang, Cheng, Allaire, Xie, et al., 2020</a>) web application contained within <em><a href="https://bioconductor.org/packages/3.11/spatialLIBD">spatialLIBD</a></em> (<a href="http://www.bioconductor.org/packages/spatialLIBD">Collado-Torres, Maynard, and Jaffe, 2020</a>). To do so, use the <code><a href="../reference/run_app.html">run_app()</a></code> function as shown below:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/interactive.html">interactive</a></span>()) {
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/interactive.html">interactive</a></span>()) {
     <span class="fu"><a href="../reference/run_app.html">run_app</a></span>(
         <span class="kw">sce</span> <span class="kw">=</span> <span class="no">sce</span>,
         <span class="kw">sce_layer</span> <span class="kw">=</span> <span class="no">sce_layer</span>,
@@ -337,7 +346,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <h2 class="hasAnchor">
 <a href="#spot-level-clusters-and-discrete-variables" class="anchor"></a>Spot-level clusters and discrete variables</h2>
 <p>With the <code>sce</code> object that contains the spot-level data, we can visualize any discrete variable such as the layers using <code><a href="../reference/sce_image_clus.html">sce_image_clus()</a></code> and related functions. These functions know where to extract and how to visualize the histology information.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co">## View our LIBD layers for one sample</span>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co">## View our LIBD layers for one sample</span>
 <span class="fu"><a href="../reference/sce_image_clus.html">sce_image_clus</a></span>(
     <span class="kw">sce</span> <span class="kw">=</span> <span class="no">sce</span>,
     <span class="kw">clustervar</span> <span class="kw">=</span> <span class="st">"layer_guess_reordered"</span>,
@@ -347,7 +356,7 @@ If you tweet about this website, the data or the R package please use the <code>
 )</pre></body></html></div>
 <p><img src="spatialLIBD_files/figure-html/sce_image_clus-1.png" width="700"></p>
 <p>Most of the variables stored in <code>sce</code> are discrete variables and as such, you can visualize them using <code><a href="../reference/sce_image_clus.html">sce_image_clus()</a></code> and <code><a href="../reference/sce_image_grid.html">sce_image_grid()</a></code> for one or more than one sample respectively.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co">## This is not fully precise, but gives you a rough idea</span>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co">## This is not fully precise, but gives you a rough idea</span>
 <span class="co">## Some integer columns are actually continuous variables</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="fu">colData</span>(<span class="no">sce</span>), <span class="no">class</span>) <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"factor"</span>, <span class="st">"integer"</span>))
 <span class="co">#&gt; </span>
@@ -360,7 +369,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt; FALSE  TRUE </span>
 <span class="co">#&gt;    10    63</span></pre></body></html></div>
 <p>Notably, <code><a href="../reference/sce_image_clus.html">sce_image_clus()</a></code> has a <code>spatial</code> <code><a href="https://rdrr.io/r/base/logical.html">logical(1)</a></code> argument which is useful if you want to visualize the data without the histology information provided by <code><a href="../reference/geom_spatial.html">geom_spatial()</a></code> (a custom <code><a href="https://ggplot2.tidyverse.org/reference/layer.html">ggplot2::layer()</a></code>). In particular, this is useful if you then want to use <code><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html">plotly::ggplotly()</a></code> or other similar functions on the resulting <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot2::ggplot()</a></code> object.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co">## View our LIBD layers for one sample</span>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co">## View our LIBD layers for one sample</span>
 <span class="co">## without spatial information</span>
 <span class="fu"><a href="../reference/sce_image_clus.html">sce_image_clus</a></span>(
     <span class="kw">sce</span> <span class="kw">=</span> <span class="no">sce</span>,
@@ -372,7 +381,7 @@ If you tweet about this website, the data or the R package please use the <code>
 )</pre></body></html></div>
 <p><img src="spatialLIBD_files/figure-html/sce_image_clus_no_spatial-1.png" width="700"></p>
 <p>Some helper functions include <code><a href="../reference/get_colors.html">get_colors()</a></code> and <code><a href="../reference/sort_clusters.html">sort_clusters()</a></code> as well as the <code>libd_layer_colors</code> object included in <em><a href="https://bioconductor.org/packages/3.11/spatialLIBD">spatialLIBD</a></em> (<a href="http://www.bioconductor.org/packages/spatialLIBD">Collado-Torres, Maynard, and Jaffe, 2020</a>).</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="co">## Color palette designed by Lukas M. Weber with feedback from the team.</span>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co">## Color palette designed by Lukas M. Weber with feedback from the team.</span>
 <span class="no">libd_layer_colors</span>
 <span class="co">#&gt;        Layer1        Layer2        Layer3        Layer4        Layer5 </span>
 <span class="co">#&gt;     "#F0027F"     "#377EB8"     "#4DAF4A"     "#984EA3"     "#FFD700" </span>
@@ -383,7 +392,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <h2 class="hasAnchor">
 <a href="#spot-level-genes-and-continuous-variables" class="anchor"></a>Spot-level genes and continuous variables</h2>
 <p>Similar to <code><a href="../reference/sce_image_clus.html">sce_image_clus()</a></code>, the <code><a href="../reference/sce_image_gene.html">sce_image_gene()</a></code> family of functions use the <code>sce</code> spot-level object to visualize the gene expression or any continuous variable such as the number of cells per spots. That is, <code><a href="../reference/sce_image_gene.html">sce_image_gene()</a></code> can visualize any of the <code>assays(sce)</code> or any of the continuous variables stored in <code>colData(sce)</code>. If you want to visualize more than one sample at a time, use <code><a href="../reference/sce_image_grid_gene.html">sce_image_grid_gene()</a></code> instead. And just like <code><a href="../reference/sce_image_clus.html">sce_image_clus()</a></code>, <code><a href="../reference/sce_image_gene.html">sce_image_gene()</a></code> has a <code>spatial</code> <code><a href="https://rdrr.io/r/base/logical.html">logical(1)</a></code> argument to turn off the custom spatial <code><a href="https://ggplot2.tidyverse.org/reference/layer.html">ggplot2::layer()</a></code> produced by <code><a href="../reference/geom_spatial.html">geom_spatial()</a></code>.</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="co">## Available gene expression assays</span>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="co">## Available gene expression assays</span>
 <span class="fu">assayNames</span>(<span class="no">sce</span>)
 <span class="co">#&gt; [1] "counts"    "logcounts"</span>
 
@@ -404,7 +413,7 @@ If you tweet about this website, the data or the R package please use the <code>
     <span class="kw">viridis</span> <span class="kw">=</span> <span class="fl">FALSE</span>
 )</pre></body></html></div>
 <p><img src="spatialLIBD_files/figure-html/sce_image_gene-1.png" width="700"></p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r">
+<div class="sourceCode" id="cb14"><html><body><pre class="r">
 <span class="co">## Visualize the estimated number of cells per spot</span>
 <span class="fu"><a href="../reference/sce_image_gene.html">sce_image_gene</a></span>(
     <span class="kw">sce</span> <span class="kw">=</span> <span class="no">sce</span>,
@@ -412,7 +421,7 @@ If you tweet about this website, the data or the R package please use the <code>
     <span class="kw">geneid</span> <span class="kw">=</span> <span class="st">"cell_count"</span>
 )</pre></body></html></div>
 <p><img src="spatialLIBD_files/figure-html/sce_image_gene-2.png" width="700"></p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r">
+<div class="sourceCode" id="cb15"><html><body><pre class="r">
 <span class="co">## Visualize the fraction of chrM expression per spot</span>
 <span class="co">## without the spatial layer</span>
 <span class="fu"><a href="../reference/sce_image_gene.html">sce_image_gene</a></span>(
@@ -428,7 +437,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <h2 class="hasAnchor">
 <a href="#extract-significant-genes" class="anchor"></a>Extract significant genes</h2>
 <p>Earlier we also ran <code><a href="../reference/sig_genes_extract_all.html">sig_genes_extract_all()</a></code> in order to run the <em><a href="https://CRAN.R-project.org/package=shiny">shiny</a></em> web application. However, we didn’t explain the output. If you explore it, you’ll notice that it’s a very long table with several columns.</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">sig_genes</span>)
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">sig_genes</span>)
 <span class="co">#&gt; DataFrame with 6 rows and 12 columns</span>
 <span class="co">#&gt;         top  model_type        test        gene      stat        pval</span>
 <span class="co">#&gt;   &lt;integer&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;numeric&gt;   &lt;numeric&gt;</span>
@@ -487,7 +496,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <h2 class="hasAnchor">
 <a href="#visualize-modeling-results" class="anchor"></a>Visualize modeling results</h2>
 <p>After extracting the table of modeling results in long format with <code><a href="../reference/sig_genes_extract_all.html">sig_genes_extract_all()</a></code>, we can then use <code><a href="../reference/layer_boxplot.html">layer_boxplot()</a></code> to visualize any gene of interest for any of the model types and tests we performed. Below we explore the first one (by default). We also show the color palettes used in the <em><a href="https://CRAN.R-project.org/package=shiny">shiny</a></em> application provided by <em><a href="https://bioconductor.org/packages/3.11/spatialLIBD">spatialLIBD</a></em> (<a href="http://www.bioconductor.org/packages/spatialLIBD">Collado-Torres, Maynard, and Jaffe, 2020</a>). The last example has the long title version that uses more information from the <code>sig_genes</code> object we created earlier.</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="co">## Note that we recommend setting the random seed so the jittering of the</span>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="co">## Note that we recommend setting the random seed so the jittering of the</span>
 <span class="co">## points will be reproducible. Given the requirements by BiocCheck this</span>
 <span class="co">## cannot be done inside the layer_boxplot() function.</span>
 
@@ -495,7 +504,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">20200206</span>)
 <span class="fu"><a href="../reference/layer_boxplot.html">layer_boxplot</a></span>(<span class="kw">sig_genes</span> <span class="kw">=</span> <span class="no">sig_genes</span>, <span class="kw">sce_layer</span> <span class="kw">=</span> <span class="no">sce_layer</span>)</pre></body></html></div>
 <p><img src="spatialLIBD_files/figure-html/layer_boxplot-1.png" width="700"></p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r">
+<div class="sourceCode" id="cb18"><html><body><pre class="r">
 <span class="co">## Viridis colors displayed in the shiny app</span>
 <span class="co">## showing the first pairwise model result</span>
 <span class="co">## (which illustrates the background colors used for the layers not</span>
@@ -511,7 +520,7 @@ If you tweet about this website, the data or the R package please use the <code>
     <span class="kw">col_high_point</span> <span class="kw">=</span> <span class="kw pkg">viridisLite</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridisLite/man/viridis.html">viridis</a></span>(<span class="fl">4</span>)[<span class="fl">4</span>]
 )</pre></body></html></div>
 <p><img src="spatialLIBD_files/figure-html/layer_boxplot-2.png" width="700"></p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r">
+<div class="sourceCode" id="cb19"><html><body><pre class="r">
 <span class="co">## Paper colors displayed in the shiny app</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">20200206</span>)
 <span class="fu"><a href="../reference/layer_boxplot.html">layer_boxplot</a></span>(
@@ -529,7 +538,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <h2 class="hasAnchor">
 <a href="#correlation-of-layer-level-statistics" class="anchor"></a>Correlation of layer-level statistics</h2>
 <p>Just like we compressed our <code>sce</code> object into <code>sce_layer</code> by pseudo-bulking <a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>, we can do the same for other single nucleus or single cell RNA sequencing datasets (snRNA-seq, scRNA-seq) and then compute enrichment t-statistics (one group vs the rest; could be one cell type vs the rest or one cluster of cells vs the rest). In our analysis (<a href="https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1">Maynard, Collado-Torres, Weber, Uytingco, et al., 2020</a>), we did this for several datasets including one of our LIBD Human DLPFC snRNA-seq data generated by Matthew N Tran et al <a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>. In <em><a href="https://bioconductor.org/packages/3.11/spatialLIBD">spatialLIBD</a></em> (<a href="http://www.bioconductor.org/packages/spatialLIBD">Collado-Torres, Maynard, and Jaffe, 2020</a>) we include a small set of these statistics for the 31 cell clusters identified by Matthew N Tran et al.</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="co">## Explore the enrichment t-statistics derived from Tran et al's snRNA-seq</span>
+<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="co">## Explore the enrichment t-statistics derived from Tran et al's snRNA-seq</span>
 <span class="co">## DLPFC data</span>
 <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer</span>)
 <span class="co">#&gt; [1] 692  31</span>
@@ -543,7 +552,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt; ENSG00000184007 -0.1840286</span>
 <span class="co">#&gt; ENSG00000240583 -0.2086954</span></pre></body></html></div>
 <p>The function <code><a href="../reference/layer_stat_cor.html">layer_stat_cor()</a></code> will take as input one such matrix of statistics and correlate them against our layer enrichment results (or other model types) using the subset of Ensembl gene IDs that are observed in both tables.</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="co">## Compute the correlation matrix of enrichment t-statistics between our data</span>
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="co">## Compute the correlation matrix of enrichment t-statistics between our data</span>
 <span class="co">## and Tran et al's snRNA-seq data</span>
 <span class="no">cor_stats_layer</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/layer_stat_cor.html">layer_stat_cor</a></span>(
     <span class="no">tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer</span>,
@@ -561,7 +570,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt; 21 (3) 0.6281443 -0.050336358 -0.1988774</span>
 <span class="co">#&gt; 7 (4)  0.1850724 -0.197283175 -0.2716890</span></pre></body></html></div>
 <p>Once we have computed this correlation matrix, we can then visualize it using <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> as shown below.</p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="co">## Visualize the correlation matrix</span>
+<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="co">## Visualize the correlation matrix</span>
 <span class="fu"><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot</a></span>(<span class="no">cor_stats_layer</span>, <span class="kw">max</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">cor_stats_layer</span>))</pre></body></html></div>
 <p><img src="spatialLIBD_files/figure-html/layer_stat_cor_plot-1.png" width="700"></p>
 <p>In order to fully interpret the resulting heatmap you need to know what each of the cell clusters labels mean. In this case, the syntax is <code>xx (Y)</code> where <code>xx</code> is the cluster number and <code>Y</code> is:</p>
@@ -587,7 +596,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <a href="#gene-set-enrichment" class="anchor"></a>Gene set enrichment</h2>
 <p>Many researchers have identified lists of genes that increase the risk of a given disorder or disease, are differentially expressed in a given experiment or set of conditions, have been described in a several research papers, among other collections. We can ask for any of our modeling results whether a list of genes is enriched among our significant results.</p>
 <p>For illustration purposes, we included in <em><a href="https://bioconductor.org/packages/3.11/spatialLIBD">spatialLIBD</a></em> (<a href="http://www.bioconductor.org/packages/spatialLIBD">Collado-Torres, Maynard, and Jaffe, 2020</a>) a set of genes from the Simons Foundation Autism Research Initiative <a href="https://www.sfari.org/">SFARI</a>. In our analysis (<a href="https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1">Maynard, Collado-Torres, Weber, Uytingco, et al., 2020</a>) we used more gene lists. Below, we read in the data and create a <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> object with the Ensembl gene IDs that SFARI has provided that are related to autism.</p>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="co">## Read in the SFARI gene sets included in the package</span>
+<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="co">## Read in the SFARI gene sets included in the package</span>
 <span class="no">asd_sfari</span> <span class="kw">&lt;-</span> <span class="kw pkg">utils</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(
     <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(
         <span class="st">"extdata"</span>,
@@ -604,7 +613,7 @@ If you tweet about this website, the data or the R package please use the <code>
     <span class="kw">Gene_SFARI_syndromic</span> <span class="kw">=</span> <span class="no">asd_sfari</span>$<span class="no">ensembl.id</span>[<span class="no">asd_sfari</span>$<span class="no">syndromic</span> <span class="kw">==</span> <span class="fl">1</span>]
 )</pre></body></html></div>
 <p>After reading the list of genes, we can then compute the enrichment odds ratios and p-values for a given FDR threshold in our statistics.</p>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="co">## Compute the gene set enrichment results</span>
+<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="co">## Compute the gene set enrichment results</span>
 <span class="no">asd_sfari_enrichment</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gene_set_enrichment.html">gene_set_enrichment</a></span>(
     <span class="kw">gene_list</span> <span class="kw">=</span> <span class="no">asd_sfari_geneList</span>,
     <span class="kw">modeling_results</span> <span class="kw">=</span> <span class="no">modeling_results</span>,
@@ -621,7 +630,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt; 5 0.7192630 0.14735979 Layer1      Gene_SFARI_high enrichment     0.1</span>
 <span class="co">#&gt; 6 1.1216176 0.73790069 Layer1 Gene_SFARI_syndromic enrichment     0.1</span></pre></body></html></div>
 <p>Using the above enrichment table, we can then visualize the odds ratios on a heatmap as shown below. Note that we use the thresholded p-values at <code>-log10(p) = 12</code> for visualization purposes and only show the odds ratios for <code>-log10(p) &gt; 3</code> by default.</p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="co">## Visualize gene set enrichment results</span>
+<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="co">## Visualize gene set enrichment results</span>
 <span class="fu"><a href="../reference/gene_set_enrichment_plot.html">gene_set_enrichment_plot</a></span>(
     <span class="no">asd_sfari_enrichment</span>,
     <span class="kw">xlabs</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">".*_"</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="no">asd_sfari_enrichment</span>$<span class="no">ID</span>)),
@@ -657,7 +666,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <h2 class="hasAnchor">
 <a href="#expected-characteristics-of-the-data" class="anchor"></a>Expected characteristics of the data</h2>
 <p>Here is a summary some of the key characteristics required by <em><a href="https://bioconductor.org/packages/3.11/spatialLIBD">spatialLIBD</a></em>’s functions or the <em><a href="https://CRAN.R-project.org/package=shiny">shiny</a></em> application.</p>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="co">## Images data stored under metadata(sce)$image</span>
+<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="co">## Images data stored under metadata(sce)$image</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu">metadata</span>(<span class="no">sce</span>)$<span class="no">image</span>)
 <span class="co">#&gt; # A tibble: 6 x 4</span>
 <span class="co">#&gt;   sample grob       height width</span>
@@ -801,7 +810,7 @@ If you tweet about this website, the data or the R package please use the <code>
       }))
 })))</pre></body></html></div>
 <p>If you want to run these checks, you can do so using the <code>check_*</code> family of functions.</p>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="fu"><a href="../reference/check_sce.html">check_sce</a></span>(<span class="no">sce</span>)
+<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="fu"><a href="../reference/check_sce.html">check_sce</a></span>(<span class="no">sce</span>)
 <span class="co">#&gt; class: SingleCellExperiment </span>
 <span class="co">#&gt; dim: 33538 47681 </span>
 <span class="co">#&gt; metadata(1): image</span>
@@ -844,6 +853,8 @@ If you tweet about this website, the data or the R package please use the <code>
 <li>R <a id="cite-R_Core_Team_2020"></a>(<a href="https://www.R-project.org/">R Core Team, 2020</a>)</li>
 <li>
 <em><a href="https://bioconductor.org/packages/3.11/AnnotationHub">AnnotationHub</a></em> <a id="cite-Morgan_2020a"></a>(<a href="#bib-Morgan_2020a">Morgan and Shepherd, 2020</a>)</li>
+<li>
+<em><a href="https://CRAN.R-project.org/package=benchmarkme">benchmarkme</a></em> <a id="cite-Gillespie_2019"></a>(<a href="https://CRAN.R-project.org/package=benchmarkme">Gillespie, 2019</a>)</li>
 <li>
 <em><a href="https://bioconductor.org/packages/3.11/BiocStyle">BiocStyle</a></em> <a id="cite-Oles_2020"></a>(<a href="https://github.com/Bioconductor/BiocStyle">Oleś, Morgan, and Huber, 2020</a>)</li>
 <li>
@@ -890,7 +901,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <em><a href="https://CRAN.R-project.org/package=viridisLite">viridisLite</a></em> <a id="cite-Garnier_2018"></a>(<a href="https://CRAN.R-project.org/package=viridisLite">Garnier, 2018</a>)</li>
 </ul>
 <p>Code for creating the vignette</p>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="co">## Create the vignette</span>
+<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="co">## Create the vignette</span>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"rmarkdown"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/rmarkdown/man/render.html">render</a></span>(<span class="st">"spatialLIBD.Rmd"</span>))
 
@@ -898,9 +909,9 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"knitr"</span>)
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html">knit</a></span>(<span class="st">"spatialLIBD.Rmd"</span>, <span class="kw">tangle</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p>Date the vignette was generated.</p>
-<pre><code>#&gt; [1] "2020-04-22 02:16:32 UTC"</code></pre>
+<pre><code>#&gt; [1] "2020-04-22 05:38:41 UTC"</code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code>#&gt; Time difference of 1.114 mins</code></pre>
+<pre><code>#&gt; Time difference of 1.116 mins</code></pre>
 <p><code>R</code> session information.</p>
 <pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt;  setting  value                                             
@@ -922,6 +933,8 @@ If you tweet about this website, the data or the R package please use the <code>
 #&gt;  attempt                  0.3.0    2019-04-08 [1] CRAN (R 4.1.0)
 #&gt;  backports                1.1.6    2020-04-05 [2] CRAN (R 4.1.0)
 #&gt;  beeswarm                 0.2.3    2016-04-25 [1] CRAN (R 4.1.0)
+#&gt;  benchmarkme              1.0.3    2019-11-09 [1] CRAN (R 4.1.0)
+#&gt;  benchmarkmeData          1.0.3    2019-11-02 [1] CRAN (R 4.1.0)
 #&gt;  bibtex                   0.4.2.2  2020-01-02 [1] CRAN (R 4.1.0)
 #&gt;  Biobase                * 2.47.3   2020-03-16 [1] Bioconductor  
 #&gt;  BiocFileCache            1.11.6   2020-04-16 [1] Bioconductor  
@@ -938,6 +951,7 @@ If you tweet about this website, the data or the R package please use the <code>
 #&gt;  blob                     1.2.1    2020-01-20 [1] CRAN (R 4.1.0)
 #&gt;  bookdown                 0.18     2020-03-05 [1] CRAN (R 4.1.0)
 #&gt;  cli                      2.0.2    2020-02-28 [2] CRAN (R 4.1.0)
+#&gt;  codetools                0.2-16   2018-12-24 [3] CRAN (R 4.1.0)
 #&gt;  colorspace               1.4-1    2019-03-18 [1] CRAN (R 4.1.0)
 #&gt;  config                   0.3      2018-03-27 [1] CRAN (R 4.1.0)
 #&gt;  cowplot                  1.0.0    2019-07-11 [1] CRAN (R 4.1.0)
@@ -951,6 +965,7 @@ If you tweet about this website, the data or the R package please use the <code>
 #&gt;  desc                     1.2.0    2018-05-01 [2] CRAN (R 4.1.0)
 #&gt;  digest                   0.6.25   2020-02-23 [2] CRAN (R 4.1.0)
 #&gt;  dockerfiler              0.1.3    2019-03-19 [1] CRAN (R 4.1.0)
+#&gt;  doParallel               1.0.15   2019-08-02 [1] CRAN (R 4.1.0)
 #&gt;  dotCall64                1.0-0    2018-07-30 [1] CRAN (R 4.1.0)
 #&gt;  dplyr                    0.8.5    2020-03-07 [1] CRAN (R 4.1.0)
 #&gt;  DT                       0.13     2020-03-23 [2] CRAN (R 4.1.0)
@@ -961,6 +976,7 @@ If you tweet about this website, the data or the R package please use the <code>
 #&gt;  farver                   2.0.3    2020-01-16 [1] CRAN (R 4.1.0)
 #&gt;  fastmap                  1.0.1    2019-10-08 [1] CRAN (R 4.1.0)
 #&gt;  fields                   10.3     2020-02-04 [1] CRAN (R 4.1.0)
+#&gt;  foreach                  1.5.0    2020-03-30 [1] CRAN (R 4.1.0)
 #&gt;  fs                       1.4.1    2020-04-04 [2] CRAN (R 4.1.0)
 #&gt;  generics                 0.0.2    2018-11-29 [1] CRAN (R 4.1.0)
 #&gt;  GenomeInfoDb           * 1.23.17  2020-04-13 [1] Bioconductor  
@@ -979,6 +995,7 @@ If you tweet about this website, the data or the R package please use the <code>
 #&gt;  interactiveDisplayBase   1.25.0   2019-10-29 [1] Bioconductor  
 #&gt;  IRanges                * 2.21.8   2020-03-25 [1] Bioconductor  
 #&gt;  irlba                    2.3.3    2019-02-05 [1] CRAN (R 4.1.0)
+#&gt;  iterators                1.0.12   2019-07-26 [1] CRAN (R 4.1.0)
 #&gt;  jsonlite                 1.6.1    2020-02-02 [2] CRAN (R 4.1.0)
 #&gt;  knitcitations          * 1.0.10   2019-09-15 [1] CRAN (R 4.1.0)
 #&gt;  knitr                    1.28     2020-02-06 [2] CRAN (R 4.1.0)
@@ -1029,7 +1046,7 @@ If you tweet about this website, the data or the R package please use the <code>
 #&gt;  shinyWidgets             0.5.1    2020-03-04 [1] CRAN (R 4.1.0)
 #&gt;  SingleCellExperiment   * 1.9.3    2020-03-31 [1] Bioconductor  
 #&gt;  spam                     2.5-1    2019-12-12 [1] CRAN (R 4.1.0)
-#&gt;  spatialLIBD            * 0.99.13  2020-04-22 [1] Bioconductor  
+#&gt;  spatialLIBD            * 0.99.14  2020-04-22 [1] Bioconductor  
 #&gt;  stringi                  1.4.6    2020-02-17 [2] CRAN (R 4.1.0)
 #&gt;  stringr                  1.4.0    2019-02-10 [2] CRAN (R 4.1.0)
 #&gt;  SummarizedExperiment   * 1.17.5   2020-03-27 [1] Bioconductor  
@@ -1063,29 +1080,30 @@ If you tweet about this website, the data or the R package please use the <code>
 <p>[1] J. Allaire, Y. Xie, J. McPherson, J. Luraschi, et al. <em>rmarkdown: Dynamic Documents for R</em>. R package version 2.1. 2020. &lt;URL: <a href="https://github.com/rstudio/rmarkdown" class="uri">https://github.com/rstudio/rmarkdown</a>&gt;.</p>
 <p>[2] C. Boettiger. <em>knitcitations: Citations for ‘Knitr’ Markdown Files</em>. R package version 1.0.10. 2019. &lt;URL: <a href="https://CRAN.R-project.org/package=knitcitations" class="uri">https://CRAN.R-project.org/package=knitcitations</a>&gt;.</p>
 <p>[3] W. Chang, J. Cheng, J. Allaire, Y. Xie, et al. <em>shiny: Web Application Framework for R</em>. R package version 1.4.0.2. 2020. &lt;URL: <a href="https://CRAN.R-project.org/package=shiny" class="uri">https://CRAN.R-project.org/package=shiny</a>&gt;.</p>
-<p>[4] L. Collado-Torres, K. R. Maynard, and A. E. Jaffe. <em>LIBD Visium spatial transcriptomics human pilot data inspector</em>. <a href="https://github.com/LieberInstitute/spatialLIBD" class="uri">https://github.com/LieberInstitute/spatialLIBD</a> - R package version 0.99.13. 2020. DOI: 10.18129/B9.bioc.spatialLIBD. &lt;URL: <a href="http://www.bioconductor.org/packages/spatialLIBD" class="uri">http://www.bioconductor.org/packages/spatialLIBD</a>&gt;.</p>
+<p>[4] L. Collado-Torres, K. R. Maynard, and A. E. Jaffe. <em>LIBD Visium spatial transcriptomics human pilot data inspector</em>. <a href="https://github.com/LieberInstitute/spatialLIBD" class="uri">https://github.com/LieberInstitute/spatialLIBD</a> - R package version 0.99.14. 2020. DOI: 10.18129/B9.bioc.spatialLIBD. &lt;URL: <a href="http://www.bioconductor.org/packages/spatialLIBD" class="uri">http://www.bioconductor.org/packages/spatialLIBD</a>&gt;.</p>
 <p>[5] K. R. Coombes, G. Brock, Z. B. Abrams, and L. V. Abruzzo. “Polychrome: Creating and Assessing Qualitative Palettes with Many Colors”. In: <em>Journal of Statistical Software, Code Snippets</em> 90.1 (2019), pp. 1-23. DOI: 10.18637/jss.v090.c01.</p>
 <p>[6] G. Csárdi, R. core, H. Wickham, W. Chang, et al. <em>sessioninfo: R Session Information</em>. R package version 1.1.1. 2018. &lt;URL: <a href="https://CRAN.R-project.org/package=sessioninfo" class="uri">https://CRAN.R-project.org/package=sessioninfo</a>&gt;.</p>
 <p>[7] Douglas Nychka, Reinhard Furrer, John Paige, and Stephan Sain. <em>fields: Tools for spatial data</em>. R package version 10.3. Boulder, CO, USA: University Corporation for Atmospheric Research, 2017. DOI: 10.5065/D6W957CT. &lt;URL: <a href="https://github.com/NCAR/Fields" class="uri">https://github.com/NCAR/Fields</a>&gt;.</p>
 <p>[8] S. Garnier. <em>viridisLite: Default Color Maps from ‘matplotlib’ (Lite Version)</em>. R package version 0.3.0. 2018. &lt;URL: <a href="https://CRAN.R-project.org/package=viridisLite" class="uri">https://CRAN.R-project.org/package=viridisLite</a>&gt;.</p>
-<p>[9] V. Guyader, C. Fay, S. Rochette, and C. Girard. <em>golem: A Framework for Robust Shiny Applications</em>. R package version 0.2.1. 2020. &lt;URL: <a href="https://CRAN.R-project.org/package=golem" class="uri">https://CRAN.R-project.org/package=golem</a>&gt;.</p>
-<p>[10] M. Lawrence, W. Huber, H. Pagès, P. Aboyoun, et al. “Software for Computing and Annotating Genomic Ranges”. In: <em>PLoS Computational Biology</em> 9 (8 2013). DOI: 10.1371/journal.pcbi.1003118. &lt;URL: <a href="http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003118" class="uri">http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003118</a>}.&gt;</p>
-<p>[11] A. Lun and D. Risso. <em>SingleCellExperiment: S4 Classes for Single Cell Data</em>. R package version 1.9.3. 2020.</p>
-<p>[12] K. R. Maynard, L. Collado-Torres, L. M. Weber, C. Uytingco, et al. “Transcriptome-scale spatial gene expression in the human dorsolateral prefrontal cortex”. In: <em>bioRxiv</em> (2020). DOI: 10.1101/2020.02.28.969931. &lt;URL: <a href="https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1" class="uri">https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1</a>&gt;.</p>
-<p>[13] D. J. McCarthy, K. R. Campbell, A. T. L. Lun, and Q. F. Willis. “Scater: pre-processing, quality control, normalisation and visualisation of single-cell RNA-seq data in R”. In: <em>Bioinformatics</em> 33 (8 2017), pp. 1179-1186. DOI: 10.1093/bioinformatics/btw777.</p>
-<p>[14] M. Morgan, V. Obenchain, J. Hester, and H. Pagès. <em>SummarizedExperiment: SummarizedExperiment container</em>. R package version 1.17.5. 2020.</p>
-<p>[15] M. Morgan and L. Shepherd. <em>AnnotationHub: Client to access AnnotationHub resources</em>. R package version 2.19.11. 2020.</p>
-<p>[16] M. Morgan and L. Shepherd. <em>ExperimentHub: Client to access ExperimentHub resources</em>. R package version 1.13.7. 2020.</p>
-<p>[17] E. Neuwirth. <em>RColorBrewer: ColorBrewer Palettes</em>. R package version 1.1-2. 2014. &lt;URL: <a href="https://CRAN.R-project.org/package=RColorBrewer" class="uri">https://CRAN.R-project.org/package=RColorBrewer</a>&gt;.</p>
-<p>[18] A. Oleś, M. Morgan, and W. Huber. <em>BiocStyle: Standard styles for vignettes and other Bioconductor documents</em>. R package version 2.15.8. 2020. &lt;URL: <a href="https://github.com/Bioconductor/BiocStyle" class="uri">https://github.com/Bioconductor/BiocStyle</a>&gt;.</p>
-<p>[19] H. Pagès, M. Lawrence, and P. Aboyoun. <em>S4Vectors: Foundation of vector-like and list-like containers in Bioconductor</em>. R package version 0.25.15. 2020.</p>
-<p>[20] R Core Team. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. Vienna, Austria, 2020. &lt;URL: <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>&gt;.</p>
-<p>[21] C. Sievert. <em>Interactive Web-Based Data Visualization with R, plotly, and shiny</em>. Chapman and Hall/CRC, 2020. ISBN: 9781138331457. &lt;URL: <a href="https://plotly-r.com" class="uri">https://plotly-r.com</a>&gt;.</p>
-<p>[22] H. Wickham. <em>ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York, 2016. ISBN: 978-3-319-24277-4. &lt;URL: <a href="https://ggplot2.tidyverse.org" class="uri">https://ggplot2.tidyverse.org</a>&gt;.</p>
-<p>[23] H. Wickham. “testthat: Get Started with Testing”. In: <em>The R Journal</em> 3 (2011), pp. 5-10. &lt;URL: <a href="https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf" class="uri">https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf</a>&gt;.</p>
-<p>[24] C. Wilke. <em>cowplot: Streamlined Plot Theme and Plot Annotations for ‘ggplot2’</em>. R package version 1.0.0. 2019. &lt;URL: <a href="https://CRAN.R-project.org/package=cowplot" class="uri">https://CRAN.R-project.org/package=cowplot</a>&gt;.</p>
-<p>[25] Y. Xie. “knitr: A Comprehensive Tool for Reproducible Research in R”. In: <em>Implementing Reproducible Computational Research</em>. Ed. by V. Stodden, F. Leisch and R. D. Peng. ISBN 978-1466561595. Chapman and Hall/CRC, 2014. &lt;URL: <a href="http://www.crcpress.com/product/isbn/9781466561595" class="uri">http://www.crcpress.com/product/isbn/9781466561595</a>&gt;.</p>
-<p>[26] Y. Xie, J. Cheng, and X. Tan. <em>DT: A Wrapper of the JavaScript Library ‘DataTables’</em>. R package version 0.13. 2020. &lt;URL: <a href="https://CRAN.R-project.org/package=DT" class="uri">https://CRAN.R-project.org/package=DT</a>&gt;.</p>
+<p>[9] C. Gillespie. <em>benchmarkme: Crowd Sourced System Benchmarks</em>. R package version 1.0.3. 2019. &lt;URL: <a href="https://CRAN.R-project.org/package=benchmarkme" class="uri">https://CRAN.R-project.org/package=benchmarkme</a>&gt;.</p>
+<p>[10] V. Guyader, C. Fay, S. Rochette, and C. Girard. <em>golem: A Framework for Robust Shiny Applications</em>. R package version 0.2.1. 2020. &lt;URL: <a href="https://CRAN.R-project.org/package=golem" class="uri">https://CRAN.R-project.org/package=golem</a>&gt;.</p>
+<p>[11] M. Lawrence, W. Huber, H. Pagès, P. Aboyoun, et al. “Software for Computing and Annotating Genomic Ranges”. In: <em>PLoS Computational Biology</em> 9 (8 2013). DOI: 10.1371/journal.pcbi.1003118. &lt;URL: <a href="http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003118" class="uri">http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003118</a>}.&gt;</p>
+<p>[12] A. Lun and D. Risso. <em>SingleCellExperiment: S4 Classes for Single Cell Data</em>. R package version 1.9.3. 2020.</p>
+<p>[13] K. R. Maynard, L. Collado-Torres, L. M. Weber, C. Uytingco, et al. “Transcriptome-scale spatial gene expression in the human dorsolateral prefrontal cortex”. In: <em>bioRxiv</em> (2020). DOI: 10.1101/2020.02.28.969931. &lt;URL: <a href="https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1" class="uri">https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1</a>&gt;.</p>
+<p>[14] D. J. McCarthy, K. R. Campbell, A. T. L. Lun, and Q. F. Willis. “Scater: pre-processing, quality control, normalisation and visualisation of single-cell RNA-seq data in R”. In: <em>Bioinformatics</em> 33 (8 2017), pp. 1179-1186. DOI: 10.1093/bioinformatics/btw777.</p>
+<p>[15] M. Morgan, V. Obenchain, J. Hester, and H. Pagès. <em>SummarizedExperiment: SummarizedExperiment container</em>. R package version 1.17.5. 2020.</p>
+<p>[16] M. Morgan and L. Shepherd. <em>AnnotationHub: Client to access AnnotationHub resources</em>. R package version 2.19.11. 2020.</p>
+<p>[17] M. Morgan and L. Shepherd. <em>ExperimentHub: Client to access ExperimentHub resources</em>. R package version 1.13.7. 2020.</p>
+<p>[18] E. Neuwirth. <em>RColorBrewer: ColorBrewer Palettes</em>. R package version 1.1-2. 2014. &lt;URL: <a href="https://CRAN.R-project.org/package=RColorBrewer" class="uri">https://CRAN.R-project.org/package=RColorBrewer</a>&gt;.</p>
+<p>[19] A. Oleś, M. Morgan, and W. Huber. <em>BiocStyle: Standard styles for vignettes and other Bioconductor documents</em>. R package version 2.15.8. 2020. &lt;URL: <a href="https://github.com/Bioconductor/BiocStyle" class="uri">https://github.com/Bioconductor/BiocStyle</a>&gt;.</p>
+<p>[20] H. Pagès, M. Lawrence, and P. Aboyoun. <em>S4Vectors: Foundation of vector-like and list-like containers in Bioconductor</em>. R package version 0.25.15. 2020.</p>
+<p>[21] R Core Team. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. Vienna, Austria, 2020. &lt;URL: <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>&gt;.</p>
+<p>[22] C. Sievert. <em>Interactive Web-Based Data Visualization with R, plotly, and shiny</em>. Chapman and Hall/CRC, 2020. ISBN: 9781138331457. &lt;URL: <a href="https://plotly-r.com" class="uri">https://plotly-r.com</a>&gt;.</p>
+<p>[23] H. Wickham. <em>ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York, 2016. ISBN: 978-3-319-24277-4. &lt;URL: <a href="https://ggplot2.tidyverse.org" class="uri">https://ggplot2.tidyverse.org</a>&gt;.</p>
+<p>[24] H. Wickham. “testthat: Get Started with Testing”. In: <em>The R Journal</em> 3 (2011), pp. 5-10. &lt;URL: <a href="https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf" class="uri">https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf</a>&gt;.</p>
+<p>[25] C. Wilke. <em>cowplot: Streamlined Plot Theme and Plot Annotations for ‘ggplot2’</em>. R package version 1.0.0. 2019. &lt;URL: <a href="https://CRAN.R-project.org/package=cowplot" class="uri">https://CRAN.R-project.org/package=cowplot</a>&gt;.</p>
+<p>[26] Y. Xie. “knitr: A Comprehensive Tool for Reproducible Research in R”. In: <em>Implementing Reproducible Computational Research</em>. Ed. by V. Stodden, F. Leisch and R. D. Peng. ISBN 978-1466561595. Chapman and Hall/CRC, 2014. &lt;URL: <a href="http://www.crcpress.com/product/isbn/9781466561595" class="uri">http://www.crcpress.com/product/isbn/9781466561595</a>&gt;.</p>
+<p>[27] Y. Xie, J. Cheng, and X. Tan. <em>DT: A Wrapper of the JavaScript Library ‘DataTables’</em>. R package version 0.13. 2020. &lt;URL: <a href="https://CRAN.R-project.org/package=DT" class="uri">https://CRAN.R-project.org/package=DT</a>&gt;.</p>
 </div>
 <div class="footnotes">
 <hr>
