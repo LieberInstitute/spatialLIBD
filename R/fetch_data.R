@@ -53,7 +53,7 @@ fetch_data <-
     destdir = tempdir(),
     eh = ExperimentHub::ExperimentHub()) {
         ## Some variables
-        sce <- sce_layer <- modeling_results <- sce_example <- NULL
+        sce <- sce_layer <- modeling_results <- sce_sub <- NULL
 
         ## Check inputs
         stopifnot(methods::is(eh, "ExperimentHub"))
