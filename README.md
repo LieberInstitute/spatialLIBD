@@ -154,17 +154,6 @@ library('spatialLIBD')
 
 ## Download the spot-level data
 sce <- fetch_data(type = 'sce')
-#> Warning in .local(conn, statement, ...): partial argument match of 'param' to
-#> 'params'
-
-#> Warning in .local(conn, statement, ...): partial argument match of 'param' to
-#> 'params'
-
-#> Warning in .local(conn, statement, ...): partial argument match of 'param' to
-#> 'params'
-
-#> Warning in .local(conn, statement, ...): partial argument match of 'param' to
-#> 'params'
 #> Loading objects:
 #>   sce
 
@@ -235,7 +224,7 @@ print(citation('spatialLIBD'), bibtex = TRUE)
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 0.99.13, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 0.99.14, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -244,7 +233,7 @@ print(citation('spatialLIBD'), bibtex = TRUE)
 #>     author = {Leonardo Collado-Torres and Kristen R. Maynard and Andrew E. Jaffe},
 #>     year = {2020},
 #>     url = {http://www.bioconductor.org/packages/spatialLIBD},
-#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 0.99.13},
+#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 0.99.14},
 #>     doi = {10.18129/B9.bioc.spatialLIBD},
 #>   }
 #> 

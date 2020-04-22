@@ -18,26 +18,28 @@
 #'
 #' @examples
 #'
-#' ## Obtain the necessary data
-#' if (!exists("sce")) sce <- fetch_data("sce")
+#' if (enough_ram()) {
+#'     ## Obtain the necessary data
+#'     if (!exists("sce")) sce <- fetch_data("sce")
 #'
-#' ## Subset to two samples of interest
-#' sce_sub <- sce[, sce$sample_name %in% c("151673", "151674")]
+#'     ## Subset to two samples of interest
+#'     sce_sub <- sce[, sce$sample_name %in% c("151673", "151674")]
 #'
-#' ## Obtain the plot list
-#' p_list <-
-#'     sce_image_grid_gene(
-#'         sce_sub,
-#'         spatial = FALSE,
-#'         return_plots = TRUE
-#'     )
+#'     ## Obtain the plot list
+#'     p_list <-
+#'         sce_image_grid_gene(
+#'             sce_sub,
+#'             spatial = FALSE,
+#'             return_plots = TRUE
+#'         )
 #'
-#' ## Clean up
-#' rm(sce_sub)
+#'     ## Clean up
+#'     rm(sce_sub)
 #'
-#' ## Visualize the spatial adjacent replicates for position = 0 micro meters
-#' ## for subject 3
-#' cowplot::plot_grid(plotlist = p_list, ncol = 2)
+#'     ## Visualize the spatial adjacent replicates for position = 0 micro meters
+#'     ## for subject 3
+#'     cowplot::plot_grid(plotlist = p_list, ncol = 2)
+#' }
 sce_image_grid_gene <-
     function(sce,
     geneid = "SCGB2A2; ENSG00000110484",

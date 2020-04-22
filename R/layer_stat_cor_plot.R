@@ -44,6 +44,9 @@
 #'
 #' ## Visualize the correlation matrix
 #' layer_stat_cor_plot(cor_stats_layer)
+#'
+#' ## Restrict the range of colors
+#' layer_stat_cor_plot(cor_stats_layer, max = 0.3)
 layer_stat_cor_plot <-
     function(cor_stats_layer,
     max = 0.81,
@@ -53,6 +56,10 @@ layer_stat_cor_plot <-
         ## From https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R
         theSeq <- seq(min, max, by = 0.01)
         my.col <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(7, "PRGn"))(length(theSeq))
+
+        ## Subset values
+        cor_stats_layer[cor_stats_layer <= min] <- min
+        cor_stats_layer[cor_stats_layer >= max] <- max
 
         ## Re-shape the matrix
         mat_vals <- t(cor_stats_layer)

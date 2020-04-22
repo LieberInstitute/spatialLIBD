@@ -35,11 +35,13 @@ For more details please check the vignette documentation.
 }
 \examples{
 
-## Obtain the necessary data
-if (!exists("sce")) sce <- fetch_data("sce")
+if (enough_ram()) {
+    ## Obtain the necessary data
+    if (!exists("sce")) sce <- fetch_data("sce")
 
-## Check the object
-check_sce(sce)
+    ## Check the object
+    check_sce(sce)
+}
 }
 \seealso{
 Other Check input functions: 

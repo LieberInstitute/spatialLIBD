@@ -17,7 +17,9 @@
 #' \linkS4class{SingleCellExperiment}
 #' object containing the layer-level data (pseudo-bulked from the spot-level),
 #' or `modeling_results` for the list of tables with the `enrichment`,
-#' `pairwise`, and `anova` model results from the layer-level data.
+#' `pairwise`, and `anova` model results from the layer-level data. It can also
+#' be `sce_example` which is a reduced version of `sce` just for example
+#' purposes.
 #'
 #' @param destdir The destination directory to where files will be downloaded
 #' to in case the `ExperimentHub` resource is not available. If you already
@@ -47,22 +49,34 @@
 #' ## Explore the data
 #' sce_layer
 fetch_data <-
-    function(type = c("sce", "sce_layer", "modeling_results"),
+    function(type = c("sce", "sce_layer", "modeling_results", "sce_example"),
     destdir = tempdir(),
     eh = ExperimentHub::ExperimentHub()) {
         ## Some variables
-        sce <- sce_layer <- modeling_results <- NULL
+        sce <- sce_layer <- modeling_results <- sce_example <- NULL
 
         ## Check inputs
         stopifnot(methods::is(eh, "ExperimentHub"))
-        if (!type %in% c("sce", "sce_layer", "modeling_results")) {
+        if (!type %in% c("sce", "sce_layer", "modeling_results", "sce_example")) {
             stop(
-                "Other 'type' values are not supported. Please use either 'sce', 'sce_layer' or 'modeling_results'.",
+                paste(
+                    "Other 'type' values are not supported.",
+                    "Please use either 'sce', 'sce_layer',",
+                    "'modeling_results' or 'sce_example'."
+                ),
                 call. = FALSE
             )
         }
 
         if (type == "sce") {
+            if (!enough_ram()) {
+                warning(paste(
+                    "Your system might not have enough memory available.",
+                    "Try with a machine that has more memory",
+                    "or use the 'sce_example'."
+                ))
+            }
+
             hub_title <- "Human_Pilot_DLPFC_Visium_spatialLIBD_spot_level_SCE"
 
             ## While EH is not set-up
@@ -85,6 +99,13 @@ fetch_data <-
             file_name <- "Human_DLPFC_Visium_modeling_results.Rdata"
             url <-
                 "https://www.dropbox.com/s/se6rrgb9yhm5gfh/Human_DLPFC_Visium_modeling_results.Rdata?dl=1"
+        } else if (type == "sce_example") {
+            hub_title <- "Human_DLPFC_Visium_sce_example.Rdata"
+
+            ## While EH is not set-up
+            file_name <- "sce_sub_for_vignette.Rdata"
+            url <-
+                "https://www.dropbox.com/s/5ra9o8ku9iyyf70/sce_sub_for_vignette.Rdata?dl=1"
         }
 
         file_path <- file.path(destdir, file_name)
@@ -121,5 +142,7 @@ fetch_data <-
             return(sce_layer)
         } else if (type == "modeling_results") {
             return(modeling_results)
+        } else if (type == "sce_example") {
+            return(sce_sub)
         }
     }

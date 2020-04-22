@@ -1,3 +1,20 @@
+# spatialLIBD 0.99.14
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* Added the function `enough_ram()` which is used to control the execution of
+examples. If it fails when using `fetch_data("sce")` then `fetch_data()` will
+show a warning.
+* `fetch_data(type = "sce_example")` is now supported and used visibly in the
+vignette, eliminating the need for `eval = FALSE` chunks. This should enable
+testing the vignette code on the Bioconductor Single Package Builder on
+Windows (max 2.5 GB of RAM available).
+
+BUG FIXES
+
+* Fixed the example in `get_colors()`.
+* Fixed `layer_stat_cor_plot()` for when `min` and/or `max` are specified.
+
 # spatialLIBD 0.99.13
 
 SIGNIFICANT USER-VISIBLE CHANGES

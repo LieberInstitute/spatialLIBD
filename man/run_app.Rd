@@ -83,7 +83,9 @@ any other data that you have shaped according to our object structure.
 ## using fetch_data(). If this is the first time you have run this,
 ## the files will need to be cached by ExperimentHub. Otherwise it
 ## will re-use the files you have previously downloaded.
-run_app()
+if (enough_ram(4e9)) {
+    run_app()
+}
 }
 
 }

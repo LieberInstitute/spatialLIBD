@@ -58,6 +58,9 @@ cor_stats_layer <- layer_stat_cor(
 
 ## Visualize the correlation matrix
 layer_stat_cor_plot(cor_stats_layer)
+
+## Restrict the range of colors
+layer_stat_cor_plot(cor_stats_layer, max = 0.3)
 }
 \seealso{
 layer_matrix_plot

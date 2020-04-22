@@ -30,27 +30,29 @@
 #'
 #' @examples
 #'
-#' ## Obtain the necessary data
-#' if (!exists("sce")) sce <- fetch_data("sce")
+#' if (enough_ram()) {
+#'     ## Obtain the necessary data
+#'     if (!exists("sce")) sce <- fetch_data("sce")
 #'
-#' ## Valid `geneid` values are those in
-#' head(rowData(sce)$gene_search)
-#' ## or continuous variables stored in colData(sce)
+#'     ## Valid `geneid` values are those in
+#'     head(rowData(sce)$gene_search)
+#'     ## or continuous variables stored in colData(sce)
 #'
-#' ## Visualize a default gene on the non-viridis scale
-#' sce_image_gene(
-#'     sce = sce,
-#'     sampleid = "151507",
-#'     viridis = FALSE
-#' )
+#'     ## Visualize a default gene on the non-viridis scale
+#'     sce_image_gene(
+#'         sce = sce,
+#'         sampleid = "151507",
+#'         viridis = FALSE
+#'     )
 #'
-#' ## Visualize a continuous variable, in this case, the ratio of chrM
-#' ## gene expression compared to the total expression at the spot-level
-#' sce_image_gene(
-#'     sce = sce,
-#'     sampleid = "151507",
-#'     geneid = "expr_chrM_ratio"
-#' )
+#'     ## Visualize a continuous variable, in this case, the ratio of chrM
+#'     ## gene expression compared to the total expression at the spot-level
+#'     sce_image_gene(
+#'         sce = sce,
+#'         sampleid = "151507",
+#'         geneid = "expr_chrM_ratio"
+#'     )
+#' }
 sce_image_gene <-
     function(sce,
     sampleid,

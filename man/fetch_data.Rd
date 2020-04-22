@@ -5,7 +5,7 @@
 \title{Download the Human DLPFC Visium data from LIBD}
 \usage{
 fetch_data(
-  type = c("sce", "sce_layer", "modeling_results"),
+  type = c("sce", "sce_layer", "modeling_results", "sce_example"),
   destdir = tempdir(),
   eh = ExperimentHub::ExperimentHub()
 )
@@ -20,7 +20,9 @@ for the
 \linkS4class{SingleCellExperiment}
 object containing the layer-level data (pseudo-bulked from the spot-level),
 or \code{modeling_results} for the list of tables with the \code{enrichment},
-\code{pairwise}, and \code{anova} model results from the layer-level data.}
+\code{pairwise}, and \code{anova} model results from the layer-level data. It can also
+be \code{sce_example} which is a reduced version of \code{sce} just for example
+purposes.}
 
 \item{destdir}{The destination directory to where files will be downloaded
 to in case the \code{ExperimentHub} resource is not available. If you already
