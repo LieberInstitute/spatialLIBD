@@ -53,7 +53,7 @@ data and title for \code{\link[=sce_image_clus_p]{sce_image_clus_p()}}.
 \examples{
 
 ## Obtain the necessary data
-if (!exists('sce')) sce <- fetch_data('sce')
+if (!exists("sce")) sce <- fetch_data("sce")
 
 ## Check the colors defined by Lukas M Weber
 libd_layer_colors
@@ -61,22 +61,21 @@ libd_layer_colors
 ## Use the manual color palette by Lukas M Weber
 sce_image_clus(
     sce = sce,
-    clustervar = 'layer_guess_reordered',
-    sampleid = '151673',
+    clustervar = "layer_guess_reordered",
+    sampleid = "151673",
     colors = libd_layer_colors,
-    ... = ' LIBD Layers'
+    ... = " LIBD Layers"
 )
 
 ## Without histology
 sce_image_clus(
     sce = sce,
-    clustervar = 'layer_guess_reordered',
-    sampleid = '151673',
+    clustervar = "layer_guess_reordered",
+    sampleid = "151673",
     colors = libd_layer_colors,
-    ... = ' LIBD Layers',
+    ... = " LIBD Layers",
     spatial = FALSE
 )
-
 }
 \seealso{
 Other Spatial cluster visualization functions: 

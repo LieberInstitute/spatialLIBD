@@ -31,7 +31,7 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' if (!exists('sce')) sce <- fetch_data('sce')
+#' if (!exists("sce")) sce <- fetch_data("sce")
 #'
 #' ## Valid `geneid` values are those in
 #' head(rowData(sce)$gene_search)
@@ -40,7 +40,7 @@
 #' ## Visualize a default gene on the non-viridis scale
 #' sce_image_gene(
 #'     sce = sce,
-#'     sampleid = '151507',
+#'     sampleid = "151507",
 #'     viridis = FALSE
 #' )
 #'
@@ -48,20 +48,18 @@
 #' ## gene expression compared to the total expression at the spot-level
 #' sce_image_gene(
 #'     sce = sce,
-#'     sampleid = '151507',
-#'     geneid = 'expr_chrM_ratio'
+#'     sampleid = "151507",
+#'     geneid = "expr_chrM_ratio"
 #' )
-#'
-
 sce_image_gene <-
     function(sce,
-        sampleid,
-        geneid = "SCGB2A2; ENSG00000110484",
-        spatial = TRUE,
-        assayname = 'logcounts',
-        minCount = 0,
-        viridis = TRUE,
-        ...) {
+    sampleid,
+    geneid = "SCGB2A2; ENSG00000110484",
+    spatial = TRUE,
+    assayname = "logcounts",
+    minCount = 0,
+    viridis = TRUE,
+    ...) {
         sce_sub <- sce[, sce$sample_name == sampleid]
         d <- as.data.frame(colData(sce_sub))
 
@@ -77,14 +75,19 @@ sce_image_gene <-
             d = d,
             sampleid = sampleid,
             spatial = spatial,
-            title = paste(sampleid,
+            title = paste(
+                sampleid,
                 geneid,
-                ...),
+                ...
+            ),
             viridis = viridis
         )
-        p + labs(caption = paste(if (!geneid %in% colnames(colData(sce_sub)))
-            assayname
-            else
-                NULL,
-            'min >', minCount))
+        p + labs(caption = paste(
+            if (!geneid %in% colnames(colData(sce_sub))) {
+                  assayname
+              } else {
+                  NULL
+              },
+            "min >", minCount
+        ))
     }

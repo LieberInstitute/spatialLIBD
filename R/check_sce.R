@@ -16,60 +16,58 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' if (!exists('sce')) sce <- fetch_data('sce')
+#' if (!exists("sce")) sce <- fetch_data("sce")
 #'
 #' ## Check the object
 #' check_sce(sce)
-#'
-
 check_sce <- function(sce,
     variables = c(
-        'GraphBased',
-        'Layer',
-        'Maynard',
-        'Martinowich',
-        paste0('SNN_k50_k', 4:28),
-        'layer_guess_reordered_short',
-        'cell_count',
-        'sum_umi',
-        'sum_gene',
-        'expr_chrM',
-        'expr_chrM_ratio',
-        'SpatialDE_PCA',
-        'SpatialDE_pool_PCA',
-        'HVG_PCA',
-        'pseudobulk_PCA',
-        'markers_PCA',
-        'SpatialDE_UMAP',
-        'SpatialDE_pool_UMAP',
-        'HVG_UMAP',
-        'pseudobulk_UMAP',
-        'markers_UMAP',
-        'SpatialDE_PCA_spatial',
-        'SpatialDE_pool_PCA_spatial',
-        'HVG_PCA_spatial',
-        'pseudobulk_PCA_spatial',
-        'markers_PCA_spatial',
-        'SpatialDE_UMAP_spatial',
-        'SpatialDE_pool_UMAP_spatial',
-        'HVG_UMAP_spatial',
-        'pseudobulk_UMAP_spatial',
-        'markers_UMAP_spatial'
+        "GraphBased",
+        "Layer",
+        "Maynard",
+        "Martinowich",
+        paste0("SNN_k50_k", 4:28),
+        "layer_guess_reordered_short",
+        "cell_count",
+        "sum_umi",
+        "sum_gene",
+        "expr_chrM",
+        "expr_chrM_ratio",
+        "SpatialDE_PCA",
+        "SpatialDE_pool_PCA",
+        "HVG_PCA",
+        "pseudobulk_PCA",
+        "markers_PCA",
+        "SpatialDE_UMAP",
+        "SpatialDE_pool_UMAP",
+        "HVG_UMAP",
+        "pseudobulk_UMAP",
+        "markers_UMAP",
+        "SpatialDE_PCA_spatial",
+        "SpatialDE_pool_PCA_spatial",
+        "HVG_PCA_spatial",
+        "pseudobulk_PCA_spatial",
+        "markers_PCA_spatial",
+        "SpatialDE_UMAP_spatial",
+        "SpatialDE_pool_UMAP_spatial",
+        "HVG_UMAP_spatial",
+        "pseudobulk_UMAP_spatial",
+        "markers_UMAP_spatial"
     )) {
     ## Should be a SingleCellExperiment object
-    stopifnot(is(sce, 'SingleCellExperiment'))
+    stopifnot(is(sce, "SingleCellExperiment"))
 
     ## Images data stored under metadata(sce)$image
-    stopifnot('image' %in% names(metadata(sce)))
-    stopifnot(all(c('sample', 'grob') %in% colnames(metadata(sce)$image)))
+    stopifnot("image" %in% names(metadata(sce)))
+    stopifnot(all(c("sample", "grob") %in% colnames(metadata(sce)$image)))
 
     ## Ensembl gene IDs are rownames with the symbol (gene_name) and Ensembl
     ## ID (gene_name) pasted into `gene_search`
     stopifnot(all(
-        c('gene_id', 'gene_name', 'gene_search') %in% colnames(rowData(sce))
+        c("gene_id", "gene_name", "gene_search") %in% colnames(rowData(sce))
     ))
     stopifnot(identical(
-        paste0(rowData(sce)$gene_name, '; ', rowData(sce)$gene_id),
+        paste0(rowData(sce)$gene_name, "; ", rowData(sce)$gene_id),
         rowData(sce)$gene_search
     ))
 
@@ -85,11 +83,13 @@ check_sce <- function(sce,
 
     ## Some continuous variables
     stopifnot(all(
-        c('imagerow',
-            'imagecol',
-            'sample_name',
-            'key',
-            variables) %in% colnames(colData(sce))
+        c(
+            "imagerow",
+            "imagecol",
+            "sample_name",
+            "key",
+            variables
+        ) %in% colnames(colData(sce))
     ))
 
     ## A unique spot-level ID (such as barcode) stored under sce$key
@@ -103,10 +103,10 @@ check_sce <- function(sce,
 
     ## No column named COUNT as that's used by sce_image_gene_p() and related
     ## functions.
-    stopifnot(!'COUNT' %in% colnames(colData(sce)))
+    stopifnot(!"COUNT" %in% colnames(colData(sce)))
 
     ## The counts and logcounts assays
-    stopifnot(all(c('counts', 'logcounts') %in% assayNames(sce)))
+    stopifnot(all(c("counts", "logcounts") %in% assayNames(sce)))
 
     ## Done!
     return(sce)

@@ -19,10 +19,10 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' if (!exists('sce')) sce <- fetch_data('sce')
+#' if (!exists("sce")) sce <- fetch_data("sce")
 #'
 #' ## Subset to two samples of interest
-#' sce_sub <- sce[, sce$sample_name %in% c('151673', '151674')]
+#' sce_sub <- sce[, sce$sample_name %in% c("151673", "151674")]
 #'
 #' ## Obtain the plot list
 #' p_list <-
@@ -38,27 +38,27 @@
 #' ## Visualize the spatial adjacent replicates for position = 0 micro meters
 #' ## for subject 3
 #' cowplot::plot_grid(plotlist = p_list, ncol = 2)
-#'
-
 sce_image_grid_gene <-
     function(sce,
-        geneid = "SCGB2A2; ENSG00000110484",
-        pdf_file,
-        assayname = 'logcounts',
-        minCount = 0,
-        return_plots = FALSE,
-        spatial = TRUE,
-        viridis = TRUE,
-        ...) {
+    geneid = "SCGB2A2; ENSG00000110484",
+    pdf_file,
+    assayname = "logcounts",
+    minCount = 0,
+    return_plots = FALSE,
+    spatial = TRUE,
+    viridis = TRUE,
+    ...) {
         plots <- lapply(unique(sce$sample_name), function(sampleid) {
-            sce_image_gene(sce,
+            sce_image_gene(
+                sce,
                 sampleid,
                 geneid,
                 spatial,
                 assayname,
                 minCount,
                 viridis,
-                ...)
+                ...
+            )
         })
         names(plots) <- unique(sce$sample_name)
         if (!return_plots) {

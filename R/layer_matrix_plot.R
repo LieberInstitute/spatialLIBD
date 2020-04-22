@@ -37,11 +37,11 @@
 #' ## Create some random data
 #' set.seed(20200224)
 #' mat <- matrix(runif(7 * 8, min = -1), nrow = 7)
-#' rownames(mat) <- c('WM', paste0('L', rev(seq_len(6))))
-#' colnames(mat) <- paste0('Var', seq_len(8))
+#' rownames(mat) <- c("WM", paste0("L", rev(seq_len(6))))
+#' colnames(mat) <- paste0("Var", seq_len(8))
 #'
 #' ## Create some text labels
-#' mat_text <- matrix('', nrow = 7, ncol = 8, dimnames = dimnames(mat))
+#' mat_text <- matrix("", nrow = 7, ncol = 8, dimnames = dimnames(mat))
 #' diag(mat_text) <- as.character(round(diag(mat), 2))
 #'
 #' ## Make the plot
@@ -54,38 +54,38 @@
 #'     layerHeights = c(0, 40, 55, 75, 85, 110, 120, 135),
 #'     cex = 2
 #' )
-#'
-
 layer_matrix_plot <-
     function(matrix_values,
-        matrix_labels = NULL,
-        xlabs = NULL,
-        layerHeights = NULL,
-        mypal = c("white",
-            grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "YlOrRd"))(50)),
-        breaks = NULL,
-        axis.args = NULL,
-        srt = 45,
-        mar = c(8, 4, 4, 2) + 0.1,
-        cex = 1.2) {
+    matrix_labels = NULL,
+    xlabs = NULL,
+    layerHeights = NULL,
+    mypal = c(
+        "white",
+        grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "YlOrRd"))(50)
+    ),
+    breaks = NULL,
+    axis.args = NULL,
+    srt = 45,
+    mar = c(8, 4, 4, 2) + 0.1,
+    cex = 1.2) {
         ## Create some default values in case the user didn't specify them
         if (is.null(xlabs)) {
             if (is.null(colnames(matrix_values))) {
-                xlabs <- paste0('V', seq_len(ncol(matrix_values)))
+                xlabs <- paste0("V", seq_len(ncol(matrix_values)))
             } else {
                 xlabs <- colnames(matrix_values)
             }
         }
 
         if (is.null(layerHeights)) {
-            layerHeights <-  c(0, seq_len(nrow(matrix_values))) * 15
+            layerHeights <- c(0, seq_len(nrow(matrix_values))) * 15
         }
 
         if (is.null(matrix_labels)) {
             ## Make an empty matrix of labels if none were specified
             matrix_labels <-
                 matrix(
-                    '',
+                    "",
                     ncol = ncol(matrix_values),
                     nrow = nrow(matrix_values),
                     dimnames = dimnames(matrix_values)
@@ -100,8 +100,9 @@ layer_matrix_plot <-
 
 
         ## For the y-axis labels
-        midpoint <- function(x)
-            x[-length(x)] + diff(x) / 2
+        midpoint <- function(x) {
+              x[-length(x)] + diff(x) / 2
+          }
 
         ## Make the plot
         par(mar = mar)
@@ -121,7 +122,8 @@ layer_matrix_plot <-
         axis(2,
             rownames(matrix_labels),
             at = midpoint(layerHeights),
-            las = 1)
+            las = 1
+        )
         axis(1, rep("", ncol(matrix_values)), at = seq(0.5, ncol(matrix_values) - 0.5))
         text(
             x = seq(0.5, ncol(matrix_values) - 0.5),
@@ -137,8 +139,7 @@ layer_matrix_plot <-
             x = rep(seq(0.5, ncol(matrix_values) - 0.5), each = nrow(matrix_values)),
             y = rep(midpoint(layerHeights), ncol(matrix_values)),
             as.character(matrix_labels),
-            cex = cex * 3/4,
+            cex = cex * 3 / 4,
             font = 2
         )
-
     }

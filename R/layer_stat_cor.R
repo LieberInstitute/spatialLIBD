@@ -24,57 +24,56 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' if (!exists('modeling_results'))
-#'     modeling_results <- fetch_data(type = 'modeling_results')
+#' if (!exists("modeling_results")) {
+#'       modeling_results <- fetch_data(type = "modeling_results")
+#'   }
 #'
 #' ## Compute the correlations
 #' cor_stats_layer <- layer_stat_cor(
 #'     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
 #'     modeling_results,
-#'     'enrichment'
+#'     "enrichment"
 #' )
 #'
 #' ## Explore the correlation matrix
 #' head(cor_stats_layer[, seq_len(3)])
-#'
-
 layer_stat_cor <-
     function(stats,
-        modeling_results = fetch_data(type = 'modeling_results'),
-        model_type = names(modeling_results)[1],
-        reverse = FALSE) {
+    modeling_results = fetch_data(type = "modeling_results"),
+    model_type = names(modeling_results)[1],
+    reverse = FALSE) {
         model_results <- modeling_results[[model_type]]
 
         tstats <-
-            model_results[, grep('[f|t]_stat_', colnames(model_results))]
+            model_results[, grep("[f|t]_stat_", colnames(model_results))]
         colnames(tstats) <-
-            gsub('[f|t]_stat_', '', colnames(tstats))
+            gsub("[f|t]_stat_", "", colnames(tstats))
 
         if (reverse) {
             tstats <- tstats * -1
             colnames(tstats) <-
-                vapply(strsplit(colnames(tstats), '-'), function(x)
-                    paste(rev(x), collapse = '-'), character(1))
+                vapply(strsplit(colnames(tstats), "-"), function(x) {
+                      paste(rev(x), collapse = "-")
+                  }, character(1))
         }
 
         ## Adapted from https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R
         mm <- match(model_results$ensembl, rownames(stats))
 
-        tstats <- tstats[!is.na(mm),]
-        external_stats <- stats[mm[!is.na(mm)],]
+        tstats <- tstats[!is.na(mm), ]
+        external_stats <- stats[mm[!is.na(mm)], ]
 
         ## Compute correlation
         cor_res <- cor(external_stats, tstats)
 
         ## Re-order just in case the layer names match our names
-        if (identical(colnames(tstats), c('WM', paste0('Layer', seq_len(6))))) {
+        if (identical(colnames(tstats), c("WM", paste0("Layer", seq_len(6))))) {
             cor_res <- cor_res[, c(1, seq(7, 2)), drop = FALSE]
         }
 
         ## Re-order the rows
-        dd <- dist(1-cor_res)
+        dd <- dist(1 - cor_res)
         hc <- hclust(dd)
         cor_res <- cor_res[hc$order, , drop = FALSE]
         return(cor_res)
-
     }

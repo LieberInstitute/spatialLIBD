@@ -42,51 +42,49 @@
 #'
 #' ## Download the SingleCellExperiment object
 #' ## at the layer-level
-#' if (!exists('sce_layer')) sce_layer <- fetch_data('sce_layer')
+#' if (!exists("sce_layer")) sce_layer <- fetch_data("sce_layer")
 #'
 #' ## Explore the data
 #' sce_layer
-#'
-
 fetch_data <-
-    function(type = c('sce', 'sce_layer', 'modeling_results'),
-        destdir = tempdir(),
-        eh = ExperimentHub::ExperimentHub()) {
+    function(type = c("sce", "sce_layer", "modeling_results"),
+    destdir = tempdir(),
+    eh = ExperimentHub::ExperimentHub()) {
         ## Some variables
         sce <- sce_layer <- modeling_results <- NULL
 
         ## Check inputs
-        stopifnot(methods::is(eh, 'ExperimentHub'))
-        if (!type %in% c('sce', 'sce_layer', 'modeling_results')) {
+        stopifnot(methods::is(eh, "ExperimentHub"))
+        if (!type %in% c("sce", "sce_layer", "modeling_results")) {
             stop(
                 "Other 'type' values are not supported. Please use either 'sce', 'sce_layer' or 'modeling_results'.",
                 call. = FALSE
             )
         }
 
-        if (type == 'sce') {
-            hub_title <- 'Human_Pilot_DLPFC_Visium_spatialLIBD_spot_level_SCE'
+        if (type == "sce") {
+            hub_title <- "Human_Pilot_DLPFC_Visium_spatialLIBD_spot_level_SCE"
 
             ## While EH is not set-up
             file_name <-
-                'Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata'
+                "Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata"
             url <-
-                'https://www.dropbox.com/s/f4wcvtdq428y73p/Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata?dl=1'
-        } else if (type == 'sce_layer')  {
-            hub_title <- 'Human_Pilot_DLPFC_Visium_spatialLIBD_layer_level_SCE'
+                "https://www.dropbox.com/s/f4wcvtdq428y73p/Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata?dl=1"
+        } else if (type == "sce_layer") {
+            hub_title <- "Human_Pilot_DLPFC_Visium_spatialLIBD_layer_level_SCE"
 
             ## While EH is not set-up
             file_name <-
-                'Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata'
+                "Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata"
             url <-
-                'https://www.dropbox.com/s/bg8xwysh2vnjwvg/Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata?dl=1'
-        } else if (type == 'modeling_results')  {
-            hub_title <- 'Human_Pilot_DLPFC_Visium_spatialLIBD_modeling_results'
+                "https://www.dropbox.com/s/bg8xwysh2vnjwvg/Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata?dl=1"
+        } else if (type == "modeling_results") {
+            hub_title <- "Human_Pilot_DLPFC_Visium_spatialLIBD_modeling_results"
 
             ## While EH is not set-up
-            file_name <- 'Human_DLPFC_Visium_modeling_results.Rdata'
+            file_name <- "Human_DLPFC_Visium_modeling_results.Rdata"
             url <-
-                'https://www.dropbox.com/s/se6rrgb9yhm5gfh/Human_DLPFC_Visium_modeling_results.Rdata?dl=1'
+                "https://www.dropbox.com/s/se6rrgb9yhm5gfh/Human_DLPFC_Visium_modeling_results.Rdata?dl=1"
         }
 
         file_path <- file.path(destdir, file_name)
@@ -94,7 +92,8 @@ fetch_data <-
         if (!file.exists(file_path)) {
             q <-
                 AnnotationHub::query(eh,
-                    pattern = c('Human_Pilot_DLPFC_Visium_spatialLIBD', hub_title))
+                    pattern = c("Human_Pilot_DLPFC_Visium_spatialLIBD", hub_title)
+                )
 
             if (length(q) == 1) {
                 ## ExperimentHub has the data =)
@@ -104,22 +103,23 @@ fetch_data <-
                 ## Create the destination directory if it doesn't exist
                 dir.create(destdir,
                     showWarnings = FALSE,
-                    recursive = TRUE)
+                    recursive = TRUE
+                )
                 utils::download.file(url,
                     destfile = file_path,
                     quiet = TRUE,
-                    mode = 'wb')
+                    mode = "wb"
+                )
             }
         }
 
         ## Now load the data
         load(file_path, verbose = TRUE)
-        if (type == 'sce') {
+        if (type == "sce") {
             return(sce)
-        } else if (type == 'sce_layer') {
+        } else if (type == "sce_layer") {
             return(sce_layer)
-        } else if (type == 'modeling_results') {
+        } else if (type == "modeling_results") {
             return(modeling_results)
         }
-
     }

@@ -66,7 +66,7 @@ data and title for \code{\link[=sce_image_gene_p]{sce_image_gene_p()}}. It also 
 \examples{
 
 ## Obtain the necessary data
-if (!exists('sce')) sce <- fetch_data('sce')
+if (!exists("sce")) sce <- fetch_data("sce")
 
 ## Valid `geneid` values are those in
 head(rowData(sce)$gene_search)
@@ -75,7 +75,7 @@ head(rowData(sce)$gene_search)
 ## Visualize a default gene on the non-viridis scale
 sce_image_gene(
     sce = sce,
-    sampleid = '151507',
+    sampleid = "151507",
     viridis = FALSE
 )
 
@@ -83,10 +83,9 @@ sce_image_gene(
 ## gene expression compared to the total expression at the spot-level
 sce_image_gene(
     sce = sce,
-    sampleid = '151507',
-    geneid = 'expr_chrM_ratio'
+    sampleid = "151507",
+    geneid = "expr_chrM_ratio"
 )
-
 }
 \seealso{
 Other Spatial gene visualization functions: 

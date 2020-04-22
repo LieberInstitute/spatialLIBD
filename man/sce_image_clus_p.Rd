@@ -44,24 +44,23 @@ gene-level (or any continuous variable) use \code{\link[=sce_image_gene_p]{sce_i
 \examples{
 
 ## Obtain the necessary data
-if (!exists('sce')) sce <- fetch_data('sce')
-sce_sub <- sce[, sce$sample_name == '151673']
+if (!exists("sce")) sce <- fetch_data("sce")
+sce_sub <- sce[, sce$sample_name == "151673"]
 
 ## Use the manual color palette by Lukas M Weber
 ## Don't plot the histology information
 sce_image_clus_p(
     sce = sce_sub,
     d = as.data.frame(colData(sce_sub)),
-    clustervar = 'layer_guess_reordered',
-    sampleid = '151673',
+    clustervar = "layer_guess_reordered",
+    sampleid = "151673",
     colors = libd_layer_colors,
-    title = '151673 LIBD Layers',
+    title = "151673 LIBD Layers",
     spatial = FALSE
 )
 
 ## Clean up
 rm(sce_sub)
-
 }
 \seealso{
 Other Spatial cluster visualization functions: 

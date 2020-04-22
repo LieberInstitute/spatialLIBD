@@ -21,7 +21,7 @@
 #'
 #' @examples
 #' ## Obtain the necessary data
-#' if (!exists('sce')) sce <- fetch_data('sce')
+#' if (!exists("sce")) sce <- fetch_data("sce")
 #'
 #' ## Select the first sample and extract the data
 #' sample_id <- unique(sce$sample_name)[1]
@@ -29,12 +29,15 @@
 #' sample_df <- as.data.frame(colData(sce_sub))
 #'
 #' ## Make a plot using geom_spatial
-#' ggplot2::ggplot(sample_df,
+#' ggplot2::ggplot(
+#'     sample_df,
 #'     ggplot2::aes(
 #'         x = imagecol,
 #'         y = imagerow,
 #'         fill = layer_guess
-#'     )) + geom_spatial(
+#'     )
+#' ) +
+#'     geom_spatial(
 #'         data = subset(metadata(sce_sub)$image, sample == sample_id),
 #'         ggplot2::aes(grob = grob),
 #'         x = 0.5,
@@ -43,9 +46,7 @@
 #'
 #' ## Clean up
 #' rm(sce_sub)
-#'
-
-geom_spatial <-  function(mapping = NULL,
+geom_spatial <- function(mapping = NULL,
     data = NULL,
     stat = "identity",
     position = "identity",
@@ -74,7 +75,6 @@ geom_spatial <-  function(mapping = NULL,
         },
 
         required_aes = c("grob", "x", "y")
-
     )
 
     layer(

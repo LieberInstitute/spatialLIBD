@@ -13,15 +13,13 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' if (!exists('sce')) sce <- fetch_data('sce')
+#' if (!exists("sce")) sce <- fetch_data("sce")
 #'
 #' ## Get the path to the images
-#' img_path <- system.file('app', 'www', 'data', package = 'spatialLIBD')
+#' img_path <- system.file("app", "www", "data", package = "spatialLIBD")
 #'
 #' ## Check the object
 #' check_image_path(img_path, sce)
-#'
-
 check_image_path <- function(image_path, sce) {
 
     ## Check that it's a path
@@ -33,7 +31,7 @@ check_image_path <- function(image_path, sce) {
         file.path(
             image_path,
             unique(sce$sample_name),
-            'tissue_lowres_image.png'
+            "tissue_lowres_image.png"
         )
     )))
 

@@ -63,11 +63,11 @@ used by \code{\link[=gene_set_enrichment_plot]{gene_set_enrichment_plot()}} and 
 ## Create some random data
 set.seed(20200224)
 mat <- matrix(runif(7 * 8, min = -1), nrow = 7)
-rownames(mat) <- c('WM', paste0('L', rev(seq_len(6))))
-colnames(mat) <- paste0('Var', seq_len(8))
+rownames(mat) <- c("WM", paste0("L", rev(seq_len(6))))
+colnames(mat) <- paste0("Var", seq_len(8))
 
 ## Create some text labels
-mat_text <- matrix('', nrow = 7, ncol = 8, dimnames = dimnames(mat))
+mat_text <- matrix("", nrow = 7, ncol = 8, dimnames = dimnames(mat))
 diag(mat_text) <- as.character(round(diag(mat), 2))
 
 ## Make the plot
@@ -80,7 +80,6 @@ layer_matrix_plot(
     layerHeights = c(0, 40, 55, 75, 85, 110, 120, 135),
     cex = 2
 )
-
 }
 \author{
 Andrew E Jaffe, Leonardo Collado-Torres

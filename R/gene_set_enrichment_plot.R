@@ -37,9 +37,9 @@
 #' ## Read in the SFARI gene sets included in the package
 #' asd_sfari <- utils::read.csv(
 #'     system.file(
-#'         'extdata',
-#'         'SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv',
-#'         package = 'spatialLIBD'
+#'         "extdata",
+#'         "SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv",
+#'         package = "spatialLIBD"
 #'     ),
 #'     as.is = TRUE
 #' )
@@ -52,25 +52,27 @@
 #' )
 #'
 #' ## Obtain the necessary data
-#' if (!exists('modeling_results'))
-#'     modeling_results <- fetch_data(type = 'modeling_results')
+#' if (!exists("modeling_results")) {
+#'       modeling_results <- fetch_data(type = "modeling_results")
+#'   }
 #'
 #' ## Compute the gene set enrichment results
 #' asd_sfari_enrichment <- gene_set_enrichment(
 #'     gene_list = asd_sfari_geneList,
 #'     modeling_results = modeling_results,
-#'     model_type = 'enrichment'
+#'     model_type = "enrichment"
 #' )
 #'
 #' ## Visualize the gene set enrichment results
 #' ## with a custom color palette
 #' gene_set_enrichment_plot(
 #'     asd_sfari_enrichment,
-#'     xlabs = gsub('.*_', '', unique(asd_sfari_enrichment$ID)),
-#'     mypal = c("white",
-#'            grDevices::colorRampPalette(
-#'                RColorBrewer::brewer.pal(9, "BuGn")
-#'            )(50)
+#'     xlabs = gsub(".*_", "", unique(asd_sfari_enrichment$ID)),
+#'     mypal = c(
+#'         "white",
+#'         grDevices::colorRampPalette(
+#'             RColorBrewer::brewer.pal(9, "BuGn")
+#'         )(50)
 #'     )
 #' )
 #'
@@ -78,32 +80,32 @@
 #' ## layer in the brain
 #' gene_set_enrichment_plot(
 #'     asd_sfari_enrichment,
-#'     xlabs = gsub('.*_', '', unique(asd_sfari_enrichment$ID)),
+#'     xlabs = gsub(".*_", "", unique(asd_sfari_enrichment$ID)),
 #'     layerHeights = c(0, 40, 55, 75, 85, 110, 120, 135),
 #' )
-#'
-
 gene_set_enrichment_plot <-
     function(enrichment,
-        xlabs = unique(enrichment$ID),
-        PThresh = 12,
-        ORcut = 3,
-        enrichOnly = FALSE,
-        layerHeights = c(0, seq_len(length(unique(enrichment$test)))) * 15,
-        mypal = c("white",
-            grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "YlOrRd"))(50)),
-        cex = 1.2) {
+    xlabs = unique(enrichment$ID),
+    PThresh = 12,
+    ORcut = 3,
+    enrichOnly = FALSE,
+    layerHeights = c(0, seq_len(length(unique(enrichment$test)))) * 15,
+    mypal = c(
+        "white",
+        grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "YlOrRd"))(50)
+    ),
+    cex = 1.2) {
         ## Re-order and shorten names if they match our data
-        if (all(unique(enrichment$test) %in% c('WM', paste0('Layer', seq_len(6))))) {
+        if (all(unique(enrichment$test) %in% c("WM", paste0("Layer", seq_len(6))))) {
             enrichment$test <-
-                factor(gsub('ayer', '', enrichment$test), levels = rev(c(paste0(
-                    'L', seq_len(6)
-                ), 'WM')))
+                factor(gsub("ayer", "", enrichment$test), levels = rev(c(paste0(
+                    "L", seq_len(6)
+                ), "WM")))
         }
 
         ## Check inputs
-        stopifnot(is(enrichment, 'data.frame'))
-        stopifnot(all(c('ID', 'test', 'OR', 'Pval') %in% colnames(enrichment)))
+        stopifnot(is(enrichment, "data.frame"))
+        stopifnot(all(c("ID", "test", "OR", "Pval") %in% colnames(enrichment)))
         stopifnot(length(layerHeights) == length(unique(enrichment$test)) + 1)
         stopifnot(ORcut <= PThresh)
         stopifnot(length(xlabs) == length(unique(enrichment$ID)))
@@ -115,30 +117,31 @@ gene_set_enrichment_plot <-
             PThresh
 
         ## Change some values for the plot
-        if (enrichOnly)
-            enrichment$log10_P_thresh[enrichment$OR < 1] <- 0
+        if (enrichOnly) {
+              enrichment$log10_P_thresh[enrichment$OR < 1] <- 0
+          }
         enrichment$OR_char <- as.character(round(enrichment$OR, 2))
-        enrichment$OR_char[enrichment$log10_P_thresh < ORcut] <- ''
+        enrichment$OR_char[enrichment$log10_P_thresh < ORcut] <- ""
 
         ## Make into wide matrices
-        make_wide <- function(var = 'OR_char') {
+        make_wide <- function(var = "OR_char") {
             res <-
                 reshape(
                     enrichment,
-                    idvar = 'ID',
-                    timevar = 'test',
-                    direction = 'wide',
-                    drop = colnames(enrichment)[!colnames(enrichment) %in% c('ID', 'test', var)],
-                    sep = '_mypattern_'
+                    idvar = "ID",
+                    timevar = "test",
+                    direction = "wide",
+                    drop = colnames(enrichment)[!colnames(enrichment) %in% c("ID", "test", var)],
+                    sep = "_mypattern_"
                 )[, -1, drop = FALSE]
             colnames(res) <-
-                gsub('.*_mypattern_', '', colnames(res))
+                gsub(".*_mypattern_", "", colnames(res))
             rownames(res) <- unique(enrichment$ID)
             res <- res[, levels(as.factor(enrichment$test))]
             t(res)
         }
-        wide_or <- make_wide('OR_char')
-        wide_p <- make_wide('log10_P_thresh')
+        wide_or <- make_wide("OR_char")
+        wide_p <- make_wide("log10_P_thresh")
 
         layer_matrix_plot(
             matrix_values = wide_p,

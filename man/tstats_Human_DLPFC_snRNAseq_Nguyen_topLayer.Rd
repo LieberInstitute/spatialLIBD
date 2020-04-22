@@ -4,10 +4,12 @@
 \name{tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer}
 \alias{tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer}
 \title{Cell cluster t-statistics from Tran et al}
-\format{A matrix with 692 rows and 31 variables where each column is
+\format{
+A matrix with 692 rows and 31 variables where each column is
 a given cell cluster from Tran et al and each row is one gene. The row names
 are Ensembl gene IDs which are used by \code{\link[=layer_stat_cor]{layer_stat_cor()}} to match to
-our modeling results.}
+our modeling results.
+}
 \source{
 \url{https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R}
 and

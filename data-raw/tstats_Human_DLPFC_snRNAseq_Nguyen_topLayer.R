@@ -2,8 +2,8 @@
 
 load(
     here::here(
-        'data-raw',
-        'tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.Rdata'
+        "data-raw",
+        "tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.Rdata"
     ),
     verbose = TRUE
 )
@@ -12,8 +12,8 @@ head(tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer)
 write.csv(
     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
     file = here::here(
-        'data-raw',
-        'tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv'
+        "data-raw",
+        "tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv"
     ),
     quote = FALSE,
     row.names = TRUE
@@ -21,8 +21,8 @@ write.csv(
 
 test <- read.csv(
     here::here(
-        'data-raw',
-        'tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv'
+        "data-raw",
+        "tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv"
     ),
     header = TRUE,
     stringsAsFactors = FALSE,
@@ -30,7 +30,9 @@ test <- read.csv(
     check.names = FALSE,
     row.names = 1
 )
-testthat::expect_equivalent(tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
-    as.matrix(test))
+testthat::expect_equivalent(
+    tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
+    as.matrix(test)
+)
 
 usethis::use_data(tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer, overwrite = TRUE)

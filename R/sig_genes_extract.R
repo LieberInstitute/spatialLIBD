@@ -42,9 +42,10 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' if (!exists('modeling_results'))
-#'     modeling_results <- fetch_data(type = 'modeling_results')
-#' if (!exists('sce_layer')) sce_layer <- fetch_data(type = 'sce_layer')
+#' if (!exists("modeling_results")) {
+#'       modeling_results <- fetch_data(type = "modeling_results")
+#'   }
+#' if (!exists("sce_layer")) sce_layer <- fetch_data(type = "sce_layer")
 #'
 #' ## anova top 10 genes
 #' sig_genes_extract(
@@ -58,29 +59,28 @@
 #'     sce_layer = sce_layer,
 #'     n = nrow(sce_layer)
 #' )
-#'
-
 sig_genes_extract <- function(n = 10,
-    modeling_results = fetch_data(type = 'modeling_results'),
+    modeling_results = fetch_data(type = "modeling_results"),
     model_type = names(modeling_results)[1],
     reverse = FALSE,
-    sce_layer = fetch_data(type = 'sce_layer')) {
+    sce_layer = fetch_data(type = "sce_layer")) {
     model_results <- modeling_results[[model_type]]
 
     tstats <-
-        model_results[, grep('[f|t]_stat_', colnames(model_results))]
-    colnames(tstats) <- gsub('[f|t]_stat_', '', colnames(tstats))
+        model_results[, grep("[f|t]_stat_", colnames(model_results))]
+    colnames(tstats) <- gsub("[f|t]_stat_", "", colnames(tstats))
 
     if (reverse) {
         tstats <- tstats * -1
         colnames(tstats) <-
-            vapply(strsplit(colnames(tstats), '-'), function(x)
-                paste(rev(x), collapse = '-'), character(1))
+            vapply(strsplit(colnames(tstats), "-"), function(x) {
+                  paste(rev(x), collapse = "-")
+              }, character(1))
     }
 
     pvals <-
-        model_results[, grep('p_value_', colnames(model_results))]
-    fdrs <- model_results[, grep('fdr_', colnames(model_results))]
+        model_results[, grep("p_value_", colnames(model_results))]
+    fdrs <- model_results[, grep("fdr_", colnames(model_results))]
 
     sig_genes <- apply(tstats, 2, function(x) {
         rowData(sce_layer)$gene_name[order(x, decreasing = TRUE)[seq_len(n)]]

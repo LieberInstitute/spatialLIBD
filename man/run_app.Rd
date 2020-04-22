@@ -78,12 +78,11 @@ any other data that you have shaped according to our object structure.
 }
 \examples{
 
-if(interactive()) {
+if (interactive()) {
     ## The default arguments will download the data from the web
     ## using fetch_data(). If this is the first time you have run this,
     ## the files will need to be cached by ExperimentHub. Otherwise it
     ## will re-use the files you have previously downloaded.
     run_app()
 }
-
 }

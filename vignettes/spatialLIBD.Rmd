@@ -33,48 +33,48 @@ knitr::opts_chunk$set(
 
 ```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
 ## For links
-library('BiocStyle')
+library("BiocStyle")
 
 ## Track time spent on making the vignette
 startTime <- Sys.time()
 
 ## Bib setup
-library('knitcitations')
+library("knitcitations")
 
 ## Load knitcitations with a clean bibliography
 cleanbib()
-cite_options(hyperlink = 'to.doc', citation_format = 'text', style = 'html')
+cite_options(hyperlink = "to.doc", citation_format = "text", style = "html")
 # Note links won't show for now due to the following issue
 # https://github.com/cboettig/knitcitations/issues/63
 
 ## Write bibliography information
 bib <- c(
     R = citation(),
-    AnnotationHub = citation('AnnotationHub'),
-    BiocStyle = citation('BiocStyle'),
-    cowplot = citation('cowplot'),
-    DT = citation('DT'),
-    ExperimentHub = citation('ExperimentHub'),
-    fields = citation('fields'),
-    ggplot2 = citation('ggplot2'),
-    golem = citation('golem'),
-    IRanges = citation('IRanges'),
-    knitcitations = citation('knitcitations'),
-    knitr = citation('knitr')[3],
-    plotly = citation('plotly'),
-    Polychrome = citation('Polychrome'),
-    RColorBrewer = citation('RColorBrewer'),
-    rmarkdown = citation('rmarkdown')[1],
-    S4Vectors = citation('S4Vectors'),
-    scater = citation('scater'),
-    sessioninfo = citation('sessioninfo'),
-    SingleCellExperiment = citation('SingleCellExperiment'),
-    shiny = citation('shiny'),
-    SummarizedExperiment = citation('SummarizedExperiment'),
-    testthat = citation('testthat'),
-    viridisLite = citation('viridisLite'),
-    spatialLIBD = citation('spatialLIBD')[1],
-    spatialLIBDpaper = citation('spatialLIBD')[2]
+    AnnotationHub = citation("AnnotationHub"),
+    BiocStyle = citation("BiocStyle"),
+    cowplot = citation("cowplot"),
+    DT = citation("DT"),
+    ExperimentHub = citation("ExperimentHub"),
+    fields = citation("fields"),
+    ggplot2 = citation("ggplot2"),
+    golem = citation("golem"),
+    IRanges = citation("IRanges"),
+    knitcitations = citation("knitcitations"),
+    knitr = citation("knitr")[3],
+    plotly = citation("plotly"),
+    Polychrome = citation("Polychrome"),
+    RColorBrewer = citation("RColorBrewer"),
+    rmarkdown = citation("rmarkdown")[1],
+    S4Vectors = citation("S4Vectors"),
+    scater = citation("scater"),
+    sessioninfo = citation("sessioninfo"),
+    SingleCellExperiment = citation("SingleCellExperiment"),
+    shiny = citation("shiny"),
+    SummarizedExperiment = citation("SummarizedExperiment"),
+    testthat = citation("testthat"),
+    viridisLite = citation("viridisLite"),
+    spatialLIBD = citation("spatialLIBD")[1],
+    spatialLIBDpaper = citation("spatialLIBD")[2]
 )
 ```
 # Welcome
@@ -109,8 +109,9 @@ As a quick overview, the data presented here is from portion of the DLPFC that s
 `R` is an open-source statistical environment which can be easily modified to enhance its functionality via packages. `r Biocpkg('spatialLIBD')` is a `R` package available via Bioconductor. `R` can be installed on any operating system from [CRAN](https://cran.r-project.org/) after which you can install `r Biocpkg('spatialLIBD')` by using the following commands in your `R` session:
 
 ```{r 'install', eval = FALSE}
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+      install.packages("BiocManager")
+  }
 
 BiocManager::install("spatialLIBD")
 
@@ -134,7 +135,7 @@ We hope that `r Biocpkg('spatialLIBD')` will be useful for your research. Please
 
 ```{r 'citation'}
 ## Citation info
-citation('spatialLIBD')
+citation("spatialLIBD")
 ```
 
 # Overview
@@ -151,7 +152,7 @@ In this vignette we'll showcase how you can access the Human DLPFC LIBD Visium d
 To get started, please load the `r Biocpkg('spatialLIBD')` package.
 
 ```{r setup, message = FALSE, warning = FALSE}
-library('spatialLIBD')
+library("spatialLIBD")
 ```
 
 # Human DLPFC Visium dataset
@@ -186,17 +187,17 @@ ehub <- ExperimentHub::ExperimentHub()
 
 ```{r 'subset_to_reduce_mem_on_travis', echo = FALSE, eval = FALSE}
 ## Maybe subsetting the sce object will help
-## with the memory issues at 
+## with the memory issues at
 ## https://travis-ci.com/LieberInstitute/spatialLIBD/builds/150177257?utm_medium=notification&utm_source=slack
-if (!exists('sce')) sce <- fetch_data(type = 'sce', eh = ehub)
+if (!exists("sce")) sce <- fetch_data(type = "sce", eh = ehub)
 pryr::object_size(sce)
-# 2.08 
+# 2.08
 # GB
 
 ## Subsetting didn't help because we still needed to download the full
 ## object and load it. Details:
 ## https://travis-ci.com/LieberInstitute/spatialLIBD/builds/150199037?utm_medium=notification&utm_source=slack
-sce_sub <- sce[, sce$sample_name == '151673']
+sce_sub <- sce[, sce$sample_name == "151673"]
 pryr::object_size(sce_sub)
 # 247
 #  MB
@@ -213,42 +214,44 @@ assays(sce_sub)$counts <- assays(sce_sub)$logcounts <- Matrix::sparseMatrix(
 )
 pryr::object_size(sce_sub)
 # 96.5 MB
-save(sce_sub, file = here::here('data-raw', 'sce_sub_for_vignette.Rdata'))
-system2('ls', paste('-lh', here::here('data-raw', 'sce_sub_for_vignette.Rdata')))
+save(sce_sub, file = here::here("data-raw", "sce_sub_for_vignette.Rdata"))
+system2("ls", paste("-lh", here::here("data-raw", "sce_sub_for_vignette.Rdata")))
 # 36M Feb 26 17:19 spatialLIBD/data-raw/sce_sub_for_vignette.Rdata
 ```
 
 ```{r 'download_fake', eval = FALSE}
 ## Query ExperimentHub and download the data
-if (!exists('sce')) sce <- fetch_data(type = 'sce', eh = ehub)
+if (!exists("sce")) sce <- fetch_data(type = "sce", eh = ehub)
 ```
 
 
 ```{r 'download_hidden', echo = FALSE}
 vignette_data <- function(destdir = tempdir()) {
     sce_sub <- NULL
-    file_name <- 'sce_sub_for_vignette.Rdata'
+    file_name <- "sce_sub_for_vignette.Rdata"
     url <-
-        'https://www.dropbox.com/s/5ra9o8ku9iyyf70/sce_sub_for_vignette.Rdata?dl=1'
+        "https://www.dropbox.com/s/5ra9o8ku9iyyf70/sce_sub_for_vignette.Rdata?dl=1"
     file_path <- file.path(destdir, file_name)
     if (!file.exists(file_path)) {
         utils::download.file(url,
             destfile = file_path,
             quiet = TRUE,
-            mode = 'wb')
+            mode = "wb"
+        )
     }
-    
+
     load(file_path, verbose = FALSE)
     return(sce_sub)
 }
-if (!exists('sce'))
-    sce <- vignette_data()
+if (!exists("sce")) {
+      sce <- vignette_data()
+  }
 ```
 
 
 ```{r 'download_rest'}
-if (!exists('sce_layer')) sce_layer <- fetch_data(type = 'sce_layer', eh = ehub)
-modeling_results <- fetch_data('modeling_results', eh = ehub)
+if (!exists("sce_layer")) sce_layer <- fetch_data(type = "sce_layer", eh = ehub)
+modeling_results <- fetch_data("modeling_results", eh = ehub)
 ```
 
 
@@ -264,8 +267,9 @@ sce_layer
 ## list of modeling result tables
 sapply(modeling_results, class)
 sapply(modeling_results, dim)
-sapply(modeling_results, function(x)
-    head(colnames(x)))
+sapply(modeling_results, function(x) {
+      head(colnames(x))
+  })
 ```
 
 The modeling statistics are in wide format, which can make some visualizations complicated. The function `sig_genes_extract_all()` provides a way to convert them into long format and add some useful information. Let's do so below.
@@ -293,7 +297,7 @@ dim(sig_genes)
 Now that you have downloaded the data, you can interactively explore the data using a `r CRANpkg('shiny')` `r citep(bib[['shiny']])` web application contained within `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])`. To do so, use the `run_app()` function as shown below:
 
 ```{r}
-if(interactive()) {
+if (interactive()) {
     run_app(
         sce = sce,
         sce_layer = sce_layer,
@@ -320,10 +324,10 @@ With the `sce` object that contains the spot-level data, we can visualize any di
 ## View our LIBD layers for one sample
 sce_image_clus(
     sce = sce,
-    clustervar = 'layer_guess_reordered',
-    sampleid = '151673',
+    clustervar = "layer_guess_reordered",
+    sampleid = "151673",
     colors = libd_layer_colors,
-    ... = ' LIBD Layers'
+    ... = " LIBD Layers"
 )
 ```
 
@@ -332,7 +336,7 @@ Most of the variables stored in `sce` are discrete variables and as such, you ca
 ```{r 'sce_image_clus_variables'}
 ## This is not fully precise, but gives you a rough idea
 ## Some integer columns are actually continuous variables
-table(sapply(colData(sce), class) %in% c('factor', 'integer'))
+table(sapply(colData(sce), class) %in% c("factor", "integer"))
 
 ## This is more precise (one cluster has 28 unique values)
 table(sapply(colData(sce), function(x) length(unique(x))) < 29)
@@ -345,10 +349,10 @@ Notably, `sce_image_clus()` has a `spatial` `logical(1)` argument which is usefu
 ## without spatial information
 sce_image_clus(
     sce = sce,
-    clustervar = 'layer_guess_reordered',
-    sampleid = '151673',
+    clustervar = "layer_guess_reordered",
+    sampleid = "151673",
     colors = libd_layer_colors,
-    ... = ' LIBD Layers',
+    ... = " LIBD Layers",
     spatial = FALSE
 )
 ```
@@ -373,25 +377,30 @@ assayNames(sce)
 ## Not all of these make sense to visualize
 ## In particular, barcode, row, col, imagerow, imagecol, key are not
 ## useful to visualize.
-colnames(colData(sce))[sapply(colData(sce), function(x)
-    length(unique(x))) > 29]
+colnames(colData(sce))[sapply(colData(sce), function(x) {
+      length(unique(x))
+  }) > 29]
 
 ## Visualize a gene
-sce_image_gene(sce = sce,
-    sampleid = '151673',
-    viridis = FALSE)
+sce_image_gene(
+    sce = sce,
+    sampleid = "151673",
+    viridis = FALSE
+)
 
 ## Visualize the estimated number of cells per spot
-sce_image_gene(sce = sce,
-    sampleid = '151673',
-    geneid = 'cell_count')
+sce_image_gene(
+    sce = sce,
+    sampleid = "151673",
+    geneid = "cell_count"
+)
 
 ## Visualize the fraction of chrM expression per spot
 ## without the spatial layer
 sce_image_gene(
     sce = sce,
-    sampleid = '151673',
-    geneid = 'expr_chrM_ratio',
+    sampleid = "151673",
+    geneid = "expr_chrM_ratio",
     spatial = FALSE
 )
 ```
@@ -442,7 +451,7 @@ layer_boxplot(sig_genes = sig_genes, sce_layer = sce_layer)
 ## involved in the pairwise comparison)
 set.seed(20200206)
 layer_boxplot(
-    i = which(sig_genes$model_type == 'pairwise')[1],
+    i = which(sig_genes$model_type == "pairwise")[1],
     sig_genes = sig_genes,
     sce_layer = sce_layer,
     col_low_box = viridisLite::viridis(4)[2],
@@ -457,10 +466,10 @@ layer_boxplot(
     sig_genes = sig_genes,
     sce_layer = sce_layer,
     short_title = FALSE,
-    col_low_box = 'palegreen3',
-    col_low_point = 'springgreen2',
-    col_high_box = 'darkorange2',
-    col_high_point = 'orange1'
+    col_low_box = "palegreen3",
+    col_low_point = "springgreen2",
+    col_high_box = "darkorange2",
+    col_high_point = "orange1"
 )
 ```
 
@@ -483,7 +492,7 @@ The function `layer_stat_cor()` will take as input one such matrix of statistics
 cor_stats_layer <- layer_stat_cor(
     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
     modeling_results,
-    'enrichment'
+    "enrichment"
 )
 
 ## Explore the correlation matrix
@@ -520,9 +529,9 @@ For illustration purposes, we included in `r Biocpkg('spatialLIBD')` `r citep(bi
 ## Read in the SFARI gene sets included in the package
 asd_sfari <- utils::read.csv(
     system.file(
-        'extdata',
-        'SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv',
-        package = 'spatialLIBD'
+        "extdata",
+        "SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv",
+        package = "spatialLIBD"
     ),
     as.is = TRUE
 )
@@ -542,7 +551,7 @@ After reading the list of genes, we can then compute the enrichment odds ratios 
 asd_sfari_enrichment <- gene_set_enrichment(
     gene_list = asd_sfari_geneList,
     modeling_results = modeling_results,
-    model_type = 'enrichment'
+    model_type = "enrichment"
 )
 
 ## Explore the results
@@ -554,7 +563,7 @@ Using the above enrichment table, we can then visualize the odds ratios on a hea
 ## Visualize gene set enrichment results
 gene_set_enrichment_plot(
     asd_sfari_enrichment,
-    xlabs = gsub('.*_', '', unique(asd_sfari_enrichment$ID)),
+    xlabs = gsub(".*_", "", unique(asd_sfari_enrichment$ID)),
     layerHeights = c(0, 40, 55, 75, 85, 110, 120, 135)
 )
 ```
@@ -589,55 +598,55 @@ head(metadata(sce)$image)
 ## Ensembl gene IDs are row names with the symbol (gene_name) and Ensembl
 ## ID (gene_name) pasted into `gene_search`
 ## gene_search <- paste0(gene_name, '; ', gene_id)
-rowData(sce)[, c('gene_id', 'gene_name', 'gene_search')]
+rowData(sce)[, c("gene_id", "gene_name", "gene_search")]
 ## This information also has to be present in sce_layer
 stopifnot(all(
-    c('gene_id', 'gene_name', 'gene_search') %in% colnames(rowData(sce_layer))
+    c("gene_id", "gene_name", "gene_search") %in% colnames(rowData(sce_layer))
 ))
 
 
 ## Information about the image coordinates stored in imagerow and imagecol
-colData(sce)[, c('imagerow', 'imagecol')]
+colData(sce)[, c("imagerow", "imagecol")]
 
 ## The sample names stored under sce$sample_name
-stopifnot('sample_name' %in% colnames(colData(sce)))
+stopifnot("sample_name" %in% colnames(colData(sce)))
 
 ## A unique spot-level ID (such as barcode) stored under sce$key
 ## The 'key' column is necessary for the plotly code to work.
-stopifnot('key' %in% colnames(colData(sce)))
+stopifnot("key" %in% colnames(colData(sce)))
 stopifnot(length(unique(sce$key)) == ncol(sce))
 ## Here's how we made those unique keys
-identical(sce$key, paste0(sce$sample_name, '_', sce$barcode))
+identical(sce$key, paste0(sce$sample_name, "_", sce$barcode))
 
 ## Some cluster variables that you can specify with run_app().
 ## For example:
 cluster_variables <- c(
-    'GraphBased',
-    'Layer',
-    'Maynard',
-    'Martinowich',
-    paste0('SNN_k50_k', 4:28),
-    'layer_guess_reordered_short',
-    'SpatialDE_PCA',
-    'SpatialDE_pool_PCA',
-    'HVG_PCA',
-    'pseudobulk_PCA',
-    'markers_PCA',
-    'SpatialDE_UMAP',
-    'SpatialDE_pool_UMAP',
-    'HVG_UMAP',
-    'pseudobulk_UMAP',
-    'markers_UMAP',
-    'SpatialDE_PCA_spatial',
-    'SpatialDE_pool_PCA_spatial',
-    'HVG_PCA_spatial',
-    'pseudobulk_PCA_spatial',
-    'markers_PCA_spatial',
-    'SpatialDE_UMAP_spatial',
-    'SpatialDE_pool_UMAP_spatial',
-    'HVG_UMAP_spatial',
-    'pseudobulk_UMAP_spatial',
-    'markers_UMAP_spatial'
+    "GraphBased",
+    "Layer",
+    "Maynard",
+    "Martinowich",
+    paste0("SNN_k50_k", 4:28),
+    "layer_guess_reordered_short",
+    "SpatialDE_PCA",
+    "SpatialDE_pool_PCA",
+    "HVG_PCA",
+    "pseudobulk_PCA",
+    "markers_PCA",
+    "SpatialDE_UMAP",
+    "SpatialDE_pool_UMAP",
+    "HVG_UMAP",
+    "pseudobulk_UMAP",
+    "markers_UMAP",
+    "SpatialDE_PCA_spatial",
+    "SpatialDE_pool_PCA_spatial",
+    "HVG_PCA_spatial",
+    "pseudobulk_PCA_spatial",
+    "markers_PCA_spatial",
+    "SpatialDE_UMAP_spatial",
+    "SpatialDE_pool_UMAP_spatial",
+    "HVG_UMAP_spatial",
+    "pseudobulk_UMAP_spatial",
+    "markers_UMAP_spatial"
 )
 stopifnot(all(cluster_variables %in% colnames(colData(sce))))
 ## The last one gets renamed to spatialLIBD in spatialLIBD::app_server()
@@ -645,11 +654,13 @@ stopifnot(all(cluster_variables %in% colnames(colData(sce))))
 ## Some continuous variables that you can specify in run_app()
 ## as well as the already mentioned rowData(sce)$gene_search
 ## For example:
-continuous_variables <- c('cell_count',
-    'sum_umi',
-    'sum_gene',
-    'expr_chrM',
-    'expr_chrM_ratio')
+continuous_variables <- c(
+    "cell_count",
+    "sum_umi",
+    "sum_gene",
+    "expr_chrM",
+    "expr_chrM_ratio"
+)
 stopifnot(all(continuous_variables %in% colnames(colData(sce))))
 
 ## None of the values of rowData(sce)$gene_search should be re-used in
@@ -658,31 +669,33 @@ stopifnot(!all(rowData(sce)$gene_search %in% colnames(colData(sce))))
 
 ## No column named COUNT as that's used by sce_image_gene_p() and related
 ## functions.
-stopifnot(!'COUNT' %in% colnames(colData(sce)))
+stopifnot(!"COUNT" %in% colnames(colData(sce)))
 
 ## The counts and logcounts assays
-stopifnot(all(c('counts', 'logcounts') %in% assayNames(sce)))
+stopifnot(all(c("counts", "logcounts") %in% assayNames(sce)))
 
 ## For the layer-level data we also need layer_guess_reordered
 ## although this is a parameter you can change in run_app()
-stopifnot('layer_guess_reordered' %in% colnames(colData(sce_layer)))
+stopifnot("layer_guess_reordered" %in% colnames(colData(sce_layer)))
 
 stopifnot(all(
-    c('enrichment', 'pairwise', 'anova') %in% names(modeling_results)
+    c("enrichment", "pairwise", "anova") %in% names(modeling_results)
 ))
 
 ## All the model tables contain the ensembl column
-stopifnot(all(sapply(modeling_results, function(x)
-    'ensembl' %in% colnames(x))))
+stopifnot(all(sapply(modeling_results, function(x) {
+      "ensembl" %in% colnames(x)
+  })))
 
 ## The following column prefixes are present in each of the model tables
 expected_column_name_starts <-
-    c('^[f|t]_stat_', '^p_value_', '^fdr_')
+    c("^[f|t]_stat_", "^p_value_", "^fdr_")
 stopifnot(all(sapply(modeling_results, function(model_table) {
-    all(sapply(expected_column_name_starts, function(expected_prefix)
-        any(grepl(
-            expected_prefix, colnames(model_table)
-        ))))
+    all(sapply(expected_column_name_starts, function(expected_prefix) {
+          any(grepl(
+              expected_prefix, colnames(model_table)
+          ))
+      }))
 })))
 ```
 
@@ -735,12 +748,12 @@ Code for creating the vignette
 
 ```{r createVignette, eval=FALSE}
 ## Create the vignette
-library('rmarkdown')
-system.time(render('spatialLIBD.Rmd'))
+library("rmarkdown")
+system.time(render("spatialLIBD.Rmd"))
 
 ## Extract the R code
-library('knitr')
-knit('spatialLIBD.Rmd', tangle = TRUE)
+library("knitr")
+knit("spatialLIBD.Rmd", tangle = TRUE)
 ```
 
 
@@ -756,14 +769,14 @@ Wallclock time spent generating the vignette.
 ```{r reproduce2, echo=FALSE}
 ## Processing time in seconds
 totalTime <- diff(c(startTime, Sys.time()))
-round(totalTime, digits=3)
+round(totalTime, digits = 3)
 ```
 
 `R` session information.
 
 ```{r reproduce3, echo=FALSE}
 ## Session info
-library('sessioninfo')
+library("sessioninfo")
 options(width = 120)
 session_info()
 ```

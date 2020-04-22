@@ -4,9 +4,11 @@
 \name{libd_layer_colors}
 \alias{libd_layer_colors}
 \title{Vector of LIBD layer colors}
-\format{A vector of length 9 with colors for Layers 1 through 9, WM, NA and
+\format{
+A vector of length 9 with colors for Layers 1 through 9, WM, NA and
 a special WM2 that is present in some of the unsupervised clustering
-results.}
+results.
+}
 \usage{
 libd_layer_colors
 }

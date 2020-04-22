@@ -1,7 +1,7 @@
 Package: spatialLIBD
 Title: LIBD Visium spatial transcriptomics human pilot data inspector
-Version: 0.99.12
-Date: 2020-03-03
+Version: 0.99.13
+Date: 2020-04-21
 Authors@R:
     c(
     person("Leonardo", "Collado-Torres", role = c("aut", "cre"), 
@@ -45,7 +45,7 @@ Imports:
     S4Vectors,
     IRanges,
     fields
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/LieberInstitute/spatialLIBD
 BugReports: https://github.com/LieberInstitute/spatialLIBD/issues

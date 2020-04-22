@@ -19,7 +19,7 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' if (!exists('sce_layer')) sce_layer <- fetch_data('sce')
+#' if (!exists("sce_layer")) sce_layer <- fetch_data("sce")
 #'
 #' ## Example layer colors with the corresponding names
 #' get_colors(libd_layer_colors, sce_layer$layer_guess)
@@ -31,8 +31,6 @@
 #'
 #' ## Example where Polychrome::palette36.colors() gets used
 #' get_colors(clusters = letters[seq_len(13)])
-#'
-
 get_colors <- function(colors = NULL, clusters) {
     n_clus <- length(unique(clusters))
 
@@ -51,27 +49,27 @@ get_colors <- function(colors = NULL, clusters) {
 
 
         colors <-
-            if (n_clus > 12)
-                Polychrome::palette36.colors(n_clus)
-        else
-            c(
-                "#b2df8a",
-                "#e41a1c",
-                "#377eb8",
-                "#4daf4a",
-                "#ff7f00",
-                "gold",
-                "#a65628",
-                "#999999",
-                "black",
-                "grey",
-                "white",
-                "purple"
-            )
+            if (n_clus > 12) {
+                  Polychrome::palette36.colors(n_clus)
+              } else {
+                  c(
+                      "#b2df8a",
+                      "#e41a1c",
+                      "#377eb8",
+                      "#4daf4a",
+                      "#ff7f00",
+                      "gold",
+                      "#a65628",
+                      "#999999",
+                      "black",
+                      "grey",
+                      "white",
+                      "purple"
+                  )
+              }
         names(colors) <- seq_len(length(colors))
-
-    } else if (all(unique(as.character(clusters)) %in% c(gsub('ayer', '', names(colors)), NA))) {
-        names(colors) <- gsub('ayer', '', names(colors))
+    } else if (all(unique(as.character(clusters)) %in% c(gsub("ayer", "", names(colors)), NA))) {
+        names(colors) <- gsub("ayer", "", names(colors))
     }
     return(colors)
 }

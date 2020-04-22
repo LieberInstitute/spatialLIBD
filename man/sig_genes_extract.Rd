@@ -56,9 +56,10 @@ informative titles.
 \examples{
 
 ## Obtain the necessary data
-if (!exists('modeling_results'))
-    modeling_results <- fetch_data(type = 'modeling_results')
-if (!exists('sce_layer')) sce_layer <- fetch_data(type = 'sce_layer')
+if (!exists("modeling_results")) {
+      modeling_results <- fetch_data(type = "modeling_results")
+  }
+if (!exists("sce_layer")) sce_layer <- fetch_data(type = "sce_layer")
 
 ## anova top 10 genes
 sig_genes_extract(
@@ -72,7 +73,6 @@ sig_genes_extract(
     sce_layer = sce_layer,
     n = nrow(sce_layer)
 )
-
 }
 \references{
 Adapted from

@@ -46,10 +46,10 @@ To visualize clusters (or any discrete variable) use \code{\link[=sce_image_clus
 \examples{
 
 ## Obtain the necessary data
-if (!exists('sce')) sce <- fetch_data('sce')
+if (!exists("sce")) sce <- fetch_data("sce")
 
 ## Prepare the data for the plotting function
-sce_sub <- sce[, sce$sample_name == '151673']
+sce_sub <- sce[, sce$sample_name == "151673"]
 df <- as.data.frame(colData(sce_sub))
 df$COUNT <- df$expr_chrM_ratio
 
@@ -58,14 +58,13 @@ df$COUNT <- df$expr_chrM_ratio
 sce_image_gene_p(
     sce = sce_sub,
     d = df,
-    sampleid = '151673',
-    title = '151673 chrM expr ratio',
+    sampleid = "151673",
+    title = "151673 chrM expr ratio",
     spatial = FALSE
 )
 
 ## Clean up
 rm(sce_sub)
-
 }
 \seealso{
 Other Spatial gene visualization functions: 

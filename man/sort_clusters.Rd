@@ -31,5 +31,4 @@ class(clus)
 
 ## Sort them and obtain a factor
 sort_clusters(clus)
-
 }

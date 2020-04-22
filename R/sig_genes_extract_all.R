@@ -17,20 +17,19 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' if (!exists('modeling_results'))
-#'     modeling_results <- fetch_data(type = 'modeling_results')
-#' if (!exists('sce_layer')) sce_layer <- fetch_data(type = 'sce_layer')
+#' if (!exists("modeling_results")) {
+#'       modeling_results <- fetch_data(type = "modeling_results")
+#'   }
+#' if (!exists("sce_layer")) sce_layer <- fetch_data(type = "sce_layer")
 #'
 #' ## top 10 genes for all models
 #' sig_genes_extract_all(
 #'     modeling_results = modeling_results,
 #'     sce_layer = sce_layer
 #' )
-#'
-
 sig_genes_extract_all <- function(n = 10,
-    modeling_results = fetch_data(type = 'modeling_results'),
-    sce_layer = fetch_data(type = 'sce_layer')) {
+    modeling_results = fetch_data(type = "modeling_results"),
+    sce_layer = fetch_data(type = "sce_layer")) {
 
     ## Run checks since this function is run by default by run_app()
     ## before the checks have been run elsewhere
@@ -41,21 +40,21 @@ sig_genes_extract_all <- function(n = 10,
         sig_genes_extract(
             n = n,
             modeling_results = modeling_results,
-            model_type = 'enrichment',
+            model_type = "enrichment",
             sce_layer = sce_layer
         )
     sig_genes_pairwise <-
         sig_genes_extract(
             n = n,
             modeling_results = modeling_results,
-            model_type = 'pairwise',
+            model_type = "pairwise",
             sce_layer = sce_layer
         )
     sig_genes_pairwise_rev <-
         sig_genes_extract(
             n = n,
             modeling_results = modeling_results,
-            model_type = 'pairwise',
+            model_type = "pairwise",
             sce_layer = sce_layer,
             reverse = TRUE
         )
@@ -63,7 +62,7 @@ sig_genes_extract_all <- function(n = 10,
         sig_genes_extract(
             n = n,
             modeling_results = modeling_results,
-            model_type = 'anova',
+            model_type = "anova",
             sce_layer = sce_layer
         )
 
@@ -89,19 +88,20 @@ sig_genes_extract_all <- function(n = 10,
     sig_genes_unique_top20 <-
         split(which(sig_genes$top <= 20), sig_genes$ensembl[sig_genes$top <= 20])
     sig_genes$in_rows_top20 <-
-        IntegerList(lapply(sig_genes$in_rows, function(x)
-            NULL))
+        IntegerList(lapply(sig_genes$in_rows, function(x) {
+              NULL
+          }))
     sig_genes$in_rows_top20[names(sig_genes_unique_top20)] <-
         IntegerList(sig_genes_unique_top20)
 
     sig_genes$results <-
-        CharacterList(lapply(sig_genes$in_rows_top20 , function(x) {
-            if (length(x) == 0)
-                return(NULL)
-            paste0(sig_genes$test[x], '_top', sig_genes$top[x])
+        CharacterList(lapply(sig_genes$in_rows_top20, function(x) {
+            if (length(x) == 0) {
+                  return(NULL)
+              }
+            paste0(sig_genes$test[x], "_top", sig_genes$top[x])
         }))[sig_genes$ensembl]
 
 
     return(sig_genes)
-
 }

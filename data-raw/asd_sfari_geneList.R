@@ -1,8 +1,8 @@
 asd_sfari <- utils::read.csv(
     system.file(
-        'extdata',
-        'SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv',
-        package = 'spatialLIBD'
+        "extdata",
+        "SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv",
+        package = "spatialLIBD"
     ),
     as.is = TRUE
 )
@@ -35,7 +35,7 @@ asd_sfari_geneList_table <-
 
 write.csv(
     asd_sfari_geneList_table,
-    file = here::here('data-raw', 'asd_sfari_geneList.csv'),
+    file = here::here("data-raw", "asd_sfari_geneList.csv"),
     row.names = FALSE,
     quote = FALSE
 )
@@ -43,7 +43,7 @@ write.csv(
 
 ## Test that re-reading the file works
 test <- read.csv(
-    here::here('data-raw', 'asd_sfari_geneList.csv'),
+    here::here("data-raw", "asd_sfari_geneList.csv"),
     header = TRUE,
     stringsAsFactors = FALSE,
     check.names = FALSE,
@@ -53,18 +53,19 @@ testthat::expect_equivalent(asd_sfari_geneList_table, as.matrix(test))
 
 
 ## Test that the input data works for gene_set_enrichment()
-if (!exists('modeling_results'))
-    modeling_results <- fetch_data(type = 'modeling_results')
+if (!exists("modeling_results")) {
+      modeling_results <- fetch_data(type = "modeling_results")
+  }
 
 asd_sfari_enrichment <- gene_set_enrichment(
     gene_list = asd_sfari_geneList,
     modeling_results = modeling_results,
-    model_type = 'enrichment'
+    model_type = "enrichment"
 )
 test_enrichment <- gene_set_enrichment(
     gene_list = test,
     modeling_results = modeling_results,
-    model_type = 'enrichment'
+    model_type = "enrichment"
 )
 
 stopifnot(identical(asd_sfari_enrichment, test_enrichment))

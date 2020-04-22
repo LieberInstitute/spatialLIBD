@@ -26,11 +26,10 @@ For more details please check the vignette documentation.
 \examples{
 
 ## Obtain the necessary data
-if (!exists('sce_layer')) sce_layer <- fetch_data('sce_layer')
+if (!exists("sce_layer")) sce_layer <- fetch_data("sce_layer")
 
 ## Check the object
 check_sce_layer(sce_layer)
-
 }
 \seealso{
 Other Check input functions: 

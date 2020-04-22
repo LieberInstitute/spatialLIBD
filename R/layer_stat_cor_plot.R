@@ -31,25 +31,25 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' if (!exists('modeling_results'))
-#'     modeling_results <- fetch_data(type = 'modeling_results')
+#' if (!exists("modeling_results")) {
+#'       modeling_results <- fetch_data(type = "modeling_results")
+#'   }
 #'
 #' ## Compute the correlations
 #' cor_stats_layer <- layer_stat_cor(
 #'     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
 #'     modeling_results,
-#'     'enrichment'
+#'     "enrichment"
 #' )
 #'
 #' ## Visualize the correlation matrix
 #' layer_stat_cor_plot(cor_stats_layer)
-#'
 layer_stat_cor_plot <-
     function(cor_stats_layer,
-        max = 0.81,
-        min = -max,
-        layerHeights = NULL,
-        cex = 1.2) {
+    max = 0.81,
+    min = -max,
+    layerHeights = NULL,
+    cex = 1.2) {
         ## From https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R
         theSeq <- seq(min, max, by = 0.01)
         my.col <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(7, "PRGn"))(length(theSeq))
@@ -58,19 +58,19 @@ layer_stat_cor_plot <-
         mat_vals <- t(cor_stats_layer)
 
         ## Re-order and shorten names if they match our data
-        if (all(rownames(mat_vals) %in% c('WM', paste0('Layer', seq_len(6))))) {
-            rownames(mat_vals) <- gsub('ayer', '', rownames(mat_vals))
-            mat_vals <- mat_vals[c('WM', paste0('L', rev(seq_len(6)))), , drop = FALSE]
+        if (all(rownames(mat_vals) %in% c("WM", paste0("Layer", seq_len(6))))) {
+            rownames(mat_vals) <- gsub("ayer", "", rownames(mat_vals))
+            mat_vals <- mat_vals[c("WM", paste0("L", rev(seq_len(6)))), , drop = FALSE]
 
             ## Use our default layer heights also
-            if(is.null(layerHeights)) {
+            if (is.null(layerHeights)) {
                 layerHeights <- c(0, 40, 55, 75, 85, 110, 120, 135)
             }
         }
 
         ## From fields:::imagePlotInfo
         midpoints <- seq(min, max, length.out = length(my.col))
-        delta <- (midpoints[2] - midpoints[1])/2
+        delta <- (midpoints[2] - midpoints[1]) / 2
         breaks <- c(midpoints[1] - delta, midpoints + delta)
 
         legend_cuts <- seq(-1, 1, by = 0.1)

@@ -15,15 +15,13 @@
 #' @examples
 #'
 #' ## Obtain the necessary data
-#' if (!exists('sce_layer')) sce_layer <- fetch_data('sce_layer')
+#' if (!exists("sce_layer")) sce_layer <- fetch_data("sce_layer")
 #'
 #' ## Check the object
 #' check_sce_layer(sce_layer)
-#'
-
-check_sce_layer <- function(sce_layer, variables = 'layer_guess_reordered_short') {
+check_sce_layer <- function(sce_layer, variables = "layer_guess_reordered_short") {
     ## Should be a SingleCellExperiment object
-    stopifnot(is(sce_layer, 'SingleCellExperiment'))
+    stopifnot(is(sce_layer, "SingleCellExperiment"))
 
     ## For the layer-level data, some of the shiny code is tailored to our data
     ## though you could change it. Hence these requirements are fairly specific.
@@ -32,10 +30,10 @@ check_sce_layer <- function(sce_layer, variables = 'layer_guess_reordered_short'
     ## Ensembl gene IDs are rownames with the symbol (gene_name) and Ensembl
     ## ID (gene_name) pasted into `gene_search`
     stopifnot(all(
-        c('gene_id', 'gene_name', 'gene_search') %in% colnames(rowData(sce_layer))
+        c("gene_id", "gene_name", "gene_search") %in% colnames(rowData(sce_layer))
     ))
     stopifnot(identical(
-        paste0(rowData(sce_layer)$gene_name, '; ', rowData(sce_layer)$gene_id),
+        paste0(rowData(sce_layer)$gene_name, "; ", rowData(sce_layer)$gene_id),
         rowData(sce_layer)$gene_search
     ))
 

@@ -58,9 +58,9 @@ to see a full script from where this family of functions is derived from.
 ## Read in the SFARI gene sets included in the package
 asd_sfari <- utils::read.csv(
     system.file(
-        'extdata',
-        'SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv',
-        package = 'spatialLIBD'
+        "extdata",
+        "SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv",
+        package = "spatialLIBD"
     ),
     as.is = TRUE
 )
@@ -73,19 +73,19 @@ asd_sfari_geneList <- list(
 )
 
 ## Obtain the necessary data
-if (!exists('modeling_results'))
-    modeling_results <- fetch_data(type = 'modeling_results')
+if (!exists("modeling_results")) {
+      modeling_results <- fetch_data(type = "modeling_results")
+  }
 
 ## Compute the gene set enrichment results
 asd_sfari_enrichment <- gene_set_enrichment(
     gene_list = asd_sfari_geneList,
     modeling_results = modeling_results,
-    model_type = 'enrichment'
+    model_type = "enrichment"
 )
 
 ## Explore the results
 asd_sfari_enrichment
-
 }
 \seealso{
 Other Gene set enrichment functions: 

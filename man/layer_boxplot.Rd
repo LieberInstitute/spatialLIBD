@@ -63,14 +63,17 @@ of a given gene and display the modeling results for the given gene.
 \examples{
 
 ## Obtain the necessary data
-if (!exists('modeling_results'))
-    modeling_results <- fetch_data(type = 'modeling_results')
-if (!exists('sce_layer')) sce_layer <- fetch_data(type = 'sce_layer')
+if (!exists("modeling_results")) {
+      modeling_results <- fetch_data(type = "modeling_results")
+  }
+if (!exists("sce_layer")) sce_layer <- fetch_data(type = "sce_layer")
 
 ## Top 2 genes from the enrichment model
-sig_genes <- sig_genes_extract_all(n = 2,
+sig_genes <- sig_genes_extract_all(
+    n = 2,
     modeling_results = modeling_results,
-    sce_layer = sce_layer)
+    sce_layer = sce_layer
+)
 
 ## Example default boxplot
 set.seed(20200206)
@@ -78,26 +81,28 @@ layer_boxplot(sig_genes = sig_genes, sce_layer = sce_layer)
 
 ## Now show the long title version
 set.seed(20200206)
-layer_boxplot(sig_genes = sig_genes,
+layer_boxplot(
+    sig_genes = sig_genes,
     short_title = FALSE,
-    sce_layer = sce_layer)
+    sce_layer = sce_layer
+)
 
 set.seed(20200206)
 layer_boxplot(
-    i = which(sig_genes$model_type == 'anova')[1],
+    i = which(sig_genes$model_type == "anova")[1],
     sig_genes = sig_genes,
     sce_layer = sce_layer
 )
 
 set.seed(20200206)
 layer_boxplot(
-    i = which(sig_genes$model_type == 'pairwise')[1],
+    i = which(sig_genes$model_type == "pairwise")[1],
     sig_genes = sig_genes,
     sce_layer = sce_layer
 )
 
 ## Viridis colors displayed in the shiny app
-library('viridisLite')
+library("viridisLite")
 set.seed(20200206)
 layer_boxplot(
     sig_genes = sig_genes,
@@ -113,27 +118,26 @@ set.seed(20200206)
 layer_boxplot(
     sig_genes = sig_genes,
     sce_layer = sce_layer,
-    col_low_box = 'palegreen3',
-    col_low_point = 'springgreen2',
-    col_high_box = 'darkorange2',
-    col_high_point = 'orange1'
+    col_low_box = "palegreen3",
+    col_low_point = "springgreen2",
+    col_high_box = "darkorange2",
+    col_high_point = "orange1"
 )
 
 ## Blue/red colors displayed in the shiny app
 set.seed(20200206)
 layer_boxplot(
-    i = which(sig_genes$model_type == 'pairwise')[1],
+    i = which(sig_genes$model_type == "pairwise")[1],
     sig_genes = sig_genes,
     sce_layer = sce_layer,
-    col_bkg_box = 'grey90',
-    col_bkg_point = 'grey60',
-    col_low_box = 'skyblue2',
-    col_low_point = 'royalblue3',
-    col_high_box = 'tomato2',
-    col_high_point = 'firebrick4',
+    col_bkg_box = "grey90",
+    col_bkg_point = "grey60",
+    col_low_box = "skyblue2",
+    col_low_point = "royalblue3",
+    col_high_box = "tomato2",
+    col_high_point = "firebrick4",
     cex = 3
 )
-
 }
 \references{
 Adapted from

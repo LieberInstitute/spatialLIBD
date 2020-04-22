@@ -26,9 +26,9 @@
 #' ## Read in the SFARI gene sets included in the package
 #' asd_sfari <- utils::read.csv(
 #'     system.file(
-#'         'extdata',
-#'         'SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv',
-#'         package = 'spatialLIBD'
+#'         "extdata",
+#'         "SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv",
+#'         package = "spatialLIBD"
 #'     ),
 #'     as.is = TRUE
 #' )
@@ -41,48 +41,48 @@
 #' )
 #'
 #' ## Obtain the necessary data
-#' if (!exists('modeling_results'))
-#'     modeling_results <- fetch_data(type = 'modeling_results')
+#' if (!exists("modeling_results")) {
+#'       modeling_results <- fetch_data(type = "modeling_results")
+#'   }
 #'
 #' ## Compute the gene set enrichment results
 #' asd_sfari_enrichment <- gene_set_enrichment(
 #'     gene_list = asd_sfari_geneList,
 #'     modeling_results = modeling_results,
-#'     model_type = 'enrichment'
+#'     model_type = "enrichment"
 #' )
 #'
 #' ## Explore the results
 #' asd_sfari_enrichment
-#'
-
 gene_set_enrichment <-
     function(gene_list,
-        fdr_cut = 0.1,
-        modeling_results = fetch_data(type = 'modeling_results'),
-        model_type = names(modeling_results)[1],
-        reverse = FALSE) {
+    fdr_cut = 0.1,
+    modeling_results = fetch_data(type = "modeling_results"),
+    model_type = names(modeling_results)[1],
+    reverse = FALSE) {
         model_results <- modeling_results[[model_type]]
 
         ## Keep only the genes present
         geneList_present <- lapply(gene_list, function(x) {
-            x <-  x[!is.na(x)]
+            x <- x[!is.na(x)]
             x[x %in% model_results$ensembl]
         })
 
         tstats <-
-            model_results[, grep('[f|t]_stat_', colnames(model_results))]
+            model_results[, grep("[f|t]_stat_", colnames(model_results))]
         colnames(tstats) <-
-            gsub('[f|t]_stat_', '', colnames(tstats))
+            gsub("[f|t]_stat_", "", colnames(tstats))
 
         if (reverse) {
             tstats <- tstats * -1
             colnames(tstats) <-
-                vapply(strsplit(colnames(tstats), '-'), function(x)
-                    paste(rev(x), collapse = '-'), character(ncol(tstats)))
+                vapply(strsplit(colnames(tstats), "-"), function(x) {
+                      paste(rev(x), collapse = "-")
+                  }, character(ncol(tstats)))
         }
 
         fdrs <-
-            model_results[, grep('fdr_', colnames(model_results))]
+            model_results[, grep("fdr_", colnames(model_results))]
 
 
         enrichTab <-
@@ -111,5 +111,4 @@ gene_set_enrichment <-
         enrichTab$fdr_cut <- fdr_cut
 
         return(enrichTab)
-
     }

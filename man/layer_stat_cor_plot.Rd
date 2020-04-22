@@ -45,19 +45,19 @@ for a full analysis from which this family of functions is derived from.
 \examples{
 
 ## Obtain the necessary data
-if (!exists('modeling_results'))
-    modeling_results <- fetch_data(type = 'modeling_results')
+if (!exists("modeling_results")) {
+      modeling_results <- fetch_data(type = "modeling_results")
+  }
 
 ## Compute the correlations
 cor_stats_layer <- layer_stat_cor(
     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
     modeling_results,
-    'enrichment'
+    "enrichment"
 )
 
 ## Visualize the correlation matrix
 layer_stat_cor_plot(cor_stats_layer)
-
 }
 \seealso{
 layer_matrix_plot

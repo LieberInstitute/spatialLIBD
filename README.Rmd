@@ -16,11 +16,11 @@ knitr::opts_chunk$set(
 # spatialLIBD <img src="man/figures/logo.png" align="right" />
 
 <!-- badges: start -->
-[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![Travis build status](https://travis-ci.com/LieberInstitute/spatialLIBD.svg?branch=master)](https://travis-ci.com/LieberInstitute/spatialLIBD)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![BioC status](http://www.bioconductor.org/shields/build/release/bioc/spatialLIBD.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/spatialLIBD)
-[![DOI](https://zenodo.org/badge/225913568.svg)](https://zenodo.org/badge/latestdoi/225913568)
 [![Codecov test coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?branch=master)
+[![R build status](https://github.com/LieberInstitute/spatialLIBD/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/LieberInstitute/spatialLIBD/actions)
+[![DOI](https://zenodo.org/badge/225913568.svg)](https://zenodo.org/badge/latestdoi/225913568)
 <!-- badges: end -->
 
 Welcome to the `spatialLIBD` project! It is composed of:
@@ -161,23 +161,25 @@ Below is the citation output from using `citation('spatialLIBD')` in R. Please
 run this yourself to check for any updates on how to cite __spatialLIBD__.
 
 ```{r 'citation', eval = requireNamespace('spatialLIBD')}
-citation('spatialLIBD')
+print(citation('spatialLIBD'), bibtex = TRUE)
 ```
 
-Please note that the `spatialLIBD` was only made possible thanks to many other R and bioinformatics software authors. We have cited their work either in the pre-print or the vignette of the R package.
+Please note that the `spatialLIBD` was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.
 
-## Code of conduct
-
-
-Please note that the `spatialLIBD` project is released with a
-  [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
-  By contributing to this project, you agree to abide by its terms.
+## Code of Conduct
+  
+Please note that the spatialLIBD project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
 
 ## Development tools
 
-* Testing on Bioc-devel is possible thanks to [R Travis](http://docs.travis-ci.com/user/languages/r/).
-* Code coverage assessment is possible thanks to [codecov](https://codecov.io/gh).
-* The [documentation website](http://lieberinstitute.github.io/spatialLIBD) is automatically updated thanks to `r BiocStyle::CRANpkg('pkgdown')` and `r BiocStyle::Githubpkg('ropenscilabs/travis')`.
+* Continuous code testing is possible thanks to [GitHub actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)  through `r BiocStyle::CRANpkg('usethis')`, `r BiocStyle::CRANpkg('remotes')`, `r BiocStyle::Githubpkg('r-hub/sysreqs')` and `r BiocStyle::CRANpkg('rcmdcheck')` customized to use [Bioconductor's docker containers](https://www.bioconductor.org/help/docker/) and `r BiocStyle::Biocpkg('BiocCheck')`.
+* Code coverage assessment is possible thanks to [codecov](https://codecov.io/gh) and `r BiocStyle::CRANpkg('covr')`.
+* The [documentation website](http://lieberinstitute.github.io/spatialLIBD) is automatically updated thanks to `r BiocStyle::CRANpkg('pkgdown')`.
+* The code is styled automatically thanks to `r BiocStyle::CRANpkg('styler')`.
+* The documentation is formatted thanks to `r BiocStyle::CRANpkg('devtools')` and `r BiocStyle::CRANpkg('roxygen2')`.
+
+For more details, check the `dev` directory.
+
 
 <a href="https://www.libd.org/"><img src="http://aejaffe.com/media/LIBD_logo.jpg" width="250px"></a>
 

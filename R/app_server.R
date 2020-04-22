@@ -19,11 +19,11 @@ app_server <- function(input, output, session) {
     COUNT <- model_type <- ensembl <- key <- NULL
 
     ## Get options
-    sce <- golem::get_golem_options('sce')
-    sce_layer <- golem::get_golem_options('sce_layer')
-    modeling_results <- golem::get_golem_options('modeling_results')
-    sig_genes <- golem::get_golem_options('sig_genes')
-    spatial_libd_var <- golem::get_golem_options('spatial_libd_var')
+    sce <- golem::get_golem_options("sce")
+    sce_layer <- golem::get_golem_options("sce_layer")
+    modeling_results <- golem::get_golem_options("modeling_results")
+    sig_genes <- golem::get_golem_options("sig_genes")
+    spatial_libd_var <- golem::get_golem_options("spatial_libd_var")
 
     ## Rename some variables
     sce$spatialLIBD <- colData(sce)[[spatial_libd_var]]
@@ -32,23 +32,23 @@ app_server <- function(input, output, session) {
     # List the first level callModules here
 
     ## Global variables needed throughout the app
-    rv <- reactiveValues(layer = rep('NA', ncol(sce)))
+    rv <- reactiveValues(layer = rep("NA", ncol(sce)))
 
     ## From /dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/rda_scran/clust_10x_layer_maynard_martinowich.Rdata
     # cat(paste0("'", names(cols_layers_martinowich), "' = '", cols_layers_martinowich, "',\n"))
     cols_layers_martinowich <- c(
-        'WM' = '#b2df8a',
-        '6' = '#e41a1c',
-        '1' = '#377eb8',
-        '5' = '#4daf4a',
-        '4' = '#ff7f00',
-        '2_3' = 'gold',
-        '5_6' = '#a65628',
-        '4_5' = '#999999',
-        '1_6' = 'black',
-        '3' = 'grey',
-        '2' = 'white',
-        '1_5' = 'purple'
+        "WM" = "#b2df8a",
+        "6" = "#e41a1c",
+        "1" = "#377eb8",
+        "5" = "#4daf4a",
+        "4" = "#ff7f00",
+        "2_3" = "gold",
+        "5_6" = "#a65628",
+        "4_5" = "#999999",
+        "1_6" = "black",
+        "3" = "grey",
+        "2" = "white",
+        "1_5" = "purple"
     )
 
     ## For layer_guess and related variables
@@ -57,7 +57,7 @@ app_server <- function(input, output, session) {
     }
     cols_layers_paper_short <- function() {
         res <- cols_layers_paper()
-        names(res) <- gsub('ayer', '', names(res))
+        names(res) <- gsub("ayer", "", names(res))
         return(res)
     }
 
@@ -65,15 +65,15 @@ app_server <- function(input, output, session) {
 
     cluster_colors <- reactive({
         colors <- NULL
-        if (input$cluster %in% c('Maynard', 'Martinowich')) {
+        if (input$cluster %in% c("Maynard", "Martinowich")) {
             colors <- cols_layers_martinowich
-        } else if (input$cluster == 'Layer') {
+        } else if (input$cluster == "Layer") {
             colors <-
                 Polychrome::palette36.colors(length(unique(rv$layer)))
             names(colors) <- unique(rv$layer)
-        } else if (input$cluster %in% c('layer_guess', 'layer_guess_reordered')) {
+        } else if (input$cluster %in% c("layer_guess", "layer_guess_reordered")) {
             colors <- cols_layers_paper()
-        } else if (input$cluster %in% c('layer_guess_reordered_short', 'spatialLIBD')) {
+        } else if (input$cluster %in% c("layer_guess_reordered_short", "spatialLIBD")) {
             colors <- cols_layers_paper_short()
         }
         return(colors)
@@ -83,7 +83,7 @@ app_server <- function(input, output, session) {
     observeEvent(input$assayname, {
         updateNumericInput(
             session,
-            inputId = 'minCount',
+            inputId = "minCount",
             value = 0,
             min = -1,
             max = max(assays(sce)[[input$assayname]]),
@@ -94,22 +94,24 @@ app_server <- function(input, output, session) {
 
     ## Static plotting functions
     static_histology <- reactive({
-        if (input$cluster == 'Layer')
-            sce$Layer <- rv$layer
+        if (input$cluster == "Layer") {
+              sce$Layer <- rv$layer
+          }
         sce_image_clus(
             sce,
             sampleid = input$sample,
             clustervar = input$cluster,
             colors = cluster_colors(),
-            ... = paste(' with', input$cluster)
+            ... = paste(" with", input$cluster)
         )
     })
 
     static_histology_grid <- reactive({
         input$grid_update
 
-        if (isolate(input$cluster == 'Layer'))
-            sce$Layer <- rv$layer
+        if (isolate(input$cluster == "Layer")) {
+              sce$Layer <- rv$layer
+          }
         sce_sub <-
             sce[, sce$sample_name %in% isolate(input$grid_samples)]
         plots <-
@@ -119,7 +121,7 @@ app_server <- function(input, output, session) {
                 sort_clust = FALSE,
                 colors = cluster_colors(),
                 return_plots = TRUE,
-                ... = paste(' with', isolate(input$cluster))
+                ... = paste(" with", isolate(input$cluster))
             )
         cowplot::plot_grid(
             plotlist = plots,
@@ -135,7 +137,7 @@ app_server <- function(input, output, session) {
             geneid = input$geneid,
             assayname = input$assayname,
             minCount = input$minCount,
-            viridis = input$genecolor == 'viridis'
+            viridis = input$genecolor == "viridis"
         )
     })
 
@@ -151,7 +153,7 @@ app_server <- function(input, output, session) {
                 assayname = isolate(input$assayname),
                 minCount = isolate(input$minCount),
                 return_plots = TRUE,
-                viridis = isolate(input$genecolor == 'viridis')
+                viridis = isolate(input$genecolor == "viridis")
             )
         cowplot::plot_grid(
             plotlist = plots,
@@ -164,16 +166,16 @@ app_server <- function(input, output, session) {
     output$downloadPlotHistology <- downloadHandler(
         filename = function() {
             gsub(
-                ' ',
-                '_',
+                " ",
+                "_",
                 paste0(
-                    'spatialLIBD_static_cluster_',
+                    "spatialLIBD_static_cluster_",
                     input$cluster,
-                    '_',
+                    "_",
                     input$sample,
-                    '_',
+                    "_",
                     Sys.time(),
-                    '.pdf'
+                    ".pdf"
                 )
             )
         },
@@ -192,16 +194,16 @@ app_server <- function(input, output, session) {
     output$downloadPlotHistologyGrid <- downloadHandler(
         filename = function() {
             gsub(
-                ' ',
-                '_',
+                " ",
+                "_",
                 paste0(
-                    'spatialLIBD_static_cluster_grid_',
+                    "spatialLIBD_static_cluster_grid_",
                     input$cluster,
-                    '_',
-                    paste0(input$grid_samples, collapse = '_'),
-                    '_',
+                    "_",
+                    paste0(input$grid_samples, collapse = "_"),
+                    "_",
                     Sys.time(),
-                    '.pdf'
+                    ".pdf"
                 )
             )
         },
@@ -220,16 +222,16 @@ app_server <- function(input, output, session) {
     output$downloadPlotGene <- downloadHandler(
         filename = function() {
             gsub(
-                ' ',
-                '_',
+                " ",
+                "_",
                 paste0(
-                    'spatialLIBD_static_gene_',
+                    "spatialLIBD_static_gene_",
                     input$geneid,
-                    '_',
+                    "_",
                     input$sample,
-                    '_',
+                    "_",
                     Sys.time(),
-                    '.pdf'
+                    ".pdf"
                 )
             )
         },
@@ -248,16 +250,16 @@ app_server <- function(input, output, session) {
     output$downloadPlotGeneGrid <- downloadHandler(
         filename = function() {
             gsub(
-                ' ',
-                '_',
+                " ",
+                "_",
                 paste0(
-                    'spatialLIBD_static_gene_grid_',
+                    "spatialLIBD_static_gene_grid_",
                     input$geneid,
-                    '_',
-                    paste0(input$grid_samples, collapse = '_'),
-                    '_',
+                    "_",
+                    paste0(input$grid_samples, collapse = "_"),
+                    "_",
                     Sys.time(),
-                    '.pdf'
+                    ".pdf"
                 )
             )
         },
@@ -274,50 +276,67 @@ app_server <- function(input, output, session) {
     )
 
     ## Clusters/Layers
-    output$histology <- renderPlot({
-        static_histology()
-    }, width = 600, height = 600)
+    output$histology <- renderPlot(
+        {
+            static_histology()
+        },
+        width = 600,
+        height = 600
+    )
 
 
     output$grid_static <- renderUI({
         input$grid_update
 
         plotOutput(
-            'histology_grid',
+            "histology_grid",
             width = 600 * isolate(input$grid_ncol),
             height = 600 * isolate(input$grid_nrow)
         )
     })
 
-    output$histology_grid <- renderPlot({
-        print(static_histology_grid())
-    }, width = 'auto', height = 'auto')
+    output$histology_grid <- renderPlot(
+        {
+            print(static_histology_grid())
+        },
+        width = "auto",
+        height = "auto"
+    )
 
 
-    output$gene <- renderPlot({
-        static_gene()
-    }, width = 600, height = 600)
+    output$gene <- renderPlot(
+        {
+            static_gene()
+        },
+        width = 600,
+        height = 600
+    )
 
 
     output$gene_grid_static <- renderUI({
         input$gene_grid_update
 
         plotOutput(
-            'gene_grid',
+            "gene_grid",
             width = 600 * isolate(input$gene_grid_ncol),
             height = 600 * isolate(input$gene_grid_nrow)
         )
     })
 
-    output$gene_grid <- renderPlot({
-        print(static_gene_grid())
-    }, width = 'auto', height = 'auto')
+    output$gene_grid <- renderPlot(
+        {
+            print(static_gene_grid())
+        },
+        width = "auto",
+        height = "auto"
+    )
 
 
     ## Plotly versions
     output$histology_plotly <- renderPlotly({
-        if (input$cluster == 'Layer')
-            sce$Layer <- rv$layer
+        if (input$cluster == "Layer") {
+              sce$Layer <- rv$layer
+          }
         colors <- cluster_colors()
 
         ## Define some common arguments
@@ -340,9 +359,9 @@ app_server <- function(input, output, session) {
         ## Read in the histology image
         pen <-
             png::readPNG(file.path(
-                resourcePaths()['imagedata'],
+                resourcePaths()["imagedata"],
                 sampleid,
-                'tissue_lowres_image.png'
+                "tissue_lowres_image.png"
             ))
 
 
@@ -359,17 +378,17 @@ app_server <- function(input, output, session) {
 
         ## Add the reduced dims
         red_dims <- reducedDim(sce_sub, reduced_name)
-        colnames(red_dims) <- paste(reduced_name, 'dim', seq_len(2))
+        colnames(red_dims) <- paste(reduced_name, "dim", seq_len(2))
         d <- cbind(d, red_dims)
 
         ## Drop points below minCount
         d <- subset(d, !is.na(COUNT))
 
         ## Use client-side highlighting
-        d_key <- highlight_key(d, ~ key)
+        d_key <- highlight_key(d, ~key)
 
         ## Make the cluster plot
-        p_clus <-  sce_image_clus_p(
+        p_clus <- sce_image_clus_p(
             sce = sce_sub,
             d = d_key,
             clustervar = clustervar,
@@ -380,11 +399,12 @@ app_server <- function(input, output, session) {
                 sampleid,
                 clustervar,
                 geneid,
-                if (!geneid %in% colnames(colData(sce_sub)))
-                    assayname
-                else
-                    NULL,
-                'min >',
+                if (!geneid %in% colnames(colData(sce_sub))) {
+                      assayname
+                  } else {
+                      NULL
+                  },
+                "min >",
                 minCount
             )
         )
@@ -396,20 +416,24 @@ app_server <- function(input, output, session) {
             sampleid = sampleid,
             spatial = FALSE,
             title = "",
-            viridis = input$genecolor == 'viridis'
+            viridis = input$genecolor == "viridis"
         )
 
         ## Make the reduced dimensions ggplot
-        p_dim <- ggplot(d_key,
+        p_dim <- ggplot(
+            d_key,
             aes(
                 x = !!sym(colnames(red_dims)[1]),
                 y = !!sym(colnames(red_dims)[2]),
                 fill = factor(!!sym(clustervar)),
-                key =  key
-            )) +
-            geom_point(shape = 21,
+                key = key
+            )
+        ) +
+            geom_point(
+                shape = 21,
                 size = 1.25,
-                stroke = 0.25) +
+                stroke = 0.25
+            ) +
             scale_fill_manual(values = get_colors(colors, colData(sce_sub)[[clustervar]])) +
             guides(fill = FALSE) +
             ggtitle("") +
@@ -423,38 +447,43 @@ app_server <- function(input, output, session) {
                 axis.ticks = element_blank()
             )
 
-        p_dim_gene <- ggplot(d_key,
+        p_dim_gene <- ggplot(
+            d_key,
             aes(
                 x = !!sym(colnames(red_dims)[1]),
                 y = !!sym(colnames(red_dims)[2]),
                 fill = COUNT,
                 color = COUNT,
-                key =  key
-            )) + geom_point(shape = 21,
+                key = key
+            )
+        ) +
+            geom_point(
+                shape = 21,
                 size = 1.25,
-                stroke = 0.25)
+                stroke = 0.25
+            )
 
 
-        if (input$genecolor == 'viridis') {
+        if (input$genecolor == "viridis") {
             p_dim_gene <-
                 p_dim_gene + scale_fill_gradientn(
                     colors = viridis(21),
-                    na.value = c('black' = '#0000002D'),
+                    na.value = c("black" = "#0000002D"),
                     guide = FALSE
                 ) +
                 scale_color_gradientn(
                     colors = viridis(21),
-                    na.value = c('black' = '#0000002D'),
+                    na.value = c("black" = "#0000002D"),
                     guide = FALSE
                 )
         } else {
-            p_dim_gene <- p_dim_gene +  scale_fill_gradientn(
-                colors = c('aquamarine4', 'springgreen', 'goldenrod', 'red'),
-                na.value = c('black' = '#0000002D'),
+            p_dim_gene <- p_dim_gene + scale_fill_gradientn(
+                colors = c("aquamarine4", "springgreen", "goldenrod", "red"),
+                na.value = c("black" = "#0000002D"),
                 guide = FALSE
             ) + scale_color_gradientn(
-                colors = c('aquamarine4', 'springgreen', 'goldenrod', 'red'),
-                na.value = c('black' = '#0000002D'),
+                colors = c("aquamarine4", "springgreen", "goldenrod", "red"),
+                na.value = c("black" = "#0000002D"),
                 guide = FALSE
             )
         }
@@ -478,7 +507,7 @@ app_server <- function(input, output, session) {
                 p_clus,
                 width = 600 * 2,
                 height = 600 * 2,
-                source = 'plotly_histology'
+                source = "plotly_histology"
             ),
             images = list(
                 list(
@@ -492,16 +521,17 @@ app_server <- function(input, output, session) {
                     xanchor = "left",
                     yanchor = "bottom",
                     opacity = 1,
-                    layer = 'below',
-                    sizing = 'stretch'
+                    layer = "below",
+                    sizing = "stretch"
                 )
             ),
-            dragmode = 'select'
+            dragmode = "select"
         )
 
         plotly_gene <- layout(
             ggplotly(p_gene,
-                source = 'plotly_histology'),
+                source = "plotly_histology"
+            ),
             images = list(
                 list(
                     source = raster2uri(as.raster(pen)),
@@ -514,18 +544,20 @@ app_server <- function(input, output, session) {
                     xanchor = "left",
                     yanchor = "bottom",
                     opacity = 1,
-                    layer = 'below',
-                    sizing = 'stretch'
+                    layer = "below",
+                    sizing = "stretch"
                 )
             ),
-            dragmode = 'select'
+            dragmode = "select"
         )
 
         plotly_dim <- layout(ggplotly(p_dim,
-            source = 'plotly_histology'))
+            source = "plotly_histology"
+        ))
 
         plotly_dim_gene <- layout(ggplotly(p_dim_gene,
-            source = 'plotly_histology'))
+            source = "plotly_histology"
+        ))
 
         ## It's 0.5, but I want this smaller so the cluster
         ## labels will fit
@@ -567,22 +599,23 @@ app_server <- function(input, output, session) {
 
         ## Make the linked (client-side) plot
         highlight(plotly_merged,
-            on = 'plotly_selected',
-            off = 'plotly_deselect')
+            on = "plotly_selected",
+            off = "plotly_deselect"
+        )
     })
 
     ## Set the cluster subset options
     output$gene_plotly_cluster_subset_ui <- renderUI({
         input$cluster
 
-        if (input$cluster == 'Layer') {
+        if (input$cluster == "Layer") {
             cluster_opts <- unique(rv$layer)
         } else {
             cluster_opts <- unique(colData(sce)[[input$cluster]])
         }
         checkboxGroupInput(
-            'gene_plotly_cluster_subset',
-            label = 'Select clusters to show in this plot',
+            "gene_plotly_cluster_subset",
+            label = "Select clusters to show in this plot",
             choices = sort(cluster_opts),
             selected = cluster_opts,
             inline = TRUE
@@ -590,24 +623,26 @@ app_server <- function(input, output, session) {
     })
 
     output$gene_plotly <- renderPlotly({
-        if (is.null(input$gene_plotly_cluster_subset))
-            return(NULL)
+        if (is.null(input$gene_plotly_cluster_subset)) {
+              return(NULL)
+          }
 
-        if (input$cluster == 'Layer') {
+        if (input$cluster == "Layer") {
             cluster_opts <- rv$layer %in% input$gene_plotly_cluster_subset
         } else {
             cluster_opts <-
                 as.character(colData(sce)[[input$cluster]]) %in% input$gene_plotly_cluster_subset
         }
         ## For when you change the input$cluster and no data is available yet
-        if (sum(cluster_opts) == 0)
-            return(NULL)
+        if (sum(cluster_opts) == 0) {
+              return(NULL)
+          }
 
         pen <-
             png::readPNG(file.path(
-                resourcePaths()['imagedata'],
+                resourcePaths()["imagedata"],
                 input$sample,
-                'tissue_lowres_image.png'
+                "tissue_lowres_image.png"
             ))
 
         p <-
@@ -618,7 +653,7 @@ app_server <- function(input, output, session) {
                 assayname = input$assayname,
                 minCount = input$minCount,
                 spatial = FALSE,
-                viridis = input$genecolor == 'viridis'
+                viridis = input$genecolor == "viridis"
             )
 
         layout(
@@ -626,7 +661,7 @@ app_server <- function(input, output, session) {
                 p,
                 width = 600,
                 height = 600,
-                source = 'plotly_gene'
+                source = "plotly_gene"
             ),
             images = list(
                 list(
@@ -640,11 +675,11 @@ app_server <- function(input, output, session) {
                     xanchor = "left",
                     yanchor = "bottom",
                     opacity = 1,
-                    layer = 'below',
-                    sizing = 'stretch'
+                    layer = "below",
+                    sizing = "stretch"
                 )
             ),
-            dragmode = 'select'
+            dragmode = "select"
         )
     })
 
@@ -655,7 +690,7 @@ app_server <- function(input, output, session) {
 
     observeEvent(input$update_layer, {
         event.data <-
-            event_data('plotly_selected', source = 'plotly_histology')
+            event_data("plotly_selected", source = "plotly_histology")
         if (!is.null(event.data)) {
             isolate({
                 ## Now update with the layer input
@@ -667,7 +702,7 @@ app_server <- function(input, output, session) {
 
     output$click <- renderPrint({
         event.data <-
-            event_data("plotly_click", source = 'plotly_histology')
+            event_data("plotly_click", source = "plotly_histology")
         if (is.null(event.data)) {
             return(
                 "Single points clicked and updated with a layer guess appear here (double-click to clear)"
@@ -675,9 +710,10 @@ app_server <- function(input, output, session) {
         } else {
             isolate({
                 ## Now update with the layer input
-                if (input$label_click)
-                    rv$layer[sce$key %in% event.data$key] <-
-                        input$label_layer
+                if (input$label_click) {
+                      rv$layer[sce$key %in% event.data$key] <-
+                          input$label_layer
+                  }
             })
             return(event.data$key)
         }
@@ -685,7 +721,7 @@ app_server <- function(input, output, session) {
 
     observeEvent(input$update_layer_gene, {
         if (!is.null(input$gene_plotly_cluster_subset)) {
-            event.data <- event_data('plotly_selected', source = 'plotly_gene')
+            event.data <- event_data("plotly_selected", source = "plotly_gene")
         } else {
             event.data <- NULL
         }
@@ -711,7 +747,7 @@ app_server <- function(input, output, session) {
 
     output$click_gene <- renderPrint({
         if (!is.null(input$gene_plotly_cluster_subset)) {
-            event.data <- event_data('plotly_selected', source = 'plotly_gene')
+            event.data <- event_data("plotly_selected", source = "plotly_gene")
         } else {
             event.data <- NULL
         }
@@ -733,9 +769,10 @@ app_server <- function(input, output, session) {
 
             isolate({
                 ## Now update with the layer input
-                if (input$label_click_gene)
-                    rv$layer[sce$key %in% d$key[!is.na(d$COUNT)]] <-
-                        input$label_layer_gene
+                if (input$label_click_gene) {
+                      rv$layer[sce$key %in% d$key[!is.na(d$COUNT)]] <-
+                          input$label_layer_gene
+                  }
             })
             return(event.data$key)
         }
@@ -743,14 +780,17 @@ app_server <- function(input, output, session) {
 
     ## Raw summary
     output$raw_summary <- renderPrint(print(sce),
-        width = 80)
+        width = 80
+    )
 
     ## Download results
     output$downloadData <- downloadHandler(
         filename = function() {
-            gsub(' ',
-                '_',
-                paste0('spatialLIBD_layerGuesses_', Sys.time(), '.csv'))
+            gsub(
+                " ",
+                "_",
+                paste0("spatialLIBD_layerGuesses_", Sys.time(), ".csv")
+            )
         },
         content = function(file) {
             current <- data.frame(
@@ -760,8 +800,9 @@ app_server <- function(input, output, session) {
                 stringsAsFactors = FALSE
             )
             ## Keep the NAs?
-            if (input$dropNA)
-                current <- subset(current, layer != 'NA')
+            if (input$dropNA) {
+                  current <- subset(current, layer != "NA")
+              }
             write.csv(current, file, row.names = FALSE)
         }
     )
@@ -777,11 +818,13 @@ app_server <- function(input, output, session) {
                     na.strings = ""
                 )
             ## Update the non-NA
-            previous_work <- subset(previous_work, layer != 'NA')
+            previous_work <- subset(previous_work, layer != "NA")
             previous_work$key <-
-                paste0(previous_work$sample_name,
-                    '_',
-                    previous_work$spot_name)
+                paste0(
+                    previous_work$sample_name,
+                    "_",
+                    previous_work$spot_name
+                )
             m <- match(previous_work$key, sce$key)
             rv$layer[m[!is.na(m)]] <- previous_work$layer[!is.na(m)]
         }
@@ -794,7 +837,8 @@ app_server <- function(input, output, session) {
     #####################
 
     output$layer_raw_summary <- renderPrint(print(sce_layer),
-        width = 80)
+        width = 80
+    )
 
     # Set the options based on the model
     observeEvent(input$layer_model, {
@@ -802,7 +846,7 @@ app_server <- function(input, output, session) {
             sig_genes_sub <- subset(sig_genes, model_type == input$layer_model)
             updateSelectInput(
                 session,
-                inputId = 'layer_model_test',
+                inputId = "layer_model_test",
                 choices = sort(unique(sig_genes_sub$test)),
                 selected = sort(unique(sig_genes_sub$test))[1]
             )
@@ -818,18 +862,23 @@ app_server <- function(input, output, session) {
             theme_size = 30,
             point_size = 7
         )
-        if (input$layer_which_dim_color %in% c('layer_guess',
-            'layer_guess_reordered')) {
+        if (input$layer_which_dim_color %in% c(
+            "layer_guess",
+            "layer_guess_reordered"
+        )) {
             p <-
-                p + ggplot2::scale_fill_manual(values =  cols_layers_paper(),
-                    name = 'Layer')
-        } else if (input$layer_which_dim_color %in% 'layer_guess_reordered_short') {
+                p + ggplot2::scale_fill_manual(
+                    values = cols_layers_paper(),
+                    name = "Layer"
+                )
+        } else if (input$layer_which_dim_color %in% "layer_guess_reordered_short") {
             p <-
-                p + ggplot2::scale_fill_manual(values =  cols_layers_paper_short(),
-                    name = 'Layer')
+                p + ggplot2::scale_fill_manual(
+                    values = cols_layers_paper_short(),
+                    name = "Layer"
+                )
         }
         return(p)
-
     })
 
 
@@ -842,61 +891,62 @@ app_server <- function(input, output, session) {
     })
     static_layer_boxplot <- reactive({
         i <- static_layer_boxplot_i()
-        if (length(i) > 0)
-            set.seed(20200206)
-            layer_boxplot(
-                i = i,
-                sig_genes = sig_genes,
-                short_title = input$layer_box_shortitle,
-                sce_layer = sce_layer,
-                col_bkg_box = ifelse(
-                    input$layer_boxcolor %in% c('viridis', 'paper'),
-                    'grey80',
-                    'grey90'
-                ),
-                col_bkg_point = ifelse(
-                    input$layer_boxcolor %in% c('viridis', 'paper'),
-                    'grey90',
-                    'grey60'
-                ),
-                col_low_box = ifelse(
-                    input$layer_boxcolor == 'viridis',
-                    viridis(4)[2],
-                    ifelse(
-                        input$layer_boxcolor == 'paper',
-                        'palegreen3',
-                        'skyblue2'
-                    )
-                ),
-                col_low_point = ifelse(
-                    input$layer_boxcolor == 'viridis',
-                    viridis(4)[1],
-                    ifelse(
-                        input$layer_boxcolor == 'paper',
-                        'springgreen2',
-                        'royalblue3'
-                    )
-                ),
-                col_high_box = ifelse(
-                    input$layer_boxcolor == 'viridis',
-                    viridis(4)[3],
-                    ifelse(
-                        input$layer_boxcolor == 'paper',
-                        'darkorange2',
-                        'tomato2'
-                    )
-                ),
-                col_high_point = ifelse(
-                    input$layer_boxcolor == 'viridis',
-                    viridis(4)[4],
-                    ifelse(
-                        input$layer_boxcolor == 'paper',
-                        'orange1',
-                        'firebrick4'
-                    )
-                ),
-                cex = 2.7
-            )
+        if (length(i) > 0) {
+              set.seed(20200206)
+          }
+        layer_boxplot(
+            i = i,
+            sig_genes = sig_genes,
+            short_title = input$layer_box_shortitle,
+            sce_layer = sce_layer,
+            col_bkg_box = ifelse(
+                input$layer_boxcolor %in% c("viridis", "paper"),
+                "grey80",
+                "grey90"
+            ),
+            col_bkg_point = ifelse(
+                input$layer_boxcolor %in% c("viridis", "paper"),
+                "grey90",
+                "grey60"
+            ),
+            col_low_box = ifelse(
+                input$layer_boxcolor == "viridis",
+                viridis(4)[2],
+                ifelse(
+                    input$layer_boxcolor == "paper",
+                    "palegreen3",
+                    "skyblue2"
+                )
+            ),
+            col_low_point = ifelse(
+                input$layer_boxcolor == "viridis",
+                viridis(4)[1],
+                ifelse(
+                    input$layer_boxcolor == "paper",
+                    "springgreen2",
+                    "royalblue3"
+                )
+            ),
+            col_high_box = ifelse(
+                input$layer_boxcolor == "viridis",
+                viridis(4)[3],
+                ifelse(
+                    input$layer_boxcolor == "paper",
+                    "darkorange2",
+                    "tomato2"
+                )
+            ),
+            col_high_point = ifelse(
+                input$layer_boxcolor == "viridis",
+                viridis(4)[4],
+                ifelse(
+                    input$layer_boxcolor == "paper",
+                    "orange1",
+                    "firebrick4"
+                )
+            ),
+            cex = 2.7
+        )
     })
 
 
@@ -914,9 +964,9 @@ app_server <- function(input, output, session) {
             ## Provide a working example when there's no data
             asd_sfari <- utils::read.csv(
                 system.file(
-                    'extdata',
-                    'SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv',
-                    package = 'spatialLIBD'
+                    "extdata",
+                    "SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv",
+                    package = "spatialLIBD"
                 ),
                 as.is = TRUE
             )
@@ -929,10 +979,12 @@ app_server <- function(input, output, session) {
         }
 
         ## Run the enrichment
-        gene_set_enrichment(gene_list,
+        gene_set_enrichment(
+            gene_list,
             input$layer_gene_fdrcut,
             modeling_results,
-            input$layer_model)
+            input$layer_model
+        )
     })
 
     static_layer_gene_set_enrichment_plot <- reactive({
@@ -962,22 +1014,24 @@ app_server <- function(input, output, session) {
     })
 
     static_layer_external_tstat_plot <- reactive({
-        layer_stat_cor_plot(static_layer_external_tstat(),
-            max(c(0.1, input$layer_tstat_max)))
+        layer_stat_cor_plot(
+            static_layer_external_tstat(),
+            max(c(0.1, input$layer_tstat_max))
+        )
     })
 
     ## layer download PDF buttons
     output$layer_downloadReducedDim <- downloadHandler(
         filename = function() {
             gsub(
-                ' ',
-                '_',
+                " ",
+                "_",
                 paste0(
-                    'spatialLIBD_layer_reducedDim_',
+                    "spatialLIBD_layer_reducedDim_",
                     input$layer_which_dim,
-                    '_',
+                    "_",
                     Sys.time(),
-                    '.pdf'
+                    ".pdf"
                 )
             )
         },
@@ -996,18 +1050,18 @@ app_server <- function(input, output, session) {
     output$layer_downloadBoxplot <- downloadHandler(
         filename = function() {
             gsub(
-                ' ',
-                '_',
+                " ",
+                "_",
                 paste0(
-                    'spatialLIBD_layer_boxplot_',
+                    "spatialLIBD_layer_boxplot_",
                     input$layer_model,
-                    '_',
+                    "_",
                     input$layer_model_test,
-                    '_',
+                    "_",
                     input$layer_geneid,
-                    '_',
+                    "_",
                     Sys.time(),
-                    '.pdf'
+                    ".pdf"
                 )
             )
         },
@@ -1019,61 +1073,62 @@ app_server <- function(input, output, session) {
                 width = 8
             )
             i <- static_layer_boxplot_i()
-            if (length(i) > 0)
-                set.seed(20200206)
-                layer_boxplot(
-                    i = i,
-                    sig_genes = sig_genes,
-                    short_title = input$layer_box_shortitle,
-                    sce_layer = sce_layer,
-                    col_bkg_box = ifelse(
-                        input$layer_boxcolor %in% c('viridis', 'paper'),
-                        'grey80',
-                        'grey90'
-                    ),
-                    col_bkg_point = ifelse(
-                        input$layer_boxcolor %in% c('viridis', 'paper'),
-                        'grey90',
-                        'grey60'
-                    ),
-                    col_low_box = ifelse(
-                        input$layer_boxcolor == 'viridis',
-                        viridis(4)[2],
-                        ifelse(
-                            input$layer_boxcolor == 'paper',
-                            'palegreen3',
-                            'skyblue2'
-                        )
-                    ),
-                    col_low_point = ifelse(
-                        input$layer_boxcolor == 'viridis',
-                        viridis(4)[1],
-                        ifelse(
-                            input$layer_boxcolor == 'paper',
-                            'springgreen2',
-                            'royalblue3'
-                        )
-                    ),
-                    col_high_box = ifelse(
-                        input$layer_boxcolor == 'viridis',
-                        viridis(4)[3],
-                        ifelse(
-                            input$layer_boxcolor == 'paper',
-                            'darkorange2',
-                            'tomato2'
-                        )
-                    ),
-                    col_high_point = ifelse(
-                        input$layer_boxcolor == 'viridis',
-                        viridis(4)[4],
-                        ifelse(
-                            input$layer_boxcolor == 'paper',
-                            'orange1',
-                            'firebrick4'
-                        )
-                    ),
-                    cex = 2.7
-                )
+            if (length(i) > 0) {
+                  set.seed(20200206)
+              }
+            layer_boxplot(
+                i = i,
+                sig_genes = sig_genes,
+                short_title = input$layer_box_shortitle,
+                sce_layer = sce_layer,
+                col_bkg_box = ifelse(
+                    input$layer_boxcolor %in% c("viridis", "paper"),
+                    "grey80",
+                    "grey90"
+                ),
+                col_bkg_point = ifelse(
+                    input$layer_boxcolor %in% c("viridis", "paper"),
+                    "grey90",
+                    "grey60"
+                ),
+                col_low_box = ifelse(
+                    input$layer_boxcolor == "viridis",
+                    viridis(4)[2],
+                    ifelse(
+                        input$layer_boxcolor == "paper",
+                        "palegreen3",
+                        "skyblue2"
+                    )
+                ),
+                col_low_point = ifelse(
+                    input$layer_boxcolor == "viridis",
+                    viridis(4)[1],
+                    ifelse(
+                        input$layer_boxcolor == "paper",
+                        "springgreen2",
+                        "royalblue3"
+                    )
+                ),
+                col_high_box = ifelse(
+                    input$layer_boxcolor == "viridis",
+                    viridis(4)[3],
+                    ifelse(
+                        input$layer_boxcolor == "paper",
+                        "darkorange2",
+                        "tomato2"
+                    )
+                ),
+                col_high_point = ifelse(
+                    input$layer_boxcolor == "viridis",
+                    viridis(4)[4],
+                    ifelse(
+                        input$layer_boxcolor == "paper",
+                        "orange1",
+                        "firebrick4"
+                    )
+                ),
+                cex = 2.7
+            )
             dev.off()
         }
     )
@@ -1081,16 +1136,16 @@ app_server <- function(input, output, session) {
     output$layer_downloadGeneSet <- downloadHandler(
         filename = function() {
             gsub(
-                ' ',
-                '_',
+                " ",
+                "_",
                 paste0(
-                    'spatialLIBD_layer_GeneSetEnrichment_',
+                    "spatialLIBD_layer_GeneSetEnrichment_",
                     input$layer_model,
-                    '_fdrcut',
+                    "_fdrcut",
                     input$layer_gene_fdrcut,
-                    '_',
+                    "_",
                     Sys.time(),
-                    '.pdf'
+                    ".pdf"
                 )
             )
         },
@@ -1109,14 +1164,14 @@ app_server <- function(input, output, session) {
     output$layer_downloadTstatCor <- downloadHandler(
         filename = function() {
             gsub(
-                ' ',
-                '_',
+                " ",
+                "_",
                 paste0(
-                    'spatialLIBD_layer_TstatCorHeatmap_',
+                    "spatialLIBD_layer_TstatCorHeatmap_",
                     input$layer_model,
-                    '_',
+                    "_",
                     Sys.time(),
-                    '.pdf'
+                    ".pdf"
                 )
             )
         },
@@ -1127,77 +1182,95 @@ app_server <- function(input, output, session) {
                 height = 8,
                 width = 12
             )
-            layer_stat_cor_plot(static_layer_external_tstat(),
-                max(c(0.1, input$layer_tstat_max)))
+            layer_stat_cor_plot(
+                static_layer_external_tstat(),
+                max(c(0.1, input$layer_tstat_max))
+            )
             dev.off()
         }
     )
 
     ## layer plots
-    output$layer_reduced_dim <- renderPlot({
-        print(static_layer_reducedDim())
-    }, width = 700, height = 600)
+    output$layer_reduced_dim <- renderPlot(
+        {
+            print(static_layer_reducedDim())
+        },
+        width = 700,
+        height = 600
+    )
 
-    output$layer_boxplot <- renderPlot({
-        static_layer_boxplot()
-    }, width = 600, height = 600)
+    output$layer_boxplot <- renderPlot(
+        {
+            static_layer_boxplot()
+        },
+        width = 600,
+        height = 600
+    )
 
-    output$layer_gene_set_plot <- renderPlot({
-        static_layer_gene_set_enrichment_plot()
-    }, width = 600, height = 600)
+    output$layer_gene_set_plot <- renderPlot(
+        {
+            static_layer_gene_set_enrichment_plot()
+        },
+        width = 600,
+        height = 600
+    )
 
-    output$layer_tstat_cor_plot <- renderPlot({
-        static_layer_external_tstat_plot()
-    }, width = 800, height = 600)
+    output$layer_tstat_cor_plot <- renderPlot(
+        {
+            static_layer_external_tstat_plot()
+        },
+        width = 800,
+        height = 600
+    )
 
 
     ## interactive tables
     layer_model_table_reactive <- reactive({
         as.data.frame(subset(
-            sig_genes[, seq_len(which(colnames(sig_genes) == 'ensembl'))],
+            sig_genes[, seq_len(which(colnames(sig_genes) == "ensembl"))],
             model_type == input$layer_model &
-                ensembl == gsub('.*; ', '', input$layer_geneid)
+                ensembl == gsub(".*; ", "", input$layer_geneid)
         ))
     })
 
     output$layer_model_table <- DT::renderDT(
         layer_model_table_reactive(),
-        style = 'bootstrap',
+        style = "bootstrap",
         rownames = FALSE,
-        filter = 'top',
+        filter = "top",
         options = list(
             columnDefs = list(list(
-                className = 'dt-center', targets = 1
+                className = "dt-center", targets = 1
             )),
             pageLength = 10,
             lengthMenu = c(5, 10, 25, 50, 100),
-            order = list(list(0, 'asc'))
+            order = list(list(0, "asc"))
         )
     )
 
     output$layer_gene_set_table <- DT::renderDT(
         static_layer_gene_set_enrichment(),
-        style = 'bootstrap',
+        style = "bootstrap",
         rownames = FALSE,
-        filter = 'top',
+        filter = "top",
         options = list(
             columnDefs = list(list(
-                className = 'dt-center', targets = 1
+                className = "dt-center", targets = 1
             )),
             pageLength = 10,
             lengthMenu = c(5, 10, 25, 50, 100),
-            order = list(list(0, 'desc'))
+            order = list(list(0, "desc"))
         )
     )
 
     output$layer_tstat_cor_table <- DT::renderDT(
         static_layer_external_tstat(),
-        style = 'bootstrap',
+        style = "bootstrap",
         rownames = TRUE,
-        filter = 'top',
+        filter = "top",
         options = list(
             columnDefs = list(list(
-                className = 'dt-center', targets = 1
+                className = "dt-center", targets = 1
             )),
             pageLength = 10,
             lengthMenu = c(5, 10, 25, 50, 100)
@@ -1208,18 +1281,18 @@ app_server <- function(input, output, session) {
     output$layer_downloadModelTable <- downloadHandler(
         filename = function() {
             gsub(
-                ' ',
-                '_',
+                " ",
+                "_",
                 paste0(
-                    'spatialLIBD_layer_',
+                    "spatialLIBD_layer_",
                     input$layer_model,
-                    '_',
+                    "_",
                     input$layer_model_test,
-                    '_',
+                    "_",
                     input$layer_geneid,
-                    '_',
+                    "_",
                     Sys.time(),
-                    '.csv'
+                    ".csv"
                 )
             )
         },
@@ -1236,16 +1309,16 @@ app_server <- function(input, output, session) {
     output$layer_downloadGeneSetTable <- downloadHandler(
         filename = function() {
             gsub(
-                ' ',
-                '_',
+                " ",
+                "_",
                 paste0(
-                    'spatialLIBD_layer_GeneSetEnrichment_',
+                    "spatialLIBD_layer_GeneSetEnrichment_",
                     input$layer_model,
-                    '_fdrcut',
+                    "_fdrcut",
                     input$layer_gene_fdrcut,
-                    '_',
+                    "_",
                     Sys.time(),
-                    '.csv'
+                    ".csv"
                 )
             )
         },
@@ -1262,14 +1335,14 @@ app_server <- function(input, output, session) {
     output$layer_downloadTstatCorTable <- downloadHandler(
         filename = function() {
             gsub(
-                ' ',
-                '_',
+                " ",
+                "_",
                 paste0(
-                    'spatialLIBD_layer_TstatCor_',
+                    "spatialLIBD_layer_TstatCor_",
                     input$layer_model,
-                    '_',
+                    "_",
                     Sys.time(),
-                    '.csv'
+                    ".csv"
                 )
             )
         },
