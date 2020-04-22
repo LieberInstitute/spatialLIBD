@@ -36,13 +36,14 @@
 #'
 #' @examples
 #'
-#' if (interactive()) {
-#'     ## The default arguments will download the data from the web
-#'     ## using fetch_data(). If this is the first time you have run this,
-#'     ## the files will need to be cached by ExperimentHub. Otherwise it
-#'     ## will re-use the files you have previously downloaded.
-#'     run_app()
+#' \dontrun{
+#' ## The default arguments will download the data from the web
+#' ## using fetch_data(). If this is the first time you have run this,
+#' ## the files will need to be cached by ExperimentHub. Otherwise it
+#' ## will re-use the files you have previously downloaded.
+#' run_app()
 #' }
+#'
 run_app <- function(sce = fetch_data(type = "sce"),
     sce_layer = fetch_data(type = "sce_layer"),
     modeling_results = fetch_data(type = "modeling_results"),
