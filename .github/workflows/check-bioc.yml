@@ -15,6 +15,15 @@
 ## The development of this GHA workflow and history is documented at
 ## https://github.com/r-lib/actions/issues/84
 
+
+## Acronyms:
+## * GHA: GitHub Action
+## * OS: operating system
+
+## Specify which branches you want this GHA to run on.
+## Bioconductor uses branches such as master (bioc-devel) and RELEASE_* like
+## RELEASE_3_10. For more details check
+## http://bioconductor.org/developers/how-to/git/
 on:
   push:
     branches:
@@ -27,12 +36,22 @@ on:
 
 name: R-CMD-check-bioc
 
+## These environment variables control whether to run GHA code later on that is
+## specific to testthat, covr, and pkgdown.
+##
+## If you need to clear the cache of packages, upate the number inside
+## cache-version as discussed at https://github.com/r-lib/actions/issues/86.
+## Note that you can always run a GHA test without the cache by using the word
+## "/nocache" in the commit message.
 env:
   has_testthat: 'true'
   run_covr: 'true'
   run_pkgdown: 'true'
+  cache-version: 'cache-v1'
 
 jobs:
+  ## This first job uses the GitHub repository branch name to infer what
+  ## version of Bioconductor we will be working on.
   define-docker-info:
     runs-on: ubuntu-latest
     outputs:
@@ -41,31 +60,38 @@ jobs:
     steps:
       - id: findinfo
         run: |
-          ## Find what branch we are working on
-          if echo "$GITHUB_REF" | grep -q "master"; then
-              biocversion="devel"
-          elif echo "$GITHUB_REF" | grep -q "RELEASE_"; then
+          ## Find what Bioconductor RELEASE branch we are working on
+          ## otherwise, assume we are working on bioc-devel.
+          if echo "$GITHUB_REF" | grep -q "RELEASE_"; then
               biocversion="$(basename -- $GITHUB_REF | tr '[:upper:]' '[:lower:]')"
+          else
+              biocversion="devel"
           fi
-          ## Define the image name and print the info
+          ## Define the image name and print the information
           imagename="bioconductor/bioconductor_docker:${biocversion}"
           echo $imagename
           echo $biocversion
 
-          ## Save the info for the next job
+          ## Save the information for the next job
           echo "::set-output name=imagename::${imagename}"
           echo "::set-output name=biocversion::${biocversion}"
 
   R-CMD-check-bioc:
+    ## This job then checks the R package using the Bioconductor docker that
+    ## was defined by the previous job. This job will determine what version of
+    ## R to use for the macOS and Windows builds on the next job.
     runs-on: ubuntu-latest
     needs: define-docker-info
 
+    ## Name shown on the GHA log
     name: ubuntu-latest (r-biocdocker bioc-${{ needs.define-docker-info.outputs.biocversion }})
 
+    ## Information used by the next job that will run on macOS and Windows
     outputs:
       rversion: ${{ steps.findrversion.outputs.rversion }}
       biocversionnum: ${{ steps.findrversion.outputs.biocversionnum }}
 
+    ## Environment variables unique to this job.
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       TZ: UTC
@@ -73,12 +99,18 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
+    ## The docker container to use. Note that we link a directory on the GHA
+    ## runner to a docker directory, such that we can then cache the linked
+    ## directory. This directory will contain the R packages used.
     container:
       image: ${{ needs.define-docker-info.outputs.imagename }}
       volumes:
         - /home/runner/work/_temp/Library:/usr/local/lib/R/host-site-library
 
     steps:
+      ## Most of these steps are the same as the ones in
+      ## https://github.com/r-lib/actions/blob/master/examples/check-standard.yaml
+      ## If they update their steps, we will also need to update ours.
       - uses: actions/checkout@v2
 
       - name: Query dependencies
@@ -92,8 +124,8 @@ jobs:
         uses: actions/cache@v1
         with:
           path: /home/runner/work/_temp/Library
-          key: ${{ runner.os }}-r-biocdocker-bioc-${{ needs.define-docker-info.outputs.biocversion }}-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-r-biocdocker-bioc-${{ needs.define-docker-info.outputs.biocversion }}-
+          key: ${{ env.cache-version }}-${{ runner.os }}-r-biocdocker-bioc-${{ needs.define-docker-info.outputs.biocversion }}-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ env.cache-version }}-${{ runner.os }}-r-biocdocker-bioc-${{ needs.define-docker-info.outputs.biocversion }}-
 
       - name: Install system dependencies
         if: runner.os == 'Linux'
@@ -140,8 +172,15 @@ jobs:
 
       - name: BiocCheck
         run: |
-          R CMD BiocCheck --no-check-R-ver --no-check-bioc-help check/*.tar.gz
-        ## For more options check http://bioconductor.org/packages/release/bioc/vignettes/BiocCheck/inst/doc/BiocCheck.html
+          ## This syntax works on Windows as well as other OS
+          ## plus it doesn't break the GHA workflow in case BiocCheck finds
+          ## an error (for example, the package is bigger than the maximum
+          ## allowed size). We want the rest of the GHA to proceed even if
+          ## there is a BiocCheck error in order to see the full output and
+          ## run the tests on all operating systems.
+          BiocCheck::BiocCheck(dir('check', 'tar.gz$', full.names = TRUE), `no-check-R-ver` = TRUE, `no-check-bioc-help` = TRUE)
+          ## For more options check http://bioconductor.org/packages/release/bioc/vignettes/BiocCheck/inst/doc/BiocCheck.html
+        shell: Rscript {0}
 
       - name: Install covr
         if: github.ref == 'refs/heads/master' && env.run_covr == 'true'
@@ -177,6 +216,8 @@ jobs:
         ## branch (erasing anything you haven't version controlled!) and
         ## makes the git history recognizable by pkgdown.
 
+      ## Find the corresponding R version based on the Bioconductor version
+      ## to use for the macOS and Windows checks by the next GHA job
       - id: findrversion
         run: |
           ## Find what branch we are working on
@@ -189,11 +230,6 @@ jobs:
           ## Define the R and Bioconductor version numbers
           biocversionnum=$(Rscript -e "info <- BiocManager:::.version_map_get_online('https://bioconductor.org/config.yaml'); res <- subset(info, BiocStatus == '${biocversion}')[, 'Bioc']; cat(as.character(res))")
           rversion=$(Rscript -e "info <- BiocManager:::.version_map_get_online('https://bioconductor.org/config.yaml'); res <- subset(info, BiocStatus == '${biocversion}')[, 'R']; cat(as.character(res))")
-
-          ## I might need this for now until R 4.0 is out (try without it first)
-          if echo "$rversion" | grep -q "4.0"; then
-              rversion="devel"
-          fi
 
           ## Print the results
           echo $biocversion
@@ -213,6 +249,12 @@ jobs:
           name: ${{ runner.os }}-r-biocdocker-bioc-${{ needs.define-docker-info.outputs.biocversion }}-results
           path: check
 
+  ## Run R CMD check on both macOS and Windows. You can also run the
+  ## tests on Linux outside of the Bioconductor docker environment. If you
+  ## do so, you might have to install system dependencies on Linux
+  ## Bioconductor's docker includes all the system dependencies required by
+  ## Bioconductor packages and their dependencies (which includes many CRAN
+  ## dependencies as well, thus making this workflow useful beyond Bioconductor)
   R-CMD-check-r-lib:
     runs-on: ${{ matrix.config.os }}
     needs: [define-docker-info, R-CMD-check-bioc]
@@ -223,7 +265,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          # ## Un-comment in case you also want to run other versions
+          ## Comment/Un-comment in case you also want to run other versions
           - {os: windows-latest}
           - {os: macOS-latest}
           # - {os: ubuntu-16.04, rspm: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
@@ -255,8 +297,8 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r-${{ needs.R-CMD-check-bioc.outputs.rversion }}-bioc-${{ needs.define-docker-info.outputs.biocversion }}-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-r-${{ needs.R-CMD-check-bioc.outputs.rversion }}-bioc-${{ needs.define-docker-info.outputs.biocversion }}-
+          key: ${{ env.cache-version }}-${{ runner.os }}-r-${{ needs.R-CMD-check-bioc.outputs.rversion }}-bioc-${{ needs.define-docker-info.outputs.biocversion }}-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ env.cache-version }}-${{ runner.os }}-r-${{ needs.R-CMD-check-bioc.outputs.rversion }}-bioc-${{ needs.define-docker-info.outputs.biocversion }}-
 
       - name: Install Linux system dependencies
         if: runner.os == 'Linux'
@@ -276,12 +318,15 @@ jobs:
 
           brew install imagemagick@6
           ## Won't be needed once the current xml2 dev is available on CRAN
+          ## See https://github.com/r-lib/xml2/issues/302 and
+          ## https://github.com/r-lib/xml2/issues/296
           Rscript -e "remotes::install_github('r-lib/xml2')"
 
       - name: Install Windows system dependencies
         if: runner.os == 'Windows'
         run: |
-          if (!requireNamespace('RCurl', quietly = TRUE)) install.packages('RCurl', type = 'binary')
+          ## Required to install TxDb.Hsapiens.UCSC.hg19.knownGene, reported to bioc-devel
+          remotes::install_cran('tibble')
         shell: Rscript {0}
 
       - name: Install BiocManager
@@ -294,36 +339,14 @@ jobs:
           BiocManager::install(version = Sys.getenv('BIOCVERSIONNUM'))
         shell: Rscript {0}
 
-      - name: Install dependencies - Windows R-devel hack
-        if: runner.os == 'Windows' && needs.R-CMD-check-bioc.outputs.rversion == 'devel'
-        run: |
-          ## Need GenomeInfoDbData first
-          BiocManager::install('GenomeInfoDbData')
-
-          ## Hack my way through Windows for R-devel (4.1) ...
-          ## I only need this now to avoid the compilation issues on Windows
-          ## such as with Rhtslib and other packages.
-          ## At the end of April, once R 4.0 is actually released, then this
-          ## won't be an issue =)
-          ## Note that officially Bioconductor as of today 2020-04-20 does
-          ## not support R-devel! Hence the lack of binaries on R 4.1
-          contrib <- BiocManager::repositories()
-          is_cran <- names(contrib) == 'CRAN'
-          is_ann <- names(contrib) %in% c('BioCann', 'BioCexp', 'BioCworkflows')
-          contrib[!is_cran & !is_ann] <- paste0(contrib[!is_cran], '/bin/windows/contrib/4.0/')
-          contrib[is_ann] <- paste0(contrib[is_ann], '/src/contrib/')
-          contrib[is_cran] <- paste0(contrib[is_cran], '/bin/windows/contrib/4.1/')
-          contrib
-
-          remotes::install_deps(dependencies = TRUE, contriburl = contrib)
-          remotes::install_cran("rcmdcheck", contriburl = contrib)
-          if (!requireNamespace("BiocCheck", quietly = TRUE)) BiocManager::install("BiocCheck", contriburl = contrib)
-        shell: Rscript {0}
-
       - name: Install dependencies
         run: |
+          ## Need GenomeInfoDbData first -- reported to bioc-devel
+          BiocManager::install('GenomeInfoDbData')
+
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
+
           if (!requireNamespace("BiocCheck", quietly = TRUE)) BiocManager::install("BiocCheck")
         shell: Rscript {0}
 
@@ -346,6 +369,11 @@ jobs:
       - name: BiocCheck
         run: |
           ## This syntax works on Windows as well as other OS
+          ## plus it doesn't break the GHA workflow in case BiocCheck finds
+          ## an error (for example, the package is bigger than the maximum
+          ## allowed size). We want the rest of the GHA to proceed even if
+          ## there is a BiocCheck error in order to see the full output and
+          ## run the tests on all operating systems.
           BiocCheck::BiocCheck(dir('check', 'tar.gz$', full.names = TRUE), `no-check-R-ver` = TRUE, `no-check-bioc-help` = TRUE)
           ## For more options check http://bioconductor.org/packages/release/bioc/vignettes/BiocCheck/inst/doc/BiocCheck.html
         shell: Rscript {0}
