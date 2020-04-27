@@ -138,9 +138,30 @@ jobs:
 
       - name: Install dependencies
         run: |
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
+          ## Try installing the CRAN packages first, next the Bioconductor
+          ## source-only packages, then the remaining packages to avoid the
+          ## issues described at
+          ## https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016675.html
+          ## https://github.com/r-lib/remotes/issues/296
+          message(paste('****', Sys.time(), 'installing BiocManager ****'))
           remotes::install_cran("BiocManager")
+
+          ## Install the CRAN dependencies first
+          message(paste('****', Sys.time(), 'installing CRAN dependencies ****'))
+          remotes::install_deps(repos = BiocManager::repositories()['CRAN'])
+
+          ## Next the Bioconductor source-only ones
+          message(paste('****', Sys.time(), 'installing BioC source-only dependencies ****'))
+          remotes::install_deps(repos = BiocManager::repositories()[c('BioCann', 'BioCexp', 'BioCworkflows')])
+
+          ## Now install the rest of the dependencies
+          message(paste('****', Sys.time(), 'installing remaining BioC dependencies ****'))
+          deps <- remotes::dev_package_deps(dependencies = TRUE, repos = BiocManager::repositories())
+          BiocManager::install(deps$package[deps$diff != 0])
+
+          ## For running the checks
+          message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
+          remotes::install_cran("rcmdcheck")
           BiocManager::install("BiocCheck")
 
           ## Copy all the installed packages to a location where BiocCheck
@@ -197,7 +218,7 @@ jobs:
       - name: Install pkgdown
         if: github.ref == 'refs/heads/master' && env.run_pkgdown == 'true'
         run: |
-          remotes::install_cran("pkgdown")
+          remotes::install_dev("pkgdown")
         shell: Rscript {0}
 
       - name: Install package
@@ -325,8 +346,7 @@ jobs:
       - name: Install Windows system dependencies
         if: runner.os == 'Windows'
         run: |
-          ## Required to install TxDb.Hsapiens.UCSC.hg19.knownGene, reported to bioc-devel
-          remotes::install_cran('tibble')
+          ## Edit below if you have any Windows system dependencies
         shell: Rscript {0}
 
       - name: Install BiocManager
@@ -341,13 +361,31 @@ jobs:
 
       - name: Install dependencies
         run: |
-          ## Need GenomeInfoDbData first -- reported to bioc-devel
-          BiocManager::install('GenomeInfoDbData')
+          ## Try installing the CRAN packages first, next the Bioconductor
+          ## source-only packages, then the remaining packages to avoid the
+          ## issues described at
+          ## https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016675.html
+          ## https://github.com/r-lib/remotes/issues/296
+          message(paste('****', Sys.time(), 'installing BiocManager ****'))
+          remotes::install_cran("BiocManager")
 
-          remotes::install_deps(dependencies = TRUE)
+          ## Install the CRAN dependencies first
+          message(paste('****', Sys.time(), 'installing CRAN dependencies ****'))
+          remotes::install_deps(repos = BiocManager::repositories()['CRAN'])
+
+          ## Next the Bioconductor source-only ones
+          message(paste('****', Sys.time(), 'installing BioC source-only dependencies ****'))
+          remotes::install_deps(repos = BiocManager::repositories()[c('BioCann', 'BioCexp', 'BioCworkflows')])
+
+          ## Now install the rest of the dependencies
+          message(paste('****', Sys.time(), 'installing remaining BioC dependencies ****'))
+          deps <- remotes::dev_package_deps(dependencies = TRUE, repos = BiocManager::repositories())
+          BiocManager::install(deps$package[deps$diff != 0])
+
+          ## For running the checks
+          message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
           remotes::install_cran("rcmdcheck")
-
-          if (!requireNamespace("BiocCheck", quietly = TRUE)) BiocManager::install("BiocCheck")
+          BiocManager::install("BiocCheck")
         shell: Rscript {0}
 
       - name: Check
