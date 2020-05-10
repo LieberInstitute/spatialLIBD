@@ -82,7 +82,7 @@ of a given gene and display the modeling results for the given gene." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -227,8 +227,8 @@ https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses
 <span class='co'>## Obtain the necessary data</span>
 <span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"modeling_results"</span>)) {
       <span class='no'>modeling_results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"modeling_results"</span>)
-  }</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-04-03</span></div><div class='output co'>#&gt; Loading objects:
-#&gt;   modeling_results</div><div class='input'><span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"sce_layer"</span>)) <span class='no'>sce_layer</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"sce_layer"</span>)</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-04-03</span></div><div class='output co'>#&gt; Loading objects:
+  }</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-04-27</span></div><div class='output co'>#&gt; Loading objects:
+#&gt;   modeling_results</div><div class='input'><span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"sce_layer"</span>)) <span class='no'>sce_layer</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"sce_layer"</span>)</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-04-27</span></div><div class='output co'>#&gt; Loading objects:
 #&gt;   sce_layer</div><div class='input'>
 <span class='co'>## Top 2 genes from the enrichment model</span>
 <span class='no'>sig_genes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sig_genes_extract_all.html'>sig_genes_extract_all</a></span>(
