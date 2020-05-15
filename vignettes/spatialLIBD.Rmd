@@ -187,7 +187,7 @@ ehub <- ExperimentHub::ExperimentHub()
 ```
 
 ```{r 'download_data'}
-## Downloa small example sce data
+## Download the small example sce data
 if (!exists("sce")) sce <- fetch_data(type = "sce_example", eh = ehub)
 
 ## If you want to download the full real data (about 2.1 GB in RAM) use:
