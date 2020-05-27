@@ -32,6 +32,7 @@ rstudioapi::navigateToFile(usethis::proj_path("DESCRIPTION"))
 
 ## Create your README.Rmd file
 biocthis::use_bioc_readme_rmd()
+devtools::build_readme()
 
 ## Edit accordingly. You might want to install your package also using
 ## devtools::build() or the RStudio keyboard shortcut:
@@ -80,15 +81,24 @@ biocthis::use_bioc_github_action()
 ## * you don't want to use pkgdown, change to: run_pkgdown = 'false
 rstudioapi::navigateToFile(usethis::proj_path(".github", "workflows", "check-bioc.yml"))
 
-## ************************************************************************
-## WARNING: git commit before running this next function! Otherwise you can
-## Lose your work!!!
-## ************************************************************************
+## Setup up your global git config
+usethis::edit_git_config()
+## Use the information that matches your GitHub account
+## Example contents (4 space indentation):
+# [user]
+#     name = Your Full Name
+#     email = your.email@somewhere.com
+
+## ************************* WARNING START *********************************
+## WARNING: git commit before running this next function!
+## Otherwise you can lose your work!!!
+## ************************* WARNING END ***********************************
+##
 ## Deploy with pkgdown at least once locally such that the automatic updates
 ## from GitHub actions will work. This creates the gh-pages branch in your
 ## GitHub repository in such a way that pkgdown will recognize it and be
 ## able to use it later.
-pkgdown::deploy_to_branch()
+pkgdown::deploy_to_branch() ## Check the WARNING above before running this!
 
 ## Move to the next step: updating your package code before a "git commit"
 rstudioapi::navigateToFile(usethis::proj_path("dev", "04_update.R"))

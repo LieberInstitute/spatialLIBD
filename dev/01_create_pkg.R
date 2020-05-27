@@ -3,7 +3,7 @@
 ## ********************
 
 ## To get started, install R from https://cran.r-project.org/
-## and RStudio Desktiop https://rstudio.com/products/rstudio/download/#download
+## and RStudio Desktop https://rstudio.com/products/rstudio/download/#download
 ## You can install both of them for free.
 
 ## Next, open RStudio as the code that will run benefits from running inside
@@ -19,8 +19,9 @@ remotes::install_cran(
         "available",
         "BiocManager",
         "devtools",
-        "knicitations",
+        "knitcitations",
         "knitr",
+        "pkgdown",
         "rmarkdown",
         "rstudioapi",
         "sessioninfo",
@@ -29,7 +30,7 @@ remotes::install_cran(
     )
 )
 if (!requireNamespace("BiocStyle", quietly = TRUE)) {
-    BiocManager::install("BiocSytle")
+    BiocManager::install("BiocStyle")
 }
 remotes::install_github("lcolladotor/biocthis")
 ## Here's a very quick summary of why these packages are useful:
@@ -37,14 +38,14 @@ remotes::install_github("lcolladotor/biocthis")
 ## * BiocManager: to install Bioconductor packages
 ## * BiocStyle: for styling your vignette and linking to other packages
 ## * devtools: to develop R packages
-## * here: for file path management inside RStudio projects and R packages
 ## * knitcitations: for citing utilities in your package vignette
 ## * knitr: for making your vignette
+## * pkgdown: for creating beautiful documentation websites
 ## * rmarkdown: for making the README.md and processing your vignette
 ## * remotes: for installing R packages from several locations
 ## * rstudioapi: for navigating across files in RStudio
-## * sessioinfo: for detailed R session information useful to you and your users
-## * usethis: for creating templates that will jumpstart your R package work
+## * sessioninfo: for detailed R session information useful to you and your users
+## * usethis: for creating templates that will jump start your R package work
 
 
 ## Package names have some properties. You can also use:
