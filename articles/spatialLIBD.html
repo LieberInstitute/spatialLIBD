@@ -94,7 +94,7 @@
       Lieber Institute for Brain Development, Johns Hopkins Medical Campus<br><a class="author_email" href="mailto:#"></a><a href="mailto:andrew.jaffe@libd.org" class="email">andrew.jaffe@libd.org</a>
       </address>
                   
-            <h4 class="date">15 May 2020</h4>
+            <h4 class="date">27 May 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/vignettes/spatialLIBD.Rmd"><code>vignettes/spatialLIBD.Rmd</code></a></small>
       <div class="hidden name"><code>spatialLIBD.Rmd</code></div>
@@ -230,8 +230,8 @@ If you tweet about this website, the data or the R package please use the <code>
 <p>Using <em><a href="https://bioconductor.org/packages/3.12/spatialLIBD">spatialLIBD</a></em> (<a href="http://www.bioconductor.org/packages/spatialLIBD">Collado-Torres, Maynard, and Jaffe, 2020</a>) you can download all of these R objects. They are hosted by <a href="http://bioconductor.org/">Bioconductor</a>’s <em><a href="https://bioconductor.org/packages/3.12/ExperimentHub">ExperimentHub</a></em> <a id="cite-Morgan_2020"></a>(<a href="#bib-Morgan_2020">Morgan and Shepherd, 2020</a>) resource and you can download them using <code><a href="../reference/fetch_data.html">spatialLIBD::fetch_data()</a></code>. <code><a href="../reference/fetch_data.html">fetch_data()</a></code> will query <em><a href="https://bioconductor.org/packages/3.12/ExperimentHub">ExperimentHub</a></em> which in turn will download the data and cache it so you don’t have to download it again. If <em><a href="https://bioconductor.org/packages/3.12/ExperimentHub">ExperimentHub</a></em> is unavailable, then <code><a href="../reference/fetch_data.html">fetch_data()</a></code> has a backup option that does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Below we obtain all of these objects.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co">## Connect to ExperimentHub</span>
 <span class="no">ehub</span> <span class="kw">&lt;-</span> <span class="kw pkg">ExperimentHub</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/ExperimentHub/man/ExperimentHub-class.html">ExperimentHub</a></span>()
-<span class="co">#&gt; using temporary cache /tmp/RtmpyeLDPt/BiocFileCache</span>
-<span class="co">#&gt; snapshotDate(): 2020-05-14</span></pre></body></html></div>
+<span class="co">#&gt; using temporary cache /tmp/RtmpZV25AF/BiocFileCache</span>
+<span class="co">#&gt; snapshotDate(): 2020-05-19</span></pre></body></html></div>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co">## Download the small example sce data</span>
 <span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/exists.html">exists</a></span>(<span class="st">"sce"</span>)) <span class="no">sce</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"sce_example"</span>, <span class="kw">eh</span> <span class="kw">=</span> <span class="no">ehub</span>)
 <span class="co">#&gt; Loading objects:</span>
@@ -312,7 +312,7 @@ If you tweet about this website, the data or the R package please use the <code>
         )
 )
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;  12.595   2.246  32.398</span>
+<span class="co">#&gt;  13.333   2.173  32.452</span>
 
 <span class="co">## Explore the result</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">sig_genes</span>)
@@ -326,7 +326,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <div id="interactively-explore-the-spatiallibd-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#interactively-explore-the-spatiallibd-data" class="anchor"></a>Interactively explore the <code>spatialLIBD</code> data</h1>
-<p>Now that you have downloaded the data, you can interactively explore the data using a <em><a href="https://CRAN.R-project.org/package=shiny">shiny</a></em> <a id="cite-Chang_2020"></a>(<a href="https://CRAN.R-project.org/package=shiny">Chang, Cheng, Allaire, Xie, et al., 2020</a>) web application contained within <em><a href="https://bioconductor.org/packages/3.12/spatialLIBD">spatialLIBD</a></em> (<a href="http://www.bioconductor.org/packages/spatialLIBD">Collado-Torres, Maynard, and Jaffe, 2020</a>). To do so, use the <code><a href="../reference/run_app.html">run_app()</a></code> function as shown below:</p>
+<p>Now that you have downloaded the data, you can interactively explore the data using a <em><a href="https://CRAN.R-project.org/package=shiny">shiny</a></em> <a id="cite-Chang_2020"></a>(<a href="http://shiny.rstudio.com">Chang, Cheng, Allaire, Xie, et al., 2020</a>) web application contained within <em><a href="https://bioconductor.org/packages/3.12/spatialLIBD">spatialLIBD</a></em> (<a href="http://www.bioconductor.org/packages/spatialLIBD">Collado-Torres, Maynard, and Jaffe, 2020</a>). To do so, use the <code><a href="../reference/run_app.html">run_app()</a></code> function as shown below:</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/interactive.html">interactive</a></span>()) {
     <span class="fu"><a href="../reference/run_app.html">run_app</a></span>(
         <span class="kw">sce</span> <span class="kw">=</span> <span class="no">sce</span>,
@@ -683,19 +683,19 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">## gene_search &lt;- paste0(gene_name, '; ', gene_id)</span>
 <span class="fu">rowData</span>(<span class="no">sce</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"gene_id"</span>, <span class="st">"gene_name"</span>, <span class="st">"gene_search"</span>)]
 <span class="co">#&gt; DataFrame with 33538 rows and 3 columns</span>
-<span class="co">#&gt;                         gene_id   gene_name                  gene_search</span>
-<span class="co">#&gt;                     &lt;character&gt; &lt;character&gt;                  &lt;character&gt;</span>
-<span class="co">#&gt; ENSG00000243485 ENSG00000243485 MIR1302-2HG MIR1302-2HG; ENSG00000243485</span>
-<span class="co">#&gt; ENSG00000237613 ENSG00000237613     FAM138A     FAM138A; ENSG00000237613</span>
-<span class="co">#&gt; ENSG00000186092 ENSG00000186092       OR4F5       OR4F5; ENSG00000186092</span>
-<span class="co">#&gt; ENSG00000238009 ENSG00000238009  AL627309.1  AL627309.1; ENSG00000238009</span>
-<span class="co">#&gt; ENSG00000239945 ENSG00000239945  AL627309.3  AL627309.3; ENSG00000239945</span>
-<span class="co">#&gt; ...                         ...         ...                          ...</span>
-<span class="co">#&gt; ENSG00000277856 ENSG00000277856  AC233755.2  AC233755.2; ENSG00000277856</span>
-<span class="co">#&gt; ENSG00000275063 ENSG00000275063  AC233755.1  AC233755.1; ENSG00000275063</span>
-<span class="co">#&gt; ENSG00000271254 ENSG00000271254  AC240274.1  AC240274.1; ENSG00000271254</span>
-<span class="co">#&gt; ENSG00000277475 ENSG00000277475  AC213203.1  AC213203.1; ENSG00000277475</span>
-<span class="co">#&gt; ENSG00000268674 ENSG00000268674     FAM231C     FAM231C; ENSG00000268674</span>
+<span class="co">#&gt;                         gene_id   gene_name            gene_search</span>
+<span class="co">#&gt;                     &lt;character&gt; &lt;character&gt;            &lt;character&gt;</span>
+<span class="co">#&gt; ENSG00000243485 ENSG00000243485 MIR1302-2HG MIR1302-2HG; ENSG000..</span>
+<span class="co">#&gt; ENSG00000237613 ENSG00000237613     FAM138A FAM138A; ENSG0000023..</span>
+<span class="co">#&gt; ENSG00000186092 ENSG00000186092       OR4F5 OR4F5; ENSG00000186092</span>
+<span class="co">#&gt; ENSG00000238009 ENSG00000238009  AL627309.1 AL627309.1; ENSG0000..</span>
+<span class="co">#&gt; ENSG00000239945 ENSG00000239945  AL627309.3 AL627309.3; ENSG0000..</span>
+<span class="co">#&gt; ...                         ...         ...                    ...</span>
+<span class="co">#&gt; ENSG00000277856 ENSG00000277856  AC233755.2 AC233755.2; ENSG0000..</span>
+<span class="co">#&gt; ENSG00000275063 ENSG00000275063  AC233755.1 AC233755.1; ENSG0000..</span>
+<span class="co">#&gt; ENSG00000271254 ENSG00000271254  AC240274.1 AC240274.1; ENSG0000..</span>
+<span class="co">#&gt; ENSG00000277475 ENSG00000277475  AC213203.1 AC213203.1; ENSG0000..</span>
+<span class="co">#&gt; ENSG00000268674 ENSG00000268674     FAM231C FAM231C; ENSG0000026..</span>
 <span class="co">## This information also has to be present in sce_layer</span>
 <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span>(
     <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"gene_id"</span>, <span class="st">"gene_name"</span>, <span class="st">"gene_search"</span>) <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="fu">rowData</span>(<span class="no">sce_layer</span>))
@@ -854,13 +854,13 @@ If you tweet about this website, the data or the R package please use the <code>
 <li>
 <em><a href="https://bioconductor.org/packages/3.12/AnnotationHub">AnnotationHub</a></em> <a id="cite-Morgan_2020a"></a>(<a href="#bib-Morgan_2020a">Morgan and Shepherd, 2020</a>)</li>
 <li>
-<em><a href="https://CRAN.R-project.org/package=benchmarkme">benchmarkme</a></em> <a id="cite-Gillespie_2020"></a>(<a href="https://CRAN.R-project.org/package=benchmarkme">Gillespie, 2020</a>)</li>
+<em><a href="https://CRAN.R-project.org/package=benchmarkme">benchmarkme</a></em> <a id="cite-Gillespie_2020"></a>(<a href="https://github.com/csgillespie/benchmarkme">Gillespie, 2020</a>)</li>
 <li>
 <em><a href="https://bioconductor.org/packages/3.12/BiocStyle">BiocStyle</a></em> <a id="cite-Oles_2020"></a>(<a href="https://github.com/Bioconductor/BiocStyle">Oleś, Morgan, and Huber, 2020</a>)</li>
 <li>
-<em><a href="https://CRAN.R-project.org/package=cowplot">cowplot</a></em> <a id="cite-Wilke_2019"></a>(<a href="https://CRAN.R-project.org/package=cowplot">Wilke, 2019</a>)</li>
+<em><a href="https://CRAN.R-project.org/package=cowplot">cowplot</a></em> <a id="cite-Wilke_2019"></a>(<a href="https://wilkelab.org/cowplot">Wilke, 2019</a>)</li>
 <li>
-<em><a href="https://CRAN.R-project.org/package=DT">DT</a></em> <a id="cite-Xie_2020"></a>(<a href="https://CRAN.R-project.org/package=DT">Xie, Cheng, and Tan, 2020</a>)</li>
+<em><a href="https://CRAN.R-project.org/package=DT">DT</a></em> <a id="cite-Xie_2020"></a>(<a href="https://github.com/rstudio/DT">Xie, Cheng, and Tan, 2020</a>)</li>
 <li>
 <em><a href="https://bioconductor.org/packages/3.12/ExperimentHub">ExperimentHub</a></em> (<a href="#bib-Morgan_2020">Morgan and Shepherd, 2020</a>)</li>
 <li>
@@ -868,11 +868,11 @@ If you tweet about this website, the data or the R package please use the <code>
 <li>
 <em><a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a></em> <a id="cite-Wickham_2016"></a>(<a href="https://ggplot2.tidyverse.org">Wickham, 2016</a>)</li>
 <li>
-<em><a href="https://CRAN.R-project.org/package=golem">golem</a></em> <a id="cite-Guyader_2020"></a>(<a href="https://CRAN.R-project.org/package=golem">Guyader, Fay, Rochette, and Girard, 2020</a>)</li>
+<em><a href="https://CRAN.R-project.org/package=golem">golem</a></em> <a id="cite-Guyader_2020"></a>(<a href="https://github.com/ThinkR-open/golem">Guyader, Fay, Rochette, and Girard, 2020</a>)</li>
 <li>
 <em><a href="https://bioconductor.org/packages/3.12/IRanges">IRanges</a></em> <a id="cite-Lawrence_2013"></a>(<a href="http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003118">Lawrence, Huber, Pagès, Aboyoun, et al., 2013</a>)</li>
 <li>
-<em><a href="https://CRAN.R-project.org/package=knitcitations">knitcitations</a></em> <a id="cite-Boettiger_2019"></a>(<a href="https://CRAN.R-project.org/package=knitcitations">Boettiger, 2019</a>)</li>
+<em><a href="https://CRAN.R-project.org/package=knitcitations">knitcitations</a></em> <a id="cite-Boettiger_2019"></a>(<a href="https://github.com/cboettig/knitcitations">Boettiger, 2019</a>)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=knitr">knitr</a></em> <a id="cite-Xie_2014"></a>(<a href="http://www.crcpress.com/product/isbn/9781466561595">Xie, 2014</a>)</li>
 <li>
@@ -880,7 +880,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <li>
 <em><a href="https://CRAN.R-project.org/package=Polychrome">Polychrome</a></em> <a id="cite-Coombes_2019"></a>(<a href="https://doi.org/10.18637/jss.v090.c01">Coombes, Brock, Abrams, and Abruzzo, 2019</a>)</li>
 <li>
-<em><a href="https://CRAN.R-project.org/package=RColorBrewer">RColorBrewer</a></em> <a id="cite-Neuwirth_2014"></a>(<a href="https://CRAN.R-project.org/package=RColorBrewer">Neuwirth, 2014</a>)</li>
+<em><a href="https://CRAN.R-project.org/package=RColorBrewer">RColorBrewer</a></em> <a id="cite-Neuwirth_2014"></a>(<a href="#bib-Neuwirth_2014">Neuwirth, 2014</a>)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=rmarkdown">rmarkdown</a></em> <a id="cite-Allaire_2020"></a>(<a href="https://github.com/rstudio/rmarkdown">Allaire, Xie, McPherson, Luraschi, et al., 2020</a>)</li>
 <li>
@@ -888,17 +888,17 @@ If you tweet about this website, the data or the R package please use the <code>
 <li>
 <em><a href="https://bioconductor.org/packages/3.12/scater">scater</a></em> <a id="cite-McCarthy_2017"></a>(<a href="https://doi.org/10.1093/bioinformatics/btw777">McCarthy, Campbell, Lun, and Willis, 2017</a>)</li>
 <li>
-<em><a href="https://CRAN.R-project.org/package=sessioninfo">sessioninfo</a></em> <a id="cite-Csardi_2018"></a>(<a href="https://CRAN.R-project.org/package=sessioninfo">Csárdi, core, Wickham, Chang, et al., 2018</a>)</li>
+<em><a href="https://CRAN.R-project.org/package=sessioninfo">sessioninfo</a></em> <a id="cite-Csardi_2018"></a>(<a href="https://github.com/r-lib/sessioninfo#readme">Csárdi, core, Wickham, Chang, et al., 2018</a>)</li>
 <li>
 <em><a href="https://bioconductor.org/packages/3.12/SingleCellExperiment">SingleCellExperiment</a></em> (<a href="#bib-Lun_2020">Lun and Risso, 2020</a>)</li>
 <li>
-<em><a href="https://CRAN.R-project.org/package=shiny">shiny</a></em> (<a href="https://CRAN.R-project.org/package=shiny">Chang, Cheng, Allaire, Xie, et al., 2020</a>)</li>
+<em><a href="https://CRAN.R-project.org/package=shiny">shiny</a></em> (<a href="http://shiny.rstudio.com">Chang, Cheng, Allaire, Xie, et al., 2020</a>)</li>
 <li>
 <em><a href="https://bioconductor.org/packages/3.12/SummarizedExperiment">SummarizedExperiment</a></em> <a id="cite-Morgan_2020ab"></a>(<a href="#bib-Morgan_2020ab">Morgan, Obenchain, Hester, and Pagès, 2020</a>)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=testthat">testthat</a></em> <a id="cite-Wickham_2011"></a>(<a href="https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf">Wickham, 2011</a>)</li>
 <li>
-<em><a href="https://CRAN.R-project.org/package=viridisLite">viridisLite</a></em> <a id="cite-Garnier_2018"></a>(<a href="https://CRAN.R-project.org/package=viridisLite">Garnier, 2018</a>)</li>
+<em><a href="https://CRAN.R-project.org/package=viridisLite">viridisLite</a></em> <a id="cite-Garnier_2018"></a>(<a href="https://github.com/sjmgarnier/viridisLite">Garnier, 2018</a>)</li>
 </ul>
 <p>Code for creating the vignette</p>
 <div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="co">## Create the vignette</span>
@@ -909,33 +909,33 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"knitr"</span>)
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html">knit</a></span>(<span class="st">"spatialLIBD.Rmd"</span>, <span class="kw">tangle</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p>Date the vignette was generated.</p>
-<pre><code>#&gt; [1] "2020-05-15 03:51:35 UTC"</code></pre>
+<pre><code>#&gt; [1] "2020-05-27 06:03:19 UTC"</code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code>#&gt; Time difference of 1.067 mins</code></pre>
+<pre><code>#&gt; Time difference of 1.228 mins</code></pre>
 <p><code>R</code> session information.</p>
 <pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
-#&gt;  setting  value                                      
-#&gt;  version  R version 4.0.0 Patched (2020-05-07 r78385)
-#&gt;  os       Ubuntu 18.04.4 LTS                         
-#&gt;  system   x86_64, linux-gnu                          
-#&gt;  ui       X11                                        
-#&gt;  language (EN)                                       
-#&gt;  collate  en_US.UTF-8                                
-#&gt;  ctype    en_US.UTF-8                                
-#&gt;  tz       UTC                                        
-#&gt;  date     2020-05-15                                 
+#&gt;  setting  value                       
+#&gt;  version  R version 4.0.0 (2020-04-24)
+#&gt;  os       Ubuntu 18.04.4 LTS          
+#&gt;  system   x86_64, linux-gnu           
+#&gt;  ui       X11                         
+#&gt;  language (EN)                        
+#&gt;  collate  en_US.UTF-8                 
+#&gt;  ctype    en_US.UTF-8                 
+#&gt;  tz       UTC                         
+#&gt;  date     2020-05-27                  
 #&gt; 
 #&gt; ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt;  package                * version    date       lib source                        
 #&gt;  AnnotationDbi            1.51.0     2020-04-27 [1] Bioconductor                  
 #&gt;  AnnotationHub            2.21.0     2020-05-01 [1] Bioconductor                  
-#&gt;  assertthat               0.2.1      2019-03-21 [2] CRAN (R 4.0.0)                
-#&gt;  attempt                  0.3.1      2020-05-03 [1] CRAN (R 4.0.0)                
-#&gt;  backports                1.1.7      2020-05-13 [1] CRAN (R 4.0.0)                
-#&gt;  beeswarm                 0.2.3      2016-04-25 [1] CRAN (R 4.0.0)                
-#&gt;  benchmarkme              1.0.4      2020-05-09 [1] CRAN (R 4.0.0)                
-#&gt;  benchmarkmeData          1.0.4      2020-04-23 [1] CRAN (R 4.0.0)                
-#&gt;  bibtex                   0.4.2.2    2020-01-02 [1] CRAN (R 4.0.0)                
+#&gt;  assertthat               0.2.1      2019-03-21 [2] RSPM (R 4.0.0)                
+#&gt;  attempt                  0.3.1      2020-05-03 [1] RSPM (R 4.0.0)                
+#&gt;  backports                1.1.7      2020-05-13 [2] RSPM (R 4.0.0)                
+#&gt;  beeswarm                 0.2.3      2016-04-25 [1] RSPM (R 4.0.0)                
+#&gt;  benchmarkme              1.0.4      2020-05-09 [1] RSPM (R 4.0.0)                
+#&gt;  benchmarkmeData          1.0.4      2020-04-23 [1] RSPM (R 4.0.0)                
+#&gt;  bibtex                   0.4.2.2    2020-01-02 [1] RSPM (R 4.0.0)                
 #&gt;  Biobase                * 2.49.0     2020-04-27 [1] Bioconductor                  
 #&gt;  BiocFileCache            1.13.0     2020-04-27 [1] Bioconductor                  
 #&gt;  BiocGenerics           * 0.35.2     2020-05-06 [1] Bioconductor                  
@@ -945,127 +945,127 @@ If you tweet about this website, the data or the R package please use the <code>
 #&gt;  BiocSingular             1.5.0      2020-04-27 [1] Bioconductor                  
 #&gt;  BiocStyle              * 2.17.0     2020-04-27 [1] Bioconductor                  
 #&gt;  BiocVersion              3.12.0     2020-04-27 [2] Bioconductor                  
-#&gt;  bit                      1.1-15.2   2020-02-10 [1] CRAN (R 4.0.0)                
-#&gt;  bit64                    0.9-7      2017-05-08 [1] CRAN (R 4.0.0)                
-#&gt;  bitops                   1.0-6      2013-08-17 [1] CRAN (R 4.0.0)                
-#&gt;  blob                     1.2.1      2020-01-20 [1] CRAN (R 4.0.0)                
-#&gt;  bookdown                 0.18       2020-03-05 [1] CRAN (R 4.0.0)                
-#&gt;  cli                      2.0.2      2020-02-28 [2] CRAN (R 4.0.0)                
+#&gt;  bit                      1.1-15.2   2020-02-10 [1] RSPM (R 4.0.0)                
+#&gt;  bit64                    0.9-7      2017-05-08 [1] RSPM (R 4.0.0)                
+#&gt;  bitops                   1.0-6      2013-08-17 [1] RSPM (R 4.0.0)                
+#&gt;  blob                     1.2.1      2020-01-20 [1] RSPM (R 4.0.0)                
+#&gt;  bookdown                 0.19       2020-05-15 [1] RSPM (R 4.0.0)                
+#&gt;  cli                      2.0.2      2020-02-28 [2] RSPM (R 4.0.0)                
 #&gt;  codetools                0.2-16     2018-12-24 [3] CRAN (R 4.0.0)                
-#&gt;  colorspace               1.4-1      2019-03-18 [1] CRAN (R 4.0.0)                
-#&gt;  config                   0.3        2018-03-27 [1] CRAN (R 4.0.0)                
-#&gt;  cowplot                  1.0.0      2019-07-11 [1] CRAN (R 4.0.0)                
-#&gt;  crayon                   1.3.4      2017-09-16 [2] CRAN (R 4.0.0)                
-#&gt;  curl                     4.3        2019-12-02 [2] CRAN (R 4.0.0)                
-#&gt;  data.table               1.12.8     2019-12-09 [1] CRAN (R 4.0.0)                
-#&gt;  DBI                      1.1.0      2019-12-15 [1] CRAN (R 4.0.0)                
-#&gt;  dbplyr                   1.4.3      2020-04-19 [1] CRAN (R 4.0.0)                
+#&gt;  colorspace               1.4-1      2019-03-18 [1] RSPM (R 4.0.0)                
+#&gt;  config                   0.3        2018-03-27 [1] RSPM (R 4.0.0)                
+#&gt;  cowplot                  1.0.0      2019-07-11 [1] RSPM (R 4.0.0)                
+#&gt;  crayon                   1.3.4      2017-09-16 [2] RSPM (R 4.0.0)                
+#&gt;  curl                     4.3        2019-12-02 [2] RSPM (R 4.0.0)                
+#&gt;  data.table               1.12.8     2019-12-09 [1] RSPM (R 4.0.0)                
+#&gt;  DBI                      1.1.0      2019-12-15 [1] RSPM (R 4.0.0)                
+#&gt;  dbplyr                   1.4.3      2020-04-19 [1] RSPM (R 4.0.0)                
 #&gt;  DelayedArray           * 0.15.1     2020-05-01 [1] Bioconductor                  
 #&gt;  DelayedMatrixStats       1.11.0     2020-04-27 [1] Bioconductor                  
-#&gt;  desc                     1.2.0      2018-05-01 [2] CRAN (R 4.0.0)                
-#&gt;  digest                   0.6.25     2020-02-23 [2] CRAN (R 4.0.0)                
-#&gt;  dockerfiler              0.1.3      2019-03-19 [1] CRAN (R 4.0.0)                
-#&gt;  doParallel               1.0.15     2019-08-02 [1] CRAN (R 4.0.0)                
-#&gt;  dotCall64                1.0-0      2018-07-30 [1] CRAN (R 4.0.0)                
-#&gt;  dplyr                    0.8.5      2020-03-07 [1] CRAN (R 4.0.0)                
-#&gt;  DT                       0.13       2020-03-23 [2] CRAN (R 4.0.0)                
-#&gt;  ellipsis                 0.3.0      2019-09-20 [2] CRAN (R 4.0.0)                
-#&gt;  evaluate                 0.14       2019-05-28 [2] CRAN (R 4.0.0)                
+#&gt;  desc                     1.2.0      2018-05-01 [2] RSPM (R 4.0.0)                
+#&gt;  digest                   0.6.25     2020-02-23 [2] RSPM (R 4.0.0)                
+#&gt;  dockerfiler              0.1.3      2019-03-19 [1] RSPM (R 4.0.0)                
+#&gt;  doParallel               1.0.15     2019-08-02 [1] RSPM (R 4.0.0)                
+#&gt;  dotCall64                1.0-0      2018-07-30 [1] RSPM (R 4.0.0)                
+#&gt;  dplyr                    0.8.5      2020-03-07 [1] RSPM (R 4.0.0)                
+#&gt;  DT                       0.13       2020-03-23 [2] RSPM (R 4.0.0)                
+#&gt;  ellipsis                 0.3.1      2020-05-15 [2] RSPM (R 4.0.0)                
+#&gt;  evaluate                 0.14       2019-05-28 [2] RSPM (R 4.0.0)                
 #&gt;  ExperimentHub            1.15.0     2020-04-27 [1] Bioconductor                  
-#&gt;  fansi                    0.4.1      2020-01-08 [2] CRAN (R 4.0.0)                
-#&gt;  farver                   2.0.3      2020-01-16 [1] CRAN (R 4.0.0)                
-#&gt;  fastmap                  1.0.1      2019-10-08 [1] CRAN (R 4.0.0)                
-#&gt;  fields                   10.3       2020-02-04 [1] CRAN (R 4.0.0)                
-#&gt;  foreach                  1.5.0      2020-03-30 [1] CRAN (R 4.0.0)                
-#&gt;  fs                       1.4.1      2020-04-04 [2] CRAN (R 4.0.0)                
-#&gt;  generics                 0.0.2      2018-11-29 [1] CRAN (R 4.0.0)                
+#&gt;  fansi                    0.4.1      2020-01-08 [2] RSPM (R 4.0.0)                
+#&gt;  farver                   2.0.3      2020-01-16 [1] RSPM (R 4.0.0)                
+#&gt;  fastmap                  1.0.1      2019-10-08 [1] RSPM (R 4.0.0)                
+#&gt;  fields                   10.3       2020-02-04 [1] RSPM (R 4.0.0)                
+#&gt;  foreach                  1.5.0      2020-03-30 [1] RSPM (R 4.0.0)                
+#&gt;  fs                       1.4.1      2020-04-04 [2] RSPM (R 4.0.0)                
+#&gt;  generics                 0.0.2      2018-11-29 [1] RSPM (R 4.0.0)                
 #&gt;  GenomeInfoDb           * 1.25.0     2020-04-27 [1] Bioconductor                  
-#&gt;  GenomeInfoDbData         1.2.3      2020-05-10 [1] Bioconductor                  
+#&gt;  GenomeInfoDbData         1.2.3      2020-05-27 [1] Bioconductor                  
 #&gt;  GenomicRanges          * 1.41.1     2020-05-02 [1] Bioconductor                  
-#&gt;  ggbeeswarm               0.6.0      2017-08-07 [1] CRAN (R 4.0.0)                
-#&gt;  ggplot2                  3.3.0      2020-03-05 [1] CRAN (R 4.0.0)                
-#&gt;  glue                     1.4.1      2020-05-13 [1] CRAN (R 4.0.0)                
-#&gt;  golem                    0.2.1      2020-03-05 [1] CRAN (R 4.0.0)                
-#&gt;  gridExtra                2.3        2017-09-09 [1] CRAN (R 4.0.0)                
-#&gt;  gtable                   0.3.0      2019-03-25 [1] CRAN (R 4.0.0)                
-#&gt;  htmltools                0.4.0      2019-10-04 [2] CRAN (R 4.0.0)                
-#&gt;  htmlwidgets              1.5.1      2019-10-08 [2] CRAN (R 4.0.0)                
-#&gt;  httpuv                   1.5.2      2019-09-11 [1] CRAN (R 4.0.0)                
-#&gt;  httr                     1.4.1      2019-08-05 [2] CRAN (R 4.0.0)                
-#&gt;  interactiveDisplayBase   1.27.0     2020-04-27 [1] Bioconductor                  
-#&gt;  IRanges                * 2.23.4     2020-05-03 [1] Bioconductor                  
-#&gt;  irlba                    2.3.3      2019-02-05 [1] CRAN (R 4.0.0)                
-#&gt;  iterators                1.0.12     2019-07-26 [1] CRAN (R 4.0.0)                
-#&gt;  jsonlite                 1.6.1      2020-02-02 [2] CRAN (R 4.0.0)                
-#&gt;  knitcitations          * 1.0.10     2019-09-15 [1] CRAN (R 4.0.0)                
-#&gt;  knitr                    1.28       2020-02-06 [2] CRAN (R 4.0.0)                
-#&gt;  labeling                 0.3        2014-08-23 [1] CRAN (R 4.0.0)                
-#&gt;  later                    1.0.0      2019-10-04 [2] CRAN (R 4.0.0)                
+#&gt;  ggbeeswarm               0.6.0      2017-08-07 [1] RSPM (R 4.0.0)                
+#&gt;  ggplot2                  3.3.0      2020-03-05 [1] RSPM (R 4.0.0)                
+#&gt;  glue                     1.4.1      2020-05-13 [2] RSPM (R 4.0.0)                
+#&gt;  golem                    0.2.1      2020-03-05 [1] RSPM (R 4.0.0)                
+#&gt;  gridExtra                2.3        2017-09-09 [1] RSPM (R 4.0.0)                
+#&gt;  gtable                   0.3.0      2019-03-25 [1] RSPM (R 4.0.0)                
+#&gt;  htmltools                0.4.0      2019-10-04 [2] RSPM (R 4.0.0)                
+#&gt;  htmlwidgets              1.5.1      2019-10-08 [2] RSPM (R 4.0.0)                
+#&gt;  httpuv                   1.5.2      2019-09-11 [1] RSPM (R 4.0.0)                
+#&gt;  httr                     1.4.1      2019-08-05 [2] RSPM (R 4.0.0)                
+#&gt;  interactiveDisplayBase   1.27.2     2020-05-21 [1] Bioconductor                  
+#&gt;  IRanges                * 2.23.5     2020-05-21 [1] Bioconductor                  
+#&gt;  irlba                    2.3.3      2019-02-05 [1] RSPM (R 4.0.0)                
+#&gt;  iterators                1.0.12     2019-07-26 [1] RSPM (R 4.0.0)                
+#&gt;  jsonlite                 1.6.1      2020-02-02 [2] RSPM (R 4.0.0)                
+#&gt;  knitcitations          * 1.0.10     2019-09-15 [1] RSPM (R 4.0.0)                
+#&gt;  knitr                    1.28       2020-02-06 [2] RSPM (R 4.0.0)                
+#&gt;  labeling                 0.3        2014-08-23 [1] RSPM (R 4.0.0)                
+#&gt;  later                    1.0.0      2019-10-04 [2] RSPM (R 4.0.0)                
 #&gt;  lattice                  0.20-41    2020-04-02 [3] CRAN (R 4.0.0)                
-#&gt;  lazyeval                 0.2.2      2019-03-15 [2] CRAN (R 4.0.0)                
-#&gt;  lifecycle                0.2.0      2020-03-06 [2] CRAN (R 4.0.0)                
-#&gt;  lubridate                1.7.8      2020-04-06 [1] CRAN (R 4.0.0)                
-#&gt;  magrittr                 1.5        2014-11-22 [2] CRAN (R 4.0.0)                
-#&gt;  maps                     3.3.0      2018-04-03 [1] CRAN (R 4.0.0)                
-#&gt;  MASS                     7.3-51.6   2020-04-26 [3] CRAN (R 4.0.0)                
+#&gt;  lazyeval                 0.2.2      2019-03-15 [2] RSPM (R 4.0.0)                
+#&gt;  lifecycle                0.2.0      2020-03-06 [2] RSPM (R 4.0.0)                
+#&gt;  lubridate                1.7.8      2020-04-06 [1] RSPM (R 4.0.0)                
+#&gt;  magrittr                 1.5        2014-11-22 [2] RSPM (R 4.0.0)                
+#&gt;  maps                     3.3.0      2018-04-03 [1] RSPM (R 4.0.0)                
+#&gt;  MASS                     7.3-51.5   2019-12-20 [3] CRAN (R 4.0.0)                
 #&gt;  Matrix                   1.2-18     2019-11-27 [3] CRAN (R 4.0.0)                
-#&gt;  matrixStats            * 0.56.0     2020-03-13 [1] CRAN (R 4.0.0)                
-#&gt;  memoise                  1.1.0      2017-04-21 [2] CRAN (R 4.0.0)                
-#&gt;  mime                     0.9        2020-02-04 [2] CRAN (R 4.0.0)                
-#&gt;  munsell                  0.5.0      2018-06-12 [1] CRAN (R 4.0.0)                
-#&gt;  pillar                   1.4.4      2020-05-05 [2] CRAN (R 4.0.0)                
-#&gt;  pkgconfig                2.0.3      2019-09-22 [2] CRAN (R 4.0.0)                
-#&gt;  pkgdown                  1.5.1.9000 2020-05-10 [1] Github (r-lib/pkgdown@c181e5c)
-#&gt;  pkgload                  1.0.2      2018-10-29 [2] CRAN (R 4.0.0)                
-#&gt;  plotly                   4.9.2.1    2020-04-04 [1] CRAN (R 4.0.0)                
-#&gt;  plyr                     1.8.6      2020-03-03 [1] CRAN (R 4.0.0)                
-#&gt;  png                      0.1-7      2013-12-03 [1] CRAN (R 4.0.0)                
-#&gt;  Polychrome               1.2.5      2020-03-29 [1] CRAN (R 4.0.0)                
-#&gt;  promises                 1.1.0      2019-10-04 [2] CRAN (R 4.0.0)                
-#&gt;  purrr                    0.3.4      2020-04-17 [2] CRAN (R 4.0.0)                
-#&gt;  R6                       2.4.1      2019-11-12 [2] CRAN (R 4.0.0)                
-#&gt;  rappdirs                 0.3.1      2016-03-28 [1] CRAN (R 4.0.0)                
-#&gt;  RColorBrewer             1.1-2      2014-12-07 [1] CRAN (R 4.0.0)                
-#&gt;  Rcpp                     1.0.4.6    2020-04-09 [2] CRAN (R 4.0.0)                
-#&gt;  RCurl                    1.98-1.2   2020-04-18 [1] CRAN (R 4.0.0)                
-#&gt;  RefManageR               1.2.12     2019-04-03 [1] CRAN (R 4.0.0)                
-#&gt;  remotes                  2.1.1      2020-02-15 [1] CRAN (R 4.0.0)                
-#&gt;  rlang                    0.4.6      2020-05-02 [2] CRAN (R 4.0.0)                
-#&gt;  rmarkdown                2.1        2020-01-20 [1] CRAN (R 4.0.0)                
-#&gt;  roxygen2                 7.1.0      2020-03-11 [2] CRAN (R 4.0.0)                
-#&gt;  rprojroot                1.3-2      2018-01-03 [2] CRAN (R 4.0.0)                
-#&gt;  RSQLite                  2.2.0      2020-01-07 [1] CRAN (R 4.0.0)                
-#&gt;  rstudioapi               0.11       2020-02-07 [2] CRAN (R 4.0.0)                
-#&gt;  rsvd                     1.0.3      2020-02-17 [1] CRAN (R 4.0.0)                
-#&gt;  S4Vectors              * 0.27.5     2020-05-06 [1] Bioconductor                  
-#&gt;  scales                   1.1.1      2020-05-11 [1] CRAN (R 4.0.0)                
+#&gt;  matrixStats            * 0.56.0     2020-03-13 [1] RSPM (R 4.0.0)                
+#&gt;  memoise                  1.1.0      2017-04-21 [2] RSPM (R 4.0.0)                
+#&gt;  mime                     0.9        2020-02-04 [2] RSPM (R 4.0.0)                
+#&gt;  munsell                  0.5.0      2018-06-12 [1] RSPM (R 4.0.0)                
+#&gt;  pillar                   1.4.4      2020-05-05 [2] RSPM (R 4.0.0)                
+#&gt;  pkgconfig                2.0.3      2019-09-22 [2] RSPM (R 4.0.0)                
+#&gt;  pkgdown                  1.5.1.9000 2020-05-27 [1] Github (r-lib/pkgdown@ac78596)
+#&gt;  pkgload                  1.0.2      2018-10-29 [2] RSPM (R 4.0.0)                
+#&gt;  plotly                   4.9.2.1    2020-04-04 [1] RSPM (R 4.0.0)                
+#&gt;  plyr                     1.8.6      2020-03-03 [1] RSPM (R 4.0.0)                
+#&gt;  png                      0.1-7      2013-12-03 [1] RSPM (R 4.0.0)                
+#&gt;  Polychrome               1.2.5      2020-03-29 [1] RSPM (R 4.0.0)                
+#&gt;  promises                 1.1.0      2019-10-04 [2] RSPM (R 4.0.0)                
+#&gt;  purrr                    0.3.4      2020-04-17 [2] RSPM (R 4.0.0)                
+#&gt;  R6                       2.4.1      2019-11-12 [2] RSPM (R 4.0.0)                
+#&gt;  rappdirs                 0.3.1      2016-03-28 [1] RSPM (R 4.0.0)                
+#&gt;  RColorBrewer             1.1-2      2014-12-07 [1] RSPM (R 4.0.0)                
+#&gt;  Rcpp                     1.0.4.6    2020-04-09 [2] RSPM (R 4.0.0)                
+#&gt;  RCurl                    1.98-1.2   2020-04-18 [1] RSPM (R 4.0.0)                
+#&gt;  RefManageR               1.2.12     2019-04-03 [1] RSPM (R 4.0.0)                
+#&gt;  remotes                  2.1.1      2020-02-15 [1] RSPM (R 4.0.0)                
+#&gt;  rlang                    0.4.6      2020-05-02 [2] RSPM (R 4.0.0)                
+#&gt;  rmarkdown                2.1        2020-01-20 [1] RSPM (R 4.0.0)                
+#&gt;  roxygen2                 7.1.0      2020-03-11 [2] RSPM (R 4.0.0)                
+#&gt;  rprojroot                1.3-2      2018-01-03 [2] RSPM (R 4.0.0)                
+#&gt;  RSQLite                  2.2.0      2020-01-07 [1] RSPM (R 4.0.0)                
+#&gt;  rstudioapi               0.11       2020-02-07 [2] RSPM (R 4.0.0)                
+#&gt;  rsvd                     1.0.3      2020-02-17 [1] RSPM (R 4.0.0)                
+#&gt;  S4Vectors              * 0.27.8     2020-05-24 [1] Bioconductor                  
+#&gt;  scales                   1.1.1      2020-05-11 [1] RSPM (R 4.0.0)                
 #&gt;  scater                   1.17.0     2020-04-27 [1] Bioconductor                  
-#&gt;  scatterplot3d            0.3-41     2018-03-14 [1] CRAN (R 4.0.0)                
-#&gt;  sessioninfo            * 1.1.1      2018-11-05 [2] CRAN (R 4.0.0)                
-#&gt;  shiny                    1.4.0.2    2020-03-13 [1] CRAN (R 4.0.0)                
-#&gt;  shinyWidgets             0.5.2      2020-05-14 [1] CRAN (R 4.0.0)                
+#&gt;  scatterplot3d            0.3-41     2018-03-14 [1] RSPM (R 4.0.0)                
+#&gt;  sessioninfo            * 1.1.1      2018-11-05 [2] RSPM (R 4.0.0)                
+#&gt;  shiny                    1.4.0.2    2020-03-13 [1] RSPM (R 4.0.0)                
+#&gt;  shinyWidgets             0.5.2      2020-05-14 [1] RSPM (R 4.0.0)                
 #&gt;  SingleCellExperiment   * 1.11.1     2020-04-28 [1] Bioconductor                  
-#&gt;  spam                     2.5-1      2019-12-12 [1] CRAN (R 4.0.0)                
-#&gt;  spatialLIBD            * 1.1.2      2020-05-15 [1] Bioconductor                  
-#&gt;  stringi                  1.4.6      2020-02-17 [2] CRAN (R 4.0.0)                
-#&gt;  stringr                  1.4.0      2019-02-10 [2] CRAN (R 4.0.0)                
-#&gt;  SummarizedExperiment   * 1.19.2     2020-05-01 [1] Bioconductor                  
-#&gt;  testthat                 2.3.2      2020-03-02 [2] CRAN (R 4.0.0)                
-#&gt;  tibble                   3.0.1      2020-04-20 [2] CRAN (R 4.0.0)                
-#&gt;  tidyr                    1.0.3      2020-05-07 [1] CRAN (R 4.0.0)                
-#&gt;  tidyselect               1.1.0      2020-05-11 [1] CRAN (R 4.0.0)                
-#&gt;  usethis                  1.6.1      2020-04-29 [2] CRAN (R 4.0.0)                
-#&gt;  utf8                     1.1.4      2018-05-24 [2] CRAN (R 4.0.0)                
-#&gt;  vctrs                    0.3.0      2020-05-11 [1] CRAN (R 4.0.0)                
-#&gt;  vipor                    0.4.5      2017-03-22 [1] CRAN (R 4.0.0)                
-#&gt;  viridis                  0.5.1      2018-03-29 [1] CRAN (R 4.0.0)                
-#&gt;  viridisLite              0.3.0      2018-02-01 [1] CRAN (R 4.0.0)                
-#&gt;  withr                    2.2.0      2020-04-20 [2] CRAN (R 4.0.0)                
-#&gt;  xfun                     0.13       2020-04-13 [2] CRAN (R 4.0.0)                
-#&gt;  xml2                     1.3.2      2020-04-23 [2] CRAN (R 4.0.0)                
-#&gt;  xtable                   1.8-4      2019-04-21 [1] CRAN (R 4.0.0)                
-#&gt;  XVector                  0.29.0     2020-04-27 [1] Bioconductor                  
-#&gt;  yaml                     2.2.1      2020-02-01 [2] CRAN (R 4.0.0)                
+#&gt;  spam                     2.5-1      2019-12-12 [1] RSPM (R 4.0.0)                
+#&gt;  spatialLIBD            * 1.1.2      2020-05-27 [1] Bioconductor                  
+#&gt;  stringi                  1.4.6      2020-02-17 [2] RSPM (R 4.0.0)                
+#&gt;  stringr                  1.4.0      2019-02-10 [2] RSPM (R 4.0.0)                
+#&gt;  SummarizedExperiment   * 1.19.4     2020-05-17 [1] Bioconductor                  
+#&gt;  testthat                 2.3.2      2020-03-02 [2] RSPM (R 4.0.0)                
+#&gt;  tibble                   3.0.1      2020-04-20 [2] RSPM (R 4.0.0)                
+#&gt;  tidyr                    1.1.0      2020-05-20 [1] RSPM (R 4.0.0)                
+#&gt;  tidyselect               1.1.0      2020-05-11 [1] RSPM (R 4.0.0)                
+#&gt;  usethis                  1.6.1      2020-04-29 [2] RSPM (R 4.0.0)                
+#&gt;  utf8                     1.1.4      2018-05-24 [2] RSPM (R 4.0.0)                
+#&gt;  vctrs                    0.3.0      2020-05-11 [2] RSPM (R 4.0.0)                
+#&gt;  vipor                    0.4.5      2017-03-22 [1] RSPM (R 4.0.0)                
+#&gt;  viridis                  0.5.1      2018-03-29 [1] RSPM (R 4.0.0)                
+#&gt;  viridisLite              0.3.0      2018-02-01 [1] RSPM (R 4.0.0)                
+#&gt;  withr                    2.2.0      2020-04-20 [2] RSPM (R 4.0.0)                
+#&gt;  xfun                     0.14       2020-05-20 [2] RSPM (R 4.0.0)                
+#&gt;  xml2                     1.3.2      2020-04-23 [2] RSPM (R 4.0.0)                
+#&gt;  xtable                   1.8-4      2019-04-21 [1] RSPM (R 4.0.0)                
+#&gt;  XVector                  0.29.1     2020-05-21 [1] Bioconductor                  
+#&gt;  yaml                     2.2.1      2020-02-01 [2] RSPM (R 4.0.0)                
 #&gt;  zlibbioc                 1.35.0     2020-04-27 [1] Bioconductor                  
 #&gt; 
 #&gt; [1] /usr/local/lib/R/host-site-library
@@ -1076,34 +1076,34 @@ If you tweet about this website, the data or the R package please use the <code>
 <h1 class="hasAnchor">
 <a href="#bibliography" class="anchor"></a>Bibliography</h1>
 <p>This vignette was generated using <em><a href="https://bioconductor.org/packages/3.12/BiocStyle">BiocStyle</a></em> (<a href="https://github.com/Bioconductor/BiocStyle">Oleś, Morgan, and Huber, 2020</a>), <em><a href="https://CRAN.R-project.org/package=knitr">knitr</a></em> (<a href="http://www.crcpress.com/product/isbn/9781466561595">Xie, 2014</a>) and <em><a href="https://CRAN.R-project.org/package=rmarkdown">rmarkdown</a></em> (<a href="https://github.com/rstudio/rmarkdown">Allaire, Xie, McPherson, Luraschi, et al., 2020</a>) running behind the scenes.</p>
-<p>Citations were made with <em><a href="https://CRAN.R-project.org/package=knitcitations">knitcitations</a></em> (<a href="https://CRAN.R-project.org/package=knitcitations">Boettiger, 2019</a>).</p>
+<p>Citations were made with <em><a href="https://CRAN.R-project.org/package=knitcitations">knitcitations</a></em> (<a href="https://github.com/cboettig/knitcitations">Boettiger, 2019</a>).</p>
 <p>[1] J. Allaire, Y. Xie, J. McPherson, J. Luraschi, et al. <em>rmarkdown: Dynamic Documents for R</em>. R package version 2.1. 2020. &lt;URL: <a href="https://github.com/rstudio/rmarkdown" class="uri">https://github.com/rstudio/rmarkdown</a>&gt;.</p>
-<p>[2] C. Boettiger. <em>knitcitations: Citations for ‘Knitr’ Markdown Files</em>. R package version 1.0.10. 2019. &lt;URL: <a href="https://CRAN.R-project.org/package=knitcitations" class="uri">https://CRAN.R-project.org/package=knitcitations</a>&gt;.</p>
-<p>[3] W. Chang, J. Cheng, J. Allaire, Y. Xie, et al. <em>shiny: Web Application Framework for R</em>. R package version 1.4.0.2. 2020. &lt;URL: <a href="https://CRAN.R-project.org/package=shiny" class="uri">https://CRAN.R-project.org/package=shiny</a>&gt;.</p>
+<p>[2] C. Boettiger. <em>knitcitations: Citations for ‘Knitr’ Markdown Files</em>. R package version 1.0.10. 2019. &lt;URL: <a href="https://github.com/cboettig/knitcitations" class="uri">https://github.com/cboettig/knitcitations</a>&gt;.</p>
+<p>[3] W. Chang, J. Cheng, J. Allaire, Y. Xie, et al. <em>shiny: Web Application Framework for R</em>. R package version 1.4.0.2. 2020. &lt;URL: <a href="http://shiny.rstudio.com" class="uri">http://shiny.rstudio.com</a>&gt;.</p>
 <p>[4] L. Collado-Torres, K. R. Maynard, and A. E. Jaffe. <em>LIBD Visium spatial transcriptomics human pilot data inspector</em>. <a href="https://github.com/LieberInstitute/spatialLIBD" class="uri">https://github.com/LieberInstitute/spatialLIBD</a> - R package version 1.1.2. 2020. DOI: 10.18129/B9.bioc.spatialLIBD. &lt;URL: <a href="http://www.bioconductor.org/packages/spatialLIBD" class="uri">http://www.bioconductor.org/packages/spatialLIBD</a>&gt;.</p>
 <p>[5] K. R. Coombes, G. Brock, Z. B. Abrams, and L. V. Abruzzo. “Polychrome: Creating and Assessing Qualitative Palettes with Many Colors”. In: <em>Journal of Statistical Software, Code Snippets</em> 90.1 (2019), pp. 1-23. DOI: 10.18637/jss.v090.c01.</p>
-<p>[6] G. Csárdi, R. core, H. Wickham, W. Chang, et al. <em>sessioninfo: R Session Information</em>. R package version 1.1.1. 2018. &lt;URL: <a href="https://CRAN.R-project.org/package=sessioninfo" class="uri">https://CRAN.R-project.org/package=sessioninfo</a>&gt;.</p>
+<p>[6] G. Csárdi, R. core, H. Wickham, W. Chang, et al. <em>sessioninfo: R Session Information</em>. R package version 1.1.1. 2018. &lt;URL: <a href="https://github.com/r-lib/sessioninfo#readme" class="uri">https://github.com/r-lib/sessioninfo#readme</a>&gt;.</p>
 <p>[7] Douglas Nychka, Reinhard Furrer, John Paige, and Stephan Sain. <em>fields: Tools for spatial data</em>. R package version 10.3. Boulder, CO, USA: University Corporation for Atmospheric Research, 2017. DOI: 10.5065/D6W957CT. &lt;URL: <a href="https://github.com/NCAR/Fields" class="uri">https://github.com/NCAR/Fields</a>&gt;.</p>
-<p>[8] S. Garnier. <em>viridisLite: Default Color Maps from ‘matplotlib’ (Lite Version)</em>. R package version 0.3.0. 2018. &lt;URL: <a href="https://CRAN.R-project.org/package=viridisLite" class="uri">https://CRAN.R-project.org/package=viridisLite</a>&gt;.</p>
-<p>[9] C. Gillespie. <em>benchmarkme: Crowd Sourced System Benchmarks</em>. R package version 1.0.4. 2020. &lt;URL: <a href="https://CRAN.R-project.org/package=benchmarkme" class="uri">https://CRAN.R-project.org/package=benchmarkme</a>&gt;.</p>
-<p>[10] V. Guyader, C. Fay, S. Rochette, and C. Girard. <em>golem: A Framework for Robust Shiny Applications</em>. R package version 0.2.1. 2020. &lt;URL: <a href="https://CRAN.R-project.org/package=golem" class="uri">https://CRAN.R-project.org/package=golem</a>&gt;.</p>
+<p>[8] S. Garnier. <em>viridisLite: Default Color Maps from ‘matplotlib’ (Lite Version)</em>. R package version 0.3.0. 2018. &lt;URL: <a href="https://github.com/sjmgarnier/viridisLite" class="uri">https://github.com/sjmgarnier/viridisLite</a>&gt;.</p>
+<p>[9] C. Gillespie. <em>benchmarkme: Crowd Sourced System Benchmarks</em>. R package version 1.0.4. 2020. &lt;URL: <a href="https://github.com/csgillespie/benchmarkme" class="uri">https://github.com/csgillespie/benchmarkme</a>&gt;.</p>
+<p>[10] V. Guyader, C. Fay, S. Rochette, and C. Girard. <em>golem: A Framework for Robust Shiny Applications</em>. R package version 0.2.1. 2020. &lt;URL: <a href="https://github.com/ThinkR-open/golem" class="uri">https://github.com/ThinkR-open/golem</a>&gt;.</p>
 <p>[11] M. Lawrence, W. Huber, H. Pagès, P. Aboyoun, et al. “Software for Computing and Annotating Genomic Ranges”. In: <em>PLoS Computational Biology</em> 9 (8 2013). DOI: 10.1371/journal.pcbi.1003118. &lt;URL: <a href="http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003118" class="uri">http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003118</a>}.&gt;</p>
 <p>[12] A. Lun and D. Risso. <em>SingleCellExperiment: S4 Classes for Single Cell Data</em>. R package version 1.11.1. 2020.</p>
 <p>[13] K. R. Maynard, L. Collado-Torres, L. M. Weber, C. Uytingco, et al. “Transcriptome-scale spatial gene expression in the human dorsolateral prefrontal cortex”. In: <em>bioRxiv</em> (2020). DOI: 10.1101/2020.02.28.969931. &lt;URL: <a href="https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1" class="uri">https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1</a>&gt;.</p>
 <p>[14] D. J. McCarthy, K. R. Campbell, A. T. L. Lun, and Q. F. Willis. “Scater: pre-processing, quality control, normalisation and visualisation of single-cell RNA-seq data in R”. In: <em>Bioinformatics</em> 33 (8 2017), pp. 1179-1186. DOI: 10.1093/bioinformatics/btw777.</p>
-<p>[15] M. Morgan, V. Obenchain, J. Hester, and H. Pagès. <em>SummarizedExperiment: SummarizedExperiment container</em>. R package version 1.19.2. 2020.</p>
+<p>[15] M. Morgan, V. Obenchain, J. Hester, and H. Pagès. <em>SummarizedExperiment: SummarizedExperiment container</em>. R package version 1.19.4. 2020.</p>
 <p>[16] M. Morgan and L. Shepherd. <em>AnnotationHub: Client to access AnnotationHub resources</em>. R package version 2.21.0. 2020.</p>
 <p>[17] M. Morgan and L. Shepherd. <em>ExperimentHub: Client to access ExperimentHub resources</em>. R package version 1.15.0. 2020.</p>
-<p>[18] E. Neuwirth. <em>RColorBrewer: ColorBrewer Palettes</em>. R package version 1.1-2. 2014. &lt;URL: <a href="https://CRAN.R-project.org/package=RColorBrewer" class="uri">https://CRAN.R-project.org/package=RColorBrewer</a>&gt;.</p>
+<p>[18] E. Neuwirth. <em>RColorBrewer: ColorBrewer Palettes</em>. R package version 1.1-2. 2014.</p>
 <p>[19] A. Oleś, M. Morgan, and W. Huber. <em>BiocStyle: Standard styles for vignettes and other Bioconductor documents</em>. R package version 2.17.0. 2020. &lt;URL: <a href="https://github.com/Bioconductor/BiocStyle" class="uri">https://github.com/Bioconductor/BiocStyle</a>&gt;.</p>
-<p>[20] H. Pagès, M. Lawrence, and P. Aboyoun. <em>S4Vectors: Foundation of vector-like and list-like containers in Bioconductor</em>. R package version 0.27.5. 2020.</p>
+<p>[20] H. Pagès, M. Lawrence, and P. Aboyoun. <em>S4Vectors: Foundation of vector-like and list-like containers in Bioconductor</em>. R package version 0.27.8. 2020.</p>
 <p>[21] R Core Team. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. Vienna, Austria, 2020. &lt;URL: <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>&gt;.</p>
 <p>[22] C. Sievert. <em>Interactive Web-Based Data Visualization with R, plotly, and shiny</em>. Chapman and Hall/CRC, 2020. ISBN: 9781138331457. &lt;URL: <a href="https://plotly-r.com" class="uri">https://plotly-r.com</a>&gt;.</p>
 <p>[23] H. Wickham. <em>ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York, 2016. ISBN: 978-3-319-24277-4. &lt;URL: <a href="https://ggplot2.tidyverse.org" class="uri">https://ggplot2.tidyverse.org</a>&gt;.</p>
 <p>[24] H. Wickham. “testthat: Get Started with Testing”. In: <em>The R Journal</em> 3 (2011), pp. 5-10. &lt;URL: <a href="https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf" class="uri">https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf</a>&gt;.</p>
-<p>[25] C. Wilke. <em>cowplot: Streamlined Plot Theme and Plot Annotations for ‘ggplot2’</em>. R package version 1.0.0. 2019. &lt;URL: <a href="https://CRAN.R-project.org/package=cowplot" class="uri">https://CRAN.R-project.org/package=cowplot</a>&gt;.</p>
+<p>[25] C. Wilke. <em>cowplot: Streamlined Plot Theme and Plot Annotations for ‘ggplot2’</em>. R package version 1.0.0. 2019. &lt;URL: <a href="https://wilkelab.org/cowplot" class="uri">https://wilkelab.org/cowplot</a>&gt;.</p>
 <p>[26] Y. Xie. “knitr: A Comprehensive Tool for Reproducible Research in R”. In: <em>Implementing Reproducible Computational Research</em>. Ed. by V. Stodden, F. Leisch and R. D. Peng. ISBN 978-1466561595. Chapman and Hall/CRC, 2014. &lt;URL: <a href="http://www.crcpress.com/product/isbn/9781466561595" class="uri">http://www.crcpress.com/product/isbn/9781466561595</a>&gt;.</p>
-<p>[27] Y. Xie, J. Cheng, and X. Tan. <em>DT: A Wrapper of the JavaScript Library ‘DataTables’</em>. R package version 0.13. 2020. &lt;URL: <a href="https://CRAN.R-project.org/package=DT" class="uri">https://CRAN.R-project.org/package=DT</a>&gt;.</p>
+<p>[27] Y. Xie, J. Cheng, and X. Tan. <em>DT: A Wrapper of the JavaScript Library ‘DataTables’</em>. R package version 0.13. 2020. &lt;URL: <a href="https://github.com/rstudio/DT" class="uri">https://github.com/rstudio/DT</a>&gt;.</p>
 </div>
 <div class="footnotes">
 <hr>
