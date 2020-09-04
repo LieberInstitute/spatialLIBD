@@ -82,7 +82,7 @@ any other data that you have shaped according to our object structure." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -136,23 +136,23 @@ any other data that you have shaped according to our object structure.</p>
     </div>
 
     <pre class="usage"><span class='fu'>run_app</span>(
-  <span class='kw'>sce</span> <span class='kw'>=</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"sce"</span>),
-  <span class='kw'>sce_layer</span> <span class='kw'>=</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"sce_layer"</span>),
-  <span class='kw'>modeling_results</span> <span class='kw'>=</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"modeling_results"</span>),
-  <span class='kw'>sig_genes</span> <span class='kw'>=</span> <span class='fu'><a href='sig_genes_extract_all.html'>sig_genes_extract_all</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>sce_layer</span>), <span class='kw'>modeling_results</span> <span class='kw'>=</span>
-    <span class='no'>modeling_results</span>, <span class='kw'>sce_layer</span> <span class='kw'>=</span> <span class='no'>sce_layer</span>),
-  <span class='kw'>image_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"app"</span>, <span class='st'>"www"</span>, <span class='st'>"data"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"spatialLIBD"</span>),
-  <span class='kw'>sce_discrete_vars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"GraphBased"</span>, <span class='st'>"Layer"</span>, <span class='st'>"Maynard"</span>, <span class='st'>"Martinowich"</span>,
-    <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"SNN_k50_k"</span>, <span class='fl'>4</span>:<span class='fl'>28</span>), <span class='st'>"SpatialDE_PCA"</span>, <span class='st'>"SpatialDE_pool_PCA"</span>, <span class='st'>"HVG_PCA"</span>,
+  sce = <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(type = <span class='st'>"sce"</span>),
+  sce_layer = <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(type = <span class='st'>"sce_layer"</span>),
+  modeling_results = <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(type = <span class='st'>"modeling_results"</span>),
+  sig_genes = <span class='fu'><a href='sig_genes_extract_all.html'>sig_genes_extract_all</a></span>(n = <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='kw'>sce_layer</span>), modeling_results =
+    <span class='kw'>modeling_results</span>, sce_layer = <span class='kw'>sce_layer</span>),
+  image_path = <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"app"</span>, <span class='st'>"www"</span>, <span class='st'>"data"</span>, package = <span class='st'>"spatialLIBD"</span>),
+  sce_discrete_vars = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"GraphBased"</span>, <span class='st'>"Layer"</span>, <span class='st'>"Maynard"</span>, <span class='st'>"Martinowich"</span>,
+    <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"SNN_k50_k"</span>, <span class='fl'>4</span><span class='op'>:</span><span class='fl'>28</span>), <span class='st'>"SpatialDE_PCA"</span>, <span class='st'>"SpatialDE_pool_PCA"</span>, <span class='st'>"HVG_PCA"</span>,
     <span class='st'>"pseudobulk_PCA"</span>, <span class='st'>"markers_PCA"</span>, <span class='st'>"SpatialDE_UMAP"</span>, <span class='st'>"SpatialDE_pool_UMAP"</span>, <span class='st'>"HVG_UMAP"</span>,
     <span class='st'>"pseudobulk_UMAP"</span>, <span class='st'>"markers_UMAP"</span>, <span class='st'>"SpatialDE_PCA_spatial"</span>,
     <span class='st'>"SpatialDE_pool_PCA_spatial"</span>, <span class='st'>"HVG_PCA_spatial"</span>, <span class='st'>"pseudobulk_PCA_spatial"</span>,
     <span class='st'>"markers_PCA_spatial"</span>, <span class='st'>"SpatialDE_UMAP_spatial"</span>, <span class='st'>"SpatialDE_pool_UMAP_spatial"</span>,
     <span class='st'>"HVG_UMAP_spatial"</span>, <span class='st'>"pseudobulk_UMAP_spatial"</span>, <span class='st'>"markers_UMAP_spatial"</span>),
-  <span class='kw'>sce_continuous_vars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"cell_count"</span>, <span class='st'>"sum_umi"</span>, <span class='st'>"sum_gene"</span>, <span class='st'>"expr_chrM"</span>,
+  sce_continuous_vars = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"cell_count"</span>, <span class='st'>"sum_umi"</span>, <span class='st'>"sum_gene"</span>, <span class='st'>"expr_chrM"</span>,
     <span class='st'>"expr_chrM_ratio"</span>),
-  <span class='kw'>spatial_libd_var</span> <span class='kw'>=</span> <span class='st'>"layer_guess_reordered_short"</span>,
-  <span class='no'>...</span>
+  spatial_libd_var = <span class='st'>"layer_guess_reordered_short"</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -223,19 +223,21 @@ the application.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <a href='https://rdrr.io/pkg/shiny/man/shiny.appobj.html'>shiny.appobj</a> that contains the input data.</p>
+    <p>A <a href='https://shiny.rstudio.com/reference/shiny/latest/shiny.appobj.html'>shiny.appobj</a> that contains the input data.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>## The default arguments will download the data from the web</span>
 <span class='co'>## using fetch_data(). If this is the first time you have run this,</span>
 <span class='co'>## the files will need to be cached by ExperimentHub. Otherwise it</span>
 <span class='co'>## will re-use the files you have previously downloaded.</span>
-<span class='kw'>if</span> (<span class='fu'><a href='enough_ram.html'>enough_ram</a></span>(<span class='fl'>4e9</span>)) {
+<span class='co'>if</span> (<span class='fu'><a href='enough_ram.html'>enough_ram</a></span>(<span class='fl'>4e9</span>)) {
     <span class='fu'>run_app</span>()
 }
-}</div></pre>
+}
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

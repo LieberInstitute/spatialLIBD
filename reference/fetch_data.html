@@ -86,7 +86,7 @@ way to interact with the data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -144,9 +144,9 @@ way to interact with the data.</p>
     </div>
 
     <pre class="usage"><span class='fu'>fetch_data</span>(
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sce"</span>, <span class='st'>"sce_layer"</span>, <span class='st'>"modeling_results"</span>, <span class='st'>"sce_example"</span>),
-  <span class='kw'>destdir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(),
-  <span class='kw'>eh</span> <span class='kw'>=</span> <span class='kw pkg'>ExperimentHub</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ExperimentHub/man/ExperimentHub-class.html'>ExperimentHub</a></span>()
+  type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sce"</span>, <span class='st'>"sce_layer"</span>, <span class='st'>"modeling_results"</span>, <span class='st'>"sce_example"</span>),
+  destdir = <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(),
+  eh = <span class='kw'>ExperimentHub</span>::<span class='fu'><a href='https://rdrr.io/pkg/ExperimentHub/man/ExperimentHub-class.html'>ExperimentHub</a></span>()
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -196,10 +196,12 @@ https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-dat
     <pre class="examples"><div class='input'>
 <span class='co'>## Download the SingleCellExperiment object</span>
 <span class='co'>## at the layer-level</span>
-<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"sce_layer"</span>)) <span class='no'>sce_layer</span> <span class='kw'>&lt;-</span> <span class='fu'>fetch_data</span>(<span class='st'>"sce_layer"</span>)</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-05-19</span></div><div class='output co'>#&gt; Loading objects:
+<span class='co'>if</span> (<span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"sce_layer"</span>)) <span class='kw'>sce_layer</span> <span class='op'>&lt;-</span> <span class='fu'>fetch_data</span>(<span class='st'>"sce_layer"</span>)
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-04</span></div><div class='output co'>#&gt; Loading objects:
 #&gt;   sce_layer</div><div class='input'>
 <span class='co'>## Explore the data</span>
-<span class='no'>sce_layer</span></div><div class='output co'>#&gt; class: SingleCellExperiment 
+<span class='kw'>sce_layer</span>
+</div><div class='output co'>#&gt; class: SingleCellExperiment 
 #&gt; dim: 22331 76 
 #&gt; metadata(0):
 #&gt; assays(2): counts logcounts

@@ -83,7 +83,7 @@ used by gene_set_enrichment_plot() and layer_stat_cor_plot()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -138,17 +138,17 @@ used by <code><a href='gene_set_enrichment_plot.html'>gene_set_enrichment_plot()
     </div>
 
     <pre class="usage"><span class='fu'>layer_matrix_plot</span>(
-  <span class='no'>matrix_values</span>,
-  <span class='kw'>matrix_labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xlabs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>layerHeights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>mypal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>, (<span class='kw pkg'>grDevices</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span>(<span class='kw pkg'>RColorBrewer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html'>brewer.pal</a></span>(<span class='fl'>9</span>,
+  <span class='kw'>matrix_values</span>,
+  matrix_labels = <span class='kw'>NULL</span>,
+  xlabs = <span class='kw'>NULL</span>,
+  layerHeights = <span class='kw'>NULL</span>,
+  mypal = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>, (<span class='kw'>grDevices</span>::<span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span>(<span class='kw'>RColorBrewer</span>::<span class='fu'><a href='https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html'>brewer.pal</a></span>(<span class='fl'>9</span>,
     <span class='st'>"YlOrRd"</span>)))(<span class='fl'>50</span>)),
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>axis.args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>srt</span> <span class='kw'>=</span> <span class='fl'>45</span>,
-  <span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>8</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>2</span>) + <span class='fl'>0.1</span>,
-  <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.2</span>
+  breaks = <span class='kw'>NULL</span>,
+  axis.args = <span class='kw'>NULL</span>,
+  srt = <span class='fl'>45</span>,
+  mar = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>8</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>2</span>) <span class='op'>+</span> <span class='fl'>0.1</span>,
+  cex = <span class='fl'>1.2</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -209,28 +209,33 @@ each brain layer.</p></td>
 
     <p>A base R plot visualizing the input <code>matrix_values</code> with optional
 text labels for <code>matrix_labels</code>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andrew E Jaffe, Leonardo Collado-Torres</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Create some random data</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>20200224</span>)
-<span class='no'>mat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>7</span> * <span class='fl'>8</span>, <span class='kw'>min</span> <span class='kw'>=</span> -<span class='fl'>1</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>7</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>mat</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"WM"</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"L"</span>, <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>6</span>))))
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>mat</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"Var"</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>8</span>))
+<span class='kw'>mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>7</span> <span class='op'>*</span> <span class='fl'>8</span>, min = <span class='op'>-</span><span class='fl'>1</span>), nrow = <span class='fl'>7</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='kw'>mat</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"WM"</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"L"</span>, <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>6</span>))))
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='kw'>mat</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"Var"</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>8</span>))
 
 <span class='co'>## Create some text labels</span>
-<span class='no'>mat_text</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='st'>""</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>mat</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='no'>mat_text</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='no'>mat</span>), <span class='fl'>2</span>))
+<span class='kw'>mat_text</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='st'>""</span>, nrow = <span class='fl'>7</span>, ncol = <span class='fl'>8</span>, dimnames = <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='kw'>mat</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='kw'>mat_text</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='kw'>mat</span>), <span class='fl'>2</span>))
 
 <span class='co'>## Make the plot</span>
-<span class='fu'>layer_matrix_plot</span>(<span class='no'>mat</span>, <span class='no'>mat_text</span>)</div><div class='img'><img src='layer_matrix_plot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>layer_matrix_plot</span>(<span class='kw'>mat</span>, <span class='kw'>mat_text</span>)
+</div><div class='img'><img src='layer_matrix_plot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Try to re-create the anatomical proportions of the human brain layers</span>
 <span class='fu'>layer_matrix_plot</span>(
-    <span class='no'>mat</span>,
-    <span class='no'>mat_text</span>,
-    <span class='kw'>layerHeights</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>40</span>, <span class='fl'>55</span>, <span class='fl'>75</span>, <span class='fl'>85</span>, <span class='fl'>110</span>, <span class='fl'>120</span>, <span class='fl'>135</span>),
-    <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>2</span>
-)</div><div class='img'><img src='layer_matrix_plot-2.png' alt='' width='700' height='433' /></div></pre>
+    <span class='kw'>mat</span>,
+    <span class='kw'>mat_text</span>,
+    layerHeights = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>40</span>, <span class='fl'>55</span>, <span class='fl'>75</span>, <span class='fl'>85</span>, <span class='fl'>110</span>, <span class='fl'>120</span>, <span class='fl'>135</span>),
+    cex = <span class='fl'>2</span>
+)
+</div><div class='img'><img src='layer_matrix_plot-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

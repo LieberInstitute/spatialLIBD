@@ -81,7 +81,7 @@ heatmap visualization of the results." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -134,15 +134,15 @@ heatmap visualization of the results.</p>
     </div>
 
     <pre class="usage"><span class='fu'>gene_set_enrichment_plot</span>(
-  <span class='no'>enrichment</span>,
-  <span class='kw'>xlabs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>enrichment</span>$<span class='no'>ID</span>),
-  <span class='kw'>PThresh</span> <span class='kw'>=</span> <span class='fl'>12</span>,
-  <span class='kw'>ORcut</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>enrichOnly</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>layerHeights</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>enrichment</span>$<span class='no'>test</span>)))) * <span class='fl'>15</span>,
-  <span class='kw'>mypal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>, (<span class='kw pkg'>grDevices</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span>(<span class='kw pkg'>RColorBrewer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html'>brewer.pal</a></span>(<span class='fl'>9</span>,
+  <span class='kw'>enrichment</span>,
+  xlabs = <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='kw'>enrichment</span><span class='op'>$</span><span class='kw'>ID</span>),
+  PThresh = <span class='fl'>12</span>,
+  ORcut = <span class='fl'>3</span>,
+  enrichOnly = <span class='fl'>FALSE</span>,
+  layerHeights = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='kw'>enrichment</span><span class='op'>$</span><span class='kw'>test</span>)))) <span class='op'>*</span> <span class='fl'>15</span>,
+  mypal = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>, (<span class='kw'>grDevices</span>::<span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span>(<span class='kw'>RColorBrewer</span>::<span class='fu'><a href='https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html'>brewer.pal</a></span>(<span class='fl'>9</span>,
     <span class='st'>"YlOrRd"</span>)))(<span class='fl'>50</span>)),
-  <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.2</span>
+  cex = <span class='fl'>1.2</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -205,57 +205,63 @@ to see a full script from where this family of functions is derived from.</p>
     <div class='dont-index'><p>layer_matrix_plot</p>
 <p>Other Gene set enrichment functions: 
 <code><a href='gene_set_enrichment.html'>gene_set_enrichment</a>()</code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andrew E Jaffe, Leonardo Collado-Torres</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Read in the SFARI gene sets included in the package</span>
-<span class='no'>asd_sfari</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>utils</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(
+<span class='kw'>asd_sfari</span> <span class='op'>&lt;-</span> <span class='kw'>utils</span>::<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(
     <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(
         <span class='st'>"extdata"</span>,
         <span class='st'>"SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv"</span>,
-        <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"spatialLIBD"</span>
+        package = <span class='st'>"spatialLIBD"</span>
     ),
-    <span class='kw'>as.is</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    as.is = <span class='fl'>TRUE</span>
 )
 
 <span class='co'>## Format them appropriately</span>
-<span class='no'>asd_sfari_geneList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-    <span class='kw'>Gene_SFARI_all</span> <span class='kw'>=</span> <span class='no'>asd_sfari</span>$<span class='no'>ensembl.id</span>,
-    <span class='kw'>Gene_SFARI_high</span> <span class='kw'>=</span> <span class='no'>asd_sfari</span>$<span class='no'>ensembl.id</span>[<span class='no'>asd_sfari</span>$<span class='no'>gene.score</span> <span class='kw'>&lt;</span> <span class='fl'>3</span>],
-    <span class='kw'>Gene_SFARI_syndromic</span> <span class='kw'>=</span> <span class='no'>asd_sfari</span>$<span class='no'>ensembl.id</span>[<span class='no'>asd_sfari</span>$<span class='no'>syndromic</span> <span class='kw'>==</span> <span class='fl'>1</span>]
+<span class='kw'>asd_sfari_geneList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+    Gene_SFARI_all = <span class='kw'>asd_sfari</span><span class='op'>$</span><span class='kw'>ensembl.id</span>,
+    Gene_SFARI_high = <span class='kw'>asd_sfari</span><span class='op'>$</span><span class='kw'>ensembl.id</span>[<span class='kw'>asd_sfari</span><span class='op'>$</span><span class='kw'>gene.score</span> <span class='op'>&lt;</span> <span class='fl'>3</span>],
+    Gene_SFARI_syndromic = <span class='kw'>asd_sfari</span><span class='op'>$</span><span class='kw'>ensembl.id</span>[<span class='kw'>asd_sfari</span><span class='op'>$</span><span class='kw'>syndromic</span> <span class='op'>==</span> <span class='fl'>1</span>]
 )
 
 <span class='co'>## Obtain the necessary data</span>
-<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"modeling_results"</span>)) {
-      <span class='no'>modeling_results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"modeling_results"</span>)
-  }</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-05-19</span></div><div class='output co'>#&gt; Loading objects:
+<span class='co'>if</span> (<span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"modeling_results"</span>)) {
+      <span class='kw'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(type = <span class='st'>"modeling_results"</span>)
+  }
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-04</span></div><div class='output co'>#&gt; Loading objects:
 #&gt;   modeling_results</div><div class='input'>
 <span class='co'>## Compute the gene set enrichment results</span>
-<span class='no'>asd_sfari_enrichment</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gene_set_enrichment.html'>gene_set_enrichment</a></span>(
-    <span class='kw'>gene_list</span> <span class='kw'>=</span> <span class='no'>asd_sfari_geneList</span>,
-    <span class='kw'>modeling_results</span> <span class='kw'>=</span> <span class='no'>modeling_results</span>,
-    <span class='kw'>model_type</span> <span class='kw'>=</span> <span class='st'>"enrichment"</span>
+<span class='kw'>asd_sfari_enrichment</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gene_set_enrichment.html'>gene_set_enrichment</a></span>(
+    gene_list = <span class='kw'>asd_sfari_geneList</span>,
+    modeling_results = <span class='kw'>modeling_results</span>,
+    model_type = <span class='st'>"enrichment"</span>
 )
 
 <span class='co'>## Visualize the gene set enrichment results</span>
 <span class='co'>## with a custom color palette</span>
 <span class='fu'>gene_set_enrichment_plot</span>(
-    <span class='no'>asd_sfari_enrichment</span>,
-    <span class='kw'>xlabs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span>(<span class='st'>".*_"</span>, <span class='st'>""</span>, <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>asd_sfari_enrichment</span>$<span class='no'>ID</span>)),
-    <span class='kw'>mypal</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+    <span class='kw'>asd_sfari_enrichment</span>,
+    xlabs = <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span>(<span class='st'>".*_"</span>, <span class='st'>""</span>, <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='kw'>asd_sfari_enrichment</span><span class='op'>$</span><span class='kw'>ID</span>)),
+    mypal = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
         <span class='st'>"white"</span>,
-        <span class='kw pkg'>grDevices</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span>(
-            <span class='kw pkg'>RColorBrewer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html'>brewer.pal</a></span>(<span class='fl'>9</span>, <span class='st'>"BuGn"</span>)
+        <span class='kw'>grDevices</span>::<span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span>(
+            <span class='kw'>RColorBrewer</span>::<span class='fu'><a href='https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html'>brewer.pal</a></span>(<span class='fl'>9</span>, <span class='st'>"BuGn"</span>)
         )(<span class='fl'>50</span>)
     )
-)</div><div class='img'><img src='gene_set_enrichment_plot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+)
+</div><div class='img'><img src='gene_set_enrichment_plot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Specify the layer heights so it resembles more the length of each</span>
 <span class='co'>## layer in the brain</span>
 <span class='fu'>gene_set_enrichment_plot</span>(
-    <span class='no'>asd_sfari_enrichment</span>,
-    <span class='kw'>xlabs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span>(<span class='st'>".*_"</span>, <span class='st'>""</span>, <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>asd_sfari_enrichment</span>$<span class='no'>ID</span>)),
-    <span class='kw'>layerHeights</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>40</span>, <span class='fl'>55</span>, <span class='fl'>75</span>, <span class='fl'>85</span>, <span class='fl'>110</span>, <span class='fl'>120</span>, <span class='fl'>135</span>),
-)</div><div class='img'><img src='gene_set_enrichment_plot-2.png' alt='' width='700' height='433' /></div></pre>
+    <span class='kw'>asd_sfari_enrichment</span>,
+    xlabs = <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span>(<span class='st'>".*_"</span>, <span class='st'>""</span>, <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='kw'>asd_sfari_enrichment</span><span class='op'>$</span><span class='kw'>ID</span>)),
+    layerHeights = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>40</span>, <span class='fl'>55</span>, <span class='fl'>75</span>, <span class='fl'>85</span>, <span class='fl'>110</span>, <span class='fl'>120</span>, <span class='fl'>135</span>),
+)
+</div><div class='img'><img src='gene_set_enrichment_plot-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

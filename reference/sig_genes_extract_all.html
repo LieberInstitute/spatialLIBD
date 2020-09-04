@@ -82,7 +82,7 @@ functions such as layer_boxplot()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -136,9 +136,9 @@ functions such as <code><a href='layer_boxplot.html'>layer_boxplot()</a></code>.
     </div>
 
     <pre class="usage"><span class='fu'>sig_genes_extract_all</span>(
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>modeling_results</span> <span class='kw'>=</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"modeling_results"</span>),
-  <span class='kw'>sce_layer</span> <span class='kw'>=</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"sce_layer"</span>)
+  n = <span class='fl'>10</span>,
+  modeling_results = <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(type = <span class='st'>"modeling_results"</span>),
+  sce_layer = <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(type = <span class='st'>"sce_layer"</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -181,16 +181,19 @@ the vignette.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Obtain the necessary data</span>
-<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"modeling_results"</span>)) {
-      <span class='no'>modeling_results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"modeling_results"</span>)
-  }</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-05-19</span></div><div class='output co'>#&gt; Loading objects:
-#&gt;   modeling_results</div><div class='input'><span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"sce_layer"</span>)) <span class='no'>sce_layer</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"sce_layer"</span>)</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-05-19</span></div><div class='output co'>#&gt; Loading objects:
+<span class='co'>if</span> (<span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"modeling_results"</span>)) {
+      <span class='kw'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(type = <span class='st'>"modeling_results"</span>)
+  }
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-04</span></div><div class='output co'>#&gt; Loading objects:
+#&gt;   modeling_results</div><div class='input'><span class='co'>if</span> (<span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"sce_layer"</span>)) <span class='kw'>sce_layer</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(type = <span class='st'>"sce_layer"</span>)
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-04</span></div><div class='output co'>#&gt; Loading objects:
 #&gt;   sce_layer</div><div class='input'>
 <span class='co'>## top 10 genes for all models</span>
 <span class='fu'>sig_genes_extract_all</span>(
-    <span class='kw'>modeling_results</span> <span class='kw'>=</span> <span class='no'>modeling_results</span>,
-    <span class='kw'>sce_layer</span> <span class='kw'>=</span> <span class='no'>sce_layer</span>
-)</div><div class='output co'>#&gt; DataFrame with 510 rows and 12 columns
+    modeling_results = <span class='kw'>modeling_results</span>,
+    sce_layer = <span class='kw'>sce_layer</span>
+)
+</div><div class='output co'>#&gt; DataFrame with 510 rows and 12 columns
 #&gt;           top  model_type        test        gene      stat        pval
 #&gt;     &lt;integer&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;numeric&gt;   &lt;numeric&gt;
 #&gt; 1           1  enrichment          WM       NDRG1   16.3053 1.25896e-26

@@ -82,7 +82,7 @@ genes (FDR &amp;lt; 0.1 by default) genes for a given model type result." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
       </span>
     </div>
 
@@ -136,11 +136,11 @@ genes (FDR &lt; 0.1 by default) genes for a given model type result.</p>
     </div>
 
     <pre class="usage"><span class='fu'>gene_set_enrichment</span>(
-  <span class='no'>gene_list</span>,
-  <span class='kw'>fdr_cut</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>modeling_results</span> <span class='kw'>=</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"modeling_results"</span>),
-  <span class='kw'>model_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>modeling_results</span>)[<span class='fl'>1</span>],
-  <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>gene_list</span>,
+  fdr_cut = <span class='fl'>0.1</span>,
+  modeling_results = <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(type = <span class='st'>"modeling_results"</span>),
+  model_type = <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>modeling_results</span>)[<span class='fl'>1</span>],
+  reverse = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -179,7 +179,7 @@ are F-statistics.</p></td>
     <tr>
       <th>reverse</th>
       <td><p>A <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> indicating whether to multiply by <code>-1</code> the
-input statistics and reverse the <code>layerA-layerB</code> column names (using the <code>-</code>)
+input statistics and reverse the <code>layerA-layerB</code> column names (using the <code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code>)
 into <code>layerB-layerA</code>.</p></td>
     </tr>
     </table>
@@ -197,40 +197,45 @@ to see a full script from where this family of functions is derived from.</p>
 
     <div class='dont-index'><p>Other Gene set enrichment functions: 
 <code><a href='gene_set_enrichment_plot.html'>gene_set_enrichment_plot</a>()</code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andrew E Jaffe, Leonardo Collado-Torres</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Read in the SFARI gene sets included in the package</span>
-<span class='no'>asd_sfari</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>utils</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(
+<span class='kw'>asd_sfari</span> <span class='op'>&lt;-</span> <span class='kw'>utils</span>::<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(
     <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(
         <span class='st'>"extdata"</span>,
         <span class='st'>"SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv"</span>,
-        <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"spatialLIBD"</span>
+        package = <span class='st'>"spatialLIBD"</span>
     ),
-    <span class='kw'>as.is</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    as.is = <span class='fl'>TRUE</span>
 )
 
 <span class='co'>## Format them appropriately</span>
-<span class='no'>asd_sfari_geneList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-    <span class='kw'>Gene_SFARI_all</span> <span class='kw'>=</span> <span class='no'>asd_sfari</span>$<span class='no'>ensembl.id</span>,
-    <span class='kw'>Gene_SFARI_high</span> <span class='kw'>=</span> <span class='no'>asd_sfari</span>$<span class='no'>ensembl.id</span>[<span class='no'>asd_sfari</span>$<span class='no'>gene.score</span> <span class='kw'>&lt;</span> <span class='fl'>3</span>],
-    <span class='kw'>Gene_SFARI_syndromic</span> <span class='kw'>=</span> <span class='no'>asd_sfari</span>$<span class='no'>ensembl.id</span>[<span class='no'>asd_sfari</span>$<span class='no'>syndromic</span> <span class='kw'>==</span> <span class='fl'>1</span>]
+<span class='kw'>asd_sfari_geneList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+    Gene_SFARI_all = <span class='kw'>asd_sfari</span><span class='op'>$</span><span class='kw'>ensembl.id</span>,
+    Gene_SFARI_high = <span class='kw'>asd_sfari</span><span class='op'>$</span><span class='kw'>ensembl.id</span>[<span class='kw'>asd_sfari</span><span class='op'>$</span><span class='kw'>gene.score</span> <span class='op'>&lt;</span> <span class='fl'>3</span>],
+    Gene_SFARI_syndromic = <span class='kw'>asd_sfari</span><span class='op'>$</span><span class='kw'>ensembl.id</span>[<span class='kw'>asd_sfari</span><span class='op'>$</span><span class='kw'>syndromic</span> <span class='op'>==</span> <span class='fl'>1</span>]
 )
 
 <span class='co'>## Obtain the necessary data</span>
-<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"modeling_results"</span>)) {
-      <span class='no'>modeling_results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"modeling_results"</span>)
-  }</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-05-19</span></div><div class='output co'>#&gt; Loading objects:
+<span class='co'>if</span> (<span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"modeling_results"</span>)) {
+      <span class='kw'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(type = <span class='st'>"modeling_results"</span>)
+  }
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-04</span></div><div class='output co'>#&gt; Loading objects:
 #&gt;   modeling_results</div><div class='input'>
 <span class='co'>## Compute the gene set enrichment results</span>
-<span class='no'>asd_sfari_enrichment</span> <span class='kw'>&lt;-</span> <span class='fu'>gene_set_enrichment</span>(
-    <span class='kw'>gene_list</span> <span class='kw'>=</span> <span class='no'>asd_sfari_geneList</span>,
-    <span class='kw'>modeling_results</span> <span class='kw'>=</span> <span class='no'>modeling_results</span>,
-    <span class='kw'>model_type</span> <span class='kw'>=</span> <span class='st'>"enrichment"</span>
+<span class='kw'>asd_sfari_enrichment</span> <span class='op'>&lt;-</span> <span class='fu'>gene_set_enrichment</span>(
+    gene_list = <span class='kw'>asd_sfari_geneList</span>,
+    modeling_results = <span class='kw'>modeling_results</span>,
+    model_type = <span class='st'>"enrichment"</span>
 )
 
 <span class='co'>## Explore the results</span>
-<span class='no'>asd_sfari_enrichment</span></div><div class='output co'>#&gt;           OR         Pval   test                   ID model_type fdr_cut
+<span class='kw'>asd_sfari_enrichment</span>
+</div><div class='output co'>#&gt;           OR         Pval   test                   ID model_type fdr_cut
 #&gt; 1  1.2659915 3.187330e-03     WM       Gene_SFARI_all enrichment     0.1
 #&gt; 2  1.1819109 1.775383e-01     WM      Gene_SFARI_high enrichment     0.1
 #&gt; 3  1.2333378 3.197106e-01     WM Gene_SFARI_syndromic enrichment     0.1
