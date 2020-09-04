@@ -1,16 +1,27 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 # spatialLIBD <img src="http://research.libd.org/spatialLIBD/reference/figures/logo.png" align="right" />
 
 <!-- badges: start -->
 
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![Travis build
-status](https://travis-ci.com/LieberInstitute/spatialLIBD.svg?branch=master)](https://travis-ci.com/LieberInstitute/spatialLIBD)
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![BioC
-status](http://www.bioconductor.org/shields/build/release/bioc/spatialLIBD.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/spatialLIBD)
-[![DOI](https://zenodo.org/badge/225913568.svg)](https://zenodo.org/badge/latestdoi/225913568)
+status](http://bioconductor.org/shields/build/release/data-experiment/spatialLIBD.svg)](http://bioconductor.org/checkResults/release/data-experiment-LATEST/spatialLIBD/)
+[![BioC dev
+status](http://bioconductor.org/shields/build/devel/data-experiment/spatialLIBD.svg)](http://bioconductor.org/checkResults/devel/data-experiment-LATEST/spatialLIBD/)
 [![Codecov test
 coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?branch=master)
+[![R build
+status](https://github.com/LieberInstitute/spatialLIBD/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/LieberInstitute/spatialLIBD/actions)
+[![Support site activity, last 6 months: tagged questions/avg. answers
+per question/avg. comments per question/accepted answers, or 0 if no
+tagged
+posts.](http://www.bioconductor.org/shields/posts/spatialLIBD.svg)](https://support.bioconductor.org/t/spatialLIBD/)
+[![GitHub
+issues](https://img.shields.io/github/issues/LieberInstitute/spatialLIBD)](https://github.com/LieberInstitute/spatialLIBD/issues)
+[![DOI](https://zenodo.org/badge/225913568.svg)](https://zenodo.org/badge/latestdoi/225913568)
 <!-- badges: end -->
 
 Welcome to the `spatialLIBD` project\! It is composed of:
@@ -169,7 +180,6 @@ sce
 #>   markers_UMAP_spatial
 #> reducedDimNames(6): PCA TSNE_perplexity50 ... TSNE_perplexity80
 #>   UMAP_neighbors15
-#> spikeNames(0):
 #> altExpNames(0):
 
 ## Note the memory size
@@ -190,8 +200,10 @@ sce_image_clus(
 
 ### Raw data
 
-Below you can find the links to the raw data we received from 10x
-Genomics.
+You can access all the raw data through
+[Globus](http://research.libd.org/globus/) (`jhpce#HumanPilot10x`).
+Furthermore, below you can find the links to the raw data we received
+from 10x Genomics.
 
 | SampleID | h5\_filtered                                                                                    | h5\_raw                                                                                    | image\_full                                                                          | image\_hi                                                                                    | image\_lo                                                                                     | loupe                                                                       |
 | -------: | :---------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------- |
@@ -215,14 +227,25 @@ Please run this yourself to check for any updates on how to cite
 **spatialLIBD**.
 
 ``` r
-citation('spatialLIBD')
+print(citation('spatialLIBD'), bibtex = TRUE)
 #> 
 #> Collado-Torres L, Maynard KR, Jaffe AE (2020). _LIBD Visium spatial
 #> transcriptomics human pilot data inspector_. doi:
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 0.99.12, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 1.1.2, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Manual{,
+#>     title = {LIBD Visium spatial transcriptomics human pilot data inspector},
+#>     author = {Leonardo Collado-Torres and Kristen R. Maynard and Andrew E. Jaffe},
+#>     year = {2020},
+#>     url = {http://www.bioconductor.org/packages/spatialLIBD},
+#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.1.2},
+#>     doi = {10.18129/B9.bioc.spatialLIBD},
+#>   }
 #> 
 #> Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK, Williams
 #> SR, II JLC, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Kleinman JE,
@@ -232,12 +255,18 @@ citation('spatialLIBD')
 #> https://doi.org/10.1101/2020.02.28.969931), <URL:
 #> https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1>.
 #> 
-#> To see these entries in BibTeX format, use 'print(<citation>,
-#> bibtex=TRUE)', 'toBibtex(.)', or set
-#> 'options(citation.bibtex.max=999)'.
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Article{,
+#>     title = {Transcriptome-scale spatial gene expression in the human dorsolateral prefrontal cortex},
+#>     author = {Kristen R. Maynard and Leonardo Collado-Torres and Lukas M. Weber and Cedric Uytingco and Brianna K. Barry and Stephen R. Williams and Joseph L. Catallini II and Matthew N. Tran and Zachary Besich and Madhavi Tippani and Jennifer Chew and Yifeng Yin and Joel E. Kleinman and Thomas M. Hyde and Nikhil Rao and Stephanie C. Hicks and Keri Martinowich and Andrew E. Jaffe},
+#>     year = {2020},
+#>     journal = {bioRxiv},
+#>     doi = {10.1101/2020.02.28.969931},
+#>     url = {https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1},
+#>   }
 ```
 
-
 Please note that the `spatialLIBD` was only made possible thanks to many
-other R and bioinformatics software authors. We have cited their work
-either in the pre-print or the vignette of the R package.
+other R and bioinformatics software authors, which are cited either in
+the vignettes and/or the paper(s) describing this package.

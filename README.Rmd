@@ -122,7 +122,7 @@ sce_image_clus(
 
 ### Raw data
 
-Below you can find the links to the raw data we received from 10x Genomics.
+You can access all the raw data through [Globus](http://research.libd.org/globus/) (`jhpce#HumanPilot10x`). Furthermore, below you can find the links to the raw data we received from 10x Genomics.
 
 ```{r 'AWS_links', eval = FALSE, echo = FALSE}
 ## Read in the table of links from the HumanPilot repository
@@ -137,6 +137,7 @@ aws_links <-
 for (i in seq_len(ncol(aws_links))[-1]) {
     aws_links[[i]] <- paste0('[AWS](', aws_links[[i]], ')')
 }
+aws_links$`HTML_report` <- paste0("[AWS](10X/", aws_links$SampleID, "/", aws_links$SampleID, "_web_summary.html)")
 
 ## Print the table
 knitr::kable(aws_links, caption = 'Links to the Human DLPFC Visium raw data files', format = 'markdown')
