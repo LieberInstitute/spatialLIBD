@@ -5,9 +5,10 @@
 \title{Download the Human DLPFC Visium data from LIBD}
 \usage{
 fetch_data(
-  type = c("sce", "sce_layer", "modeling_results", "sce_example"),
+  type = c("sce", "sce_layer", "modeling_results", "sce_example", "ve"),
   destdir = tempdir(),
-  eh = ExperimentHub::ExperimentHub()
+  eh = ExperimentHub::ExperimentHub(),
+  bfc = BiocFileCache::BiocFileCache()
 )
 }
 \arguments{
@@ -22,7 +23,8 @@ object containing the layer-level data (pseudo-bulked from the spot-level),
 or \code{modeling_results} for the list of tables with the \code{enrichment},
 \code{pairwise}, and \code{anova} model results from the layer-level data. It can also
 be \code{sce_example} which is a reduced version of \code{sce} just for example
-purposes.}
+purposes. As of BioC version 3.12 \code{ve} donwloads a
+\link[SpatialExperiment:VisiumExperiment]{VisiumExperiment-class} object.}
 
 \item{destdir}{The destination directory to where files will be downloaded
 to in case the \code{ExperimentHub} resource is not available. If you already
@@ -31,6 +33,10 @@ were previously downloaded to avoid re-downloading them.}
 
 \item{eh}{An \code{ExperimentHub} object
 \link[ExperimentHub:ExperimentHub-class]{ExperimentHub-class}.}
+
+\item{bfc}{A \code{BiocFileCache} object
+\link[BiocFileCache:BiocFileCache-class]{BiocFileCache-class}. Used when
+\code{eh} is not available.}
 }
 \value{
 The requested object: \code{sce}, \code{sce_layer} or \code{modeling_results} that

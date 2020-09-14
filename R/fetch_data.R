@@ -28,6 +28,9 @@
 #' were previously downloaded to avoid re-downloading them.
 #' @param eh An `ExperimentHub` object
 #' [ExperimentHub-class][ExperimentHub::ExperimentHub-class].
+#' @param bfc A `BiocFileCache` object
+#' [BiocFileCache-class][BiocFileCache::BiocFileCache-class]. Used when
+#' `eh` is not available.
 #'
 #' @return The requested object: `sce`, `sce_layer` or `modeling_results` that
 #' you have to assign to an object. If you didn't you can still avoid
@@ -52,7 +55,8 @@
 fetch_data <-
     function(type = c("sce", "sce_layer", "modeling_results", "sce_example", "ve"),
     destdir = tempdir(),
-    eh = ExperimentHub::ExperimentHub()) {
+    eh = ExperimentHub::ExperimentHub(),
+    bfc = BiocFileCache::BiocFileCache()) {
         ## Some variables
         sce <- sce_layer <- modeling_results <- sce_sub <- NULL
 
@@ -136,16 +140,7 @@ fetch_data <-
                 return(q[[1]])
             } else {
                 ## ExperimentHub backup: download from Dropbox
-                ## Create the destination directory if it doesn't exist
-                dir.create(destdir,
-                    showWarnings = FALSE,
-                    recursive = TRUE
-                )
-                utils::download.file(url,
-                    destfile = file_path,
-                    quiet = TRUE,
-                    mode = "wb"
-                )
+                file_path <- BiocFileCache::bfcrpath(bfc, url)
             }
         }
 

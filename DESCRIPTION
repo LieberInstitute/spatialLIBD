@@ -1,6 +1,6 @@
 Package: spatialLIBD
 Title: LIBD Visium spatial transcriptomics human pilot data inspector
-Version: 1.1.3
+Version: 1.1.4
 Date: 2020-09-14
 Authors@R:
     c(
@@ -52,7 +52,7 @@ Imports:
     benchmarkme,
     SpatialExperiment,
     BiocFileCache
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/LieberInstitute/spatialLIBD
 BugReports: https://support.bioconductor.org/t/spatialLIBD

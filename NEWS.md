@@ -1,3 +1,10 @@
+# spatialLIBD 1.1.4
+
+NEW FEATURES
+
+* `fetch_data()` now uses `BiocFileCache()` when downloading the data from
+Dropbox.
+
 # spatialLIBD 0.99.14
 
 SIGNIFICANT USER-VISIBLE CHANGES
@@ -106,7 +113,7 @@ SIGNIFICANT USER-VISIBLE CHANGES
 
 # spatialLIBD 0.99.4
 
-BG FIXES
+BUG FIXES
 
 * Fix Travis badges
 * Fix Kristen's name on the vignette
