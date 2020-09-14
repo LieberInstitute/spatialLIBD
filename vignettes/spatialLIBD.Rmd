@@ -52,6 +52,7 @@ bib <- c(
     R = citation(),
     AnnotationHub = citation("AnnotationHub"),
     benchmarkme = citation("benchmarkme"),
+    BiocFileCache = citation("BiocFileCache"),
     BiocStyle = citation("BiocStyle"),
     cowplot = citation("cowplot"),
     DT = citation("DT"),
@@ -74,6 +75,7 @@ bib <- c(
     SummarizedExperiment = citation("SummarizedExperiment"),
     testthat = citation("testthat"),
     viridisLite = citation("viridisLite"),
+    SpatialExperiment = citation("SpatialExperiment"),
     spatialLIBD = citation("spatialLIBD")[1],
     spatialLIBDpaper = citation("spatialLIBD")[2]
 )
@@ -666,6 +668,7 @@ The `r Biocpkg('spatialLIBD')` package `r citep(bib[['spatialLIBD']])` was made 
 * R `r citep(bib[['R']])`
 * `r Biocpkg('AnnotationHub')` `r citep(bib[['AnnotationHub']])`
 * `r CRANpkg('benchmarkme')` `r citep(bib[['benchmarkme']])`
+* `r Biocpkg('BiocFileCache')` `r citep(bib[['BiocFileCache']])`
 * `r Biocpkg('BiocStyle')` `r citep(bib[['BiocStyle']])`
 * `r CRANpkg('cowplot')` `r citep(bib[['cowplot']])`
 * `r CRANpkg('DT')` `r citep(bib[['DT']])`
@@ -685,6 +688,7 @@ The `r Biocpkg('spatialLIBD')` package `r citep(bib[['spatialLIBD']])` was made 
 * `r CRANpkg('sessioninfo')` `r citep(bib[['sessioninfo']])`
 * `r Biocpkg('SingleCellExperiment')` `r citep(bib[['SingleCellExperiment']])`
 * `r CRANpkg('shiny')` `r citep(bib[['shiny']])`
+* `r Biocpkg('SpatialExperiment')` `r citep(bib[['SpatialExperiment']])`
 * `r Biocpkg('SummarizedExperiment')` `r citep(bib[['SummarizedExperiment']])`
 * `r CRANpkg('testthat')` `r citep(bib[['testthat']])`
 * `r CRANpkg('viridisLite')` `r citep(bib[['viridisLite']])`
