@@ -19,7 +19,8 @@
 #' or `modeling_results` for the list of tables with the `enrichment`,
 #' `pairwise`, and `anova` model results from the layer-level data. It can also
 #' be `sce_example` which is a reduced version of `sce` just for example
-#' purposes.
+#' purposes. As of BioC version 3.12 `ve` donwloads a
+#' [VisiumExperiment-class][SpatialExperiment::VisiumExperiment-class] object.
 #'
 #' @param destdir The destination directory to where files will be downloaded
 #' to in case the `ExperimentHub` resource is not available. If you already
@@ -49,7 +50,7 @@
 #' ## Explore the data
 #' sce_layer
 fetch_data <-
-    function(type = c("sce", "sce_layer", "modeling_results", "sce_example"),
+    function(type = c("sce", "sce_layer", "modeling_results", "sce_example", "ve"),
     destdir = tempdir(),
     eh = ExperimentHub::ExperimentHub()) {
         ## Some variables
@@ -68,6 +69,20 @@ fetch_data <-
             )
         }
 
+        ## Deal with the special case of VisiumExperiment first
+        if (type == "ve") {
+            sce <- fetch_data("sce", destdir = destdir, eh = eh)
+
+            ## Add code here for making the VE
+            ## Aka, adapt https://github.com/bpardo99/spatialLIBD-VisiumExperiment/blob/master/visium_experiment_sce_object/sce_ve.R to this script
+            ## use SpatialExperiment::function() syntax and BiocFileCache::function()
+            ## Use BiocFileCache for downloading the images
+            ## use sample_name (character) as the name for imagePaths()
+            ve <- sce
+            return(ve)
+        }
+
+        ## Other pre-BioC 3.12 regular files
         if (type == "sce") {
             if (!enough_ram()) {
                 warning(paste(
