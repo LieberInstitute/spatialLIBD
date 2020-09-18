@@ -1,3 +1,11 @@
+# spatialLIBD 1.1.5
+
+NEW FEATURES
+
+* `fetch_data()` takes the data from sce object and creates a VisiumExperiment
+object containing these data. VisiumExperiment object can be obtained with `fetch_data("ve")`.
+
+
 # spatialLIBD 1.1.4
 
 NEW FEATURES
