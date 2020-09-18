@@ -62,7 +62,7 @@ fetch_data <-
 
         ## Check inputs
         stopifnot(methods::is(eh, "ExperimentHub"))
-        if (!type %in% c("sce", "sce_layer", "modeling_results", "sce_example")) {
+        if (!type %in% c("sce", "sce_layer", "modeling_results", "sce_example", "ve")) {
             stop(
                 paste(
                     "Other 'type' values are not supported.",
