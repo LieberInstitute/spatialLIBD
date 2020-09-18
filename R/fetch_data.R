@@ -77,12 +77,44 @@ fetch_data <-
         if (type == "ve") {
             sce <- fetch_data("sce", destdir = destdir, eh = eh)
 
-            ## Add code here for making the VE
-            ## Aka, adapt https://github.com/bpardo99/spatialLIBD-VisiumExperiment/blob/master/visium_experiment_sce_object/sce_ve.R to this script
-            ## use SpatialExperiment::function() syntax and BiocFileCache::function()
-            ## Use BiocFileCache for downloading the images
-            ## use sample_name (character) as the name for imagePaths()
-            ve <- sce
+            #Load assays
+            assays_visium<-SingleCellExperiment::assays(sce)
+            
+            #Load rowData
+            rowData_visium<-SingleCellExperiment::rowData(sce)
+            
+            #Load colData
+            colData_visium<- SingleCellExperiment::colData(sce)[, c(8:73)]
+            
+            #Load spatialCoords
+            spatialCoords_visium<- SingleCellExperiment::colData(sce)[, c(1:7)]
+            names(spatialCoords_visium)<- c("Cell_ID", "sample_name", "in_tissue", "array_row", "array_col", "pxl_col_in_fullres", "pxl_row_in_fullres")
+            
+            #Load reducedDim
+            reducedDimNames_visium<- SingleCellExperiment::reducedDims(sce)
+            
+            #Load images
+            sample_id<-c(151507:151510, 151669:151676)
+            
+            for(i in sample_id){
+                url_images <- paste0("https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/", sample_id, "_tissue_lowres_image.png")
+                bfc <- BiocFileCache::BiocFileCache()
+                filepath_images <- BiocFileCache::bfcrpath(bfc, url_images, exact = TRUE)
+            }
+            
+            #Create object
+            sce_ve <- SpatialExperiment::VisiumExperiment(rowData=rowData_visium,
+                                                          colData=colData_visium,
+                                                          assays=assays_visium,
+                                                          spatialCoords=spatialCoords_visium,
+                                                          scaleFactors=scaleFactors_visium,
+                                                          imagePaths= filepath_images,
+                                                          reducedDims=reducedDimNames_visium
+            )
+            names(imagePaths(ve))=sample_id
+            
+            
+            
             return(ve)
         }
 
