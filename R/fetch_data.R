@@ -32,7 +32,7 @@
 #' [BiocFileCache-class][BiocFileCache::BiocFileCache-class]. Used when
 #' `eh` is not available.
 #'
-#' @return The requested object: `sce`, `sce_layer` or `modeling_results` that
+#' @return The requested object: `sce`, `sce_layer`, `ve` or `modeling_results` that
 #' you have to assign to an object. If you didn't you can still avoid
 #' re-loading the object by using `.Last.value`.
 #'
@@ -58,7 +58,7 @@ fetch_data <-
     eh = ExperimentHub::ExperimentHub(),
     bfc = BiocFileCache::BiocFileCache()) {
         ## Some variables
-        sce <- sce_layer <- modeling_results <- sce_sub <- NULL
+        sce <- sce_layer <- modeling_results <- sce_sub <- ve <- NULL
 
         ## Check inputs
         stopifnot(methods::is(eh, "ExperimentHub"))
@@ -67,7 +67,7 @@ fetch_data <-
                 paste(
                     "Other 'type' values are not supported.",
                     "Please use either 'sce', 'sce_layer',",
-                    "'modeling_results' or 'sce_example'."
+                    "'modeling_results', 'sce_example' or 've'."
                 ),
                 call. = FALSE
             )
@@ -103,7 +103,7 @@ fetch_data <-
             }
             
             #Create object
-            sce_ve <- SpatialExperiment::VisiumExperiment(rowData=rowData_visium,
+            ve <- SpatialExperiment::VisiumExperiment(rowData=rowData_visium,
                                                           colData=colData_visium,
                                                           assays=assays_visium,
                                                           spatialCoords=spatialCoords_visium,
