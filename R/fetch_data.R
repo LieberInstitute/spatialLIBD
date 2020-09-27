@@ -78,29 +78,31 @@ fetch_data <-
             sce <- fetch_data("sce", destdir = destdir, eh = eh)
 
             #Load assays
-            assays_visium<-SingleCellExperiment::assays(sce)
+            assays_visium<-SummarizedExperiment::assays(sce)
             
             #Load rowData
-            rowData_visium<-SingleCellExperiment::rowData(sce)
+            rowData_visium<-SummarizedExperiment::rowData(sce)
             
             #Load colData
-            colData_visium<- SingleCellExperiment::colData(sce)[, c(8:73)]
+            cols_to_drop<- c("barcode","sample_name", "tissue", "row", "col", "imagerow", "imagecol")
+            colData_visium<- SummarizedExperiment::colData(sce)[, !colnames(SummarizedExperiment::colData(sce)) %in% cols_to_drop, drop=FALSE]
             
             #Load spatialCoords
-            spatialCoords_visium<- SingleCellExperiment::colData(sce)[, c(1:7)]
+            spatialCoords_visium<- SummarizedExperiment::colData(sce)[, colnames(SummarizedExperiment::colData(sce)) %in% cols_to_drop, drop=FALSE]
             names(spatialCoords_visium)<- c("Cell_ID", "sample_name", "in_tissue", "array_row", "array_col", "pxl_col_in_fullres", "pxl_row_in_fullres")
+            
+            #Load scaleFactors
+            url_scaleFactors<- "https://raw.githubusercontent.com/LieberInstitute/HumanPilot/master/10X/151507/scalefactors_json.json"
+            scaleFactors_visium <- jsonlite::read_json(url_scaleFactors)
             
             #Load reducedDim
             reducedDimNames_visium<- SingleCellExperiment::reducedDims(sce)
             
             #Load images
-            sample_id<-c(151507:151510, 151669:151676)
-            
-            for(i in sample_id){
-                url_images <- paste0("https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/", sample_id, "_tissue_lowres_image.png")
-                bfc <- BiocFileCache::BiocFileCache()
-                filepath_images <- BiocFileCache::bfcrpath(bfc, url_images, exact = TRUE)
-            }
+            sample_id<-unique(colData(sce)$sample_name)
+            url_images <- paste0("https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/", sample_id, "_tissue_lowres_image.png")
+            filepath_images <- BiocFileCache::bfcrpath(BiocFileCache::BiocFileCache(), url_images, exact = TRUE)
+            names(filepath_images)=sample_id
             
             #Create object
             ve <- SpatialExperiment::VisiumExperiment(rowData=rowData_visium,
@@ -111,7 +113,7 @@ fetch_data <-
                                                           imagePaths= filepath_images,
                                                           reducedDims=reducedDimNames_visium
             )
-            names(imagePaths(ve))=sample_id
+            
             
             
             
@@ -177,7 +179,8 @@ fetch_data <-
         }
 
         ## Now load the data
-        load(file_path, verbose = TRUE)
+        message(Sys.time(), " loading file ", file_path)
+        load(file_path, verbose = FALSE)
         if (type == "sce") {
             return(sce)
         } else if (type == "sce_layer") {
