@@ -31,6 +31,9 @@ if (enough_ram()) {
     ## Obtain the necessary data
     if (!exists("ve")) ve <- fetch_data("ve")
 
+    ## Load the SpatialExperiment package
+    library("SpatialExperiment")
+
     ## Check the default scale factors
     scaleFactors(ve)[1:4]
 
