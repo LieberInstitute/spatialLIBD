@@ -6,10 +6,10 @@ output: github_document
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
+    collapse = TRUE,
+    comment = "#>",
+    fig.path = "man/figures/README-",
+    out.width = "100%"
 )
 ```
 
@@ -81,8 +81,9 @@ For more details, please check the [documentation website](http://lieberinstitut
 Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `spatialLIBD` using from [Bioconductor](http://bioconductor.org/) the following code:
 
 ```{r 'install', eval = FALSE}
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+      install.packages("BiocManager")
+  }
 
 BiocManager::install("spatialLIBD")
 ```
@@ -98,10 +99,10 @@ Using `spatialLIBD` you can access the Human DLPFC spatial transcriptomics data 
 
 ```{r 'access_data', message=FALSE, fig.height = 8, fig.width = 9}
 ## Load the package
-library('spatialLIBD')
+library("spatialLIBD")
 
 ## Download the spot-level data
-sce <- fetch_data(type = 'sce')
+sce <- fetch_data(type = "sce")
 
 ## This is a SingleCellExperiment object
 sce
@@ -112,10 +113,10 @@ pryr::object_size(sce)
 ## Remake the logo image with histology information
 sce_image_clus(
     sce = sce,
-    clustervar = 'layer_guess_reordered',
-    sampleid = '151673',
+    clustervar = "layer_guess_reordered",
+    sampleid = "151673",
     colors = libd_layer_colors,
-    ... = ' DLPFC Human Brain Layers\nMade with github.com/LieberInstitute/spatialLIBD'
+    ... = " DLPFC Human Brain Layers\nMade with github.com/LieberInstitute/spatialLIBD"
 )
 ```
 
@@ -129,18 +130,18 @@ You can access all the raw data through [Globus](http://research.libd.org/globus
 ## Since this depends on another repo, I set eval to FALSE.
 aws_links <-
     read.table(
-        '../HumanPilot/AWS_File_locations.tsv',
+        "../HumanPilot/AWS_File_locations.tsv",
         header = TRUE,
         stringsAsFactors = FALSE
     )
 ## Format into markdown links
 for (i in seq_len(ncol(aws_links))[-1]) {
-    aws_links[[i]] <- paste0('[AWS](', aws_links[[i]], ')')
+    aws_links[[i]] <- paste0("[AWS](", aws_links[[i]], ")")
 }
 aws_links$`HTML_report` <- paste0("[GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/", aws_links$SampleID, "/", aws_links$SampleID, "_web_summary.html)")
 
 ## Print the table
-knitr::kable(aws_links, caption = 'Links to the Human DLPFC Visium raw data files', format = 'markdown')
+knitr::kable(aws_links, caption = "Links to the Human DLPFC Visium raw data files", format = "markdown")
 ```
 
 | SampleID|h5_filtered                                                                                     |h5_raw                                                                                     |image_full                                                                           |image_hi                                                                                     |image_lo                                                                                      |loupe                                                                       |HTML_report                                                                                            |
@@ -164,7 +165,7 @@ Below is the citation output from using `citation('spatialLIBD')` in R. Please
 run this yourself to check for any updates on how to cite __spatialLIBD__.
 
 ```{r 'citation', eval = requireNamespace('spatialLIBD')}
-print(citation('spatialLIBD'), bibtex = TRUE)
+print(citation("spatialLIBD"), bibtex = TRUE)
 ```
 
 Please note that the `spatialLIBD` was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.

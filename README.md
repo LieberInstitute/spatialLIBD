@@ -137,8 +137,9 @@ Get the latest stable `R` release from
 from [Bioconductor](http://bioconductor.org/) the following code:
 
 ``` r
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+      install.packages("BiocManager")
+  }
 
 BiocManager::install("spatialLIBD")
 ```
@@ -158,12 +159,10 @@ details, check the help file for `fetch_data()`.
 
 ``` r
 ## Load the package
-library('spatialLIBD')
+library("spatialLIBD")
 
 ## Download the spot-level data
-sce <- fetch_data(type = 'sce')
-#> Loading objects:
-#>   sce
+sce <- fetch_data(type = "sce")
 
 ## This is a SingleCellExperiment object
 sce
@@ -189,10 +188,10 @@ pryr::object_size(sce)
 ## Remake the logo image with histology information
 sce_image_clus(
     sce = sce,
-    clustervar = 'layer_guess_reordered',
-    sampleid = '151673',
+    clustervar = "layer_guess_reordered",
+    sampleid = "151673",
     colors = libd_layer_colors,
-    ... = ' DLPFC Human Brain Layers\nMade with github.com/LieberInstitute/spatialLIBD'
+    ... = " DLPFC Human Brain Layers\nMade with github.com/LieberInstitute/spatialLIBD"
 )
 ```
 
@@ -227,14 +226,14 @@ Please run this yourself to check for any updates on how to cite
 **spatialLIBD**.
 
 ``` r
-print(citation('spatialLIBD'), bibtex = TRUE)
+print(citation("spatialLIBD"), bibtex = TRUE)
 #> 
 #> Collado-Torres L, Maynard KR, Jaffe AE (2020). _LIBD Visium spatial
 #> transcriptomics human pilot data inspector_. doi:
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 1.1.3, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 1.1.4, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -243,7 +242,7 @@ print(citation('spatialLIBD'), bibtex = TRUE)
 #>     author = {Leonardo Collado-Torres and Kristen R. Maynard and Andrew E. Jaffe},
 #>     year = {2020},
 #>     url = {http://www.bioconductor.org/packages/spatialLIBD},
-#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.1.3},
+#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.1.4},
 #>     doi = {10.18129/B9.bioc.spatialLIBD},
 #>   }
 #> 
@@ -288,7 +287,7 @@ By contributing to this project, you agree to abide by its terms.
     *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)*
     customized to use [Bioconductor’s docker
     containers](https://www.bioconductor.org/help/docker/) and
-    *[BiocCheck](https://bioconductor.org/packages/3.11/BiocCheck)*.
+    *[BiocCheck](https://bioconductor.org/packages/3.12/BiocCheck)*.
   - Code coverage assessment is possible thanks to
     [codecov](https://codecov.io/gh) and
     *[covr](https://CRAN.R-project.org/package=covr)*.
