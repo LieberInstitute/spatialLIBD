@@ -304,7 +304,7 @@ By contributing to this project, you agree to abide by its terms.
 
 For more details, check the `dev` directory.
 
-<a href="https://www.libd.org/"><img src="http://aejaffe.com/media/LIBD_logo.jpg" width="250px"></a>
+<a href="https://www.libd.org/"><img src="http://lcolladotor.github.io/img/LIBD_logo.jpg" width="250px"></a>
 
 <center>
 

@@ -519,7 +519,7 @@ app_ui <- function() {
                 hr(),
                 HTML('<a href="http://www.libd.org/">'),
                 img(
-                    src = "http://aejaffe.com/media/LIBD_logo.jpg",
+                    src = "http://lcolladotor.github.io/img/LIBD_logo.jpg",
                     align = "left",
                     width = "250"
                 ),
