@@ -51,7 +51,8 @@ Imports:
     fields,
     benchmarkme,
     SpatialExperiment,
-    BiocFileCache
+    BiocFileCache,
+    jsonlite
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/LieberInstitute/spatialLIBD
