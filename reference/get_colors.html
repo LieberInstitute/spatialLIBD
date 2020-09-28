@@ -88,12 +88,6 @@ names. It can be used to automatically assign colors." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/spatialLIBD.html">Get started</a>
 </li>
 <li>
@@ -133,7 +127,7 @@ names. It can be used to automatically assign colors." />
 names. It can be used to automatically assign colors.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_colors</span>(colors = <span class='kw'>NULL</span>, <span class='kw'>clusters</span>)</pre>
+    <pre class="usage"><span class='fu'>get_colors</span><span class='op'>(</span>colors <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>clusters</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,28 +155,27 @@ either change the names or use <a href='https://rdrr.io/r/base/unname.html'>unna
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Obtain the necessary data</span>
-<span class='co'>if</span> (<span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"sce_layer"</span>)) <span class='kw'>sce_layer</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='st'>"sce_layer"</span>)
-</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-14</span></div><div class='output co'>#&gt; Loading objects:
-#&gt;   sce_layer</div><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"sce_layer"</span><span class='op'>)</span><span class='op'>)</span> <span class='va'>sce_layer</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span><span class='st'>"sce_layer"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-24</span></div><div class='output co'>#&gt; <span class='message'>2020-09-28 18:57:54 loading file /tmp/RtmpE2FbEl/BiocFileCache/6a2b69171273_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></div><div class='input'>
 <span class='co'>## Example layer colors with the corresponding names</span>
-<span class='fu'>get_colors</span>(<span class='kw'>libd_layer_colors</span>, <span class='kw'>sce_layer</span><span class='op'>$</span><span class='kw'>layer_guess</span>)
+<span class='fu'>get_colors</span><span class='op'>(</span><span class='va'>libd_layer_colors</span>, <span class='va'>sce_layer</span><span class='op'>$</span><span class='va'>layer_guess</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;        Layer1        Layer2        Layer3        Layer4        Layer5 
 #&gt;     "#F0027F"     "#377EB8"     "#4DAF4A"     "#984EA3"     "#FFD700" 
 #&gt;        Layer6            WM            NA           WM2 
-#&gt;     "#FF7F00"     "#1A1A1A" "transparent"     "#666666" </div><div class='input'><span class='fu'>get_colors</span>(<span class='kw'>libd_layer_colors</span>, <span class='kw'>sce_layer</span><span class='op'>$</span><span class='kw'>layer_guess_reordered_short</span>)
+#&gt;     "#FF7F00"     "#1A1A1A" "transparent"     "#666666" </div><div class='input'><span class='fu'>get_colors</span><span class='op'>(</span><span class='va'>libd_layer_colors</span>, <span class='va'>sce_layer</span><span class='op'>$</span><span class='va'>layer_guess_reordered_short</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            L1            L2            L3            L4            L5 
 #&gt;     "#F0027F"     "#377EB8"     "#4DAF4A"     "#984EA3"     "#FFD700" 
 #&gt;            L6            WM            NA           WM2 
 #&gt;     "#FF7F00"     "#1A1A1A" "transparent"     "#666666" </div><div class='input'>
 <span class='co'>## Example where colors are assigned automatically</span>
 <span class='co'>## based on a pre-defined set of colors</span>
-<span class='fu'>get_colors</span>(clusters = <span class='kw'>sce_layer</span><span class='op'>$</span><span class='kw'>kmeans_k7</span>)
+<span class='fu'>get_colors</span><span class='op'>(</span>clusters <span class='op'>=</span> <span class='va'>sce_layer</span><span class='op'>$</span><span class='va'>kmeans_k7</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;         1         2         3         4         5         6         7         8 
 #&gt; "#b2df8a" "#e41a1c" "#377eb8" "#4daf4a" "#ff7f00"    "gold" "#a65628" "#999999" 
 #&gt;         9        10        11        12 
 #&gt;   "black"    "grey"   "white"  "purple" </div><div class='input'>
 <span class='co'>## Example where Polychrome::palette36.colors() gets used</span>
-<span class='fu'>get_colors</span>(clusters = <span class='kw'>letters</span>[<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>13</span>)])
+<span class='fu'>get_colors</span><span class='op'>(</span>clusters <span class='op'>=</span> <span class='va'>letters</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>13</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;         1         2         3         4         5         6         7         8 
 #&gt; "#5A5156" "#E4E1E3" "#F6222E" "#FE00FA" "#16FF32" "#3283FE" "#FEAF16" "#B00068" 
 #&gt;         9        10        11        12        13 

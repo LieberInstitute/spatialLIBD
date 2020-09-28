@@ -88,12 +88,6 @@ For more details please check the vignette documentation." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/spatialLIBD.html">Get started</a>
 </li>
 <li>
@@ -133,7 +127,7 @@ For more details please check the vignette documentation." />
 For more details please check the vignette documentation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>check_modeling_results</span>(<span class='kw'>modeling_results</span>)</pre>
+    <pre class="usage"><span class='fu'>check_modeling_results</span><span class='op'>(</span><span class='va'>modeling_results</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,13 +155,12 @@ for matching in some cases. See <code><a href='fetch_data.html'>fetch_data()</a>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'>if</span> (<span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"modeling_results"</span>)) {
-      <span class='kw'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(type = <span class='st'>"modeling_results"</span>)
-  }
-</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-14</span></div><div class='output co'>#&gt; <span class='message'>adding rname 'https://www.dropbox.com/s/se6rrgb9yhm5gfh/Human_DLPFC_Visium_modeling_results.Rdata?dl=1'</span></div><div class='output co'>#&gt; Loading objects:
-#&gt;   modeling_results</div><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"modeling_results"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+      <span class='va'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span>
+  <span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-24</span></div><div class='output co'>#&gt; <span class='message'>adding rname 'https://www.dropbox.com/s/se6rrgb9yhm5gfh/Human_DLPFC_Visium_modeling_results.Rdata?dl=1'</span></div><div class='output co'>#&gt; <span class='message'>2020-09-28 18:57:09 loading file /tmp/RtmpE2FbEl/BiocFileCache/6a2b7b6862_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></div><div class='input'>
 <span class='co'>## Check the object</span>
-<span class='kw'>xx</span> <span class='op'>&lt;-</span> <span class='fu'>check_modeling_results</span>(<span class='kw'>modeling_results</span>)
+<span class='va'>xx</span> <span class='op'>&lt;-</span> <span class='fu'>check_modeling_results</span><span class='op'>(</span><span class='va'>modeling_results</span><span class='op'>)</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

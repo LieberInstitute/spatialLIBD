@@ -87,12 +87,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/spatialLIBD.html">Get started</a>
 </li>
 <li>
@@ -131,12 +125,12 @@
     <p>Layer modeling correlation of statistics</p>
     </div>
 
-    <pre class="usage"><span class='fu'>layer_stat_cor</span>(
-  <span class='kw'>stats</span>,
-  modeling_results = <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(type = <span class='st'>"modeling_results"</span>),
-  model_type = <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>modeling_results</span>)[<span class='fl'>1</span>],
-  reverse = <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>layer_stat_cor</span><span class='op'>(</span>
+  <span class='va'>stats</span>,
+  modeling_results <span class='op'>=</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span>,
+  model_type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>modeling_results</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>,
+  reverse <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -200,20 +194,19 @@ for a full analysis from which this family of functions is derived from.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Obtain the necessary data</span>
-<span class='co'>if</span> (<span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"modeling_results"</span>)) {
-      <span class='kw'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(type = <span class='st'>"modeling_results"</span>)
-  }
-</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-14</span></div><div class='output co'>#&gt; Loading objects:
-#&gt;   modeling_results</div><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"modeling_results"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+      <span class='va'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span>
+  <span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-24</span></div><div class='output co'>#&gt; <span class='message'>2020-09-28 18:58:02 loading file /tmp/RtmpE2FbEl/BiocFileCache/6a2b7b6862_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></div><div class='input'>
 <span class='co'>## Compute the correlations</span>
-<span class='kw'>cor_stats_layer</span> <span class='op'>&lt;-</span> <span class='fu'>layer_stat_cor</span>(
-    <span class='kw'>tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer</span>,
-    <span class='kw'>modeling_results</span>,
+<span class='va'>cor_stats_layer</span> <span class='op'>&lt;-</span> <span class='fu'>layer_stat_cor</span><span class='op'>(</span>
+    <span class='va'>tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer</span>,
+    <span class='va'>modeling_results</span>,
     <span class='st'>"enrichment"</span>
-)
+<span class='op'>)</span>
 
 <span class='co'>## Explore the correlation matrix</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>cor_stats_layer</span>[, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>3</span>)])
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>cor_stats_layer</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;               WM       Layer6     Layer5
 #&gt; 22 (3) 0.6824669 -0.009192291 -0.1934265
 #&gt; 3 (3)  0.7154122 -0.070042729 -0.2290574

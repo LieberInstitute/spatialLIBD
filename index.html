@@ -47,12 +47,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="articles/spatialLIBD.html">Get started</a>
 </li>
 <li>
@@ -104,7 +98,7 @@
 <p>If you are interested in running this web application locally, you can do so thanks to the <code>spatialLIBD</code> R/Bioconductor package that powers this web application as shown below.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="co">## Run this web application locally</span>
-<span class="kw">spatialLIBD</span>::<span class="fu"><a href="reference/run_app.html">run_app</a></span>()
+<span class="fu">spatialLIBD</span><span class="fu">::</span><span class="fu"><a href="reference/run_app.html">run_app</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co">## You will have more control about the length of the</span>
 <span class="co">## session and memory usage.</span>
@@ -112,8 +106,7 @@
 <span class="co">## You could also use this function to visualize your</span>
 <span class="co">## own data given some requirements described</span>
 <span class="co">## in detail in the package vignette documentation</span>
-<span class="co">## at http://research.libd.org/spatialLIBD/.</span>
-</pre></div>
+<span class="co">## at http://research.libd.org/spatialLIBD/.</span></pre></div>
 </div>
 <div id="shiny-website-mirrors" class="section level2">
 <h2 class="hasAnchor">
@@ -141,11 +134,10 @@
 <a href="#installation-instructions" class="anchor"></a>Installation instructions</h2>
 <p>Get the latest stable <code>R</code> release from <a href="http://cran.r-project.org/">CRAN</a>. Then install <code>spatialLIBD</code> using from <a href="http://bioconductor.org/">Bioconductor</a> the following code:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co">if</span> (<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, quietly = <span class="fl">TRUE</span>))
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"BiocManager"</span>)
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
 
-<span class="kw">BiocManager</span>::<span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="st">"spatialLIBD"</span>)
-</pre></div>
+<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"spatialLIBD"</span><span class="op">)</span></pre></div>
 </div>
 <div id="access-the-data" class="section level2">
 <h2 class="hasAnchor">
@@ -157,15 +149,15 @@
 <p>Using <code>spatialLIBD</code> you can access the Human DLPFC spatial transcriptomics data from the 10x Genomics Visium platform. For example, this is the code you can use to access the layer-level data. For more details, check the help file for <code><a href="reference/fetch_data.html">fetch_data()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="co">## Load the package</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st"><a href="https://github.com/LieberInstitute/spatialLIBD">'spatialLIBD'</a></span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/LieberInstitute/spatialLIBD">'spatialLIBD'</a></span><span class="op">)</span>
 
 <span class="co">## Download the spot-level data</span>
-<span class="kw">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fetch_data.html">fetch_data</a></span>(type = <span class="st">'sce'</span>)
+<span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'sce'</span><span class="op">)</span>
 <span class="co">#&gt; Loading objects:</span>
 <span class="co">#&gt;   sce</span>
 
 <span class="co">## This is a SingleCellExperiment object</span>
-<span class="kw">sce</span>
+<span class="va">sce</span>
 <span class="co">#&gt; class: SingleCellExperiment </span>
 <span class="co">#&gt; dim: 33538 47681 </span>
 <span class="co">#&gt; metadata(1): image</span>
@@ -182,18 +174,17 @@
 <span class="co">#&gt; altExpNames(0):</span>
 
 <span class="co">## Note the memory size</span>
-<span class="kw">pryr</span>::<span class="fu">object_size</span>(<span class="kw">sce</span>)
+<span class="fu">pryr</span><span class="fu">::</span><span class="fu">object_size</span><span class="op">(</span><span class="va">sce</span><span class="op">)</span>
 <span class="co">#&gt; 2.08 GB</span>
 
 <span class="co">## Remake the logo image with histology information</span>
-<span class="fu"><a href="reference/sce_image_clus.html">sce_image_clus</a></span>(
-    sce = <span class="kw">sce</span>,
-    clustervar = <span class="st">'layer_guess_reordered'</span>,
-    sampleid = <span class="st">'151673'</span>,
-    colors = <span class="kw">libd_layer_colors</span>,
-    ... = <span class="st">' DLPFC Human Brain Layers\nMade with github.com/LieberInstitute/spatialLIBD'</span>
-)
-</pre></div>
+<span class="fu"><a href="reference/sce_image_clus.html">sce_image_clus</a></span><span class="op">(</span>
+    sce <span class="op">=</span> <span class="va">sce</span>,
+    clustervar <span class="op">=</span> <span class="st">'layer_guess_reordered'</span>,
+    sampleid <span class="op">=</span> <span class="st">'151673'</span>,
+    colors <span class="op">=</span> <span class="va">libd_layer_colors</span>,
+    ... <span class="op">=</span> <span class="st">' DLPFC Human Brain Layers\nMade with github.com/LieberInstitute/spatialLIBD'</span>
+<span class="op">)</span></pre></div>
 <p><img src="reference/figures/README-access_data-1.png" width="100%"></p>
 </div>
 <div id="raw-data" class="section level3">
@@ -341,7 +332,7 @@
 <a href="#citation" class="anchor"></a>Citation</h2>
 <p>Below is the citation output from using <code><a href="https://rdrr.io/r/utils/citation.html">citation('spatialLIBD')</a></code> in R. Please run this yourself to check for any updates on how to cite <strong>spatialLIBD</strong>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">'spatialLIBD'</span>), bibtex = <span class="fl">TRUE</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">'spatialLIBD'</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Collado-Torres L, Maynard KR, Jaffe AE (2020). _LIBD Visium spatial</span>
 <span class="co">#&gt; transcriptomics human pilot data inspector_. doi:</span>
@@ -378,8 +369,7 @@
 <span class="co">#&gt;     journal = {bioRxiv},</span>
 <span class="co">#&gt;     doi = {10.1101/2020.02.28.969931},</span>
 <span class="co">#&gt;     url = {https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1},</span>
-<span class="co">#&gt;   }</span>
-</pre></div>
+<span class="co">#&gt;   }</span></pre></div>
 <p>Please note that the <code>spatialLIBD</code> was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.</p>
 </div>
 <div id="code-of-conduct" class="section level2">
@@ -398,7 +388,7 @@
 <li>The documentation is formatted thanks to <em><a href="https://CRAN.R-project.org/package=devtools">devtools</a></em> and <em><a href="https://CRAN.R-project.org/package=roxygen2">roxygen2</a></em>.</li>
 </ul>
 <p>For more details, check the <code>dev</code> directory.</p>
-<p><a href="https://www.libd.org/"><img src="http://aejaffe.com/media/LIBD_logo.jpg" width="250px"></a></p>
+<p><a href="https://www.libd.org/"><img src="http://lcolladotor.github.io/img/LIBD_logo.jpg" width="250px"></a></p>
 <center>
 <script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?cl=ffffff&amp;w=300&amp;t=n&amp;d=FRs8oQ9HVpMg6QLJJKAExpF8seGfPVlH-YOnwqUE8Hg"></script>
 </center>

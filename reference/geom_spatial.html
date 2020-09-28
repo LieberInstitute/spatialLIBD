@@ -90,12 +90,6 @@ as in sce_image_gene_p()." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/spatialLIBD.html">Get started</a>
 </li>
 <li>
@@ -137,16 +131,16 @@ visualizing the clusters as in <code><a href='sce_image_clus_p.html'>sce_image_c
 as in <code><a href='sce_image_gene_p.html'>sce_image_gene_p()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_spatial</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='kw'>NULL</span>,
-  stat = <span class='st'>"identity"</span>,
-  position = <span class='st'>"identity"</span>,
-  na.rm = <span class='fl'>FALSE</span>,
-  show.legend = <span class='fl'>NA</span>,
-  inherit.aes = <span class='fl'>FALSE</span>,
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>geom_spatial</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"identity"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>NA</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,36 +189,35 @@ are required.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'>if</span> (<span class='fu'><a href='enough_ram.html'>enough_ram</a></span>()) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='enough_ram.html'>enough_ram</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
     <span class='co'>## Obtain the necessary data</span>
-    <span class='co'>if</span> (<span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span>(<span class='st'>"sce"</span>)) <span class='kw'>sce</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span>(<span class='st'>"sce"</span>)
+    <span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"sce"</span><span class='op'>)</span><span class='op'>)</span> <span class='va'>sce</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span><span class='st'>"sce"</span><span class='op'>)</span>
 
     <span class='co'>## Select the first sample and extract the data</span>
-    <span class='kw'>sample_id</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='kw'>sce</span><span class='op'>$</span><span class='kw'>sample_name</span>)[<span class='fl'>1</span>]
-    <span class='kw'>sce_sub</span> <span class='op'>&lt;-</span> <span class='kw'>sce</span>[, <span class='kw'>sce</span><span class='op'>$</span><span class='kw'>sample_name</span> <span class='op'>==</span> <span class='kw'>sample_id</span>]
-    <span class='kw'>sample_df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='fu'>colData</span>(<span class='kw'>sce_sub</span>))
+    <span class='va'>sample_id</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>sce</span><span class='op'>$</span><span class='va'>sample_name</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
+    <span class='va'>sce_sub</span> <span class='op'>&lt;-</span> <span class='va'>sce</span><span class='op'>[</span>, <span class='va'>sce</span><span class='op'>$</span><span class='va'>sample_name</span> <span class='op'>==</span> <span class='va'>sample_id</span><span class='op'>]</span>
+    <span class='va'>sample_df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'>colData</span><span class='op'>(</span><span class='va'>sce_sub</span><span class='op'>)</span><span class='op'>)</span>
 
     <span class='co'>## Make a plot using geom_spatial</span>
-    <span class='kw'>ggplot2</span>::<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(
-        <span class='kw'>sample_df</span>,
-        <span class='kw'>ggplot2</span>::<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(
-            x = <span class='kw'>imagecol</span>,
-            y = <span class='kw'>imagerow</span>,
-            fill = <span class='kw'>layer_guess</span>
-        )
-    ) <span class='op'>+</span>
-        <span class='fu'>geom_spatial</span>(
-            data = <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='fu'>metadata</span>(<span class='kw'>sce_sub</span>)<span class='op'>$</span><span class='kw'>image</span>, <span class='kw'>sample</span> <span class='op'>==</span> <span class='kw'>sample_id</span>),
-            <span class='kw'>ggplot2</span>::<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(grob = <span class='kw'>grob</span>),
-            x = <span class='fl'>0.5</span>,
-            y = <span class='fl'>0.5</span>
-        )
+    <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>
+        <span class='va'>sample_df</span>,
+        <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>
+            x <span class='op'>=</span> <span class='va'>imagecol</span>,
+            y <span class='op'>=</span> <span class='va'>imagerow</span>,
+            fill <span class='op'>=</span> <span class='va'>layer_guess</span>
+        <span class='op'>)</span>
+    <span class='op'>)</span> <span class='op'>+</span>
+        <span class='fu'>geom_spatial</span><span class='op'>(</span>
+            data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='fu'>metadata</span><span class='op'>(</span><span class='va'>sce_sub</span><span class='op'>)</span><span class='op'>$</span><span class='va'>image</span>, <span class='va'>sample</span> <span class='op'>==</span> <span class='va'>sample_id</span><span class='op'>)</span>,
+            <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>grob <span class='op'>=</span> <span class='va'>grob</span><span class='op'>)</span>,
+            x <span class='op'>=</span> <span class='fl'>0.5</span>,
+            y <span class='op'>=</span> <span class='fl'>0.5</span>
+        <span class='op'>)</span>
 
     <span class='co'>## Clean up</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span>(<span class='kw'>sce_sub</span>)
-}
-</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-14</span></div><div class='output co'>#&gt; Loading objects:
-#&gt;   sce</div></pre>
+    <span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span><span class='op'>(</span><span class='va'>sce_sub</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-24</span></div><div class='output co'>#&gt; <span class='message'>2020-09-28 18:57:38 loading file /tmp/RtmpE2FbEl/BiocFileCache/6a2b41bc535e_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
