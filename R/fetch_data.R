@@ -92,33 +92,43 @@ fetch_data <-
             spatialCoords_visium <- SummarizedExperiment::colData(sce)[, colnames(SummarizedExperiment::colData(sce)) %in% cols_to_drop, drop = FALSE]
             names(spatialCoords_visium) <- c("Cell_ID", "sample_name", "in_tissue", "array_row", "array_col", "pxl_col_in_fullres", "pxl_row_in_fullres")
 
-            # Load scaleFactors
-            url_scaleFactors <- "https://raw.githubusercontent.com/LieberInstitute/HumanPilot/master/10X/151507/scalefactors_json.json"
-            scaleFactors_visium <- jsonlite::read_json(url_scaleFactors)
-
             # Load reducedDim
             reducedDimNames_visium <- SingleCellExperiment::reducedDims(sce)
 
             # Load images
             sample_id <- unique(colData(sce)$sample_name)
             url_images <- paste0("https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/", sample_id, "_tissue_lowres_image.png")
-            filepath_images <- BiocFileCache::bfcrpath(BiocFileCache::BiocFileCache(), url_images, exact = TRUE)
+            filepath_images <- BiocFileCache::bfcrpath(bfc, url_images, exact = TRUE)
             names(filepath_images) <- sample_id
 
-            # Create object
+            # Load scaleFactors
+            url_scaleFactors <- paste0(
+                "https://raw.githubusercontent.com/LieberInstitute/",
+                "HumanPilot/master/10X/",
+                sample_id,
+                "/scalefactors_json.json"
+            )
+            names(url_scaleFactors) <- sample_id
+            scaleFactors_visium <- lapply(url_scaleFactors, jsonlite::read_json)
+
+            ## Create a list with the required 4 names by
+            ## https://github.com/drighelli/SpatialExperiment/blob/master/R/Validity.R#L26-L28
+            ## but also a 5th slot with the full list
+            scaleFactors_visium_custom <- c(
+                scaleFactors_visium[[1]],
+                all_images = list(scaleFactors_visium)
+            )
+
+            ## Create object
             ve <- SpatialExperiment::VisiumExperiment(
                 rowData = rowData_visium,
                 colData = colData_visium,
                 assays = assays_visium,
                 spatialCoords = spatialCoords_visium,
-                scaleFactors = scaleFactors_visium,
+                scaleFactors = scaleFactors_visium_custom,
                 imagePaths = filepath_images,
                 reducedDims = reducedDimNames_visium
             )
-
-
-
-
             return(ve)
         }
 
