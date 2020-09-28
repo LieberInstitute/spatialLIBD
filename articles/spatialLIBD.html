@@ -228,13 +228,13 @@ If you tweet about this website, the data or the R package please use the <code>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="co">## Connect to ExperimentHub</span>
 <span class="va">ehub</span> <span class="op">&lt;-</span> <span class="fu">ExperimentHub</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ExperimentHub/man/ExperimentHub-class.html">ExperimentHub</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; using temporary cache /tmp/RtmpmgRnTi/BiocFileCache</span>
+<span class="co">#&gt; using temporary cache /tmp/RtmpGFatit/BiocFileCache</span>
 <span class="co">#&gt; snapshotDate(): 2020-09-24</span></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="co">## Download the small example sce data</span>
 <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html">exists</a></span><span class="op">(</span><span class="st">"sce"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_example"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
 <span class="co">#&gt; adding rname 'https://www.dropbox.com/s/5ra9o8ku9iyyf70/sce_sub_for_vignette.Rdata?dl=1'</span>
-<span class="co">#&gt; 2020-09-28 19:00:23 loading file /tmp/RtmpmgRnTi/BiocFileCache/6aafca56723_sce_sub_for_vignette.Rdata%3Fdl%3D1</span>
+<span class="co">#&gt; 2020-09-28 20:31:14 loading file /tmp/RtmpGFatit/BiocFileCache/b96c4e1cf7_sce_sub_for_vignette.Rdata%3Fdl%3D1</span>
 
 <span class="co">## If you want to download the full real data (about 2.1 GB in RAM) use:</span>
 <span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span>
@@ -244,10 +244,10 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">## Query ExperimentHub and download the data</span>
 <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
 <span class="co">#&gt; adding rname 'https://www.dropbox.com/s/bg8xwysh2vnjwvg/Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata?dl=1'</span>
-<span class="co">#&gt; 2020-09-28 19:00:30 loading file /tmp/RtmpmgRnTi/BiocFileCache/6aaf17f9a6ac_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="co">#&gt; 2020-09-28 20:31:21 loading file /tmp/RtmpGFatit/BiocFileCache/b967cb3df5c_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"modeling_results"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
 <span class="co">#&gt; adding rname 'https://www.dropbox.com/s/se6rrgb9yhm5gfh/Human_DLPFC_Visium_modeling_results.Rdata?dl=1'</span>
-<span class="co">#&gt; 2020-09-28 19:00:34 loading file /tmp/RtmpmgRnTi/BiocFileCache/6aaf2e7d1cb3_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></pre></div>
+<span class="co">#&gt; 2020-09-28 20:31:29 loading file /tmp/RtmpGFatit/BiocFileCache/b966b0a2fa9_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></pre></div>
 <p>Once you have downloaded the objects, we can explore them a little bit</p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="co">## spot-level data</span>
@@ -313,7 +313,7 @@ If you tweet about this website, the data or the R package please use the <code>
         <span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;  12.918   1.038  30.144</span>
+<span class="co">#&gt;  12.611   0.561  13.176</span>
 
 <span class="co">## Explore the result</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span>
@@ -935,9 +935,9 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html">knit</a></span><span class="op">(</span><span class="st">"spatialLIBD.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code>#&gt; [1] "2020-09-28 19:01:16 UTC"</code></pre>
+<pre><code>#&gt; [1] "2020-09-28 20:31:54 UTC"</code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code>#&gt; Time difference of 1.242 mins</code></pre>
+<pre><code>#&gt; Time difference of 58.673 secs</code></pre>
 <p><code>R</code> session information.</p>
 <pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt;  setting  value                                      
@@ -1075,6 +1075,7 @@ If you tweet about this website, the data or the R package please use the <code>
 #&gt;  shinyWidgets             0.5.3      2020-06-01 [1] RSPM (R 4.0.0)                
 #&gt;  SingleCellExperiment   * 1.11.7     2020-09-17 [1] Bioconductor                  
 #&gt;  spam                     2.5-1      2019-12-12 [1] RSPM (R 4.0.0)                
+#&gt;  SpatialExperiment        0.99.3     2020-08-04 [1] Bioconductor                  
 #&gt;  spatialLIBD            * 1.1.4      2020-09-28 [1] Bioconductor                  
 #&gt;  stringi                  1.5.3      2020-09-09 [2] RSPM (R 4.0.2)                
 #&gt;  stringr                  1.4.0      2019-02-10 [2] RSPM (R 4.0.0)                
