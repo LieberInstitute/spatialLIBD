@@ -1,6 +1,6 @@
 Package: spatialLIBD
 Title: LIBD Visium spatial transcriptomics human pilot data inspector
-Version: 1.1.4
+Version: 1.1.5
 Date: 2020-09-14
 Authors@R:
     c(
@@ -14,7 +14,7 @@ Authors@R:
     comment = c(ORCID = "0000-0001-6886-1454")),
     person("Brenda", "Pardo",
     role = "ctb", email = "bpardo@lcgej.unam.mx",
-    #comment = c(ORCID = "")
+    comment = c(ORCID = "0000-0001-8103-7136")
     )
     )
 Description: Inspect interactively the spatial transcriptomics 10x Genomics
