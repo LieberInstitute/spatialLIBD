@@ -82,7 +82,7 @@ functions such as layer_boxplot()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
       </span>
     </div>
 
@@ -178,8 +178,8 @@ the vignette.</p>
 <span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"modeling_results"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
       <span class='va'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span>
   <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-24</span></div><div class='output co'>#&gt; <span class='message'>2020-09-28 20:30:22 loading file /tmp/RtmpEDf7Z8/BiocFileCache/b0031a25e89_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"sce_layer"</span><span class='op'>)</span><span class='op'>)</span> <span class='va'>sce_layer</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"sce_layer"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-24</span></div><div class='output co'>#&gt; <span class='message'>2020-09-28 20:30:24 loading file /tmp/RtmpEDf7Z8/BiocFileCache/b005f64b606_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-24</span></div><div class='output co'>#&gt; <span class='message'>2020-09-30 23:28:20 loading file /tmp/RtmpMy3Doz/BiocFileCache/e893d270e0e_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"sce_layer"</span><span class='op'>)</span><span class='op'>)</span> <span class='va'>sce_layer</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"sce_layer"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-09-24</span></div><div class='output co'>#&gt; <span class='message'>2020-09-30 23:28:21 loading file /tmp/RtmpMy3Doz/BiocFileCache/e895d072cf0_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></div><div class='input'>
 <span class='co'>## top 10 genes for all models</span>
 <span class='fu'>sig_genes_extract_all</span><span class='op'>(</span>
     modeling_results <span class='op'>=</span> <span class='va'>modeling_results</span>,
