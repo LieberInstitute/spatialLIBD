@@ -27,27 +27,29 @@
 #'
 #'     ## Select the first sample and extract the data
 #'     sample_id <- unique(SpatialExperiment::spatialCoords(ve)$sample_name)[1]
-#'     sce_sub <- ve[, SpatialExperiment::spatialCoords(ve)$sample_name == sample_id]
-#'     sample_df <- as.data.frame(SpatialExperiment::spatialCoords(sce_sub))
+#'     ve_sub <- ve[, SpatialExperiment::spatialCoords(ve)$sample_name == sample_id]
+#'     sample_df <- as.data.frame(SpatialExperiment::spatialCoords(ve_sub))
 #'
 #'     ## Make a plot using geom_spatial
-#'     ggplot2::ggplot(
+#'     p <- ggplot2::ggplot(
 #'         sample_df,
 #'         ggplot2::aes(
 #'             x = imagecol,
 #'             y = imagerow,
-#'             fill = layer_guess
 #'         )
 #'     ) +
 #'         geom_spatial(
-#'             data = tibble_image,
+#'             data = read_image(ve_sub, sample_id),
 #'             ggplot2::aes(grob = grob),
 #'             x = 0.5,
 #'             y = 0.5
 #'         )
 #'
+#'     ## Show the plot
+#'     print(p)
+#'
 #'     ## Clean up
-#'     rm(sce_sub)
+#'     rm(ve_sub)
 #' }
 geom_spatial <- function(mapping = NULL,
     data = NULL,
@@ -92,18 +94,21 @@ geom_spatial <- function(mapping = NULL,
     )
 }
 
-##Read image 
-read_image <- function(ve, sample_id, bfc = BiocFileCache::BiocFileCache()) {
-    
+##Read image
+#' @importFrom readbitmap read.bitmap
+#' @importFrom grid rasterGrob
+#' @importFrom tibble tibble
+read_image <- function(ve, sample_id = names(imagePaths(ve))[1]) {
+
     ## Check inputs
     stopifnot(sample_id %in% names(imagePaths(ve)))
-    
+
     ## Read image
     img <- readbitmap::read.bitmap(imagePaths(ve)[as.character(sample_id)])
-    
+
     ## Create raster
     grob <- grid::rasterGrob(img, width=unit(1,"npc"), height=unit(1,"npc"))
-    
+
     ## Create tibble for ggplot2
     tibble_image <- tibble::tibble(grob = list(grob))
     return(tibble_image)

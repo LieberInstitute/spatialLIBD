@@ -46,31 +46,33 @@ as in \code{\link[=sce_image_gene_p]{sce_image_gene_p()}}.
 
 if (enough_ram()) {
     ## Obtain the necessary data
-    if (!exists("sce")) sce <- fetch_data("sce")
+    if (!exists("ve")) ve <- fetch_data("ve")
 
     ## Select the first sample and extract the data
-    sample_id <- unique(sce$sample_name)[1]
-    sce_sub <- sce[, sce$sample_name == sample_id]
-    sample_df <- as.data.frame(colData(sce_sub))
+    sample_id <- unique(SpatialExperiment::spatialCoords(ve)$sample_name)[1]
+    ve_sub <- ve[, SpatialExperiment::spatialCoords(ve)$sample_name == sample_id]
+    sample_df <- as.data.frame(SpatialExperiment::spatialCoords(ve_sub))
 
     ## Make a plot using geom_spatial
-    ggplot2::ggplot(
+    p <- ggplot2::ggplot(
         sample_df,
         ggplot2::aes(
             x = imagecol,
             y = imagerow,
-            fill = layer_guess
         )
     ) +
         geom_spatial(
-            data = subset(metadata(sce_sub)$image, sample == sample_id),
+            data = read_image(ve_sub, sample_id),
             ggplot2::aes(grob = grob),
             x = 0.5,
             y = 0.5
         )
 
+    ## Show the plot
+    print(p)
+
     ## Clean up
-    rm(sce_sub)
+    rm(ve_sub)
 }
 }
 \author{
