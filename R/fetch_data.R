@@ -76,59 +76,7 @@ fetch_data <-
 
         ## Deal with the special case of VisiumExperiment first
         if (type == "ve") {
-            sce <- fetch_data("sce", destdir = destdir, eh = eh)
-
-            # Load assays
-            assays_visium <- SummarizedExperiment::assays(sce)
-
-            # Load rowData
-            rowData_visium <- SummarizedExperiment::rowData(sce)
-
-            # Load colData
-            cols_to_drop <- c("barcode", "sample_name", "tissue", "row", "col", "imagerow", "imagecol")
-            colData_visium <- SummarizedExperiment::colData(sce)[, !colnames(SummarizedExperiment::colData(sce)) %in% cols_to_drop, drop = FALSE]
-
-            # Load spatialCoords
-            spatialCoords_visium <- SummarizedExperiment::colData(sce)[, colnames(SummarizedExperiment::colData(sce)) %in% cols_to_drop, drop = FALSE]
-            names(spatialCoords_visium) <- c("Cell_ID", "sample_name", "in_tissue", "array_row", "array_col", "pxl_col_in_fullres", "pxl_row_in_fullres")
-
-            # Load reducedDim
-            reducedDimNames_visium <- SingleCellExperiment::reducedDims(sce)
-
-            # Load images
-            sample_id <- unique(colData(sce)$sample_name)
-            url_images <- paste0("https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/", sample_id, "_tissue_lowres_image.png")
-            filepath_images <- BiocFileCache::bfcrpath(bfc, url_images, exact = TRUE)
-            names(filepath_images) <- sample_id
-
-            # Load scaleFactors
-            url_scaleFactors <- paste0(
-                "https://raw.githubusercontent.com/LieberInstitute/",
-                "HumanPilot/master/10X/",
-                sample_id,
-                "/scalefactors_json.json"
-            )
-            names(url_scaleFactors) <- sample_id
-            scaleFactors_visium <- lapply(url_scaleFactors, jsonlite::read_json)
-
-            ## Create a list with the required 4 names by
-            ## https://github.com/drighelli/SpatialExperiment/blob/master/R/Validity.R#L26-L28
-            ## but also a 5th slot with the full list
-            scaleFactors_visium_custom <- c(
-                scaleFactors_visium[[1]],
-                all_images = list(scaleFactors_visium)
-            )
-
-            ## Create object
-            ve <- SpatialExperiment::VisiumExperiment(
-                rowData = rowData_visium,
-                colData = colData_visium,
-                assays = assays_visium,
-                spatialCoords = spatialCoords_visium,
-                scaleFactors = scaleFactors_visium_custom,
-                imagePaths = filepath_images,
-                reducedDims = reducedDimNames_visium
-            )
+            ve <- sce_to_ve(fetch_data("sce", destdir = destdir, eh = eh), bfc = bfc)
             return(ve)
         }
 
