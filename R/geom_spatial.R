@@ -93,25 +93,3 @@ geom_spatial <- function(mapping = NULL,
         params = list(na.rm = na.rm, ...)
     )
 }
-
-##Read image
-#' @importFrom readbitmap read.bitmap
-#' @importFrom grid rasterGrob
-#' @importFrom tibble tibble
-read_image <- function(ve, sample_id = names(imagePaths(ve))[1]) {
-
-    ## Check inputs
-    stopifnot(sample_id %in% names(imagePaths(ve)))
-
-    ## Read image
-    img <- readbitmap::read.bitmap(imagePaths(ve)[as.character(sample_id)])
-
-    ## Create raster
-    grob <- grid::rasterGrob(img, width=unit(1,"npc"), height=unit(1,"npc"))
-
-    ## Create tibble for ggplot2
-    tibble_image <- tibble::tibble(grob = list(grob))
-    return(tibble_image)
-}
-
-
