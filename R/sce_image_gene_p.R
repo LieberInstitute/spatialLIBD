@@ -38,6 +38,17 @@
 #'         spatial = FALSE
 #'     )
 #'
+#'     ## Or you can do this with a VisiumEsperiment object
+#'     ve_sub <- sce_to_ve(sce_sub)
+#'     # df <- funcion_nueva() # que junte spatialCoords() imagerow, imagecol con colData()
+#'     sce_image_gene_p(
+#'         sce = ve,
+#'         d = df,
+#'         sampleid = "151673",
+#'         title = "151673 chrM expr ratio",
+#'         spatial = FALSE
+#'     )
+#'
 #'     ## Clean up
 #'     rm(sce_sub)
 #' }
@@ -67,7 +78,7 @@ sce_image_gene_p <-
         if (spatial) {
             p <-
                 p + geom_spatial(
-                    data = subset(metadata(sce)$image, sample == sampleid),
+                    data = if(is(sce, "SingleCellExperiment")) subset(metadata(sce)$image, sample == sampleid) else read_image(ve = sce, sample_id = sampleid),
                     aes(grob = grob),
                     x = 0.5,
                     y = 0.5
