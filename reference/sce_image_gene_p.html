@@ -84,7 +84,7 @@ To visualize clusters (or any discrete variable) use sce_image_clus_p()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6</span>
       </span>
     </div>
 
@@ -207,11 +207,27 @@ dependent on cell density.</p></td>
         title <span class='op'>=</span> <span class='st'>"151673 chrM expr ratio"</span>,
         spatial <span class='op'>=</span> <span class='cn'>FALSE</span>
     <span class='op'>)</span>
+    
+
+    <span class='co'>## Or you can do this with a VisiumEsperiment object</span>
+    <span class='va'>ve_sub</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sce_to_ve.html'>sce_to_ve</a></span><span class='op'>(</span><span class='va'>sce_sub</span><span class='op'>)</span>
+    <span class='va'>df2</span> <span class='op'>&lt;-</span> <span class='fu'>colData</span><span class='op'>(</span><span class='va'>ve_sub</span><span class='op'>)</span>
+    <span class='va'>df2</span><span class='op'>$</span><span class='va'>COUNT</span> <span class='op'>&lt;-</span> <span class='va'>df2</span><span class='op'>$</span><span class='va'>expr_chrM_ratio</span>
+    
+    <span class='fu'>sce_image_gene_p</span><span class='op'>(</span>
+        sce <span class='op'>=</span> <span class='va'>ve_sub</span>,
+        d <span class='op'>=</span> <span class='va'>df2</span>,
+        sampleid <span class='op'>=</span> <span class='st'>"151673"</span>,
+        title <span class='op'>=</span> <span class='st'>"151673 chrM expr ratio"</span>,
+        spatial <span class='op'>=</span> <span class='cn'>FALSE</span>
+    <span class='op'>)</span>
+    
 
     <span class='co'>## Clean up</span>
     <span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span><span class='op'>(</span><span class='va'>sce_sub</span><span class='op'>)</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span><span class='op'>(</span><span class='va'>ve_sub</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-10-02</span></div><div class='output co'>#&gt; <span class='message'>2020-10-19 21:35:28 loading file /tmp/RtmpBjMxVX/BiocFileCache/7d71eb9549b_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span></div></pre>
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-10-02</span></div><div class='output co'>#&gt; <span class='message'>2020-10-19 21:44:12 loading file /tmp/Rtmp3y0wD9/BiocFileCache/8adae374e5_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

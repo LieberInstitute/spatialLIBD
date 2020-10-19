@@ -83,7 +83,7 @@ To visualize clusters (or any discrete variable) use sce_image_clus()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6</span>
       </span>
     </div>
 
@@ -226,6 +226,13 @@ data and title for <code><a href='sce_image_gene_p.html'>sce_image_gene_p()</a><
         sampleid <span class='op'>=</span> <span class='st'>"151507"</span>,
         viridis <span class='op'>=</span> <span class='cn'>FALSE</span>
     <span class='op'>)</span>
+    
+    <span class='co'>## Works also with SpatialExperiment objects</span>
+    <span class='fu'>sce_image_gene</span><span class='op'>(</span>
+        sce <span class='op'>=</span> <span class='fu'><a href='sce_to_ve.html'>sce_to_ve</a></span><span class='op'>(</span><span class='va'>sce</span><span class='op'>)</span>,
+        sampleid <span class='op'>=</span> <span class='st'>"151507"</span>,
+        viridis <span class='op'>=</span> <span class='cn'>FALSE</span>
+    <span class='op'>)</span>
 
     <span class='co'>## Visualize a continuous variable, in this case, the ratio of chrM</span>
     <span class='co'>## gene expression compared to the total expression at the spot-level</span>
@@ -235,7 +242,7 @@ data and title for <code><a href='sce_image_gene_p.html'>sce_image_gene_p()</a><
         geneid <span class='op'>=</span> <span class='st'>"expr_chrM_ratio"</span>
     <span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-10-02</span></div><div class='output co'>#&gt; <span class='message'>2020-10-19 21:35:13 loading file /tmp/RtmpBjMxVX/BiocFileCache/7d71eb9549b_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span></div><div class='img'><img src='sce_image_gene-1.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-10-02</span></div><div class='output co'>#&gt; <span class='message'>2020-10-19 21:43:50 loading file /tmp/Rtmp3y0wD9/BiocFileCache/8adae374e5_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span></div><div class='img'><img src='sce_image_gene-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
