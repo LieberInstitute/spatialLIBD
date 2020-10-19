@@ -79,6 +79,13 @@ if (enough_ram()) {
         sampleid = "151507",
         viridis = FALSE
     )
+    
+    ## Works also with SpatialExperiment objects
+    sce_image_gene(
+        sce = sce_to_ve(sce),
+        sampleid = "151507",
+        viridis = FALSE
+    )
 
     ## Visualize a continuous variable, in this case, the ratio of chrM
     ## gene expression compared to the total expression at the spot-level

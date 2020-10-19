@@ -63,9 +63,25 @@ if (enough_ram()) {
         title = "151673 chrM expr ratio",
         spatial = FALSE
     )
+    
+
+    ## Or you can do this with a VisiumEsperiment object
+    ve_sub <- sce_to_ve(sce_sub)
+    df2 <- colData(ve_sub)
+    df2$COUNT <- df2$expr_chrM_ratio
+    
+    sce_image_gene_p(
+        sce = ve_sub,
+        d = df2,
+        sampleid = "151673",
+        title = "151673 chrM expr ratio",
+        spatial = FALSE
+    )
+    
 
     ## Clean up
     rm(sce_sub)
+    rm(ve_sub)
 }
 }
 \seealso{

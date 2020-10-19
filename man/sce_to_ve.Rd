@@ -50,7 +50,8 @@ if (enough_ram()) {
 }
 \seealso{
 Other VisiumExperiment-related functions: 
-\code{\link{read_image}()}
+\code{\link{read_image}()},
+\code{\link{ve_image_colData}()}
 }
 \author{
 Brenda Pardo, Leonardo Collado-Torres
