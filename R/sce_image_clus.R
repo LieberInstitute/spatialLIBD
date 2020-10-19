@@ -42,6 +42,17 @@
 #'         ... = " LIBD Layers"
 #'     )
 #'
+#'     ## Works also with SpatialExperiment objects.
+#'     sce_image_clus(
+#'         sce = sce_to_ve(sce),
+#'         clustervar = "layer_guess_reordered",
+#'         sampleid = "151673",
+#'         colors = libd_layer_colors,
+#'         ... = " LIBD Layers"
+#'     )
+#'
+#'
+#'
 #'     ## Without histology
 #'     sce_image_clus(
 #'         sce = sce,
@@ -71,7 +82,12 @@ sce_image_clus <- function(sce,
     ),
     spatial = TRUE,
     ...) {
-    sce_sub <- sce[, sce$sample_name == sampleid]
+    if (is(sce, "SpatialExperiment")) {
+        sce_sub <- sce[, SpatialExperiment::spatialCoords(sce)$sample_name == sampleid]
+    }else{
+        sce_sub <- sce[, sce$sample_name == sampleid]
+    }
+    
     d <- as.data.frame(colData(sce_sub))
     sce_image_clus_p(
         sce = sce_sub,

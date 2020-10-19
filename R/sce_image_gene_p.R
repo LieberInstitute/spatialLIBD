@@ -41,12 +41,12 @@
 #'
 #'     ## Or you can do this with a VisiumEsperiment object
 #'     ve_sub <- sce_to_ve(sce_sub)
-#'     df <- ve_image_gene_p(ve_sub)
-#'     df$COUNT <- df$expr_chrM_ratio
+#'     df2 <- colData(ve_sub)
+#'     df2$COUNT <- df2$expr_chrM_ratio
 #'     
 #'     sce_image_gene_p(
 #'         sce = ve_sub,
-#'         d = df,
+#'         d = df2,
 #'         sampleid = "151673",
 #'         title = "151673 chrM expr ratio",
 #'         spatial = FALSE
@@ -68,6 +68,7 @@ sce_image_gene_p <-
         ## Some variables
         imagecol <- imagerow <- key <- COUNT <- NULL
 
+        if (is(sce, "SpatialExperiment")) d <- ve_image_colData(sce, d)
         p <-
             ggplot(
                 d,
@@ -83,8 +84,7 @@ sce_image_gene_p <-
         if (spatial) {
             p <-
                 p + geom_spatial(
-                    #data = if(is(sce, "SingleCellExperiment")) subset(metadata(sce)$image, sample == sampleid) else read_image(ve = sce, sample_id = sampleid),
-                    data = if(is(sce, "SingleCellExperiment")) subset(metadata(sce)$image, sample == sampleid) else read_image(ve = ve, sample_id = sampleid),
+                    data = if(is(sce, "SpatialExperiment"))  read_image(ve = sce, sample_id = sampleid) else subset(metadata(sce)$image, sample == sampleid),
                     aes(grob = grob),
                     x = 0.5,
                     y = 0.5

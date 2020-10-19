@@ -44,6 +44,13 @@
 #'         sampleid = "151507",
 #'         viridis = FALSE
 #'     )
+#'     
+#'     ## Works also with SpatialExperiment objects
+#'     sce_image_gene(
+#'         sce = sce_to_ve(sce),
+#'         sampleid = "151507",
+#'         viridis = FALSE
+#'     )
 #'
 #'     ## Visualize a continuous variable, in this case, the ratio of chrM
 #'     ## gene expression compared to the total expression at the spot-level
@@ -62,7 +69,12 @@ sce_image_gene <-
     minCount = 0,
     viridis = TRUE,
     ...) {
-        sce_sub <- sce[, sce$sample_name == sampleid]
+        if (is(sce, "SpatialExperiment")) {
+            sce_sub <- sce[, SpatialExperiment::spatialCoords(sce)$sample_name == sampleid]
+        }else{
+            sce_sub <- sce[, sce$sample_name == sampleid]
+        }
+        
         d <- as.data.frame(colData(sce_sub))
 
         if (geneid %in% colnames(colData(sce_sub))) {
