@@ -40,7 +40,19 @@
 #'             sort_clust = FALSE,
 #'             colors = libd_layer_colors
 #'         )
-#'
+#'         
+#'      ## Or you can do this with a VisiumEsperiment object
+#'      ve_sub <- sce_to_ve(sce_sub)
+#'      p_list <-
+#'         sce_image_grid(
+#'             ve_sub,
+#'             "layer_guess_reordered",
+#'             spatial = FALSE,
+#'             return_plots = TRUE,
+#'             sort_clust = FALSE,
+#'             colors = libd_layer_colors
+#'         )
+#'      
 #'     ## Clean up
 #'     rm(sce_sub)
 #'
@@ -57,12 +69,14 @@ sce_image_grid <-
     return_plots = FALSE,
     spatial = TRUE,
     ...) {
+        
+
         if (sort_clust) {
-              colData(sce)[[clustervar]] <-
-                  sort_clusters(colData(sce)[[clustervar]])
+            colData(sce)[[clustervar]] <-
+                sort_clusters(colData(sce)[[clustervar]])
           }
         plots <-
-            lapply(unique(sce$sample_name), function(sampleid) {
+            lapply(if (is(sce, "SpatialExperiment")) {unique(SpatialExperiment::spatialCoords(ve_sub)$sample_name)} else{unique(sce$sample_name)}, function(sampleid) {
                 sce_image_clus(sce,
                     sampleid,
                     clustervar,
@@ -71,7 +85,13 @@ sce_image_grid <-
                     ...
                 )
             })
-        names(plots) <- unique(sce$sample_name)
+        
+        if (is(sce, "SpatialExperiment")) {    
+            names(plots) <- unique(SpatialExperiment::spatialCoords(ve_sub)$sample_name)
+        }else{
+            names(plots) <- unique(sce$sample_name)
+        }
+        
         if (!return_plots) {
             pdf(pdf_file, height = 24, width = 36)
             print(cowplot::plot_grid(plotlist = plots))
