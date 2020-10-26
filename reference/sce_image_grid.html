@@ -82,7 +82,7 @@ gene-level (or any continuous variable) use sce_image_grid_gene()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.7</span>
       </span>
     </div>
 
@@ -223,7 +223,19 @@ objects.</p>
             sort_clust <span class='op'>=</span> <span class='cn'>FALSE</span>,
             colors <span class='op'>=</span> <span class='va'>libd_layer_colors</span>
         <span class='op'>)</span>
-
+        
+     <span class='co'>## Or you can do this with a VisiumEsperiment object</span>
+     <span class='va'>ve_sub</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sce_to_ve.html'>sce_to_ve</a></span><span class='op'>(</span><span class='va'>sce_sub</span><span class='op'>)</span>
+     <span class='va'>p_list</span> <span class='op'>&lt;-</span>
+        <span class='fu'>sce_image_grid</span><span class='op'>(</span>
+            <span class='va'>ve_sub</span>,
+            <span class='st'>"layer_guess_reordered"</span>,
+            spatial <span class='op'>=</span> <span class='cn'>FALSE</span>,
+            return_plots <span class='op'>=</span> <span class='cn'>TRUE</span>,
+            sort_clust <span class='op'>=</span> <span class='cn'>FALSE</span>,
+            colors <span class='op'>=</span> <span class='va'>libd_layer_colors</span>
+        <span class='op'>)</span>
+     
     <span class='co'>## Clean up</span>
     <span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span><span class='op'>(</span><span class='va'>sce_sub</span><span class='op'>)</span>
 
@@ -231,7 +243,7 @@ objects.</p>
     <span class='co'>## for subject 3</span>
     <span class='fu'>cowplot</span><span class='fu'>::</span><span class='fu'><a href='https://wilkelab.org/cowplot/reference/plot_grid.html'>plot_grid</a></span><span class='op'>(</span>plotlist <span class='op'>=</span> <span class='va'>p_list</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-10-02</span></div><div class='output co'>#&gt; <span class='message'>2020-10-25 04:09:12 loading file /tmp/RtmpzBZpMz/BiocFileCache/b6256703ea6_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span></div><div class='img'><img src='sce_image_grid-1.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2020-10-02</span></div><div class='output co'>#&gt; <span class='message'>2020-10-26 21:08:07 loading file /tmp/Rtmpi7qCNI/BiocFileCache/c2b293259_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span></div><div class='output co'>#&gt; <span class='error'>Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'spatialCoords': object 've_sub' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
