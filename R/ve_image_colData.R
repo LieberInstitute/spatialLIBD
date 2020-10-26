@@ -1,8 +1,8 @@
 #' Create a data frame with required columns of the ve object to use `sce_image_gene_p()` function
 #' 
 #' Function that creates a data frame containing the colData columns from the ve object and 
-#' the array_row and array_col from the spatialCoords slot. This allows to use the function 
-#' `sce_image_gene_p()` with ve objects.
+#' the array_row and array_col from the spatialCoords slot. This allows to use the functions 
+#' `sce_image_gene_p()` and `sce_image_clus_p()` with ve objects.
 #' 
 #' @param ve  A
 #' [VisiumExperiment-class][SpatialExperiment::VisiumExperiment-class] object

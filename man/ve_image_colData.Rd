@@ -20,8 +20,8 @@ and imagerow.
 }
 \description{
 Function that creates a data frame containing the colData columns from the ve object and
-the array_row and array_col from the spatialCoords slot. This allows to use the function
-\code{sce_image_gene_p()} with ve objects.
+the array_row and array_col from the spatialCoords slot. This allows to use the functions
+\code{sce_image_gene_p()} and \code{sce_image_clus_p()} with ve objects.
 }
 \seealso{
 Other VisiumExperiment-related functions: 

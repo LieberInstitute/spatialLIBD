@@ -5,7 +5,7 @@ NEW FEATURES
 * The functions `sce_image_gene_p()`, `sce_image_gene()`, `sce_image_grid()`, 
 `sce_image_grid_gene()`, `sce_image_clus()`, `sce_image_clus_p()`, 
 `geom_spatial()` now work with VisiumExperiment objects thanks to the new 
-function `read_image()`. This work was done by Brenda Pardo and Leonardo. 
+function `read_image()` and `ve_image_colData()`. This work was done by Brenda Pardo and Leonardo. 
 
 
 # spatialLIBD 1.1.5
@@ -13,7 +13,7 @@ function `read_image()`. This work was done by Brenda Pardo and Leonardo.
 NEW FEATURES
 
 * `fetch_data()` takes the data from sce object and creates a VisiumExperiment
-object containing these data. VisiumExperiment object can be obtained with 
+object containing these data thanks to the function `sce_to_ve()`. VisiumExperiment object can be obtained with 
 `fetch_data("ve")`. This work was done by Brenda Pardo and Leonardo. 
 
 
