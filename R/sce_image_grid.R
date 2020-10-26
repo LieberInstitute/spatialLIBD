@@ -76,7 +76,7 @@ sce_image_grid <-
                 sort_clusters(colData(sce)[[clustervar]])
           }
         plots <-
-            lapply(if (is(sce, "SpatialExperiment")) {unique(SpatialExperiment::spatialCoords(ve_sub)$sample_name)} else{unique(sce$sample_name)}, function(sampleid) {
+            lapply(if (is(sce, "VisiumExperiment")) {unique(SpatialExperiment::spatialCoords(ve_sub)$sample_name)} else{unique(sce$sample_name)}, function(sampleid) {
                 sce_image_clus(sce,
                     sampleid,
                     clustervar,
@@ -86,7 +86,7 @@ sce_image_grid <-
                 )
             })
         
-        if (is(sce, "SpatialExperiment")) {    
+        if (is(sce, "VisiumExperiment")) {    
             names(plots) <- unique(SpatialExperiment::spatialCoords(ve_sub)$sample_name)
         }else{
             names(plots) <- unique(sce$sample_name)

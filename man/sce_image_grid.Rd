@@ -77,7 +77,19 @@ if (enough_ram()) {
             sort_clust = FALSE,
             colors = libd_layer_colors
         )
-
+        
+     ## Or you can do this with a VisiumEsperiment object
+     ve_sub <- sce_to_ve(sce_sub)
+     p_list <-
+        sce_image_grid(
+            ve_sub,
+            "layer_guess_reordered",
+            spatial = FALSE,
+            return_plots = TRUE,
+            sort_clust = FALSE,
+            colors = libd_layer_colors
+        )
+     
     ## Clean up
     rm(sce_sub)
 

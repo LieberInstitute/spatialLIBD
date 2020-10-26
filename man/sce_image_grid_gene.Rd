@@ -84,6 +84,16 @@ if (enough_ram()) {
             spatial = FALSE,
             return_plots = TRUE
         )
+        
+     ## Or you can do this with a VisiumEsperiment object
+     ve_sub <- sce_to_ve(sce_sub)
+     p_list <-
+        sce_image_grid_gene(
+            ve_sub,
+            spatial = FALSE,
+            return_plots = TRUE
+        )    
+     
 
     ## Clean up
     rm(sce_sub)

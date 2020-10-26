@@ -45,7 +45,7 @@
 #'         viridis = FALSE
 #'     )
 #'     
-#'     ## Works also with SpatialExperiment objects
+#'     ## Works also with VisiumExperiment objects
 #'     sce_image_gene(
 #'         sce = sce_to_ve(sce),
 #'         sampleid = "151507",
@@ -69,7 +69,7 @@ sce_image_gene <-
     minCount = 0,
     viridis = TRUE,
     ...) {
-        if (is(sce, "SpatialExperiment")) {
+        if (is(sce, "VisiumExperiment")) {
             sce_sub <- sce[, SpatialExperiment::spatialCoords(sce)$sample_name == sampleid]
         }else{
             sce_sub <- sce[, sce$sample_name == sampleid]

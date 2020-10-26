@@ -41,7 +41,7 @@
 #' }
 update_scaleFactors <- function(ve, sample_id) {
     ## Check our inputs
-    stopifnot(is(ve, "SpatialExperiment"))
+    stopifnot(is(ve, "VisiumExperiment"))
     stopifnot(
         "Could not find the specified sample_id in the input ve object." =
             sample_id %in% names(imagePaths(ve))

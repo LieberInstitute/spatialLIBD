@@ -68,7 +68,7 @@ sce_image_gene_p <-
         ## Some variables
         imagecol <- imagerow <- key <- COUNT <- NULL
 
-        if (is(sce, "SpatialExperiment")) d <- ve_image_colData(sce, d)
+        if (is(sce, "VisiumExperiment")) d <- ve_image_colData(sce, d)
         p <-
             ggplot(
                 d,
@@ -84,7 +84,7 @@ sce_image_gene_p <-
         if (spatial) {
             p <-
                 p + geom_spatial(
-                    data = if(is(sce, "SpatialExperiment"))  read_image(ve = sce, sample_id = sampleid) else subset(metadata(sce)$image, sample == sampleid),
+                    data = if(is(sce, "VisiumExperiment"))  read_image(ve = sce, sample_id = sampleid) else subset(metadata(sce)$image, sample == sampleid),
                     aes(grob = grob),
                     x = 0.5,
                     y = 0.5

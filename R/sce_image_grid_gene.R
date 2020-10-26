@@ -60,7 +60,7 @@ sce_image_grid_gene <-
     spatial = TRUE,
     viridis = TRUE,
     ...) {
-        plots <- lapply(if (is(sce, "SpatialExperiment")) {unique(SpatialExperiment::spatialCoords(ve_sub)$sample_name)} else{unique(sce$sample_name)}, function(sampleid) {
+        plots <- lapply(if (is(sce, "VisiumExperiment")) {unique(SpatialExperiment::spatialCoords(ve_sub)$sample_name)} else{unique(sce$sample_name)}, function(sampleid) {
             sce_image_gene(
                 sce,
                 sampleid,
@@ -73,7 +73,7 @@ sce_image_grid_gene <-
             )
         })
         
-        if (is(sce, "SpatialExperiment")) {    
+        if (is(sce, "VisiumExperiment")) {    
             names(plots) <- unique(SpatialExperiment::spatialCoords(ve_sub)$sample_name)
         }else{
             names(plots) <- unique(sce$sample_name)

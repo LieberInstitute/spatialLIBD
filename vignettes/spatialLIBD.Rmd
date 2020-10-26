@@ -523,6 +523,12 @@ The `r CRANpkg('shiny')` application provided by `r Biocpkg('spatialLIBD')` `r c
 
 This section gets into the details of how we generated the data `r citep(bib[['spatialLIBDpaper']])` behind `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])`. This could be useful if you are a Bioconductor developer or a user very familiar with packages such as `r Biocpkg('SingleCellExperiment')`.
 
+
+## SpatialExperiment support
+
+As of version 1.1.7, `r Biocpkg('spatialLIBD')` supports the `VisiumExperiment` class from `r Biocpkg('SpatialExperiment')`. The functions `sce_image_gene_p()`, `sce_image_gene()`, `sce_image_grid()`, `sce_image_grid_gene()`, `sce_image_clus()`, `sce_image_clus_p()`, `geom_spatial()` now work with `VisiumExperiment` objects thanks to the new function `read_image()`. We
+provide now the function `sce_to_ve()` for converting our data to the `VisiumExperiment` class. This work was done by [Brenda Pardo](https://twitter.com/PardoBree) and Leonardo. 
+
 ## Generating our data
 
 If you are interested in reshaping your data to fit our structure, we do not provide a quick function to do so. That is intentional given the active development by the Bioconductor community for determining the best way to deal with spatial transcriptomics data in general and the 10x Visium data in particular. Having said that, we do have all the steps and reproducibility information documented across several of our analysis `r citep(bib[['spatialLIBDpaper']])` scripts.

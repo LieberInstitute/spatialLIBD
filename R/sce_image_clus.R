@@ -42,7 +42,7 @@
 #'         ... = " LIBD Layers"
 #'     )
 #'
-#'     ## Works also with SpatialExperiment objects.
+#'     ## Works also with VisiumExperiment objects.
 #'     sce_image_clus(
 #'         sce = sce_to_ve(sce),
 #'         clustervar = "layer_guess_reordered",
@@ -82,7 +82,7 @@ sce_image_clus <- function(sce,
     ),
     spatial = TRUE,
     ...) {
-    if (is(sce, "SpatialExperiment")) {
+    if (is(sce, "VisiumExperiment")) {
         sce_sub <- sce[, SpatialExperiment::spatialCoords(sce)$sample_name == sampleid]
     }else{
         sce_sub <- sce[, sce$sample_name == sampleid]

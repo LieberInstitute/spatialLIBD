@@ -80,7 +80,7 @@ if (enough_ram()) {
         viridis = FALSE
     )
     
-    ## Works also with SpatialExperiment objects
+    ## Works also with VisiumExperiment objects
     sce_image_gene(
         sce = sce_to_ve(sce),
         sampleid = "151507",
