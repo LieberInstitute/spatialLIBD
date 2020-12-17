@@ -37,13 +37,13 @@
 #'         title = "151673 chrM expr ratio",
 #'         spatial = FALSE
 #'     )
-#'     
+#'
 #'
 #'     ## Or you can do this with a VisiumEsperiment object
 #'     ve_sub <- sce_to_ve(sce_sub)
 #'     df2 <- colData(ve_sub)
 #'     df2$COUNT <- df2$expr_chrM_ratio
-#'     
+#'
 #'     sce_image_gene_p(
 #'         sce = ve_sub,
 #'         d = df2,
@@ -51,7 +51,7 @@
 #'         title = "151673 chrM expr ratio",
 #'         spatial = FALSE
 #'     )
-#'     
+#'
 #'
 #'     ## Clean up
 #'     rm(sce_sub)
@@ -84,7 +84,7 @@ sce_image_gene_p <-
         if (spatial) {
             p <-
                 p + geom_spatial(
-                    data = if(is(sce, "VisiumExperiment"))  read_image(ve = sce, sample_id = sampleid) else subset(metadata(sce)$image, sample == sampleid),
+                    data = if (is(sce, "VisiumExperiment")) read_image(ve = sce, sample_id = sampleid) else subset(metadata(sce)$image, sample == sampleid),
                     aes(grob = grob),
                     x = 0.5,
                     y = 0.5

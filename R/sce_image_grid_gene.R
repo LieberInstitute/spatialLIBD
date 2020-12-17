@@ -32,16 +32,16 @@
 #'             spatial = FALSE,
 #'             return_plots = TRUE
 #'         )
-#'         
-#'      ## Or you can do this with a VisiumEsperiment object
-#'      ve_sub <- sce_to_ve(sce_sub)
-#'      p_list <-
+#'
+#'     ## Or you can do this with a VisiumEsperiment object
+#'     ve_sub <- sce_to_ve(sce_sub)
+#'     p_list <-
 #'         sce_image_grid_gene(
 #'             ve_sub,
 #'             spatial = FALSE,
 #'             return_plots = TRUE
-#'         )    
-#'      
+#'         )
+#'
 #'
 #'     ## Clean up
 #'     rm(sce_sub)
@@ -60,7 +60,11 @@ sce_image_grid_gene <-
     spatial = TRUE,
     viridis = TRUE,
     ...) {
-        plots <- lapply(if (is(sce, "VisiumExperiment")) {unique(SpatialExperiment::spatialCoords(ve_sub)$sample_name)} else{unique(sce$sample_name)}, function(sampleid) {
+        plots <- lapply(if (is(sce, "VisiumExperiment")) {
+            unique(SpatialExperiment::spatialCoords(ve_sub)$sample_name)
+        } else {
+            unique(sce$sample_name)
+        }, function(sampleid) {
             sce_image_gene(
                 sce,
                 sampleid,
@@ -72,13 +76,13 @@ sce_image_grid_gene <-
                 ...
             )
         })
-        
-        if (is(sce, "VisiumExperiment")) {    
+
+        if (is(sce, "VisiumExperiment")) {
             names(plots) <- unique(SpatialExperiment::spatialCoords(ve_sub)$sample_name)
-        }else{
+        } else {
             names(plots) <- unique(sce$sample_name)
         }
-        
+
         if (!return_plots) {
             pdf(pdf_file, height = 24, width = 36)
             print(cowplot::plot_grid(plotlist = plots))

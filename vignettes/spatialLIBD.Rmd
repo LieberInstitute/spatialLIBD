@@ -39,13 +39,7 @@ library("BiocStyle")
 startTime <- Sys.time()
 
 ## Bib setup
-library("knitcitations")
-
-## Load knitcitations with a clean bibliography
-cleanbib()
-cite_options(hyperlink = "to.doc", citation_format = "text", style = "html")
-# Note links won't show for now due to the following issue
-# https://github.com/cboettig/knitcitations/issues/63
+library("RefManageR")
 
 ## Write bibliography information
 bib <- c(
@@ -61,11 +55,11 @@ bib <- c(
     ggplot2 = citation("ggplot2"),
     golem = citation("golem"),
     IRanges = citation("IRanges"),
-    knitcitations = citation("knitcitations"),
     knitr = citation("knitr")[3],
     plotly = citation("plotly"),
     Polychrome = citation("Polychrome"),
     RColorBrewer = citation("RColorBrewer"),
+    RefManageR = citation("RefManageR")[1],
     rmarkdown = citation("rmarkdown")[1],
     S4Vectors = citation("S4Vectors"),
     scater = citation("scater"),
@@ -124,7 +118,7 @@ BiocManager::valid()
 
 ## Required knowledge
 
-`r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` is based on many other packages and in particular in those that have implemented the infrastructure needed for dealing with single cell RNA sequencing data, visualization functions, and interactive data exploration. That is, packages like `r Biocpkg('SingleCellExperiment')` that allow you to store the data, `r CRANpkg('ggplot2')` and `r CRANpkg('plotly')` for visualizing the data, and `r CRANpkg('shiny')` for building an interactive interface. A `r Biocpkg('spatialLIBD')` user who only accesses the web application is not expected to deal with those packages directly. A `r Biocpkg('spatialLIBD')` user will need to be familiar with `r Biocpkg('SingleCellExperiment')` and `r CRANpkg('ggplot2')` to understand the data provided by `r Biocpkg('spatialLIBD')` or the graphical results `r Biocpkg('spatialLIBD')` provides. Furthermore, it'll be useful for the user to know about `r CRANpkg('shiny')` and `r CRANpkg('plotly')` if you wish to adapt the web application provided by `r Biocpkg('spatialLIBD')`.
+`r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])` is based on many other packages and in particular in those that have implemented the infrastructure needed for dealing with single cell RNA sequencing data, visualization functions, and interactive data exploration. That is, packages like `r Biocpkg('SingleCellExperiment')` that allow you to store the data, `r CRANpkg('ggplot2')` and `r CRANpkg('plotly')` for visualizing the data, and `r CRANpkg('shiny')` for building an interactive interface. A `r Biocpkg('spatialLIBD')` user who only accesses the web application is not expected to deal with those packages directly. A `r Biocpkg('spatialLIBD')` user will need to be familiar with `r Biocpkg('SingleCellExperiment')` and `r CRANpkg('ggplot2')` to understand the data provided by `r Biocpkg('spatialLIBD')` or the graphical results `r Biocpkg('spatialLIBD')` provides. Furthermore, it'll be useful for the user to know about `r CRANpkg('shiny')` and `r CRANpkg('plotly')` if you wish to adapt the web application provided by `r Biocpkg('spatialLIBD')`.
 
 If you are asking yourself the question "Where do I start using Bioconductor?" you might be interested in [this blog post](http://lcolladotor.github.io/2014/10/16/startbioc/#.VkOKbq6rRuU).
 
@@ -143,13 +137,13 @@ citation("spatialLIBD")
 
 # Overview
 
-The `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` package was developed for analyzing the human dorsolateral prefrontal cortex (DLPFC) spatial transcriptomics data generated with the 10x Genomics Visium technology by researchers at the Lieber Institute for Brain Development (LIBD) `r citep(bib[['spatialLIBDpaper']])`. An initial `r CRANpkg('shiny')` application was developed for interactively exploring this data and for assigning human brain layer labels to the each spot for each sample generated. While this was useful enough for our project, we made this [Bioconductor](http://bioconductor.org/) package in case you want to:
+The `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])` package was developed for analyzing the human dorsolateral prefrontal cortex (DLPFC) spatial transcriptomics data generated with the 10x Genomics Visium technology by researchers at the Lieber Institute for Brain Development (LIBD) `r Citep(bib[['spatialLIBDpaper']])`. An initial `r CRANpkg('shiny')` application was developed for interactively exploring this data and for assigning human brain layer labels to the each spot for each sample generated. While this was useful enough for our project, we made this [Bioconductor](http://bioconductor.org/) package in case you want to:
 
 * access our Visium data to get some data from this new technology and develop methods or infrastructure for other Visium datasets.
 * re-shape your data into what ours is structured as, then re-use the visualization functions and/or the shiny app itself. 
-* want to explore our data in more detail. This can range from launching the `r CRANpkg('shiny')` application locally to diving into the specifics of the data from our project `r citep(bib[['spatialLIBDpaper']])`.
+* want to explore our data in more detail. This can range from launching the `r CRANpkg('shiny')` application locally to diving into the specifics of the data from our project `r Citep(bib[['spatialLIBDpaper']])`.
 
-In this vignette we'll showcase how you can access the Human DLPFC LIBD Visium dataset `r citep(bib[['spatialLIBDpaper']])`, the R functions provided by `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])`, and an overview of how you can re-shape your own Visium dataset to match the structure we used.
+In this vignette we'll showcase how you can access the Human DLPFC LIBD Visium dataset `r Citep(bib[['spatialLIBDpaper']])`, the R functions provided by `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])`, and an overview of how you can re-shape your own Visium dataset to match the structure we used.
 
 
 To get started, please load the `r Biocpkg('spatialLIBD')` package.
@@ -160,7 +154,7 @@ library("spatialLIBD")
 
 # Human DLPFC Visium dataset
 
-The human DLPFC 10x Genomics Visium dataset analyzed by LIBD researchers and colleagues is described in detail by Maynard, Collado-Torres et al `r citep(bib[['spatialLIBDpaper']])`. However, briefly, this dataset is composed of:
+The human DLPFC 10x Genomics Visium dataset analyzed by LIBD researchers and colleagues is described in detail by Maynard, Collado-Torres et al `r Citep(bib[['spatialLIBDpaper']])`. However, briefly, this dataset is composed of:
 
 * Three brain subjects (all controls; two males, one female; ages 30-46; [details](https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/visium_dlpfc_pilot_sample_metrics.tsv)).
 * Four images per subject: two spatially adjacent replicates at position 0, then two more spatially adjacent replicates 300 micrometers away.
@@ -169,7 +163,7 @@ The human DLPFC 10x Genomics Visium dataset analyzed by LIBD researchers and col
 
 ## Data specifics
 
-We combined all the Visium data into a single `r Biocpkg('SingleCellExperiment')` `r citep(bib[['SingleCellExperiment']])` object that we typically refer to as __`sce`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis) for details on how we built the `sce` object. In particular check `convert_sce.R` and `sce_scran.R`.]. It has 33,538 genes (rows) and 47,681 spots (columns). This is the initial point for most of our analyses ([code available on GitHub](https://github.com/LieberInstitute/HumanPilot)). Using `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` we manually assigned each spot across all 12 images to a layer (L1 through L6 or WM). We then compressed the spot-level data at the layer-level using a pseudo-bulking approach resulting in the `r Biocpkg('SingleCellExperiment')` object we typically refer to as __`sce_layer`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis/Layer_Guesses) for details on how we built the `sce_layer` object. In particular check `spots_per_layer.R` and `layer_enrichment.R`.]. We then computed for each gene t or F statistics assessing whether the gene had higher expression in a given layer compared to the rest (`enrichment`; t-stat), between one layer and another layer (`pairwise`; t-stat), or had any expression variability across all layers (`anova`; F-stat). The results from the models are stored in what we refer to as __`modeling_results`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis/Layer_Guesses) for details on how we built the `modeling_results` object. In particular check `layer_specificity_fstats.R`, `layer_specificity.R`, and `misc_numbers.R`.].
+We combined all the Visium data into a single `r Biocpkg('SingleCellExperiment')` `r Citep(bib[['SingleCellExperiment']])` object that we typically refer to as __`sce`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis) for details on how we built the `sce` object. In particular check `convert_sce.R` and `sce_scran.R`.]. It has 33,538 genes (rows) and 47,681 spots (columns). This is the initial point for most of our analyses ([code available on GitHub](https://github.com/LieberInstitute/HumanPilot)). Using `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])` we manually assigned each spot across all 12 images to a layer (L1 through L6 or WM). We then compressed the spot-level data at the layer-level using a pseudo-bulking approach resulting in the `r Biocpkg('SingleCellExperiment')` object we typically refer to as __`sce_layer`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis/Layer_Guesses) for details on how we built the `sce_layer` object. In particular check `spots_per_layer.R` and `layer_enrichment.R`.]. We then computed for each gene t or F statistics assessing whether the gene had higher expression in a given layer compared to the rest (`enrichment`; t-stat), between one layer and another layer (`pairwise`; t-stat), or had any expression variability across all layers (`anova`; F-stat). The results from the models are stored in what we refer to as __`modeling_results`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis/Layer_Guesses) for details on how we built the `modeling_results` object. In particular check `layer_specificity_fstats.R`, `layer_specificity.R`, and `misc_numbers.R`.].
 
 In summary,
 
@@ -180,7 +174,7 @@ In summary,
 
 ## Downloading the data with `spatialLIBD`
 
-Using `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` you can download all of these R objects. They are hosted by [Bioconductor](http://bioconductor.org/)'s `r Biocpkg('ExperimentHub')` `r citep(bib[['ExperimentHub']])` resource and you can download them using `spatialLIBD::fetch_data()`. `fetch_data()` will query `r Biocpkg('ExperimentHub')` which in turn will download the data and cache it so you don't have to download it again. If `r Biocpkg('ExperimentHub')` is unavailable, then `fetch_data()` has a backup option that does not cache the files ^[You can change the `destdir` argument and specific a specific location that you will use and re-use. However the default value of `destdir` is a temporary directory that will be wiped out once you close your R session.] Below we obtain all of these objects.
+Using `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])` you can download all of these R objects. They are hosted by [Bioconductor](http://bioconductor.org/)'s `r Biocpkg('ExperimentHub')` `r Citep(bib[['ExperimentHub']])` resource and you can download them using `spatialLIBD::fetch_data()`. `fetch_data()` will query `r Biocpkg('ExperimentHub')` which in turn will download the data and cache it so you don't have to download it again. If `r Biocpkg('ExperimentHub')` is unavailable, then `fetch_data()` has a backup option that does not cache the files ^[You can change the `destdir` argument and specific a specific location that you will use and re-use. However the default value of `destdir` is a temporary directory that will be wiped out once you close your R session.] Below we obtain all of these objects.
 
 
 ```{r 'experiment_hub'}
@@ -242,7 +236,7 @@ dim(sig_genes)
 
 # Interactively explore the `spatialLIBD` data
 
-Now that you have downloaded the data, you can interactively explore the data using a `r CRANpkg('shiny')` `r citep(bib[['shiny']])` web application contained within `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])`. To do so, use the `run_app()` function as shown below:
+Now that you have downloaded the data, you can interactively explore the data using a `r CRANpkg('shiny')` `r Citep(bib[['shiny']])` web application contained within `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])`. To do so, use the `run_app()` function as shown below:
 
 ```{r}
 if (interactive()) {
@@ -262,7 +256,7 @@ Though overall, this application allows you to export all static visualizations 
 
 # `spatialLIBD` functions
 
-We already covered `fetch_data()` which allows you to download the Human DLPFC Visium data from LIBD researchers and colleagues `r citep(bib[['spatialLIBDpaper']])`.
+We already covered `fetch_data()` which allows you to download the Human DLPFC Visium data from LIBD researchers and colleagues `r Citep(bib[['spatialLIBDpaper']])`.
 
 ## Spot-level clusters and discrete variables
 
@@ -305,7 +299,7 @@ sce_image_clus(
 )
 ```
 
-Some helper functions include `get_colors()` and `sort_clusters()` as well as the `libd_layer_colors` object included in `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])`.
+Some helper functions include `get_colors()` and `sort_clusters()` as well as the `libd_layer_colors` object included in `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])`.
 
 ```{r 'libd_layer_colors'}
 ## Color palette designed by Lukas M. Weber with feedback from the team.
@@ -382,7 +376,7 @@ The output of `sig_genes_extract_all()` contains the following columns:
 
 ## Visualize modeling results
 
-After extracting the table of modeling results in long format with `sig_genes_extract_all()`, we can then use `layer_boxplot()` to visualize any gene of interest for any of the model types and tests we performed. Below we explore the first one (by default). We also show the color palettes used in the `r CRANpkg('shiny')` application provided by `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])`. The last example has the long title version that uses more information from the `sig_genes` object we created earlier.
+After extracting the table of modeling results in long format with `sig_genes_extract_all()`, we can then use `layer_boxplot()` to visualize any gene of interest for any of the model types and tests we performed. Below we explore the first one (by default). We also show the color palettes used in the `r CRANpkg('shiny')` application provided by `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])`. The last example has the long title version that uses more information from the `sig_genes` object we created earlier.
 
 ```{r 'layer_boxplot'}
 ## Note that we recommend setting the random seed so the jittering of the
@@ -423,7 +417,7 @@ layer_boxplot(
 
 ## Correlation of layer-level statistics
 
-Just like we compressed our `sce` object into `sce_layer` by pseudo-bulking ^[For more details, check [this script](https://github.com/LieberInstitute/HumanPilot/blob/ab52559957624538f8dc08b0533e4106fab4066b/Analysis/Layer_Guesses/layer_specificity.R).], we can do the same for other single nucleus or single cell RNA sequencing datasets (snRNA-seq, scRNA-seq) and then compute enrichment t-statistics (one group vs the rest; could be one cell type vs the rest or one cluster of cells vs the rest). In our analysis `r citep(bib[['spatialLIBDpaper']])`, we did this for several datasets including one of our LIBD Human DLPFC snRNA-seq data generated by Matthew N Tran et al ^[For more details, check [this script](https://github.com/LieberInstitute/HumanPilot/blob/ab52559957624538f8dc08b0533e4106fab4066b/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R).]. In `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` we include a small set of these statistics for the 31 cell clusters identified by Matthew N Tran et al.
+Just like we compressed our `sce` object into `sce_layer` by pseudo-bulking ^[For more details, check [this script](https://github.com/LieberInstitute/HumanPilot/blob/ab52559957624538f8dc08b0533e4106fab4066b/Analysis/Layer_Guesses/layer_specificity.R).], we can do the same for other single nucleus or single cell RNA sequencing datasets (snRNA-seq, scRNA-seq) and then compute enrichment t-statistics (one group vs the rest; could be one cell type vs the rest or one cluster of cells vs the rest). In our analysis `r Citep(bib[['spatialLIBDpaper']])`, we did this for several datasets including one of our LIBD Human DLPFC snRNA-seq data generated by Matthew N Tran et al ^[For more details, check [this script](https://github.com/LieberInstitute/HumanPilot/blob/ab52559957624538f8dc08b0533e4106fab4066b/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R).]. In `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])` we include a small set of these statistics for the 31 cell clusters identified by Matthew N Tran et al.
 
 ```{r 'matt_t_stats'}
 ## Explore the enrichment t-statistics derived from Tran et al's snRNA-seq
@@ -465,13 +459,13 @@ In order to fully interpret the resulting heatmap you need to know what each of 
 
 You can find the version with the full names [here](https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/pdf/snRNAseq_overlap_heatmap.pdf) if you are interested in it.
 
-The `r CRANpkg('shiny')` application provided by `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` allows users to upload CSV file with these t-statistics, view the correlation heatmaps, download them, and download the correlation matrix. An example CSV file is provided [here](https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv).
+The `r CRANpkg('shiny')` application provided by `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])` allows users to upload CSV file with these t-statistics, view the correlation heatmaps, download them, and download the correlation matrix. An example CSV file is provided [here](https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv).
 
 ## Gene set enrichment
 
 Many researchers have identified lists of genes that increase the risk of a given disorder or disease, are differentially expressed in a given experiment or set of conditions, have been described in a several research papers, among other collections. We can ask for any of our modeling results whether a list of genes is enriched among our significant results. 
 
-For illustration purposes, we included in `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` a set of genes from the Simons Foundation Autism Research Initiative [SFARI](https://www.sfari.org/). In our analysis `r citep(bib[['spatialLIBDpaper']])` we used more gene lists. Below, we read in the data and create a `list()` object with the Ensembl gene IDs that SFARI has provided that are related to autism.
+For illustration purposes, we included in `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])` a set of genes from the Simons Foundation Autism Research Initiative [SFARI](https://www.sfari.org/). In our analysis `r Citep(bib[['spatialLIBDpaper']])` we used more gene lists. Below, we read in the data and create a `list()` object with the Ensembl gene IDs that SFARI has provided that are related to autism.
 
 ```{r 'read_sfari'}
 ## Read in the SFARI gene sets included in the package
@@ -516,12 +510,12 @@ gene_set_enrichment_plot(
 )
 ```
 
-The `r CRANpkg('shiny')` application provided by `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` allows users to upload CSV file their gene lists, compute the enrichment statistics, visualize them, download the PDF, and download the enrichment table. An example CSV file is provided [here](https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/asd_sfari_geneList.csv).
+The `r CRANpkg('shiny')` application provided by `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])` allows users to upload CSV file their gene lists, compute the enrichment statistics, visualize them, download the PDF, and download the enrichment table. An example CSV file is provided [here](https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/asd_sfari_geneList.csv).
 
 
 # Re-shaping your data to our structure
 
-This section gets into the details of how we generated the data `r citep(bib[['spatialLIBDpaper']])` behind `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])`. This could be useful if you are a Bioconductor developer or a user very familiar with packages such as `r Biocpkg('SingleCellExperiment')`.
+This section gets into the details of how we generated the data `r Citep(bib[['spatialLIBDpaper']])` behind `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])`. This could be useful if you are a Bioconductor developer or a user very familiar with packages such as `r Biocpkg('SingleCellExperiment')`.
 
 
 ## SpatialExperiment support
@@ -530,13 +524,13 @@ As of version 1.1.7, `r Biocpkg('spatialLIBD')` supports the `VisiumExperiment` 
 
 ## Generating our data
 
-If you are interested in reshaping your data to fit our structure, we do not provide a quick function to do so. That is intentional given the active development by the Bioconductor community for determining the best way to deal with spatial transcriptomics data in general and the 10x Visium data in particular. Having said that, we do have all the steps and reproducibility information documented across several of our analysis `r citep(bib[['spatialLIBDpaper']])` scripts.
+If you are interested in reshaping your data to fit our structure, we do not provide a quick function to do so. That is intentional given the active development by the Bioconductor community for determining the best way to deal with spatial transcriptomics data in general and the 10x Visium data in particular. Having said that, we do have all the steps and reproducibility information documented across several of our analysis `r Citep(bib[['spatialLIBDpaper']])` scripts.
 
 * `reorganize_folder.R` available [here](https://github.com/LieberInstitute/HumanPilot/blob/master/reorganize_folder.R) re-organizes the raw data we were sent by 10x Genomics.
 * `Layer_Notebook.R` available [here](https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Notebook.R) reads in the Visium data and builds a list of `RangeSummarizedExperiment()` objects from `r Biocpkg('SummarizedExperiment')`, one per sample (image) that is eventually saved as `Human_DLPFC_Visium_processedData_rseList.rda`.
 * `convert_sce.R` available [here](https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/convert_sce.R) reads in `Human_DLPFC_Visium_processedData_rseList.rda` and builds an initial `sce` object with image data under `metadata(sce)$image` which is a single data.frame. Subsetting doesn't automatically subset the image, so you have to do it yourself when plotting as is done by `sce_image_clus_p()` and `sce_image_gene_p()`. Having the data from all images in a single object allows you to use the spot-level data from all images to compute clusters and do other similar analyses to the ones you would do with sc/snRNA-seq data. The script creates the `Human_DLPFC_Visium_processedData_sce.Rdata` file.
-* `sce_scran.R` available [here](https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/sce_scran.R) then uses `r Biocpkg('scran')` to read in `Human_DLPFC_Visium_processedData_sce.Rdata`, compute the highly variable genes (stored in our final `sce` object at `rowData(sce)$is_top_hvg`), perform dimensionality reduction (PCA, TSNE, UMAP) and identify clusters using the data from all images. The resulting data is then stored as `Human_DLPFC_Visium_processedData_sce_scran.Rdata` and is the main object used throughout our analysis code `r citep(bib[['spatialLIBDpaper']])`.
-* `make-data_spatialLIBD.R` available in the source version of `spatialLIBD` and [online here](https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-data_spatialLIBD.R) is the script that reads in `Human_DLPFC_Visium_processedData_sce_scran.Rdata` as well as some other outputs from our analysis and combines them into the final `sce` and `sce_layer` objects provided by `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])`. This script simplifies some operations in order to simplify the code behind the `r CRANpkg('shiny')` application provided by `r Biocpkg('spatialLIBD')`.
+* `sce_scran.R` available [here](https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/sce_scran.R) then uses `r Biocpkg('scran')` to read in `Human_DLPFC_Visium_processedData_sce.Rdata`, compute the highly variable genes (stored in our final `sce` object at `rowData(sce)$is_top_hvg`), perform dimensionality reduction (PCA, TSNE, UMAP) and identify clusters using the data from all images. The resulting data is then stored as `Human_DLPFC_Visium_processedData_sce_scran.Rdata` and is the main object used throughout our analysis code `r Citep(bib[['spatialLIBDpaper']])`.
+* `make-data_spatialLIBD.R` available in the source version of `spatialLIBD` and [online here](https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-data_spatialLIBD.R) is the script that reads in `Human_DLPFC_Visium_processedData_sce_scran.Rdata` as well as some other outputs from our analysis and combines them into the final `sce` and `sce_layer` objects provided by `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])`. This script simplifies some operations in order to simplify the code behind the `r CRANpkg('shiny')` application provided by `r Biocpkg('spatialLIBD')`.
 
 You don't necessarily need to do all of this to use the functions provided by `r Biocpkg('spatialLIBD')`. Note that external to the R objects, for the `r CRANpkg('shiny')` application provided by `r Biocpkg('spatialLIBD')` you will need to have the `tissue_lowres_image.png` image files in a directory structure by sample as shown [here](https://github.com/LieberInstitute/spatialLIBD/tree/master/inst/app/www/data) in order for the interactive visualizations made with `r CRANpkg('plotly')` to work.
 
@@ -663,40 +657,40 @@ identical(xx, modeling_results)
 ```
 
 
-As we generate more data at LIBD, we might make `r Biocpkg('spatialLIBD')` `r citep(bib[['spatialLIBD']])` more general if the need arises and we have the resources to work on this.
+As we generate more data at LIBD, we might make `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])` more general if the need arises and we have the resources to work on this.
 
 
 # Reproducibility
 
-The `r Biocpkg('spatialLIBD')` package `r citep(bib[['spatialLIBD']])` was made possible thanks to:
+The `r Biocpkg('spatialLIBD')` package `r Citep(bib[['spatialLIBD']])` was made possible thanks to:
 
-* R `r citep(bib[['R']])`
-* `r Biocpkg('AnnotationHub')` `r citep(bib[['AnnotationHub']])`
-* `r CRANpkg('benchmarkme')` `r citep(bib[['benchmarkme']])`
-* `r Biocpkg('BiocFileCache')` `r citep(bib[['BiocFileCache']])`
-* `r Biocpkg('BiocStyle')` `r citep(bib[['BiocStyle']])`
-* `r CRANpkg('cowplot')` `r citep(bib[['cowplot']])`
-* `r CRANpkg('DT')` `r citep(bib[['DT']])`
-* `r Biocpkg('ExperimentHub')` `r citep(bib[['ExperimentHub']])`
-* `r CRANpkg('fields')` `r citep(bib[['fields']])`
-* `r CRANpkg('ggplot2')` `r citep(bib[['ggplot2']])`
-* `r CRANpkg('golem')` `r citep(bib[['golem']])`
-* `r Biocpkg('IRanges')` `r citep(bib[['IRanges']])`
-* `r CRANpkg('knitcitations')` `r citep(bib[['knitcitations']])`
-* `r CRANpkg('knitr')` `r citep(bib[['knitr']])`
-* `r CRANpkg('plotly')` `r citep(bib[['plotly']])`
-* `r CRANpkg('Polychrome')` `r citep(bib[['Polychrome']])`
-* `r CRANpkg('RColorBrewer')` `r citep(bib[['RColorBrewer']])`
-* `r CRANpkg('rmarkdown')` `r citep(bib[['rmarkdown']])`
-* `r Biocpkg('S4Vectors')` `r citep(bib[['S4Vectors']])`
-* `r Biocpkg('scater')` `r citep(bib[['scater']])`
-* `r CRANpkg('sessioninfo')` `r citep(bib[['sessioninfo']])`
-* `r Biocpkg('SingleCellExperiment')` `r citep(bib[['SingleCellExperiment']])`
-* `r CRANpkg('shiny')` `r citep(bib[['shiny']])`
-* `r Biocpkg('SpatialExperiment')` `r citep(bib[['SpatialExperiment']])`
-* `r Biocpkg('SummarizedExperiment')` `r citep(bib[['SummarizedExperiment']])`
-* `r CRANpkg('testthat')` `r citep(bib[['testthat']])`
-* `r CRANpkg('viridisLite')` `r citep(bib[['viridisLite']])`
+* R `r Citep(bib[['R']])`
+* `r Biocpkg('AnnotationHub')` `r Citep(bib[['AnnotationHub']])`
+* `r CRANpkg('benchmarkme')` `r Citep(bib[['benchmarkme']])`
+* `r Biocpkg('BiocFileCache')` `r Citep(bib[['BiocFileCache']])`
+* `r Biocpkg('BiocStyle')` `r Citep(bib[['BiocStyle']])`
+* `r CRANpkg('cowplot')` `r Citep(bib[['cowplot']])`
+* `r CRANpkg('DT')` `r Citep(bib[['DT']])`
+* `r Biocpkg('ExperimentHub')` `r Citep(bib[['ExperimentHub']])`
+* `r CRANpkg('fields')` `r Citep(bib[['fields']])`
+* `r CRANpkg('ggplot2')` `r Citep(bib[['ggplot2']])`
+* `r CRANpkg('golem')` `r Citep(bib[['golem']])`
+* `r Biocpkg('IRanges')` `r Citep(bib[['IRanges']])`
+* `r CRANpkg('knitr')` `r Citep(bib[['knitr']])`
+* `r CRANpkg('plotly')` `r Citep(bib[['plotly']])`
+* `r CRANpkg('Polychrome')` `r Citep(bib[['Polychrome']])`
+* `r CRANpkg('RColorBrewer')` `r Citep(bib[['RColorBrewer']])`
+* `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`
+* `r CRANpkg('rmarkdown')` `r Citep(bib[['rmarkdown']])`
+* `r Biocpkg('S4Vectors')` `r Citep(bib[['S4Vectors']])`
+* `r Biocpkg('scater')` `r Citep(bib[['scater']])`
+* `r CRANpkg('sessioninfo')` `r Citep(bib[['sessioninfo']])`
+* `r Biocpkg('SingleCellExperiment')` `r Citep(bib[['SingleCellExperiment']])`
+* `r CRANpkg('shiny')` `r Citep(bib[['shiny']])`
+* `r Biocpkg('SpatialExperiment')` `r Citep(bib[['SpatialExperiment']])`
+* `r Biocpkg('SummarizedExperiment')` `r Citep(bib[['SummarizedExperiment']])`
+* `r CRANpkg('testthat')` `r Citep(bib[['testthat']])`
+* `r CRANpkg('viridisLite')` `r Citep(bib[['viridisLite']])`
 
 
     
@@ -739,11 +733,11 @@ session_info()
 
 # Bibliography
 
-This vignette was generated using `r Biocpkg('BiocStyle')` `r citep(bib[['BiocStyle']])`, `r CRANpkg('knitr')` `r citep(bib[['knitr']])` and `r CRANpkg('rmarkdown')` `r citep(bib[['rmarkdown']])` running behind the scenes.
+This vignette was generated using `r Biocpkg('BiocStyle')` `r Citep(bib[['BiocStyle']])`, `r CRANpkg('knitr')` `r Citep(bib[['knitr']])` and `r CRANpkg('rmarkdown')` `r Citep(bib[['rmarkdown']])` running behind the scenes.
 
-Citations were made with `r CRANpkg('knitcitations')` `r citep(bib[['knitcitations']])`.
+Citations made with `r CRANpkg('RefManageR')` `r Citep(bib[['RefManageR']])`.
 
 ```{r vignetteBiblio, results = 'asis', echo = FALSE, warning = FALSE, message = FALSE}
 ## Print bibliography
-bibliography()
+PrintBibliography(bib, .opts = list(hyperlink = "to.doc", style = "html"))
 ```

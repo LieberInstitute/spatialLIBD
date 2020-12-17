@@ -24,20 +24,20 @@ issues](https://img.shields.io/github/issues/LieberInstitute/spatialLIBD)](https
 [![DOI](https://zenodo.org/badge/225913568.svg)](https://zenodo.org/badge/latestdoi/225913568)
 <!-- badges: end -->
 
-Welcome to the `spatialLIBD` project\! It is composed of:
+Welcome to the `spatialLIBD` project! It is composed of:
 
-  - a [shiny](https://shiny.rstudio.com/) web application that we are
+-   a [shiny](https://shiny.rstudio.com/) web application that we are
     hosting at
     [spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/)
     that can handle a
     [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2)
     set of concurrent users,
-  - a Bioconductor package at
+-   a Bioconductor package at
     [bioconductor.org/packages/spatialLIBD](http://bioconductor.org/packages/spatialLIBD)
     (or from [here](http://research.libd.org/spatialLIBD/)) that lets
     you analyze the data and run a local version of our web application
     (with our data or yours),
-  - and a [research
+-   and a [research
     article](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1)
     with the scientific knowledge we drew from this dataset. The
     analysis code for our project is available
@@ -56,10 +56,9 @@ If you tweet about this website, the data or the R package please use
 the <code>\#spatialLIBD</code> hashtag. You can find previous tweets
 that way as shown
 <a href="https://twitter.com/search?q=%23spatialLIBD&src=typed_query">here</a>.
-Thank you\!
+Thank you!
 <a href="https://twitter.com/intent/tweet?button_hashtag=spatialLIBD&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet
 \#spatialLIBD</a>
-
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ## Study design
@@ -103,26 +102,26 @@ spatialLIBD::run_app()
 
 ## Shiny website mirrors
 
-  - [Main shiny application
+-   [Main shiny application
     website](http://spatial.libd.org/spatialLIBD)
-  - [Shinyapps](https://jhubiostatistics.shinyapps.io/spatialLIBD/)
-  - [Shinyapps
-    Mirror 1](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror01/)
-  - [Shinyapps
-    Mirror 2](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror02/)
+-   [Shinyapps](https://jhubiostatistics.shinyapps.io/spatialLIBD/)
+-   [Shinyapps Mirror
+    1](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror01/)
+-   [Shinyapps Mirror
+    2](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror02/)
 
 ## R/Bioconductor package
 
 The `spatialLIBD` package contains functions for:
 
-  - Accessing the spatial transcriptomics data from the LIBD Human Pilot
+-   Accessing the spatial transcriptomics data from the LIBD Human Pilot
     project ([code on
     GitHub](https://github.com/LieberInstitute/HumanPilot)) generated
     with the Visium platform from 10x Genomics. The data is retrieved
     from [Bioconductor](http://bioconductor.org/)’s `ExperimentHub`.
-  - Visualizing the spot-level spatial gene expression data and
+-   Visualizing the spot-level spatial gene expression data and
     clusters.
-  - Inspecting the data interactively either on your computer or through
+-   Inspecting the data interactively either on your computer or through
     [spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/).
 
 For more details, please check the [documentation
@@ -205,7 +204,7 @@ Furthermore, below you can find the links to the raw data we received
 from 10x Genomics.
 
 | SampleID | h5\_filtered                                                                                    | h5\_raw                                                                                    | image\_full                                                                          | image\_hi                                                                                    | image\_lo                                                                                     | loupe                                                                       | HTML\_report                                                                                           |
-| -------: | :---------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
+|---------:|:------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------|
 |   151507 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151507_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151507_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151507.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151507/151507_web_summary.html) |
 |   151508 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151508_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151508_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151508.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151508/151508_web_summary.html) |
 |   151509 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151509_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151509_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151509.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151509/151509_web_summary.html) |
@@ -233,7 +232,7 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 1.1.4, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 1.3.1, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -242,7 +241,7 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #>     author = {Leonardo Collado-Torres and Kristen R. Maynard and Andrew E. Jaffe},
 #>     year = {2020},
 #>     url = {http://www.bioconductor.org/packages/spatialLIBD},
-#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.1.4},
+#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.1},
 #>     doi = {10.18129/B9.bioc.spatialLIBD},
 #>   }
 #> 
@@ -279,7 +278,7 @@ By contributing to this project, you agree to abide by its terms.
 
 ## Development tools
 
-  - Continuous code testing is possible thanks to [GitHub
+-   Continuous code testing is possible thanks to [GitHub
     actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)
     through *[usethis](https://CRAN.R-project.org/package=usethis)*,
     *[remotes](https://CRAN.R-project.org/package=remotes)*,
@@ -288,33 +287,31 @@ By contributing to this project, you agree to abide by its terms.
     customized to use [Bioconductor’s docker
     containers](https://www.bioconductor.org/help/docker/) and
     *[BiocCheck](https://bioconductor.org/packages/3.12/BiocCheck)*.
-  - Code coverage assessment is possible thanks to
+-   Code coverage assessment is possible thanks to
     [codecov](https://codecov.io/gh) and
     *[covr](https://CRAN.R-project.org/package=covr)*.
-  - The [documentation
+-   The [documentation
     website](http://lieberinstitute.github.io/spatialLIBD) is
     automatically updated thanks to
     *[pkgdown](https://CRAN.R-project.org/package=pkgdown)*.
-  - The code is styled automatically thanks to
+-   The code is styled automatically thanks to
     *[styler](https://CRAN.R-project.org/package=styler)*.
-  - The documentation is formatted thanks to
+-   The documentation is formatted thanks to
     *[devtools](https://CRAN.R-project.org/package=devtools)* and
     *[roxygen2](https://CRAN.R-project.org/package=roxygen2)*.
 
 For more details, check the `dev` directory.
 
+This package was developed using
+*[biocthis](https://bioconductor.org/packages/3.12/biocthis)*.
+
 <a href="https://www.libd.org/"><img src="http://lcolladotor.github.io/img/LIBD_logo.jpg" width="250px"></a>
 
 <center>
-
 <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=300&t=n&d=FRs8oQ9HVpMg6QLJJKAExpF8seGfPVlH-YOnwqUE8Hg'></script>
-
 </center>
-
 <!-- Global site tag (gtag.js) - Google Analytics -->
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159132967-1"></script>
-
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}

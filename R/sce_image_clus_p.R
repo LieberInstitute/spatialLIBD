@@ -48,7 +48,7 @@ sce_image_clus_p <-
 
         ## Some variables
         imagecol <- imagerow <- key <- NULL
-        
+
         if (is(sce, "VisiumExperiment")) d <- ve_image_colData(sce, d)
 
         if (clustervar %in% c(
@@ -72,7 +72,7 @@ sce_image_clus_p <-
         if (spatial) {
             p <-
                 p + geom_spatial(
-                    data = if(is(sce, "VisiumExperiment"))  read_image(ve = sce, sample_id = sampleid) else subset(metadata(sce)$image, sample == sampleid),
+                    data = if (is(sce, "VisiumExperiment")) read_image(ve = sce, sample_id = sampleid) else subset(metadata(sce)$image, sample == sampleid),
                     aes(grob = grob),
                     x = 0.5,
                     y = 0.5

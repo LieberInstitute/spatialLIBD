@@ -44,7 +44,7 @@
 #'         sampleid = "151507",
 #'         viridis = FALSE
 #'     )
-#'     
+#'
 #'     ## Works also with VisiumExperiment objects
 #'     sce_image_gene(
 #'         sce = sce_to_ve(sce),
@@ -71,10 +71,10 @@ sce_image_gene <-
     ...) {
         if (is(sce, "VisiumExperiment")) {
             sce_sub <- sce[, SpatialExperiment::spatialCoords(sce)$sample_name == sampleid]
-        }else{
+        } else {
             sce_sub <- sce[, sce$sample_name == sampleid]
         }
-        
+
         d <- as.data.frame(colData(sce_sub))
 
         if (geneid %in% colnames(colData(sce_sub))) {
@@ -98,10 +98,10 @@ sce_image_gene <-
         )
         p + labs(caption = paste(
             if (!geneid %in% colnames(colData(sce_sub))) {
-                  assayname
-              } else {
-                  NULL
-              },
+                assayname
+            } else {
+                NULL
+            },
             "min >", minCount
         ))
     }
