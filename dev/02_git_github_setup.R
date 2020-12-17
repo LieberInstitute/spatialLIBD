@@ -15,7 +15,8 @@ usethis::use_git() ## Choose the option to make the commit, then to restart RStu
 args(usethis::use_github)
 
 ## If this is your first time running use_github(), you might have to also run:
-usethis::browse_github_token()
+usethis::gh_token_help()
+usethis::create_github_token()
 usethis::edit_r_environ()
 
 ## Setup ssh keys as described in detail at

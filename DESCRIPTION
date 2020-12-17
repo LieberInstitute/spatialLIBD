@@ -1,7 +1,7 @@
 Package: spatialLIBD
 Title: LIBD Visium spatial transcriptomics human pilot data inspector
-Version: 1.2.0
-Date: 2020-10-26
+Version: 1.2.1
+Date: 2020-12-17
 Authors@R:
     c(
     person("Leonardo", "Collado-Torres", role = c("aut", "cre"), 
@@ -61,9 +61,9 @@ URL: https://github.com/LieberInstitute/spatialLIBD
 BugReports: https://support.bioconductor.org/t/spatialLIBD
 Suggests: 
     knitr,
+    RefManageR,
     rmarkdown,
     BiocStyle,
-    knitcitations,
     testthat (>= 2.1.0),
     covr,
     here,

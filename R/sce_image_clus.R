@@ -84,10 +84,10 @@ sce_image_clus <- function(sce,
     ...) {
     if (is(sce, "VisiumExperiment")) {
         sce_sub <- sce[, SpatialExperiment::spatialCoords(sce)$sample_name == sampleid]
-    }else{
+    } else {
         sce_sub <- sce[, sce$sample_name == sampleid]
     }
-    
+
     d <- as.data.frame(colData(sce_sub))
     sce_image_clus_p(
         sce = sce_sub,

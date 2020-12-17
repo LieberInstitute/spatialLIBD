@@ -19,9 +19,9 @@ remotes::install_cran(
         "available",
         "BiocManager",
         "devtools",
-        "knitcitations",
         "knitr",
         "pkgdown",
+        "RefManageR",
         "rmarkdown",
         "rstudioapi",
         "sessioninfo",
@@ -38,9 +38,9 @@ remotes::install_github("lcolladotor/biocthis")
 ## * BiocManager: to install Bioconductor packages
 ## * BiocStyle: for styling your vignette and linking to other packages
 ## * devtools: to develop R packages
-## * knitcitations: for citing utilities in your package vignette
 ## * knitr: for making your vignette
 ## * pkgdown: for creating beautiful documentation websites
+## * RefManageR: for citing utilities in your package vignette
 ## * rmarkdown: for making the README.md and processing your vignette
 ## * remotes: for installing R packages from several locations
 ## * rstudioapi: for navigating across files in RStudio

@@ -79,7 +79,7 @@ if (enough_ram()) {
         sampleid = "151507",
         viridis = FALSE
     )
-    
+
     ## Works also with VisiumExperiment objects
     sce_image_gene(
         sce = sce_to_ve(sce),

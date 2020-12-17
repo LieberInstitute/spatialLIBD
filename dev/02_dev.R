@@ -14,7 +14,7 @@
 
 # usethis::use_package( "thinkr" ) # To call each time you need a new package
 usethis::use_package("BiocStyle", "Suggests")
-usethis::use_package("knitcitations", "Suggests")
+usethis::use_package("RefManageR", "Suggests")
 usethis::use_package("ExperimentHub")
 usethis::use_package("SingleCellExperiment", "Depends")
 usethis::use_package("ggplot2")

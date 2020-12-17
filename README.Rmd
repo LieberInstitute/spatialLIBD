@@ -184,6 +184,8 @@ Please note that the spatialLIBD project is released with a [Contributor Code of
 
 For more details, check the `dev` directory.
 
+This package was developed using `r BiocStyle::Biocpkg('biocthis')`.
+
 
 <a href="https://www.libd.org/"><img src="http://lcolladotor.github.io/img/LIBD_logo.jpg" width="250px"></a>
 
