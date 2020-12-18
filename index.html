@@ -40,12 +40,18 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li>
+  <a href="index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
 <li>
   <a href="articles/spatialLIBD.html">Get started</a>
 </li>
@@ -59,7 +65,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/LieberInstitute/spatialLIBD/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -88,7 +94,7 @@
 <li>and a <a href="https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1">research article</a> with the scientific knowledge we drew from this dataset. The analysis code for our project is available <a href="https://github.com/LieberInstitute/HumanPilot/">here</a>.</li>
 </ul>
 <p>The web application allows you to browse the LIBD human dorsolateral pre-frontal cortex (DLPFC) spatial transcriptomics data generated with the 10x Genomics Visium platform. Through the <a href="https://bioconductor.org/packages/spatialLIBD">R/Bioconductor package</a> you can also download the data as well as visualize your own datasets using this web application. Please check the <a href="https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1">bioRxiv pre-print</a> for more details about this project.</p>
-<p>If you tweet about this website, the data or the R package please use the <code>#spatialLIBD</code> hashtag. You can find previous tweets that way as shown <a href="https://twitter.com/search?q=%23spatialLIBD&amp;src=typed_query">here</a>. Thank you! <a href="https://twitter.com/intent/tweet?button_hashtag=spatialLIBD&amp;ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #spatialLIBD</a></p>
+If you tweet about this website, the data or the R package please use the <code>#spatialLIBD</code> hashtag. You can find previous tweets that way as shown <a href="https://twitter.com/search?q=%23spatialLIBD&amp;src=typed_query">here</a>. Thank you! <a href="https://twitter.com/intent/tweet?button_hashtag=spatialLIBD&amp;ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #spatialLIBD</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><div id="study-design" class="section level2">
 <h2 class="hasAnchor">
 <a href="#study-design" class="anchor"></a>Study design</h2>
@@ -96,8 +102,8 @@
 <p><img src="reference/figures/paper_figure1.jpg" align="center" width="800px"></p>
 <p>This web application was built such that we could annotate the spots to layers as you can see under the <strong>spot-level data</strong> tab. Once we annotated each spot to a layer, we compressed the information by a pseudo-bulking approach into <strong>layer-level data</strong>. We then analyzed the expression through a set of models whose results you can also explore through this web application. Finally, you can upload your own gene sets of interest as well as layer enrichment statistics and compare them with our LIBD Human DLPFC Visium dataset.</p>
 <p>If you are interested in running this web application locally, you can do so thanks to the <code>spatialLIBD</code> R/Bioconductor package that powers this web application as shown below.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co">## Run this web application locally</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Run this web application locally</span>
 <span class="fu">spatialLIBD</span><span class="fu">::</span><span class="fu"><a href="reference/run_app.html">run_app</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co">## You will have more control about the length of the</span>
@@ -106,7 +112,7 @@
 <span class="co">## You could also use this function to visualize your</span>
 <span class="co">## own data given some requirements described</span>
 <span class="co">## in detail in the package vignette documentation</span>
-<span class="co">## at http://research.libd.org/spatialLIBD/.</span></pre></div>
+<span class="co">## at http://research.libd.org/spatialLIBD/.</span></code></pre></div>
 </div>
 <div id="shiny-website-mirrors" class="section level2">
 <h2 class="hasAnchor">
@@ -133,12 +139,12 @@
 <h2 class="hasAnchor">
 <a href="#installation-instructions" class="anchor"></a>Installation instructions</h2>
 <p>Get the latest stable <code>R</code> release from <a href="http://cran.r-project.org/">CRAN</a>. Then install <code>spatialLIBD</code> using from <a href="http://bioconductor.org/">Bioconductor</a> the following code:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
       <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
   <span class="op">}</span>
 
-<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"spatialLIBD"</span><span class="op">)</span></pre></div>
+<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"spatialLIBD"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="access-the-data" class="section level2">
 <h2 class="hasAnchor">
@@ -148,8 +154,8 @@
 <h3 class="hasAnchor">
 <a href="#processed-data" class="anchor"></a>Processed data</h3>
 <p>Using <code>spatialLIBD</code> you can access the Human DLPFC spatial transcriptomics data from the 10x Genomics Visium platform. For example, this is the code you can use to access the layer-level data. For more details, check the help file for <code><a href="reference/fetch_data.html">fetch_data()</a></code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="co">## Load the package</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Load the package</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/LieberInstitute/spatialLIBD">"spatialLIBD"</a></span><span class="op">)</span>
 
 <span class="co">## Download the spot-level data</span>
@@ -183,7 +189,7 @@
     sampleid <span class="op">=</span> <span class="st">"151673"</span>,
     colors <span class="op">=</span> <span class="va">libd_layer_colors</span>,
     ... <span class="op">=</span> <span class="st">" DLPFC Human Brain Layers\nMade with github.com/LieberInstitute/spatialLIBD"</span>
-<span class="op">)</span></pre></div>
+<span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-access_data-1.png" width="100%"></p>
 </div>
 <div id="raw-data" class="section level3">
@@ -330,15 +336,15 @@
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
 <p>Below is the citation output from using <code><a href="https://rdrr.io/r/utils/citation.html">citation('spatialLIBD')</a></code> in R. Please run this yourself to check for any updates on how to cite <strong>spatialLIBD</strong>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"spatialLIBD"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"spatialLIBD"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Collado-Torres L, Maynard KR, Jaffe AE (2020). _LIBD Visium spatial</span>
 <span class="co">#&gt; transcriptomics human pilot data inspector_. doi:</span>
 <span class="co">#&gt; 10.18129/B9.bioc.spatialLIBD (URL:</span>
 <span class="co">#&gt; https://doi.org/10.18129/B9.bioc.spatialLIBD),</span>
 <span class="co">#&gt; https://github.com/LieberInstitute/spatialLIBD - R package version</span>
-<span class="co">#&gt; 1.1.4, &lt;URL: http://www.bioconductor.org/packages/spatialLIBD&gt;.</span>
+<span class="co">#&gt; 1.3.1, &lt;URL: http://www.bioconductor.org/packages/spatialLIBD&gt;.</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
 <span class="co">#&gt; </span>
@@ -347,7 +353,7 @@
 <span class="co">#&gt;     author = {Leonardo Collado-Torres and Kristen R. Maynard and Andrew E. Jaffe},</span>
 <span class="co">#&gt;     year = {2020},</span>
 <span class="co">#&gt;     url = {http://www.bioconductor.org/packages/spatialLIBD},</span>
-<span class="co">#&gt;     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.1.4},</span>
+<span class="co">#&gt;     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.1},</span>
 <span class="co">#&gt;     doi = {10.18129/B9.bioc.spatialLIBD},</span>
 <span class="co">#&gt;   }</span>
 <span class="co">#&gt; </span>
@@ -368,7 +374,7 @@
 <span class="co">#&gt;     journal = {bioRxiv},</span>
 <span class="co">#&gt;     doi = {10.1101/2020.02.28.969931},</span>
 <span class="co">#&gt;     url = {https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1},</span>
-<span class="co">#&gt;   }</span></pre></div>
+<span class="co">#&gt;   }</span></code></pre></div>
 <p>Please note that the <code>spatialLIBD</code> was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.</p>
 </div>
 <div id="code-of-conduct" class="section level2">
@@ -387,6 +393,7 @@
 <li>The documentation is formatted thanks to <em><a href="https://CRAN.R-project.org/package=devtools">devtools</a></em> and <em><a href="https://CRAN.R-project.org/package=roxygen2">roxygen2</a></em>.</li>
 </ul>
 <p>For more details, check the <code>dev</code> directory.</p>
+<p>This package was developed using <em><a href="https://bioconductor.org/packages/3.12/biocthis">biocthis</a></em>.</p>
 <p><a href="https://www.libd.org/"><img src="http://lcolladotor.github.io/img/LIBD_logo.jpg" width="250px"></a></p>
 <center>
 <script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?cl=ffffff&amp;w=300&amp;t=n&amp;d=FRs8oQ9HVpMg6QLJJKAExpF8seGfPVlH-YOnwqUE8Hg"></script>
@@ -464,7 +471,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
