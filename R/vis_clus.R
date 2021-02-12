@@ -2,12 +2,12 @@
 #'
 #' This function visualizes the clusters for one given sample at the spot-level
 #' using (by default) the histology information on the background. To visualize
-#' gene-level (or any continuous variable) use [sce_image_gene()].
+#' gene-level (or any continuous variable) use [vis_gene()].
 #'
 #' @inheritParams run_app
 #' @param sampleid A `character(1)` specifying which sample to plot from
-#' `colData(sce)$sample_name`.
-#' @param clustervar A `character(1)` with the name of the `colData(sce)`
+#' `colData(spe)$sample_name`.
+#' @param clustervar A `character(1)` with the name of the `colData(spe)`
 #' column that has the cluster values.
 #' @param colors A vector of colors to use for visualizing the clusters
 #' from `clustervar`. If the vector has names, then those should match the
@@ -21,41 +21,30 @@
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @family Spatial cluster visualization functions
 #' @export
-#' @details This function subsets `sce` to the given sample and prepares the
-#' data and title for [sce_image_clus_p()].
+#' @details This function subsets `spe` to the given sample and prepares the
+#' data and title for [vis_clus_p()].
 #'
 #' @examples
 #'
 #' if (enough_ram()) {
 #'     ## Obtain the necessary data
-#'     if (!exists("sce")) sce <- fetch_data("sce")
+#'     if (!exists("spe")) spe <- fetch_data("spe")
 #'
 #'     ## Check the colors defined by Lukas M Weber
 #'     libd_layer_colors
 #'
 #'     ## Use the manual color palette by Lukas M Weber
-#'     sce_image_clus(
-#'         sce = sce,
+#'     vis_clus(
+#'         spe = spe,
 #'         clustervar = "layer_guess_reordered",
 #'         sampleid = "151673",
 #'         colors = libd_layer_colors,
 #'         ... = " LIBD Layers"
 #'     )
-#'
-#'     ## Works also with VisiumExperiment objects.
-#'     sce_image_clus(
-#'         sce = sce_to_ve(sce),
-#'         clustervar = "layer_guess_reordered",
-#'         sampleid = "151673",
-#'         colors = libd_layer_colors,
-#'         ... = " LIBD Layers"
-#'     )
-#'
-#'
 #'
 #'     ## Without histology
-#'     sce_image_clus(
-#'         sce = sce,
+#'     vis_clus(
+#'         spe = spe,
 #'         clustervar = "layer_guess_reordered",
 #'         sampleid = "151673",
 #'         colors = libd_layer_colors,
@@ -63,7 +52,7 @@
 #'         spatial = FALSE
 #'     )
 #' }
-sce_image_clus <- function(sce,
+vis_clus <- function(spe,
     sampleid,
     clustervar,
     colors = c(
@@ -82,15 +71,11 @@ sce_image_clus <- function(sce,
     ),
     spatial = TRUE,
     ...) {
-    if (is(sce, "VisiumExperiment")) {
-        sce_sub <- sce[, SpatialExperiment::spatialCoords(sce)$sample_name == sampleid]
-    } else {
-        sce_sub <- sce[, sce$sample_name == sampleid]
-    }
+    spe_sub <- spe[, spe$sample_id == sampleid]
+    d <- spe_meta(spe_sub)
 
-    d <- as.data.frame(colData(sce_sub))
-    sce_image_clus_p(
-        sce = sce_sub,
+    vis_clus_p(
+        spe = spe_sub,
         d = d,
         clustervar = clustervar,
         sampleid = sampleid,

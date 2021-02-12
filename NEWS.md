@@ -1,3 +1,18 @@
+# spatialLIBD 1.3.3
+
+NEW FEATURES
+
+* Overall the package has been updated to use `SpatialExperiment` version
+1.1.427 available on Bioconductor 3.13 (bioc-devel). Several functions
+were re-named such as `sce_image_gene_p()` now has a shorter name
+`vis_gene_p()`. This update also changes these visualization functions to ONLY
+support `SpatialExperiment` objects instead of the original modified
+`SingleCellExperiment` objects.
+* Updated citation information to reflect that
+https://doi.org/10.1038/s41593-020-00787-0 is now public. Also added a link on
+the README to https://doi.org/10.6084/m9.figshare.13623902.v1 for the
+manuscript high resolution images.
+
 # spatialLIBD 1.1.7
 
 NEW FEATURES

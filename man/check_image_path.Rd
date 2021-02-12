@@ -4,7 +4,7 @@
 \alias{check_image_path}
 \title{Check input image_path}
 \usage{
-check_image_path(image_path, sce)
+check_image_path(image_path, spe)
 }
 \arguments{
 \item{image_path}{A path to the directory containing the low resolution
@@ -13,9 +13,9 @@ histology images that is needed for the interactive visualizations with
 https://github.com/LieberInstitute/spatialLIBD/tree/master/inst/app/www/data
 for an example of how these files should be organized.}
 
-\item{sce}{Defaults to the output of
-\code{fetch_data(type = 'sce')}. This is a
-\linkS4class{SingleCellExperiment}
+\item{spe}{Defaults to the output of
+\code{fetch_data(type = 'spe')}. This is a
+\linkS4class{SpatialExperiment}
 object with the spot-level Visium data and information required for
 visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 }
@@ -30,13 +30,13 @@ structure. For more details please check the vignette documentation.
 
 if (enough_ram()) {
     ## Obtain the necessary data
-    if (!exists("sce")) sce <- fetch_data("sce")
+    if (!exists("spe")) spe <- fetch_data("spe")
 
     ## Get the path to the images
     img_path <- system.file("app", "www", "data", package = "spatialLIBD")
 
     ## Check the object
-    check_image_path(img_path, sce)
+    check_image_path(img_path, spe)
 }
 }
 \seealso{

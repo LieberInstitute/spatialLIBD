@@ -37,18 +37,20 @@ Welcome to the `spatialLIBD` project! It is composed of:
     (or from [here](http://research.libd.org/spatialLIBD/)) that lets
     you analyze the data and run a local version of our web application
     (with our data or yours),
--   and a [research
-    article](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1)
+-   and a [research article](https://doi.org/10.1038/s41593-020-00787-0)
     with the scientific knowledge we drew from this dataset. The
     analysis code for our project is available
-    [here](https://github.com/LieberInstitute/HumanPilot/).
+    [here](https://github.com/LieberInstitute/HumanPilot/) and the high
+    quality figures for the manuscript are available through
+    [Figshare](https://doi.org/10.6084/m9.figshare.13623902.v1).
 
 The web application allows you to browse the LIBD human dorsolateral
 pre-frontal cortex (DLPFC) spatial transcriptomics data generated with
 the 10x Genomics Visium platform. Through the [R/Bioconductor
 package](https://bioconductor.org/packages/spatialLIBD) you can also
 download the data as well as visualize your own datasets using this web
-application. Please check the [bioRxiv
+application. Please check the
+[manuscript](https://doi.org/10.1038/s41593-020-00787-0) or [bioRxiv
 pre-print](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1)
 for more details about this project.
 
@@ -161,32 +163,36 @@ details, check the help file for `fetch_data()`.
 library("spatialLIBD")
 
 ## Download the spot-level data
-sce <- fetch_data(type = "sce")
+spe <- fetch_data(type = "spe")
 
-## This is a SingleCellExperiment object
-sce
-#> class: SingleCellExperiment 
+## This is a SpatialExperiment object
+spe
+#> class: SpatialExperiment 
 #> dim: 33538 47681 
-#> metadata(1): image
+#> metadata(0):
 #> assays(2): counts logcounts
 #> rownames(33538): ENSG00000243485 ENSG00000237613 ... ENSG00000277475
 #>   ENSG00000268674
 #> rowData names(9): source type ... gene_search is_top_hvg
 #> colnames(47681): AAACAACGAATAGTTC-1 AAACAAGTATCTCCCA-1 ...
 #>   TTGTTTCCATACAACT-1 TTGTTTGTGTAAATTC-1
-#> colData names(73): barcode sample_name ... pseudobulk_UMAP_spatial
+#> colData names(65): sample_id Cluster ... pseudobulk_UMAP_spatial
 #>   markers_UMAP_spatial
 #> reducedDimNames(6): PCA TSNE_perplexity50 ... TSNE_perplexity80
 #>   UMAP_neighbors15
+#> mainExpName: NULL
 #> altExpNames(0):
+#> spatialData names(6) : barcode in_tissue ... pxl_row_in_fullres
+#>   pxl_col_in_fullres
+#> imgData names(6): sample_id image_id ... height scaleFactor
 
 ## Note the memory size
-pryr::object_size(sce)
+pryr::object_size(spe)
 #> 2.08 GB
 
 ## Remake the logo image with histology information
-sce_image_clus(
-    sce = sce,
+vis_clus(
+    spe = spe,
     clustervar = "layer_guess_reordered",
     sampleid = "151673",
     colors = libd_layer_colors,
@@ -227,41 +233,42 @@ Please run this yourself to check for any updates on how to cite
 ``` r
 print(citation("spatialLIBD"), bibtex = TRUE)
 #> 
-#> Collado-Torres L, Maynard KR, Jaffe AE (2020). _LIBD Visium spatial
+#> Collado-Torres L, Maynard KR, Jaffe AE (2021). _LIBD Visium spatial
 #> transcriptomics human pilot data inspector_. doi:
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 1.3.1, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 1.3.3, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
 #>     title = {LIBD Visium spatial transcriptomics human pilot data inspector},
 #>     author = {Leonardo Collado-Torres and Kristen R. Maynard and Andrew E. Jaffe},
-#>     year = {2020},
+#>     year = {2021},
 #>     url = {http://www.bioconductor.org/packages/spatialLIBD},
-#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.1},
+#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.3},
 #>     doi = {10.18129/B9.bioc.spatialLIBD},
 #>   }
 #> 
 #> Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK, Williams
 #> SR, II JLC, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Kleinman JE,
-#> Hyde TM, Rao N, Hicks SC, Martinowich K, Jaffe AE (2020).
+#> Hyde TM, Rao N, Hicks SC, Martinowich K, Jaffe AE (2021).
 #> "Transcriptome-scale spatial gene expression in the human dorsolateral
-#> prefrontal cortex." _bioRxiv_. doi: 10.1101/2020.02.28.969931 (URL:
-#> https://doi.org/10.1101/2020.02.28.969931), <URL:
-#> https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1>.
+#> prefrontal cortex." _Nature Neuroscience_. doi:
+#> 10.1038/s41593-020-00787-0 (URL:
+#> https://doi.org/10.1038/s41593-020-00787-0), <URL:
+#> https://www.nature.com/articles/s41593-020-00787-0>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Article{,
 #>     title = {Transcriptome-scale spatial gene expression in the human dorsolateral prefrontal cortex},
 #>     author = {Kristen R. Maynard and Leonardo Collado-Torres and Lukas M. Weber and Cedric Uytingco and Brianna K. Barry and Stephen R. Williams and Joseph L. Catallini II and Matthew N. Tran and Zachary Besich and Madhavi Tippani and Jennifer Chew and Yifeng Yin and Joel E. Kleinman and Thomas M. Hyde and Nikhil Rao and Stephanie C. Hicks and Keri Martinowich and Andrew E. Jaffe},
-#>     year = {2020},
-#>     journal = {bioRxiv},
-#>     doi = {10.1101/2020.02.28.969931},
-#>     url = {https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1},
+#>     year = {2021},
+#>     journal = {Nature Neuroscience},
+#>     doi = {10.1038/s41593-020-00787-0},
+#>     url = {https://www.nature.com/articles/s41593-020-00787-0},
 #>   }
 ```
 
@@ -286,7 +293,7 @@ By contributing to this project, you agree to abide by its terms.
     *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)*
     customized to use [Bioconductor’s docker
     containers](https://www.bioconductor.org/help/docker/) and
-    *[BiocCheck](https://bioconductor.org/packages/3.12/BiocCheck)*.
+    *[BiocCheck](https://bioconductor.org/packages/3.13/BiocCheck)*.
 -   Code coverage assessment is possible thanks to
     [codecov](https://codecov.io/gh) and
     *[covr](https://CRAN.R-project.org/package=covr)*.
@@ -303,7 +310,7 @@ By contributing to this project, you agree to abide by its terms.
 For more details, check the `dev` directory.
 
 This package was developed using
-*[biocthis](https://bioconductor.org/packages/3.12/biocthis)*.
+*[biocthis](https://bioconductor.org/packages/3.13/biocthis)*.
 
 <a href="https://www.libd.org/"><img src="http://lcolladotor.github.io/img/LIBD_logo.jpg" width="250px"></a>
 

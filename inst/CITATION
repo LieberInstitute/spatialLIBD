@@ -40,9 +40,9 @@ c(
             as.person("Keri Martinowich"),
             as.person("Andrew E. Jaffe")
         ),
-        year = 2020,
-        journal = "bioRxiv",
-        doi = "10.1101/2020.02.28.969931",
-        url = "https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1"
+        year = 2021,
+        journal = "Nature Neuroscience",
+        doi = "10.1038/s41593-020-00787-0",
+        url = "https://www.nature.com/articles/s41593-020-00787-0"
     )
 )

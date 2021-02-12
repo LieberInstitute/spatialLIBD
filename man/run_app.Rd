@@ -5,29 +5,29 @@
 \title{Run the spatialLIBD Shiny Application}
 \usage{
 run_app(
-  sce = fetch_data(type = "sce"),
+  spe = fetch_data(type = "spe"),
   sce_layer = fetch_data(type = "sce_layer"),
   modeling_results = fetch_data(type = "modeling_results"),
   sig_genes = sig_genes_extract_all(n = nrow(sce_layer), modeling_results =
     modeling_results, sce_layer = sce_layer),
   image_path = system.file("app", "www", "data", package = "spatialLIBD"),
-  sce_discrete_vars = c("GraphBased", "Layer", "Maynard", "Martinowich",
+  spe_discrete_vars = c("GraphBased", "Layer", "Maynard", "Martinowich",
     paste0("SNN_k50_k", 4:28), "SpatialDE_PCA", "SpatialDE_pool_PCA", "HVG_PCA",
     "pseudobulk_PCA", "markers_PCA", "SpatialDE_UMAP", "SpatialDE_pool_UMAP", "HVG_UMAP",
     "pseudobulk_UMAP", "markers_UMAP", "SpatialDE_PCA_spatial",
     "SpatialDE_pool_PCA_spatial", "HVG_PCA_spatial", "pseudobulk_PCA_spatial",
     "markers_PCA_spatial", "SpatialDE_UMAP_spatial", "SpatialDE_pool_UMAP_spatial",
     "HVG_UMAP_spatial", "pseudobulk_UMAP_spatial", "markers_UMAP_spatial"),
-  sce_continuous_vars = c("cell_count", "sum_umi", "sum_gene", "expr_chrM",
+  spe_continuous_vars = c("cell_count", "sum_umi", "sum_gene", "expr_chrM",
     "expr_chrM_ratio"),
   spatial_libd_var = "layer_guess_reordered_short",
   ...
 )
 }
 \arguments{
-\item{sce}{Defaults to the output of
-\code{fetch_data(type = 'sce')}. This is a
-\linkS4class{SingleCellExperiment}
+\item{spe}{Defaults to the output of
+\code{fetch_data(type = 'spe')}. This is a
+\linkS4class{SpatialExperiment}
 object with the spot-level Visium data and information required for
 visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
@@ -53,16 +53,16 @@ histology images that is needed for the interactive visualizations with
 https://github.com/LieberInstitute/spatialLIBD/tree/master/inst/app/www/data
 for an example of how these files should be organized.}
 
-\item{sce_discrete_vars}{A \code{character()} vector of discrete variables that
+\item{spe_discrete_vars}{A \code{character()} vector of discrete variables that
 will be available to visualize in the app. Basically, the set of variables
-with spot-level groups. They will have to be present in \code{colData(sce)}.}
+with spot-level groups. They will have to be present in \code{colData(spe)}.}
 
-\item{sce_continuous_vars}{A \code{character()} vector of continuous variables
+\item{spe_continuous_vars}{A \code{character()} vector of continuous variables
 that will be available to visualize in the app using the same scale
 as genes. They will have to be present in \code{colData(sce)}.}
 
 \item{spatial_libd_var}{A \code{character(1)} with the name of the main cluster
-variable to use. It will have to be present in both \code{colData(sce)} and
+variable to use. It will have to be present in both \code{colData(spe)} and
 \code{colData(sce_layer)}.}
 
 \item{...}{Other arguments passed to the list of golem options for running

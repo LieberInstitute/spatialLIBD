@@ -39,30 +39,30 @@ A \code{\link[ggplot2:layer]{ggplot2::layer()}} for the histology information.
 \description{
 This function defines a \code{\link[ggplot2:layer]{ggplot2::layer()}} for visualizing the histology
 image from Visium. It can be combined with other ggplot2 functions for
-visualizing the clusters as in \code{\link[=sce_image_clus_p]{sce_image_clus_p()}} or gene-level information
-as in \code{\link[=sce_image_gene_p]{sce_image_gene_p()}}.
+visualizing the clusters as in \code{\link[=vis_clus_p]{vis_clus_p()}} or gene-level information
+as in \code{\link[=vis_gene_p]{vis_gene_p()}}.
 }
 \examples{
 
 if (enough_ram()) {
     ## Obtain the necessary data
-    if (!exists("ve")) ve <- fetch_data("ve")
+    if (!exists("spe")) spe <- fetch_data("spe")
 
     ## Select the first sample and extract the data
-    sample_id <- unique(SpatialExperiment::spatialCoords(ve)$sample_name)[1]
-    ve_sub <- ve[, SpatialExperiment::spatialCoords(ve)$sample_name == sample_id]
-    sample_df <- as.data.frame(SpatialExperiment::spatialCoords(ve_sub))
+    sample_id <- unique(spe$sample_id)[1]
+    spe_sub <- spe[, spe$sample_id == sample_id]
+    sample_df <- as.data.frame(SpatialExperiment::spatialData(spe_sub))
 
     ## Make a plot using geom_spatial
     p <- ggplot2::ggplot(
         sample_df,
         ggplot2::aes(
-            x = imagecol,
-            y = imagerow,
+            x = pxl_row_in_fullres,
+            y = pxl_col_in_fullres,
         )
     ) +
         geom_spatial(
-            data = read_image(ve_sub, sample_id),
+            data = tibble::tibble(grob = list(SpatialExperiment::imgGrob(spe_sub))),
             ggplot2::aes(grob = grob),
             x = 0.5,
             y = 0.5
@@ -72,7 +72,7 @@ if (enough_ram()) {
     print(p)
 
     ## Clean up
-    rm(ve_sub)
+    rm(spe_sub)
 }
 }
 \author{

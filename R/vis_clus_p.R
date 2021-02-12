@@ -2,16 +2,18 @@
 #'
 #' This function visualizes the clusters for one given sample at the spot-level
 #' using (by default) the histology information on the background. This is the
-#' function that does all the plotting behind [sce_image_clus()]. To visualize
-#' gene-level (or any continuous variable) use [sce_image_gene_p()].
+#' function that does all the plotting behind [vis_clus()]. To visualize
+#' gene-level (or any continuous variable) use [vis_gene_p()].
 #'
-#' @inheritParams sce_image_clus
+#' @inheritParams vis_clus
 #' @param d A data.frame with the sample-level information. This is typically
-#' obtained using `as.data.frame(colData(sce))`.
+#' obtained using `spe_meta(spe)`.
 #' @param title The title for the plot.
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
+#' @importFrom tibble tibble
+#' @importFrom SpatialExperiment imgGrob imgData
 #' @importFrom S4Vectors metadata
 #' @family Spatial cluster visualization functions
 #'
@@ -19,14 +21,14 @@
 #'
 #' if (enough_ram()) {
 #'     ## Obtain the necessary data
-#'     if (!exists("sce")) sce <- fetch_data("sce")
-#'     sce_sub <- sce[, sce$sample_name == "151673"]
+#'     if (!exists("spe")) spe <- fetch_data("spe")
+#'     spe_sub <- spe[, spe$sample_id == "151673"]
 #'
 #'     ## Use the manual color palette by Lukas M Weber
 #'     ## Don't plot the histology information
-#'     sce_image_clus_p(
-#'         sce = sce_sub,
-#'         d = as.data.frame(colData(sce_sub)),
+#'     vis_clus_p(
+#'         spe = spe_sub,
+#'         d = spe_meta(spe_sub),
 #'         clustervar = "layer_guess_reordered",
 #'         sampleid = "151673",
 #'         colors = libd_layer_colors,
@@ -35,10 +37,10 @@
 #'     )
 #'
 #'     ## Clean up
-#'     rm(sce_sub)
+#'     rm(spe_sub)
 #' }
-sce_image_clus_p <-
-    function(sce,
+vis_clus_p <-
+    function(spe,
     d,
     clustervar,
     sampleid,
@@ -47,9 +49,8 @@ sce_image_clus_p <-
     title) {
 
         ## Some variables
-        imagecol <- imagerow <- key <- NULL
-
-        if (is(sce, "VisiumExperiment")) d <- ve_image_colData(sce, d)
+        pxl_row_in_fullres <- pxl_col_in_fullres <- key <- NULL
+        # stopifnot(all(c("pxl_col_in_fullres", "pxl_row_in_fullres", "key") %in% colnames(d)))
 
         if (clustervar %in% c(
             "layer_guess",
@@ -63,8 +64,8 @@ sce_image_clus_p <-
         p <- ggplot(
             d,
             aes(
-                x = imagecol,
-                y = imagerow,
+                x = pxl_col_in_fullres,
+                y = pxl_row_in_fullres,
                 fill = factor(!!sym(clustervar)),
                 key = key
             )
@@ -72,7 +73,7 @@ sce_image_clus_p <-
         if (spatial) {
             p <-
                 p + geom_spatial(
-                    data = if (is(sce, "VisiumExperiment")) read_image(ve = sce, sample_id = sampleid) else subset(metadata(sce)$image, sample == sampleid),
+                    data = tibble::tibble(grob = list(SpatialExperiment::imgGrob(spe, sample_id = sampleid))),
                     aes(grob = grob),
                     x = 0.5,
                     y = 0.5
@@ -86,8 +87,8 @@ sce_image_clus_p <-
             ) +
             coord_cartesian(expand = FALSE) +
             scale_fill_manual(values = colors) +
-            xlim(0, max(sce$width)) +
-            ylim(max(sce$height), 0) +
+            xlim(0, SpatialExperiment::imgData(spe)$width[SpatialExperiment::imgData(spe)$sample_id == sampleid]) +
+            ylim(SpatialExperiment::imgData(spe)$height[SpatialExperiment::imgData(spe)$sample_id == sampleid], 0) +
             xlab("") + ylab("") +
             labs(fill = NULL) +
             guides(fill = guide_legend(override.aes = list(size = 3))) +

@@ -3,7 +3,8 @@
 #' This function checks that the `sce` object has the appropriate structure.
 #' For more details please check the vignette documentation.
 #'
-#' @inheritParams run_app
+#'
+#' @inheritParams sce_to_spe
 #' @param variables A `character()` vector of variable names expected to
 #' be present in `colData(sce)`.
 #'

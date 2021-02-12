@@ -5,7 +5,7 @@
 #' @importFrom SummarizedExperiment assays
 app_ui <- function() {
     ## Get options
-    sce <- golem::get_golem_options("sce")
+    spe <- golem::get_golem_options("spe")
     sce_layer <- golem::get_golem_options("sce_layer")
     image_path <- golem::get_golem_options("image_path")
     sig_genes <- golem::get_golem_options("sig_genes")
@@ -26,28 +26,28 @@ app_ui <- function() {
                         selectInput(
                             inputId = "sample",
                             label = "Sample to plot",
-                            choices = unique(sce$sample_name)
+                            choices = unique(spe$sample_id)
                         ),
                         selectInput(
                             inputId = "cluster",
                             label = "Clusters to plot",
                             choices = c(
                                 "spatialLIBD",
-                                golem::get_golem_options("sce_discrete_vars")
+                                golem::get_golem_options("spe_discrete_vars")
                             )
                         ),
                         selectInput(
                             inputId = "reduced_name",
                             label = "Reduced dimensions",
-                            choices = sort(reducedDimNames(sce)),
-                            selected = reducedDimNames(sce)[length(reducedDimNames(sce))]
+                            choices = sort(reducedDimNames(spe)),
+                            selected = reducedDimNames(spe)[length(reducedDimNames(spe))]
                         ),
                         pickerInput(
                             inputId = "geneid",
                             label = "Gene (or count variable)",
                             choices = c(
-                                golem::get_golem_options("sce_continuous_vars"),
-                                sort(rowData(sce)$gene_search)
+                                golem::get_golem_options("spe_continuous_vars"),
+                                sort(rowData(spe)$gene_search)
                             ),
                             options = pickerOptions(liveSearch = TRUE)
                         ),
@@ -62,7 +62,7 @@ app_ui <- function() {
                             label = "Minimum count value",
                             value = 0,
                             min = -1,
-                            max = max(assays(sce)$logcounts),
+                            max = max(assays(spe)$logcounts),
                             step = 1
                         ),
                         selectInput(
@@ -89,7 +89,7 @@ app_ui <- function() {
                             )
                         ),
                         helpText(
-                            "This is useful for resuming your work. It should be a CSV file with the sample_name, spot_name, and layer columns."
+                            "This is useful for resuming your work. It should be a CSV file with the sample_id, spot_name, and layer columns."
                         ),
                         hr(),
                         width = 2
@@ -100,7 +100,7 @@ app_ui <- function() {
                                 "Documentation",
                                 tags$br(),
                                 HTML(
-                                    'Basic information overview about the spot-level SingleCellExperiment object. You can download it using <code>spatialLIBD::fetch_data(type = "sce")</code>.'
+                                    'Basic information overview about the spot-level SingleCellExperiment object. You can download it using <code>spatialLIBD::fetch_data(type = "spe")</code>.'
                                 ),
                                 tags$br(),
                                 tags$br(),
@@ -111,7 +111,7 @@ app_ui <- function() {
                                 tags$br(),
                                 hr(),
                                 includeMarkdown(file.path(
-                                    resourcePaths()["www"], "documentation_sce.md"
+                                    resourcePaths()["www"], "documentation_spe.md"
                                 )),
                                 hr()
                             ),
@@ -164,8 +164,8 @@ app_ui <- function() {
                                 checkboxGroupInput(
                                     "grid_samples",
                                     label = "Select samples to show in the grid",
-                                    choices = unique(sce$sample_name),
-                                    selected = unique(sce$sample_name)[seq(1, 11, by = 4)],
+                                    choices = unique(spe$sample_id),
+                                    selected = unique(spe$sample_id)[seq(1, 11, by = 4)],
                                     inline = TRUE
                                 ),
                                 numericInput(
@@ -249,8 +249,8 @@ app_ui <- function() {
                                 checkboxGroupInput(
                                     "gene_grid_samples",
                                     label = "Select samples to show in the grid",
-                                    choices = unique(sce$sample_name),
-                                    selected = unique(sce$sample_name)[seq(1, length(unique(sce$sample_name)), by = 4)],
+                                    choices = unique(spe$sample_id),
+                                    selected = unique(spe$sample_id)[seq(1, length(unique(spe$sample_id)), by = 4)],
                                     inline = TRUE
                                 ),
                                 numericInput(

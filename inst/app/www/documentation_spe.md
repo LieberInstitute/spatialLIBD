@@ -5,14 +5,14 @@ This document describes the spot-level portion of the shiny web application made
 
 ## Raw summary
 
-Before the documetation, this tab displays the [SingleCellExperiment](https://bioconductor.org/packages/SingleCellExperiment) object that contains the spot-level data. It's basically useful to know that the data has been loaded and that you can start navigating the app. If you wish to download this data, use the following command.
+Before the documetation, this tab displays the [SpatiallExperiment](https://bioconductor.org/packages/SpatialExperiment) object that contains the spot-level data. It's basically useful to know that the data has been loaded and that you can start navigating the app. If you wish to download this data, use the following command.
 
 ```{r}
-## Download sce data
-sce <- spatialLIBD::fetch_data(type = 'sce')
+## Download spe data
+spe <- spatialLIBD::fetch_data(type = 'spe')
 ```
 
-Throughout the rest of this document, we'll refer to this object by the name `sce`.
+Throughout the rest of this document, we'll refer to this object by the name `spe`.
 
 ## Common options
 
@@ -32,7 +32,7 @@ Displays the selected cluster variable (from `clusters to plot`) for the given s
 
 ```{r}
 ## Reproduce locally with
-spatialLIBD::sce_image_clus()
+spatialLIBD::vis_clus()
 ```
 
 ## Clusters (interactive)
@@ -41,11 +41,11 @@ Displays a 1,200 by 1,200 pixels interactive plot area with a matrix of 2 by 2 p
 
 This panel allows you to look at the results from a given clustering approach and combine that information with the expression of a given gene to visualize the spot-level data both in the spatial resolution as well as a reduced dimensionality space from the expression of the most variable genes. 
 
-Once you have selected spots of interest, at the bottom of the tab there is a text box where you can enter your label guess. This overwrites `sce$Layer` which is why you need to confirm doing so by clicking the button `Label selected points (from lasso) with layer`. You can then change the `clusters to plot` option to `Layer` to see your new spot labels.
+Once you have selected spots of interest, at the bottom of the tab there is a text box where you can enter your label guess. This overwrites `spe$Layer` which is why you need to confirm doing so by clicking the button `Label selected points (from lasso) with layer`. You can then change the `clusters to plot` option to `Layer` to see your new spot labels.
 
 Given the amount of data being displayed, this tab consumes quite a bit of resources.
 
-Note that there can be a maximum of 36 unique guessed layers (unique values in `sce$Layer`) before we run out of colors to visualize them.
+Note that there can be a maximum of 36 unique guessed layers (unique values in `spe$Layer`) before we run out of colors to visualize them.
 
 ## Clusters grid (static)
 
@@ -55,7 +55,7 @@ This particular tab is useful if you have computationally defined some clusters 
 
 ```{r}
 ## Reproduce locally with
-spatialLIBD::sce_image_grid()
+spatialLIBD::vis_grid_clus()
 ```
 
 ## Gene (static)
@@ -64,7 +64,7 @@ This tab is similar to `clusters (static)` but instead of displaying discrete va
 
 ```{r}
 ## Reproduce locally with
-spatialLIBD::sce_image_gene()
+spatialLIBD::vis_gene()
 ```
 
 ## Gene (interactive)
@@ -79,14 +79,14 @@ This is the equivalent of `clusters grid (static)` but for continuous variables,
 
 ```{r}
 ## Reproduce locally with
-spatialLIBD::sce_image_grid_gene()
+spatialLIBD::vis_grid_gene()
 ```
 
-## Saving and uploading your `sce$Layer` results
+## Saving and uploading your `spe$Layer` results
 
-Beyond visualizing the data, the main goal of this section of `spatialLIBD` is to enable you to label spots. That is done only through the `interactive` tabs as previously described. Your layer guesses are saved under `sce$Layer` and you can save them for future use using the main menu download button. If you click this button, it will prompt you to save a CSV file. We recommend that you keep selected the checkbox `Drop NA layer entries in the CSV file?` which means that your CSV file will be smaller and will potentially lead to less conflicts with other CSV files you make. That is, you will likely avoid re-labeling the same spot with different values in two or more of these CSV files. This is particularly useful if you plan to work on one sample at a time, save your results, and then merge them all into a single CSV file.
+Beyond visualizing the data, the main goal of this section of `spatialLIBD` is to enable you to label spots. That is done only through the `interactive` tabs as previously described. Your layer guesses are saved under `spe$Layer` and you can save them for future use using the main menu download button. If you click this button, it will prompt you to save a CSV file. We recommend that you keep selected the checkbox `Drop NA layer entries in the CSV file?` which means that your CSV file will be smaller and will potentially lead to less conflicts with other CSV files you make. That is, you will likely avoid re-labeling the same spot with different values in two or more of these CSV files. This is particularly useful if you plan to work on one sample at a time, save your results, and then merge them all into a single CSV file.
 
-These CSV files with your label guesses can be re-uploaded to `spatialLIBD`. You can notice this by choosing `Layer` under `clusters to plot` and using any of the `clusters` tabs. If you upload more than one CSV, any values you have under `sce$Layer` will be overwritten if the spot is present in your CSV file. Thus, if you followed the recommended workflow of saving one CSV file per sample, you can then upload them all sequentially and merge them together into a single CSV file to simplify your work later.
+These CSV files with your label guesses can be re-uploaded to `spatialLIBD`. You can notice this by choosing `Layer` under `clusters to plot` and using any of the `clusters` tabs. If you upload more than one CSV, any values you have under `spe$Layer` will be overwritten if the spot is present in your CSV file. Thus, if you followed the recommended workflow of saving one CSV file per sample, you can then upload them all sequentially and merge them together into a single CSV file to simplify your work later.
 
 In summary, the order in which you re-upload the CSV files matters as newer uploads will overwrite any duplicated spots from previous CSV files.
 

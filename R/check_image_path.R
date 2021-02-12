@@ -14,15 +14,15 @@
 #'
 #' if (enough_ram()) {
 #'     ## Obtain the necessary data
-#'     if (!exists("sce")) sce <- fetch_data("sce")
+#'     if (!exists("spe")) spe <- fetch_data("spe")
 #'
 #'     ## Get the path to the images
 #'     img_path <- system.file("app", "www", "data", package = "spatialLIBD")
 #'
 #'     ## Check the object
-#'     check_image_path(img_path, sce)
+#'     check_image_path(img_path, spe)
 #' }
-check_image_path <- function(image_path, sce) {
+check_image_path <- function(image_path, spe) {
 
     ## Check that it's a path
     stopifnot(is.character(image_path))
@@ -32,7 +32,7 @@ check_image_path <- function(image_path, sce) {
     stopifnot(all(file.exists(
         file.path(
             image_path,
-            unique(sce$sample_name),
+            unique(spe$sample_id),
             "tissue_lowres_image.png"
         )
     )))

@@ -1,19 +1,21 @@
 #' Sample spatial gene visualization workhorse function
 #'
-#' This function visualizes the gene expression stored in `assays(sce)` or any
-#' continuous variable stored in `colData(sce)` for one given sample at the
+#' This function visualizes the gene expression stored in `assays(spe)` or any
+#' continuous variable stored in `colData(spe)` for one given sample at the
 #' spot-level using (by default) the histology information on the background.
-#' This is the function that does all the plotting behind [sce_image_gene()].
-#' To visualize clusters (or any discrete variable) use [sce_image_clus_p()].
+#' This is the function that does all the plotting behind [vis_gene()].
+#' To visualize clusters (or any discrete variable) use [vis_clus_p()].
 #'
 #' @param d A data.frame with the sample-level information. This is typically
-#' obtained using `as.data.frame(colData(sce))`. The data.frame has to contain
+#' obtained using `spe_meta(spe)`. The data.frame has to contain
 #' a column with the continuous variable data to plot stored under `d$COUNT`.
-#' @inheritParams sce_image_clus_p
-#' @inheritParams sce_image_gene
+#' @inheritParams vis_clus_p
+#' @inheritParams vis_gene
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
+#' @importFrom tibble tibble
+#' @importFrom SpatialExperiment imgGrob imgData
 #' @importFrom S4Vectors metadata
 #' @family Spatial gene visualization functions
 #'
@@ -21,44 +23,28 @@
 #'
 #' if (enough_ram()) {
 #'     ## Obtain the necessary data
-#'     if (!exists("sce")) sce <- fetch_data("sce")
+#'     if (!exists("spe")) spe <- fetch_data("spe")
 #'
 #'     ## Prepare the data for the plotting function
-#'     sce_sub <- sce[, sce$sample_name == "151673"]
-#'     df <- as.data.frame(colData(sce_sub))
+#'     spe_sub <- spe[, spe$sample_id == "151673"]
+#'     df <- spe_meta(spe_sub)
 #'     df$COUNT <- df$expr_chrM_ratio
 #'
 #'     ## Use the manual color palette by Lukas M Weber
 #'     ## Don't plot the histology information
-#'     sce_image_gene_p(
-#'         sce = sce_sub,
+#'     vis_gene_p(
+#'         spe = spe_sub,
 #'         d = df,
 #'         sampleid = "151673",
 #'         title = "151673 chrM expr ratio",
 #'         spatial = FALSE
 #'     )
 #'
-#'
-#'     ## Or you can do this with a VisiumEsperiment object
-#'     ve_sub <- sce_to_ve(sce_sub)
-#'     df2 <- colData(ve_sub)
-#'     df2$COUNT <- df2$expr_chrM_ratio
-#'
-#'     sce_image_gene_p(
-#'         sce = ve_sub,
-#'         d = df2,
-#'         sampleid = "151673",
-#'         title = "151673 chrM expr ratio",
-#'         spatial = FALSE
-#'     )
-#'
-#'
 #'     ## Clean up
-#'     rm(sce_sub)
-#'     rm(ve_sub)
+#'     rm(spe_sub)
 #' }
-sce_image_gene_p <-
-    function(sce,
+vis_gene_p <-
+    function(spe,
     d,
     sampleid,
     spatial,
@@ -66,15 +52,15 @@ sce_image_gene_p <-
     viridis = TRUE) {
 
         ## Some variables
-        imagecol <- imagerow <- key <- COUNT <- NULL
+        pxl_row_in_fullres <- pxl_col_in_fullres <- key <- COUNT <- NULL
+        # stopifnot(all(c("pxl_col_in_fullres", "pxl_row_in_fullres", "COUNT", "key") %in% colnames(d)))
 
-        if (is(sce, "VisiumExperiment")) d <- ve_image_colData(sce, d)
         p <-
             ggplot(
                 d,
                 aes(
-                    x = imagecol,
-                    y = imagerow,
+                    x = pxl_col_in_fullres,
+                    y = pxl_row_in_fullres,
                     fill = COUNT,
                     color = COUNT,
                     key = key
@@ -84,7 +70,7 @@ sce_image_gene_p <-
         if (spatial) {
             p <-
                 p + geom_spatial(
-                    data = if (is(sce, "VisiumExperiment")) read_image(ve = sce, sample_id = sampleid) else subset(metadata(sce)$image, sample == sampleid),
+                    data = tibble::tibble(grob = list(SpatialExperiment::imgGrob(spe, sample_id = sampleid))),
                     aes(grob = grob),
                     x = 0.5,
                     y = 0.5
@@ -124,8 +110,8 @@ sce_image_gene_p <-
         }
 
         p <- p +
-            xlim(0, max(sce$width)) +
-            ylim(max(sce$height), 0) +
+            xlim(0, SpatialExperiment::imgData(spe)$width[SpatialExperiment::imgData(spe)$sample_id == sampleid]) +
+            ylim(SpatialExperiment::imgData(spe)$height[SpatialExperiment::imgData(spe)$sample_id == sampleid], 0) +
             xlab("") + ylab("") +
             labs(fill = NULL, color = NULL) +
             ggtitle(title) +

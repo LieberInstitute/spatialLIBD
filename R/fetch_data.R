@@ -19,8 +19,8 @@
 #' or `modeling_results` for the list of tables with the `enrichment`,
 #' `pairwise`, and `anova` model results from the layer-level data. It can also
 #' be `sce_example` which is a reduced version of `sce` just for example
-#' purposes. As of BioC version 3.12 `ve` donwloads a
-#' [VisiumExperiment-class][SpatialExperiment::VisiumExperiment-class] object.
+#' purposes. As of BioC version 3.13 `spe` downloads a
+#' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]  object.
 #'
 #' @param destdir The destination directory to where files will be downloaded
 #' to in case the `ExperimentHub` resource is not available. If you already
@@ -40,7 +40,6 @@
 #' @import ExperimentHub
 #' @importFrom AnnotationHub query
 #' @importFrom methods is
-#' @importFrom jsonlite read_json
 #' @details The data was initially prepared by scripts at
 #' https://github.com/LieberInstitute/HumanPilot and further refined by
 #' https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-data_spatialLIBD.R.
@@ -54,30 +53,30 @@
 #' ## Explore the data
 #' sce_layer
 fetch_data <-
-    function(type = c("sce", "sce_layer", "modeling_results", "sce_example", "ve"),
+    function(type = c("sce", "sce_layer", "modeling_results", "sce_example", "spe"),
     destdir = tempdir(),
     eh = ExperimentHub::ExperimentHub(),
     bfc = BiocFileCache::BiocFileCache()) {
         ## Some variables
-        sce <- sce_layer <- modeling_results <- sce_sub <- ve <- NULL
+        sce <- sce_layer <- modeling_results <- sce_sub <- spe <- NULL
 
         ## Check inputs
         stopifnot(methods::is(eh, "ExperimentHub"))
-        if (!type %in% c("sce", "sce_layer", "modeling_results", "sce_example", "ve")) {
+        if (!type %in% c("sce", "sce_layer", "modeling_results", "sce_example", "spe")) {
             stop(
                 paste(
                     "Other 'type' values are not supported.",
                     "Please use either 'sce', 'sce_layer',",
-                    "'modeling_results', 'sce_example' or 've'."
+                    "'modeling_results', 'sce_example' or 'spe'."
                 ),
                 call. = FALSE
             )
         }
 
         ## Deal with the special case of VisiumExperiment first
-        if (type == "ve") {
-            ve <- sce_to_ve(fetch_data("sce", destdir = destdir, eh = eh), bfc = bfc)
-            return(ve)
+        if (type == "spe") {
+            spe <- sce_to_spe(fetch_data("sce", destdir = destdir, eh = eh))
+            return(spe)
         }
 
         ## Other pre-BioC 3.12 regular files

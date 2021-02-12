@@ -1,15 +1,15 @@
 #' Sample spatial gene visualization
 #'
-#' This function visualizes the gene expression stored in `assays(sce)` or any
-#' continuous variable stored in `colData(sce)` for one given sample at the
+#' This function visualizes the gene expression stored in `assays(spe)` or any
+#' continuous variable stored in `colData(spe)` for one given sample at the
 #' spot-level using (by default) the histology information on the background.
-#' To visualize clusters (or any discrete variable) use [sce_image_clus()].
+#' To visualize clusters (or any discrete variable) use [vis_clus()].
 #'
-#' @inheritParams sce_image_clus
+#' @inheritParams vis_clus
 #' @param geneid A `character(1)` specifying the gene ID stored in
-#' `rowData(sce)$gene_search` or a continuous variable stored in `colData(sce)`
+#' `rowData(spe)$gene_search` or a continuous variable stored in `colData(spe)`
 #' to visualize.
-#' @param assayname The name of the `assays(sce)` to use for extracting the
+#' @param assayname The name of the `assays(spe)` to use for extracting the
 #' gene expression data. Defaults to `logcounts`.
 #' @param minCount A `numeric(1)` specifying the minimum gene expression (or
 #' value in the continuous variable) to visualize. Values at or below this
@@ -25,43 +25,36 @@
 #' @export
 #' @importFrom SummarizedExperiment assays
 #' @family Spatial gene visualization functions
-#' @details This function subsets `sce` to the given sample and prepares the
-#' data and title for [sce_image_gene_p()]. It also adds a caption to the plot.
+#' @details This function subsets `spe` to the given sample and prepares the
+#' data and title for [vis_gene_p()]. It also adds a caption to the plot.
 #'
 #' @examples
 #'
 #' if (enough_ram()) {
 #'     ## Obtain the necessary data
-#'     if (!exists("sce")) sce <- fetch_data("sce")
+#'     if (!exists("spe")) spe <- fetch_data("spe")
 #'
 #'     ## Valid `geneid` values are those in
-#'     head(rowData(sce)$gene_search)
-#'     ## or continuous variables stored in colData(sce)
+#'     head(rowData(spe)$gene_search)
+#'     ## or continuous variables stored in colData(spe)
 #'
 #'     ## Visualize a default gene on the non-viridis scale
-#'     sce_image_gene(
-#'         sce = sce,
-#'         sampleid = "151507",
-#'         viridis = FALSE
-#'     )
-#'
-#'     ## Works also with VisiumExperiment objects
-#'     sce_image_gene(
-#'         sce = sce_to_ve(sce),
+#'     vis_gene(
+#'         spe = spe,
 #'         sampleid = "151507",
 #'         viridis = FALSE
 #'     )
 #'
 #'     ## Visualize a continuous variable, in this case, the ratio of chrM
 #'     ## gene expression compared to the total expression at the spot-level
-#'     sce_image_gene(
-#'         sce = sce,
+#'     vis_gene(
+#'         spe = spe,
 #'         sampleid = "151507",
 #'         geneid = "expr_chrM_ratio"
 #'     )
 #' }
-sce_image_gene <-
-    function(sce,
+vis_gene <-
+    function(spe,
     sampleid,
     geneid = "SCGB2A2; ENSG00000110484",
     spatial = TRUE,
@@ -69,23 +62,19 @@ sce_image_gene <-
     minCount = 0,
     viridis = TRUE,
     ...) {
-        if (is(sce, "VisiumExperiment")) {
-            sce_sub <- sce[, SpatialExperiment::spatialCoords(sce)$sample_name == sampleid]
-        } else {
-            sce_sub <- sce[, sce$sample_name == sampleid]
-        }
+        spe_sub <- spe[, spe$sample_id == sampleid]
+        d <- spe_meta(spe_sub)
+        stopifnot("gene_search" %in% colnames(rowData(spe)))
 
-        d <- as.data.frame(colData(sce_sub))
-
-        if (geneid %in% colnames(colData(sce_sub))) {
-            d$COUNT <- colData(sce_sub)[[geneid]]
+        if (geneid %in% colnames(colData(spe_sub))) {
+            d$COUNT <- colData(spe_sub)[[geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid), ]
+                assays(spe_sub)[[assayname]][which(rowData(spe_sub)$gene_search == geneid), ]
         }
         d$COUNT[d$COUNT <= minCount] <- NA
-        p <- sce_image_gene_p(
-            sce = sce_sub,
+        p <- vis_gene_p(
+            spe = spe_sub,
             d = d,
             sampleid = sampleid,
             spatial = spatial,
@@ -97,7 +86,7 @@ sce_image_gene <-
             viridis = viridis
         )
         p + labs(caption = paste(
-            if (!geneid %in% colnames(colData(sce_sub))) {
+            if (!geneid %in% colnames(colData(spe_sub))) {
                 assayname
             } else {
                 NULL

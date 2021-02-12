@@ -19,20 +19,20 @@ app_server <- function(input, output, session) {
     COUNT <- model_type <- ensembl <- key <- NULL
 
     ## Get options
-    sce <- golem::get_golem_options("sce")
+    spe <- golem::get_golem_options("spe")
     sce_layer <- golem::get_golem_options("sce_layer")
     modeling_results <- golem::get_golem_options("modeling_results")
     sig_genes <- golem::get_golem_options("sig_genes")
     spatial_libd_var <- golem::get_golem_options("spatial_libd_var")
 
     ## Rename some variables
-    sce$spatialLIBD <- colData(sce)[[spatial_libd_var]]
+    spe$spatialLIBD <- colData(spe)[[spatial_libd_var]]
     sce_layer$spatialLIBD <- colData(sce_layer)[[spatial_libd_var]]
 
     # List the first level callModules here
 
     ## Global variables needed throughout the app
-    rv <- reactiveValues(layer = rep("NA", ncol(sce)))
+    rv <- reactiveValues(layer = rep("NA", ncol(spe)))
 
     ## From /dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/rda_scran/clust_10x_layer_maynard_martinowich.Rdata
     # cat(paste0("'", names(cols_layers_martinowich), "' = '", cols_layers_martinowich, "',\n"))
@@ -86,7 +86,7 @@ app_server <- function(input, output, session) {
             inputId = "minCount",
             value = 0,
             min = -1,
-            max = max(assays(sce)[[input$assayname]]),
+            max = max(assays(spe)[[input$assayname]]),
             step = 1
         )
     })
@@ -95,10 +95,10 @@ app_server <- function(input, output, session) {
     ## Static plotting functions
     static_histology <- reactive({
         if (input$cluster == "Layer") {
-              sce$Layer <- rv$layer
-          }
-        sce_image_clus(
-            sce,
+            spe$Layer <- rv$layer
+        }
+        vis_clus(
+            spe,
             sampleid = input$sample,
             clustervar = input$cluster,
             colors = cluster_colors(),
@@ -110,13 +110,13 @@ app_server <- function(input, output, session) {
         input$grid_update
 
         if (isolate(input$cluster == "Layer")) {
-              sce$Layer <- rv$layer
-          }
-        sce_sub <-
-            sce[, sce$sample_name %in% isolate(input$grid_samples)]
+            spe$Layer <- rv$layer
+        }
+        spe_sub <-
+            spe[, spe$sample_id %in% isolate(input$grid_samples)]
         plots <-
-            sce_image_grid(
-                sce_sub,
+            vis_grid_clus(
+                spe_sub,
                 isolate(input$cluster),
                 sort_clust = FALSE,
                 colors = cluster_colors(),
@@ -131,8 +131,8 @@ app_server <- function(input, output, session) {
     })
 
     static_gene <- reactive({
-        sce_image_gene(
-            sce,
+        vis_gene(
+            spe,
             sampleid = input$sample,
             geneid = input$geneid,
             assayname = input$assayname,
@@ -144,11 +144,11 @@ app_server <- function(input, output, session) {
     static_gene_grid <- reactive({
         input$gene_grid_update
 
-        sce_sub <-
-            sce[, sce$sample_name %in% isolate(input$gene_grid_samples)]
+        spe_sub <-
+            spe[, spe$sample_id %in% isolate(input$gene_grid_samples)]
         plots <-
-            sce_image_grid_gene(
-                sce_sub,
+            vis_grid_gene(
+                spe_sub,
                 geneid = isolate(input$geneid),
                 assayname = isolate(input$assayname),
                 minCount = isolate(input$minCount),
@@ -335,8 +335,8 @@ app_server <- function(input, output, session) {
     ## Plotly versions
     output$histology_plotly <- renderPlotly({
         if (input$cluster == "Layer") {
-              sce$Layer <- rv$layer
-          }
+            spe$Layer <- rv$layer
+        }
         colors <- cluster_colors()
 
         ## Define some common arguments
@@ -353,7 +353,7 @@ app_server <- function(input, output, session) {
         # assayname <- 'logcounts'
         # minCount <- 0
         # clustervar <- 'GraphBased'
-        # colors <- get_colors(NULL, sce$GraphBased)
+        # colors <- get_colors(NULL, spe$GraphBased)
         # reduced_name <- 'TSNE_perplexity50'
 
         ## Read in the histology image
@@ -365,19 +365,19 @@ app_server <- function(input, output, session) {
             ))
 
 
-        ## From sce_image_gene() in global.R
-        sce_sub <- sce[, sce$sample_name == sampleid]
-        d <- as.data.frame(colData(sce_sub))
-        if (geneid %in% colnames(colData(sce_sub))) {
-            d$COUNT <- colData(sce_sub)[[geneid]]
+        ## From vis_gene() in global.R
+        spe_sub <- spe[, spe$sample_id == sampleid]
+        d <- spe_meta(spe_sub)
+        if (geneid %in% colnames(colData(spe_sub))) {
+            d$COUNT <- colData(spe_sub)[[geneid]]
         } else {
             d$COUNT <-
-                assays(sce_sub)[[assayname]][which(rowData(sce_sub)$gene_search == geneid), ]
+                assays(spe_sub)[[assayname]][which(rowData(spe_sub)$gene_search == geneid), ]
         }
         d$COUNT[d$COUNT <= minCount] <- NA
 
         ## Add the reduced dims
-        red_dims <- reducedDim(sce_sub, reduced_name)
+        red_dims <- reducedDim(spe_sub, reduced_name)
         colnames(red_dims) <- paste(reduced_name, "dim", seq_len(2))
         d <- cbind(d, red_dims)
 
@@ -388,8 +388,8 @@ app_server <- function(input, output, session) {
         d_key <- highlight_key(d, ~key)
 
         ## Make the cluster plot
-        p_clus <- sce_image_clus_p(
-            sce = sce_sub,
+        p_clus <- vis_clus_p(
+            spe = spe_sub,
             d = d_key,
             clustervar = clustervar,
             sampleid = sampleid,
@@ -399,19 +399,19 @@ app_server <- function(input, output, session) {
                 sampleid,
                 clustervar,
                 geneid,
-                if (!geneid %in% colnames(colData(sce_sub))) {
-                      assayname
-                  } else {
-                      NULL
-                  },
+                if (!geneid %in% colnames(colData(spe_sub))) {
+                    assayname
+                } else {
+                    NULL
+                },
                 "min >",
                 minCount
             )
         )
 
         ## Next the gene plot
-        p_gene <- sce_image_gene_p(
-            sce = sce_sub,
+        p_gene <- vis_gene_p(
+            spe = spe_sub,
             d = d_key,
             sampleid = sampleid,
             spatial = FALSE,
@@ -434,7 +434,7 @@ app_server <- function(input, output, session) {
                 size = 1.25,
                 stroke = 0.25
             ) +
-            scale_fill_manual(values = get_colors(colors, colData(sce_sub)[[clustervar]])) +
+            scale_fill_manual(values = get_colors(colors, colData(spe_sub)[[clustervar]])) +
             guides(fill = FALSE) +
             ggtitle("") +
             theme_set(theme_bw(base_size = 20)) +
@@ -611,7 +611,7 @@ app_server <- function(input, output, session) {
         if (input$cluster == "Layer") {
             cluster_opts <- unique(rv$layer)
         } else {
-            cluster_opts <- unique(colData(sce)[[input$cluster]])
+            cluster_opts <- unique(colData(spe)[[input$cluster]])
         }
         checkboxGroupInput(
             "gene_plotly_cluster_subset",
@@ -624,19 +624,19 @@ app_server <- function(input, output, session) {
 
     output$gene_plotly <- renderPlotly({
         if (is.null(input$gene_plotly_cluster_subset)) {
-              return(NULL)
-          }
+            return(NULL)
+        }
 
         if (input$cluster == "Layer") {
             cluster_opts <- rv$layer %in% input$gene_plotly_cluster_subset
         } else {
             cluster_opts <-
-                as.character(colData(sce)[[input$cluster]]) %in% input$gene_plotly_cluster_subset
+                as.character(colData(spe)[[input$cluster]]) %in% input$gene_plotly_cluster_subset
         }
         ## For when you change the input$cluster and no data is available yet
         if (sum(cluster_opts) == 0) {
-              return(NULL)
-          }
+            return(NULL)
+        }
 
         pen <-
             png::readPNG(file.path(
@@ -646,8 +646,8 @@ app_server <- function(input, output, session) {
             ))
 
         p <-
-            sce_image_gene(
-                sce[, cluster_opts],
+            vis_gene(
+                spe[, cluster_opts],
                 sampleid = input$sample,
                 geneid = input$geneid,
                 assayname = input$assayname,
@@ -694,7 +694,7 @@ app_server <- function(input, output, session) {
         if (!is.null(event.data)) {
             isolate({
                 ## Now update with the layer input
-                rv$layer[sce$key %in% event.data$key] <-
+                rv$layer[spe$key %in% event.data$key] <-
                     input$label_layer
             })
         }
@@ -711,9 +711,9 @@ app_server <- function(input, output, session) {
             isolate({
                 ## Now update with the layer input
                 if (input$label_click) {
-                      rv$layer[sce$key %in% event.data$key] <-
-                          input$label_layer
-                  }
+                    rv$layer[spe$key %in% event.data$key] <-
+                        input$label_layer
+                }
             })
             return(event.data$key)
         }
@@ -727,19 +727,19 @@ app_server <- function(input, output, session) {
         }
         if (!is.null(event.data)) {
             ## Prepare the data
-            sce_sub <- sce[, sce$key %in% event.data$key]
-            d <- as.data.frame(colData(sce_sub))
-            if (input$geneid %in% colnames(colData(sce_sub))) {
-                d$COUNT <- colData(sce_sub)[[input$geneid]]
+            spe_sub <- spe[, spe$key %in% event.data$key]
+            d <- spe_meta(spe_sub)
+            if (input$geneid %in% colnames(colData(spe_sub))) {
+                d$COUNT <- colData(spe_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
+                    assays(spe_sub)[[input$assayname]][which(rowData(spe_sub)$gene_search == input$geneid), ]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
             isolate({
                 ## Now update with the layer input
-                rv$layer[sce$key %in% d$key[!is.na(d$COUNT)]] <-
+                rv$layer[spe$key %in% d$key[!is.na(d$COUNT)]] <-
                     input$label_layer_gene
             })
         }
@@ -757,52 +757,52 @@ app_server <- function(input, output, session) {
             )
         } else {
             ## Prepare the data
-            sce_sub <- sce[, sce$key %in% event.data$key]
-            d <- as.data.frame(colData(sce_sub))
-            if (input$geneid %in% colnames(colData(sce_sub))) {
-                d$COUNT <- colData(sce_sub)[[input$geneid]]
+            spe_sub <- spe[, spe$key %in% event.data$key]
+            d <- spe_meta(spe_sub)
+            if (input$geneid %in% colnames(colData(spe_sub))) {
+                d$COUNT <- colData(spe_sub)[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(sce_sub)[[input$assayname]][which(rowData(sce_sub)$gene_search == input$geneid), ]
+                    assays(spe_sub)[[input$assayname]][which(rowData(spe_sub)$gene_search == input$geneid), ]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
             isolate({
                 ## Now update with the layer input
                 if (input$label_click_gene) {
-                      rv$layer[sce$key %in% d$key[!is.na(d$COUNT)]] <-
-                          input$label_layer_gene
-                  }
+                    rv$layer[spe$key %in% d$key[!is.na(d$COUNT)]] <-
+                        input$label_layer_gene
+                }
             })
             return(event.data$key)
         }
     })
 
     ## Raw summary
-    output$raw_summary <- renderPrint(print(sce),
+    output$raw_summary <- renderPrint(print(spe),
         width = 80
     )
 
     ## Download results
     output$downloadData <- downloadHandler(
         filename = function() {
-            gsub(
+            gsub(":", "-", gsub(
                 " ",
                 "_",
                 paste0("spatialLIBD_layerGuesses_", Sys.time(), ".csv")
-            )
+            ))
         },
         content = function(file) {
             current <- data.frame(
-                sample_name = sce$sample_name,
-                spot_name = colnames(sce),
+                sample_id = spe$sample_id,
+                spot_name = colnames(spe),
                 layer = rv$layer,
                 stringsAsFactors = FALSE
             )
             ## Keep the NAs?
             if (input$dropNA) {
-                  current <- subset(current, layer != "NA")
-              }
+                current <- subset(current, layer != "NA")
+            }
             write.csv(current, file, row.names = FALSE)
         }
     )
@@ -821,11 +821,11 @@ app_server <- function(input, output, session) {
             previous_work <- subset(previous_work, layer != "NA")
             previous_work$key <-
                 paste0(
-                    previous_work$sample_name,
+                    previous_work$sample_id,
                     "_",
                     previous_work$spot_name
                 )
-            m <- match(previous_work$key, sce$key)
+            m <- match(previous_work$key, spe$key)
             rv$layer[m[!is.na(m)]] <- previous_work$layer[!is.na(m)]
         }
     })
@@ -892,8 +892,8 @@ app_server <- function(input, output, session) {
     static_layer_boxplot <- reactive({
         i <- static_layer_boxplot_i()
         if (length(i) > 0) {
-              set.seed(20200206)
-          }
+            set.seed(20200206)
+        }
         layer_boxplot(
             i = i,
             sig_genes = sig_genes,
@@ -1074,8 +1074,8 @@ app_server <- function(input, output, session) {
             )
             i <- static_layer_boxplot_i()
             if (length(i) > 0) {
-                  set.seed(20200206)
-              }
+                set.seed(20200206)
+            }
             layer_boxplot(
                 i = i,
                 sig_genes = sig_genes,

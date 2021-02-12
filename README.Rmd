@@ -30,9 +30,9 @@ Welcome to the `spatialLIBD` project! It is composed of:
 
 * a [shiny](https://shiny.rstudio.com/) web application that we are hosting at [spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/) that can handle a [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2) set of concurrent users,
 * a Bioconductor package at [bioconductor.org/packages/spatialLIBD](http://bioconductor.org/packages/spatialLIBD) (or from [here](http://research.libd.org/spatialLIBD/)) that lets you analyze the data and run a local version of our web application (with our data or yours),
-* and a [research article](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1) with the scientific knowledge we drew from this dataset. The analysis code for our project is available [here](https://github.com/LieberInstitute/HumanPilot/).
+* and a [research article](https://doi.org/10.1038/s41593-020-00787-0) with the scientific knowledge we drew from this dataset. The analysis code for our project is available [here](https://github.com/LieberInstitute/HumanPilot/) and the high quality figures for the manuscript are available through [Figshare](https://doi.org/10.6084/m9.figshare.13623902.v1).
 
-The web application allows you to browse the LIBD human dorsolateral pre-frontal cortex (DLPFC) spatial transcriptomics data generated with the 10x Genomics Visium platform. Through the [R/Bioconductor package](https://bioconductor.org/packages/spatialLIBD) you can also download the data as well as visualize your own datasets using this web application. Please check the [bioRxiv pre-print](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1) for more details about this project.
+The web application allows you to browse the LIBD human dorsolateral pre-frontal cortex (DLPFC) spatial transcriptomics data generated with the 10x Genomics Visium platform. Through the [R/Bioconductor package](https://bioconductor.org/packages/spatialLIBD) you can also download the data as well as visualize your own datasets using this web application. Please check the [manuscript](https://doi.org/10.1038/s41593-020-00787-0) or [bioRxiv pre-print](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1) for more details about this project.
 
 If you tweet about this website, the data or the R package please use the <code>#spatialLIBD</code> hashtag. You can find previous tweets that way as shown <a href="https://twitter.com/search?q=%23spatialLIBD&src=typed_query">here</a>. Thank you! <a href="https://twitter.com/intent/tweet?button_hashtag=spatialLIBD&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #spatialLIBD</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
@@ -102,17 +102,17 @@ Using `spatialLIBD` you can access the Human DLPFC spatial transcriptomics data 
 library("spatialLIBD")
 
 ## Download the spot-level data
-sce <- fetch_data(type = "sce")
+spe <- fetch_data(type = "spe")
 
-## This is a SingleCellExperiment object
-sce
+## This is a SpatialExperiment object
+spe
 
 ## Note the memory size
-pryr::object_size(sce)
+pryr::object_size(spe)
 
 ## Remake the logo image with histology information
-sce_image_clus(
-    sce = sce,
+vis_clus(
+    spe = spe,
     clustervar = "layer_guess_reordered",
     sampleid = "151673",
     colors = libd_layer_colors,

@@ -163,11 +163,11 @@ The human DLPFC 10x Genomics Visium dataset analyzed by LIBD researchers and col
 
 ## Data specifics
 
-We combined all the Visium data into a single `r Biocpkg('SingleCellExperiment')` `r Citep(bib[['SingleCellExperiment']])` object that we typically refer to as __`sce`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis) for details on how we built the `sce` object. In particular check `convert_sce.R` and `sce_scran.R`.]. It has 33,538 genes (rows) and 47,681 spots (columns). This is the initial point for most of our analyses ([code available on GitHub](https://github.com/LieberInstitute/HumanPilot)). Using `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])` we manually assigned each spot across all 12 images to a layer (L1 through L6 or WM). We then compressed the spot-level data at the layer-level using a pseudo-bulking approach resulting in the `r Biocpkg('SingleCellExperiment')` object we typically refer to as __`sce_layer`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis/Layer_Guesses) for details on how we built the `sce_layer` object. In particular check `spots_per_layer.R` and `layer_enrichment.R`.]. We then computed for each gene t or F statistics assessing whether the gene had higher expression in a given layer compared to the rest (`enrichment`; t-stat), between one layer and another layer (`pairwise`; t-stat), or had any expression variability across all layers (`anova`; F-stat). The results from the models are stored in what we refer to as __`modeling_results`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis/Layer_Guesses) for details on how we built the `modeling_results` object. In particular check `layer_specificity_fstats.R`, `layer_specificity.R`, and `misc_numbers.R`.].
+We combined all the Visium data into a single `r Biocpkg('SpatialExperiment')` `r Citep(bib[['SpatialExperiment']])` object that we typically refer to as __`spe`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis) for details on how we built the `spe` object. In particular check `convert_sce.R` and `sce_scran.R`.]. It has 33,538 genes (rows) and 47,681 spots (columns). This is the initial point for most of our analyses ([code available on GitHub](https://github.com/LieberInstitute/HumanPilot)). Using `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])` we manually assigned each spot across all 12 images to a layer (L1 through L6 or WM). We then compressed the spot-level data at the layer-level using a pseudo-bulking approach resulting in the `r Biocpkg('SingleCellExperiment')` object we typically refer to as __`sce_layer`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis/Layer_Guesses) for details on how we built the `sce_layer` object. In particular check `spots_per_layer.R` and `layer_enrichment.R`.]. We then computed for each gene t or F statistics assessing whether the gene had higher expression in a given layer compared to the rest (`enrichment`; t-stat), between one layer and another layer (`pairwise`; t-stat), or had any expression variability across all layers (`anova`; F-stat). The results from the models are stored in what we refer to as __`modeling_results`__ ^[Check [this code](https://github.com/LieberInstitute/HumanPilot/tree/master/Analysis/Layer_Guesses) for details on how we built the `modeling_results` object. In particular check `layer_specificity_fstats.R`, `layer_specificity.R`, and `misc_numbers.R`.].
 
 In summary,
 
-* `sce` is the `r Biocpkg('SingleCellExperiment')` object with all the spot-level data and the histology information for visualization of the data.
+* `spe` is the `r Biocpkg('SpatialExperiment')` object with all the spot-level data and the histology information for visualization of the data.
 * `sce_layer` is the `r Biocpkg('SingleCellExperiment')` object with the layer-level data.
 * `modeling_results` contains the layer-level `enrichment`, `pairwise` and `anova` statistics.
 
@@ -184,11 +184,14 @@ ehub <- ExperimentHub::ExperimentHub()
 
 ```{r 'download_data'}
 ## Download the small example sce data
-if (!exists("sce")) sce <- fetch_data(type = "sce_example", eh = ehub)
+sce <- fetch_data(type = "sce_example", eh = ehub)
+
+## Convert to a SpatialExperiment object
+spe <- sce_to_spe(sce)
 
 ## If you want to download the full real data (about 2.1 GB in RAM) use:
 if (FALSE) {
-    if (!exists("sce")) sce <- fetch_data(type = "sce", eh = ehub)
+    if (!exists("spe")) spe <- fetch_data(type = "spe", eh = ehub)
 }
 
 ## Query ExperimentHub and download the data
@@ -201,7 +204,7 @@ Once you have downloaded the objects, we can explore them a little bit
 
 ```{r 'explore data'}
 ## spot-level data
-sce
+spe
 
 ## layer-level data
 sce_layer
@@ -241,7 +244,7 @@ Now that you have downloaded the data, you can interactively explore the data us
 ```{r}
 if (interactive()) {
     run_app(
-        sce = sce,
+        spe = spe,
         sce_layer = sce_layer,
         modeling_results = modeling_results,
         sig_genes = sig_genes
@@ -260,12 +263,12 @@ We already covered `fetch_data()` which allows you to download the Human DLPFC V
 
 ## Spot-level clusters and discrete variables
 
-With the `sce` object that contains the spot-level data, we can visualize any discrete variable such as the layers using `sce_image_clus()` and related functions. These functions know where to extract and how to visualize the histology information.
+With the `spe` object that contains the spot-level data, we can visualize any discrete variable such as the layers using `vis_clus()` and related functions. These functions know where to extract and how to visualize the histology information.
 
-```{r 'sce_image_clus', fig.small = TRUE}
+```{r 'vis_clus', fig.small = TRUE}
 ## View our LIBD layers for one sample
-sce_image_clus(
-    sce = sce,
+vis_clus(
+    spe = spe,
     clustervar = "layer_guess_reordered",
     sampleid = "151673",
     colors = libd_layer_colors,
@@ -273,24 +276,24 @@ sce_image_clus(
 )
 ```
 
-Most of the variables stored in `sce` are discrete variables and as such, you can visualize them using `sce_image_clus()` and `sce_image_grid()` for one or more than one sample respectively.
+Most of the variables stored in `spe` are discrete variables and as such, you can visualize them using `vis_clus()` and `vis_grid_clus()` for one or more than one sample respectively.
 
-```{r 'sce_image_clus_variables'}
+```{r 'vis_clus_variables'}
 ## This is not fully precise, but gives you a rough idea
 ## Some integer columns are actually continuous variables
-table(sapply(colData(sce), class) %in% c("factor", "integer"))
+table(sapply(colData(spe), class) %in% c("factor", "integer"))
 
 ## This is more precise (one cluster has 28 unique values)
-table(sapply(colData(sce), function(x) length(unique(x))) < 29)
+table(sapply(colData(spe), function(x) length(unique(x))) < 29)
 ```
 
-Notably, `sce_image_clus()` has a `spatial` `logical(1)` argument which is useful if you want to visualize the data without the histology information provided by `geom_spatial()` (a custom `ggplot2::layer()`). In particular, this is useful if you then want to use `plotly::ggplotly()` or other similar functions on the resulting `ggplot2::ggplot()` object.
+Notably, `vis_clus()` has a `spatial` `logical(1)` argument which is useful if you want to visualize the data without the histology information provided by `geom_spatial()` (a custom `ggplot2::layer()`). In particular, this is useful if you then want to use `plotly::ggplotly()` or other similar functions on the resulting `ggplot2::ggplot()` object.
 
-```{r 'sce_image_clus_no_spatial', fig.small = TRUE}
+```{r 'vis_clus_no_spatial', fig.small = TRUE}
 ## View our LIBD layers for one sample
 ## without spatial information
-sce_image_clus(
-    sce = sce,
+vis_clus(
+    spe = spe,
     clustervar = "layer_guess_reordered",
     sampleid = "151673",
     colors = libd_layer_colors,
@@ -309,45 +312,45 @@ libd_layer_colors
 
 ## Spot-level genes and continuous variables
 
-Similar to `sce_image_clus()`, the `sce_image_gene()` family of functions use the `sce` spot-level object to visualize the gene expression or any continuous variable such as the number of cells per spots. That is, `sce_image_gene()` can visualize any of the `assays(sce)` or any of the continuous variables stored in `colData(sce)`. If you want to visualize more than one sample at a time, use `sce_image_grid_gene()` instead. And just like `sce_image_clus()`, `sce_image_gene()` has a `spatial` `logical(1)` argument to turn off the custom spatial `ggplot2::layer()` produced by `geom_spatial()`.
+Similar to `vis_clus()`, the `vis_gene()` family of functions use the `spe` spot-level object to visualize the gene expression or any continuous variable such as the number of cells per spots. That is, `vis_gene()` can visualize any of the `assays(spe)` or any of the continuous variables stored in `colData(spe)`. If you want to visualize more than one sample at a time, use `vis_grid_gene()` instead. And just like `vis_clus()`, `vis_gene()` has a `spatial` `logical(1)` argument to turn off the custom spatial `ggplot2::layer()` produced by `geom_spatial()`.
 
 
-```{r 'sce_image_gene', fig.small = TRUE}
+```{r 'vis_gene', fig.small = TRUE}
 ## Available gene expression assays
-assayNames(sce)
+assayNames(spe)
 
 ## Not all of these make sense to visualize
-## In particular, barcode, row, col, imagerow, imagecol, key are not
+## In particular, barcode and key are not
 ## useful to visualize.
-colnames(colData(sce))[sapply(colData(sce), function(x) {
-      length(unique(x))
-  }) > 29]
+colnames(colData(spe))[sapply(colData(spe), function(x) {
+    length(unique(x))
+}) > 29]
 
 ## Visualize a gene
-sce_image_gene(
-    sce = sce,
+vis_gene(
+    spe = spe,
     sampleid = "151673",
     viridis = FALSE
 )
 
 ## Visualize the estimated number of cells per spot
-sce_image_gene(
-    sce = sce,
+vis_gene(
+    spe = spe,
     sampleid = "151673",
     geneid = "cell_count"
 )
 
 ## Visualize the fraction of chrM expression per spot
 ## without the spatial layer
-sce_image_gene(
-    sce = sce,
+vis_gene(
+    spe = spe,
     sampleid = "151673",
     geneid = "expr_chrM_ratio",
     spatial = FALSE
 )
 ```
 
-As for the color palette, you can either use the color blind friendly palette when `viridis = TRUE` or a custom palette we determined. Note that if you design your own palette, you have to take into account that values it can be hard to distinguish some colors from the histology set of purple tones that are noticeable when the continuous variable is below or equal to the `minCount` (in our palettes such points have a `'transparent'` color). For more details, check the internal code of `sce_image_gene_p()`.
+As for the color palette, you can either use the color blind friendly palette when `viridis = TRUE` or a custom palette we determined. Note that if you design your own palette, you have to take into account that values it can be hard to distinguish some colors from the histology set of purple tones that are noticeable when the continuous variable is below or equal to the `minCount` (in our palettes such points have a `'transparent'` color). For more details, check the internal code of `vis_gene_p()`.
 
 ## Extract significant genes
 
@@ -417,7 +420,7 @@ layer_boxplot(
 
 ## Correlation of layer-level statistics
 
-Just like we compressed our `sce` object into `sce_layer` by pseudo-bulking ^[For more details, check [this script](https://github.com/LieberInstitute/HumanPilot/blob/ab52559957624538f8dc08b0533e4106fab4066b/Analysis/Layer_Guesses/layer_specificity.R).], we can do the same for other single nucleus or single cell RNA sequencing datasets (snRNA-seq, scRNA-seq) and then compute enrichment t-statistics (one group vs the rest; could be one cell type vs the rest or one cluster of cells vs the rest). In our analysis `r Citep(bib[['spatialLIBDpaper']])`, we did this for several datasets including one of our LIBD Human DLPFC snRNA-seq data generated by Matthew N Tran et al ^[For more details, check [this script](https://github.com/LieberInstitute/HumanPilot/blob/ab52559957624538f8dc08b0533e4106fab4066b/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R).]. In `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])` we include a small set of these statistics for the 31 cell clusters identified by Matthew N Tran et al.
+Just like we compressed our `spe` object into `sce_layer` by pseudo-bulking ^[For more details, check [this script](https://github.com/LieberInstitute/HumanPilot/blob/ab52559957624538f8dc08b0533e4106fab4066b/Analysis/Layer_Guesses/layer_specificity.R).], we can do the same for other single nucleus or single cell RNA sequencing datasets (snRNA-seq, scRNA-seq) and then compute enrichment t-statistics (one group vs the rest; could be one cell type vs the rest or one cluster of cells vs the rest). In our analysis `r Citep(bib[['spatialLIBDpaper']])`, we did this for several datasets including one of our LIBD Human DLPFC snRNA-seq data generated by Matthew N Tran et al ^[For more details, check [this script](https://github.com/LieberInstitute/HumanPilot/blob/ab52559957624538f8dc08b0533e4106fab4066b/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R).]. In `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])` we include a small set of these statistics for the 31 cell clusters identified by Matthew N Tran et al.
 
 ```{r 'matt_t_stats'}
 ## Explore the enrichment t-statistics derived from Tran et al's snRNA-seq
@@ -520,15 +523,21 @@ This section gets into the details of how we generated the data `r Citep(bib[['s
 
 ## SpatialExperiment support
 
-As of version 1.1.7, `r Biocpkg('spatialLIBD')` supports the `VisiumExperiment` class from `r Biocpkg('SpatialExperiment')`. The functions `sce_image_gene_p()`, `sce_image_gene()`, `sce_image_grid()`, `sce_image_grid_gene()`, `sce_image_clus()`, `sce_image_clus_p()`, `geom_spatial()` now work with `VisiumExperiment` objects thanks to the new function `read_image()` and `ve_image_colData()`. We provide now the function `sce_to_ve()` for converting our data to the `VisiumExperiment` class. This work was done by [Brenda Pardo](https://twitter.com/PardoBree) and Leonardo. 
+As of version 1.3.3, `r Biocpkg('spatialLIBD')` supports the `SpatialExperiment` class from `r Biocpkg('SpatialExperiment')`. The functions `vis_gene_p()`, `vis_gene()`, `vis_grid_clus()`, `vis_grid_gene()`, `vis_clus()`, `vis_clus_p()`, `geom_spatial()` now work with `SpatialExperiment` objects thanks to the updates in `r Biocpkg('SpatialExperiment')` as well as the new function `spe_meta()`. If you have spot-level data formatted in the older `SingleCellExperiment` objects that were heavily modified for `spatialLIBD`, you can use `sce_to_spe()` to convert the objects.
 
-## Generating our data
+This work was done by [Brenda Pardo](https://twitter.com/PardoBree) and Leonardo.
+
+## Using spatialLIBD with your own data
+
+TODO (but way simpler now thanks to `r Biocpkg('SpatialExperiment')`.)
+
+## Generating our data (legacy)
 
 If you are interested in reshaping your data to fit our structure, we do not provide a quick function to do so. That is intentional given the active development by the Bioconductor community for determining the best way to deal with spatial transcriptomics data in general and the 10x Visium data in particular. Having said that, we do have all the steps and reproducibility information documented across several of our analysis `r Citep(bib[['spatialLIBDpaper']])` scripts.
 
 * `reorganize_folder.R` available [here](https://github.com/LieberInstitute/HumanPilot/blob/master/reorganize_folder.R) re-organizes the raw data we were sent by 10x Genomics.
 * `Layer_Notebook.R` available [here](https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Notebook.R) reads in the Visium data and builds a list of `RangeSummarizedExperiment()` objects from `r Biocpkg('SummarizedExperiment')`, one per sample (image) that is eventually saved as `Human_DLPFC_Visium_processedData_rseList.rda`.
-* `convert_sce.R` available [here](https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/convert_sce.R) reads in `Human_DLPFC_Visium_processedData_rseList.rda` and builds an initial `sce` object with image data under `metadata(sce)$image` which is a single data.frame. Subsetting doesn't automatically subset the image, so you have to do it yourself when plotting as is done by `sce_image_clus_p()` and `sce_image_gene_p()`. Having the data from all images in a single object allows you to use the spot-level data from all images to compute clusters and do other similar analyses to the ones you would do with sc/snRNA-seq data. The script creates the `Human_DLPFC_Visium_processedData_sce.Rdata` file.
+* `convert_sce.R` available [here](https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/convert_sce.R) reads in `Human_DLPFC_Visium_processedData_rseList.rda` and builds an initial `sce` object with image data under `metadata(sce)$image` which is a single data.frame. Subsetting doesn't automatically subset the image, so you have to do it yourself when plotting as is done by `vis_clus_p()` and `vis_gene_p()`. Having the data from all images in a single object allows you to use the spot-level data from all images to compute clusters and do other similar analyses to the ones you would do with sc/snRNA-seq data. The script creates the `Human_DLPFC_Visium_processedData_sce.Rdata` file.
 * `sce_scran.R` available [here](https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/sce_scran.R) then uses `r Biocpkg('scran')` to read in `Human_DLPFC_Visium_processedData_sce.Rdata`, compute the highly variable genes (stored in our final `sce` object at `rowData(sce)$is_top_hvg`), perform dimensionality reduction (PCA, TSNE, UMAP) and identify clusters using the data from all images. The resulting data is then stored as `Human_DLPFC_Visium_processedData_sce_scran.Rdata` and is the main object used throughout our analysis code `r Citep(bib[['spatialLIBDpaper']])`.
 * `make-data_spatialLIBD.R` available in the source version of `spatialLIBD` and [online here](https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-data_spatialLIBD.R) is the script that reads in `Human_DLPFC_Visium_processedData_sce_scran.Rdata` as well as some other outputs from our analysis and combines them into the final `sce` and `sce_layer` objects provided by `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])`. This script simplifies some operations in order to simplify the code behind the `r CRANpkg('shiny')` application provided by `r Biocpkg('spatialLIBD')`.
 
@@ -614,7 +623,7 @@ stopifnot(all(continuous_variables %in% colnames(colData(sce))))
 ## colData(sce)
 stopifnot(!all(rowData(sce)$gene_search %in% colnames(colData(sce))))
 
-## No column named COUNT as that's used by sce_image_gene_p() and related
+## No column named COUNT as that's used by vis_gene_p() and related
 ## functions.
 stopifnot(!"COUNT" %in% colnames(colData(sce)))
 

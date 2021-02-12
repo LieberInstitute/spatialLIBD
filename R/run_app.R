@@ -4,9 +4,9 @@
 #' with the Visium spatial transcriptomics data from LIBD (by default) or
 #' any other data that you have shaped according to our object structure.
 #'
-#' @param sce Defaults to the output of
-#' `fetch_data(type = 'sce')`. This is a
-#' \linkS4class{SingleCellExperiment}
+#' @param spe Defaults to the output of
+#' `fetch_data(type = 'spe')`. This is a
+#' \linkS4class{SpatialExperiment}
 #' object with the spot-level Visium data and information required for
 #' visualizing the histology. See [fetch_data()] for more details.
 #' @inheritParams sig_genes_extract
@@ -17,14 +17,14 @@
 #' `plotly`. See
 #' https://github.com/LieberInstitute/spatialLIBD/tree/master/inst/app/www/data
 #' for an example of how these files should be organized.
-#' @param sce_discrete_vars A `character()` vector of discrete variables that
+#' @param spe_discrete_vars A `character()` vector of discrete variables that
 #' will be available to visualize in the app. Basically, the set of variables
-#' with spot-level groups. They will have to be present in `colData(sce)`.
-#' @param sce_continuous_vars A `character()` vector of continuous variables
+#' with spot-level groups. They will have to be present in `colData(spe)`.
+#' @param spe_continuous_vars A `character()` vector of continuous variables
 #' that will be available to visualize in the app using the same scale
 #' as genes. They will have to be present in `colData(sce)`.
 #' @param spatial_libd_var A `character(1)` with the name of the main cluster
-#' variable to use. It will have to be present in both `colData(sce)` and
+#' variable to use. It will have to be present in both `colData(spe)` and
 #' `colData(sce_layer)`.
 #' @param ... Other arguments passed to the list of golem options for running
 #' the application.
@@ -46,7 +46,7 @@
 #' }
 #' }
 #'
-run_app <- function(sce = fetch_data(type = "sce"),
+run_app <- function(spe = fetch_data(type = "spe"),
     sce_layer = fetch_data(type = "sce_layer"),
     modeling_results = fetch_data(type = "modeling_results"),
     sig_genes = sig_genes_extract_all(
@@ -55,7 +55,7 @@ run_app <- function(sce = fetch_data(type = "sce"),
         sce_layer = sce_layer
     ),
     image_path = system.file("app", "www", "data", package = "spatialLIBD"),
-    sce_discrete_vars = c(
+    spe_discrete_vars = c(
         "GraphBased",
         "Layer",
         "Maynard",
@@ -82,7 +82,7 @@ run_app <- function(sce = fetch_data(type = "sce"),
         "pseudobulk_UMAP_spatial",
         "markers_UMAP_spatial"
     ),
-    sce_continuous_vars = c(
+    spe_continuous_vars = c(
         "cell_count",
         "sum_umi",
         "sum_gene",
@@ -93,28 +93,30 @@ run_app <- function(sce = fetch_data(type = "sce"),
     ...) {
     ## Run the checks in the relevant order
     stopifnot(length(spatial_libd_var) == 1)
-    sce <-
-        check_sce(sce,
-            variables = c(spatial_libd_var, sce_discrete_vars, sce_continuous_vars)
-        )
+
+    ## TODO: make a check_spe() function
+    # sce <-
+    #     check_sce(sce,
+    #         variables = c(spatial_libd_var, spe_discrete_vars, spe_continuous_vars)
+    #     )
     if (!exists("sce_layer")) {
         sce_layer <-
             check_sce_layer(sce_layer, variables = spatial_libd_var)
     }
     modeling_results <- check_modeling_results(modeling_results)
-    image_path <- check_image_path(image_path, sce)
+    image_path <- check_image_path(image_path, spe)
     ## No need to check sig_genes since sig_genes_extract_all() will fail
 
     with_golem_options(
         app = shinyApp(ui = app_ui, server = app_server),
         golem_opts = list(
-            sce = sce,
+            spe = spe,
             sce_layer = sce_layer,
             modeling_results = modeling_results,
             image_path = image_path,
             sig_genes = sig_genes,
-            sce_discrete_vars = sce_discrete_vars,
-            sce_continuous_vars = sce_continuous_vars,
+            spe_discrete_vars = spe_discrete_vars,
+            spe_continuous_vars = spe_continuous_vars,
             spatial_libd_var = spatial_libd_var,
             ...
         )

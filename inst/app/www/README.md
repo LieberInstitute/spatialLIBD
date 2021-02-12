@@ -24,31 +24,33 @@ issues](https://img.shields.io/github/issues/LieberInstitute/spatialLIBD)](https
 [![DOI](https://zenodo.org/badge/225913568.svg)](https://zenodo.org/badge/latestdoi/225913568)
 <!-- badges: end -->
 
-Welcome to the `spatialLIBD` project\! It is composed of:
+Welcome to the `spatialLIBD` project! It is composed of:
 
-  - a [shiny](https://shiny.rstudio.com/) web application that we are
+-   a [shiny](https://shiny.rstudio.com/) web application that we are
     hosting at
     [spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/)
     that can handle a
     [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2)
     set of concurrent users,
-  - a Bioconductor package at
+-   a Bioconductor package at
     [bioconductor.org/packages/spatialLIBD](http://bioconductor.org/packages/spatialLIBD)
     (or from [here](http://research.libd.org/spatialLIBD/)) that lets
     you analyze the data and run a local version of our web application
     (with our data or yours),
-  - and a [research
-    article](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1)
+-   and a [research article](https://doi.org/10.1038/s41593-020-00787-0)
     with the scientific knowledge we drew from this dataset. The
     analysis code for our project is available
-    [here](https://github.com/LieberInstitute/HumanPilot/).
+    [here](https://github.com/LieberInstitute/HumanPilot/) and the high
+    quality figures for the manuscript are available through
+    [Figshare](https://doi.org/10.6084/m9.figshare.13623902.v1).
 
-This web application allows you to browse the LIBD human dorsolateral
+The web application allows you to browse the LIBD human dorsolateral
 pre-frontal cortex (DLPFC) spatial transcriptomics data generated with
 the 10x Genomics Visium platform. Through the [R/Bioconductor
 package](https://bioconductor.org/packages/spatialLIBD) you can also
 download the data as well as visualize your own datasets using this web
-application. Please check the [bioRxiv
+application. Please check the
+[manuscript](https://doi.org/10.1038/s41593-020-00787-0) or [bioRxiv
 pre-print](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1)
 for more details about this project.
 
@@ -56,10 +58,9 @@ If you tweet about this website, the data or the R package please use
 the <code>\#spatialLIBD</code> hashtag. You can find previous tweets
 that way as shown
 <a href="https://twitter.com/search?q=%23spatialLIBD&src=typed_query">here</a>.
-Thank you\!
+Thank you!
 <a href="https://twitter.com/intent/tweet?button_hashtag=spatialLIBD&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet
 \#spatialLIBD</a>
-
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ## Study design
@@ -73,7 +74,7 @@ the expression of known genes such as *SNAP25* (**D**, a neuronal gene),
 *MOBP* (**E**, an oligodendrocyte gene), and known layer markers from
 mouse studies such as *PCP4* (**F**, a known layer 5 marker gene).
 
-<img src="http://research.libd.org/spatialLIBD/reference/figures/paper_figure1.jpg" align="center" width="800px" />
+<img src="man/figures/paper_figure1.jpg" align="center" width="800px" />
 
 This web application was built such that we could annotate the spots to
 layers as you can see under the **spot-level data** tab. Once we
@@ -103,26 +104,26 @@ spatialLIBD::run_app()
 
 ## Shiny website mirrors
 
-  - [Main shiny application
+-   [Main shiny application
     website](http://spatial.libd.org/spatialLIBD)
-  - [Shinyapps](https://jhubiostatistics.shinyapps.io/spatialLIBD/)
-  - [Shinyapps
-    Mirror 1](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror01/)
-  - [Shinyapps
-    Mirror 2](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror02/)
+-   [Shinyapps](https://jhubiostatistics.shinyapps.io/spatialLIBD/)
+-   [Shinyapps Mirror
+    1](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror01/)
+-   [Shinyapps Mirror
+    2](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror02/)
 
 ## R/Bioconductor package
 
 The `spatialLIBD` package contains functions for:
 
-  - Accessing the spatial transcriptomics data from the LIBD Human Pilot
+-   Accessing the spatial transcriptomics data from the LIBD Human Pilot
     project ([code on
     GitHub](https://github.com/LieberInstitute/HumanPilot)) generated
     with the Visium platform from 10x Genomics. The data is retrieved
     from [Bioconductor](http://bioconductor.org/)’s `ExperimentHub`.
-  - Visualizing the spot-level spatial gene expression data and
+-   Visualizing the spot-level spatial gene expression data and
     clusters.
-  - Inspecting the data interactively either on your computer or through
+-   Inspecting the data interactively either on your computer or through
     [spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/).
 
 For more details, please check the [documentation
@@ -137,8 +138,9 @@ Get the latest stable `R` release from
 from [Bioconductor](http://bioconductor.org/) the following code:
 
 ``` r
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+      install.packages("BiocManager")
+  }
 
 BiocManager::install("spatialLIBD")
 ```
@@ -158,45 +160,47 @@ details, check the help file for `fetch_data()`.
 
 ``` r
 ## Load the package
-library('spatialLIBD')
+library("spatialLIBD")
 
 ## Download the spot-level data
-sce <- fetch_data(type = 'sce')
-#> Loading objects:
-#>   sce
+spe <- fetch_data(type = "spe")
 
-## This is a SingleCellExperiment object
-sce
-#> class: SingleCellExperiment 
+## This is a SpatialExperiment object
+spe
+#> class: SpatialExperiment 
 #> dim: 33538 47681 
-#> metadata(1): image
+#> metadata(0):
 #> assays(2): counts logcounts
 #> rownames(33538): ENSG00000243485 ENSG00000237613 ... ENSG00000277475
 #>   ENSG00000268674
 #> rowData names(9): source type ... gene_search is_top_hvg
 #> colnames(47681): AAACAACGAATAGTTC-1 AAACAAGTATCTCCCA-1 ...
 #>   TTGTTTCCATACAACT-1 TTGTTTGTGTAAATTC-1
-#> colData names(73): barcode sample_name ... pseudobulk_UMAP_spatial
+#> colData names(65): sample_id Cluster ... pseudobulk_UMAP_spatial
 #>   markers_UMAP_spatial
 #> reducedDimNames(6): PCA TSNE_perplexity50 ... TSNE_perplexity80
 #>   UMAP_neighbors15
+#> mainExpName: NULL
 #> altExpNames(0):
+#> spatialData names(6) : barcode in_tissue ... pxl_row_in_fullres
+#>   pxl_col_in_fullres
+#> imgData names(6): sample_id image_id ... height scaleFactor
 
 ## Note the memory size
-pryr::object_size(sce)
+pryr::object_size(spe)
 #> 2.08 GB
 
 ## Remake the logo image with histology information
-sce_image_clus(
-    sce = sce,
-    clustervar = 'layer_guess_reordered',
-    sampleid = '151673',
+vis_clus(
+    spe = spe,
+    clustervar = "layer_guess_reordered",
+    sampleid = "151673",
     colors = libd_layer_colors,
-    ... = ' DLPFC Human Brain Layers\nMade with github.com/LieberInstitute/spatialLIBD'
+    ... = " DLPFC Human Brain Layers\nMade with github.com/LieberInstitute/spatialLIBD"
 )
 ```
 
-<img src="http://research.libd.org/spatialLIBD/reference/figures/README-access_data-1.png" width="600px" align="center" />
+<img src="man/figures/README-access_data-1.png" width="100%" />
 
 ### Raw data
 
@@ -205,20 +209,20 @@ You can access all the raw data through
 Furthermore, below you can find the links to the raw data we received
 from 10x Genomics.
 
-| SampleID|h5_filtered                                                                                     |h5_raw                                                                                     |image_full                                                                           |image_hi                                                                                     |image_lo                                                                                      |loupe                                                                       |HTML_report                                                                                            |
-|--------:|:-----------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------|
-|   151507|[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151507_filtered_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151507_raw_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_full_image.tif) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_hires_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_lowres_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151507.cloupe) |[GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151507/151507_web_summary.html) |
-|   151508|[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151508_filtered_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151508_raw_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_full_image.tif) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_hires_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_lowres_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151508.cloupe) |[GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151508/151508_web_summary.html) |
-|   151509|[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151509_filtered_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151509_raw_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_full_image.tif) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_tissue_hires_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_tissue_lowres_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151509.cloupe) |[GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151509/151509_web_summary.html) |
-|   151510|[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151510_filtered_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151510_raw_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151510_full_image.tif) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151510_tissue_hires_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151510_tissue_lowres_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151510.cloupe) |[GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151510/151510_web_summary.html) |
-|   151669|[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151669_filtered_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151669_raw_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_full_image.tif) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_tissue_hires_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_tissue_lowres_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151669.cloupe) |[GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151669/151669_web_summary.html) |
-|   151670|[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151670_filtered_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151670_raw_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151670_full_image.tif) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151670_tissue_hires_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151670_tissue_lowres_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151670.cloupe) |[GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151670/151670_web_summary.html) |
-|   151671|[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151671_filtered_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151671_raw_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151671_full_image.tif) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151671_tissue_hires_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151671_tissue_lowres_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151671.cloupe) |[GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151671/151671_web_summary.html) |
-|   151672|[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151672_filtered_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151672_raw_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151672_full_image.tif) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151672_tissue_hires_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151672_tissue_lowres_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151672.cloupe) |[GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151672/151672_web_summary.html) |
-|   151673|[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151673_filtered_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151673_raw_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_full_image.tif) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_tissue_hires_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_tissue_lowres_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151673.cloupe) |[GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151673/151673_web_summary.html) |
-|   151674|[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151674_filtered_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151674_raw_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151674_full_image.tif) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151674_tissue_hires_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151674_tissue_lowres_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151674.cloupe) |[GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151674/151674_web_summary.html) |
-|   151675|[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151675_filtered_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151675_raw_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151675_full_image.tif) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151675_tissue_hires_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151675_tissue_lowres_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151675.cloupe) |[GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151675/151675_web_summary.html) |
-|   151676|[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151676_filtered_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151676_raw_feature_bc_matrix.h5) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151676_full_image.tif) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151676_tissue_hires_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151676_tissue_lowres_image.png) |[AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151676.cloupe) |[GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151676/151676_web_summary.html) |
+| SampleID | h5\_filtered                                                                                    | h5\_raw                                                                                    | image\_full                                                                          | image\_hi                                                                                    | image\_lo                                                                                     | loupe                                                                       | HTML\_report                                                                                           |
+|---------:|:------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------|
+|   151507 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151507_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151507_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151507.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151507/151507_web_summary.html) |
+|   151508 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151508_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151508_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151508.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151508/151508_web_summary.html) |
+|   151509 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151509_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151509_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151509.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151509/151509_web_summary.html) |
+|   151510 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151510_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151510_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151510_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151510_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151510_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151510.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151510/151510_web_summary.html) |
+|   151669 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151669_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151669_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151669.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151669/151669_web_summary.html) |
+|   151670 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151670_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151670_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151670_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151670_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151670_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151670.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151670/151670_web_summary.html) |
+|   151671 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151671_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151671_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151671_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151671_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151671_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151671.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151671/151671_web_summary.html) |
+|   151672 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151672_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151672_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151672_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151672_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151672_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151672.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151672/151672_web_summary.html) |
+|   151673 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151673_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151673_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151673.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151673/151673_web_summary.html) |
+|   151674 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151674_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151674_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151674_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151674_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151674_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151674.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151674/151674_web_summary.html) |
+|   151675 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151675_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151675_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151675_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151675_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151675_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151675.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151675/151675_web_summary.html) |
+|   151676 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151676_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151676_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151676_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151676_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151676_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151676.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151676/151676_web_summary.html) |
 
 ## Citation
 
@@ -227,46 +231,48 @@ Please run this yourself to check for any updates on how to cite
 **spatialLIBD**.
 
 ``` r
-print(citation('spatialLIBD'), bibtex = TRUE)
+print(citation("spatialLIBD"), bibtex = TRUE)
 #> 
-#> Collado-Torres L, Maynard KR, Jaffe AE (2020). _LIBD Visium spatial
+#> Collado-Torres L, Maynard KR, Jaffe AE (2021). _LIBD Visium spatial
 #> transcriptomics human pilot data inspector_. doi:
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 1.1.2, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 1.3.3, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
 #>     title = {LIBD Visium spatial transcriptomics human pilot data inspector},
 #>     author = {Leonardo Collado-Torres and Kristen R. Maynard and Andrew E. Jaffe},
-#>     year = {2020},
+#>     year = {2021},
 #>     url = {http://www.bioconductor.org/packages/spatialLIBD},
-#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.1.2},
+#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.3},
 #>     doi = {10.18129/B9.bioc.spatialLIBD},
 #>   }
 #> 
 #> Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK, Williams
 #> SR, II JLC, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Kleinman JE,
-#> Hyde TM, Rao N, Hicks SC, Martinowich K, Jaffe AE (2020).
+#> Hyde TM, Rao N, Hicks SC, Martinowich K, Jaffe AE (2021).
 #> "Transcriptome-scale spatial gene expression in the human dorsolateral
-#> prefrontal cortex." _bioRxiv_. doi: 10.1101/2020.02.28.969931 (URL:
-#> https://doi.org/10.1101/2020.02.28.969931), <URL:
-#> https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1>.
+#> prefrontal cortex." _Nature Neuroscience_. doi:
+#> 10.1038/s41593-020-00787-0 (URL:
+#> https://doi.org/10.1038/s41593-020-00787-0), <URL:
+#> https://www.nature.com/articles/s41593-020-00787-0>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Article{,
 #>     title = {Transcriptome-scale spatial gene expression in the human dorsolateral prefrontal cortex},
 #>     author = {Kristen R. Maynard and Leonardo Collado-Torres and Lukas M. Weber and Cedric Uytingco and Brianna K. Barry and Stephen R. Williams and Joseph L. Catallini II and Matthew N. Tran and Zachary Besich and Madhavi Tippani and Jennifer Chew and Yifeng Yin and Joel E. Kleinman and Thomas M. Hyde and Nikhil Rao and Stephanie C. Hicks and Keri Martinowich and Andrew E. Jaffe},
-#>     year = {2020},
-#>     journal = {bioRxiv},
-#>     doi = {10.1101/2020.02.28.969931},
-#>     url = {https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1},
+#>     year = {2021},
+#>     journal = {Nature Neuroscience},
+#>     doi = {10.1038/s41593-020-00787-0},
+#>     url = {https://www.nature.com/articles/s41593-020-00787-0},
 #>   }
 ```
 
 Please note that the `spatialLIBD` was only made possible thanks to many
 other R and bioinformatics software authors, which are cited either in
 the vignettes and/or the paper(s) describing this package.
+
