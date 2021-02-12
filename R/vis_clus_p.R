@@ -13,7 +13,7 @@
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
 #' @importFrom tibble tibble
-#' @importFrom SpatialExperiment imgGrob imgData
+#' @importFrom SpatialExperiment imgGrob imgData scaleFactors
 #' @importFrom S4Vectors metadata
 #' @family Spatial cluster visualization functions
 #'
@@ -64,8 +64,8 @@ vis_clus_p <-
         p <- ggplot(
             d,
             aes(
-                x = pxl_col_in_fullres,
-                y = pxl_row_in_fullres,
+                x = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe),
+                y = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe),
                 fill = factor(!!sym(clustervar)),
                 key = key
             )

@@ -128,6 +128,17 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
             )
         )
         imageData <- img_dat
+
+        ## Fix things we had done that are not default:
+        # Scaling for lowres image: https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Notebook.R#L118-L119
+        spatialCoords_visium$pxl_col_in_fullres <- spatialCoords_visium$pxl_col_in_fullres / img_dat$scaleFactor[match(colData_visium$sample_id, img_dat$sample_id)]
+        spatialCoords_visium$pxl_row_in_fullres <- spatialCoords_visium$pxl_row_in_fullres / img_dat$scaleFactor[match(colData_visium$sample_id, img_dat$sample_id)]
+        # Names of the columns is flipped at https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Notebook.R#L116 compared to what
+        # SpatialExperiment does at https://github.com/drighelli/SpatialExperiment/blob/bf1b18b559ea2785d52db4e39a85f1d584aede45/R/read10xVisium.R#L170
+        tmp <- spatialCoords_visium$pxl_row_in_fullres
+        spatialCoords_visium$pxl_row_in_fullres <- spatialCoords_visium$pxl_col_in_fullres
+        spatialCoords_visium$pxl_col_in_fullres <- tmp
+
     }
 
     ## Create object manually
