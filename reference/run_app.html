@@ -55,6 +55,8 @@ any other data that you have shaped according to our object structure." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -66,9 +68,15 @@ any other data that you have shaped according to our object structure." />
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -82,19 +90,13 @@ any other data that you have shaped according to our object structure." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/spatialLIBD.html">Get started</a>
 </li>
 <li>
@@ -136,20 +138,20 @@ any other data that you have shaped according to our object structure.</p>
     </div>
 
     <pre class="usage"><span class='fu'>run_app</span><span class='op'>(</span>
-  sce <span class='op'>=</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"sce"</span><span class='op'>)</span>,
+  spe <span class='op'>=</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"spe"</span><span class='op'>)</span>,
   sce_layer <span class='op'>=</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"sce_layer"</span><span class='op'>)</span>,
   modeling_results <span class='op'>=</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span>,
   sig_genes <span class='op'>=</span> <span class='fu'><a href='sig_genes_extract_all.html'>sig_genes_extract_all</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>sce_layer</span><span class='op'>)</span>, modeling_results <span class='op'>=</span>
     <span class='va'>modeling_results</span>, sce_layer <span class='op'>=</span> <span class='va'>sce_layer</span><span class='op'>)</span>,
   image_path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"app"</span>, <span class='st'>"www"</span>, <span class='st'>"data"</span>, package <span class='op'>=</span> <span class='st'>"spatialLIBD"</span><span class='op'>)</span>,
-  sce_discrete_vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GraphBased"</span>, <span class='st'>"Layer"</span>, <span class='st'>"Maynard"</span>, <span class='st'>"Martinowich"</span>,
+  spe_discrete_vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GraphBased"</span>, <span class='st'>"Layer"</span>, <span class='st'>"Maynard"</span>, <span class='st'>"Martinowich"</span>,
     <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"SNN_k50_k"</span>, <span class='fl'>4</span><span class='op'>:</span><span class='fl'>28</span><span class='op'>)</span>, <span class='st'>"SpatialDE_PCA"</span>, <span class='st'>"SpatialDE_pool_PCA"</span>, <span class='st'>"HVG_PCA"</span>,
     <span class='st'>"pseudobulk_PCA"</span>, <span class='st'>"markers_PCA"</span>, <span class='st'>"SpatialDE_UMAP"</span>, <span class='st'>"SpatialDE_pool_UMAP"</span>, <span class='st'>"HVG_UMAP"</span>,
     <span class='st'>"pseudobulk_UMAP"</span>, <span class='st'>"markers_UMAP"</span>, <span class='st'>"SpatialDE_PCA_spatial"</span>,
     <span class='st'>"SpatialDE_pool_PCA_spatial"</span>, <span class='st'>"HVG_PCA_spatial"</span>, <span class='st'>"pseudobulk_PCA_spatial"</span>,
     <span class='st'>"markers_PCA_spatial"</span>, <span class='st'>"SpatialDE_UMAP_spatial"</span>, <span class='st'>"SpatialDE_pool_UMAP_spatial"</span>,
     <span class='st'>"HVG_UMAP_spatial"</span>, <span class='st'>"pseudobulk_UMAP_spatial"</span>, <span class='st'>"markers_UMAP_spatial"</span><span class='op'>)</span>,
-  sce_continuous_vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cell_count"</span>, <span class='st'>"sum_umi"</span>, <span class='st'>"sum_gene"</span>, <span class='st'>"expr_chrM"</span>,
+  spe_continuous_vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cell_count"</span>, <span class='st'>"sum_umi"</span>, <span class='st'>"sum_gene"</span>, <span class='st'>"expr_chrM"</span>,
     <span class='st'>"expr_chrM_ratio"</span><span class='op'>)</span>,
   spatial_libd_var <span class='op'>=</span> <span class='st'>"layer_guess_reordered_short"</span>,
   <span class='va'>...</span>
@@ -159,10 +161,10 @@ any other data that you have shaped according to our object structure.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>sce</th>
+      <th>spe</th>
       <td><p>Defaults to the output of
-<code><a href='fetch_data.html'>fetch_data(type = 'sce')</a></code>. This is a
-SingleCellExperiment
+<code><a href='fetch_data.html'>fetch_data(type = 'spe')</a></code>. This is a
+SpatialExperiment
 object with the spot-level Visium data and information required for
 visualizing the histology. See <code><a href='fetch_data.html'>fetch_data()</a></code> for more details.</p></td>
     </tr>
@@ -197,13 +199,13 @@ https://github.com/LieberInstitute/spatialLIBD/tree/master/inst/app/www/data
 for an example of how these files should be organized.</p></td>
     </tr>
     <tr>
-      <th>sce_discrete_vars</th>
+      <th>spe_discrete_vars</th>
       <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character()</a></code> vector of discrete variables that
 will be available to visualize in the app. Basically, the set of variables
-with spot-level groups. They will have to be present in <code>colData(sce)</code>.</p></td>
+with spot-level groups. They will have to be present in <code>colData(spe)</code>.</p></td>
     </tr>
     <tr>
-      <th>sce_continuous_vars</th>
+      <th>spe_continuous_vars</th>
       <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character()</a></code> vector of continuous variables
 that will be available to visualize in the app using the same scale
 as genes. They will have to be present in <code>colData(sce)</code>.</p></td>
@@ -211,7 +213,7 @@ as genes. They will have to be present in <code>colData(sce)</code>.</p></td>
     <tr>
       <th>spatial_libd_var</th>
       <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> with the name of the main cluster
-variable to use. It will have to be present in both <code>colData(sce)</code> and
+variable to use. It will have to be present in both <code>colData(spe)</code> and
 <code>colData(sce_layer)</code>.</p></td>
     </tr>
     <tr>
@@ -223,7 +225,7 @@ the application.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <a href='https://shiny.rstudio.com/reference/shiny/latest/shiny.appobj.html'>shiny.appobj</a> that contains the input data.</p>
+    <p>A <a href='https://rdrr.io/pkg/shiny/man/shiny.appobj.html'>shiny.appobj</a> that contains the input data.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -253,7 +255,7 @@ the application.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
@@ -261,6 +263,8 @@ the application.</p></td>
 
   
 
+
+  
 
   </body>
 </html>

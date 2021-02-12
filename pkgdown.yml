@@ -1,7 +1,7 @@
-pandoc: 2.7.3
-pkgdown: 1.6.1
-pkgdown_sha: ~
+pandoc: 2.11.2
+pkgdown: 1.6.1.9000
+pkgdown_sha: 773a3e90e03c38f577c695ea9ffc2f89a6635505
 articles:
   spatialLIBD: spatialLIBD.html
-last_built: 2020-12-18T00:16Z
+last_built: 2021-02-12T16:09Z
 
