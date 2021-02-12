@@ -43,10 +43,6 @@ if (enough_ram()) {
     spe <- sce_to_spe(sce)
 }
 }
-\seealso{
-Other SpatialExperiment-related functions: 
-\code{\link{spe_meta}()}
-}
 \author{
 Brenda Pardo, Leonardo Collado-Torres
 }

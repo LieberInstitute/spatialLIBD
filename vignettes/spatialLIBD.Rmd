@@ -523,7 +523,7 @@ This section gets into the details of how we generated the data `r Citep(bib[['s
 
 ## SpatialExperiment support
 
-As of version 1.3.3, `r Biocpkg('spatialLIBD')` supports the `SpatialExperiment` class from `r Biocpkg('SpatialExperiment')`. The functions `vis_gene_p()`, `vis_gene()`, `vis_grid_clus()`, `vis_grid_gene()`, `vis_clus()`, `vis_clus_p()`, `geom_spatial()` now work with `SpatialExperiment` objects thanks to the updates in `r Biocpkg('SpatialExperiment')` as well as the new function `spe_meta()`. If you have spot-level data formatted in the older `SingleCellExperiment` objects that were heavily modified for `spatialLIBD`, you can use `sce_to_spe()` to convert the objects.
+As of version 1.3.3, `r Biocpkg('spatialLIBD')` supports the `SpatialExperiment` class from `r Biocpkg('SpatialExperiment')`. The functions `vis_gene_p()`, `vis_gene()`, `vis_grid_clus()`, `vis_grid_gene()`, `vis_clus()`, `vis_clus_p()`, `geom_spatial()` now work with `SpatialExperiment` objects thanks to the updates in `r Biocpkg('SpatialExperiment')`. If you have spot-level data formatted in the older `SingleCellExperiment` objects that were heavily modified for `spatialLIBD`, you can use `sce_to_spe()` to convert the objects.
 
 This work was done by [Brenda Pardo](https://twitter.com/PardoBree) and Leonardo.
 

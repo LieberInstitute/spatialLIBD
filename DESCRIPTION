@@ -1,6 +1,6 @@
 Package: spatialLIBD
 Title: LIBD Visium spatial transcriptomics human pilot data inspector
-Version: 1.3.3
+Version: 1.3.4
 Date: 2021-02-12
 Authors@R:
     c(
@@ -50,7 +50,7 @@ Imports:
     IRanges,
     fields,
     benchmarkme,
-    SpatialExperiment (>= 1.1.427),
+    SpatialExperiment (>= 1.1.429),
     BiocFileCache,
     jsonlite,
     tibble

@@ -14,7 +14,8 @@ object with the spot-level Visium data and information required for
 visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
 \item{d}{A data.frame with the sample-level information. This is typically
-obtained using \code{spe_meta(spe)}. The data.frame has to contain
+obtained using \code{spatialData(spe, cd_bind = TRUE, as_df = TRUE)}.
+The data.frame has to contain
 a column with the continuous variable data to plot stored under \code{d$COUNT}.}
 
 \item{sampleid}{A \code{character(1)} specifying which sample to plot from
@@ -51,7 +52,7 @@ if (enough_ram()) {
 
     ## Prepare the data for the plotting function
     spe_sub <- spe[, spe$sample_id == "151673"]
-    df <- spe_meta(spe_sub)
+    df <- SpatialExperiment::spatialData(spe_sub, cd_bind = TRUE, as_df = TRUE)
     df$COUNT <- df$expr_chrM_ratio
 
     ## Use the manual color palette by Lukas M Weber
