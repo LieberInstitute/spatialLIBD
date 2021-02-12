@@ -50,7 +50,7 @@ Imports:
     IRanges,
     fields,
     benchmarkme,
-    SpatialExperiment (>= 1.1.429),
+    SingleCellExperiment,
     BiocFileCache,
     jsonlite,
     tibble
@@ -71,5 +71,5 @@ VignetteBuilder: knitr
 biocViews: Homo_sapiens_Data, ExperimentHub, SequencingData, SingleCellData,
     ExpressionData, Tissue, PackageTypeData
 Depends:
-    SingleCellExperiment,
+    SpatialExperiment (>= 1.1.429),
     R (>= 3.6)
