@@ -1,6 +1,6 @@
-#' Check input sce
+#' Check input spe
 #'
-#' This function checks that the `sce` object has the appropriate structure.
+#' This function checks that the `spe` object has the appropriate structure.
 #' For more details please check the vignette documentation.
 #'
 #'
@@ -18,10 +18,10 @@
 #'
 #' if (enough_ram()) {
 #'     ## Obtain the necessary data
-#'     if (!exists("sce")) sce <- fetch_data("sce")
+#'     if (!exists("spe")) sce <- fetch_data("spe")
 #'
 #'     ## Check the object
-#'     check_sce(sce)
+#'     check_sce(spe)
 #' }
 check_spe <- function(spe,
     variables = c(
@@ -102,7 +102,7 @@ check_spe <- function(spe,
     ## colData(spe)
     stopifnot(!all(rowData(spe)$gene_search %in% colnames(colData(spe))))
 
-    ## No column named COUNT as that's used by sce_image_gene_p() and related
+    ## No column named COUNT as that's used by vis_gene_p() and related
     ## functions.
     stopifnot(!"COUNT" %in% colnames(colData(spe)))
 
