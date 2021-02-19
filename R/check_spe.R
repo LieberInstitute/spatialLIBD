@@ -6,7 +6,7 @@
 #'
 #' @inheritParams sce_to_spe
 #' @param variables A `character()` vector of variable names expected to
-#' be present in `colData(sce)`.
+#' be present in `colData(spe)`.
 #'
 #' @return The input object if all checks are passed.
 #' @export
