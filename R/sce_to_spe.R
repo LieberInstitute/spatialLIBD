@@ -105,18 +105,25 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
             lapply(url_scaleFactors, jsonlite::read_json)
 
         ## Create a list of images
-        img_grobs_list <- mapply(function(grob, url) {
-            SpatialExperiment::SpatialImage(
-                grob = grob,
-                path = NULL,
-                url = url
-            )
-        }, metadata(sce)$image$grob[match(sample_id, metadata(sce)$image$sample)], url_images)
+        
+        spatial_img_list <- mapply(function(url) {
+          SpatialExperiment::SpatialImage(
+            url=url
+          )
+        }, url_images)
+
+        
+       img_raster_list <- mapply(function(spi) {
+         SpatialExperiment::imgRaster(
+           spi
+         )
+        }, spatial_img_list)
+       
 
         img_dat <- DataFrame(
             sample_id = as.character(sample_id),
             image_id = rep("lowres", length(sample_id)),
-            data = I(img_grobs_list),
+            data = I(img_raster_list),
             width = metadata(sce)$image$width[match(sample_id, metadata(sce)$image$sample)],
             height = metadata(sce)$image$height[match(sample_id, metadata(sce)$image$sample)],
             scaleFactor = vapply(
