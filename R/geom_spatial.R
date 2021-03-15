@@ -41,7 +41,7 @@
 #'         )
 #'     ) +
 #'         geom_spatial(
-#'             data = tibble::tibble(grob = list(SpatialExperiment::imgGrob(spe_sub))),
+#'             data = tibble::tibble(grob = list(grid::rasterGrob(SpatialExperiment::imgRaster(spe_sub)))),
 #'             ggplot2::aes(grob = grob),
 #'             x = 0.5,
 #'             y = 0.5

@@ -73,7 +73,7 @@ vis_clus_p <-
         if (spatial) {
             p <-
                 p + geom_spatial(
-                    data = tibble::tibble(grob = list(SpatialExperiment::imgGrob(spe, sample_id = sampleid))),
+                    data = tibble::tibble(grob = list(grid::rasterGrob(SpatialExperiment::imgRaster(spe_sub)))),
                     aes(grob = grob),
                     x = 0.5,
                     y = 0.5
