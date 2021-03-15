@@ -19,7 +19,6 @@
 #' @author 10x Genomics
 #' @export
 #' @importFrom tibble tibble
-#' @importFrom SpatialExperiment imgGrob
 #'
 #' @examples
 #'

@@ -13,7 +13,7 @@
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
 #' @importFrom tibble tibble
-#' @importFrom SpatialExperiment imgGrob imgData scaleFactors
+#' @importFrom SpatialExperiment imgData scaleFactors
 #' @importFrom S4Vectors metadata
 #' @family Spatial cluster visualization functions
 #'
