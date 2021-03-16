@@ -108,24 +108,15 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
         
         spatial_img_list <- mapply(function(url) {
           SpatialExperiment::SpatialImage(
-            url=url
+            url
           )
         }, url_images)
-
-        
-       img_raster_list <- mapply(function(spi) {
-         SpatialExperiment::imgRaster(
-           spi
-         )
-        }, spatial_img_list)
        
 
         img_dat <- DataFrame(
             sample_id = as.character(sample_id),
             image_id = rep("lowres", length(sample_id)),
-            data = I(img_raster_list),
-            width = metadata(sce)$image$width[match(sample_id, metadata(sce)$image$sample)],
-            height = metadata(sce)$image$height[match(sample_id, metadata(sce)$image$sample)],
+            data = I(spatial_img_list),
             scaleFactor = vapply(
                 scaleFactors_visium,
                 "[[",
