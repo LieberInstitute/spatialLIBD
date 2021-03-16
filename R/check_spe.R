@@ -61,7 +61,7 @@ check_spe <- function(spe,
     stopifnot(is(spe, "SpatialExperiment"))
 
     ## Images data stored under imgData(sce)
-    stopifnot(all(c("sample_id", "image_id", "data","width","height",
+    stopifnot(all(c("sample_id", "image_id", "data",
                     "scaleFactor") %in% colnames(imgData(spe))))
 
     ## Check gene data
