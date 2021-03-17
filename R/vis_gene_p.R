@@ -18,7 +18,7 @@
 #' @importFrom tibble tibble
 #' @importFrom SpatialExperiment imgData scaleFactors
 #' @importFrom S4Vectors metadata
-#' @importFrom grid rasterGrid unit
+#' @importFrom grid rasterGrob unit
 #' @family Spatial gene visualization functions
 #'
 #' @examples
@@ -114,8 +114,8 @@ vis_gene_p <-
         }
 
         p <- p +
-            xlim(0, dim(img)[1]) +
-            ylim(dim(img)[2], 0) +
+            xlim(0, nrow(img)) +
+            ylim(ncol(img), 0) +
             xlab("") + ylab("") +
             labs(fill = NULL, color = NULL) +
             ggtitle(title) +

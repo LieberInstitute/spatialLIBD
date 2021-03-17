@@ -15,7 +15,7 @@
 #' @importFrom tibble tibble
 #' @importFrom SpatialExperiment imgData scaleFactors
 #' @importFrom S4Vectors metadata
-#' @importFrom grid rasterGrid unit
+#' @importFrom grid rasterGrob unit
 #' @family Spatial cluster visualization functions
 #'
 #' @examples
@@ -91,8 +91,8 @@ vis_clus_p <-
             coord_cartesian(expand = FALSE) +
             scale_fill_manual(values = colors) +
             scale_color_manual(values = colors) +
-            xlim(0, dim(img)[1]) +
-            ylim(dim(img)[2], 0) +
+            xlim(0, nrow(img)) +
+            ylim(ncol(img), 0) +
             xlab("") + ylab("") +
             labs(fill = NULL, color = NULL) +
             guides(fill = guide_legend(override.aes = list(size = 3))) +
