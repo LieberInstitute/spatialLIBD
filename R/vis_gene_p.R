@@ -55,13 +55,14 @@ vis_gene_p <-
         ## Some variables
         pxl_row_in_fullres <- pxl_col_in_fullres <- key <- COUNT <- NULL
         # stopifnot(all(c("pxl_col_in_fullres", "pxl_row_in_fullres", "COUNT", "key") %in% colnames(d)))
+        img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid)
 
         p <-
             ggplot(
                 d,
                 aes(
-                    x = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe),
-                    y = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe),
+                    x = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid),
+                    y = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid),
                     fill = COUNT,
                     color = COUNT,
                     key = key
@@ -69,9 +70,10 @@ vis_gene_p <-
             )
 
         if (spatial) {
+            grob <- grid::rasterGrob(img, width=unit(1,"npc"), height=unit(1,"npc"))
             p <-
                 p + geom_spatial(
-                    data = tibble::tibble(grob = list(grid::rasterGrob(SpatialExperiment::imgRaster(spe)))),
+                    data = tibble::tibble(grob = list(grob)),
                     aes(grob = grob),
                     x = 0.5,
                     y = 0.5
@@ -111,8 +113,8 @@ vis_gene_p <-
         }
 
         p <- p +
-            xlim(0, SpatialExperiment::imgData(spe)$width[SpatialExperiment::imgData(spe)$sample_id == sampleid]) +
-            ylim(SpatialExperiment::imgData(spe)$height[SpatialExperiment::imgData(spe)$sample_id == sampleid], 0) +
+            xlim(0, dim(img)[1]) +
+            ylim(dim(img)[2], 0) +
             xlab("") + ylab("") +
             labs(fill = NULL, color = NULL) +
             ggtitle(title) +

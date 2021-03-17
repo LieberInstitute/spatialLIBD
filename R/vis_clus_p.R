@@ -60,20 +60,22 @@ vis_clus_p <-
         )) {
             title <- gsub(clustervar, "LIBD Layers", title)
         }
+        img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid)
 
         p <- ggplot(
             d,
             aes(
-                x = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe),
-                y = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe),
+                x = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid),
+                y = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid),
                 fill = factor(!!sym(clustervar)),
                 key = key
             )
         )
         if (spatial) {
+            grob <- grid::rasterGrob(img, width=unit(1,"npc"), height=unit(1,"npc"))
             p <-
                 p + geom_spatial(
-                    data = tibble::tibble(grob = list(grid::rasterGrob(SpatialExperiment::imgRaster(spe)))),
+                    data = tibble::tibble(grob = list(grob)),
                     aes(grob = grob),
                     x = 0.5,
                     y = 0.5
@@ -87,10 +89,11 @@ vis_clus_p <-
             ) +
             coord_cartesian(expand = FALSE) +
             scale_fill_manual(values = colors) +
-            xlim(0, SpatialExperiment::imgData(spe)$width[SpatialExperiment::imgData(spe)$sample_id == sampleid]) +
-            ylim(SpatialExperiment::imgData(spe)$height[SpatialExperiment::imgData(spe)$sample_id == sampleid], 0) +
+            scale_color_manual(values = colors) +
+            xlim(0, dim(img)[1]) +
+            ylim(dim(img)[2], 0) +
             xlab("") + ylab("") +
-            labs(fill = NULL) +
+            labs(fill = NULL, color = NULL) +
             guides(fill = guide_legend(override.aes = list(size = 3))) +
             ggtitle(title) +
             theme_set(theme_bw(base_size = 20)) +

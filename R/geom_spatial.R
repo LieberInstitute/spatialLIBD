@@ -31,6 +31,12 @@
 #'     spe_sub <- spe[, spe$sample_id == sample_id]
 #'     sample_df <- as.data.frame(SpatialExperiment::spatialData(spe_sub))
 #'
+#'     ## Obtain the histology image
+#'     img <- SpatialExperiment::imgRaster(spe_sub)
+#'
+#'     ## Transform to a rasterGrob object
+#'     grob <- grid::rasterGrob(img, width=unit(1,"npc"), height=unit(1,"npc"))
+#'
 #'     ## Make a plot using geom_spatial
 #'     p <- ggplot2::ggplot(
 #'         sample_df,
@@ -40,7 +46,7 @@
 #'         )
 #'     ) +
 #'         geom_spatial(
-#'             data = tibble::tibble(grob = list(grid::rasterGrob(SpatialExperiment::imgRaster(spe_sub)))),
+#'             data = tibble::tibble(grob = list(grob)),
 #'             ggplot2::aes(grob = grob),
 #'             x = 0.5,
 #'             y = 0.5
