@@ -105,13 +105,13 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
             lapply(url_scaleFactors, jsonlite::read_json)
 
         ## Create a list of images
-        
+
         spatial_img_list <- mapply(function(url) {
-          SpatialExperiment::SpatialImage(
-            url
-          )
+            SpatialExperiment::SpatialImage(
+                url
+            )
         }, url_images)
-       
+
 
         img_dat <- DataFrame(
             sample_id = as.character(sample_id),
@@ -136,7 +136,6 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
         tmp <- spatialCoords_visium$pxl_row_in_fullres
         spatialCoords_visium$pxl_row_in_fullres <- spatialCoords_visium$pxl_col_in_fullres
         spatialCoords_visium$pxl_col_in_fullres <- tmp
-
     }
 
     ## Create object manually

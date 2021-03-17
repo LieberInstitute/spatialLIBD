@@ -15,6 +15,7 @@
 #' @importFrom tibble tibble
 #' @importFrom SpatialExperiment imgData scaleFactors
 #' @importFrom S4Vectors metadata
+#' @importFrom grid rasterGrid unit
 #' @family Spatial cluster visualization functions
 #'
 #' @examples
@@ -72,7 +73,7 @@ vis_clus_p <-
             )
         )
         if (spatial) {
-            grob <- grid::rasterGrob(img, width=unit(1,"npc"), height=unit(1,"npc"))
+            grob <- grid::rasterGrob(img, width = grid::unit(1, "npc"), height = grid::unit(1, "npc"))
             p <-
                 p + geom_spatial(
                     data = tibble::tibble(grob = list(grob)),

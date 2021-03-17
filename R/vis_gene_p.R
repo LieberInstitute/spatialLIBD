@@ -18,6 +18,7 @@
 #' @importFrom tibble tibble
 #' @importFrom SpatialExperiment imgData scaleFactors
 #' @importFrom S4Vectors metadata
+#' @importFrom grid rasterGrid unit
 #' @family Spatial gene visualization functions
 #'
 #' @examples
@@ -70,7 +71,7 @@ vis_gene_p <-
             )
 
         if (spatial) {
-            grob <- grid::rasterGrob(img, width=unit(1,"npc"), height=unit(1,"npc"))
+            grob <- grid::rasterGrob(img, width = grid::unit(1, "npc"), height = grid::unit(1, "npc"))
             p <-
                 p + geom_spatial(
                     data = tibble::tibble(grob = list(grob)),

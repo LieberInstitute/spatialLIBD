@@ -57,7 +57,7 @@ if (enough_ram()) {
     img <- SpatialExperiment::imgRaster(spe_sub)
 
     ## Transform to a rasterGrob object
-    grob <- grid::rasterGrob(img, width=unit(1,"npc"), height=unit(1,"npc"))
+    grob <- grid::rasterGrob(img, width=grid::unit(1,"npc"), height=grid::unit(1,"npc"))
 
     ## Make a plot using geom_spatial
     p <- ggplot2::ggplot(
