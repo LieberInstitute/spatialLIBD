@@ -16,6 +16,7 @@
 #' containing the website documentation files. The directory has to contain
 #' the files: `documentation_sce_layer.md`, `documentation_spe.md`,
 #' `favicon.ico`, `footer.html` and `README.md`.
+#' @param title A character(1) specifying the title for the app.
 #' @param spe_discrete_vars A `character()` vector of discrete variables that
 #' will be available to visualize in the app. Basically, the set of variables
 #' with spot-level groups. They will have to be present in `colData(spe)`.
@@ -41,10 +42,20 @@
 #' ## the files will need to be cached by ExperimentHub. Otherwise it
 #' ## will re-use the files you have previously downloaded.
 #' if (enough_ram(4e9)) {
-#'     run_app()
-#' }
-#' }
+#'     ## Obtain the necessary data
+#'     if (!exists("spe")) spe <- fetch_data("spe")
 #'
+#'     run_app()
+#'
+#'     ## You can also run a custom version without the pseudo-bulked
+#'     ## layer information. This is useful if you are only interested
+#'     ## in the spatial transcriptomics features.
+#'     run_app(spe,
+#'         sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
+#'         title = "spatialLIBD without layer info"
+#'     )
+#' }
+#' }
 run_app <- function(spe = fetch_data(type = "spe"),
     sce_layer = fetch_data(type = "sce_layer"),
     modeling_results = fetch_data(type = "modeling_results"),
@@ -54,6 +65,7 @@ run_app <- function(spe = fetch_data(type = "spe"),
         sce_layer = sce_layer
     ),
     docs_path = system.file("app", "www", package = "spatialLIBD"),
+    title = "spatialLIBD",
     spe_discrete_vars = c(
         "GraphBased",
         "Layer",
@@ -97,12 +109,14 @@ run_app <- function(spe = fetch_data(type = "spe"),
         check_spe(spe,
             variables = c(spatial_libd_var, spe_discrete_vars, spe_continuous_vars)
         )
-    if (!exists("sce_layer")) {
+
+    ## Check sce_layer and modeling_results if needed
+    if (!is.null(sce_layer)) {
         sce_layer <-
             check_sce_layer(sce_layer, variables = spatial_libd_var)
+        modeling_results <- check_modeling_results(modeling_results)
+        ## No need to check sig_genes since sig_genes_extract_all() will fail
     }
-    modeling_results <- check_modeling_results(modeling_results)
-    ## No need to check sig_genes since sig_genes_extract_all() will fail
 
     ## Check that the required documentation files exist
     stopifnot(all(
@@ -123,6 +137,7 @@ run_app <- function(spe = fetch_data(type = "spe"),
             modeling_results = modeling_results,
             sig_genes = sig_genes,
             docs_path = docs_path,
+            title = title,
             spe_discrete_vars = spe_discrete_vars,
             spe_continuous_vars = spe_continuous_vars,
             spatial_libd_var = spatial_libd_var,

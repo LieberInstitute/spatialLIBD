@@ -27,7 +27,227 @@ app_server <- function(input, output, session) {
 
     ## Rename some variables
     spe$spatialLIBD <- colData(spe)[[spatial_libd_var]]
-    sce_layer$spatialLIBD <- colData(sce_layer)[[spatial_libd_var]]
+
+    ## Update the UI if sce_layer was specified
+    if (!is.null(sce_layer)) {
+
+        ## Rename some variables
+        sce_layer$spatialLIBD <- colData(sce_layer)[[spatial_libd_var]]
+
+        output$spatial_layer_level <- renderUI({
+            tabPanel("layer-level data", tagList(
+                sidebarLayout(
+                    sidebarPanel(
+                        selectInput(
+                            inputId = "layer_model",
+                            label = "Model results",
+                            choices = c("enrichment", "pairwise", "anova"),
+                            selected = "enrichment"
+                        ),
+                        hr(),
+                        pickerInput(
+                            inputId = "layer_geneid",
+                            label = "Gene",
+                            choices =
+                                sort(rowData(sce_layer)$gene_search),
+                            options = pickerOptions(liveSearch = TRUE)
+                        ),
+                        hr(),
+                        width = 2
+                    ),
+                    mainPanel(
+                        tabsetPanel(
+                            tabPanel(
+                                "Documentation",
+                                tags$br(),
+                                HTML(
+                                    'Basic information overview about the layer-level SingleCellExperiment object (pseudo-bulked from the spot-level data). You can download it using <code>spatialLIBD::fetch_data(type = "sce_layer")</code>.'
+                                ),
+                                tags$br(),
+                                tags$br(),
+                                verbatimTextOutput("layer_raw_summary"),
+                                helpText(
+                                    "When this information has been displayed it means that the shiny web application has finished loading and you can start exploring the rest of it."
+                                ),
+                                tags$br(),
+                                hr(),
+                                includeMarkdown(
+                                    file.path(resourcePaths()["www"], "documentation_sce_layer.md")
+                                ),
+                            ),
+                            tabPanel(
+                                "Reduced Dim",
+                                selectInput(
+                                    inputId = "layer_which_dim",
+                                    label = "Reduced Dimension",
+                                    choices = sort(reducedDimNames(sce_layer)),
+                                    selected = "PCA"
+                                ),
+                                selectInput(
+                                    inputId = "layer_which_dim_color",
+                                    label = "Color by",
+                                    choices = sort(colnames(colData(sce_layer))),
+                                    selected = spatial_libd_var
+                                ),
+                                downloadButton("layer_downloadReducedDim", "Download PDF"),
+                                plotOutput("layer_reduced_dim"),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br()
+                            ),
+                            tabPanel(
+                                "Model boxplots",
+                                selectInput(
+                                    inputId = "layer_model_test",
+                                    label = "Model test",
+                                    choices = sort(unique(sig_genes$test[sig_genes$model_type == "enrichment"]))
+                                ),
+                                selectInput(
+                                    inputId = "layer_boxcolor",
+                                    label = "Boxplot color scale",
+                                    choices = c("viridis", "paper", "bluered"),
+                                    selected = "viridis"
+                                ),
+                                checkboxInput(
+                                    "layer_box_shortitle",
+                                    "Enable short title on boxplots.",
+                                    value = TRUE
+                                ),
+                                hr(),
+                                downloadButton("layer_downloadBoxplot", "Download PDF"),
+                                plotOutput("layer_boxplot"),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                hr(),
+                                downloadButton("layer_downloadModelTable", "Download CSV"),
+                                tags$br(),
+                                tags$br(),
+                                DT::DTOutput("layer_model_table")
+                            ),
+                            tabPanel(
+                                "Gene Set Enrichment",
+                                fileInput(
+                                    "geneSet",
+                                    "Upload a CSV file with one column per gene set with a header row and then Ensembl gene IDs as values.",
+                                    accept = c(
+                                        "text/csv",
+                                        ".csv",
+                                        "text/comma-separated-values,text/plain"
+                                    )
+                                ),
+                                helpText(
+                                    "It should be a CSV file without row names and similar to ",
+                                    HTML(
+                                        '<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/asd_sfari_geneList.csv">this example file.</a>'
+                                    )
+                                ),
+                                hr(),
+                                numericInput(
+                                    "layer_gene_fdrcut",
+                                    label = "FDR cutoff",
+                                    value = 0.1,
+                                    min = 0,
+                                    max = 1,
+                                    step = 0.01
+                                ),
+                                hr(),
+                                downloadButton("layer_downloadGeneSet", "Download PDF"),
+                                plotOutput("layer_gene_set_plot"),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                hr(),
+                                downloadButton("layer_downloadGeneSetTable", "Download CSV"),
+                                tags$br(),
+                                tags$br(),
+                                DT::DTOutput("layer_gene_set_table")
+                            ),
+                            tabPanel(
+                                "stat correlation",
+                                fileInput(
+                                    "externalTstat",
+                                    "Upload a CSV file with one column per cell type or layer that contains the enrichment t-stat equivalent and with Ensembl gene IDs as the row names.",
+                                    accept = c(
+                                        "text/csv",
+                                        ".csv",
+                                        "text/comma-separated-values,text/plain"
+                                    )
+                                ),
+                                helpText(
+                                    "It should be a CSV file similar to ",
+                                    HTML(
+                                        '<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv">this example file.</a>'
+                                    )
+                                ),
+                                hr(),
+                                numericInput(
+                                    "layer_tstat_max",
+                                    label = "Maximum correlation",
+                                    value = 0.81,
+                                    min = 0,
+                                    max = 1,
+                                    step = 0.01
+                                ),
+                                hr(),
+                                downloadButton("layer_downloadTstatCor", "Download PDF"),
+                                plotOutput("layer_tstat_cor_plot"),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                tags$br(),
+                                hr(),
+                                downloadButton("layer_downloadTstatCorTable", "Download CSV"),
+                                tags$br(),
+                                tags$br(),
+                                DT::DTOutput("layer_tstat_cor_table")
+                            )
+                        )
+                    )
+                )
+            ))
+        })
+    } else {
+        output$spatial_layer_level <- renderUI({
+            return()
+        })
+    }
 
     # List the first level callModules here
 

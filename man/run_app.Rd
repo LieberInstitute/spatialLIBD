@@ -11,6 +11,7 @@ run_app(
   sig_genes = sig_genes_extract_all(n = nrow(sce_layer), modeling_results =
     modeling_results, sce_layer = sce_layer),
   docs_path = system.file("app", "www", package = "spatialLIBD"),
+  title = "spatialLIBD",
   spe_discrete_vars = c("GraphBased", "Layer", "Maynard", "Martinowich",
     paste0("SNN_k50_k", 4:28), "SpatialDE_PCA", "SpatialDE_pool_PCA", "HVG_PCA",
     "pseudobulk_PCA", "markers_PCA", "SpatialDE_UMAP", "SpatialDE_pool_UMAP", "HVG_UMAP",
@@ -52,6 +53,8 @@ containing the website documentation files. The directory has to contain
 the files: \code{documentation_sce_layer.md}, \code{documentation_spe.md},
 \code{favicon.ico}, \code{footer.html} and \code{README.md}.}
 
+\item{title}{A character(1) specifying the title for the app.}
+
 \item{spe_discrete_vars}{A \code{character()} vector of discrete variables that
 will be available to visualize in the app. Basically, the set of variables
 with spot-level groups. They will have to be present in \code{colData(spe)}.}
@@ -83,8 +86,18 @@ any other data that you have shaped according to our object structure.
 ## the files will need to be cached by ExperimentHub. Otherwise it
 ## will re-use the files you have previously downloaded.
 if (enough_ram(4e9)) {
-    run_app()
-}
-}
+    ## Obtain the necessary data
+    if (!exists("spe")) spe <- fetch_data("spe")
 
+    run_app()
+
+    ## You can also run a custom version without the pseudo-bulked
+    ## layer information. This is useful if you are only interested
+    ## in the spatial transcriptomics features.
+    run_app(spe,
+        sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
+        title = "spatialLIBD without layer info"
+    )
+}
+}
 }
