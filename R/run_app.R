@@ -93,11 +93,10 @@ run_app <- function(spe = fetch_data(type = "spe"),
     ## Run the checks in the relevant order
     stopifnot(length(spatial_libd_var) == 1)
 
-    ## TODO: make a check_spe() function
-    # spe <-
-    #     check_spe(spe,
-    #         variables = c(spatial_libd_var, spe_discrete_vars, spe_continuous_vars)
-    #     )
+    spe <-
+        check_spe(spe,
+            variables = c(spatial_libd_var, spe_discrete_vars, spe_continuous_vars)
+        )
     if (!exists("sce_layer")) {
         sce_layer <-
             check_sce_layer(sce_layer, variables = spatial_libd_var)

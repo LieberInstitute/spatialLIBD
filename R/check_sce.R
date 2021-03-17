@@ -1,8 +1,9 @@
 #' Check input sce
 #'
 #' This function checks that the `sce` object has the appropriate structure.
-#' For more details please check the vignette documentation.
-#'
+#' This is a legacy function and we highly encourage you to use
+#' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]
+#' objects and check them with `check_spe()`.
 #'
 #' @inheritParams sce_to_spe
 #' @param variables A `character()` vector of variable names expected to
@@ -18,10 +19,10 @@
 #'
 #' if (enough_ram()) {
 #'     ## Obtain the necessary data
-#'     if (!exists("sce")) sce <- fetch_data("sce")
+#'     if (!exists("sce_example")) sce_example <- fetch_data("sce_example")
 #'
 #'     ## Check the object
-#'     check_sce(sce)
+#'     check_sce(sce_example)
 #' }
 check_sce <- function(sce,
     variables = c(

@@ -531,6 +531,18 @@ This work was done by [Brenda Pardo](https://twitter.com/PardoBree) and Leonardo
 
 TODO (but way simpler now thanks to `r Biocpkg('SpatialExperiment')`.)
 
+## Expected characteristics of the data
+
+If you want to check the key characteristics required by `r Biocpkg('spatialLIBD')`'s functions or the `r CRANpkg('shiny')` application, use the `check_*` family of functions.
+
+```{r 'run_check_functions'}
+check_spe(spe)
+check_sce_layer(sce_layer)
+## The output here is too long to print
+xx <- check_modeling_results(modeling_results)
+identical(xx, modeling_results)
+```
+
 ## Generating our data (legacy)
 
 If you are interested in reshaping your data to fit our structure, we do not provide a quick function to do so. That is intentional given the active development by the Bioconductor community for determining the best way to deal with spatial transcriptomics data in general and the 10x Visium data in particular. Having said that, we do have all the steps and reproducibility information documented across several of our analysis `r Citep(bib[['spatialLIBDpaper']])` scripts.
@@ -542,131 +554,6 @@ If you are interested in reshaping your data to fit our structure, we do not pro
 * `make-data_spatialLIBD.R` available in the source version of `spatialLIBD` and [online here](https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-data_spatialLIBD.R) is the script that reads in `Human_DLPFC_Visium_processedData_sce_scran.Rdata` as well as some other outputs from our analysis and combines them into the final `sce` and `sce_layer` objects provided by `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])`. This script simplifies some operations in order to simplify the code behind the `r CRANpkg('shiny')` application provided by `r Biocpkg('spatialLIBD')`.
 
 You don't necessarily need to do all of this to use the functions provided by `r Biocpkg('spatialLIBD')`. Note that external to the R objects, for the `r CRANpkg('shiny')` application provided by `r Biocpkg('spatialLIBD')` you will need to have the `tissue_lowres_image.png` image files in a directory structure by sample as shown [here](https://github.com/LieberInstitute/spatialLIBD/tree/master/inst/app/www/data) in order for the interactive visualizations made with `r CRANpkg('plotly')` to work.
-
-## Expected characteristics of the data
-
-Here is a summary some of the key characteristics required by `r Biocpkg('spatialLIBD')`'s functions or the `r CRANpkg('shiny')` application.
-
-```{r 'required_structure'}
-## Images data stored under metadata(sce)$image
-head(metadata(sce)$image)
-
-## Ensembl gene IDs are row names with the symbol (gene_name) and Ensembl
-## ID (gene_name) pasted into `gene_search`
-## gene_search <- paste0(gene_name, '; ', gene_id)
-rowData(sce)[, c("gene_id", "gene_name", "gene_search")]
-## This information also has to be present in sce_layer
-stopifnot(all(
-    c("gene_id", "gene_name", "gene_search") %in% colnames(rowData(sce_layer))
-))
-
-
-## Information about the image coordinates stored in imagerow and imagecol
-colData(sce)[, c("imagerow", "imagecol")]
-
-## The sample names stored under sce$sample_name
-stopifnot("sample_name" %in% colnames(colData(sce)))
-
-## A unique spot-level ID (such as barcode) stored under sce$key
-## The 'key' column is necessary for the plotly code to work.
-stopifnot("key" %in% colnames(colData(sce)))
-stopifnot(length(unique(sce$key)) == ncol(sce))
-## Here's how we made those unique keys
-identical(sce$key, paste0(sce$sample_name, "_", sce$barcode))
-
-## Some cluster variables that you can specify with run_app().
-## For example:
-cluster_variables <- c(
-    "GraphBased",
-    "Layer",
-    "Maynard",
-    "Martinowich",
-    paste0("SNN_k50_k", 4:28),
-    "layer_guess_reordered_short",
-    "SpatialDE_PCA",
-    "SpatialDE_pool_PCA",
-    "HVG_PCA",
-    "pseudobulk_PCA",
-    "markers_PCA",
-    "SpatialDE_UMAP",
-    "SpatialDE_pool_UMAP",
-    "HVG_UMAP",
-    "pseudobulk_UMAP",
-    "markers_UMAP",
-    "SpatialDE_PCA_spatial",
-    "SpatialDE_pool_PCA_spatial",
-    "HVG_PCA_spatial",
-    "pseudobulk_PCA_spatial",
-    "markers_PCA_spatial",
-    "SpatialDE_UMAP_spatial",
-    "SpatialDE_pool_UMAP_spatial",
-    "HVG_UMAP_spatial",
-    "pseudobulk_UMAP_spatial",
-    "markers_UMAP_spatial"
-)
-stopifnot(all(cluster_variables %in% colnames(colData(sce))))
-## The last one gets renamed to spatialLIBD in spatialLIBD::app_server()
-
-## Some continuous variables that you can specify in run_app()
-## as well as the already mentioned rowData(sce)$gene_search
-## For example:
-continuous_variables <- c(
-    "cell_count",
-    "sum_umi",
-    "sum_gene",
-    "expr_chrM",
-    "expr_chrM_ratio"
-)
-stopifnot(all(continuous_variables %in% colnames(colData(sce))))
-
-## None of the values of rowData(sce)$gene_search should be re-used in
-## colData(sce)
-stopifnot(!all(rowData(sce)$gene_search %in% colnames(colData(sce))))
-
-## No column named COUNT as that's used by vis_gene_p() and related
-## functions.
-stopifnot(!"COUNT" %in% colnames(colData(sce)))
-
-## The counts and logcounts assays
-stopifnot(all(c("counts", "logcounts") %in% assayNames(sce)))
-
-## For the layer-level data we also need layer_guess_reordered
-## although this is a parameter you can change in run_app()
-stopifnot("layer_guess_reordered" %in% colnames(colData(sce_layer)))
-
-stopifnot(all(
-    c("enrichment", "pairwise", "anova") %in% names(modeling_results)
-))
-
-## All the model tables contain the ensembl column
-stopifnot(all(sapply(modeling_results, function(x) {
-      "ensembl" %in% colnames(x)
-  })))
-
-## The following column prefixes are present in each of the model tables
-expected_column_name_starts <-
-    c("^[f|t]_stat_", "^p_value_", "^fdr_")
-stopifnot(all(sapply(modeling_results, function(model_table) {
-    all(sapply(expected_column_name_starts, function(expected_prefix) {
-          any(grepl(
-              expected_prefix, colnames(model_table)
-          ))
-      }))
-})))
-```
-
-If you want to run these checks, you can do so using the `check_*` family of functions.
-
-```{r 'run_check_functions'}
-check_sce(sce)
-check_sce_layer(sce_layer)
-## The output here is too long to print
-xx <- check_modeling_results(modeling_results)
-identical(xx, modeling_results)
-```
-
-
-As we generate more data at LIBD, we might make `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])` more general if the need arises and we have the resources to work on this.
 
 
 # Reproducibility

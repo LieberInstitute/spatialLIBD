@@ -31,16 +31,18 @@ The input object if all checks are passed.
 }
 \description{
 This function checks that the \code{sce} object has the appropriate structure.
-For more details please check the vignette documentation.
+This is a legacy function and we highly encourage you to use
+\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
+objects and check them with \code{check_spe()}.
 }
 \examples{
 
 if (enough_ram()) {
     ## Obtain the necessary data
-    if (!exists("sce")) sce <- fetch_data("sce")
+    if (!exists("sce_example")) sce_example <- fetch_data("sce_example")
 
     ## Check the object
-    check_sce(sce)
+    check_sce(sce_example)
 }
 }
 \seealso{

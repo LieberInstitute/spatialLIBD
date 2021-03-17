@@ -3,7 +3,6 @@
 #' This function checks that the `spe` object has the appropriate structure.
 #' For more details please check the vignette documentation.
 #'
-#'
 #' @inheritParams sce_to_spe
 #' @param variables A `character()` vector of variable names expected to
 #' be present in `colData(spe)`.
@@ -13,15 +12,17 @@
 #' @importFrom methods is
 #' @importFrom SummarizedExperiment assayNames
 #' @family Check input functions
+#' @author
+#' Brenda Pardo, Leonardo Collado-Torres
 #'
 #' @examples
 #'
 #' if (enough_ram()) {
 #'     ## Obtain the necessary data
-#'     if (!exists("spe")) sce <- fetch_data("spe")
+#'     if (!exists("spe")) spe <- fetch_data("spe")
 #'
 #'     ## Check the object
-#'     check_sce(spe)
+#'     check_spe(spe)
 #' }
 check_spe <- function(spe,
     variables = c(
@@ -66,12 +67,12 @@ check_spe <- function(spe,
         "scaleFactor"
     ) %in% colnames(imgData(spe))))
 
+    ## Check that the images have been loaded
+    stopifnot(all(vapply(imgData(spe)$data, is, logical(1), "SpatialImage")))
+
     ## Check gene data
     stopifnot(all(
-        c(
-            "source", "type", "gene_id", "gene_version", "gene_name",
-            "gene_source", "gene_biotype", "gene_search", "is_top_hvg"
-        ) %in%
+        c("gene_id", "gene_name", "gene_search") %in%
             colnames(rowData(spe))
     ))
     stopifnot(identical(
@@ -91,20 +92,18 @@ check_spe <- function(spe,
 
     ## colData(spe) includes information about the samples .
     ## The sample names stored under spe$sample_id
-    stopifnot(all(c(
-        "sample_id", "subject", "position", "replicate",
-        "subject_position", "key"
-    ) %in%
-        colnames(colData(spe))))
+    stopifnot(all(
+        c(
+            "sample_id",
+            "key",
+            variables
+        ) %in% colnames(colData(spe))
+    ))
 
-    ## Some cluster variables, though you could potentially edit
-    ## spatialLIBD::app_ui()
-    ## or this could be made into a run_app() argument.
-
-    ## A unique spot-level ID (such as barcode) stored under sce$key
+    ## A unique spot-level ID (such as barcode) stored under spe$key
     ## The 'key' column is necessary for the plotly code to work.
     stopifnot(length(unique(spe$key)) == ncol(spe))
-    identical(spe$key, paste0(spe$sample_id, "_", spatialData(spe)$barcode))
+    stopifnot(identical(spe$key, paste0(spe$sample_id, "_", spatialData(spe)$barcode)))
 
     ## None of the values of rowData(spe)$gene_search should be re-used in
     ## colData(spe)

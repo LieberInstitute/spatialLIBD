@@ -31,10 +31,10 @@ For more details please check the vignette documentation.
 
 if (enough_ram()) {
     ## Obtain the necessary data
-    if (!exists("spe")) sce <- fetch_data("spe")
+    if (!exists("spe")) spe <- fetch_data("spe")
 
     ## Check the object
-    check_sce(spe)
+    check_spe(spe)
 }
 }
 \seealso{
@@ -42,5 +42,8 @@ Other Check input functions:
 \code{\link{check_modeling_results}()},
 \code{\link{check_sce_layer}()},
 \code{\link{check_sce}()}
+}
+\author{
+Brenda Pardo, Leonardo Collado-Torres
 }
 \concept{Check input functions}
