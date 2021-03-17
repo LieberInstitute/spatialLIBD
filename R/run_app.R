@@ -12,11 +12,6 @@
 #' @inheritParams sig_genes_extract
 #' @param sig_genes The output of [sig_genes_extract_all()] which is a table
 #' in long format with the modeling results.
-#' @param image_path A path to the directory containing the low resolution
-#' histology images that is needed for the interactive visualizations with
-#' `plotly`. See
-#' https://github.com/LieberInstitute/spatialLIBD/tree/master/inst/app/www/data
-#' for an example of how these files should be organized.
 #' @param spe_discrete_vars A `character()` vector of discrete variables that
 #' will be available to visualize in the app. Basically, the set of variables
 #' with spot-level groups. They will have to be present in `colData(spe)`.
@@ -54,7 +49,6 @@ run_app <- function(spe = fetch_data(type = "spe"),
         modeling_results = modeling_results,
         sce_layer = sce_layer
     ),
-    image_path = system.file("app", "www", "data", package = "spatialLIBD"),
     spe_discrete_vars = c(
         "GraphBased",
         "Layer",
@@ -95,8 +89,8 @@ run_app <- function(spe = fetch_data(type = "spe"),
     stopifnot(length(spatial_libd_var) == 1)
 
     ## TODO: make a check_spe() function
-    # sce <-
-    #     check_sce(sce,
+    # spe <-
+    #     check_spe(spe,
     #         variables = c(spatial_libd_var, spe_discrete_vars, spe_continuous_vars)
     #     )
     if (!exists("sce_layer")) {
@@ -104,7 +98,6 @@ run_app <- function(spe = fetch_data(type = "spe"),
             check_sce_layer(sce_layer, variables = spatial_libd_var)
     }
     modeling_results <- check_modeling_results(modeling_results)
-    image_path <- check_image_path(image_path, spe)
     ## No need to check sig_genes since sig_genes_extract_all() will fail
 
     with_golem_options(
@@ -113,7 +106,6 @@ run_app <- function(spe = fetch_data(type = "spe"),
             spe = spe,
             sce_layer = sce_layer,
             modeling_results = modeling_results,
-            image_path = image_path,
             sig_genes = sig_genes,
             spe_discrete_vars = spe_discrete_vars,
             spe_continuous_vars = spe_continuous_vars,

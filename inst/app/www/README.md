@@ -74,7 +74,7 @@ the expression of known genes such as *SNAP25* (**D**, a neuronal gene),
 *MOBP* (**E**, an oligodendrocyte gene), and known layer markers from
 mouse studies such as *PCP4* (**F**, a known layer 5 marker gene).
 
-<img src="http://research.libd.org/spatialLIBD/referencefigures/paper_figure1.jpg" align="center" width="800px" />
+<img src="http://research.libd.org/spatialLIBD/reference/figures/paper_figure1.jpg" align="center" width="800px" />
 
 This web application was built such that we could annotate the spots to
 layers as you can see under the **spot-level data** tab. Once we
@@ -200,7 +200,7 @@ vis_clus(
 )
 ```
 
-<img src="http://research.libd.org/spatialLIBD/referencefigures/README-access_data-1.png" width="100%" />
+<img src="http://research.libd.org/spatialLIBD/reference/figures/README-access_data-1.png" width="100%" />
 
 ### Raw data
 

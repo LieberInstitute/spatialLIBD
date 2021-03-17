@@ -45,7 +45,6 @@ if (enough_ram()) {
 }
 \seealso{
 Other Check input functions: 
-\code{\link{check_image_path}()},
 \code{\link{check_modeling_results}()},
 \code{\link{check_sce_layer}()},
 \code{\link{check_spe}()}

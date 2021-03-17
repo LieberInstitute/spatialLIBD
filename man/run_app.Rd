@@ -10,7 +10,6 @@ run_app(
   modeling_results = fetch_data(type = "modeling_results"),
   sig_genes = sig_genes_extract_all(n = nrow(sce_layer), modeling_results =
     modeling_results, sce_layer = sce_layer),
-  image_path = system.file("app", "www", "data", package = "spatialLIBD"),
   spe_discrete_vars = c("GraphBased", "Layer", "Maynard", "Martinowich",
     paste0("SNN_k50_k", 4:28), "SpatialDE_PCA", "SpatialDE_pool_PCA", "HVG_PCA",
     "pseudobulk_PCA", "markers_PCA", "SpatialDE_UMAP", "SpatialDE_pool_UMAP", "HVG_UMAP",
@@ -46,12 +45,6 @@ for matching in some cases. See \code{\link[=fetch_data]{fetch_data()}} for more
 
 \item{sig_genes}{The output of \code{\link[=sig_genes_extract_all]{sig_genes_extract_all()}} which is a table
 in long format with the modeling results.}
-
-\item{image_path}{A path to the directory containing the low resolution
-histology images that is needed for the interactive visualizations with
-\code{plotly}. See
-https://github.com/LieberInstitute/spatialLIBD/tree/master/inst/app/www/data
-for an example of how these files should be organized.}
 
 \item{spe_discrete_vars}{A \code{character()} vector of discrete variables that
 will be available to visualize in the app. Basically, the set of variables

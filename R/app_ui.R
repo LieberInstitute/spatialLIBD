@@ -7,13 +7,12 @@ app_ui <- function() {
     ## Get options
     spe <- golem::get_golem_options("spe")
     sce_layer <- golem::get_golem_options("sce_layer")
-    image_path <- golem::get_golem_options("image_path")
     sig_genes <- golem::get_golem_options("sig_genes")
     spatial_libd_var <- golem::get_golem_options("spatial_libd_var")
 
     tagList(
         # Leave this function for adding external resources
-        golem_add_external_resources(image_path),
+        golem_add_external_resources(),
         # List the first level UI elements here
         navbarPage(
             title = "spatialLIBD",
@@ -545,12 +544,11 @@ app_ui <- function() {
 }
 
 #' @import shiny
-golem_add_external_resources <- function(image_path) {
+golem_add_external_resources <- function() {
     addResourcePath(
         "www",
         system.file("app", "www", package = "spatialLIBD")
     )
-    addResourcePath("imagedata", image_path)
 
     tags$head(
         golem::activate_js(),

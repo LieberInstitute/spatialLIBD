@@ -32,7 +32,6 @@ xx <- check_modeling_results(modeling_results)
 }
 \seealso{
 Other Check input functions: 
-\code{\link{check_image_path}()},
 \code{\link{check_sce_layer}()},
 \code{\link{check_sce}()},
 \code{\link{check_spe}()}

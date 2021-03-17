@@ -357,13 +357,7 @@ app_server <- function(input, output, session) {
         # reduced_name <- 'TSNE_perplexity50'
 
         ## Read in the histology image
-        pen <-
-            png::readPNG(file.path(
-                resourcePaths()["imagedata"],
-                sampleid,
-                "tissue_lowres_image.png"
-            ))
-
+        img <- SpatialExperiment::imgRaster(spe, sample_id = input$sample)
 
         ## From vis_gene() in global.R
         spe_sub <- spe[, spe$sample_id == sampleid]
@@ -511,7 +505,7 @@ app_server <- function(input, output, session) {
             ),
             images = list(
                 list(
-                    source = raster2uri(as.raster(pen)),
+                    source = raster2uri(img),
                     xref = "paper",
                     yref = "paper",
                     x = 0,
@@ -534,7 +528,7 @@ app_server <- function(input, output, session) {
             ),
             images = list(
                 list(
-                    source = raster2uri(as.raster(pen)),
+                    source = raster2uri(img),
                     xref = "paper",
                     yref = "paper",
                     x = 0,
@@ -638,13 +632,6 @@ app_server <- function(input, output, session) {
             return(NULL)
         }
 
-        pen <-
-            png::readPNG(file.path(
-                resourcePaths()["imagedata"],
-                input$sample,
-                "tissue_lowres_image.png"
-            ))
-
         p <-
             vis_gene(
                 spe[, cluster_opts],
@@ -656,6 +643,9 @@ app_server <- function(input, output, session) {
                 viridis = input$genecolor == "viridis"
             )
 
+        ## Read in the histology image
+        img <- SpatialExperiment::imgRaster(spe, sample_id = input$sample)
+
         layout(
             ggplotly(
                 p,
@@ -665,7 +655,7 @@ app_server <- function(input, output, session) {
             ),
             images = list(
                 list(
-                    source = raster2uri(as.raster(pen)),
+                    source = raster2uri(img),
                     xref = "paper",
                     yref = "paper",
                     x = 0,
