@@ -8,11 +8,12 @@ app_ui <- function() {
     spe <- golem::get_golem_options("spe")
     sce_layer <- golem::get_golem_options("sce_layer")
     sig_genes <- golem::get_golem_options("sig_genes")
+    docs_path <- golem::get_golem_options("docs_path")
     spatial_libd_var <- golem::get_golem_options("spatial_libd_var")
 
     tagList(
         # Leave this function for adding external resources
-        golem_add_external_resources(),
+        golem_add_external_resources(docs_path),
         # List the first level UI elements here
         navbarPage(
             title = "spatialLIBD",
@@ -504,29 +505,8 @@ app_ui <- function() {
             ),
             hr(),
             tagList(
-                HTML(
-                    'This <a href="https://shiny.rstudio.com/">shiny</a> application was developed by the <a href="http://aejaffe.com/">Data Science Team I</a> at the <a href="https://www.libd.org/">Lieber Institute for Brain Development</a> and is hosted by LIBD, with additional mirrors at shinyapps provided thanks to the <a href="https://www.jhsph.edu/departments/biostatistics/">Department of Biostatistics at the Johns Hopkins Bloomberg School of Public Health</a>. It is powered by the <code>spatialLIBD</code> R package which you can find described in <a href="http://research.libd.org/spatialLIBD/">its documentation website</a> and you can use to run locally this shiny application by running the command <code>spatialLIBD::run_app()</code>.'
-                ),
-                hr(),
-                HTML(
-                    'If you tweet about this website, the data or the R package please use the <code>#spatialLIBD</code> hashtag. You can find previous tweets that way as shown <a href="https://twitter.com/search?q=%23spatialLIBD&src=typed_query">here</a>. Thank you! <a href="https://twitter.com/intent/tweet?button_hashtag=spatialLIBD&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #spatialLIBD</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'
-                ),
-                hr(),
-                HTML(
-                    'The <code>spatialLIBD</code> R package is currently under review at <a href="https://github.com/Bioconductor/Contributions/issues/1389">Bioconductor</a>.'
-                ),
-                hr(),
-                HTML('<a href="http://www.libd.org/">'),
-                img(
-                    src = "http://lcolladotor.github.io/img/LIBD_logo.jpg",
-                    align = "left",
-                    width = "250"
-                ),
-                HTML("</a>"),
-                HTML(
-                    "<center>
-      <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=300&t=n&d=O0-J9HIlFG7Lp9zsQk6P8Uqz98Ny3K8cygM4qhvJabQ'></script>
-      </center>"
+                includeHTML(
+                    file.path(resourcePaths()["www"], "footer.html")
                 )
             ),
             tags$br(),
@@ -544,10 +524,10 @@ app_ui <- function() {
 }
 
 #' @import shiny
-golem_add_external_resources <- function() {
+golem_add_external_resources <- function(docs_path) {
     addResourcePath(
         "www",
-        system.file("app", "www", package = "spatialLIBD")
+        docs_path
     )
 
     tags$head(
@@ -556,12 +536,6 @@ golem_add_external_resources <- function() {
         # If you have a custom.css in the inst/app/www
         # Or for example, you can add shinyalert::useShinyalert() here
         # tags$link(rel="stylesheet", type="text/css", href="www/custom.css")
-        tags$head(
-            includeScript(
-                file.path(resourcePaths()["www"], "gtag.js"),
-                'async src="https://www.googletagmanager.com/gtag/js?id=UA-159132967-1"'
-            )
-        ),
         golem::favicon()
     )
 }

@@ -10,6 +10,7 @@ run_app(
   modeling_results = fetch_data(type = "modeling_results"),
   sig_genes = sig_genes_extract_all(n = nrow(sce_layer), modeling_results =
     modeling_results, sce_layer = sce_layer),
+  docs_path = system.file("app", "www", package = "spatialLIBD"),
   spe_discrete_vars = c("GraphBased", "Layer", "Maynard", "Martinowich",
     paste0("SNN_k50_k", 4:28), "SpatialDE_PCA", "SpatialDE_pool_PCA", "HVG_PCA",
     "pseudobulk_PCA", "markers_PCA", "SpatialDE_UMAP", "SpatialDE_pool_UMAP", "HVG_UMAP",
@@ -45,6 +46,11 @@ for matching in some cases. See \code{\link[=fetch_data]{fetch_data()}} for more
 
 \item{sig_genes}{The output of \code{\link[=sig_genes_extract_all]{sig_genes_extract_all()}} which is a table
 in long format with the modeling results.}
+
+\item{docs_path}{A \code{character(1)} specifying the path to the directory
+containing the website documentation files. The directory has to contain
+the files: \code{documentation_sce_layer.md}, \code{documentation_spe.md},
+\code{favicon.ico}, \code{footer.html} and \code{README.md}.}
 
 \item{spe_discrete_vars}{A \code{character()} vector of discrete variables that
 will be available to visualize in the app. Basically, the set of variables

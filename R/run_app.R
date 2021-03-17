@@ -12,6 +12,10 @@
 #' @inheritParams sig_genes_extract
 #' @param sig_genes The output of [sig_genes_extract_all()] which is a table
 #' in long format with the modeling results.
+#' @param docs_path A `character(1)` specifying the path to the directory
+#' containing the website documentation files. The directory has to contain
+#' the files: `documentation_sce_layer.md`, `documentation_spe.md`,
+#' `favicon.ico`, `footer.html` and `README.md`.
 #' @param spe_discrete_vars A `character()` vector of discrete variables that
 #' will be available to visualize in the app. Basically, the set of variables
 #' with spot-level groups. They will have to be present in `colData(spe)`.
@@ -49,6 +53,7 @@ run_app <- function(spe = fetch_data(type = "spe"),
         modeling_results = modeling_results,
         sce_layer = sce_layer
     ),
+    docs_path = system.file("app", "www", package = "spatialLIBD"),
     spe_discrete_vars = c(
         "GraphBased",
         "Layer",
@@ -100,6 +105,17 @@ run_app <- function(spe = fetch_data(type = "spe"),
     modeling_results <- check_modeling_results(modeling_results)
     ## No need to check sig_genes since sig_genes_extract_all() will fail
 
+    ## Check that the required documentation files exist
+    stopifnot(all(
+        c(
+            "documentation_sce_layer.md",
+            "documentation_spe.md",
+            "favicon.ico",
+            "footer.html",
+            "README.md"
+        ) %in% dir(docs_path)
+    ))
+
     with_golem_options(
         app = shinyApp(ui = app_ui, server = app_server),
         golem_opts = list(
@@ -107,6 +123,7 @@ run_app <- function(spe = fetch_data(type = "spe"),
             sce_layer = sce_layer,
             modeling_results = modeling_results,
             sig_genes = sig_genes,
+            docs_path = docs_path,
             spe_discrete_vars = spe_discrete_vars,
             spe_continuous_vars = spe_continuous_vars,
             spatial_libd_var = spatial_libd_var,
