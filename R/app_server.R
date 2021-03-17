@@ -719,24 +719,24 @@ app_server <- function(input, output, session) {
         plotly_clus <- layout(
             ggplotly(
                 p_clus,
-                width = 600 * 2,
-                height = 600 * 2,
+                width = nrow(img) * 2,
+                height = ncol(img) * 2,
                 source = "plotly_histology"
             ),
             images = list(
                 list(
                     source = raster2uri(img),
-                    xref = "paper",
-                    yref = "paper",
-                    x = 0,
-                    y = 0,
-                    sizex = 1,
-                    sizey = 1,
+                    layer = "below",
                     xanchor = "left",
                     yanchor = "bottom",
-                    opacity = 1,
-                    layer = "below",
-                    sizing = "stretch"
+                    xref = "x",
+                    yref = "y",
+                    sizing = "stretch",
+                    x = 0,
+                    y = -ncol(img),
+                    sizex = nrow(img),
+                    sizey = ncol(img),
+                    opacity = 0.8
                 )
             ),
             dragmode = "select"
@@ -749,17 +749,17 @@ app_server <- function(input, output, session) {
             images = list(
                 list(
                     source = raster2uri(img),
-                    xref = "paper",
-                    yref = "paper",
-                    x = 0,
-                    y = 0,
-                    sizex = 1,
-                    sizey = 1,
+                    layer = "below",
                     xanchor = "left",
                     yanchor = "bottom",
-                    opacity = 1,
-                    layer = "below",
-                    sizing = "stretch"
+                    xref = "x",
+                    yref = "y",
+                    sizing = "stretch",
+                    x = 0,
+                    y = -ncol(img),
+                    sizex = nrow(img),
+                    sizey = ncol(img),
+                    opacity = 0.8
                 )
             ),
             dragmode = "select"
@@ -869,24 +869,24 @@ app_server <- function(input, output, session) {
         layout(
             ggplotly(
                 p,
-                width = 600,
-                height = 600,
+                width = nrow(img),
+                height = ncol(img),
                 source = "plotly_gene"
             ),
             images = list(
                 list(
                     source = raster2uri(img),
-                    xref = "paper",
-                    yref = "paper",
-                    x = 0,
-                    y = 0,
-                    sizex = 1,
-                    sizey = 1,
+                    layer = "below",
                     xanchor = "left",
                     yanchor = "bottom",
-                    opacity = 1,
-                    layer = "below",
-                    sizing = "stretch"
+                    xref = "x",
+                    yref = "y",
+                    sizing = "stretch",
+                    x = 0,
+                    y = -ncol(img),
+                    sizex = nrow(img),
+                    sizey = ncol(img),
+                    opacity = 0.8
                 )
             ),
             dragmode = "select"
