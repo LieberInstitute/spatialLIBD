@@ -20,7 +20,7 @@ vis_grid_clus(
 \arguments{
 \item{spe}{Defaults to the output of
 \code{fetch_data(type = 'spe')}. This is a
-\linkS4class{SpatialExperiment}
+\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
 object with the spot-level Visium data and information required for
 visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 

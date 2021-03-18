@@ -6,7 +6,7 @@
 #'
 #' @param spe Defaults to the output of
 #' `fetch_data(type = 'spe')`. This is a
-#' \linkS4class{SpatialExperiment}
+#' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]
 #' object with the spot-level Visium data and information required for
 #' visualizing the histology. See [fetch_data()] for more details.
 #' @inheritParams sig_genes_extract

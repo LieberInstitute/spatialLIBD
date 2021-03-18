@@ -4,6 +4,7 @@
 #' For more details please check the vignette documentation.
 #'
 #' @inheritParams sce_to_spe
+#' @inheritParams vis_clus
 #' @param variables A `character()` vector of variable names expected to
 #' be present in `colData(spe)`.
 #'
