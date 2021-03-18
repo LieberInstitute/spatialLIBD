@@ -86,15 +86,15 @@ vis_clus_p <-
             geom_point(
                 shape = 21,
                 size = 1.25,
-                stroke = 0.25
+                stroke = 0.25,
+                colour = "transparent"
             ) +
             coord_cartesian(expand = FALSE) +
-            scale_fill_manual(values = colors) +
-            scale_color_manual(values = colors) +
+            scale_fill_manual(values = colors, aesthetics = c("colour", "fill")) +
             xlim(0, nrow(img)) +
             ylim(ncol(img), 0) +
             xlab("") + ylab("") +
-            labs(fill = NULL, color = NULL) +
+            labs(fill = NULL) +
             guides(fill = guide_legend(override.aes = list(size = 3))) +
             ggtitle(title) +
             theme_set(theme_bw(base_size = 20)) +
