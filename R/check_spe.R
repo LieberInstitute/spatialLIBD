@@ -97,6 +97,7 @@ check_spe <- function(spe,
         c(
             "sample_id",
             "key",
+            "Layer",
             variables
         ) %in% colnames(colData(spe))
     ))

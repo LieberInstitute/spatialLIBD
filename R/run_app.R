@@ -119,15 +119,21 @@ run_app <- function(spe = fetch_data(type = "spe"),
     }
 
     ## Check that the required documentation files exist
-    stopifnot(all(
+    stopifnot(all(file.exists(file.path(
+        docs_path,
         c(
-            "documentation_sce_layer.md",
             "documentation_spe.md",
             "favicon.ico",
             "footer.html",
             "README.md"
-        ) %in% dir(docs_path)
-    ))
+        )
+    ))))
+    if(!is.null(sce_layer)) {
+        ## Check required files when sce_layer is present
+        stopifnot(file.exists(file.path(
+            docs_path, "documentation_sce_layer.md"
+        )))
+    }
 
     with_golem_options(
         app = shinyApp(ui = app_ui, server = app_server),
