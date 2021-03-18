@@ -90,7 +90,7 @@ vis_clus_p <-
                 colour = "transparent"
             ) +
             coord_cartesian(expand = FALSE) +
-            scale_fill_manual(values = colors, aesthetics = c("colour", "fill")) +
+            scale_fill_manual(values = colors) +
             xlim(0, nrow(img)) +
             ylim(ncol(img), 0) +
             xlab("") + ylab("") +

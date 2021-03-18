@@ -566,6 +566,7 @@ app_server <- function(input, output, session) {
         minCount <- input$minCount
         clustervar <- input$cluster
         reduced_name <- input$reduced_name
+        genecolor <- input$genecolor
         #
         # ## Testing:
         # sampleid <- '151507'
@@ -575,9 +576,10 @@ app_server <- function(input, output, session) {
         # clustervar <- 'GraphBased'
         # colors <- get_colors(NULL, spe$GraphBased)
         # reduced_name <- 'TSNE_perplexity50'
+        # genecolor <- "viridis"
 
         ## Read in the histology image
-        img <- SpatialExperiment::imgRaster(spe, sample_id = input$sample)
+        img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid)
 
         ## From vis_gene() in global.R
         spe_sub <- spe[, spe$sample_id == sampleid]
@@ -630,7 +632,7 @@ app_server <- function(input, output, session) {
             sampleid = sampleid,
             spatial = FALSE,
             title = "",
-            viridis = input$genecolor == "viridis"
+            viridis = genecolor == "viridis"
         )
 
         ## Make the reduced dimensions ggplot
@@ -678,7 +680,7 @@ app_server <- function(input, output, session) {
             )
 
 
-        if (input$genecolor == "viridis") {
+        if (genecolor == "viridis") {
             p_dim_gene <-
                 p_dim_gene + scale_fill_gradientn(
                     colors = viridis(21),
