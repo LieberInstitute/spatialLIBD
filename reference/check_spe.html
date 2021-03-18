@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Obtain the colors for a set of cluster names — get_colors • spatialLIBD</title>
+<title>Check input spe — check_spe • spatialLIBD</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Obtain the colors for a set of cluster names — get_colors" />
-<meta property="og:description" content="This function returns a vector of colors based on a vector of cluster
-names. It can be used to automatically assign colors." />
+<meta property="og:title" content="Check input spe — check_spe" />
+<meta property="og:description" content="This function checks that the spe object has the appropriate structure.
+For more details please check the vignette documentation." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -125,69 +125,86 @@ names. It can be used to automatically assign colors." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Obtain the colors for a set of cluster names</h1>
-    <small class="dont-index">Source: <a href='https://github.com/LieberInstitute/spatialLIBD/blob/master/R/get_colors.R'><code>R/get_colors.R</code></a></small>
-    <div class="hidden name"><code>get_colors.Rd</code></div>
+    <h1>Check input spe</h1>
+    <small class="dont-index">Source: <a href='https://github.com/LieberInstitute/spatialLIBD/blob/master/R/check_spe.R'><code>R/check_spe.R</code></a></small>
+    <div class="hidden name"><code>check_spe.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function returns a vector of colors based on a vector of cluster
-names. It can be used to automatically assign colors.</p>
+    <p>This function checks that the <code>spe</code> object has the appropriate structure.
+For more details please check the vignette documentation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_colors</span><span class='op'>(</span>colors <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>clusters</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>check_spe</span><span class='op'>(</span>
+  <span class='va'>spe</span>,
+  variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GraphBased"</span>, <span class='st'>"Layer"</span>, <span class='st'>"Maynard"</span>, <span class='st'>"Martinowich"</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"SNN_k50_k"</span>,
+    <span class='fl'>4</span><span class='op'>:</span><span class='fl'>28</span><span class='op'>)</span>, <span class='st'>"layer_guess_reordered_short"</span>, <span class='st'>"cell_count"</span>, <span class='st'>"sum_umi"</span>, <span class='st'>"sum_gene"</span>,
+    <span class='st'>"expr_chrM"</span>, <span class='st'>"expr_chrM_ratio"</span>, <span class='st'>"SpatialDE_PCA"</span>, <span class='st'>"SpatialDE_pool_PCA"</span>, <span class='st'>"HVG_PCA"</span>,
+    <span class='st'>"pseudobulk_PCA"</span>, <span class='st'>"markers_PCA"</span>, <span class='st'>"SpatialDE_UMAP"</span>, <span class='st'>"SpatialDE_pool_UMAP"</span>, <span class='st'>"HVG_UMAP"</span>,
+    <span class='st'>"pseudobulk_UMAP"</span>, <span class='st'>"markers_UMAP"</span>, <span class='st'>"SpatialDE_PCA_spatial"</span>,
+    <span class='st'>"SpatialDE_pool_PCA_spatial"</span>, <span class='st'>"HVG_PCA_spatial"</span>, <span class='st'>"pseudobulk_PCA_spatial"</span>,
+    <span class='st'>"markers_PCA_spatial"</span>, <span class='st'>"SpatialDE_UMAP_spatial"</span>, <span class='st'>"SpatialDE_pool_UMAP_spatial"</span>,     
+    <span class='st'>"HVG_UMAP_spatial"</span>, <span class='st'>"pseudobulk_UMAP_spatial"</span>, <span class='st'>"markers_UMAP_spatial"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>colors</th>
-      <td><p>A vector of colors. If <code>NULL</code> then a set of default colors will
-be used when <code>clusters</code> has less than 12 unique values, otherwise
-<a href='https://rdrr.io/pkg/Polychrome/man/palettes.html'>palette36.colors</a> will be used which can
-generate up to 36 unique colors. If the number of unique clusters is beyond
-36 then this function will fail.</p></td>
+      <th>spe</th>
+      <td><p>Defaults to the output of
+<code><a href='fetch_data.html'>fetch_data(type = 'spe')</a></code>. This is a
+<a href='https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html'>SpatialExperiment-class</a>
+object with the spot-level Visium data and information required for
+visualizing the histology. See <code><a href='fetch_data.html'>fetch_data()</a></code> for more details.</p></td>
     </tr>
     <tr>
-      <th>clusters</th>
-      <td><p>A vector of cluster names.</p></td>
+      <th>variables</th>
+      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character()</a></code> vector of variable names expected to
+be present in <code>colData(spe)</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A named vector where the values are the colors to use for
-displaying them different clusters. For some use cases, you might have to
-either change the names or use <a href='https://rdrr.io/r/base/unname.html'>unname()</a>.</p>
+    <p>The input object if all checks are passed.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other Check input functions: 
+<code><a href='check_modeling_results.html'>check_modeling_results</a>()</code>,
+<code><a href='check_sce_layer.html'>check_sce_layer</a>()</code>,
+<code><a href='check_sce.html'>check_sce</a>()</code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Brenda Pardo, Leonardo Collado-Torres</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'>## Obtain the necessary data</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"sce_layer"</span><span class='op'>)</span><span class='op'>)</span> <span class='va'>sce_layer</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span><span class='st'>"sce_layer"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2021-03-10</span></div><div class='output co'>#&gt; <span class='message'>2021-03-18 03:04:42 loading file ~/.cache/BiocFileCache/ca867eaf5daf_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></div><div class='input'>
-<span class='co'>## Example layer colors with the corresponding names</span>
-<span class='fu'>get_colors</span><span class='op'>(</span><span class='va'>libd_layer_colors</span>, <span class='va'>sce_layer</span><span class='op'>$</span><span class='va'>layer_guess</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        Layer1        Layer2        Layer3        Layer4        Layer5 
-#&gt;     "#F0027F"     "#377EB8"     "#4DAF4A"     "#984EA3"     "#FFD700" 
-#&gt;        Layer6            WM            NA           WM2 
-#&gt;     "#FF7F00"     "#1A1A1A" "transparent"     "#666666" </div><div class='input'><span class='fu'>get_colors</span><span class='op'>(</span><span class='va'>libd_layer_colors</span>, <span class='va'>sce_layer</span><span class='op'>$</span><span class='va'>layer_guess_reordered_short</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;            L1            L2            L3            L4            L5 
-#&gt;     "#F0027F"     "#377EB8"     "#4DAF4A"     "#984EA3"     "#FFD700" 
-#&gt;            L6            WM            NA           WM2 
-#&gt;     "#FF7F00"     "#1A1A1A" "transparent"     "#666666" </div><div class='input'>
-<span class='co'>## Example where colors are assigned automatically</span>
-<span class='co'>## based on a pre-defined set of colors</span>
-<span class='fu'>get_colors</span><span class='op'>(</span>clusters <span class='op'>=</span> <span class='va'>sce_layer</span><span class='op'>$</span><span class='va'>kmeans_k7</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         1         2         3         4         5         6         7         8 
-#&gt; "#b2df8a" "#e41a1c" "#377eb8" "#4daf4a" "#ff7f00"    "gold" "#a65628" "#999999" 
-#&gt;         9        10        11        12 
-#&gt;   "black"    "grey"   "white"  "purple" </div><div class='input'>
-<span class='co'>## Example where Polychrome::palette36.colors() gets used</span>
-<span class='fu'>get_colors</span><span class='op'>(</span>clusters <span class='op'>=</span> <span class='va'>letters</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>13</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         1         2         3         4         5         6         7         8 
-#&gt; "#5A5156" "#E4E1E3" "#F6222E" "#FE00FA" "#16FF32" "#3283FE" "#FEAF16" "#B00068" 
-#&gt;         9        10        11        12        13 
-#&gt; "#1CFFCE" "#90AD1C" "#2ED9FF" "#DEA0FD" "#AA0DFE" </div></pre>
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='enough_ram.html'>enough_ram</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='co'>## Obtain the necessary data</span>
+    <span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"spe"</span><span class='op'>)</span><span class='op'>)</span> <span class='va'>spe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span><span class='st'>"spe"</span><span class='op'>)</span>
+
+    <span class='co'>## Check the object</span>
+    <span class='fu'>check_spe</span><span class='op'>(</span><span class='va'>spe</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2021-03-10</span></div><div class='output co'>#&gt; <span class='message'>2021-03-18 03:03:53 loading file ~/.cache/BiocFileCache/cc661615566_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span></div><div class='output co'>#&gt; class: SpatialExperiment 
+#&gt; dim: 33538 47681 
+#&gt; metadata(0):
+#&gt; assays(2): counts logcounts
+#&gt; rownames(33538): ENSG00000243485 ENSG00000237613 ... ENSG00000277475
+#&gt;   ENSG00000268674
+#&gt; rowData names(9): source type ... gene_search is_top_hvg
+#&gt; colnames(47681): AAACAACGAATAGTTC-1 AAACAAGTATCTCCCA-1 ...
+#&gt;   TTGTTTCCATACAACT-1 TTGTTTGTGTAAATTC-1
+#&gt; colData names(65): sample_id Cluster ... pseudobulk_UMAP_spatial
+#&gt;   markers_UMAP_spatial
+#&gt; reducedDimNames(6): PCA TSNE_perplexity50 ... TSNE_perplexity80
+#&gt;   UMAP_neighbors15
+#&gt; mainExpName: NULL
+#&gt; altExpNames(0):
+#&gt; spatialData names(6) : barcode in_tissue ... pxl_row_in_fullres
+#&gt;   pxl_col_in_fullres
+#&gt; imgData names(4): sample_id image_id data scaleFactor</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

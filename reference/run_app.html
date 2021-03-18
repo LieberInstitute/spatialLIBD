@@ -90,7 +90,7 @@ any other data that you have shaped according to our object structure." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.9</span>
       </span>
     </div>
 
@@ -143,7 +143,8 @@ any other data that you have shaped according to our object structure.</p>
   modeling_results <span class='op'>=</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span>,
   sig_genes <span class='op'>=</span> <span class='fu'><a href='sig_genes_extract_all.html'>sig_genes_extract_all</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>sce_layer</span><span class='op'>)</span>, modeling_results <span class='op'>=</span>
     <span class='va'>modeling_results</span>, sce_layer <span class='op'>=</span> <span class='va'>sce_layer</span><span class='op'>)</span>,
-  image_path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"app"</span>, <span class='st'>"www"</span>, <span class='st'>"data"</span>, package <span class='op'>=</span> <span class='st'>"spatialLIBD"</span><span class='op'>)</span>,
+  docs_path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"app"</span>, <span class='st'>"www"</span>, package <span class='op'>=</span> <span class='st'>"spatialLIBD"</span><span class='op'>)</span>,
+  title <span class='op'>=</span> <span class='st'>"spatialLIBD"</span>,
   spe_discrete_vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GraphBased"</span>, <span class='st'>"Layer"</span>, <span class='st'>"Maynard"</span>, <span class='st'>"Martinowich"</span>,
     <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"SNN_k50_k"</span>, <span class='fl'>4</span><span class='op'>:</span><span class='fl'>28</span><span class='op'>)</span>, <span class='st'>"SpatialDE_PCA"</span>, <span class='st'>"SpatialDE_pool_PCA"</span>, <span class='st'>"HVG_PCA"</span>,
     <span class='st'>"pseudobulk_PCA"</span>, <span class='st'>"markers_PCA"</span>, <span class='st'>"SpatialDE_UMAP"</span>, <span class='st'>"SpatialDE_pool_UMAP"</span>, <span class='st'>"HVG_UMAP"</span>,
@@ -164,7 +165,7 @@ any other data that you have shaped according to our object structure.</p>
       <th>spe</th>
       <td><p>Defaults to the output of
 <code><a href='fetch_data.html'>fetch_data(type = 'spe')</a></code>. This is a
-SpatialExperiment
+<a href='https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html'>SpatialExperiment-class</a>
 object with the spot-level Visium data and information required for
 visualizing the histology. See <code><a href='fetch_data.html'>fetch_data()</a></code> for more details.</p></td>
     </tr>
@@ -191,12 +192,15 @@ for matching in some cases. See <code><a href='fetch_data.html'>fetch_data()</a>
 in long format with the modeling results.</p></td>
     </tr>
     <tr>
-      <th>image_path</th>
-      <td><p>A path to the directory containing the low resolution
-histology images that is needed for the interactive visualizations with
-<code>plotly</code>. See
-https://github.com/LieberInstitute/spatialLIBD/tree/master/inst/app/www/data
-for an example of how these files should be organized.</p></td>
+      <th>docs_path</th>
+      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> specifying the path to the directory
+containing the website documentation files. The directory has to contain
+the files: <code>documentation_sce_layer.md</code>, <code>documentation_spe.md</code>,
+<code>favicon.ico</code>, <code>footer.html</code> and <code>README.md</code>.</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p>A character(1) specifying the title for the app.</p></td>
     </tr>
     <tr>
       <th>spe_discrete_vars</th>
@@ -235,10 +239,20 @@ the application.</p></td>
 <span class='co'>## the files will need to be cached by ExperimentHub. Otherwise it</span>
 <span class='co'>## will re-use the files you have previously downloaded.</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='enough_ram.html'>enough_ram</a></span><span class='op'>(</span><span class='fl'>4e9</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='fu'>run_app</span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>}</span>
-<span class='op'>}</span>
+    <span class='co'>## Obtain the necessary data</span>
+    <span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"spe"</span><span class='op'>)</span><span class='op'>)</span> <span class='va'>spe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span><span class='st'>"spe"</span><span class='op'>)</span>
 
+    <span class='fu'>run_app</span><span class='op'>(</span><span class='op'>)</span>
+
+    <span class='co'>## You can also run a custom version without the pseudo-bulked</span>
+    <span class='co'>## layer information. This is useful if you are only interested</span>
+    <span class='co'>## in the spatial transcriptomics features.</span>
+    <span class='fu'>run_app</span><span class='op'>(</span><span class='va'>spe</span>,
+        sce_layer <span class='op'>=</span> <span class='cn'>NULL</span>, modeling_results <span class='op'>=</span> <span class='cn'>NULL</span>, sig_genes <span class='op'>=</span> <span class='cn'>NULL</span>,
+        title <span class='op'>=</span> <span class='st'>"spatialLIBD without layer info"</span>
+    <span class='op'>)</span>
+<span class='op'>}</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
