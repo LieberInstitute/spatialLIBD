@@ -140,6 +140,7 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           ## Edit below if you have any Windows system dependencies
+          install.packages("RCurl", type = "binary") ## RCurl 1.98-1.3 doesn't compile on Windows right now
         shell: Rscript {0}
 
       - name: Install BiocManager
@@ -181,6 +182,7 @@ jobs:
           message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
           remotes::install_cran("rcmdcheck")
           BiocManager::install("BiocCheck")
+          BiocManager::install("Bioconductor/BiocCheck") ## Due to BiocCheck not been available on BioC 3.13 right now
         shell: Rscript {0}
 
       - name: Install BiocGenerics
