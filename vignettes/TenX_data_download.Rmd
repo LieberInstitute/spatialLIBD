@@ -57,8 +57,8 @@ bib <- c(
 
 ```{r "install", eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
-      install.packages("BiocManager")
-  }
+    install.packages("BiocManager")
+}
 
 BiocManager::install("spatialLIBD")
 
@@ -92,32 +92,37 @@ library("spatialLIBD")
 ```
 
 ```{r all_code_part2, cache=TRUE}
-library('BiocFileCache')
+library("BiocFileCache")
 bfc <- BiocFileCache()
 lymph.url <-
     paste0(
-         "https://cf.10xgenomics.com/samples/spatial-exp/1.1.0/V1_Human_Lymph_Node/",
-        c("V1_Human_Lymph_Node_filtered_feature_bc_matrix.tar.gz",
-        "V1_Human_Lymph_Node_spatial.tar.gz")
+        "https://cf.10xgenomics.com/samples/spatial-exp/1.1.0/V1_Human_Lymph_Node/",
+        c(
+            "V1_Human_Lymph_Node_filtered_feature_bc_matrix.tar.gz",
+            "V1_Human_Lymph_Node_spatial.tar.gz"
+        )
     )
 lymph.data <- sapply(lymph.url, bfcrpath, x = bfc)
 
 # Extract the files to a temporary location
-sapply(lymph.data,untar,exdir = tempdir())
+sapply(lymph.data, untar, exdir = tempdir())
 
 # List the files we downloaded and extracted
 # These files are typically CellRanger outputs
-lymph.dirs <- file.path(tempdir(),
-    c("filtered_feature_bc_matrix","spatial"))
+lymph.dirs <- file.path(
+    tempdir(),
+    c("filtered_feature_bc_matrix", "spatial")
+)
 list.files(lymph.dirs)
 
 # Import the data as a SingleCellExperiment
-library('SpatialExperiment')
+library("SpatialExperiment")
 spe <- SpatialExperiment::read10xVisium(
-        samples = tempdir(), 
-        sample_id = "lymph",
-        type = "sparse", data = "filtered", 
-        images = "lowres", load = TRUE)
+    samples = tempdir(),
+    sample_id = "lymph",
+    type = "sparse", data = "filtered",
+    images = "lowres", load = TRUE
+)
 ```
 
 Here is an example of you can cite your package inside the vignette:

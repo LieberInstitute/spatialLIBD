@@ -50,23 +50,23 @@ get_colors <- function(colors = NULL, clusters) {
 
         colors <-
             if (n_clus > 12) {
-                  Polychrome::palette36.colors(n_clus)
-              } else {
-                  c(
-                      "#b2df8a",
-                      "#e41a1c",
-                      "#377eb8",
-                      "#4daf4a",
-                      "#ff7f00",
-                      "gold",
-                      "#a65628",
-                      "#999999",
-                      "black",
-                      "grey",
-                      "white",
-                      "purple"
-                  )
-              }
+                Polychrome::palette36.colors(n_clus)
+            } else {
+                c(
+                    "#b2df8a",
+                    "#e41a1c",
+                    "#377eb8",
+                    "#4daf4a",
+                    "#ff7f00",
+                    "gold",
+                    "#a65628",
+                    "#999999",
+                    "black",
+                    "grey",
+                    "white",
+                    "purple"
+                )
+            }
         names(colors) <- seq_len(length(colors))
     } else if (all(unique(as.character(clusters)) %in% c(gsub("ayer", "", names(colors)), NA))) {
         names(colors) <- gsub("ayer", "", names(colors))

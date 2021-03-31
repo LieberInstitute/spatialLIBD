@@ -35,7 +35,6 @@
 #' @return A [shiny.appobj][shiny::shiny.appobj] that contains the input data.
 #'
 #' @examples
-#'
 #' \dontrun{
 #' ## The default arguments will download the data from the web
 #' ## using fetch_data(). If this is the first time you have run this,
@@ -128,7 +127,7 @@ run_app <- function(spe = fetch_data(type = "spe"),
             "README.md"
         )
     ))))
-    if(!is.null(sce_layer)) {
+    if (!is.null(sce_layer)) {
         ## Check required files when sce_layer is present
         stopifnot(file.exists(file.path(
             docs_path, "documentation_sce_layer.md"

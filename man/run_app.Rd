@@ -79,7 +79,6 @@ with the Visium spatial transcriptomics data from LIBD (by default) or
 any other data that you have shaped according to our object structure.
 }
 \examples{
-
 \dontrun{
 ## The default arguments will download the data from the web
 ## using fetch_data(). If this is the first time you have run this,

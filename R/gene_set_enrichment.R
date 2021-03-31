@@ -42,8 +42,8 @@
 #'
 #' ## Obtain the necessary data
 #' if (!exists("modeling_results")) {
-#'       modeling_results <- fetch_data(type = "modeling_results")
-#'   }
+#'     modeling_results <- fetch_data(type = "modeling_results")
+#' }
 #'
 #' ## Compute the gene set enrichment results
 #' asd_sfari_enrichment <- gene_set_enrichment(
@@ -77,8 +77,8 @@ gene_set_enrichment <-
             tstats <- tstats * -1
             colnames(tstats) <-
                 vapply(strsplit(colnames(tstats), "-"), function(x) {
-                      paste(rev(x), collapse = "-")
-                  }, character(ncol(tstats)))
+                    paste(rev(x), collapse = "-")
+                }, character(ncol(tstats)))
         }
 
         fdrs <-

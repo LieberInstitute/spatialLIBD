@@ -36,8 +36,8 @@
 #'
 #' ## Obtain the necessary data
 #' if (!exists("modeling_results")) {
-#'       modeling_results <- fetch_data(type = "modeling_results")
-#'   }
+#'     modeling_results <- fetch_data(type = "modeling_results")
+#' }
 #' if (!exists("sce_layer")) sce_layer <- fetch_data(type = "sce_layer")
 #'
 #' ## Top 2 genes from the enrichment model
@@ -127,8 +127,8 @@ layer_boxplot <- function(i = 1,
     ## Some internal functions
     add_rest <- function(x) {
         if (grepl("full|noWM", x)) {
-              return(x)
-          }
+            return(x)
+        }
         ifelse(grepl("-", x), x, paste0(x, "-rest"))
     }
 
@@ -144,9 +144,9 @@ layer_boxplot <- function(i = 1,
             col[levels(sce_layer$layer_guess_reordered) == x] <-
                 high
             if (grepl("noWM", x)) {
-                  col[levels(sce_layer$layer_guess_reordered) == "WM"] <-
-                      bkg
-              }
+                col[levels(sce_layer$layer_guess_reordered) == "WM"] <-
+                    bkg
+            }
         }
         names(col) <- levels(sce_layer$layer_guess_reordered_short)
         return(col)
@@ -186,7 +186,6 @@ layer_boxplot <- function(i = 1,
             sig_genes$ensembl[i],
             sig_genes$layer[i],
             "\n",
-
             "stat",
             formatC(
                 sig_genes$stat[i],
@@ -199,7 +198,6 @@ layer_boxplot <- function(i = 1,
                 format = "e",
                 digits = 2
             ),
-
             "\n",
             gsub("top", "r", gsub(
                 "Layer",

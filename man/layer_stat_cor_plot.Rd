@@ -46,8 +46,8 @@ for a full analysis from which this family of functions is derived from.
 
 ## Obtain the necessary data
 if (!exists("modeling_results")) {
-      modeling_results <- fetch_data(type = "modeling_results")
-  }
+    modeling_results <- fetch_data(type = "modeling_results")
+}
 
 ## Compute the correlations
 cor_stats_layer <- layer_stat_cor(

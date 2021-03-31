@@ -52,7 +52,7 @@ if (enough_ram()) {
     ## Don't plot the histology information
     vis_clus_p(
         spe = spe_sub,
-        d = SpatialExperiment::spatialData(spe_sub, cd_bind = TRUE, as_df = TRUE),
+        d = as.data.frame(SpatialExperiment::spatialData(spe_sub, cd_bind = TRUE)),
         clustervar = "layer_guess_reordered",
         sampleid = "151673",
         colors = libd_layer_colors,

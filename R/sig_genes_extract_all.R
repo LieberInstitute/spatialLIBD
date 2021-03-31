@@ -18,8 +18,8 @@
 #'
 #' ## Obtain the necessary data
 #' if (!exists("modeling_results")) {
-#'       modeling_results <- fetch_data(type = "modeling_results")
-#'   }
+#'     modeling_results <- fetch_data(type = "modeling_results")
+#' }
 #' if (!exists("sce_layer")) sce_layer <- fetch_data(type = "sce_layer")
 #'
 #' ## top 10 genes for all models
@@ -89,16 +89,16 @@ sig_genes_extract_all <- function(n = 10,
         split(which(sig_genes$top <= 20), sig_genes$ensembl[sig_genes$top <= 20])
     sig_genes$in_rows_top20 <-
         IntegerList(lapply(sig_genes$in_rows, function(x) {
-              NULL
-          }))
+            NULL
+        }))
     sig_genes$in_rows_top20[names(sig_genes_unique_top20)] <-
         IntegerList(sig_genes_unique_top20)
 
     sig_genes$results <-
         CharacterList(lapply(sig_genes$in_rows_top20, function(x) {
             if (length(x) == 0) {
-                  return(NULL)
-              }
+                return(NULL)
+            }
             paste0(sig_genes$test[x], "_top", sig_genes$top[x])
         }))[sig_genes$ensembl]
 

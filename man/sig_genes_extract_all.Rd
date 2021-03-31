@@ -40,8 +40,8 @@ functions such as \code{\link[=layer_boxplot]{layer_boxplot()}}.
 
 ## Obtain the necessary data
 if (!exists("modeling_results")) {
-      modeling_results <- fetch_data(type = "modeling_results")
-  }
+    modeling_results <- fetch_data(type = "modeling_results")
+}
 if (!exists("sce_layer")) sce_layer <- fetch_data(type = "sce_layer")
 
 ## top 10 genes for all models

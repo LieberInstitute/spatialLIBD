@@ -107,8 +107,8 @@ As a quick overview, the data presented here is from portion of the DLPFC that s
 
 ```{r 'install', eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
-      install.packages("BiocManager")
-  }
+    install.packages("BiocManager")
+}
 
 BiocManager::install("spatialLIBD")
 
@@ -213,8 +213,8 @@ sce_layer
 sapply(modeling_results, class)
 sapply(modeling_results, dim)
 sapply(modeling_results, function(x) {
-      head(colnames(x))
-  })
+    head(colnames(x))
+})
 ```
 
 The modeling statistics are in wide format, which can make some visualizations complicated. The function `sig_genes_extract_all()` provides a way to convert them into long format and add some useful information. Let's do so below.

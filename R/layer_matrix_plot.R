@@ -101,8 +101,8 @@ layer_matrix_plot <-
 
         ## For the y-axis labels
         midpoint <- function(x) {
-              x[-length(x)] + diff(x) / 2
-          }
+            x[-length(x)] + diff(x) / 2
+        }
 
         ## Make the plot
         par(mar = mar)

@@ -74,8 +74,8 @@ asd_sfari_geneList <- list(
 
 ## Obtain the necessary data
 if (!exists("modeling_results")) {
-      modeling_results <- fetch_data(type = "modeling_results")
-  }
+    modeling_results <- fetch_data(type = "modeling_results")
+}
 
 ## Compute the gene set enrichment results
 asd_sfari_enrichment <- gene_set_enrichment(

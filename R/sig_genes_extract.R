@@ -43,8 +43,8 @@
 #'
 #' ## Obtain the necessary data
 #' if (!exists("modeling_results")) {
-#'       modeling_results <- fetch_data(type = "modeling_results")
-#'   }
+#'     modeling_results <- fetch_data(type = "modeling_results")
+#' }
 #' if (!exists("sce_layer")) sce_layer <- fetch_data(type = "sce_layer")
 #'
 #' ## anova top 10 genes
@@ -74,8 +74,8 @@ sig_genes_extract <- function(n = 10,
         tstats <- tstats * -1
         colnames(tstats) <-
             vapply(strsplit(colnames(tstats), "-"), function(x) {
-                  paste(rev(x), collapse = "-")
-              }, character(1))
+                paste(rev(x), collapse = "-")
+            }, character(1))
     }
 
     pvals <-
@@ -101,9 +101,7 @@ sig_genes_extract <- function(n = 10,
         vapply(seq_len(ncol(sig_i)), function(i) {
             fdrs[sig_i[, i], i]
         }, numeric(n))
-    dimnames(sig_genes_fdr) <-
-        dimnames(sig_genes_tstats) <-
-        dimnames(sig_genes_pvals) <- dimnames(sig_genes)
+    dimnames(sig_genes_fdr) <- dimnames(sig_genes_tstats) <- dimnames(sig_genes_pvals) <- dimnames(sig_genes)
 
     ## Combine into a long format table
     sig_genes_tab <- data.frame(

@@ -53,8 +53,8 @@
 #'
 #' ## Obtain the necessary data
 #' if (!exists("modeling_results")) {
-#'       modeling_results <- fetch_data(type = "modeling_results")
-#'   }
+#'     modeling_results <- fetch_data(type = "modeling_results")
+#' }
 #'
 #' ## Compute the gene set enrichment results
 #' asd_sfari_enrichment <- gene_set_enrichment(
@@ -118,8 +118,8 @@ gene_set_enrichment_plot <-
 
         ## Change some values for the plot
         if (enrichOnly) {
-              enrichment$log10_P_thresh[enrichment$OR < 1] <- 0
-          }
+            enrichment$log10_P_thresh[enrichment$OR < 1] <- 0
+        }
         enrichment$OR_char <- as.character(round(enrichment$OR, 2))
         enrichment$OR_char[enrichment$log10_P_thresh < ORcut] <- ""
 

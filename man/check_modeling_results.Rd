@@ -24,8 +24,8 @@ For more details please check the vignette documentation.
 \examples{
 
 if (!exists("modeling_results")) {
-      modeling_results <- fetch_data(type = "modeling_results")
-  }
+    modeling_results <- fetch_data(type = "modeling_results")
+}
 
 ## Check the object
 xx <- check_modeling_results(modeling_results)

@@ -25,8 +25,8 @@
 #'
 #' ## Obtain the necessary data
 #' if (!exists("modeling_results")) {
-#'       modeling_results <- fetch_data(type = "modeling_results")
-#'   }
+#'     modeling_results <- fetch_data(type = "modeling_results")
+#' }
 #'
 #' ## Compute the correlations
 #' cor_stats_layer <- layer_stat_cor(
@@ -53,8 +53,8 @@ layer_stat_cor <-
             tstats <- tstats * -1
             colnames(tstats) <-
                 vapply(strsplit(colnames(tstats), "-"), function(x) {
-                      paste(rev(x), collapse = "-")
-                  }, character(1))
+                    paste(rev(x), collapse = "-")
+                }, character(1))
         }
 
         ## Adapted from https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R
