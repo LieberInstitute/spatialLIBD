@@ -71,5 +71,5 @@ VignetteBuilder: knitr
 biocViews: Homo_sapiens_Data, ExperimentHub, SequencingData, SingleCellData,
     ExpressionData, Tissue, PackageTypeData
 Depends:
-    SpatialExperiment (>= 1.1.429),
+    SpatialExperiment (>= 1.1.5),
     R (>= 3.6)
