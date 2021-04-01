@@ -69,6 +69,9 @@ Human DLPFC Visium data (when using the default arguments)." />
 
 
 
+<!-- dependencies from examples -->
+
+
   
 
   
@@ -91,7 +94,7 @@ Human DLPFC Visium data (when using the default arguments)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.10</span>
       </span>
     </div>
 
@@ -102,6 +105,18 @@ Human DLPFC Visium data (when using the default arguments)." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/TenX_data_download.html">Using spatialLIBD with 10X public datasets</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -198,9 +213,9 @@ for a full analysis from which this family of functions is derived from.</p>
     <pre class="examples"><div class='input'>
 <span class='co'>## Obtain the necessary data</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"modeling_results"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-      <span class='va'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span>
-  <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2021-03-10</span></div><div class='output co'>#&gt; <span class='message'>2021-03-18 04:04:03 loading file ~/.cache/BiocFileCache/ca89761d89f2_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></div><div class='input'>
+    <span class='va'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2021-03-30</span></div><div class='output co'>#&gt; <span class='message'>2021-04-01 13:41:47 loading file ~/.cache/BiocFileCache/cdd0594e2420_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></div><div class='input'>
 <span class='co'>## Compute the correlations</span>
 <span class='va'>cor_stats_layer</span> <span class='op'>&lt;-</span> <span class='fu'><a href='layer_stat_cor.html'>layer_stat_cor</a></span><span class='op'>(</span>
     <span class='va'>tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer</span>,
@@ -229,7 +244,7 @@ for a full analysis from which this family of functions is derived from.</p>
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>

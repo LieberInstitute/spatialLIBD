@@ -68,6 +68,9 @@ any other data that you have shaped according to our object structure." />
 
 
 
+<!-- dependencies from examples -->
+
+
   
 
   
@@ -90,7 +93,7 @@ any other data that you have shaped according to our object structure." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.10</span>
       </span>
     </div>
 
@@ -101,6 +104,18 @@ any other data that you have shaped according to our object structure." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/TenX_data_download.html">Using spatialLIBD with 10X public datasets</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -232,8 +247,7 @@ the application.</p></td>
     <p>A <a href='https://rdrr.io/pkg/shiny/man/shiny.appobj.html'>shiny.appobj</a> that contains the input data.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>## The default arguments will download the data from the web</span>
 <span class='co'>## using fetch_data(). If this is the first time you have run this,</span>
 <span class='co'>## the files will need to be cached by ExperimentHub. Otherwise it</span>
@@ -269,7 +283,7 @@ the application.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
