@@ -29,35 +29,11 @@ check_spe <- function(spe,
     variables = c(
         "GraphBased",
         "Layer",
-        "Maynard",
-        "Martinowich",
-        paste0("SNN_k50_k", 4:28),
-        "layer_guess_reordered_short",
         "cell_count",
         "sum_umi",
         "sum_gene",
         "expr_chrM",
-        "expr_chrM_ratio",
-        "SpatialDE_PCA",
-        "SpatialDE_pool_PCA",
-        "HVG_PCA",
-        "pseudobulk_PCA",
-        "markers_PCA",
-        "SpatialDE_UMAP",
-        "SpatialDE_pool_UMAP",
-        "HVG_UMAP",
-        "pseudobulk_UMAP",
-        "markers_UMAP",
-        "SpatialDE_PCA_spatial",
-        "SpatialDE_pool_PCA_spatial",
-        "HVG_PCA_spatial",
-        "pseudobulk_PCA_spatial",
-        "markers_PCA_spatial",
-        "SpatialDE_UMAP_spatial",
-        "SpatialDE_pool_UMAP_spatial",
-        "HVG_UMAP_spatial",
-        "pseudobulk_UMAP_spatial",
-        "markers_UMAP_spatial"
+        "expr_chrM_ratio"
     )) {
     ## Should be a SpatialExperiment object
     stopifnot(is(spe, "SpatialExperiment"))
@@ -116,7 +92,8 @@ check_spe <- function(spe,
     stopifnot(!"COUNT" %in% colnames(colData(spe)))
 
     ## The counts and logcounts assays
-    stopifnot(all(c("counts", "logcounts") %in% assayNames(spe)))
+    stopifnot(length(assayNames(spe))>=1)
+    #checar que assaynames sea mayorigual a uno lenght
 
     ## Done!
     return(spe)
