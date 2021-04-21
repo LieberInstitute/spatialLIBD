@@ -62,7 +62,7 @@ check_spe <- function(spe,
 
     ## Information about spot coordinates
     stopifnot(all(c(
-        "barcode", "in_tissue", "array_row", "array_col",
+        "in_tissue", "array_row", "array_col",
         "pxl_row_in_fullres", "pxl_col_in_fullres"
     ) %in%
         colnames(spatialData(spe))))
@@ -71,6 +71,7 @@ check_spe <- function(spe,
     ## The sample names stored under spe$sample_id
     stopifnot(all(
         c(
+            "Barcode",
             "sample_id",
             "key",
             "Layer",
@@ -81,7 +82,7 @@ check_spe <- function(spe,
     ## A unique spot-level ID (such as barcode) stored under spe$key
     ## The 'key' column is necessary for the plotly code to work.
     stopifnot(length(unique(spe$key)) == ncol(spe))
-    stopifnot(identical(spe$key, paste0(spe$sample_id, "_", spatialData(spe)$barcode)))
+    stopifnot(identical(spe$key, paste0(spe$sample_id, "_", colData(spe)$Barcode)))
 
     ## None of the values of rowData(spe)$gene_search should be re-used in
     ## colData(spe)

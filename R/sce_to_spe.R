@@ -51,7 +51,7 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
     # Load colData
     cols_to_drop <-
         c(
-            "barcode",
+
             "tissue",
             "row",
             "col",
@@ -61,12 +61,14 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
     colData_visium <-
         SummarizedExperiment::colData(sce)[, !colnames(SummarizedExperiment::colData(sce)) %in% c(cols_to_drop, "height", "width"), drop = FALSE]
 
+    names(colData_visium)[names(colData_visium) == "barcode"] <- "Barcode"
+    names(colData_visium)[names(colData_visium) == "sample_name"] <- "sample_id"
+    
     # Load spatialCoords
     spatialCoords_visium <-
         SummarizedExperiment::colData(sce)[, colnames(SummarizedExperiment::colData(sce)) %in% cols_to_drop, drop = FALSE]
     names(spatialCoords_visium) <-
         c(
-            "barcode",
             "in_tissue",
             "array_row",
             "array_col",
