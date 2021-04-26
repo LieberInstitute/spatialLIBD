@@ -29,35 +29,11 @@ check_spe <- function(spe,
     variables = c(
         "GraphBased",
         "Layer",
-        "Maynard",
-        "Martinowich",
-        paste0("SNN_k50_k", 4:28),
-        "layer_guess_reordered_short",
         "cell_count",
         "sum_umi",
         "sum_gene",
         "expr_chrM",
-        "expr_chrM_ratio",
-        "SpatialDE_PCA",
-        "SpatialDE_pool_PCA",
-        "HVG_PCA",
-        "pseudobulk_PCA",
-        "markers_PCA",
-        "SpatialDE_UMAP",
-        "SpatialDE_pool_UMAP",
-        "HVG_UMAP",
-        "pseudobulk_UMAP",
-        "markers_UMAP",
-        "SpatialDE_PCA_spatial",
-        "SpatialDE_pool_PCA_spatial",
-        "HVG_PCA_spatial",
-        "pseudobulk_PCA_spatial",
-        "markers_PCA_spatial",
-        "SpatialDE_UMAP_spatial",
-        "SpatialDE_pool_UMAP_spatial",
-        "HVG_UMAP_spatial",
-        "pseudobulk_UMAP_spatial",
-        "markers_UMAP_spatial"
+        "expr_chrM_ratio"
     )) {
     ## Should be a SpatialExperiment object
     stopifnot(is(spe, "SpatialExperiment"))
@@ -86,7 +62,7 @@ check_spe <- function(spe,
 
     ## Information about spot coordinates
     stopifnot(all(c(
-        "barcode", "in_tissue", "array_row", "array_col",
+        "in_tissue", "array_row", "array_col",
         "pxl_row_in_fullres", "pxl_col_in_fullres"
     ) %in%
         colnames(spatialData(spe))))
@@ -95,6 +71,7 @@ check_spe <- function(spe,
     ## The sample names stored under spe$sample_id
     stopifnot(all(
         c(
+            "Barcode",
             "sample_id",
             "key",
             "Layer",
@@ -105,7 +82,7 @@ check_spe <- function(spe,
     ## A unique spot-level ID (such as barcode) stored under spe$key
     ## The 'key' column is necessary for the plotly code to work.
     stopifnot(length(unique(spe$key)) == ncol(spe))
-    stopifnot(identical(spe$key, paste0(spe$sample_id, "_", spatialData(spe)$barcode)))
+    stopifnot(identical(spe$key, paste0(spe$sample_id, "_", colData(spe)$Barcode)))
 
     ## None of the values of rowData(spe)$gene_search should be re-used in
     ## colData(spe)
@@ -116,7 +93,8 @@ check_spe <- function(spe,
     stopifnot(!"COUNT" %in% colnames(colData(spe)))
 
     ## The counts and logcounts assays
-    stopifnot(all(c("counts", "logcounts") %in% assayNames(spe)))
+    stopifnot(length(assayNames(spe))>=1)
+    #checar que assaynames sea mayorigual a uno lenght
 
     ## Done!
     return(spe)
