@@ -111,7 +111,7 @@ sapply(lymph.data, untar, exdir = tempdir())
 # These files are typically CellRanger outputs
 lymph.dirs <- file.path(
     tempdir(),
-    c("filtered_feature_bc_matrix", "spatial")
+    c("filtered_feature_bc_matrix", "spatial", "raw_feature_bc_matrix")
 )
 list.files(lymph.dirs)
 
@@ -123,6 +123,26 @@ spe <- SpatialExperiment::read10xVisium(
     type = "sparse", data = "filtered",
     images = "lowres", load = TRUE
 )
+
+df_tisspos_path <- file.path(lymph.dirs[2],"tissue_positions_list.csv")
+df_tisspos <- read.csv(df_tisspos_path, header = FALSE, 
+                         col.names=c("barcode_id", "in_tissue", "array_row", "array_col", 
+                                     "pxl_row_in_fullres","pxl_col_in_fullres"))
+
+dim(spe)
+  dim(df_tisspos)
+  ord <- match(spe$Barcode, df_tisspos$barcode_id)
+  df_tisspos_ord <- df_tisspos[ord, ]
+  dim(df_tisspos_ord)
+  stopifnot(ncol(spe) == nrow(df_tisspos_ord))
+  stopifnot(all(spe$Barcode == df_tisspos_ord$barcode_id))
+  
+  colData(spe)$in_tissue <- df_tisspos_ord[,2]
+  colData(spe)$array_row <- df_tisspos_ord[,3]
+  colData(spe)$array_col <- df_tisspos_ord[,4]
+  colData(spe)$pxl_col_in_fullres <- df_tisspos_ord[,5]
+  colData(spe)$pxl_row_in_fullres <- df_tisspos_ord[,6]
+
 ```
 
 Here is an example of you can cite your package inside the vignette:
