@@ -91,8 +91,8 @@ vis_clus_p <-
             ) +
             coord_cartesian(expand = FALSE) +
             scale_fill_manual(values = colors) +
-            xlim(0, nrow(img)) +
-            ylim(ncol(img), 0) +
+            xlim(0, ncol(img)) +
+            ylim(nrow(img), 0) +
             xlab("") + ylab("") +
             labs(fill = NULL) +
             guides(fill = guide_legend(override.aes = list(size = 3))) +

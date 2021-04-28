@@ -6,8 +6,7 @@
 \usage{
 check_spe(
   spe,
-  variables = c("GraphBased", "Layer", "cell_count", "sum_umi", "sum_gene",
-    "expr_chrM", "expr_chrM_ratio")
+  variables = c("sum_umi", "sum_gene", "expr_chrM", "expr_chrM_ratio")
 )
 }
 \arguments{

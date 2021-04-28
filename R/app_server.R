@@ -721,8 +721,8 @@ app_server <- function(input, output, session) {
         plotly_clus <- layout(
             ggplotly(
                 p_clus,
-                width = nrow(img) * 2,
-                height = ncol(img) * 2,
+                width = ncol(img) * 2,
+                height = nrow(img) * 2,
                 source = "plotly_histology"
             ),
             images = list(
@@ -735,9 +735,9 @@ app_server <- function(input, output, session) {
                     yref = "y",
                     sizing = "stretch",
                     x = 0,
-                    y = -ncol(img),
-                    sizex = nrow(img),
-                    sizey = ncol(img),
+                    y = -nrow(img),
+                    sizex = ncol(img),
+                    sizey = nrow(img),
                     opacity = 0.8
                 )
             ),
@@ -758,9 +758,9 @@ app_server <- function(input, output, session) {
                     yref = "y",
                     sizing = "stretch",
                     x = 0,
-                    y = -ncol(img),
-                    sizex = nrow(img),
-                    sizey = ncol(img),
+                    y = -nrow(img),
+                    sizex = ncol(img),
+                    sizey = nrow(img),
                     opacity = 0.8
                 )
             ),
@@ -871,8 +871,8 @@ app_server <- function(input, output, session) {
         layout(
             ggplotly(
                 p,
-                width = nrow(img),
-                height = ncol(img),
+                width = ncol(img),
+                height = nrow(img),
                 source = "plotly_gene"
             ),
             images = list(
@@ -885,9 +885,9 @@ app_server <- function(input, output, session) {
                     yref = "y",
                     sizing = "stretch",
                     x = 0,
-                    y = -ncol(img),
-                    sizex = nrow(img),
-                    sizey = ncol(img),
+                    y = -nrow(img),
+                    sizex = ncol(img),
+                    sizey = nrow(img),
                     opacity = 0.8
                 )
             ),

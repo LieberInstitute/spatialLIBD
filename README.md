@@ -139,8 +139,8 @@ from [Bioconductor](http://bioconductor.org/) the following code:
 
 ``` r
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
-      install.packages("BiocManager")
-  }
+    install.packages("BiocManager")
+}
 
 BiocManager::install("spatialLIBD")
 ```
@@ -164,6 +164,12 @@ library("spatialLIBD")
 
 ## Download the spot-level data
 spe <- fetch_data(type = "spe")
+#> Warning: DEPRECATION: As of ExperimentHub (>1.17.2), default caching location has changed.
+#>   Problematic cache: /Users/lcollado/Library/Caches/ExperimentHub
+#>   See https://bioconductor.org/packages/devel/bioc/vignettes/ExperimentHub/inst/doc/ExperimentHub.html#default-caching-location-update
+#> Warning: DEPRECATION: As of BiocFileCache (>1.15.1), default caching location has changed.
+#>   Problematic cache: /Users/lcollado/Library/Caches/BiocFileCache
+#>   See https://www.bioconductor.org/packages/devel/bioc/vignettes/BiocFileCache/inst/doc/BiocFileCache.html#default-caching-location-update
 
 ## This is a SpatialExperiment object
 spe
@@ -176,19 +182,19 @@ spe
 #> rowData names(9): source type ... gene_search is_top_hvg
 #> colnames(47681): AAACAACGAATAGTTC-1 AAACAAGTATCTCCCA-1 ...
 #>   TTGTTTCCATACAACT-1 TTGTTTGTGTAAATTC-1
-#> colData names(65): sample_id Cluster ... pseudobulk_UMAP_spatial
+#> colData names(66): Barcode sample_id ... pseudobulk_UMAP_spatial
 #>   markers_UMAP_spatial
 #> reducedDimNames(6): PCA TSNE_perplexity50 ... TSNE_perplexity80
 #>   UMAP_neighbors15
 #> mainExpName: NULL
 #> altExpNames(0):
-#> spatialData names(6) : barcode in_tissue ... pxl_row_in_fullres
+#> spatialData names(5) : in_tissue array_row array_col pxl_row_in_fullres
 #>   pxl_col_in_fullres
-#> imgData names(6): sample_id image_id ... height scaleFactor
+#> imgData names(4): sample_id image_id data scaleFactor
 
 ## Note the memory size
 pryr::object_size(spe)
-#> 2.08 GB
+#> 2.04 GB
 
 ## Remake the logo image with histology information
 vis_clus(
@@ -198,6 +204,9 @@ vis_clus(
     colors = libd_layer_colors,
     ... = " DLPFC Human Brain Layers\nMade with github.com/LieberInstitute/spatialLIBD"
 )
+#> Warning: DEPRECATION: As of BiocFileCache (>1.15.1), default caching location has changed.
+#>   Problematic cache: /Users/lcollado/Library/Caches/BiocFileCache
+#>   See https://www.bioconductor.org/packages/devel/bioc/vignettes/BiocFileCache/inst/doc/BiocFileCache.html#default-caching-location-update
 ```
 
 <img src="man/figures/README-access_data-1.png" width="100%" />
@@ -238,7 +247,7 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 1.3.3, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 1.3.11, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -247,7 +256,7 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #>     author = {Leonardo Collado-Torres and Kristen R. Maynard and Andrew E. Jaffe},
 #>     year = {2021},
 #>     url = {http://www.bioconductor.org/packages/spatialLIBD},
-#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.3},
+#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.11},
 #>     doi = {10.18129/B9.bioc.spatialLIBD},
 #>   }
 #> 

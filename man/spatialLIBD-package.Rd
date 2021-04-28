@@ -28,6 +28,7 @@ Other contributors:
   \item Kristen R. Maynard \email{Kristen.Maynard@libd.org} (\href{https://orcid.org/0000-0003-0031-8468}{ORCID}) [contributor]
   \item Andrew E. Jaffe \email{andrew.jaffe@libd.org} (\href{https://orcid.org/0000-0001-6886-1454}{ORCID}) [contributor]
   \item Brenda Pardo \email{bpardo@lcgej.unam.mx} (\href{https://orcid.org/0000-0001-8103-7136}{ORCID}) [contributor]
+  \item Abby Spangler \email{aspangle@gmail.com} (\href{https://orcid.org/0000-0002-0028-9348}{ORCID}) [contributor]
 }
 
 }

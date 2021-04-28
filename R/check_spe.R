@@ -27,9 +27,6 @@
 #' }
 check_spe <- function(spe,
     variables = c(
-        "GraphBased",
-        "Layer",
-        "cell_count",
         "sum_umi",
         "sum_gene",
         "expr_chrM",
@@ -69,15 +66,21 @@ check_spe <- function(spe,
 
     ## colData(spe) includes information about the samples .
     ## The sample names stored under spe$sample_id
-    stopifnot(all(
-        c(
-            "Barcode",
-            "sample_id",
-            "key",
-            "Layer",
-            variables
-        ) %in% colnames(colData(spe))
-    ))
+    vars_to_check <- c(
+        "Barcode",
+        "sample_id",
+        "key",
+        "Layer",
+        variables
+    )
+    if (!all(vars_to_check %in% colnames(colData(spe)))) {
+        vars_missing <- vars_to_check[!vars_to_check %in% colnames(colData(spe))]
+        stop(
+            "Missing in colData(spe) the following variables: ",
+            paste(vars_missing, collapse = ", "),
+            call. = FALSE
+        )
+    }
 
     ## A unique spot-level ID (such as barcode) stored under spe$key
     ## The 'key' column is necessary for the plotly code to work.

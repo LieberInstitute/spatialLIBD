@@ -114,8 +114,8 @@ vis_gene_p <-
         }
 
         p <- p +
-            xlim(0, nrow(img)) +
-            ylim(ncol(img), 0) +
+            xlim(0, ncol(img)) +
+            ylim(nrow(img), 0) +
             xlab("") + ylab("") +
             labs(fill = NULL, color = NULL) +
             ggtitle(title) +
