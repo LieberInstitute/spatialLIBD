@@ -93,8 +93,8 @@ check_spe <- function(spe,
     stopifnot(!"COUNT" %in% colnames(colData(spe)))
 
     ## The counts and logcounts assays
-    stopifnot(length(assayNames(spe))>=1)
-    #checar que assaynames sea mayorigual a uno lenght
+    stopifnot(length(assayNames(spe)) >= 1)
+    # checar que assaynames sea mayorigual a uno lenght
 
     ## Done!
     return(spe)

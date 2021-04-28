@@ -56,7 +56,7 @@ library("spatialLIBD")
 load(file = "path/to/spe")
 
 ## Add some information used by spatialLIBD
-spe$key <- paste0(spe$Barcode, '_', spe$sample_id)
+spe$key <- paste0(spe$Barcode, "_", spe$sample_id)
 spe$sum_umi <- colSums(counts(spe))
 spe$sum_gene <- colSums(counts(spe) > 0)
 
@@ -107,12 +107,10 @@ vis_gene(
     spe = spe,
     sampleid = "lymph",
     geneid = "sum_umi",
-    #pdf = here::here("in_tissue_sum_umi.pdf"),
+    # pdf = here::here("in_tissue_sum_umi.pdf"),
     assayname = "counts"
 )
 dev.off()
-
-
 ```
 
 Edit this as you see fit =)
