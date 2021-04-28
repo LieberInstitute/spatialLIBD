@@ -185,7 +185,7 @@ rowRanges(spe) <- gtf[match_genes]
 
 In this vignette, we'll use the GTF file from Gencode v32. That's because the notes from _References - 2020-A (July 7, 2020)_ and _Human reference, GRCh38 (GENCODE v32/Ensembl 98)_ https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A show that they used Gencode v32. They also used Ensembl version 98 which is why a few genes we have in our object are going to be missing.
 
-```{r}
+```{r "use_gencode_gtf"}
 ## Download the Gencode v32 GTF and read it into R
 gtf_cache <- BiocFileCache::bfcrpath(
     bfc,
