@@ -88,7 +88,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.11</span>
       </span>
     </div>
 
@@ -142,7 +142,7 @@
 
     <div id="spatiallibd-133" class="section level1">
 <h1 class="page-header" data-toc-text="1.3.3">
-<a href="#spatiallibd-133" class="anchor"></a>spatialLIBD 1.3.3</h1>
+<a href="#spatiallibd-133" class="anchor" aria-hidden="true"></a>spatialLIBD 1.3.3</h1>
 <p>NEW FEATURES</p>
 <ul>
 <li>Overall the package has been updated to use <code>SpatialExperiment</code> version 1.1.427 available on Bioconductor 3.13 (bioc-devel). Several functions were re-named such as <code>sce_image_gene_p()</code> now has a shorter name <code><a href="../reference/vis_gene_p.html">vis_gene_p()</a></code>. This update also changes these visualization functions to ONLY support <code>SpatialExperiment</code> objects instead of the original modified <code>SingleCellExperiment</code> objects.</li>
@@ -151,7 +151,7 @@
 </div>
     <div id="spatiallibd-117" class="section level1">
 <h1 class="page-header" data-toc-text="1.1.7">
-<a href="#spatiallibd-117" class="anchor"></a>spatialLIBD 1.1.7</h1>
+<a href="#spatiallibd-117" class="anchor" aria-hidden="true"></a>spatialLIBD 1.1.7</h1>
 <p>NEW FEATURES</p>
 <ul>
 <li>The functions <code>sce_image_gene_p()</code>, <code>sce_image_gene()</code>, <code>sce_image_grid()</code>, <code>sce_image_grid_gene()</code>, <code>sce_image_clus()</code>, <code>sce_image_clus_p()</code>, <code><a href="../reference/geom_spatial.html">geom_spatial()</a></code> now work with VisiumExperiment objects thanks to the new function <code>read_image()</code> and <code>ve_image_colData()</code>. This work was done by Brenda Pardo and Leonardo.</li>
@@ -159,16 +159,16 @@
 </div>
     <div id="spatiallibd-115" class="section level1">
 <h1 class="page-header" data-toc-text="1.1.5">
-<a href="#spatiallibd-115" class="anchor"></a>spatialLIBD 1.1.5</h1>
+<a href="#spatiallibd-115" class="anchor" aria-hidden="true"></a>spatialLIBD 1.1.5</h1>
 <p>NEW FEATURES</p>
 <ul>
 <li>
-<code><a href="../reference/fetch_data.html">fetch_data()</a></code> takes the data from sce object and creates a VisiumExperiment object containing these data thanks to the function <code>sce_to_ve()</code>. VisiumExperiment object can be obtained with <code><a href="../reference/fetch_data.html">fetch_data("ve")</a></code>. This work was done by Brenda Pardo and Leonardo.</li>
+<code><a href="../reference/fetch_data.html">fetch_data()</a></code> takes the data from sce object and creates a VisiumExperiment object containing these data thanks to the function <code>sce_to_ve()</code>. VisiumExperiment object can be obtained with <code>fetch_data("ve")</code>. This work was done by Brenda Pardo and Leonardo.</li>
 </ul>
 </div>
     <div id="spatiallibd-114" class="section level1">
 <h1 class="page-header" data-toc-text="1.1.4">
-<a href="#spatiallibd-114" class="anchor"></a>spatialLIBD 1.1.4</h1>
+<a href="#spatiallibd-114" class="anchor" aria-hidden="true"></a>spatialLIBD 1.1.4</h1>
 <p>NEW FEATURES</p>
 <ul>
 <li>
@@ -177,12 +177,12 @@
 </div>
     <div id="spatiallibd-09914" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.14">
-<a href="#spatiallibd-09914" class="anchor"></a>spatialLIBD 0.99.14</h1>
+<a href="#spatiallibd-09914" class="anchor" aria-hidden="true"></a>spatialLIBD 0.99.14</h1>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
 <ul>
-<li>Added the function <code><a href="../reference/enough_ram.html">enough_ram()</a></code> which is used to control the execution of examples. If it fails when using <code><a href="../reference/fetch_data.html">fetch_data("sce")</a></code> then <code><a href="../reference/fetch_data.html">fetch_data()</a></code> will show a warning.</li>
+<li>Added the function <code><a href="../reference/enough_ram.html">enough_ram()</a></code> which is used to control the execution of examples. If it fails when using <code>fetch_data("sce")</code> then <code><a href="../reference/fetch_data.html">fetch_data()</a></code> will show a warning.</li>
 <li>
-<code><a href="../reference/fetch_data.html">fetch_data(type = "sce_example")</a></code> is now supported and used visibly in the vignette, eliminating the need for <code>eval = FALSE</code> chunks. This should enable testing the vignette code on the Bioconductor Single Package Builder on Windows (max 2.5 GB of RAM available).</li>
+<code>fetch_data(type = "sce_example")</code> is now supported and used visibly in the vignette, eliminating the need for <code>eval = FALSE</code> chunks. This should enable testing the vignette code on the Bioconductor Single Package Builder on Windows (max 2.5 GB of RAM available).</li>
 </ul>
 <p>BUG FIXES</p>
 <ul>
@@ -192,7 +192,7 @@
 </div>
     <div id="spatiallibd-09913" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.13">
-<a href="#spatiallibd-09913" class="anchor"></a>spatialLIBD 0.99.13</h1>
+<a href="#spatiallibd-09913" class="anchor" aria-hidden="true"></a>spatialLIBD 0.99.13</h1>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
 <ul>
 <li>Documentation website is now available at http://LieberInstitute.github.io/GenomicState/. It gets updated with every commit on the master branch (bioc-devel) using GitHub Actions and pkgdown.</li>
@@ -200,7 +200,7 @@
 </div>
     <div id="spatiallibd-09912" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.12">
-<a href="#spatiallibd-09912" class="anchor"></a>spatialLIBD 0.99.12</h1>
+<a href="#spatiallibd-09912" class="anchor" aria-hidden="true"></a>spatialLIBD 0.99.12</h1>
 <p>BUG FIXES</p>
 <ul>
 <li>Remove the spatialLIBD.Rproj file =( since BioC’s SBP is asking me to do so http://bioconductor.org/spb_reports/spatialLIBD_buildreport_20200303135350.html</li>
@@ -213,7 +213,7 @@
 </div>
     <div id="spatiallibd-09911" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.11">
-<a href="#spatiallibd-09911" class="anchor"></a>spatialLIBD 0.99.11</h1>
+<a href="#spatiallibd-09911" class="anchor" aria-hidden="true"></a>spatialLIBD 0.99.11</h1>
 <p>BUG FIXES</p>
 <ul>
 <li>Check if removing the <code>RcppAnnoy</code> line in the DESCRIPTION actually works now based on Aaron Lun’s comment at https://github.com/eddelbuettel/rcppannoy/issues/57#issuecomment-594097241.</li>
@@ -221,7 +221,7 @@
 </div>
     <div id="spatiallibd-09910" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.10">
-<a href="#spatiallibd-09910" class="anchor"></a>spatialLIBD 0.99.10</h1>
+<a href="#spatiallibd-09910" class="anchor" aria-hidden="true"></a>spatialLIBD 0.99.10</h1>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
 <ul>
 <li>Include AWS links to the image TIFF files (~500mb each) as requested by Qian Zhu <a href="mailto:zqian@jimmy.harvard.edu" class="email">zqian@jimmy.harvard.edu</a> for visualizing the data on the Giotto Viewer https://www.biorxiv.org/content/10.1101/701680v1.</li>
@@ -233,7 +233,7 @@
 </div>
     <div id="spatiallibd-0999" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.9">
-<a href="#spatiallibd-0999" class="anchor"></a>spatialLIBD 0.99.9</h1>
+<a href="#spatiallibd-0999" class="anchor" aria-hidden="true"></a>spatialLIBD 0.99.9</h1>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
 <ul>
 <li>Link to https://doi.org/10.1101/2020.02.28.969931 now that its public.</li>
@@ -241,7 +241,7 @@
 </div>
     <div id="spatiallibd-0998" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.8">
-<a href="#spatiallibd-0998" class="anchor"></a>spatialLIBD 0.99.8</h1>
+<a href="#spatiallibd-0998" class="anchor" aria-hidden="true"></a>spatialLIBD 0.99.8</h1>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
 <ul>
 <li>https://spatial.libd.org/spatialLIBD is not supported since we are using Shiny Server and not Shiny Server Pro. So all links have now been updated to http://spatial.libd.org/spatialLIBD.</li>
@@ -249,7 +249,7 @@
 </div>
     <div id="spatiallibd-0997" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.7">
-<a href="#spatiallibd-0997" class="anchor"></a>spatialLIBD 0.99.7</h1>
+<a href="#spatiallibd-0997" class="anchor" aria-hidden="true"></a>spatialLIBD 0.99.7</h1>
 <p>BUG FIXES</p>
 <ul>
 <li>Run a test that might help with https://github.com/r-lib/pkgdown/issues/1230.</li>
@@ -257,7 +257,7 @@
 </div>
     <div id="spatiallibd-0996" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.6">
-<a href="#spatiallibd-0996" class="anchor"></a>spatialLIBD 0.99.6</h1>
+<a href="#spatiallibd-0996" class="anchor" aria-hidden="true"></a>spatialLIBD 0.99.6</h1>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
 <ul>
 <li>Add mirrors for the shiny app and change the main location.</li>
@@ -265,7 +265,7 @@
 </div>
     <div id="spatiallibd-0995" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.5">
-<a href="#spatiallibd-0995" class="anchor"></a>spatialLIBD 0.99.5</h1>
+<a href="#spatiallibd-0995" class="anchor" aria-hidden="true"></a>spatialLIBD 0.99.5</h1>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
 <ul>
 <li>Make <code><a href="../reference/fetch_data.html">fetch_data()</a></code> more flexible. Should now work when the data is absent.</li>
@@ -273,7 +273,7 @@
 </div>
     <div id="spatiallibd-0994" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.4">
-<a href="#spatiallibd-0994" class="anchor"></a>spatialLIBD 0.99.4</h1>
+<a href="#spatiallibd-0994" class="anchor" aria-hidden="true"></a>spatialLIBD 0.99.4</h1>
 <p>BUG FIXES</p>
 <ul>
 <li>Fix Travis badges</li>
@@ -283,7 +283,7 @@
 </div>
     <div id="spatiallibd-0993" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.3">
-<a href="#spatiallibd-0993" class="anchor"></a>spatialLIBD 0.99.3</h1>
+<a href="#spatiallibd-0993" class="anchor" aria-hidden="true"></a>spatialLIBD 0.99.3</h1>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
 <ul>
 <li>Further refine the READMEs (pkg and shiny). They now include the list of links to the raw 10x Genomics files as well as a short description of the project at the top. This was in response to feedback by Andrew Jaffe.</li>
@@ -291,7 +291,7 @@
 </div>
     <div id="spatiallibd-0992" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.2">
-<a href="#spatiallibd-0992" class="anchor"></a>spatialLIBD 0.99.2</h1>
+<a href="#spatiallibd-0992" class="anchor" aria-hidden="true"></a>spatialLIBD 0.99.2</h1>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
 <ul>
 <li>Update main package READMEs to reflect the changes to the shiny web app README.md.</li>
@@ -299,7 +299,7 @@
 </div>
     <div id="spatiallibd-0991" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.1">
-<a href="#spatiallibd-0991" class="anchor"></a>spatialLIBD 0.99.1</h1>
+<a href="#spatiallibd-0991" class="anchor" aria-hidden="true"></a>spatialLIBD 0.99.1</h1>
 <p>NEW FEATURES</p>
 <ul>
 <li>Added Kristen R Maynard to the DESCRIPTION file.</li>
@@ -309,7 +309,7 @@
 </div>
     <div id="spatiallibd-0990" class="section level1">
 <h1 class="page-header" data-toc-text="0.99.0">
-<a href="#spatiallibd-0990" class="anchor"></a>spatialLIBD 0.99.0</h1>
+<a href="#spatiallibd-0990" class="anchor" aria-hidden="true"></a>spatialLIBD 0.99.0</h1>
 <p>NEW FEATURES</p>
 <ul>
 <li>Added a <code>NEWS.md</code> file to track changes to the package.</li>

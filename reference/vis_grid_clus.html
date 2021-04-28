@@ -93,7 +93,7 @@ gene-level (or any continuous variable) use vis_grid_gene()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.11</span>
       </span>
     </div>
 
@@ -171,23 +171,23 @@ gene-level (or any continuous variable) use <code><a href='vis_grid_gene.html'>v
     <tr>
       <th>spe</th>
       <td><p>Defaults to the output of
-<code><a href='fetch_data.html'>fetch_data(type = 'spe')</a></code>. This is a
+<code>fetch_data(type = 'spe')</code>. This is a
 <a href='https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html'>SpatialExperiment-class</a>
 object with the spot-level Visium data and information required for
 visualizing the histology. See <code><a href='fetch_data.html'>fetch_data()</a></code> for more details.</p></td>
     </tr>
     <tr>
       <th>clustervar</th>
-      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> with the name of the <code>colData(spe)</code>
+      <td><p>A <code>character(1)</code> with the name of the <code>colData(spe)</code>
 column that has the cluster values.</p></td>
     </tr>
     <tr>
       <th>pdf_file</th>
-      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> specifying the path for the resulting PDF.</p></td>
+      <td><p>A <code>character(1)</code> specifying the path for the resulting PDF.</p></td>
     </tr>
     <tr>
       <th>sort_clust</th>
-      <td><p>A <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> indicating whether you want to sort
+      <td><p>A <code>logical(1)</code> indicating whether you want to sort
 the clusters by frequency using <code><a href='sort_clusters.html'>sort_clusters()</a></code>.</p></td>
     </tr>
     <tr>
@@ -198,23 +198,23 @@ values of <code>clustervar</code>.</p></td>
     </tr>
     <tr>
       <th>return_plots</th>
-      <td><p>A <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> indicating whether to print the plots
+      <td><p>A <code>logical(1)</code> indicating whether to print the plots
 to a PDF or to return the list of plots that you can then print using
 <a href='https://wilkelab.org/cowplot/reference/plot_grid.html'>plot_grid</a>.</p></td>
     </tr>
     <tr>
       <th>spatial</th>
-      <td><p>A <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> indicating whether to include the histology
+      <td><p>A <code>logical(1)</code> indicating whether to include the histology
 layer from <code><a href='geom_spatial.html'>geom_spatial()</a></code>. If you plan to use
 <a href='https://docs.ropensci.org/plotly/reference/ggplotly.html'>ggplotly()</a> then it's best to set this to <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>height</th>
-      <td><p>A <code><a href='https://rdrr.io/r/base/numeric.html'>numeric(1)</a></code> passed to <a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a>.</p></td>
+      <td><p>A <code>numeric(1)</code> passed to <a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a>.</p></td>
     </tr>
     <tr>
       <th>width</th>
-      <td><p>A <code><a href='https://rdrr.io/r/base/numeric.html'>numeric(1)</a></code> passed to <a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a>.</p></td>
+      <td><p>A <code>numeric(1)</code> passed to <a href='https://rdrr.io/r/grDevices/pdf.html'>pdf</a>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -244,7 +244,7 @@ objects.</p>
     <span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"spe"</span><span class='op'>)</span><span class='op'>)</span> <span class='va'>spe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span><span class='st'>"spe"</span><span class='op'>)</span>
 
     <span class='co'>## Subset to two samples of interest</span>
-    <span class='va'>spe_sub</span> <span class='op'>&lt;-</span> <span class='va'>spe</span><span class='op'>[</span>, <span class='va'>spe</span><span class='op'>$</span><span class='va'>sample_id</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"151673"</span>, <span class='st'>"151674"</span><span class='op'>)</span><span class='op'>]</span>
+    <span class='va'>spe_sub</span> <span class='op'>&lt;-</span> <span class='va'>spe</span><span class='op'>[</span>, <span class='va'>spe</span><span class='op'>$</span><span class='va'>sample_id</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"151673"</span>, <span class='st'>"151674"</span><span class='op'>)</span><span class='op'>]</span>
 
     <span class='co'>## Obtain the plot list</span>
     <span class='va'>p_list</span> <span class='op'>&lt;-</span>
@@ -264,7 +264,7 @@ objects.</p>
     <span class='co'>## for subject 3</span>
     <span class='fu'>cowplot</span><span class='fu'>::</span><span class='fu'><a href='https://wilkelab.org/cowplot/reference/plot_grid.html'>plot_grid</a></span><span class='op'>(</span>plotlist <span class='op'>=</span> <span class='va'>p_list</span>, ncol <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2021-03-30</span></div><div class='output co'>#&gt; <span class='message'>2021-04-01 14:25:23 loading file ~/.cache/BiocFileCache/a173a44be9d_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span></div><div class='img'><img src='vis_grid_clus-1.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='co'>#&gt; snapshotDate(): 2021-04-27</div><div class='co'>#&gt; 2021-04-28 20:18:52 loading file /github/home/.cache/R/BiocFileCache/d83e362faad5_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</div><div class='img'><img src='vis_grid_clus-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

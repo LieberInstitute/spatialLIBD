@@ -93,7 +93,7 @@ genes (FDR &amp;lt; 0.1 by default) genes for a given model type result." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.11</span>
       </span>
     </div>
 
@@ -170,13 +170,13 @@ element of the list is a character vector of Ensembl gene IDs.</p></td>
     </tr>
     <tr>
       <th>fdr_cut</th>
-      <td><p>A <code><a href='https://rdrr.io/r/base/numeric.html'>numeric(1)</a></code> specifying the FDR cutoff to use for
+      <td><p>A <code>numeric(1)</code> specifying the FDR cutoff to use for
 determining significance among the</p></td>
     </tr>
     <tr>
       <th>modeling_results</th>
       <td><p>Defaults to the output of
-<code><a href='fetch_data.html'>fetch_data(type = 'modeling_results')</a></code>. This is a list of tables with the
+<code>fetch_data(type = 'modeling_results')</code>. This is a list of tables with the
 columns <code>f_stat_*</code> or <code>t_stat_*</code> as well as <code>p_value_*</code> and <code>fdr_*</code> plus
 <code>ensembl</code>. The column name is used to extract the statistic results, the
 p-values, and the FDR adjusted p-values. Then the <code>ensembl</code> column is used
@@ -195,8 +195,8 @@ are F-statistics.</p></td>
     </tr>
     <tr>
       <th>reverse</th>
-      <td><p>A <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> indicating whether to multiply by <code>-1</code> the
-input statistics and reverse the <code>layerA-layerB</code> column names (using the <code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code>)
+      <td><p>A <code>logical(1)</code> indicating whether to multiply by <code>-1</code> the
+input statistics and reverse the <code>layerA-layerB</code> column names (using the <code>-</code>)
 into <code>layerB-layerA</code>.</p></td>
     </tr>
     </table>
@@ -241,7 +241,7 @@ to see a full script from where this family of functions is derived from.</p>
 <span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"modeling_results"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
     <span class='va'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2021-03-30</span></div><div class='output co'>#&gt; <span class='message'>2021-04-01 14:22:52 loading file ~/.cache/BiocFileCache/a173a5567e8_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></div><div class='input'>
+</div><div class='co'>#&gt; snapshotDate(): 2021-04-27</div><div class='co'>#&gt; 2021-04-28 20:15:30 loading file /github/home/.cache/R/BiocFileCache/cf4735ab17f_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</div><div class='input'>
 <span class='co'>## Compute the gene set enrichment results</span>
 <span class='va'>asd_sfari_enrichment</span> <span class='op'>&lt;-</span> <span class='fu'>gene_set_enrichment</span><span class='op'>(</span>
     gene_list <span class='op'>=</span> <span class='va'>asd_sfari_geneList</span>,
@@ -251,7 +251,7 @@ to see a full script from where this family of functions is derived from.</p>
 
 <span class='co'>## Explore the results</span>
 <span class='va'>asd_sfari_enrichment</span>
-</div><div class='output co'>#&gt;           OR         Pval   test                   ID model_type fdr_cut
+</div><div class='co'>#&gt;           OR         Pval   test                   ID model_type fdr_cut
 #&gt; 1  1.2659915 3.187330e-03     WM       Gene_SFARI_all enrichment     0.1
 #&gt; 2  1.1819109 1.775383e-01     WM      Gene_SFARI_high enrichment     0.1
 #&gt; 3  1.2333378 3.197106e-01     WM Gene_SFARI_syndromic enrichment     0.1

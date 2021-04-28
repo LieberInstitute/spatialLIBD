@@ -91,7 +91,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.11</span>
       </span>
     </div>
 
@@ -171,7 +171,7 @@ matched and then correlated with our statistics.</p></td>
     <tr>
       <th>modeling_results</th>
       <td><p>Defaults to the output of
-<code><a href='fetch_data.html'>fetch_data(type = 'modeling_results')</a></code>. This is a list of tables with the
+<code>fetch_data(type = 'modeling_results')</code>. This is a list of tables with the
 columns <code>f_stat_*</code> or <code>t_stat_*</code> as well as <code>p_value_*</code> and <code>fdr_*</code> plus
 <code>ensembl</code>. The column name is used to extract the statistic results, the
 p-values, and the FDR adjusted p-values. Then the <code>ensembl</code> column is used
@@ -190,8 +190,8 @@ are F-statistics.</p></td>
     </tr>
     <tr>
       <th>reverse</th>
-      <td><p>A <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> indicating whether to multiply by <code>-1</code> the
-input statistics and reverse the <code>layerA-layerB</code> column names (using the <code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code>)
+      <td><p>A <code>logical(1)</code> indicating whether to multiply by <code>-1</code> the
+input statistics and reverse the <code>layerA-layerB</code> column names (using the <code>-</code>)
 into <code>layerB-layerA</code>.</p></td>
     </tr>
     </table>
@@ -220,7 +220,7 @@ for a full analysis from which this family of functions is derived from.</p>
 <span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"modeling_results"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
     <span class='va'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2021-03-30</span></div><div class='output co'>#&gt; <span class='message'>2021-04-01 14:23:29 loading file ~/.cache/BiocFileCache/a173a5567e8_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></div><div class='input'>
+</div><div class='co'>#&gt; snapshotDate(): 2021-04-27</div><div class='co'>#&gt; 2021-04-28 20:16:17 loading file /github/home/.cache/R/BiocFileCache/cf4735ab17f_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</div><div class='input'>
 <span class='co'>## Compute the correlations</span>
 <span class='va'>cor_stats_layer</span> <span class='op'>&lt;-</span> <span class='fu'>layer_stat_cor</span><span class='op'>(</span>
     <span class='va'>tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer</span>,
@@ -230,7 +230,7 @@ for a full analysis from which this family of functions is derived from.</p>
 
 <span class='co'>## Explore the correlation matrix</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>cor_stats_layer</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;               WM       Layer6     Layer5
+</div><div class='co'>#&gt;               WM       Layer6     Layer5
 #&gt; 22 (3) 0.6824669 -0.009192291 -0.1934265
 #&gt; 3 (3)  0.7154122 -0.070042729 -0.2290574
 #&gt; 23 (3) 0.6637885 -0.031467704 -0.2018306

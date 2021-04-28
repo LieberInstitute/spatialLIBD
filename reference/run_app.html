@@ -93,7 +93,7 @@ any other data that you have shaped according to our object structure." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.11</span>
       </span>
     </div>
 
@@ -179,7 +179,7 @@ any other data that you have shaped according to our object structure.</p>
     <tr>
       <th>spe</th>
       <td><p>Defaults to the output of
-<code><a href='fetch_data.html'>fetch_data(type = 'spe')</a></code>. This is a
+<code>fetch_data(type = 'spe')</code>. This is a
 <a href='https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html'>SpatialExperiment-class</a>
 object with the spot-level Visium data and information required for
 visualizing the histology. See <code><a href='fetch_data.html'>fetch_data()</a></code> for more details.</p></td>
@@ -187,7 +187,7 @@ visualizing the histology. See <code><a href='fetch_data.html'>fetch_data()</a><
     <tr>
       <th>sce_layer</th>
       <td><p>Defaults to the output of
-<code><a href='fetch_data.html'>fetch_data(type = 'sce_layer')</a></code>. This is a
+<code>fetch_data(type = 'sce_layer')</code>. This is a
 SingleCellExperiment
 object with the spot-level Visium data compressed via pseudo-bulking to the
 layer-level (group-level) resolution. See <code><a href='fetch_data.html'>fetch_data()</a></code> for more details.</p></td>
@@ -195,7 +195,7 @@ layer-level (group-level) resolution. See <code><a href='fetch_data.html'>fetch_
     <tr>
       <th>modeling_results</th>
       <td><p>Defaults to the output of
-<code><a href='fetch_data.html'>fetch_data(type = 'modeling_results')</a></code>. This is a list of tables with the
+<code>fetch_data(type = 'modeling_results')</code>. This is a list of tables with the
 columns <code>f_stat_*</code> or <code>t_stat_*</code> as well as <code>p_value_*</code> and <code>fdr_*</code> plus
 <code>ensembl</code>. The column name is used to extract the statistic results, the
 p-values, and the FDR adjusted p-values. Then the <code>ensembl</code> column is used
@@ -208,7 +208,7 @@ in long format with the modeling results.</p></td>
     </tr>
     <tr>
       <th>docs_path</th>
-      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> specifying the path to the directory
+      <td><p>A <code>character(1)</code> specifying the path to the directory
 containing the website documentation files. The directory has to contain
 the files: <code>documentation_sce_layer.md</code>, <code>documentation_spe.md</code>,
 <code>favicon.ico</code>, <code>footer.html</code> and <code>README.md</code>.</p></td>
@@ -231,7 +231,7 @@ as genes. They will have to be present in <code>colData(sce)</code>.</p></td>
     </tr>
     <tr>
       <th>spatial_libd_var</th>
-      <td><p>A <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> with the name of the main cluster
+      <td><p>A <code>character(1)</code> with the name of the main cluster
 variable to use. It will have to be present in both <code>colData(spe)</code> and
 <code>colData(sce_layer)</code>.</p></td>
     </tr>

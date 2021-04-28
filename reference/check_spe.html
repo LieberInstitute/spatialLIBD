@@ -92,7 +92,7 @@ For more details please check the vignette documentation." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.11</span>
       </span>
     </div>
 
@@ -152,14 +152,7 @@ For more details please check the vignette documentation.</p>
 
     <pre class="usage"><span class='fu'>check_spe</span><span class='op'>(</span>
   <span class='va'>spe</span>,
-  variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GraphBased"</span>, <span class='st'>"Layer"</span>, <span class='st'>"Maynard"</span>, <span class='st'>"Martinowich"</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"SNN_k50_k"</span>,
-    <span class='fl'>4</span><span class='op'>:</span><span class='fl'>28</span><span class='op'>)</span>, <span class='st'>"layer_guess_reordered_short"</span>, <span class='st'>"cell_count"</span>, <span class='st'>"sum_umi"</span>, <span class='st'>"sum_gene"</span>,
-    <span class='st'>"expr_chrM"</span>, <span class='st'>"expr_chrM_ratio"</span>, <span class='st'>"SpatialDE_PCA"</span>, <span class='st'>"SpatialDE_pool_PCA"</span>, <span class='st'>"HVG_PCA"</span>,
-    <span class='st'>"pseudobulk_PCA"</span>, <span class='st'>"markers_PCA"</span>, <span class='st'>"SpatialDE_UMAP"</span>, <span class='st'>"SpatialDE_pool_UMAP"</span>, <span class='st'>"HVG_UMAP"</span>,
-    <span class='st'>"pseudobulk_UMAP"</span>, <span class='st'>"markers_UMAP"</span>, <span class='st'>"SpatialDE_PCA_spatial"</span>,
-    <span class='st'>"SpatialDE_pool_PCA_spatial"</span>, <span class='st'>"HVG_PCA_spatial"</span>, <span class='st'>"pseudobulk_PCA_spatial"</span>,
-    <span class='st'>"markers_PCA_spatial"</span>, <span class='st'>"SpatialDE_UMAP_spatial"</span>, <span class='st'>"SpatialDE_pool_UMAP_spatial"</span>,     
-    <span class='st'>"HVG_UMAP_spatial"</span>, <span class='st'>"pseudobulk_UMAP_spatial"</span>, <span class='st'>"markers_UMAP_spatial"</span><span class='op'>)</span>
+  variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sum_umi"</span>, <span class='st'>"sum_gene"</span>, <span class='st'>"expr_chrM"</span>, <span class='st'>"expr_chrM_ratio"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -168,7 +161,7 @@ For more details please check the vignette documentation.</p>
     <tr>
       <th>spe</th>
       <td><p>Defaults to the output of
-<code><a href='fetch_data.html'>fetch_data(type = 'spe')</a></code>. This is a
+<code>fetch_data(type = 'spe')</code>. This is a
 <a href='https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html'>SpatialExperiment-class</a>
 object with the spot-level Visium data and information required for
 visualizing the histology. See <code><a href='fetch_data.html'>fetch_data()</a></code> for more details.</p></td>
@@ -202,7 +195,7 @@ be present in <code>colData(spe)</code>.</p></td>
     <span class='co'>## Check the object</span>
     <span class='fu'>check_spe</span><span class='op'>(</span><span class='va'>spe</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>snapshotDate(): 2021-03-30</span></div><div class='output co'>#&gt; <span class='message'>2021-04-01 14:22:28 loading file ~/.cache/BiocFileCache/a173a44be9d_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span></div><div class='output co'>#&gt; class: SpatialExperiment 
+</div><div class='co'>#&gt; snapshotDate(): 2021-04-27</div><div class='co'>#&gt; 2021-04-28 20:14:56 loading file /github/home/.cache/R/BiocFileCache/d83e362faad5_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</div><div class='co'>#&gt; class: SpatialExperiment 
 #&gt; dim: 33538 47681 
 #&gt; metadata(0):
 #&gt; assays(2): counts logcounts
@@ -211,13 +204,13 @@ be present in <code>colData(spe)</code>.</p></td>
 #&gt; rowData names(9): source type ... gene_search is_top_hvg
 #&gt; colnames(47681): AAACAACGAATAGTTC-1 AAACAAGTATCTCCCA-1 ...
 #&gt;   TTGTTTCCATACAACT-1 TTGTTTGTGTAAATTC-1
-#&gt; colData names(65): sample_id Cluster ... pseudobulk_UMAP_spatial
+#&gt; colData names(66): Barcode sample_id ... pseudobulk_UMAP_spatial
 #&gt;   markers_UMAP_spatial
 #&gt; reducedDimNames(6): PCA TSNE_perplexity50 ... TSNE_perplexity80
 #&gt;   UMAP_neighbors15
 #&gt; mainExpName: NULL
 #&gt; altExpNames(0):
-#&gt; spatialData names(6) : barcode in_tissue ... pxl_row_in_fullres
+#&gt; spatialData names(5) : in_tissue array_row array_col pxl_row_in_fullres
 #&gt;   pxl_col_in_fullres
 #&gt; imgData names(4): sample_id image_id data scaleFactor</div></pre>
   </div>
