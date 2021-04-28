@@ -44,32 +44,32 @@ library("RefManageR")
 ## Write bibliography information
 bib <- c(
     R = citation(),
-    AnnotationHub = citation("AnnotationHub"),
-    benchmarkme = citation("benchmarkme"),
-    BiocFileCache = citation("BiocFileCache"),
-    BiocStyle = citation("BiocStyle"),
-    cowplot = citation("cowplot"),
-    DT = citation("DT"),
-    ExperimentHub = citation("ExperimentHub"),
-    fields = citation("fields"),
-    ggplot2 = citation("ggplot2"),
-    golem = citation("golem"),
-    IRanges = citation("IRanges"),
+    AnnotationHub = citation("AnnotationHub")[1],
+    benchmarkme = citation("benchmarkme")[1],
+    BiocFileCache = citation("BiocFileCache")[1],
+    BiocStyle = citation("BiocStyle")[1],
+    cowplot = citation("cowplot")[1],
+    DT = citation("DT")[1],
+    ExperimentHub = citation("ExperimentHub")[1],
+    fields = citation("fields")[1],
+    ggplot2 = citation("ggplot2")[1],
+    golem = citation("golem")[1],
+    IRanges = citation("IRanges")[1],
     knitr = citation("knitr")[3],
-    plotly = citation("plotly"),
-    Polychrome = citation("Polychrome"),
-    RColorBrewer = citation("RColorBrewer"),
+    plotly = citation("plotly")[1],
+    Polychrome = citation("Polychrome")[1],
+    RColorBrewer = citation("RColorBrewer")[1],
     RefManageR = citation("RefManageR")[1],
     rmarkdown = citation("rmarkdown")[1],
-    S4Vectors = citation("S4Vectors"),
-    scater = citation("scater"),
-    sessioninfo = citation("sessioninfo"),
-    SingleCellExperiment = citation("SingleCellExperiment"),
-    shiny = citation("shiny"),
-    SummarizedExperiment = citation("SummarizedExperiment"),
-    testthat = citation("testthat"),
-    viridisLite = citation("viridisLite"),
-    SpatialExperiment = citation("SpatialExperiment"),
+    S4Vectors = citation("S4Vectors")[1],
+    scater = citation("scater")[1],
+    sessioninfo = citation("sessioninfo")[1],
+    SingleCellExperiment = citation("SingleCellExperiment")[1],
+    shiny = citation("shiny")[1],
+    SummarizedExperiment = citation("SummarizedExperiment")[1],
+    testthat = citation("testthat")[1],
+    viridisLite = citation("viridisLite")[1],
+    SpatialExperiment = citation("SpatialExperiment")[1],
     spatialLIBD = citation("spatialLIBD")[1],
     spatialLIBDpaper = citation("spatialLIBD")[2]
 )
@@ -80,9 +80,9 @@ Welcome to the `spatialLIBD` project! It is composed of:
 
 * a [shiny](https://shiny.rstudio.com/) web application that we are hosting at [spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/) that can handle a [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2) set of concurrent users,
 * a Bioconductor package at [bioconductor.org/packages/spatialLIBD](http://bioconductor.org/packages/spatialLIBD) (or from [here](http://research.libd.org/spatialLIBD/)) that lets you analyze the data and run a local version of our web application (with our data or yours),
-* and a [research article](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1) with the scientific knowledge we drew from this dataset. The analysis code for our project is available [here](https://github.com/LieberInstitute/HumanPilot/).
+* and a [research article](https://doi.org/10.1038/s41593-020-00787-0) with the scientific knowledge we drew from this dataset. The analysis code for our project is available [here](https://github.com/LieberInstitute/HumanPilot/) and the high quality figures for the manuscript are available through [Figshare](https://doi.org/10.6084/m9.figshare.13623902.v1).
 
-The web application allows you to browse the LIBD human dorsolateral pre-frontal cortex (DLPFC) spatial transcriptomics data generated with the 10x Genomics Visium platform. Through the [R/Bioconductor package](https://bioconductor.org/packages/spatialLIBD) you can also download the data as well as visualize your own datasets using this web application. Please check the [bioRxiv pre-print](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1) for more details about this project.
+The web application allows you to browse the LIBD human dorsolateral pre-frontal cortex (DLPFC) spatial transcriptomics data generated with the 10x Genomics Visium platform. Through the [R/Bioconductor package](https://bioconductor.org/packages/spatialLIBD) you can also download the data as well as visualize your own datasets using this web application. Please check the [manuscript](https://doi.org/10.1038/s41593-020-00787-0) or [bioRxiv pre-print](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1) for more details about this project.
 
 If you tweet about this website, the data or the R package please use the <code>#spatialLIBD</code> hashtag. You can find previous tweets that way as shown <a href="https://twitter.com/search?q=%23spatialLIBD&src=typed_query">here</a>. Thank you! <a href="https://twitter.com/intent/tweet?button_hashtag=spatialLIBD&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #spatialLIBD</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 

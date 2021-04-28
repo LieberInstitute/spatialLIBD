@@ -1,3 +1,11 @@
+# spatialLIBD 1.3.12
+
+NEW FEATURES
+
+* We added a new vignette that shows how you can use `spatialLIBD` with any
+10x Genomics Visium dataset processed with `spaceranger`. The vignette uses
+the publicly available human lymph node example from the 10x Genomics website.
+
 # spatialLIBD 1.3.3
 
 NEW FEATURES

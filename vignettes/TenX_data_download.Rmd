@@ -8,7 +8,7 @@ author:
   - name: Brenda Pardo
     affiliation:
     - *libd
-    - &lcg Licenciatura de Ciencias Genómicas, Escuela Nacional de Estudios Superiores Unidad Juriquilla, Universidad Nacional Autónoma deMéxico
+    - &lcg Licenciatura de Ciencias Genómicas, Escuela Nacional de Estudios Superiores Unidad Juriquilla, Universidad Nacional Autónoma de México
     email: bpardo@lcgej.unam.mx
   - name: Leonardo Collado-Torres
     affiliation:
@@ -49,13 +49,18 @@ library("RefManageR")
 ## Write bibliography information
 bib <- c(
     R = citation(),
+    BiocFileCache = citation("BiocFileCache")[1],
     BiocStyle = citation("BiocStyle")[1],
     knitr = citation("knitr")[1],
+    pryr = citation("pryr")[1],
     RefManageR = citation("RefManageR")[1],
     rmarkdown = citation("rmarkdown")[1],
+    rtracklayer = citation("rtracklayer")[1],
     sessioninfo = citation("sessioninfo")[1],
     testthat = citation("testthat")[1],
-    spatialLIBD = citation("spatialLIBD")[1]
+    SpatialExperiment = citation("SpatialExperiment")[1],
+    spatialLIBD = citation("spatialLIBD")[1],
+    spatialLIBDpaper = citation("spatialLIBD")[2]
 )
 ```
 
@@ -63,7 +68,7 @@ bib <- c(
 
 ## Install `spatialLIBD`
 
-`R` is an open-source statistical environment which can be easily modified to enhance its functionality via packages. `r Biocpkg("spatialLIBD")` is a `R` package available via the [Bioconductor](http://bioconductor.org) repository for packages. `R` can be installed on any operating system from [CRAN](https://cran.r-project.org/) after which you can install `r Biocpkg("spatialLIBD")` by using the following commands in your `R` session:
+`R` is an open-source statistical environment which can be easily modified to enhance its functionality via packages. `r Biocpkg("spatialLIBD")` `r Citep(bib[['spatialLIBD']])` is an `R` package available via the [Bioconductor](http://bioconductor.org) repository for packages. `R` can be installed on any operating system from [CRAN](https://cran.r-project.org/) after which you can install `r Biocpkg("spatialLIBD")` by using the following commands in your `R` session:
 
 ```{r "install", eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
@@ -78,7 +83,7 @@ BiocManager::valid()
 
 ## Required knowledge
 
-Please check the _Introduction to spatialLIBD_ vignette first.
+Please check the _Introduction to spatialLIBD_ vignette first available through [GitHub](http://research.libd.org/spatialLIBD/articles/spatialLIBD.html) or [Bioconductor](https://bioconductor.org/packages/spatialLIBD).
 
 ## Citing `spatialLIBD`
 
@@ -91,19 +96,35 @@ citation("spatialLIBD")
 
 # Download data from 10x Genomics
 
-First of all, lets load the different packages we'll need.
+In this vignette we'll show you can you can use `r Biocpkg("spatialLIBD")` `r Citep(bib[['spatialLIBD']])` for exploring spatially resolved transcriptomics data from the [Visium platform by 10x Genomics](https://www.10xgenomics.com/products/spatial-gene-expression). That is, you will learn how to use `r Biocpkg("spatialLIBD")` for data beyond the one it was initially developed for `r Citep(bib[['spatialLIBDpaper']])`. To illustrate these steps, we will use data publicly that 10x Genomics made publicly available at https://support.10xgenomics.com/spatial-gene-expression/datasets. We will use files from the human lymph node example publicly available at https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node.
+
+## Load packages
+
+To get started, lets load the different packages we'll need for this vignette. Here's a brief summary of why we need these packages:
+
+* `r Biocpkg("BiocFileCache")`: for downloading and saving a local cache of the data
+* `r Biocpkg("SpatialExperiment")`: for reading the `spaceranger` files provided by 10x Genomics
+* `r Biocpkg("rtracklayer")`: for importing a gene annotation GTF file
+* `r CRANpkg("pryr")`: for checking how much memory our object is using
+* `r Biocpkg("spatialLIBD")`: for launching an interactive website to explore the data
 
 ```{r "start", message=FALSE}
-library("spatialLIBD")
+## Load packages in the order we'll use them next
 library("BiocFileCache")
-library("rtracklayer")
 library("SpatialExperiment")
+library("rtracklayer")
 library("pryr")
+library("spatialLIBD")
 ```
 
-Next we download data from 10x Genomics available from https://support.10xgenomics.com/spatial-gene-expression/datasets and in particular at https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node. We'll use `r Biocpkg("BiocFileCache")` to keep the data in a local cache in case we want to run this example again and don't want to re-download the data from the web.
+## Download spaceranger output files
+
+Next we download data from 10x Genomics available from from the human lymph node example available at https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node. We don't need to download all the files listed there since `r Biocpkg("SpatialExperiment")` doesn't need all of them for importing the data into R. These files are part of the output that gets generated by `spaceranger` which is the processing pipeline provided by 10x Genomics for Visium data.
+
+We'll use `r Biocpkg("BiocFileCache")` to keep the data in a local cache in case we want to run this example again and don't want to re-download the data from the web.
 
 ```{r "download_10x_data"}
+## Download and save a local cache of the data provided by 10x Genomics
 bfc <- BiocFileCache::BiocFileCache()
 lymph.url <-
     paste0(
@@ -115,12 +136,17 @@ lymph.url <-
         )
     )
 lymph.data <- sapply(lymph.url, BiocFileCache::bfcrpath, x = bfc)
+```
 
-# Extract the files to a temporary location
+10x Genomics provides the files in compressed tarballs (`.tar.gz` file extension). Which is why we'll need to use `utils::untar()` to decompress the files. This will create new directories and we will use `list.files()` to see what files these directories contain.
+
+```{r "extract_files"}
+## Extract the files to a temporary location
+## (they'll be deleted once you close your R session)
 sapply(lymph.data, utils::untar, exdir = tempdir())
 
-# List the files we downloaded and extracted
-# These files are typically CellRanger outputs
+## List the files we downloaded and extracted
+## These files are typically SpaceRanger outputs
 lymph.dirs <- file.path(
     tempdir(),
     c("filtered_feature_bc_matrix", "spatial", "raw_feature_bc_matrix")
@@ -128,25 +154,36 @@ lymph.dirs <- file.path(
 list.files(lymph.dirs)
 ```
 
-Next we import the data into R using `read10xVisium()` from `r Biocpkg("SpatialExperiment")`.
+Now that we have the files that we need, we can import the data into R using `read10xVisium()` from `r Biocpkg("SpatialExperiment")`. We'll import the low resolution histology images produced by `spaceranger` using the `images = "lowres"` and `load = TRUE` arguments. We'll also load the filtered gene expression data using the `data = "filtered"` argument. The count matrix can still be quite large, which is why we'll use the `type = "sparse"` argument to load the data into an R object that is memory-efficient for sparse data.
 
 ```{r "import_to_r"}
-# Import the data as a SingleCellExperiment
+## Import the data as a SpatialExperiment object
 spe <- SpatialExperiment::read10xVisium(
     samples = tempdir(),
     sample_id = "lymph",
     type = "sparse", data = "filtered",
     images = "lowres", load = TRUE
 )
+## Inspect the R object we just created: class, memory, and how it looks in
+## general
+class(spe)
+pryr::object_size(spe)
 spe
+
+## The counts are saved in a sparse matrix R object
+class(counts(spe))
 ```
 
 
 # Modify spe for spatialLIBD
 
-Now that we have a `spe` object with data from 10x Genomics, we need to add a few features to the object required by `spatialLIBD::run_app()`.
+Now that we have an `SpatialExperiment` R object (`spe`) with the data from 10x Genomics for the human lymph node example, we need to add a few features to the R object in order to create the interactive website using `spatialLIBD::run_app()`. These additional elements power features in the interactive website that you might be interested in.
 
-TODO: explain `key`, `sum_umi` and `sum_gene`.
+First we start with adding a few variables to the sample information table (`colData()`) of our `spe` object. We add:
+
+* `key`: this labels each spot with a unique identifier. We combine the sample ID with the spot barcode ID to create this unique identifier.
+* `sum_umi`: this continuous variable contains the total number of counts for each sample prior to filtering any genes.
+* `sum_gene`: this continuous variable contains the number of genes that have at least 1 count.
 
 ```{r "add_key"}
 ## Add some information used by spatialLIBD
@@ -155,27 +192,56 @@ spe$sum_umi <- colSums(counts(spe))
 spe$sum_gene <- colSums(counts(spe) > 0)
 ```
 
-## Add GTF information
+## Add gene annotation information
+
+The files `SpatialExperiment::read10xVisium()` uses to read in the `spaceranger` outputs into R do not include much information about the genes, such as their chromosomes, coordinates, and other gene annotation information. We thus recommend that you read in this information from a gene annotation file: typically a `gtf` file. For a real case scenario, you'll mostly likely have access to the GTF file provided by 10x Genomics. However, we cannot download that file without downloading other files for this example. Thus we'll show you the code you would use if you had access to the GTF file from 10x Genomics and also show a second approach that works for this vignette.
 
 ### From 10x
 
-Depending on the version of `spaceranger` you used, you might have used different GTF files 10x Genomics has made available at https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest and described at https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build. These files are big though and we won't download them in this example. For instance, _References - 2020-A (July 7, 2020)_ for _Human reference (GRCh38)_ is 11 GB in size. If you did have the file locally, you could use the following code to read in the GTF file prepared by 10x Genomics and add the information into your `spe` object that `SpatialExperiment::read10xVisium()` does not include.
+Depending on the version of `spaceranger` you used, you might have used different GTF files 10x Genomics has made available at https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest and described at https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build. These files are too big though and we won't download them in this example. For instance, _References - 2020-A (July 7, 2020)_ for _Human reference (GRCh38)_ is 11 GB in size and contains files we do not need for this vignette. If you did have the file locally, you could use the following code to read in the GTF file prepared by 10x Genomics and add the information into your `spe` object that `SpatialExperiment::read10xVisium()` does not include.
+
+For example, in our computing cluster this GTF file is located at the following path and is 1.4 GB in size:
+
+```{bash, eval = FALSE}
+$ du -sh --apparent-size /dcl02/lieber/ajaffe/SpatialTranscriptomics/refdata-gex-GRCh38-2020-A/genes/genes.gtf
+1.4G	/dcl02/lieber/ajaffe/SpatialTranscriptomics/refdata-gex-GRCh38-2020-A/genes/genes.gtf
+```
+
+If you have the GTF file from 10x Genomics, we show next how you can read the information into R, match it appropriately with the information in the `spe` object and add it back into the `spe` object.
 
 ```{r "use_10x_gtf", eval = FALSE}
-## Read in the gene information from the annotation GTF file
+## You could:
+## * download the 11 GB file from https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz
+## * decompress it
+
+## Read in the gene information from the annotation GTF file provided by 10x
 gtf <-
     rtracklayer::import(
-        "/path/to/ref_genome.gtf"
+        "/path/to/refdata-gex-GRCh38-2020-A/genes/genes.gtf"
     )
+
+## Subject to genes only
 gtf <- gtf[gtf$type == "gene"]
+
+## Set the names to be the gene IDs
 names(gtf) <- gtf$gene_id
 
 ## Match the genes
 match_genes <- match(rownames(spe), gtf$gene_id)
+
+## They should all be present if you are using the correct GTF file from 10x
 stopifnot(all(!is.na(match_genes)))
 
-## Keep only some columns from the gtf
-mcols(gtf) <- mcols(gtf)[, c("source", "type", "gene_id", "gene_version", "gene_name", "gene_type")]
+## Keep only some columns from the gtf (you could keep all of them if you want)
+mcols(gtf) <-
+    mcols(gtf)[, c(
+        "source",
+        "type",
+        "gene_id",
+        "gene_version",
+        "gene_name",
+        "gene_type"
+    )]
 
 ## Add the gene info to our SPE object
 rowRanges(spe) <- gtf[match_genes]
@@ -183,10 +249,10 @@ rowRanges(spe) <- gtf[match_genes]
 
 ### From Gencode
 
-In this vignette, we'll use the GTF file from Gencode v32. That's because the notes from _References - 2020-A (July 7, 2020)_ and _Human reference, GRCh38 (GENCODE v32/Ensembl 98)_ https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A show that they used Gencode v32. They also used Ensembl version 98 which is why a few genes we have in our object are going to be missing.
+In this vignette, we'll use the GTF file from Gencode v32. That's because the build notes from _References - 2020-A (July 7, 2020)_ and _Human reference, GRCh38 (GENCODE v32/Ensembl 98)_ at https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A show that 10x Genomics used Gencode v32. They also used Ensembl version 98 which is why a few genes we have in our object are going to be missing. We show next how you can read the information into R, match it appropriately with the information in the `spe` object and add it back into the `spe` object.
 
 ```{r "use_gencode_gtf"}
-## Download the Gencode v32 GTF and read it into R
+## Download the Gencode v32 GTF file and cache it
 gtf_cache <- BiocFileCache::bfcrpath(
     bfc,
     paste0(
@@ -194,8 +260,10 @@ gtf_cache <- BiocFileCache::bfcrpath(
         "release_32/gencode.v32.annotation.gtf.gz"
     )
 )
-## GTF cache location
+
+## Show the GTF cache location
 gtf_cache
+
 ## Import into R (takes ~1 min)
 gtf <- rtracklayer::import(gtf_cache)
 
@@ -223,21 +291,25 @@ mcols(gtf) <- mcols(gtf)[, c("source", "type", "gene_id", "gene_name", "gene_typ
 rowRanges(spe) <- gtf[match_genes]
 ```
 
-### Add gene info
+### Enable a friendlier gene search
 
-Regardless of which method you used to obtain the gene annotation information, we can now proceed by adding the gene symbol and gene ID information that helps users search for genes in the shiny app produced by `spatialLIBD`.
+Regardless of which method you used to obtain the gene annotation information, we can now proceed by adding the gene symbol and gene ID information that helps users search for genes in the shiny app produced by `spatialLIBD`. This will enable users to search genes by gene symbol or gene ID. If you didn't do this, users would only be able to search genes by gene ID which makes the web application harder to use. 
+
+We also compute the total expression for the mitochondrial chromosome (chrM) as well as the ratio of chrM expression. Both of these continuous variables are interesting to explore and in some situations could be biological interpretations. For instance, in our pilot data `r Citep(bib[['spatialLIBDpaper']])`, we noticed that the `expr_chrM_ratio` was associated to DLPFC layers. That is, spots with high `expr_chrM_ratio` were not randomly located in our Visium slides.
 
 ```{r "add_gene_info"}
 ## Add information used by spatialLIBD
 rowData(spe)$gene_search <- paste0(rowData(spe)$gene_name, "; ", rowData(spe)$gene_id)
+
+## Compute chrM expression and chrM expression ratio
 is_mito <- which(seqnames(spe) == "chrM")
 spe$expr_chrM <- colSums(counts(spe)[is_mito, , drop = FALSE])
 spe$expr_chrM_ratio <- spe$expr_chrM / spe$sum_umi
 ```
 
-## Filter
+## Filter the spe object
 
-We can now continue with some filtering steps.
+We can now continue with some filtering steps since this can help reduce the object size in memory as well as make it ready to use for downstream processing tools such as those from the `r Biocpkg("scran")` and `r Biocpkg("scuttle")` packages. Though these steps are not absolutely necessary.
 
 ```{r "filter_spe"}
 ## Remove genes with no data
@@ -266,12 +338,16 @@ if (any(spe$sum_umi == 0)) {
 
 ## Check object
 
-We can now check the final object.
+Next, we add the `Layer` variable to the sample information table (`colData()`) with `"NA"`. That variable is used by the interactive website to store any manual annotations. (TODO: we'll rename this to make it a more general and intuitive name)
+
+```{r "add_layer"}
+## Add a variable for saving the manual annotations
+spe$Layer <- "NA"
+```
+
+Finally, we can now check the final object using `spatialLIBD::check_spe()`. This is a helper function that will warn us if some important element is missing in `spe` that we use later for the interactive website. If it all goes well, it will return the original `spe` object.
 
 ```{r "check_spe"}
-## Add a variable for saving the manual annnotations
-spe$Layer <- "NA"
-
 ## Check the final dimensions and object size
 dim(spe)
 pryr::object_size(spe)
@@ -280,7 +356,9 @@ pryr::object_size(spe)
 spatialLIBD::check_spe(spe)
 ```
 
-For example, we can make a few visualizations with our `spe` object.
+# Explore the data
+
+With out complete `spe` object, we can now use `r Biocpkg("spatialLIBD")` for visualizing our data. We can do so using functions such as `vis_gene()` and `vis_clus()` that are described in more detail at the _Introduction to spatialLIBD_ vignette available through [GitHub](http://research.libd.org/spatialLIBD/articles/spatialLIBD.html) or [Bioconductor](https://bioconductor.org/packages/spatialLIBD).
 
 ```{r "test_visualizations"}
 # Visualizations
@@ -300,33 +378,90 @@ spatialLIBD::vis_clus(
 )
 ```
 
-# Run shiny app
+## Run the interactive website
 
-We are now ready to run our `r CRANpkg("shiny")` web application using `r Biocpkg("spatialLIBD")` `r Citep(bib[["spatialLIBD"]])`.
+We are now ready to create our interactive website for the human lymph node data. The interactive website is a `r CRANpkg("shiny")` web application that uses `r CRANpkg("plotly")` to power several of the interactive features. We can create the interactive website using the `spatialLIBD::run_app()` function. The default arguments of that function are customized for the data from our initial study `r Citep(bib[['spatialLIBDpaper']])`, so we will need to make some adjustments:
 
-```{r "run_shiny_app", eval = FALSE}
-spatialLIBD::run_app(
-    spe,
-    sce_layer = NULL,
-    modeling_results = NULL,
-    sig_genes = NULL,
-    title = "spatialLIBD without layer info",
-    spe_discrete_vars = c("random_cluster", "Layer"),
-    spe_continuous_vars = c("sum_umi", "sum_gene", "expr_chrM", "expr_chrM_ratio"),
-    spatial_libd_var = "random_cluster"
-)
+* `sce_layer`, `modeling_results` and `sig_genes` will be set to `NULL` since do not have any pseudo-bulk results for this example data.
+* `title`: we will use a custom title that reflect our data
+* `spe_discreate_vars`: we don't have really any discrete variables to show beyond `Layer` which is used for the manual annotations and `random_cluster` that we created in the previous section.
+* `spe_continous_vars`: we have computed several continuous variables while adapting our `spe` object for `r Biocpkg("spatialLIBD")`, so we'll list these variables below in order to visually inspect them.
+* `spatial_libd_var`: this is used for indicating the default discrete variable and for now we'll set it to our `random_cluster`.
+
+```{r "run_shiny_app"}
+## Run our shiny app
+if (interactive()) {
+    spatialLIBD::run_app(
+        spe,
+        sce_layer = NULL,
+        modeling_results = NULL,
+        sig_genes = NULL,
+        title = "spatialLIBD: human lymph node by 10x Genomics",
+        spe_discrete_vars = c("random_cluster", "Layer"),
+        spe_continuous_vars = c("sum_umi", "sum_gene", "expr_chrM", "expr_chrM_ratio"),
+        spatial_libd_var = "random_cluster"
+    )
+}
 ```
+
+We also recommend creating custom website documentation files as described in the documentation of `spatialLIBD::run_app()`. Those documentation files will help you describe your project to your users in a more personalized way. The easiest way to start is to copy our documentation files to a new location and adapt them. You can located them at the following path.
+
+```{r "locate_documentation_files"}
+## Locate our documentation files
+docs_path <- system.file("app", "www", package = "spatialLIBD")
+docs_path
+list.files(docs_path)
+```
+
+# Limitations
+
+`spatialLIBD::run_app()` has limitations that are inherent to the methods used to implement it, such as:
+
+1. the memory per user required by a server for hosting the web application,
+1. response speeds for the interactive views due to the number of spots,
+1. the resolution of the images displayed limiting the usefulness to magnify specific spots,
+1. and customization of the web application by the end user.
+
+## Memory
+
+Regarding the memory limitation, you can estimate how much memory you need per user by considering the memory required for the `spe` and `sce_layer` objects. 
+
+```{r "check_mem"}
+pryr::object_size(spe)
+```
+
+In our pilot data `r Citep(bib[['spatialLIBDpaper']])` our object uses about 2.1 GB of RAM since it contains the data for 12 Visium slides and we considered using about 3 GB of RAM per user. You could filter the genes more aggressively to drop lowly expressed genes or if you have many Visium slides, you could consider making multiple websites for different sets of slides. You could also have multiple mirrors to support several users, though in that case, we recommend linking users to a stable website instead of one that might not be available if you have too many users: for us our stable website is http://research.libd.org/spatialLIBD/ which includes the links to all the mirrors.
+
+Given these memory limitations, we chose to deploy our main web application at http://spatial.libd.org/spatialLIBD/ using an Amazon EC2 instance: an 'r5.4xlarge' EC2 instance with 16 vCPUs, 128 GB DRAM, 10 Gb max network, 1.008 USD/Hour. We also have deployed mirrors at https://www.shinyapps.io/ using the "3X-Large (8 GB)" instances they provide.
+
+
+## Response speeds
+
+This limitation is mostly due to the number of spots shown under the "clusters (interactive)" section of the interactive website powered by `r CRANpkg("plotly")`. Each spot is shown four times which is about 16 thousand spots for one Visium slide (depending on any filter steps you applied). The response time will depend on your own computer RAM memory, that is, the _client_ side. This limitation might be more noticeable if you have a computer with 8GB of RAM or lower, as well as if you have other high-memory software open. Furthermore, if you are running web application locally through `spatialLIBD::run_app()` then you also need to consider the required memory for the R objects. That is, the _server_ side memory use.
+
+## Image resolution
+
+When you construct the SpatialExperiment `spe` object with `r Biocpkg("SpatialExperiment")`, you can read in higher resolution images. However, the benefit of loading the raw histology images (500 MB to 20 GB per image) is likely non-existent in this web application. The memory required would likely become prohibitive. Other solutions load these raw histology images in chunks and display the chunks necessary for a given visualization area. We thus recommend using other software if you want to zoom in at the spot and/or cell resolution.
+
+## Customization
+
+While the documentation, title, icon and HTML footer are all customizable at `spatialLIBD::run_app()`, ultimately the panels shown are not unless you fork and adapt the internal code of this package. Thus, the interactive web applications powered by `r Biocpkg("spatialLIBD")` are not as easy to customize as say `r Biocpkg("iSEE")` web applications are. We think of our web application as a good enough prototype that can be useful for initial explorations of 10x Genomics Visium data. We welcome additions to our code, though we recognize that you might want to build your own production-level solution.
+
 
 # Reproducibility
 
 The `r Biocpkg("spatialLIBD")` package `r Citep(bib[["spatialLIBD"]])` was made possible thanks to:
 
 * R `r Citep(bib[["R"]])`
+* `r Biocpkg("BiocFileCache")` `r Citep(bib[["BiocFileCache"]])`
 * `r Biocpkg("BiocStyle")` `r Citep(bib[["BiocStyle"]])`
 * `r CRANpkg("knitr")` `r Citep(bib[["knitr"]])`
+* `r CRANpkg("pryr")` `r Citep(bib[["pryr"]])`
 * `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`
 * `r CRANpkg("rmarkdown")` `r Citep(bib[["rmarkdown"]])`
+* `r Biocpkg("rtracklayer")` `r Citep(bib[["rtracklayer"]])`
 * `r CRANpkg("sessioninfo")` `r Citep(bib[["sessioninfo"]])`
+* `r Biocpkg("SpatialExperiment")` `r Citep(bib[["SpatialExperiment"]])`
 * `r CRANpkg("testthat")` `r Citep(bib[["testthat"]])`
 
 This package was developed using `r BiocStyle::Biocpkg("biocthis")`.
