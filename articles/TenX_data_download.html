@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.12</span>
       </span>
     </div>
 
@@ -95,7 +95,7 @@
       </address>
                               <h4 data-toc-skip class="author">Brenda Pardo</h4>
             <address class="author_afil">
-      Lieber Institute for Brain Development, Johns Hopkins Medical CampusLicenciatura de Ciencias Genómicas, Escuela Nacional de Estudios Superiores Unidad Juriquilla, Universidad Nacional Autónoma deMéxico<br><a class="author_email" href="mailto:#"></a><a href="mailto:bpardo@lcgej.unam.mx" class="email">bpardo@lcgej.unam.mx</a>
+      Lieber Institute for Brain Development, Johns Hopkins Medical CampusLicenciatura de Ciencias Genómicas, Escuela Nacional de Estudios Superiores Unidad Juriquilla, Universidad Nacional Autónoma de México<br><a class="author_email" href="mailto:#"></a><a href="mailto:bpardo@lcgej.unam.mx" class="email">bpardo@lcgej.unam.mx</a>
       </address>
                               <h4 data-toc-skip class="author">Leonardo Collado-Torres</h4>
             <address class="author_afil">
@@ -118,7 +118,7 @@
 <h2 class="hasAnchor">
 <a href="#install-spatiallibd" class="anchor" aria-hidden="true"></a>Install <code>spatialLIBD</code>
 </h2>
-<p><code>R</code> is an open-source statistical environment which can be easily modified to enhance its functionality via packages. <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em> is a <code>R</code> package available via the <a href="http://bioconductor.org" class="external-link">Bioconductor</a> repository for packages. <code>R</code> can be installed on any operating system from <a href="https://cran.r-project.org/" class="external-link">CRAN</a> after which you can install <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em> by using the following commands in your <code>R</code> session:</p>
+<p><code>R</code> is an open-source statistical environment which can be easily modified to enhance its functionality via packages. <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em> (Collado-Torres, Maynard, and Jaffe, 2021) is an <code>R</code> package available via the <a href="http://bioconductor.org" class="external-link">Bioconductor</a> repository for packages. <code>R</code> can be installed on any operating system from <a href="https://cran.r-project.org/" class="external-link">CRAN</a> after which you can install <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em> by using the following commands in your <code>R</code> session:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
@@ -132,7 +132,7 @@
 <div id="required-knowledge" class="section level2">
 <h2 class="hasAnchor">
 <a href="#required-knowledge" class="anchor" aria-hidden="true"></a>Required knowledge</h2>
-<p>Please check the <em>Introduction to spatialLIBD</em> vignette first.</p>
+<p>Please check the <em>Introduction to spatialLIBD</em> vignette first available through <a href="http://research.libd.org/spatialLIBD/articles/spatialLIBD.html" class="external-link">GitHub</a> or <a href="https://bioconductor.org/packages/spatialLIBD" class="external-link">Bioconductor</a>.</p>
 </div>
 <div id="citing-spatiallibd" class="section level2">
 <h2 class="hasAnchor">
@@ -148,7 +148,7 @@
 <span class="co">#&gt; 10.18129/B9.bioc.spatialLIBD (URL:</span>
 <span class="co">#&gt; https://doi.org/10.18129/B9.bioc.spatialLIBD),</span>
 <span class="co">#&gt; https://github.com/LieberInstitute/spatialLIBD - R package version</span>
-<span class="co">#&gt; 1.3.11, &lt;URL: http://www.bioconductor.org/packages/spatialLIBD&gt;.</span>
+<span class="co">#&gt; 1.3.12, &lt;URL: http://www.bioconductor.org/packages/spatialLIBD&gt;.</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK, Williams</span>
 <span class="co">#&gt; SR, II JLC, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Kleinman JE,</span>
@@ -167,16 +167,39 @@
 <div id="download-data-from-10x-genomics" class="section level1">
 <h1 class="hasAnchor">
 <a href="#download-data-from-10x-genomics" class="anchor" aria-hidden="true"></a>Download data from 10x Genomics</h1>
-<p>First of all, lets load the different packages we’ll need.</p>
+<p>In this vignette we’ll show you can you can use <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em> (Collado-Torres, Maynard, and Jaffe, 2021) for exploring spatially resolved transcriptomics data from the <a href="https://www.10xgenomics.com/products/spatial-gene-expression" class="external-link">Visium platform by 10x Genomics</a>. That is, you will learn how to use <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em> for data beyond the one it was initially developed for (Maynard, Collado-Torres, Weber, Uytingco, Barry, Williams, II, Tran, Besich, Tippani, Chew, Yin, Kleinman, Hyde, Rao, Hicks, Martinowich, and Jaffe, 2021). To illustrate these steps, we will use data publicly that 10x Genomics made publicly available at <a href="https://support.10xgenomics.com/spatial-gene-expression/datasets" class="external-link uri">https://support.10xgenomics.com/spatial-gene-expression/datasets</a>. We will use files from the human lymph node example publicly available at <a href="https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node" class="external-link uri">https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node</a>.</p>
+<div id="load-packages" class="section level2">
+<h2 class="hasAnchor">
+<a href="#load-packages" class="anchor" aria-hidden="true"></a>Load packages</h2>
+<p>To get started, lets load the different packages we’ll need for this vignette. Here’s a brief summary of why we need these packages:</p>
+<ul>
+<li>
+<em><a href="https://bioconductor.org/packages/3.13/BiocFileCache" class="external-link">BiocFileCache</a></em>: for downloading and saving a local cache of the data</li>
+<li>
+<em><a href="https://bioconductor.org/packages/3.13/SpatialExperiment" class="external-link">SpatialExperiment</a></em>: for reading the <code>spaceranger</code> files provided by 10x Genomics</li>
+<li>
+<em><a href="https://bioconductor.org/packages/3.13/rtracklayer" class="external-link">rtracklayer</a></em>: for importing a gene annotation GTF file</li>
+<li>
+<em><a href="https://CRAN.R-project.org/package=pryr" class="external-link">pryr</a></em>: for checking how much memory our object is using</li>
+<li>
+<em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em>: for launching an interactive website to explore the data</li>
+</ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/LieberInstitute/spatialLIBD" class="external-link">"spatialLIBD"</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="co">## Load packages in the order we'll use them next</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"BiocFileCache"</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"rtracklayer"</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"SpatialExperiment"</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/hadley/pryr" class="external-link">"pryr"</a></span><span class="op">)</span></code></pre></div>
-<p>Next we download data from 10x Genomics available from <a href="https://support.10xgenomics.com/spatial-gene-expression/datasets" class="external-link uri">https://support.10xgenomics.com/spatial-gene-expression/datasets</a> and in particular at <a href="https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node" class="external-link uri">https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node</a>. We’ll use <em><a href="https://bioconductor.org/packages/3.13/BiocFileCache" class="external-link">BiocFileCache</a></em> to keep the data in a local cache in case we want to run this example again and don’t want to re-download the data from the web.</p>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"rtracklayer"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/hadley/pryr" class="external-link">"pryr"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/LieberInstitute/spatialLIBD" class="external-link">"spatialLIBD"</a></span><span class="op">)</span></code></pre></div>
+</div>
+<div id="download-spaceranger-output-files" class="section level2">
+<h2 class="hasAnchor">
+<a href="#download-spaceranger-output-files" class="anchor" aria-hidden="true"></a>Download spaceranger output files</h2>
+<p>Next we download data from 10x Genomics available from from the human lymph node example available at <a href="https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node" class="external-link uri">https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node</a>. We don’t need to download all the files listed there since <em><a href="https://bioconductor.org/packages/3.13/SpatialExperiment" class="external-link">SpatialExperiment</a></em> doesn’t need all of them for importing the data into R. These files are part of the output that gets generated by <code>spaceranger</code> which is the processing pipeline provided by 10x Genomics for Visium data.</p>
+<p>We’ll use <em><a href="https://bioconductor.org/packages/3.13/BiocFileCache" class="external-link">BiocFileCache</a></em> to keep the data in a local cache in case we want to run this example again and don’t want to re-download the data from the web.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">bfc</span> <span class="op">&lt;-</span> <span class="fu">BiocFileCache</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache</a></span><span class="op">(</span><span class="op">)</span>
+<code class="sourceCode R"><span class="co">## Download and save a local cache of the data provided by 10x Genomics</span>
+<span class="va">bfc</span> <span class="op">&lt;-</span> <span class="fu">BiocFileCache</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">lymph.url</span> <span class="op">&lt;-</span>
     <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span>
         <span class="st">"https://cf.10xgenomics.com/samples/spatial-exp/"</span>,
@@ -186,17 +209,19 @@
             <span class="st">"V1_Human_Lymph_Node_spatial.tar.gz"</span>
         <span class="op">)</span>
     <span class="op">)</span>
-<span class="va">lymph.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">lymph.url</span>, <span class="fu">BiocFileCache</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">bfcrpath</a></span>, x <span class="op">=</span> <span class="va">bfc</span><span class="op">)</span>
-
-<span class="co"># Extract the files to a temporary location</span>
+<span class="va">lymph.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">lymph.url</span>, <span class="fu">BiocFileCache</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">bfcrpath</a></span>, x <span class="op">=</span> <span class="va">bfc</span><span class="op">)</span></code></pre></div>
+<p>10x Genomics provides the files in compressed tarballs (<code>.tar.gz</code> file extension). Which is why we’ll need to use <code><a href="https://rdrr.io/r/utils/untar.html" class="external-link">utils::untar()</a></code> to decompress the files. This will create new directories and we will use <code><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files()</a></code> to see what files these directories contain.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Extract the files to a temporary location</span>
+<span class="co">## (they'll be deleted once you close your R session)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">lymph.data</span>, <span class="fu">utils</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/utils/untar.html" class="external-link">untar</a></span>, exdir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; https://cf.10xgenomics.com/samples/spatial-exp/1.1.0/V1_Human_Lymph_Node/V1_Human_Lymph_Node_filtered_feature_bc_matrix.tar.gz.BFC5 </span>
 <span class="co">#&gt;                                                                                                                                   0 </span>
 <span class="co">#&gt;                    https://cf.10xgenomics.com/samples/spatial-exp/1.1.0/V1_Human_Lymph_Node/V1_Human_Lymph_Node_spatial.tar.gz.BFC6 </span>
 <span class="co">#&gt;                                                                                                                                   0</span>
 
-<span class="co"># List the files we downloaded and extracted</span>
-<span class="co"># These files are typically CellRanger outputs</span>
+<span class="co">## List the files we downloaded and extracted</span>
+<span class="co">## These files are typically SpaceRanger outputs</span>
 <span class="va">lymph.dirs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span>
     <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,
     <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"filtered_feature_bc_matrix"</span>, <span class="st">"spatial"</span>, <span class="st">"raw_feature_bc_matrix"</span><span class="op">)</span>
@@ -207,15 +232,23 @@
 <span class="co">#&gt; [5] "matrix.mtx.gz"             "scalefactors_json.json"   </span>
 <span class="co">#&gt; [7] "tissue_hires_image.png"    "tissue_lowres_image.png"  </span>
 <span class="co">#&gt; [9] "tissue_positions_list.csv"</span></code></pre></div>
-<p>Next we import the data into R using <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">read10xVisium()</a></code> from <em><a href="https://bioconductor.org/packages/3.13/SpatialExperiment" class="external-link">SpatialExperiment</a></em>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Import the data as a SingleCellExperiment</span>
+<p>Now that we have the files that we need, we can import the data into R using <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">read10xVisium()</a></code> from <em><a href="https://bioconductor.org/packages/3.13/SpatialExperiment" class="external-link">SpatialExperiment</a></em>. We’ll import the low resolution histology images produced by <code>spaceranger</code> using the <code>images = "lowres"</code> and <code>load = TRUE</code> arguments. We’ll also load the filtered gene expression data using the <code>data = "filtered"</code> argument. The count matrix can still be quite large, which is why we’ll use the <code>type = "sparse"</code> argument to load the data into an R object that is memory-efficient for sparse data.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Import the data as a SpatialExperiment object</span>
 <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu">SpatialExperiment</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">read10xVisium</a></span><span class="op">(</span>
     samples <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,
     sample_id <span class="op">=</span> <span class="st">"lymph"</span>,
     type <span class="op">=</span> <span class="st">"sparse"</span>, data <span class="op">=</span> <span class="st">"filtered"</span>,
     images <span class="op">=</span> <span class="st">"lowres"</span>, load <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
+<span class="co">## Inspect the R object we just created: class, memory, and how it looks in</span>
+<span class="co">## general</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>
+<span class="co">#&gt; [1] "SpatialExperiment"</span>
+<span class="co">#&gt; attr(,"package")</span>
+<span class="co">#&gt; [1] "SpatialExperiment"</span>
+<span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html" class="external-link">object_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>
+<span class="co">#&gt; 296 MB</span>
 <span class="va">spe</span>
 <span class="co">#&gt; class: SpatialExperiment </span>
 <span class="co">#&gt; dim: 36601 4035 </span>
@@ -232,40 +265,78 @@
 <span class="co">#&gt; altExpNames(0):</span>
 <span class="co">#&gt; spatialData names(5) : in_tissue array_row array_col pxl_col_in_fullres</span>
 <span class="co">#&gt;   pxl_row_in_fullres</span>
-<span class="co">#&gt; imgData names(4): sample_id image_id data scaleFactor</span></code></pre></div>
+<span class="co">#&gt; imgData names(4): sample_id image_id data scaleFactor</span>
+
+<span class="co">## The counts are saved in a sparse matrix R object</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/assays.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "dgCMatrix"</span>
+<span class="co">#&gt; attr(,"package")</span>
+<span class="co">#&gt; [1] "Matrix"</span></code></pre></div>
+</div>
 </div>
 <div id="modify-spe-for-spatiallibd" class="section level1">
 <h1 class="hasAnchor">
 <a href="#modify-spe-for-spatiallibd" class="anchor" aria-hidden="true"></a>Modify spe for spatialLIBD</h1>
-<p>Now that we have a <code>spe</code> object with data from 10x Genomics, we need to add a few features to the object required by <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code>.</p>
-<p>TODO: explain <code>key</code>, <code>sum_umi</code> and <code>sum_gene</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p>Now that we have an <code>SpatialExperiment</code> R object (<code>spe</code>) with the data from 10x Genomics for the human lymph node example, we need to add a few features to the R object in order to create the interactive website using <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code>. These additional elements power features in the interactive website that you might be interested in.</p>
+<p>First we start with adding a few variables to the sample information table (<code><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-colData.html" class="external-link">colData()</a></code>) of our <code>spe</code> object. We add:</p>
+<ul>
+<li>
+<code>key</code>: this labels each spot with a unique identifier. We combine the sample ID with the spot barcode ID to create this unique identifier.</li>
+<li>
+<code>sum_umi</code>: this continuous variable contains the total number of counts for each sample prior to filtering any genes.</li>
+<li>
+<code>sum_gene</code>: this continuous variable contains the number of genes that have at least 1 count.</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Add some information used by spatialLIBD</span>
 <span class="va">spe</span><span class="op">$</span><span class="va">key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">spe</span><span class="op">$</span><span class="va">sample_id</span>, <span class="st">"_"</span>, <span class="va">spe</span><span class="op">$</span><span class="va">Barcode</span><span class="op">)</span>
 <span class="va">spe</span><span class="op">$</span><span class="va">sum_umi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/assays.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span>
 <span class="va">spe</span><span class="op">$</span><span class="va">sum_gene</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/assays.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
-<div id="add-gtf-information" class="section level2">
+<div id="add-gene-annotation-information" class="section level2">
 <h2 class="hasAnchor">
-<a href="#add-gtf-information" class="anchor" aria-hidden="true"></a>Add GTF information</h2>
+<a href="#add-gene-annotation-information" class="anchor" aria-hidden="true"></a>Add gene annotation information</h2>
+<p>The files <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code> uses to read in the <code>spaceranger</code> outputs into R do not include much information about the genes, such as their chromosomes, coordinates, and other gene annotation information. We thus recommend that you read in this information from a gene annotation file: typically a <code>gtf</code> file. For a real case scenario, you’ll mostly likely have access to the GTF file provided by 10x Genomics. However, we cannot download that file without downloading other files for this example. Thus we’ll show you the code you would use if you had access to the GTF file from 10x Genomics and also show a second approach that works for this vignette.</p>
 <div id="from-10x" class="section level3">
 <h3 class="hasAnchor">
 <a href="#from-10x" class="anchor" aria-hidden="true"></a>From 10x</h3>
-<p>Depending on the version of <code>spaceranger</code> you used, you might have used different GTF files 10x Genomics has made available at <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest" class="external-link uri">https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest</a> and described at <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build" class="external-link uri">https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build</a>. These files are big though and we won’t download them in this example. For instance, <em>References - 2020-A (July 7, 2020)</em> for <em>Human reference (GRCh38)</em> is 11 GB in size. If you did have the file locally, you could use the following code to read in the GTF file prepared by 10x Genomics and add the information into your <code>spe</code> object that <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code> does not include.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Read in the gene information from the annotation GTF file</span>
+<p>Depending on the version of <code>spaceranger</code> you used, you might have used different GTF files 10x Genomics has made available at <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest" class="external-link uri">https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest</a> and described at <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build" class="external-link uri">https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build</a>. These files are too big though and we won’t download them in this example. For instance, <em>References - 2020-A (July 7, 2020)</em> for <em>Human reference (GRCh38)</em> is 11 GB in size and contains files we do not need for this vignette. If you did have the file locally, you could use the following code to read in the GTF file prepared by 10x Genomics and add the information into your <code>spe</code> object that <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code> does not include.</p>
+<p>For example, in our computing cluster this GTF file is located at the following path and is 1.4 GB in size:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> du <span class="at">-sh</span> <span class="at">--apparent-size</span> /dcl02/lieber/ajaffe/SpatialTranscriptomics/refdata-gex-GRCh38-2020-A/genes/genes.gtf</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">1.4G</span>    /dcl02/lieber/ajaffe/SpatialTranscriptomics/refdata-gex-GRCh38-2020-A/genes/genes.gtf</span></code></pre></div>
+<p>If you have the GTF file from 10x Genomics, we show next how you can read the information into R, match it appropriately with the information in the <code>spe</code> object and add it back into the <code>spe</code> object.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## You could:</span>
+<span class="co">## * download the 11 GB file from https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz</span>
+<span class="co">## * decompress it</span>
+
+<span class="co">## Read in the gene information from the annotation GTF file provided by 10x</span>
 <span class="va">gtf</span> <span class="op">&lt;-</span>
     <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span>
-        <span class="st">"/path/to/ref_genome.gtf"</span>
+        <span class="st">"/path/to/refdata-gex-GRCh38-2020-A/genes/genes.gtf"</span>
     <span class="op">)</span>
+
+<span class="co">## Subject to genes only</span>
 <span class="va">gtf</span> <span class="op">&lt;-</span> <span class="va">gtf</span><span class="op">[</span><span class="va">gtf</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="st">"gene"</span><span class="op">]</span>
+
+<span class="co">## Set the names to be the gene IDs</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gtf</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">gtf</span><span class="op">$</span><span class="va">gene_id</span>
 
 <span class="co">## Match the genes</span>
 <span class="va">match_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>, <span class="va">gtf</span><span class="op">$</span><span class="va">gene_id</span><span class="op">)</span>
+
+<span class="co">## They should all be present if you are using the correct GTF file from 10x</span>
 <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">match_genes</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
-<span class="co">## Keep only some columns from the gtf</span>
-<span class="fu">mcols</span><span class="op">(</span><span class="va">gtf</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">mcols</span><span class="op">(</span><span class="va">gtf</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"source"</span>, <span class="st">"type"</span>, <span class="st">"gene_id"</span>, <span class="st">"gene_version"</span>, <span class="st">"gene_name"</span>, <span class="st">"gene_type"</span><span class="op">)</span><span class="op">]</span>
+<span class="co">## Keep only some columns from the gtf (you could keep all of them if you want)</span>
+<span class="fu">mcols</span><span class="op">(</span><span class="va">gtf</span><span class="op">)</span> <span class="op">&lt;-</span>
+    <span class="fu">mcols</span><span class="op">(</span><span class="va">gtf</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
+        <span class="st">"source"</span>,
+        <span class="st">"type"</span>,
+        <span class="st">"gene_id"</span>,
+        <span class="st">"gene_version"</span>,
+        <span class="st">"gene_name"</span>,
+        <span class="st">"gene_type"</span>
+    <span class="op">)</span><span class="op">]</span>
 
 <span class="co">## Add the gene info to our SPE object</span>
 <span class="fu">rowRanges</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">gtf</span><span class="op">[</span><span class="va">match_genes</span><span class="op">]</span></code></pre></div>
@@ -273,9 +344,9 @@
 <div id="from-gencode" class="section level3">
 <h3 class="hasAnchor">
 <a href="#from-gencode" class="anchor" aria-hidden="true"></a>From Gencode</h3>
-<p>In this vignette, we’ll use the GTF file from Gencode v32. That’s because the notes from <em>References - 2020-A (July 7, 2020)</em> and <em>Human reference, GRCh38 (GENCODE v32/Ensembl 98)</em> <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A" class="external-link uri">https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A</a> show that they used Gencode v32. They also used Ensembl version 98 which is why a few genes we have in our object are going to be missing.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Download the Gencode v32 GTF and read it into R</span>
+<p>In this vignette, we’ll use the GTF file from Gencode v32. That’s because the build notes from <em>References - 2020-A (July 7, 2020)</em> and <em>Human reference, GRCh38 (GENCODE v32/Ensembl 98)</em> at <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A" class="external-link uri">https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A</a> show that 10x Genomics used Gencode v32. They also used Ensembl version 98 which is why a few genes we have in our object are going to be missing. We show next how you can read the information into R, match it appropriately with the information in the <code>spe</code> object and add it back into the <code>spe</code> object.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Download the Gencode v32 GTF file and cache it</span>
 <span class="va">gtf_cache</span> <span class="op">&lt;-</span> <span class="fu">BiocFileCache</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">bfcrpath</a></span><span class="op">(</span>
     <span class="va">bfc</span>,
     <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span>
@@ -283,10 +354,12 @@
         <span class="st">"release_32/gencode.v32.annotation.gtf.gz"</span>
     <span class="op">)</span>
 <span class="op">)</span>
-<span class="co">## GTF cache location</span>
+
+<span class="co">## Show the GTF cache location</span>
 <span class="va">gtf_cache</span>
-<span class="co">#&gt;                                                                             BFC7 </span>
-<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/cf4737d62d97_gencode.v32.annotation.gtf.gz"</span>
+<span class="co">#&gt;                                                                            BFC7 </span>
+<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/72f554ee4c1_gencode.v32.annotation.gtf.gz"</span>
+
 <span class="co">## Import into R (takes ~1 min)</span>
 <span class="va">gtf</span> <span class="op">&lt;-</span> <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span><span class="va">gtf_cache</span><span class="op">)</span>
 
@@ -316,23 +389,26 @@
 <span class="co">## Add the gene info to our SPE object</span>
 <span class="fu">rowRanges</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">gtf</span><span class="op">[</span><span class="va">match_genes</span><span class="op">]</span></code></pre></div>
 </div>
-<div id="add-gene-info" class="section level3">
+<div id="enable-a-friendlier-gene-search" class="section level3">
 <h3 class="hasAnchor">
-<a href="#add-gene-info" class="anchor" aria-hidden="true"></a>Add gene info</h3>
-<p>Regardless of which method you used to obtain the gene annotation information, we can now proceed by adding the gene symbol and gene ID information that helps users search for genes in the shiny app produced by <code>spatialLIBD</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<a href="#enable-a-friendlier-gene-search" class="anchor" aria-hidden="true"></a>Enable a friendlier gene search</h3>
+<p>Regardless of which method you used to obtain the gene annotation information, we can now proceed by adding the gene symbol and gene ID information that helps users search for genes in the shiny app produced by <code>spatialLIBD</code>. This will enable users to search genes by gene symbol or gene ID. If you didn’t do this, users would only be able to search genes by gene ID which makes the web application harder to use.</p>
+<p>We also compute the total expression for the mitochondrial chromosome (chrM) as well as the ratio of chrM expression. Both of these continuous variables are interesting to explore and in some situations could be biological interpretations. For instance, in our pilot data (Maynard, Collado-Torres, Weber, et al., 2021), we noticed that the <code>expr_chrM_ratio</code> was associated to DLPFC layers. That is, spots with high <code>expr_chrM_ratio</code> were not randomly located in our Visium slides.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Add information used by spatialLIBD</span>
 <span class="fu">rowData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_search</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu">rowData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_name</span>, <span class="st">"; "</span>, <span class="fu">rowData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_id</span><span class="op">)</span>
+
+<span class="co">## Compute chrM expression and chrM expression ratio</span>
 <span class="va">is_mito</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu">seqnames</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">==</span> <span class="st">"chrM"</span><span class="op">)</span>
 <span class="va">spe</span><span class="op">$</span><span class="va">expr_chrM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/assays.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">[</span><span class="va">is_mito</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span><span class="op">)</span>
 <span class="va">spe</span><span class="op">$</span><span class="va">expr_chrM_ratio</span> <span class="op">&lt;-</span> <span class="va">spe</span><span class="op">$</span><span class="va">expr_chrM</span> <span class="op">/</span> <span class="va">spe</span><span class="op">$</span><span class="va">sum_umi</span></code></pre></div>
 </div>
 </div>
-<div id="filter" class="section level2">
+<div id="filter-the-spe-object" class="section level2">
 <h2 class="hasAnchor">
-<a href="#filter" class="anchor" aria-hidden="true"></a>Filter</h2>
-<p>We can now continue with some filtering steps.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<a href="#filter-the-spe-object" class="anchor" aria-hidden="true"></a>Filter the spe object</h2>
+<p>We can now continue with some filtering steps since this can help reduce the object size in memory as well as make it ready to use for downstream processing tools such as those from the <em><a href="https://bioconductor.org/packages/3.13/scran" class="external-link">scran</a></em> and <em><a href="https://bioconductor.org/packages/3.13/scuttle" class="external-link">scuttle</a></em> packages. Though these steps are not absolutely necessary.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Remove genes with no data</span>
 <span class="va">no_expr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/assays.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span>
 
@@ -363,12 +439,13 @@
 <div id="check-object" class="section level2">
 <h2 class="hasAnchor">
 <a href="#check-object" class="anchor" aria-hidden="true"></a>Check object</h2>
-<p>We can now check the final object.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Add a variable for saving the manual annnotations</span>
-<span class="va">spe</span><span class="op">$</span><span class="va">Layer</span> <span class="op">&lt;-</span> <span class="st">"NA"</span>
-
-<span class="co">## Check the final dimensions and object size</span>
+<p>Next, we add the <code>Layer</code> variable to the sample information table (<code><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-colData.html" class="external-link">colData()</a></code>) with <code>"NA"</code>. That variable is used by the interactive website to store any manual annotations. (TODO: we’ll rename this to make it a more general and intuitive name)</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Add a variable for saving the manual annotations</span>
+<span class="va">spe</span><span class="op">$</span><span class="va">Layer</span> <span class="op">&lt;-</span> <span class="st">"NA"</span></code></pre></div>
+<p>Finally, we can now check the final object using <code><a href="../reference/check_spe.html">spatialLIBD::check_spe()</a></code>. This is a helper function that will warn us if some important element is missing in <code>spe</code> that we use later for the interactive website. If it all goes well, it will return the original <code>spe</code> object.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Check the final dimensions and object size</span>
 <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>
 <span class="co">#&gt; [1] 25175  4035</span>
 <span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html" class="external-link">object_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>
@@ -392,8 +469,13 @@
 <span class="co">#&gt; spatialData names(5) : in_tissue array_row array_col pxl_col_in_fullres</span>
 <span class="co">#&gt;   pxl_row_in_fullres</span>
 <span class="co">#&gt; imgData names(4): sample_id image_id data scaleFactor</span></code></pre></div>
-<p>For example, we can make a few visualizations with our <code>spe</code> object.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+</div>
+</div>
+<div id="explore-the-data" class="section level1">
+<h1 class="hasAnchor">
+<a href="#explore-the-data" class="anchor" aria-hidden="true"></a>Explore the data</h1>
+<p>With out complete <code>spe</code> object, we can now use <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em> for visualizing our data. We can do so using functions such as <code><a href="../reference/vis_gene.html">vis_gene()</a></code> and <code><a href="../reference/vis_clus.html">vis_clus()</a></code> that are described in more detail at the <em>Introduction to spatialLIBD</em> vignette available through <a href="http://research.libd.org/spatialLIBD/articles/spatialLIBD.html" class="external-link">GitHub</a> or <a href="https://bioconductor.org/packages/spatialLIBD" class="external-link">Bioconductor</a>.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Visualizations</span>
 <span class="fu">spatialLIBD</span><span class="fu">::</span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span>
     spe <span class="op">=</span> <span class="va">spe</span>,
@@ -402,7 +484,7 @@
     assayname <span class="op">=</span> <span class="st">"counts"</span>
 <span class="op">)</span></code></pre></div>
 <p><img src="TenX_data_download_files/figure-html/test_visualizations-1.png" width="700"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20210428</span><span class="op">)</span>
 <span class="va">spe</span><span class="op">$</span><span class="va">random_cluster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -412,23 +494,83 @@
     clustervar <span class="op">=</span> <span class="st">"random_cluster"</span>
 <span class="op">)</span></code></pre></div>
 <p><img src="TenX_data_download_files/figure-html/test_visualizations-2.png" width="700"></p>
+<div id="run-the-interactive-website" class="section level2">
+<h2 class="hasAnchor">
+<a href="#run-the-interactive-website" class="anchor" aria-hidden="true"></a>Run the interactive website</h2>
+<p>We are now ready to create our interactive website for the human lymph node data. The interactive website is a <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em> web application that uses <em><a href="https://CRAN.R-project.org/package=plotly" class="external-link">plotly</a></em> to power several of the interactive features. We can create the interactive website using the <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code> function. The default arguments of that function are customized for the data from our initial study (Maynard, Collado-Torres, Weber, et al., 2021), so we will need to make some adjustments:</p>
+<ul>
+<li>
+<code>sce_layer</code>, <code>modeling_results</code> and <code>sig_genes</code> will be set to <code>NULL</code> since do not have any pseudo-bulk results for this example data.</li>
+<li>
+<code>title</code>: we will use a custom title that reflect our data</li>
+<li>
+<code>spe_discreate_vars</code>: we don’t have really any discrete variables to show beyond <code>Layer</code> which is used for the manual annotations and <code>random_cluster</code> that we created in the previous section.</li>
+<li>
+<code>spe_continous_vars</code>: we have computed several continuous variables while adapting our <code>spe</code> object for <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em>, so we’ll list these variables below in order to visually inspect them.</li>
+<li>
+<code>spatial_libd_var</code>: this is used for indicating the default discrete variable and for now we’ll set it to our <code>random_cluster</code>.</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Run our shiny app</span>
+<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu">spatialLIBD</span><span class="fu">::</span><span class="fu"><a href="../reference/run_app.html">run_app</a></span><span class="op">(</span>
+        <span class="va">spe</span>,
+        sce_layer <span class="op">=</span> <span class="cn">NULL</span>,
+        modeling_results <span class="op">=</span> <span class="cn">NULL</span>,
+        sig_genes <span class="op">=</span> <span class="cn">NULL</span>,
+        title <span class="op">=</span> <span class="st">"spatialLIBD: human lymph node by 10x Genomics"</span>,
+        spe_discrete_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"random_cluster"</span>, <span class="st">"Layer"</span><span class="op">)</span>,
+        spe_continuous_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sum_umi"</span>, <span class="st">"sum_gene"</span>, <span class="st">"expr_chrM"</span>, <span class="st">"expr_chrM_ratio"</span><span class="op">)</span>,
+        spatial_libd_var <span class="op">=</span> <span class="st">"random_cluster"</span>
+    <span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>We also recommend creating custom website documentation files as described in the documentation of <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code>. Those documentation files will help you describe your project to your users in a more personalized way. The easiest way to start is to copy our documentation files to a new location and adapt them. You can located them at the following path.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Locate our documentation files</span>
+<span class="va">docs_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"app"</span>, <span class="st">"www"</span>, package <span class="op">=</span> <span class="st">"spatialLIBD"</span><span class="op">)</span>
+<span class="va">docs_path</span>
+<span class="co">#&gt; [1] "/__w/_temp/Library/spatialLIBD/app/www"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">docs_path</span><span class="op">)</span>
+<span class="co">#&gt; [1] "documentation_sce_layer.md" "documentation_spe.md"      </span>
+<span class="co">#&gt; [3] "favicon.ico"                "footer.html"               </span>
+<span class="co">#&gt; [5] "README.md"</span></code></pre></div>
 </div>
 </div>
-<div id="run-shiny-app" class="section level1">
+<div id="limitations" class="section level1">
 <h1 class="hasAnchor">
-<a href="#run-shiny-app" class="anchor" aria-hidden="true"></a>Run shiny app</h1>
-<p>We are now ready to run our <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em> web application using <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em> (Collado-Torres, Maynard, and Jaffe, 2021).</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">spatialLIBD</span><span class="fu">::</span><span class="fu"><a href="../reference/run_app.html">run_app</a></span><span class="op">(</span>
-    <span class="va">spe</span>,
-    sce_layer <span class="op">=</span> <span class="cn">NULL</span>,
-    modeling_results <span class="op">=</span> <span class="cn">NULL</span>,
-    sig_genes <span class="op">=</span> <span class="cn">NULL</span>,
-    title <span class="op">=</span> <span class="st">"spatialLIBD without layer info"</span>,
-    spe_discrete_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"random_cluster"</span>, <span class="st">"Layer"</span><span class="op">)</span>,
-    spe_continuous_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sum_umi"</span>, <span class="st">"sum_gene"</span>, <span class="st">"expr_chrM"</span>, <span class="st">"expr_chrM_ratio"</span><span class="op">)</span>,
-    spatial_libd_var <span class="op">=</span> <span class="st">"random_cluster"</span>
-<span class="op">)</span></code></pre></div>
+<a href="#limitations" class="anchor" aria-hidden="true"></a>Limitations</h1>
+<p><code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code> has limitations that are inherent to the methods used to implement it, such as:</p>
+<ol style="list-style-type: decimal">
+<li>the memory per user required by a server for hosting the web application,</li>
+<li>response speeds for the interactive views due to the number of spots,</li>
+<li>the resolution of the images displayed limiting the usefulness to magnify specific spots,</li>
+<li>and customization of the web application by the end user.</li>
+</ol>
+<div id="memory" class="section level2">
+<h2 class="hasAnchor">
+<a href="#memory" class="anchor" aria-hidden="true"></a>Memory</h2>
+<p>Regarding the memory limitation, you can estimate how much memory you need per user by considering the memory required for the <code>spe</code> and <code>sce_layer</code> objects.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html" class="external-link">object_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>
+<span class="co">#&gt; 298 MB</span></code></pre></div>
+<p>In our pilot data (Maynard, Collado-Torres, Weber, et al., 2021) our object uses about 2.1 GB of RAM since it contains the data for 12 Visium slides and we considered using about 3 GB of RAM per user. You could filter the genes more aggressively to drop lowly expressed genes or if you have many Visium slides, you could consider making multiple websites for different sets of slides. You could also have multiple mirrors to support several users, though in that case, we recommend linking users to a stable website instead of one that might not be available if you have too many users: for us our stable website is <a href="http://research.libd.org/spatialLIBD/" class="external-link uri">http://research.libd.org/spatialLIBD/</a> which includes the links to all the mirrors.</p>
+<p>Given these memory limitations, we chose to deploy our main web application at <a href="http://spatial.libd.org/spatialLIBD/" class="external-link uri">http://spatial.libd.org/spatialLIBD/</a> using an Amazon EC2 instance: an ‘r5.4xlarge’ EC2 instance with 16 vCPUs, 128 GB DRAM, 10 Gb max network, 1.008 USD/Hour. We also have deployed mirrors at <a href="https://www.shinyapps.io/" class="external-link uri">https://www.shinyapps.io/</a> using the “3X-Large (8 GB)” instances they provide.</p>
+</div>
+<div id="response-speeds" class="section level2">
+<h2 class="hasAnchor">
+<a href="#response-speeds" class="anchor" aria-hidden="true"></a>Response speeds</h2>
+<p>This limitation is mostly due to the number of spots shown under the “clusters (interactive)” section of the interactive website powered by <em><a href="https://CRAN.R-project.org/package=plotly" class="external-link">plotly</a></em>. Each spot is shown four times which is about 16 thousand spots for one Visium slide (depending on any filter steps you applied). The response time will depend on your own computer RAM memory, that is, the <em>client</em> side. This limitation might be more noticeable if you have a computer with 8GB of RAM or lower, as well as if you have other high-memory software open. Furthermore, if you are running web application locally through <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code> then you also need to consider the required memory for the R objects. That is, the <em>server</em> side memory use.</p>
+</div>
+<div id="image-resolution" class="section level2">
+<h2 class="hasAnchor">
+<a href="#image-resolution" class="anchor" aria-hidden="true"></a>Image resolution</h2>
+<p>When you construct the SpatialExperiment <code>spe</code> object with <em><a href="https://bioconductor.org/packages/3.13/SpatialExperiment" class="external-link">SpatialExperiment</a></em>, you can read in higher resolution images. However, the benefit of loading the raw histology images (500 MB to 20 GB per image) is likely non-existent in this web application. The memory required would likely become prohibitive. Other solutions load these raw histology images in chunks and display the chunks necessary for a given visualization area. We thus recommend using other software if you want to zoom in at the spot and/or cell resolution.</p>
+</div>
+<div id="customization" class="section level2">
+<h2 class="hasAnchor">
+<a href="#customization" class="anchor" aria-hidden="true"></a>Customization</h2>
+<p>While the documentation, title, icon and HTML footer are all customizable at <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code>, ultimately the panels shown are not unless you fork and adapt the internal code of this package. Thus, the interactive web applications powered by <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em> are not as easy to customize as say <em><a href="https://bioconductor.org/packages/3.13/iSEE" class="external-link">iSEE</a></em> web applications are. We think of our web application as a good enough prototype that can be useful for initial explorations of 10x Genomics Visium data. We welcome additions to our code, though we recognize that you might want to build your own production-level solution.</p>
+</div>
 </div>
 <div id="reproducibility" class="section level1">
 <h1 class="hasAnchor">
@@ -437,21 +579,29 @@
 <ul>
 <li>R (R Core Team, 2021)</li>
 <li>
+<em><a href="https://bioconductor.org/packages/3.13/BiocFileCache" class="external-link">BiocFileCache</a></em> (Shepherd and Morgan, 2021)</li>
+<li>
 <em><a href="https://bioconductor.org/packages/3.13/BiocStyle" class="external-link">BiocStyle</a></em> (Oleś, 2021)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie, 2021)</li>
+<li>
+<em><a href="https://CRAN.R-project.org/package=pryr" class="external-link">pryr</a></em> (Wickham, 2018)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=RefManageR" class="external-link">RefManageR</a></em> (McLean, 2017)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=rmarkdown" class="external-link">rmarkdown</a></em> (Allaire, Xie, McPherson, Luraschi, Ushey, Atkins, Wickham, Cheng, Chang, and Iannone, 2021)</li>
 <li>
+<em><a href="https://bioconductor.org/packages/3.13/rtracklayer" class="external-link">rtracklayer</a></em> (Lawrence, Gentleman, and Carey, 2009)</li>
+<li>
 <em><a href="https://CRAN.R-project.org/package=sessioninfo" class="external-link">sessioninfo</a></em> (Csárdi, core, Wickham, Chang, Flight, Müller, and Hester, 2018)</li>
+<li>
+<em><a href="https://bioconductor.org/packages/3.13/SpatialExperiment" class="external-link">SpatialExperiment</a></em> (Righelli and Risso, 2021)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=testthat" class="external-link">testthat</a></em> (Wickham, 2011)</li>
 </ul>
 <p>This package was developed using <em><a href="https://bioconductor.org/packages/3.13/biocthis" class="external-link">biocthis</a></em>.</p>
 <p>Code for creating the vignette</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Create the vignette</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/rmarkdown" class="external-link">"rmarkdown"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, <span class="st">"BiocStyle::html_document"</span><span class="op">)</span><span class="op">)</span>
@@ -460,9 +610,9 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code>#&gt; [1] "2021-04-28 20:21:20 UTC"</code></pre>
+<pre><code>#&gt; [1] "2021-04-28 21:00:06 UTC"</code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code>#&gt; Time difference of 1.58 mins</code></pre>
+<pre><code>#&gt; Time difference of 1.767 mins</code></pre>
 <p><code>R</code> session information.</p>
 <pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt;  setting  value                                             
@@ -628,7 +778,7 @@
 #&gt;  spam                     2.6-0      2020-12-14 [1] CRAN (R 4.1.0)                              
 #&gt;  sparseMatrixStats        1.3.7      2021-03-29 [1] Bioconductor                                
 #&gt;  SpatialExperiment      * 1.1.5      2021-04-28 [1] Github (drighelli/SpatialExperiment@17e5176)
-#&gt;  spatialLIBD            * 1.3.11     2021-04-28 [1] Bioconductor                                
+#&gt;  spatialLIBD            * 1.3.12     2021-04-28 [1] Bioconductor                                
 #&gt;  stringi                  1.5.3      2020-09-09 [2] CRAN (R 4.1.0)                              
 #&gt;  stringr                  1.4.0      2019-02-10 [2] CRAN (R 4.1.0)                              
 #&gt;  SummarizedExperiment   * 1.21.3     2021-04-07 [1] Bioconductor                                
@@ -666,25 +816,40 @@
 <a id="bib-allaire2021rmarkdown"></a><a href="#cite-allaire2021rmarkdown">[1]</a><cite> J. Allaire, Y. Xie, J. McPherson, et al. <em>rmarkdown: Dynamic Documents for R</em>. R package version 2.7. 2021. URL: <a href="https://github.com/rstudio/rmarkdown" class="external-link">https://github.com/rstudio/rmarkdown</a>.</cite>
 </p>
 <p>
-<a id="bib-colladotorres2021libd"></a><a href="#cite-colladotorres2021libd">[2]</a><cite> L. Collado-Torres, K. R. Maynard, and A. E. Jaffe. <em>LIBD Visium spatial transcriptomics human pilot data inspector</em>. <a href="https://github.com/LieberInstitute/spatialLIBD" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD</a> - R package version 1.3.11. 2021. DOI: <a href="https://doi.org/10.18129/B9.bioc.spatialLIBD" class="external-link">10.18129/B9.bioc.spatialLIBD</a>. URL: <a href="http://www.bioconductor.org/packages/spatialLIBD" class="external-link">http://www.bioconductor.org/packages/spatialLIBD</a>.</cite>
+<a id="bib-colladotorres2021libd"></a><a href="#cite-colladotorres2021libd">[2]</a><cite> L. Collado-Torres, K. R. Maynard, and A. E. Jaffe. <em>LIBD Visium spatial transcriptomics human pilot data inspector</em>. <a href="https://github.com/LieberInstitute/spatialLIBD" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD</a> - R package version 1.3.12. 2021. DOI: <a href="https://doi.org/10.18129/B9.bioc.spatialLIBD" class="external-link">10.18129/B9.bioc.spatialLIBD</a>. URL: <a href="http://www.bioconductor.org/packages/spatialLIBD" class="external-link">http://www.bioconductor.org/packages/spatialLIBD</a>.</cite>
 </p>
 <p>
 <a id="bib-csrdi2018sessioninfo"></a><a href="#cite-csrdi2018sessioninfo">[3]</a><cite> G. Csárdi, R. core, H. Wickham, et al. <em>sessioninfo: R Session Information</em>. R package version 1.1.1. 2018. URL: <a href="https://CRAN.R-project.org/package=sessioninfo" class="external-link">https://CRAN.R-project.org/package=sessioninfo</a>.</cite>
 </p>
 <p>
-<a id="bib-mclean2017refmanager"></a><a href="#cite-mclean2017refmanager">[4]</a><cite> M. W. McLean. “RefManageR: Import and Manage BibTeX and BibLaTeX References in R”. In: <em>The Journal of Open Source Software</em> (2017). DOI: <a href="https://doi.org/10.21105/joss.00338" class="external-link">10.21105/joss.00338</a>.</cite>
+<a id="bib-lawrence2009rtracklayer"></a><a href="#cite-lawrence2009rtracklayer">[4]</a><cite> M. Lawrence, R. Gentleman, and V. Carey. “rtracklayer: an R package for interfacing with genome browsers”. In: <em>Bioinformatics</em> 25 (2009), pp. 1841-1842. DOI: <a href="https://doi.org/10.1093/bioinformatics/btp328" class="external-link">10.1093/bioinformatics/btp328</a>. URL: <a href="http://bioinformatics.oxfordjournals.org/content/25/14/1841.abstract" class="external-link">http://bioinformatics.oxfordjournals.org/content/25/14/1841.abstract</a>.</cite>
 </p>
 <p>
-<a id="bib-ole2021biocstyle"></a><a href="#cite-ole2021biocstyle">[5]</a><cite> A. Oleś. <em>BiocStyle: Standard styles for vignettes and other Bioconductor documents</em>. R package version 2.19.2. 2021. URL: <a href="https://github.com/Bioconductor/BiocStyle" class="external-link">https://github.com/Bioconductor/BiocStyle</a>.</cite>
+<a id="bib-maynard2021transcriptome"></a><a href="#cite-maynard2021transcriptome">[5]</a><cite> K. R. Maynard, L. Collado-Torres, L. M. Weber, et al. “Transcriptome-scale spatial gene expression in the human dorsolateral prefrontal cortex”. In: <em>Nature Neuroscience</em> (2021). DOI: <a href="https://doi.org/10.1038/s41593-020-00787-0" class="external-link">10.1038/s41593-020-00787-0</a>. URL: <a href="https://www.nature.com/articles/s41593-020-00787-0" class="external-link">https://www.nature.com/articles/s41593-020-00787-0</a>.</cite>
 </p>
 <p>
-<a id="bib-2021language"></a><a href="#cite-2021language">[6]</a><cite> R Core Team. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. Vienna, Austria, 2021. URL: <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>.</cite>
+<a id="bib-mclean2017refmanager"></a><a href="#cite-mclean2017refmanager">[6]</a><cite> M. W. McLean. “RefManageR: Import and Manage BibTeX and BibLaTeX References in R”. In: <em>The Journal of Open Source Software</em> (2017). DOI: <a href="https://doi.org/10.21105/joss.00338" class="external-link">10.21105/joss.00338</a>.</cite>
 </p>
 <p>
-<a id="bib-wickham2011testthat"></a><a href="#cite-wickham2011testthat">[7]</a><cite> H. Wickham. “testthat: Get Started with Testing”. In: <em>The R Journal</em> 3 (2011), pp. 5–10. URL: <a href="https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf" class="external-link">https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf</a>.</cite>
+<a id="bib-ole2021biocstyle"></a><a href="#cite-ole2021biocstyle">[7]</a><cite> A. Oleś. <em>BiocStyle: Standard styles for vignettes and other Bioconductor documents</em>. R package version 2.19.2. 2021. URL: <a href="https://github.com/Bioconductor/BiocStyle" class="external-link">https://github.com/Bioconductor/BiocStyle</a>.</cite>
 </p>
 <p>
-<a id="bib-xie2021knitr"></a><a href="#cite-xie2021knitr">[8]</a><cite> Y. Xie. <em>knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. R package version 1.33. 2021. URL: <a href="https://yihui.org/knitr/" class="external-link">https://yihui.org/knitr/</a>.</cite>
+<a id="bib-2021language"></a><a href="#cite-2021language">[8]</a><cite> R Core Team. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. Vienna, Austria, 2021. URL: <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>.</cite>
+</p>
+<p>
+<a id="bib-righelli2021spatialexperiment"></a><a href="#cite-righelli2021spatialexperiment">[9]</a><cite> D. Righelli and D. Risso. <em>SpatialExperiment: S4 Class for Spatial Experiments handling</em>. R package version 1.1.5. 2021.</cite>
+</p>
+<p>
+<a id="bib-shepherd2021biocfilecache"></a><a href="#cite-shepherd2021biocfilecache">[10]</a><cite> L. Shepherd and M. Morgan. <em>BiocFileCache: Manage Files Across Sessions</em>. R package version 1.99.6. 2021.</cite>
+</p>
+<p>
+<a id="bib-wickham2018pryr"></a><a href="#cite-wickham2018pryr">[11]</a><cite> H. Wickham. <em>pryr: Tools for Computing on the Language</em>. R package version 0.1.4. 2018. URL: <a href="https://CRAN.R-project.org/package=pryr" class="external-link">https://CRAN.R-project.org/package=pryr</a>.</cite>
+</p>
+<p>
+<a id="bib-wickham2011testthat"></a><a href="#cite-wickham2011testthat">[12]</a><cite> H. Wickham. “testthat: Get Started with Testing”. In: <em>The R Journal</em> 3 (2011), pp. 5–10. URL: <a href="https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf" class="external-link">https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf</a>.</cite>
+</p>
+<p>
+<a id="bib-xie2021knitr"></a><a href="#cite-xie2021knitr">[13]</a><cite> Y. Xie. <em>knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. R package version 1.33. 2021. URL: <a href="https://yihui.org/knitr/" class="external-link">https://yihui.org/knitr/</a>.</cite>
 </p>
 </div>
   </div>
