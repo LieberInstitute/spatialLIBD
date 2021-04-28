@@ -69,7 +69,9 @@ Suggests:
     testthat (>= 2.1.0),
     covr,
     here,
-    BiocManager
+    BiocManager,
+    rtracklayer,
+    pryr
 VignetteBuilder: knitr
 biocViews: Homo_sapiens_Data, ExperimentHub, SequencingData, SingleCellData,
     ExpressionData, Tissue, PackageTypeData
