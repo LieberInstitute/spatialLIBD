@@ -1,5 +1,5 @@
 ---
-title: "Using spatialLIBD with 10X public datasets"
+title: "Using spatialLIBD with 10x Genomics public datasets"
 author: 
   - name: Abby Spangler
     affiliation:
@@ -25,7 +25,7 @@ output:
 date: "`r doc_date()`"
 package: "`r pkg_ver('spatialLIBD')`"
 vignette: >
-  %\VignetteIndexEntry{Using spatialLIBD with 10X public datasets}
+  %\VignetteIndexEntry{Using spatialLIBD with 10x Genomics public datasets}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}  
 ---
@@ -83,7 +83,7 @@ BiocManager::valid()
 
 ## Required knowledge
 
-Please check the _Introduction to spatialLIBD_ vignette first available through [GitHub](http://research.libd.org/spatialLIBD/articles/spatialLIBD.html) or [Bioconductor](https://bioconductor.org/packages/spatialLIBD).
+Please first check the _Introduction to spatialLIBD_ vignette available through [GitHub](http://research.libd.org/spatialLIBD/articles/spatialLIBD.html) or [Bioconductor](https://bioconductor.org/packages/spatialLIBD).
 
 ## Citing `spatialLIBD`
 
@@ -203,7 +203,8 @@ Depending on the version of `spaceranger` you used, you might have used differen
 For example, in our computing cluster this GTF file is located at the following path and is 1.4 GB in size:
 
 ```{bash, eval = FALSE}
-$ du -sh --apparent-size /dcl02/lieber/ajaffe/SpatialTranscriptomics/refdata-gex-GRCh38-2020-A/genes/genes.gtf
+$ cd /dcl02/lieber/ajaffe/SpatialTranscriptomics/
+$ du -sh --apparent-size refdata-gex-GRCh38-2020-A/genes/genes.gtf
 1.4G	/dcl02/lieber/ajaffe/SpatialTranscriptomics/refdata-gex-GRCh38-2020-A/genes/genes.gtf
 ```
 
@@ -211,7 +212,8 @@ If you have the GTF file from 10x Genomics, we show next how you can read the in
 
 ```{r "use_10x_gtf", eval = FALSE}
 ## You could:
-## * download the 11 GB file from https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz
+## * download the 11 GB file from
+##https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz
 ## * decompress it
 
 ## Read in the gene information from the annotation GTF file provided by 10x
@@ -245,6 +247,9 @@ mcols(gtf) <-
 
 ## Add the gene info to our SPE object
 rowRanges(spe) <- gtf[match_genes]
+
+## Inspect the gene annotation data we added
+rowRanges(spe)
 ```
 
 ### From Gencode
@@ -289,6 +294,9 @@ mcols(gtf) <- mcols(gtf)[, c("source", "type", "gene_id", "gene_name", "gene_typ
 
 ## Add the gene info to our SPE object
 rowRanges(spe) <- gtf[match_genes]
+
+## Inspect the gene annotation data we added
+rowRanges(spe)
 ```
 
 ### Enable a friendlier gene search
@@ -299,7 +307,9 @@ We also compute the total expression for the mitochondrial chromosome (chrM) as 
 
 ```{r "add_gene_info"}
 ## Add information used by spatialLIBD
-rowData(spe)$gene_search <- paste0(rowData(spe)$gene_name, "; ", rowData(spe)$gene_id)
+rowData(spe)$gene_search <- paste0(
+    rowData(spe)$gene_name, "; ", rowData(spe)$gene_id
+)
 
 ## Compute chrM expression and chrM expression ratio
 is_mito <- which(seqnames(spe) == "chrM")
