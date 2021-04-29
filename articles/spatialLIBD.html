@@ -60,7 +60,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/TenX_data_download.html">Using spatialLIBD with 10X public datasets</a>
+      <a href="../articles/TenX_data_download.html">Using spatialLIBD with 10x Genomics public datasets</a>
     </li>
   </ul>
 </li>
@@ -248,7 +248,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Download the small example sce data</span>
 <span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_example"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
-<span class="co">#&gt; 2021-04-29 15:45:18 loading file /github/home/.cache/R/BiocFileCache/7803f6ee7be_sce_sub_for_vignette.Rdata%3Fdl%3D1</span>
+<span class="co">#&gt; 2021-04-29 17:04:49 loading file /github/home/.cache/R/BiocFileCache/9854d389640_sce_sub_for_vignette.Rdata%3Fdl%3D1</span>
 
 <span class="co">## Convert to a SpatialExperiment object</span>
 <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sce_to_spe.html">sce_to_spe</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span>
@@ -260,9 +260,9 @@ If you tweet about this website, the data or the R package please use the <code>
 
 <span class="co">## Query ExperimentHub and download the data</span>
 <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
-<span class="co">#&gt; 2021-04-29 15:45:27 loading file /github/home/.cache/R/BiocFileCache/78020c6032a_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="co">#&gt; 2021-04-29 17:04:58 loading file /github/home/.cache/R/BiocFileCache/985678400d4_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"modeling_results"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
-<span class="co">#&gt; 2021-04-29 15:45:28 loading file /github/home/.cache/R/BiocFileCache/78015a355b9_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></code></pre></div>
+<span class="co">#&gt; 2021-04-29 17:05:00 loading file /github/home/.cache/R/BiocFileCache/985693fae91_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></code></pre></div>
 <p>Once you have downloaded the objects, we can explore them a little bit</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## spot-level data</span>
@@ -332,7 +332,7 @@ If you tweet about this website, the data or the R package please use the <code>
         <span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;  11.231   0.681  11.913</span>
+<span class="co">#&gt;  11.824   0.717  12.541</span>
 
 <span class="co">## Explore the result</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span>
@@ -822,9 +822,9 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"spatialLIBD.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code>#&gt; [1] "2021-04-29 15:45:50 UTC"</code></pre>
+<pre><code>#&gt; [1] "2021-04-29 17:05:22 UTC"</code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code>#&gt; Time difference of 46.897 secs</code></pre>
+<pre><code>#&gt; Time difference of 47.557 secs</code></pre>
 <p><code>R</code> session information.</p>
 <pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt;  setting  value                                             
@@ -996,7 +996,7 @@ If you tweet about this website, the data or the R package please use the <code>
 #&gt;  tidyselect               1.1.0      2020-05-11 [1] CRAN (R 4.1.0)                              
 #&gt;  usethis                  2.0.1      2021-02-10 [2] CRAN (R 4.1.0)                              
 #&gt;  utf8                     1.2.1      2021-03-12 [2] CRAN (R 4.1.0)                              
-#&gt;  vctrs                    0.3.7      2021-03-29 [2] CRAN (R 4.1.0)                              
+#&gt;  vctrs                    0.3.8      2021-04-29 [2] CRAN (R 4.1.0)                              
 #&gt;  vipor                    0.4.5      2017-03-22 [1] CRAN (R 4.1.0)                              
 #&gt;  viridis                  0.6.0      2021-04-15 [1] CRAN (R 4.1.0)                              
 #&gt;  viridisLite              0.4.0      2021-04-13 [1] CRAN (R 4.1.0)                              

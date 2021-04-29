@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Using spatialLIBD with 10X public datasets • spatialLIBD</title>
+<title>Using spatialLIBD with 10x Genomics public datasets • spatialLIBD</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Using spatialLIBD with 10X public datasets">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Using spatialLIBD with 10x Genomics public datasets">
 <meta property="og:description" content="spatialLIBD">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -60,7 +60,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/TenX_data_download.html">Using spatialLIBD with 10X public datasets</a>
+      <a href="../articles/TenX_data_download.html">Using spatialLIBD with 10x Genomics public datasets</a>
     </li>
   </ul>
 </li>
@@ -88,7 +88,7 @@
       </header><script src="TenX_data_download_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Using spatialLIBD with 10X public datasets</h1>
+      <h1 data-toc-skip>Using spatialLIBD with 10x Genomics public datasets</h1>
                         <h4 data-toc-skip class="author">Abby Spangler</h4>
             <address class="author_afil">
       Lieber Institute for Brain Development, Johns Hopkins Medical Campus<br><a class="author_email" href="mailto:#"></a><a href="mailto:aspangle@gmail.com" class="email">aspangle@gmail.com</a>
@@ -132,7 +132,7 @@
 <div id="required-knowledge" class="section level2">
 <h2 class="hasAnchor">
 <a href="#required-knowledge" class="anchor" aria-hidden="true"></a>Required knowledge</h2>
-<p>Please check the <em>Introduction to spatialLIBD</em> vignette first available through <a href="http://research.libd.org/spatialLIBD/articles/spatialLIBD.html" class="external-link">GitHub</a> or <a href="https://bioconductor.org/packages/spatialLIBD" class="external-link">Bioconductor</a>.</p>
+<p>Please first check the <em>Introduction to spatialLIBD</em> vignette available through <a href="http://research.libd.org/spatialLIBD/articles/spatialLIBD.html" class="external-link">GitHub</a> or <a href="https://bioconductor.org/packages/spatialLIBD" class="external-link">Bioconductor</a>.</p>
 </div>
 <div id="citing-spatiallibd" class="section level2">
 <h2 class="hasAnchor">
@@ -302,12 +302,14 @@
 <a href="#from-10x" class="anchor" aria-hidden="true"></a>From 10x</h3>
 <p>Depending on the version of <code>spaceranger</code> you used, you might have used different GTF files 10x Genomics has made available at <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest" class="external-link uri">https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest</a> and described at <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build" class="external-link uri">https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build</a>. These files are too big though and we won’t download them in this example. For instance, <em>References - 2020-A (July 7, 2020)</em> for <em>Human reference (GRCh38)</em> is 11 GB in size and contains files we do not need for this vignette. If you did have the file locally, you could use the following code to read in the GTF file prepared by 10x Genomics and add the information into your <code>spe</code> object that <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code> does not include.</p>
 <p>For example, in our computing cluster this GTF file is located at the following path and is 1.4 GB in size:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> du <span class="at">-sh</span> <span class="at">--apparent-size</span> /dcl02/lieber/ajaffe/SpatialTranscriptomics/refdata-gex-GRCh38-2020-A/genes/genes.gtf</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">1.4G</span>    /dcl02/lieber/ajaffe/SpatialTranscriptomics/refdata-gex-GRCh38-2020-A/genes/genes.gtf</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd /dcl02/lieber/ajaffe/SpatialTranscriptomics/</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> du <span class="at">-sh</span> <span class="at">--apparent-size</span> refdata-gex-GRCh38-2020-A/genes/genes.gtf</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">1.4G</span>    /dcl02/lieber/ajaffe/SpatialTranscriptomics/refdata-gex-GRCh38-2020-A/genes/genes.gtf</span></code></pre></div>
 <p>If you have the GTF file from 10x Genomics, we show next how you can read the information into R, match it appropriately with the information in the <code>spe</code> object and add it back into the <code>spe</code> object.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## You could:</span>
-<span class="co">## * download the 11 GB file from https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz</span>
+<span class="co">## * download the 11 GB file from</span>
+<span class="co">##https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz</span>
 <span class="co">## * decompress it</span>
 
 <span class="co">## Read in the gene information from the annotation GTF file provided by 10x</span>
@@ -340,7 +342,10 @@
     <span class="op">)</span><span class="op">]</span>
 
 <span class="co">## Add the gene info to our SPE object</span>
-<span class="fu">rowRanges</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">gtf</span><span class="op">[</span><span class="va">match_genes</span><span class="op">]</span></code></pre></div>
+<span class="fu">rowRanges</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">gtf</span><span class="op">[</span><span class="va">match_genes</span><span class="op">]</span>
+
+<span class="co">## Inspect the gene annotation data we added</span>
+<span class="fu">rowRanges</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="from-gencode" class="section level3">
 <h3 class="hasAnchor">
@@ -358,8 +363,8 @@
 
 <span class="co">## Show the GTF cache location</span>
 <span class="va">gtf_cache</span>
-<span class="co">#&gt;                                                                           BFC7 </span>
-<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/780b4c4de2_gencode.v32.annotation.gtf.gz"</span>
+<span class="co">#&gt;                                                                            BFC7 </span>
+<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/985654a332f_gencode.v32.annotation.gtf.gz"</span>
 
 <span class="co">## Import into R (takes ~1 min)</span>
 <span class="va">gtf</span> <span class="op">&lt;-</span> <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span><span class="va">gtf_cache</span><span class="op">)</span>
@@ -388,7 +393,39 @@
 <span class="fu">mcols</span><span class="op">(</span><span class="va">gtf</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">mcols</span><span class="op">(</span><span class="va">gtf</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"source"</span>, <span class="st">"type"</span>, <span class="st">"gene_id"</span>, <span class="st">"gene_name"</span>, <span class="st">"gene_type"</span><span class="op">)</span><span class="op">]</span>
 
 <span class="co">## Add the gene info to our SPE object</span>
-<span class="fu">rowRanges</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">gtf</span><span class="op">[</span><span class="va">match_genes</span><span class="op">]</span></code></pre></div>
+<span class="fu">rowRanges</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">gtf</span><span class="op">[</span><span class="va">match_genes</span><span class="op">]</span>
+
+<span class="co">## Inspect the gene annotation data we added</span>
+<span class="fu">rowRanges</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>
+<span class="co">#&gt; GRanges object with 36572 ranges and 5 metadata columns:</span>
+<span class="co">#&gt;                   seqnames       ranges strand |   source     type</span>
+<span class="co">#&gt;                      &lt;Rle&gt;    &lt;IRanges&gt;  &lt;Rle&gt; | &lt;factor&gt; &lt;factor&gt;</span>
+<span class="co">#&gt;   ENSG00000243485     chr1  29554-31109      + |   HAVANA     gene</span>
+<span class="co">#&gt;   ENSG00000237613     chr1  34554-36081      - |   HAVANA     gene</span>
+<span class="co">#&gt;   ENSG00000186092     chr1  65419-71585      + |   HAVANA     gene</span>
+<span class="co">#&gt;   ENSG00000238009     chr1 89295-133723      - |   HAVANA     gene</span>
+<span class="co">#&gt;   ENSG00000239945     chr1  89551-91105      - |   HAVANA     gene</span>
+<span class="co">#&gt;               ...      ...          ...    ... .      ...      ...</span>
+<span class="co">#&gt;   ENSG00000212907     chrM  10470-10766      + |  ENSEMBL     gene</span>
+<span class="co">#&gt;   ENSG00000198886     chrM  10760-12137      + |  ENSEMBL     gene</span>
+<span class="co">#&gt;   ENSG00000198786     chrM  12337-14148      + |  ENSEMBL     gene</span>
+<span class="co">#&gt;   ENSG00000198695     chrM  14149-14673      - |  ENSEMBL     gene</span>
+<span class="co">#&gt;   ENSG00000198727     chrM  14747-15887      + |  ENSEMBL     gene</span>
+<span class="co">#&gt;                           gene_id   gene_name      gene_type</span>
+<span class="co">#&gt;                       &lt;character&gt; &lt;character&gt;    &lt;character&gt;</span>
+<span class="co">#&gt;   ENSG00000243485 ENSG00000243485 MIR1302-2HG         lncRNA</span>
+<span class="co">#&gt;   ENSG00000237613 ENSG00000237613     FAM138A         lncRNA</span>
+<span class="co">#&gt;   ENSG00000186092 ENSG00000186092       OR4F5 protein_coding</span>
+<span class="co">#&gt;   ENSG00000238009 ENSG00000238009  AL627309.1         lncRNA</span>
+<span class="co">#&gt;   ENSG00000239945 ENSG00000239945  AL627309.3         lncRNA</span>
+<span class="co">#&gt;               ...             ...         ...            ...</span>
+<span class="co">#&gt;   ENSG00000212907 ENSG00000212907     MT-ND4L protein_coding</span>
+<span class="co">#&gt;   ENSG00000198886 ENSG00000198886      MT-ND4 protein_coding</span>
+<span class="co">#&gt;   ENSG00000198786 ENSG00000198786      MT-ND5 protein_coding</span>
+<span class="co">#&gt;   ENSG00000198695 ENSG00000198695      MT-ND6 protein_coding</span>
+<span class="co">#&gt;   ENSG00000198727 ENSG00000198727      MT-CYB protein_coding</span>
+<span class="co">#&gt;   -------</span>
+<span class="co">#&gt;   seqinfo: 25 sequences from an unspecified genome; no seqlengths</span></code></pre></div>
 </div>
 <div id="enable-a-friendlier-gene-search" class="section level3">
 <h3 class="hasAnchor">
@@ -397,7 +434,9 @@
 <p>We also compute the total expression for the mitochondrial chromosome (chrM) as well as the ratio of chrM expression. Both of these continuous variables are interesting to explore and in some situations could be biological interpretations. For instance, in our pilot data (Maynard, Collado-Torres, Weber, et al., 2021), we noticed that the <code>expr_chrM_ratio</code> was associated to DLPFC layers. That is, spots with high <code>expr_chrM_ratio</code> were not randomly located in our Visium slides.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Add information used by spatialLIBD</span>
-<span class="fu">rowData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_search</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu">rowData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_name</span>, <span class="st">"; "</span>, <span class="fu">rowData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_id</span><span class="op">)</span>
+<span class="fu">rowData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_search</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span>
+    <span class="fu">rowData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_name</span>, <span class="st">"; "</span>, <span class="fu">rowData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_id</span>
+<span class="op">)</span>
 
 <span class="co">## Compute chrM expression and chrM expression ratio</span>
 <span class="va">is_mito</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu">seqnames</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">==</span> <span class="st">"chrM"</span><span class="op">)</span>
@@ -612,9 +651,9 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code>#&gt; [1] "2021-04-29 15:44:44 UTC"</code></pre>
+<pre><code>#&gt; [1] "2021-04-29 17:04:16 UTC"</code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code>#&gt; Time difference of 1.516 mins</code></pre>
+<pre><code>#&gt; Time difference of 1.585 mins</code></pre>
 <p><code>R</code> session information.</p>
 <pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt;  setting  value                                             
@@ -792,7 +831,7 @@
 #&gt;  tidyselect               1.1.0      2020-05-11 [1] CRAN (R 4.1.0)                              
 #&gt;  usethis                  2.0.1      2021-02-10 [2] CRAN (R 4.1.0)                              
 #&gt;  utf8                     1.2.1      2021-03-12 [2] CRAN (R 4.1.0)                              
-#&gt;  vctrs                    0.3.7      2021-03-29 [2] CRAN (R 4.1.0)                              
+#&gt;  vctrs                    0.3.8      2021-04-29 [2] CRAN (R 4.1.0)                              
 #&gt;  vipor                    0.4.5      2017-03-22 [1] CRAN (R 4.1.0)                              
 #&gt;  viridis                  0.6.0      2021-04-15 [1] CRAN (R 4.1.0)                              
 #&gt;  viridisLite              0.4.0      2021-04-13 [1] CRAN (R 4.1.0)                              
