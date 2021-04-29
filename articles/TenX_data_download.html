@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.13</span>
       </span>
     </div>
 
@@ -102,7 +102,7 @@
       Lieber Institute for Brain Development, Johns Hopkins Medical CampusCenter for Computational Biology, Johns Hopkins University<br><a class="author_email" href="mailto:#"></a><a href="mailto:lcolladotor@gmail.com" class="email">lcolladotor@gmail.com</a>
       </address>
                   
-            <h4 data-toc-skip class="date">28 April 2021</h4>
+            <h4 data-toc-skip class="date">29 April 2021</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/vignettes/TenX_data_download.Rmd" class="external-link"><code>vignettes/TenX_data_download.Rmd</code></a></small>
       <div class="hidden name"><code>TenX_data_download.Rmd</code></div>
@@ -148,7 +148,7 @@
 <span class="co">#&gt; 10.18129/B9.bioc.spatialLIBD (URL:</span>
 <span class="co">#&gt; https://doi.org/10.18129/B9.bioc.spatialLIBD),</span>
 <span class="co">#&gt; https://github.com/LieberInstitute/spatialLIBD - R package version</span>
-<span class="co">#&gt; 1.3.12, &lt;URL: http://www.bioconductor.org/packages/spatialLIBD&gt;.</span>
+<span class="co">#&gt; 1.3.13, &lt;URL: http://www.bioconductor.org/packages/spatialLIBD&gt;.</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK, Williams</span>
 <span class="co">#&gt; SR, II JLC, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Kleinman JE,</span>
@@ -358,7 +358,7 @@
 <span class="co">## Show the GTF cache location</span>
 <span class="va">gtf_cache</span>
 <span class="co">#&gt;                                                                            BFC7 </span>
-<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/72f554ee4c1_gencode.v32.annotation.gtf.gz"</span>
+<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/72e6277d7fc_gencode.v32.annotation.gtf.gz"</span>
 
 <span class="co">## Import into R (takes ~1 min)</span>
 <span class="va">gtf</span> <span class="op">&lt;-</span> <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span><span class="va">gtf_cache</span><span class="op">)</span>
@@ -439,10 +439,10 @@
 <div id="check-object" class="section level2">
 <h2 class="hasAnchor">
 <a href="#check-object" class="anchor" aria-hidden="true"></a>Check object</h2>
-<p>Next, we add the <code>Layer</code> variable to the sample information table (<code><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-colData.html" class="external-link">colData()</a></code>) with <code>"NA"</code>. That variable is used by the interactive website to store any manual annotations. (TODO: we’ll rename this to make it a more general and intuitive name)</p>
+<p>Next, we add the <code>ManualAnnotation</code> variable to the sample information table (<code><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-colData.html" class="external-link">colData()</a></code>) with <code>"NA"</code>. That variable is used by the interactive website to store any manual annotations.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Add a variable for saving the manual annotations</span>
-<span class="va">spe</span><span class="op">$</span><span class="va">Layer</span> <span class="op">&lt;-</span> <span class="st">"NA"</span></code></pre></div>
+<span class="va">spe</span><span class="op">$</span><span class="va">ManualAnnotation</span> <span class="op">&lt;-</span> <span class="st">"NA"</span></code></pre></div>
 <p>Finally, we can now check the final object using <code><a href="../reference/check_spe.html">spatialLIBD::check_spe()</a></code>. This is a helper function that will warn us if some important element is missing in <code>spe</code> that we use later for the interactive website. If it all goes well, it will return the original <code>spe</code> object.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Check the final dimensions and object size</span>
@@ -462,7 +462,7 @@
 <span class="co">#&gt; rowData names(6): source type ... gene_type gene_search</span>
 <span class="co">#&gt; colnames(4035): AAACAAGTATCTCCCA-1 AAACAATCTACTAGCA-1 ...</span>
 <span class="co">#&gt;   TTGTTTGTATTACACG-1 TTGTTTGTGTAAATTC-1</span>
-<span class="co">#&gt; colData names(9): Sample Barcode ... expr_chrM_ratio Layer</span>
+<span class="co">#&gt; colData names(9): Sample Barcode ... expr_chrM_ratio ManualAnnotation</span>
 <span class="co">#&gt; reducedDimNames(0):</span>
 <span class="co">#&gt; mainExpName: NULL</span>
 <span class="co">#&gt; altExpNames(0):</span>
@@ -504,24 +504,24 @@
 <li>
 <code>title</code>: we will use a custom title that reflect our data</li>
 <li>
-<code>spe_discreate_vars</code>: we don’t have really any discrete variables to show beyond <code>Layer</code> which is used for the manual annotations and <code>random_cluster</code> that we created in the previous section.</li>
+<code>spe_discreate_vars</code>: we don’t have really any discrete variables to show beyond <code>ManualAnnotation</code> which is used for the manual annotations and <code>random_cluster</code> that we created in the previous section.</li>
 <li>
 <code>spe_continous_vars</code>: we have computed several continuous variables while adapting our <code>spe</code> object for <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em>, so we’ll list these variables below in order to visually inspect them.</li>
 <li>
-<code>spatial_libd_var</code>: this is used for indicating the default discrete variable and for now we’ll set it to our <code>random_cluster</code>.</li>
+<code>default_cluster</code>: this is used for indicating the default discrete variable and for now we’ll set it to our <code>random_cluster</code>.</li>
 </ul>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Run our shiny app</span>
 <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu">spatialLIBD</span><span class="fu">::</span><span class="fu"><a href="../reference/run_app.html">run_app</a></span><span class="op">(</span>
+    <span class="fu"><a href="../reference/run_app.html">run_app</a></span><span class="op">(</span>
         <span class="va">spe</span>,
         sce_layer <span class="op">=</span> <span class="cn">NULL</span>,
         modeling_results <span class="op">=</span> <span class="cn">NULL</span>,
         sig_genes <span class="op">=</span> <span class="cn">NULL</span>,
         title <span class="op">=</span> <span class="st">"spatialLIBD: human lymph node by 10x Genomics"</span>,
-        spe_discrete_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"random_cluster"</span>, <span class="st">"Layer"</span><span class="op">)</span>,
+        spe_discrete_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"random_cluster"</span>, <span class="st">"ManualAnnotation"</span><span class="op">)</span>,
         spe_continuous_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sum_umi"</span>, <span class="st">"sum_gene"</span>, <span class="st">"expr_chrM"</span>, <span class="st">"expr_chrM_ratio"</span><span class="op">)</span>,
-        spatial_libd_var <span class="op">=</span> <span class="st">"random_cluster"</span>
+        default_cluster <span class="op">=</span> <span class="st">"random_cluster"</span>
     <span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>We also recommend creating custom website documentation files as described in the documentation of <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code>. Those documentation files will help you describe your project to your users in a more personalized way. The easiest way to start is to copy our documentation files to a new location and adapt them. You can located them at the following path.</p>
@@ -610,9 +610,9 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code>#&gt; [1] "2021-04-28 21:00:06 UTC"</code></pre>
+<pre><code>#&gt; [1] "2021-04-29 05:32:48 UTC"</code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code>#&gt; Time difference of 1.767 mins</code></pre>
+<pre><code>#&gt; Time difference of 1.633 mins</code></pre>
 <p><code>R</code> session information.</p>
 <pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt;  setting  value                                             
@@ -624,7 +624,7 @@
 #&gt;  collate  en_US.UTF-8                                       
 #&gt;  ctype    en_US.UTF-8                                       
 #&gt;  tz       Etc/UTC                                           
-#&gt;  date     2021-04-28                                        
+#&gt;  date     2021-04-29                                        
 #&gt; 
 #&gt; ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt;  package                * version    date       lib source                                      
@@ -777,8 +777,8 @@
 #&gt;  SingleCellExperiment   * 1.13.14    2021-04-07 [1] Bioconductor                                
 #&gt;  spam                     2.6-0      2020-12-14 [1] CRAN (R 4.1.0)                              
 #&gt;  sparseMatrixStats        1.3.7      2021-03-29 [1] Bioconductor                                
-#&gt;  SpatialExperiment      * 1.1.5      2021-04-28 [1] Github (drighelli/SpatialExperiment@17e5176)
-#&gt;  spatialLIBD            * 1.3.12     2021-04-28 [1] Bioconductor                                
+#&gt;  SpatialExperiment      * 1.1.5      2021-04-29 [1] Github (drighelli/SpatialExperiment@17e5176)
+#&gt;  spatialLIBD            * 1.3.13     2021-04-29 [1] Bioconductor                                
 #&gt;  stringi                  1.5.3      2020-09-09 [2] CRAN (R 4.1.0)                              
 #&gt;  stringr                  1.4.0      2019-02-10 [2] CRAN (R 4.1.0)                              
 #&gt;  SummarizedExperiment   * 1.21.3     2021-04-07 [1] Bioconductor                                
@@ -816,7 +816,7 @@
 <a id="bib-allaire2021rmarkdown"></a><a href="#cite-allaire2021rmarkdown">[1]</a><cite> J. Allaire, Y. Xie, J. McPherson, et al. <em>rmarkdown: Dynamic Documents for R</em>. R package version 2.7. 2021. URL: <a href="https://github.com/rstudio/rmarkdown" class="external-link">https://github.com/rstudio/rmarkdown</a>.</cite>
 </p>
 <p>
-<a id="bib-colladotorres2021libd"></a><a href="#cite-colladotorres2021libd">[2]</a><cite> L. Collado-Torres, K. R. Maynard, and A. E. Jaffe. <em>LIBD Visium spatial transcriptomics human pilot data inspector</em>. <a href="https://github.com/LieberInstitute/spatialLIBD" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD</a> - R package version 1.3.12. 2021. DOI: <a href="https://doi.org/10.18129/B9.bioc.spatialLIBD" class="external-link">10.18129/B9.bioc.spatialLIBD</a>. URL: <a href="http://www.bioconductor.org/packages/spatialLIBD" class="external-link">http://www.bioconductor.org/packages/spatialLIBD</a>.</cite>
+<a id="bib-colladotorres2021libd"></a><a href="#cite-colladotorres2021libd">[2]</a><cite> L. Collado-Torres, K. R. Maynard, and A. E. Jaffe. <em>LIBD Visium spatial transcriptomics human pilot data inspector</em>. <a href="https://github.com/LieberInstitute/spatialLIBD" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD</a> - R package version 1.3.13. 2021. DOI: <a href="https://doi.org/10.18129/B9.bioc.spatialLIBD" class="external-link">10.18129/B9.bioc.spatialLIBD</a>. URL: <a href="http://www.bioconductor.org/packages/spatialLIBD" class="external-link">http://www.bioconductor.org/packages/spatialLIBD</a>.</cite>
 </p>
 <p>
 <a id="bib-csrdi2018sessioninfo"></a><a href="#cite-csrdi2018sessioninfo">[3]</a><cite> G. Csárdi, R. core, H. Wickham, et al. <em>sessioninfo: R Session Information</em>. R package version 1.1.1. 2018. URL: <a href="https://CRAN.R-project.org/package=sessioninfo" class="external-link">https://CRAN.R-project.org/package=sessioninfo</a>.</cite>

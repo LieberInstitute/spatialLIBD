@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.13</span>
       </span>
     </div>
 
@@ -153,6 +153,9 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="op">}</span>
 
 <span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"spatialLIBD"</span><span class="op">)</span></code></pre></div>
+<p>If you want to use the development version of <code>spatialLIBD</code>, you will need to use the R version corresponding to the current Bioconductor-devel branch as described in more detail on the <a href="http://bioconductor.org/developers/how-to/useDevel/" class="external-link">Bioconductor website</a>. Then you can install <code>spatialLIBD</code> from GitHub using the following command.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"LieberInstitute/spatialLIBD"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="access-the-data" class="section level2">
 <h2 class="hasAnchor">
@@ -162,7 +165,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <h3 class="hasAnchor">
 <a href="#processed-data" class="anchor" aria-hidden="true"></a>Processed data</h3>
 <p>Using <code>spatialLIBD</code> you can access the Human DLPFC spatial transcriptomics data from the 10x Genomics Visium platform. For example, this is the code you can use to access the layer-level data. For more details, check the help file for <code><a href="reference/fetch_data.html">fetch_data()</a></code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Load the package</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/LieberInstitute/spatialLIBD" class="external-link">"spatialLIBD"</a></span><span class="op">)</span>
 
@@ -186,8 +189,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt; rowData names(9): source type ... gene_search is_top_hvg</span>
 <span class="co">#&gt; colnames(47681): AAACAACGAATAGTTC-1 AAACAAGTATCTCCCA-1 ...</span>
 <span class="co">#&gt;   TTGTTTCCATACAACT-1 TTGTTTGTGTAAATTC-1</span>
-<span class="co">#&gt; colData names(66): Barcode sample_id ... pseudobulk_UMAP_spatial</span>
-<span class="co">#&gt;   markers_UMAP_spatial</span>
+<span class="co">#&gt; colData names(67): Barcode sample_id ... spatialLIBD ManualAnnotation</span>
 <span class="co">#&gt; reducedDimNames(6): PCA TSNE_perplexity50 ... TSNE_perplexity80</span>
 <span class="co">#&gt;   UMAP_neighbors15</span>
 <span class="co">#&gt; mainExpName: NULL</span>
@@ -357,7 +359,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor" aria-hidden="true"></a>Citation</h2>
 <p>Below is the citation output from using <code>citation('spatialLIBD')</code> in R. Please run this yourself to check for any updates on how to cite <strong>spatialLIBD</strong>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"spatialLIBD"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Collado-Torres L, Maynard KR, Jaffe AE (2021). _LIBD Visium spatial</span>
@@ -365,7 +367,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt; 10.18129/B9.bioc.spatialLIBD (URL:</span>
 <span class="co">#&gt; https://doi.org/10.18129/B9.bioc.spatialLIBD),</span>
 <span class="co">#&gt; https://github.com/LieberInstitute/spatialLIBD - R package version</span>
-<span class="co">#&gt; 1.3.11, &lt;URL: http://www.bioconductor.org/packages/spatialLIBD&gt;.</span>
+<span class="co">#&gt; 1.3.13, &lt;URL: http://www.bioconductor.org/packages/spatialLIBD&gt;.</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
 <span class="co">#&gt; </span>
@@ -374,7 +376,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt;     author = {Leonardo Collado-Torres and Kristen R. Maynard and Andrew E. Jaffe},</span>
 <span class="co">#&gt;     year = {2021},</span>
 <span class="co">#&gt;     url = {http://www.bioconductor.org/packages/spatialLIBD},</span>
-<span class="co">#&gt;     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.11},</span>
+<span class="co">#&gt;     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.13},</span>
 <span class="co">#&gt;     doi = {10.18129/B9.bioc.spatialLIBD},</span>
 <span class="co">#&gt;   }</span>
 <span class="co">#&gt; </span>
