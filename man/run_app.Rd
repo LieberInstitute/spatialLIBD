@@ -12,13 +12,13 @@ run_app(
     modeling_results, sce_layer = sce_layer),
   docs_path = system.file("app", "www", package = "spatialLIBD"),
   title = "spatialLIBD",
-  spe_discrete_vars = c("GraphBased", "ManualAnnotation", "Maynard", "Martinowich",
-    paste0("SNN_k50_k", 4:28), "SpatialDE_PCA", "SpatialDE_pool_PCA", "HVG_PCA",
-    "pseudobulk_PCA", "markers_PCA", "SpatialDE_UMAP", "SpatialDE_pool_UMAP", "HVG_UMAP",
-    "pseudobulk_UMAP", "markers_UMAP", "SpatialDE_PCA_spatial",
+  spe_discrete_vars = c("spatialLIBD", "GraphBased", "ManualAnnotation", "Maynard",
+    "Martinowich", paste0("SNN_k50_k", 4:28), "SpatialDE_PCA", "SpatialDE_pool_PCA",
+    "HVG_PCA", "pseudobulk_PCA", "markers_PCA", "SpatialDE_UMAP", "SpatialDE_pool_UMAP",
+    "HVG_UMAP", "pseudobulk_UMAP", "markers_UMAP", "SpatialDE_PCA_spatial",
     "SpatialDE_pool_PCA_spatial", "HVG_PCA_spatial", "pseudobulk_PCA_spatial",
     "markers_PCA_spatial", "SpatialDE_UMAP_spatial", "SpatialDE_pool_UMAP_spatial",
-    "HVG_UMAP_spatial", "pseudobulk_UMAP_spatial", "markers_UMAP_spatial"),
+    "HVG_UMAP_spatial", "pseudobulk_UMAP_spatial",      "markers_UMAP_spatial"),
   spe_continuous_vars = c("cell_count", "sum_umi", "sum_gene", "expr_chrM",
     "expr_chrM_ratio"),
   default_cluster = "spatialLIBD",
@@ -89,7 +89,7 @@ if (enough_ram(4e9)) {
     if (!exists("spe")) spe <- fetch_data("spe")
 
     ## Create the interactive website
-    run_app()
+    run_app(spe)
 
     ## You can also run a custom version without the pseudo-bulked
     ## layer information. This is useful if you are only interested

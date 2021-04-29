@@ -131,8 +131,10 @@ fetch_data <-
             if (length(q) == 1) {
                 ## ExperimentHub has the data =)
                 res <- q[[1]]
-                if (type == "sce") {
+                if (type %in% c("sce", "sce_example")) {
                     res <- .update_sce(res)
+                } else if (type == "sce_layer") {
+                    res <- .update_sce_layer(res)
                 }
                 return(res)
             } else {
@@ -147,11 +149,11 @@ fetch_data <-
         if (type == "sce") {
             return(.update_sce(sce))
         } else if (type == "sce_layer") {
-            return(sce_layer)
+            return(.update_sce_layer(sce_layer))
         } else if (type == "modeling_results") {
             return(modeling_results)
         } else if (type == "sce_example") {
-            return(sce_sub)
+            return(.update_sce(sce_sub))
         }
     }
 
@@ -165,4 +167,11 @@ fetch_data <-
     sce$Layer <- NULL
 
     return(sce)
+}
+
+.update_sce_layer <- function(sce_layer) {
+    ## Rename here the default cluster we want to show in the shiny app
+    sce_layer$spatialLIBD <- sce_layer$layer_guess_reordered_short
+
+    return(sce_layer)
 }

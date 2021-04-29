@@ -4,7 +4,7 @@
 \alias{check_sce_layer}
 \title{Check input sce_layer}
 \usage{
-check_sce_layer(sce_layer, variables = "layer_guess_reordered_short")
+check_sce_layer(sce_layer, variables = "spatialLIBD")
 }
 \arguments{
 \item{sce_layer}{Defaults to the output of

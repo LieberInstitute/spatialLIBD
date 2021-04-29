@@ -19,7 +19,7 @@
 #'
 #' ## Check the object
 #' check_sce_layer(sce_layer)
-check_sce_layer <- function(sce_layer, variables = "layer_guess_reordered_short") {
+check_sce_layer <- function(sce_layer, variables = "spatialLIBD") {
     ## Should be a SingleCellExperiment object
     stopifnot(is(sce_layer, "SingleCellExperiment"))
 

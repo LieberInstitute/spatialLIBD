@@ -45,7 +45,7 @@
 #'     if (!exists("spe")) spe <- fetch_data("spe")
 #'
 #'     ## Create the interactive website
-#'     run_app()
+#'     run_app(spe)
 #'
 #'     ## You can also run a custom version without the pseudo-bulked
 #'     ## layer information. This is useful if you are only interested
@@ -67,6 +67,7 @@ run_app <- function(spe = fetch_data(type = "spe"),
     docs_path = system.file("app", "www", package = "spatialLIBD"),
     title = "spatialLIBD",
     spe_discrete_vars = c(
+        "spatialLIBD",
         "GraphBased",
         "ManualAnnotation",
         "Maynard",
@@ -104,10 +105,11 @@ run_app <- function(spe = fetch_data(type = "spe"),
     ...) {
     ## Run the checks in the relevant order
     stopifnot(length(default_cluster) == 1)
+    stopifnot(default_cluster %in% spe_discrete_vars)
 
     spe <-
         check_spe(spe,
-            variables = c(default_cluster, spe_discrete_vars, spe_continuous_vars)
+            variables = c(spe_discrete_vars, spe_continuous_vars)
         )
 
     ## Check sce_layer and modeling_results if needed
