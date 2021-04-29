@@ -145,6 +145,17 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 BiocManager::install("spatialLIBD")
 ```
 
+If you want to use the development version of `spatialLIBD`, you will
+need to use the R version corresponding to the current
+Bioconductor-devel branch as described in more detail on the
+[Bioconductor
+website](http://bioconductor.org/developers/how-to/useDevel/). Then you
+can install `spatialLIBD` from GitHub using the following command.
+
+``` r
+BiocManager::install("LieberInstitute/spatialLIBD")
+```
+
 ## Access the data
 
 Through the `spatialLIBD` package you can access the processed data in
@@ -182,8 +193,7 @@ spe
 #> rowData names(9): source type ... gene_search is_top_hvg
 #> colnames(47681): AAACAACGAATAGTTC-1 AAACAAGTATCTCCCA-1 ...
 #>   TTGTTTCCATACAACT-1 TTGTTTGTGTAAATTC-1
-#> colData names(66): Barcode sample_id ... pseudobulk_UMAP_spatial
-#>   markers_UMAP_spatial
+#> colData names(67): Barcode sample_id ... spatialLIBD ManualAnnotation
 #> reducedDimNames(6): PCA TSNE_perplexity50 ... TSNE_perplexity80
 #>   UMAP_neighbors15
 #> mainExpName: NULL
@@ -247,7 +257,7 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 1.3.11, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 1.3.13, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -256,7 +266,7 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #>     author = {Leonardo Collado-Torres and Kristen R. Maynard and Andrew E. Jaffe},
 #>     year = {2021},
 #>     url = {http://www.bioconductor.org/packages/spatialLIBD},
-#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.11},
+#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.13},
 #>     doi = {10.18129/B9.bioc.spatialLIBD},
 #>   }
 #> 
