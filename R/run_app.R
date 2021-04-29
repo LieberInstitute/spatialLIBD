@@ -23,9 +23,9 @@
 #' @param spe_continuous_vars A `character()` vector of continuous variables
 #' that will be available to visualize in the app using the same scale
 #' as genes. They will have to be present in `colData(sce)`.
-#' @param spatial_libd_var A `character(1)` with the name of the main cluster
-#' variable to use. It will have to be present in both `colData(spe)` and
-#' `colData(sce_layer)`.
+#' @param default_cluster A `character(1)` with the name of the main cluster
+#' (discrete) variable to use. It will have to be present in both `colData(spe)`
+#' and `colData(sce_layer)`.
 #' @param ... Other arguments passed to the list of golem options for running
 #' the application.
 #'
@@ -44,6 +44,7 @@
 #'     ## Obtain the necessary data
 #'     if (!exists("spe")) spe <- fetch_data("spe")
 #'
+#'     ## Create the interactive website
 #'     run_app()
 #'
 #'     ## You can also run a custom version without the pseudo-bulked
@@ -67,7 +68,7 @@ run_app <- function(spe = fetch_data(type = "spe"),
     title = "spatialLIBD",
     spe_discrete_vars = c(
         "GraphBased",
-        "Layer",
+        "ManualAnnotation",
         "Maynard",
         "Martinowich",
         paste0("SNN_k50_k", 4:28),
@@ -99,20 +100,20 @@ run_app <- function(spe = fetch_data(type = "spe"),
         "expr_chrM",
         "expr_chrM_ratio"
     ),
-    spatial_libd_var = "layer_guess_reordered_short",
+    default_cluster = "spatialLIBD",
     ...) {
     ## Run the checks in the relevant order
-    stopifnot(length(spatial_libd_var) == 1)
+    stopifnot(length(default_cluster) == 1)
 
     spe <-
         check_spe(spe,
-            variables = c(spatial_libd_var, spe_discrete_vars, spe_continuous_vars)
+            variables = c(default_cluster, spe_discrete_vars, spe_continuous_vars)
         )
 
     ## Check sce_layer and modeling_results if needed
     if (!is.null(sce_layer)) {
         sce_layer <-
-            check_sce_layer(sce_layer, variables = spatial_libd_var)
+            check_sce_layer(sce_layer, variables = default_cluster)
         modeling_results <- check_modeling_results(modeling_results)
         ## No need to check sig_genes since sig_genes_extract_all() will fail
     }
@@ -145,7 +146,7 @@ run_app <- function(spe = fetch_data(type = "spe"),
             title = title,
             spe_discrete_vars = spe_discrete_vars,
             spe_continuous_vars = spe_continuous_vars,
-            spatial_libd_var = spatial_libd_var,
+            default_cluster = default_cluster,
             ...
         )
     )

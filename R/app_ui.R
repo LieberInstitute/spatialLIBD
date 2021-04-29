@@ -8,6 +8,17 @@ app_ui <- function() {
     spe <- golem::get_golem_options("spe")
     docs_path <- golem::get_golem_options("docs_path")
     title <- golem::get_golem_options("title")
+    spe_discrete_vars <- golem::get_golem_options("spe_discrete_vars")
+    default_cluster <- golem::get_golem_options("default_cluster")
+    message("default_cluster: ", default_cluster)
+    message("class: ", class(default_cluster))
+
+    red_dim_names <- reducedDimNames(spe)
+    if (length(red_dim_names) > 0) {
+        red_dim_names <- sort(red_dim_names)
+    } else {
+        red_dim_names <- NULL
+    }
 
     tagList(
         # Leave this function for adding external resources
@@ -26,60 +37,68 @@ app_ui <- function() {
                             label = "Sample to plot",
                             choices = unique(spe$sample_id)
                         ),
+                        hr(),
                         selectInput(
                             inputId = "cluster",
-                            label = "Clusters to plot",
-                            choices = c(
-                                "spatialLIBD",
-                                golem::get_golem_options("spe_discrete_vars")
-                            )
+                            label = "Discrete variable to plot",
+                            choices = spe_discrete_vars,
+                            selected = default_cluster
                         ),
+                        helpText("Typically cluster labels or any other discrete variable."),
+                        hr(),
                         selectInput(
                             inputId = "reduced_name",
                             label = "Reduced dimensions",
-                            choices = sort(reducedDimNames(spe)),
-                            selected = reducedDimNames(spe)[length(reducedDimNames(spe))]
+                            choices = red_dim_names,
+                            selected = red_dim_names[length(red_dim_names)]
                         ),
+                        hr(),
                         pickerInput(
                             inputId = "geneid",
-                            label = "Gene (or count variable)",
+                            label = "Continuous variable to plot",
                             choices = c(
                                 golem::get_golem_options("spe_continuous_vars"),
                                 sort(rowData(spe)$gene_search)
                             ),
                             options = pickerOptions(liveSearch = TRUE)
                         ),
+                        helpText("Typically a gene or any other continuous variable."),
+                        hr(),
                         selectInput(
                             inputId = "assayname",
                             label = "Gene scale",
-                            choices = c("counts", "logcounts"),
-                            selected = "logcounts"
+                            choices = assayNames(spe),
+                            selected = assayNames(spe)[length(assayNames(spe))]
                         ),
+                        hr(),
                         numericInput(
                             inputId = "minCount",
                             label = "Minimum count value",
                             value = 0,
                             min = -1,
-                            max = max(assays(spe)$logcounts),
+                            max = max(assays(spe)[[length(assayNames(spe))]]),
                             step = 1
                         ),
+                        helpText("You can manually enter any number then press enter in your keyboard. This is useful for extreme values."),
+                        hr(),
                         selectInput(
                             inputId = "genecolor",
                             label = "Gene color scale",
                             choices = c("viridis", "paper"),
                             selected = "viridis"
                         ),
+                        helpText("The viridis scale is color-blind friendly."),
                         hr(),
                         checkboxInput("dropNA",
                             "Drop NA layer entries in the CSV file?",
                             value = TRUE
                         ),
-                        downloadButton("downloadData", "Download layer guesses"),
-                        helpText("Save your layer guesses frequently to avoid losing your work!"),
+                        downloadButton("downloadData", "Download manual annotations"),
+                        helpText("Save your manual annotations frequently to avoid losing your work!"),
                         hr(),
                         fileInput(
                             "priorGuesses",
-                            'Overwrite "Layer" with your prior guesses. You can combine multiple files and re-download the merged results, though note that the order matters though as results are overwritten sequentially!.',
+                            'Overwrite "ManualAnnotation" with your prior annotations. You can combine multiple files and re-download the merged results, though note that the order matters though as results are overwritten sequentially!.',
                             accept = c(
                                 "text/csv",
                                 ".csv",
@@ -87,7 +106,7 @@ app_ui <- function() {
                             )
                         ),
                         helpText(
-                            "This is useful for resuming your work. It should be a CSV file with the sample_id, spot_name, and layer columns."
+                            "This is useful for resuming your work. It should be a CSV file with the sample_id, spot_name, and ManualAnnotation columns."
                         ),
                         hr(),
                         width = 2
@@ -134,7 +153,7 @@ app_ui <- function() {
                                     width = "1200px",
                                     height = "1200px"
                                 ),
-                                textInput("label_layer", "Layer label", "Your Guess"),
+                                textInput("label_manual_ann", "Manual annotation label", "Your Guess"),
                                 checkboxInput(
                                     "label_click",
                                     "Enable layer-labelling by clicking on points",
@@ -142,10 +161,10 @@ app_ui <- function() {
                                 ),
                                 verbatimTextOutput("click"),
                                 actionButton(
-                                    "update_layer",
-                                    "Label selected points (from lasso) with layer"
+                                    "update_manual_ann",
+                                    "Label selected points (from lasso) with manual annotation"
                                 ),
-                                helpText("Select points (lasso) to label them with a layer guess."),
+                                helpText("Select points (lasso) to label them with a manual annotation."),
                                 tags$br(),
                                 tags$br(),
                                 tags$br(),
@@ -216,7 +235,7 @@ app_ui <- function() {
                                     width = "600px",
                                     height = "600px"
                                 ),
-                                textInput("label_layer_gene", "Layer label", "Your Guess"),
+                                textInput("label_manual_ann_gene", "Manual annotation label", "Your Guess"),
                                 checkboxInput(
                                     "label_click_gene",
                                     "Enable layer-labelling by clicking on points",
@@ -224,10 +243,10 @@ app_ui <- function() {
                                 ),
                                 verbatimTextOutput("click_gene"),
                                 actionButton(
-                                    "update_layer_gene",
-                                    "Label selected points (from lasso) with layer"
+                                    "update_manual_ann_gene",
+                                    "Label selected points (from lasso) with manual annotation"
                                 ),
-                                helpText("Select points to label them with a layer guess."),
+                                helpText("Select points to label them with a manual annotation."),
                                 helpText(
                                     "Note that only spots passing the minimum count value will be updated."
                                 ),

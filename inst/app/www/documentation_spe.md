@@ -17,18 +17,18 @@ Throughout the rest of this document, we'll refer to this object by the name `sp
 ## Common options
 
 * `Samples to plot`: which sample to plot on the tabs that do not have _grid_ on their name.
-* `Clusters to plot`: which discrete variable (typically with the cluster labels) to visualize.
-* `Reduced dimensions`: which reduced dimension to visualize on the `clusters (interactive)` tab.
-* `Gene (or count variable)`: which gene or continuous variable (such as the cell count, the ratio of the mitochondrial chromosome expression) to visualize in the gene tabs as well as on the `clusters (interactive)` tab.
+* `Discrete variable to plot`: which discrete variable (typically with the cluster labels) to visualize.
+* `Reduced dimensions`: which reduced dimension to visualize on the `clusters (interactive)` tab. Only the first two dimensions will be shown.
+* `Continuous variable to plot`: which gene or continuous variable (such as the cell count, the ratio of the mitochondrial chromosome expression) to visualize in the gene tabs as well as on the `clusters (interactive)` tab.
 * `Gene scale`: whether to use the raw expression values (`counts`) or the scaled and log transformed values (`logcounts`).
-* `Minimum count value`: Values from the selected `gene (or count variable)` at or below this threshold will not be displayed.
+* `Minimum count value`: Values from the selected `continuous variable to plot` at or below this threshold will not be displayed.
 * `Gene color scale`: Whether to use the color blind friendly palette (`viridis`) or to use a custom palette that we used for our `paper`.
 
 We will cover the download button and upload CSV options at the end of this document.
 
 ## Clusters (static)
 
-Displays the selected cluster variable (from `clusters to plot`) for the given sample (from `samples to plot`). 
+Displays the selected cluster variable (from `discrete variable to plot`) for the given sample (from `samples to plot`). 
 
 ```{r}
 ## Reproduce locally with
@@ -41,11 +41,11 @@ Displays a 1,200 by 1,200 pixels interactive plot area with a matrix of 2 by 2 p
 
 This panel allows you to look at the results from a given clustering approach and combine that information with the expression of a given gene to visualize the spot-level data both in the spatial resolution as well as a reduced dimensionality space from the expression of the most variable genes. 
 
-Once you have selected spots of interest, at the bottom of the tab there is a text box where you can enter your label guess. This overwrites `spe$Layer` which is why you need to confirm doing so by clicking the button `Label selected points (from lasso) with layer`. You can then change the `clusters to plot` option to `Layer` to see your new spot labels.
+Once you have selected spots of interest, at the bottom of the tab there is a text box where you can enter your manual annotations. This overwrites `spe$ManualAnnotation` which is why you need to confirm doing so by clicking the button `Label selected points (from lasso) with manual annotation`. You can then change the `clusters to plot` option to `ManualAnnotation` to see your new spot labels.
 
 Given the amount of data being displayed, this tab consumes quite a bit of resources.
 
-Note that there can be a maximum of 36 unique guessed layers (unique values in `spe$Layer`) before we run out of colors to visualize them.
+Note that there can be a maximum of 36 unique manual annotations (unique values in `spe$ManualAnnotation`) before we run out of colors to visualize them.
 
 ## Clusters grid (static)
 
@@ -69,9 +69,9 @@ spatialLIBD::vis_gene()
 
 ## Gene (interactive)
 
-This tab shows a single interactive plot. It is similar to `clusters (interactive)` as in you can use the lasso selector (mouse over top right to find it) to select spots and them label them using the text box at the bottom with the corresponding button. Unlike `clusters (interactive)`, this version includes checkboxes at the top for each of the unique values of the selected `clusters to plot` such that you can subset the spots to those present on a given cluster.
+This tab shows a single interactive plot. It is similar to `clusters (interactive)` as in you can use the lasso selector (mouse over top right to find it) to select spots and them label them using the text box at the bottom with the corresponding button. Unlike `clusters (interactive)`, this version includes checkboxes at the top for each of the unique values of the selected `discrete variable to plot` such that you can subset the spots to those present on a given cluster.
 
-Note that if you have `clusters to plot` toggled to the `Layer` option and update the spot-level information with the text box and button at the bottom of the tab, then it will re-load the interactive visualization and you will lose your selection of points.
+Note that if you have `discrete variable to plot` toggled to the `ManualAnnotation` option and update the spot-level information with the text box and button at the bottom of the tab, then it will re-load the interactive visualization and you will lose your selection of points.
 
 ## Gene grid (static)
 
@@ -82,11 +82,11 @@ This is the equivalent of `clusters grid (static)` but for continuous variables,
 spatialLIBD::vis_grid_gene()
 ```
 
-## Saving and uploading your `spe$Layer` results
+## Saving and uploading your `spe$ManualAnnotation` results
 
-Beyond visualizing the data, the main goal of this section of `spatialLIBD` is to enable you to label spots. That is done only through the `interactive` tabs as previously described. Your layer guesses are saved under `spe$Layer` and you can save them for future use using the main menu download button. If you click this button, it will prompt you to save a CSV file. We recommend that you keep selected the checkbox `Drop NA layer entries in the CSV file?` which means that your CSV file will be smaller and will potentially lead to less conflicts with other CSV files you make. That is, you will likely avoid re-labeling the same spot with different values in two or more of these CSV files. This is particularly useful if you plan to work on one sample at a time, save your results, and then merge them all into a single CSV file.
+Beyond visualizing the data, the main goal of this section of `spatialLIBD` is to enable you to label spots. That is done only through the `interactive` tabs as previously described. Your manual annotations are saved under `spe$ManualAnnotation` and you can save them for future use using the main menu download button. If you click this button, it will prompt you to save a CSV file. We recommend that you keep selected the checkbox `Drop NA layer entries in the CSV file?` which means that your CSV file will be smaller and will potentially lead to less conflicts with other CSV files you make. That is, you will likely avoid re-labeling the same spot with different values in two or more of these CSV files. This is particularly useful if you plan to work on one sample at a time, save your results, and then merge them all into a single CSV file.
 
-These CSV files with your label guesses can be re-uploaded to `spatialLIBD`. You can notice this by choosing `Layer` under `clusters to plot` and using any of the `clusters` tabs. If you upload more than one CSV, any values you have under `spe$Layer` will be overwritten if the spot is present in your CSV file. Thus, if you followed the recommended workflow of saving one CSV file per sample, you can then upload them all sequentially and merge them together into a single CSV file to simplify your work later.
+These CSV files with your manual annotations can be re-uploaded to `spatialLIBD`. You can notice this by choosing `ManualAnnotation` under `clusters to plot` and using any of the `clusters` tabs. If you upload more than one CSV, any values you have under `spe$ManualAnnotation` will be overwritten if the spot is present in your CSV file. Thus, if you followed the recommended workflow of saving one CSV file per sample, you can then upload them all sequentially and merge them together into a single CSV file to simplify your work later.
 
 In summary, the order in which you re-upload the CSV files matters as newer uploads will overwrite any duplicated spots from previous CSV files.
 
@@ -97,4 +97,4 @@ We also recommend saving your work often in case you lose connection to `spatial
 spatialLIBD::run_app()
 ```
 
-This will require about 3GB of RAM to run, though potentially more, specially when using the `clusters (interactive)` tab.
+This will require about 3GB of RAM to run on the server side, though potentially more, specially when using the `clusters (interactive)` tab.

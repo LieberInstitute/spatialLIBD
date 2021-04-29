@@ -12,7 +12,7 @@ run_app(
     modeling_results, sce_layer = sce_layer),
   docs_path = system.file("app", "www", package = "spatialLIBD"),
   title = "spatialLIBD",
-  spe_discrete_vars = c("GraphBased", "Layer", "Maynard", "Martinowich",
+  spe_discrete_vars = c("GraphBased", "ManualAnnotation", "Maynard", "Martinowich",
     paste0("SNN_k50_k", 4:28), "SpatialDE_PCA", "SpatialDE_pool_PCA", "HVG_PCA",
     "pseudobulk_PCA", "markers_PCA", "SpatialDE_UMAP", "SpatialDE_pool_UMAP", "HVG_UMAP",
     "pseudobulk_UMAP", "markers_UMAP", "SpatialDE_PCA_spatial",
@@ -21,7 +21,7 @@ run_app(
     "HVG_UMAP_spatial", "pseudobulk_UMAP_spatial", "markers_UMAP_spatial"),
   spe_continuous_vars = c("cell_count", "sum_umi", "sum_gene", "expr_chrM",
     "expr_chrM_ratio"),
-  spatial_libd_var = "layer_guess_reordered_short",
+  default_cluster = "spatialLIBD",
   ...
 )
 }
@@ -63,9 +63,9 @@ with spot-level groups. They will have to be present in \code{colData(spe)}.}
 that will be available to visualize in the app using the same scale
 as genes. They will have to be present in \code{colData(sce)}.}
 
-\item{spatial_libd_var}{A \code{character(1)} with the name of the main cluster
-variable to use. It will have to be present in both \code{colData(spe)} and
-\code{colData(sce_layer)}.}
+\item{default_cluster}{A \code{character(1)} with the name of the main cluster
+(discrete) variable to use. It will have to be present in both \code{colData(spe)}
+and \code{colData(sce_layer)}.}
 
 \item{...}{Other arguments passed to the list of golem options for running
 the application.}
@@ -88,6 +88,7 @@ if (enough_ram(4e9)) {
     ## Obtain the necessary data
     if (!exists("spe")) spe <- fetch_data("spe")
 
+    ## Create the interactive website
     run_app()
 
     ## You can also run a custom version without the pseudo-bulked

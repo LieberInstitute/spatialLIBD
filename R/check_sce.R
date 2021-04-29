@@ -27,7 +27,7 @@
 check_sce <- function(sce,
     variables = c(
         "GraphBased",
-        "Layer",
+        "ManualAnnotation",
         "Maynard",
         "Martinowich",
         paste0("SNN_k50_k", 4:28),

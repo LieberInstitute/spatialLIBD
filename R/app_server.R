@@ -23,17 +23,10 @@ app_server <- function(input, output, session) {
     sce_layer <- golem::get_golem_options("sce_layer")
     modeling_results <- golem::get_golem_options("modeling_results")
     sig_genes <- golem::get_golem_options("sig_genes")
-    spatial_libd_var <- golem::get_golem_options("spatial_libd_var")
-
-    ## Rename some variables
-    spe$spatialLIBD <- colData(spe)[[spatial_libd_var]]
+    default_cluster <- golem::get_golem_options("default_cluster")
 
     ## Update the UI if sce_layer was specified
     if (!is.null(sce_layer)) {
-
-        ## Rename some variables
-        sce_layer$spatialLIBD <- colData(sce_layer)[[spatial_libd_var]]
-
         output$spatial_layer_level <- renderUI({
             tabPanel("layer-level data", tagList(
                 sidebarLayout(
@@ -87,7 +80,7 @@ app_server <- function(input, output, session) {
                                     inputId = "layer_which_dim_color",
                                     label = "Color by",
                                     choices = sort(colnames(colData(sce_layer))),
-                                    selected = spatial_libd_var
+                                    selected = default_cluster
                                 ),
                                 downloadButton("layer_downloadReducedDim", "Download PDF"),
                                 plotOutput("layer_reduced_dim"),
@@ -252,7 +245,7 @@ app_server <- function(input, output, session) {
     # List the first level callModules here
 
     ## Global variables needed throughout the app
-    rv <- reactiveValues(layer = rep("NA", ncol(spe)))
+    rv <- reactiveValues(ManualAnnotation = rep("NA", ncol(spe)))
 
     ## From /dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/rda_scran/clust_10x_layer_maynard_martinowich.Rdata
     # cat(paste0("'", names(cols_layers_martinowich), "' = '", cols_layers_martinowich, "',\n"))
@@ -287,10 +280,10 @@ app_server <- function(input, output, session) {
         colors <- NULL
         if (input$cluster %in% c("Maynard", "Martinowich")) {
             colors <- cols_layers_martinowich
-        } else if (input$cluster == "Layer") {
+        } else if (input$cluster == "ManualAnnotation") {
             colors <-
-                Polychrome::palette36.colors(length(unique(rv$layer)))
-            names(colors) <- unique(rv$layer)
+                Polychrome::palette36.colors(length(unique(rv$ManualAnnotation)))
+            names(colors) <- unique(rv$ManualAnnotation)
         } else if (input$cluster %in% c("layer_guess", "layer_guess_reordered")) {
             colors <- cols_layers_paper()
         } else if (input$cluster %in% c("layer_guess_reordered_short", "spatialLIBD")) {
@@ -311,11 +304,23 @@ app_server <- function(input, output, session) {
         )
     })
 
+    ## Update the default cluster
+    observeEvent(input$cluster, {
+        if (input$cluster == "") {
+            message("hm... it wasn't set")
+            updateSelectInput(
+                session,
+                inputId = "cluster",
+                selected = default_cluster
+            )
+        }
+    })
+
 
     ## Static plotting functions
     static_histology <- reactive({
-        if (input$cluster == "Layer") {
-            spe$Layer <- rv$layer
+        if (input$cluster == "ManualAnnotation") {
+            spe$ManualAnnotation <- rv$ManualAnnotation
         }
         vis_clus(
             spe,
@@ -329,8 +334,8 @@ app_server <- function(input, output, session) {
     static_histology_grid <- reactive({
         input$grid_update
 
-        if (isolate(input$cluster == "Layer")) {
-            spe$Layer <- rv$layer
+        if (isolate(input$cluster == "ManualAnnotation")) {
+            spe$ManualAnnotation <- rv$ManualAnnotation
         }
         spe_sub <-
             spe[, spe$sample_id %in% isolate(input$grid_samples)]
@@ -554,8 +559,8 @@ app_server <- function(input, output, session) {
 
     ## Plotly versions
     output$histology_plotly <- renderPlotly({
-        if (input$cluster == "Layer") {
-            spe$Layer <- rv$layer
+        if (input$cluster == "ManualAnnotation") {
+            spe$ManualAnnotation <- rv$ManualAnnotation
         }
         colors <- cluster_colors()
 
@@ -593,9 +598,12 @@ app_server <- function(input, output, session) {
         d$COUNT[d$COUNT <= minCount] <- NA
 
         ## Add the reduced dims
-        red_dims <- reducedDim(spe_sub, reduced_name)
-        colnames(red_dims) <- paste(reduced_name, "dim", seq_len(2))
-        d <- cbind(d, red_dims)
+        if (reduced_name != "") {
+            red_dims <- reducedDim(spe_sub, reduced_name)
+            colnames(red_dims) <-
+                paste(reduced_name, "dim", seq_len(ncol(red_dims)))
+            d <- cbind(d, red_dims)
+        }
 
         ## Drop points below minCount
         d <- subset(d, !is.na(COUNT))
@@ -636,48 +644,52 @@ app_server <- function(input, output, session) {
         )
 
         ## Make the reduced dimensions ggplot
-        p_dim <- ggplot(
-            d_key,
-            aes(
-                x = !!sym(colnames(red_dims)[1]),
-                y = !!sym(colnames(red_dims)[2]),
-                fill = factor(!!sym(clustervar)),
-                key = key
-            )
-        ) +
-            geom_point(
-                shape = 21,
-                size = 1.25,
-                stroke = 0.25
+        if (reduced_name != "") {
+            p_dim <- ggplot(
+                d_key,
+                aes(
+                    x = !!sym(colnames(red_dims)[1]),
+                    y = !!sym(colnames(red_dims)[2]),
+                    fill = factor(!!sym(clustervar)),
+                    key = key
+                )
             ) +
-            scale_fill_manual(values = get_colors(colors, colData(spe_sub)[[clustervar]])) +
-            guides(fill = FALSE) +
-            ggtitle("") +
-            theme_set(theme_bw(base_size = 20)) +
-            theme(
-                panel.grid.major = element_blank(),
-                panel.grid.minor = element_blank(),
-                panel.background = element_blank(),
-                axis.line = element_blank(),
-                axis.text = element_blank(),
-                axis.ticks = element_blank()
-            )
+                geom_point(
+                    shape = 21,
+                    size = 1.25,
+                    stroke = 0.25
+                ) +
+                scale_fill_manual(values = get_colors(colors, colData(spe_sub)[[clustervar]])) +
+                guides(fill = FALSE) +
+                ggtitle("") +
+                theme_set(theme_bw(base_size = 20)) +
+                theme(
+                    panel.grid.major = element_blank(),
+                    panel.grid.minor = element_blank(),
+                    panel.background = element_blank(),
+                    axis.line = element_blank(),
+                    axis.text = element_blank(),
+                    axis.ticks = element_blank()
+                )
 
-        p_dim_gene <- ggplot(
-            d_key,
-            aes(
-                x = !!sym(colnames(red_dims)[1]),
-                y = !!sym(colnames(red_dims)[2]),
-                fill = COUNT,
-                color = COUNT,
-                key = key
-            )
-        ) +
-            geom_point(
-                shape = 21,
-                size = 1.25,
-                stroke = 0.25
-            )
+            p_dim_gene <- ggplot(
+                d_key,
+                aes(
+                    x = !!sym(colnames(red_dims)[1]),
+                    y = !!sym(colnames(red_dims)[2]),
+                    fill = COUNT,
+                    color = COUNT,
+                    key = key
+                )
+            ) +
+                geom_point(
+                    shape = 21,
+                    size = 1.25,
+                    stroke = 0.25
+                )
+        } else {
+            p_dim <- p_dim_gene <- ggplot(d_key, aes(key = key))
+        }
 
 
         if (genecolor == "viridis") {
@@ -824,8 +836,8 @@ app_server <- function(input, output, session) {
     output$gene_plotly_cluster_subset_ui <- renderUI({
         input$cluster
 
-        if (input$cluster == "Layer") {
-            cluster_opts <- unique(rv$layer)
+        if (input$cluster == "ManualAnnotation") {
+            cluster_opts <- unique(rv$ManualAnnotation)
         } else {
             cluster_opts <- unique(colData(spe)[[input$cluster]])
         }
@@ -843,8 +855,8 @@ app_server <- function(input, output, session) {
             return(NULL)
         }
 
-        if (input$cluster == "Layer") {
-            cluster_opts <- rv$layer %in% input$gene_plotly_cluster_subset
+        if (input$cluster == "ManualAnnotation") {
+            cluster_opts <- rv$ManualAnnotation %in% input$gene_plotly_cluster_subset
         } else {
             cluster_opts <-
                 as.character(colData(spe)[[input$cluster]]) %in% input$gene_plotly_cluster_subset
@@ -900,14 +912,14 @@ app_server <- function(input, output, session) {
 
 
 
-    observeEvent(input$update_layer, {
+    observeEvent(input$update_manual_ann, {
         event.data <-
             event_data("plotly_selected", source = "plotly_histology")
         if (!is.null(event.data)) {
             isolate({
-                ## Now update with the layer input
-                rv$layer[spe$key %in% event.data$key] <-
-                    input$label_layer
+                ## Now update with the ManualAnnotation input
+                rv$ManualAnnotation[spe$key %in% event.data$key] <-
+                    input$label_manual_ann
             })
         }
     })
@@ -917,21 +929,21 @@ app_server <- function(input, output, session) {
             event_data("plotly_click", source = "plotly_histology")
         if (is.null(event.data)) {
             return(
-                "Single points clicked and updated with a layer guess appear here (double-click to clear)"
+                "Single points clicked and updated with a manual annotation appear here (double-click to clear)"
             )
         } else {
             isolate({
-                ## Now update with the layer input
+                ## Now update with the ManualAnnotation input
                 if (input$label_click) {
-                    rv$layer[spe$key %in% event.data$key] <-
-                        input$label_layer
+                    rv$ManualAnnotation[spe$key %in% event.data$key] <-
+                        input$label_manual_ann
                 }
             })
             return(event.data$key)
         }
     })
 
-    observeEvent(input$update_layer_gene, {
+    observeEvent(input$update_manual_ann_gene, {
         if (!is.null(input$gene_plotly_cluster_subset)) {
             event.data <- event_data("plotly_selected", source = "plotly_gene")
         } else {
@@ -950,9 +962,9 @@ app_server <- function(input, output, session) {
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
             isolate({
-                ## Now update with the layer input
-                rv$layer[spe$key %in% d$key[!is.na(d$COUNT)]] <-
-                    input$label_layer_gene
+                ## Now update with the ManualAnnotation input
+                rv$ManualAnnotation[spe$key %in% d$key[!is.na(d$COUNT)]] <-
+                    input$label_manual_ann_gene
             })
         }
     })
@@ -965,7 +977,7 @@ app_server <- function(input, output, session) {
         }
         if (is.null(event.data)) {
             return(
-                "Single points clicked and updated with a layer guess appear here (double-click to clear)"
+                "Single points clicked and updated with a manual annotation appear here (double-click to clear)"
             )
         } else {
             ## Prepare the data
@@ -980,10 +992,10 @@ app_server <- function(input, output, session) {
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
             isolate({
-                ## Now update with the layer input
+                ## Now update with the ManualAnnotation input
                 if (input$label_click_gene) {
-                    rv$layer[spe$key %in% d$key[!is.na(d$COUNT)]] <-
-                        input$label_layer_gene
+                    rv$ManualAnnotation[spe$key %in% d$key[!is.na(d$COUNT)]] <-
+                        input$label_manual_ann_gene
                 }
             })
             return(event.data$key)
@@ -1001,19 +1013,19 @@ app_server <- function(input, output, session) {
             gsub(":", "-", gsub(
                 " ",
                 "_",
-                paste0("spatialLIBD_layerGuesses_", Sys.time(), ".csv")
+                paste0("spatialLIBD_ManualAnnotation_", Sys.time(), ".csv")
             ))
         },
         content = function(file) {
             current <- data.frame(
                 sample_id = spe$sample_id,
                 spot_name = colnames(spe),
-                layer = rv$layer,
+                ManualAnnotation = rv$ManualAnnotation,
                 stringsAsFactors = FALSE
             )
             ## Keep the NAs?
             if (input$dropNA) {
-                current <- subset(current, layer != "NA")
+                current <- subset(current, ManualAnnotation != "NA")
             }
             write.csv(current, file, row.names = FALSE)
         }
@@ -1030,7 +1042,7 @@ app_server <- function(input, output, session) {
                     na.strings = ""
                 )
             ## Update the non-NA
-            previous_work <- subset(previous_work, layer != "NA")
+            previous_work <- subset(previous_work, ManualAnnotation != "NA")
             previous_work$key <-
                 paste0(
                     previous_work$sample_id,
@@ -1038,7 +1050,7 @@ app_server <- function(input, output, session) {
                     previous_work$spot_name
                 )
             m <- match(previous_work$key, spe$key)
-            rv$layer[m[!is.na(m)]] <- previous_work$layer[!is.na(m)]
+            rv$ManualAnnotation[m[!is.na(m)]] <- previous_work$ManualAnnotation[!is.na(m)]
         }
     })
 

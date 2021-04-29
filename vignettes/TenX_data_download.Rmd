@@ -338,11 +338,11 @@ if (any(spe$sum_umi == 0)) {
 
 ## Check object
 
-Next, we add the `Layer` variable to the sample information table (`colData()`) with `"NA"`. That variable is used by the interactive website to store any manual annotations. (TODO: we'll rename this to make it a more general and intuitive name)
+Next, we add the `ManualAnnotation` variable to the sample information table (`colData()`) with `"NA"`. That variable is used by the interactive website to store any manual annotations.
 
 ```{r "add_layer"}
 ## Add a variable for saving the manual annotations
-spe$Layer <- "NA"
+spe$ManualAnnotation <- "NA"
 ```
 
 Finally, we can now check the final object using `spatialLIBD::check_spe()`. This is a helper function that will warn us if some important element is missing in `spe` that we use later for the interactive website. If it all goes well, it will return the original `spe` object.
@@ -384,22 +384,22 @@ We are now ready to create our interactive website for the human lymph node data
 
 * `sce_layer`, `modeling_results` and `sig_genes` will be set to `NULL` since do not have any pseudo-bulk results for this example data.
 * `title`: we will use a custom title that reflect our data
-* `spe_discreate_vars`: we don't have really any discrete variables to show beyond `Layer` which is used for the manual annotations and `random_cluster` that we created in the previous section.
+* `spe_discreate_vars`: we don't have really any discrete variables to show beyond `ManualAnnotation` which is used for the manual annotations and `random_cluster` that we created in the previous section.
 * `spe_continous_vars`: we have computed several continuous variables while adapting our `spe` object for `r Biocpkg("spatialLIBD")`, so we'll list these variables below in order to visually inspect them.
-* `spatial_libd_var`: this is used for indicating the default discrete variable and for now we'll set it to our `random_cluster`.
+* `default_cluster`: this is used for indicating the default discrete variable and for now we'll set it to our `random_cluster`.
 
 ```{r "run_shiny_app"}
 ## Run our shiny app
 if (interactive()) {
-    spatialLIBD::run_app(
+    run_app(
         spe,
         sce_layer = NULL,
         modeling_results = NULL,
         sig_genes = NULL,
         title = "spatialLIBD: human lymph node by 10x Genomics",
-        spe_discrete_vars = c("random_cluster", "Layer"),
+        spe_discrete_vars = c("random_cluster", "ManualAnnotation"),
         spe_continuous_vars = c("sum_umi", "sum_gene", "expr_chrM", "expr_chrM_ratio"),
-        spatial_libd_var = "random_cluster"
+        default_cluster = "random_cluster"
     )
 }
 ```

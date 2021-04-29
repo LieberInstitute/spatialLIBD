@@ -70,7 +70,7 @@ check_spe <- function(spe,
         "Barcode",
         "sample_id",
         "key",
-        "Layer",
+        "ManualAnnotation",
         variables
     )
     if (!all(vars_to_check %in% colnames(colData(spe)))) {

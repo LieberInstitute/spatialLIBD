@@ -130,7 +130,11 @@ fetch_data <-
 
             if (length(q) == 1) {
                 ## ExperimentHub has the data =)
-                return(q[[1]])
+                res <- q[[1]]
+                if (type == "sce") {
+                    res <- .update_sce(res)
+                }
+                return(res)
             } else {
                 ## ExperimentHub backup: download from Dropbox
                 file_path <- BiocFileCache::bfcrpath(bfc, url)
@@ -141,7 +145,7 @@ fetch_data <-
         message(Sys.time(), " loading file ", file_path)
         load(file_path, verbose = FALSE)
         if (type == "sce") {
-            return(sce)
+            return(.update_sce(sce))
         } else if (type == "sce_layer") {
             return(sce_layer)
         } else if (type == "modeling_results") {
@@ -150,3 +154,15 @@ fetch_data <-
             return(sce_sub)
         }
     }
+
+
+.update_sce <- function(sce) {
+    ## Rename here the default cluster we want to show in the shiny app
+    sce$spatialLIBD <- sce$layer_guess_reordered_short
+
+    ## Add ManualAnnotation which was formerly called Layer, then drop Layer
+    sce$ManualAnnotation <- sce$Layer
+    sce$Layer <- NULL
+
+    return(sce)
+}
