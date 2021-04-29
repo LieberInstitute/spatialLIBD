@@ -96,7 +96,7 @@ citation("spatialLIBD")
 
 # Download data from 10x Genomics
 
-In this vignette we'll show you can use `r Biocpkg("spatialLIBD")` `r Citep(bib[['spatialLIBD']])` for exploring spatially resolved transcriptomics data from the [Visium platform by 10x Genomics](https://www.10xgenomics.com/products/spatial-gene-expression). That is, you will learn how to use `r Biocpkg("spatialLIBD")` for data beyond the one it was initially developed for `r Citep(bib[['spatialLIBDpaper']])`. To illustrate these steps, we will use data that 10x Genomics made publicly available at https://support.10xgenomics.com/spatial-gene-expression/datasets. We will use files from the human lymph node example publicly available at https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node.
+In this vignette we'll show you how you can use `r Biocpkg("spatialLIBD")` `r Citep(bib[['spatialLIBD']])` for exploring spatially resolved transcriptomics data from the [Visium platform by 10x Genomics](https://www.10xgenomics.com/products/spatial-gene-expression). That is, you will learn how to use `r Biocpkg("spatialLIBD")` for data beyond the one it was initially developed for `r Citep(bib[['spatialLIBDpaper']])`. To illustrate these steps, we will use data that 10x Genomics made publicly available at https://support.10xgenomics.com/spatial-gene-expression/datasets. We will use files from the human lymph node example publicly available at https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node.
 
 ## Load packages
 
