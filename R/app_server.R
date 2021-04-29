@@ -505,7 +505,8 @@ app_server <- function(input, output, session) {
                 p_clus,
                 width = ncol(img) * 2,
                 height = nrow(img) * 2,
-                source = "plotly_histology"
+                source = "plotly_histology",
+                tooltip = c("fill", "key")
             ),
             images = list(
                 list(
@@ -528,7 +529,8 @@ app_server <- function(input, output, session) {
 
         plotly_gene <- layout(
             ggplotly(p_gene,
-                source = "plotly_histology"
+                source = "plotly_histology",
+                tooltip = c("fill", "key")
             ),
             images = list(
                 list(
@@ -550,11 +552,13 @@ app_server <- function(input, output, session) {
         )
 
         plotly_dim <- layout(ggplotly(p_dim,
-            source = "plotly_histology"
+            source = "plotly_histology",
+            tooltip = c("fill", "key")
         ))
 
         plotly_dim_gene <- layout(ggplotly(p_dim_gene,
-            source = "plotly_histology"
+            source = "plotly_histology",
+            tooltip = c("fill", "key")
         ))
 
         ## It's 0.5, but I want this smaller so the cluster
@@ -596,10 +600,10 @@ app_server <- function(input, output, session) {
             plotly_dim$x$layout$yaxis$title
 
         ## Make the linked (client-side) plot
-        highlight(plotly_merged,
+        suppressMessages(suppressWarnings(toWebGL(highlight(plotly_merged,
             on = "plotly_selected",
             off = "plotly_deselect"
-        )
+        ))))
     })
 
     ## Set the cluster subset options
@@ -650,12 +654,13 @@ app_server <- function(input, output, session) {
         ## Read in the histology image
         img <- SpatialExperiment::imgRaster(spe, sample_id = input$sample)
 
-        layout(
+        suppressMessages(suppressWarnings(toWebGL(layout(
             ggplotly(
                 p,
                 width = ncol(img),
                 height = nrow(img),
-                source = "plotly_gene"
+                source = "plotly_gene",
+                tooltip = c("fill", "key")
             ),
             images = list(
                 list(
@@ -674,7 +679,7 @@ app_server <- function(input, output, session) {
                 )
             ),
             dragmode = "select"
-        )
+        ))))
     })
 
 

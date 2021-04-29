@@ -439,6 +439,8 @@ Given these memory limitations, we chose to deploy our main web application at h
 
 This limitation is mostly due to the number of spots shown under the "clusters (interactive)" section of the interactive website powered by `r CRANpkg("plotly")`. Each spot is shown four times which is about 16 thousand spots for one Visium slide (depending on any filter steps you applied). The response time will depend on your own computer RAM memory, that is, the _client_ side. This limitation might be more noticeable if you have a computer with 8GB of RAM or lower, as well as if you have other high-memory software open. Furthermore, if you are running web application locally through `spatialLIBD::run_app()` then you also need to consider the required memory for the R objects. That is, the _server_ side memory use.
 
+Thanks to [Jesús Vélez Santiago](http://orcid.org/0000-0001-5128-3838), the app is more responsive as of version 1.3.15 by using `plotly::toWebGL()`.
+
 ## Image resolution
 
 When you construct the SpatialExperiment `spe` object with `r Biocpkg("SpatialExperiment")`, you can read in higher resolution images. However, the benefit of loading the raw histology images (500 MB to 20 GB per image) is likely non-existent in this web application. The memory required would likely become prohibitive. Other solutions load these raw histology images in chunks and display the chunks necessary for a given visualization area. We thus recommend using other software if you want to zoom in at the spot and/or cell resolution.

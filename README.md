@@ -249,7 +249,7 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 1.3.14, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 1.3.15, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -258,7 +258,7 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #>     author = {Brenda Pardo and Abby Spangler and Lukas M. Weber and Stephanie C. Hicks and Andrew E. Jaffe and Keri Martinowich and Kristen R. Maynard and Leonardo Collado-Torres},
 #>     year = {2021},
 #>     url = {http://www.bioconductor.org/packages/spatialLIBD},
-#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.14},
+#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.15},
 #>     doi = {10.18129/B9.bioc.spatialLIBD},
 #>   }
 #> 

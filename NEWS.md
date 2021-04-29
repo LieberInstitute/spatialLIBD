@@ -1,3 +1,9 @@
+# spatialLIBD 1.3.15
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* We now use `plotly::toWebGL()` to make the web application more responsive.
+
 # spatialLIBD 1.3.14
 
 SIGNIFICANT USER-VISIBLE CHANGES
