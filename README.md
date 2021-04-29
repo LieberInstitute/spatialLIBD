@@ -243,8 +243,9 @@ Please run this yourself to check for any updates on how to cite
 ``` r
 print(citation("spatialLIBD"), bibtex = TRUE)
 #> 
-#> Collado-Torres L, Maynard KR, Jaffe AE (2021). _LIBD Visium spatial
-#> transcriptomics human pilot data inspector_. doi:
+#> Pardo B, Spangler A, Weber LM, Hicks SC, Jaffe AE, Martinowich K,
+#> Maynard KR, Collado-Torres L (2021). _spatialLIBD: an R/Bioconductor
+#> package to visualize spatially-resolved transcriptomics data_. doi:
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
@@ -253,8 +254,8 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
-#>     title = {LIBD Visium spatial transcriptomics human pilot data inspector},
-#>     author = {Leonardo Collado-Torres and Kristen R. Maynard and Andrew E. Jaffe},
+#>     title = {spatialLIBD: an R/Bioconductor package to visualize spatially-resolved transcriptomics data},
+#>     author = {Brenda Pardo and Abby Spangler and Lukas M. Weber and Stephanie C. Hicks and Andrew E. Jaffe and Keri Martinowich and Kristen R. Maynard and Leonardo Collado-Torres},
 #>     year = {2021},
 #>     url = {http://www.bioconductor.org/packages/spatialLIBD},
 #>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.14},
