@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.15</span>
       </span>
     </div>
 
@@ -183,7 +183,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt; 10.18129/B9.bioc.spatialLIBD (URL:</span>
 <span class="co">#&gt; https://doi.org/10.18129/B9.bioc.spatialLIBD),</span>
 <span class="co">#&gt; https://github.com/LieberInstitute/spatialLIBD - R package version</span>
-<span class="co">#&gt; 1.3.14, &lt;URL: http://www.bioconductor.org/packages/spatialLIBD&gt;.</span>
+<span class="co">#&gt; 1.3.15, &lt;URL: http://www.bioconductor.org/packages/spatialLIBD&gt;.</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK, Williams</span>
 <span class="co">#&gt; SR, II JLC, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Kleinman JE,</span>
@@ -248,7 +248,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Download the small example sce data</span>
 <span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_example"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
-<span class="co">#&gt; 2021-04-29 07:44:29 loading file /github/home/.cache/R/BiocFileCache/72b5f4fe8e8_sce_sub_for_vignette.Rdata%3Fdl%3D1</span>
+<span class="co">#&gt; 2021-04-29 15:45:18 loading file /github/home/.cache/R/BiocFileCache/7803f6ee7be_sce_sub_for_vignette.Rdata%3Fdl%3D1</span>
 
 <span class="co">## Convert to a SpatialExperiment object</span>
 <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sce_to_spe.html">sce_to_spe</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span>
@@ -260,9 +260,9 @@ If you tweet about this website, the data or the R package please use the <code>
 
 <span class="co">## Query ExperimentHub and download the data</span>
 <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
-<span class="co">#&gt; 2021-04-29 07:44:38 loading file /github/home/.cache/R/BiocFileCache/72b4fe076f2_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="co">#&gt; 2021-04-29 15:45:27 loading file /github/home/.cache/R/BiocFileCache/78020c6032a_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"modeling_results"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
-<span class="co">#&gt; 2021-04-29 07:44:40 loading file /github/home/.cache/R/BiocFileCache/72b5878fe9b_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></code></pre></div>
+<span class="co">#&gt; 2021-04-29 15:45:28 loading file /github/home/.cache/R/BiocFileCache/78015a355b9_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></code></pre></div>
 <p>Once you have downloaded the objects, we can explore them a little bit</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## spot-level data</span>
@@ -332,7 +332,7 @@ If you tweet about this website, the data or the R package please use the <code>
         <span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;  12.429   0.732  13.165</span>
+<span class="co">#&gt;  11.231   0.681  11.913</span>
 
 <span class="co">## Explore the result</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span>
@@ -822,9 +822,9 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"spatialLIBD.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code>#&gt; [1] "2021-04-29 07:45:04 UTC"</code></pre>
+<pre><code>#&gt; [1] "2021-04-29 15:45:50 UTC"</code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code>#&gt; Time difference of 51.895 secs</code></pre>
+<pre><code>#&gt; Time difference of 46.897 secs</code></pre>
 <p><code>R</code> session information.</p>
 <pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt;  setting  value                                             
@@ -887,7 +887,7 @@ If you tweet about this website, the data or the R package please use the <code>
 #&gt;  DropletUtils             1.11.12    2021-03-19 [1] Bioconductor                                
 #&gt;  DT                       0.18       2021-04-14 [1] CRAN (R 4.1.0)                              
 #&gt;  edgeR                    3.33.3     2021-03-08 [1] Bioconductor                                
-#&gt;  ellipsis                 0.3.1      2020-05-15 [2] CRAN (R 4.1.0)                              
+#&gt;  ellipsis                 0.3.2      2021-04-29 [2] CRAN (R 4.1.0)                              
 #&gt;  evaluate                 0.14       2019-05-28 [2] CRAN (R 4.1.0)                              
 #&gt;  ExperimentHub            1.99.5     2021-04-16 [1] Bioconductor                                
 #&gt;  fansi                    0.4.2      2021-01-15 [2] CRAN (R 4.1.0)                              
@@ -984,7 +984,7 @@ If you tweet about this website, the data or the R package please use the <code>
 #&gt;  spam                     2.6-0      2020-12-14 [1] CRAN (R 4.1.0)                              
 #&gt;  sparseMatrixStats        1.3.7      2021-03-29 [1] Bioconductor                                
 #&gt;  SpatialExperiment      * 1.1.5      2021-04-29 [1] Github (drighelli/SpatialExperiment@17e5176)
-#&gt;  spatialLIBD            * 1.3.14     2021-04-29 [1] Bioconductor                                
+#&gt;  spatialLIBD            * 1.3.15     2021-04-29 [1] Bioconductor                                
 #&gt;  stringi                  1.5.3      2020-09-09 [2] CRAN (R 4.1.0)                              
 #&gt;  stringr                  1.4.0      2019-02-10 [2] CRAN (R 4.1.0)                              
 #&gt;  SummarizedExperiment   * 1.21.3     2021-04-07 [1] Bioconductor                                
@@ -1077,7 +1077,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <a id="bib-pags2021s4vectors"></a><a href="#cite-pags2021s4vectors">[19]</a><cite> H. Pagès, M. Lawrence, and P. Aboyoun. <em>S4Vectors: Foundation of vector-like and list-like containers in Bioconductor</em>. R package version 0.29.17. 2021. URL: <a href="https://bioconductor.org/packages/S4Vectors" class="external-link">https://bioconductor.org/packages/S4Vectors</a>.</cite>
 </p>
 <p>
-<a id="bib-pardo2021spatiallibd"></a><a href="#cite-pardo2021spatiallibd">[20]</a><cite> B. Pardo, A. Spangler, L. M. Weber, et al. <em>spatialLIBD: an R/Bioconductor package to visualize spatially-resolved transcriptomics data</em>. <a href="https://github.com/LieberInstitute/spatialLIBD" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD</a> - R package version 1.3.14. 2021. DOI: <a href="https://doi.org/10.18129/B9.bioc.spatialLIBD" class="external-link">10.18129/B9.bioc.spatialLIBD</a>. URL: <a href="http://www.bioconductor.org/packages/spatialLIBD" class="external-link">http://www.bioconductor.org/packages/spatialLIBD</a>.</cite>
+<a id="bib-pardo2021spatiallibd"></a><a href="#cite-pardo2021spatiallibd">[20]</a><cite> B. Pardo, A. Spangler, L. M. Weber, et al. <em>spatialLIBD: an R/Bioconductor package to visualize spatially-resolved transcriptomics data</em>. <a href="https://github.com/LieberInstitute/spatialLIBD" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD</a> - R package version 1.3.15. 2021. DOI: <a href="https://doi.org/10.18129/B9.bioc.spatialLIBD" class="external-link">10.18129/B9.bioc.spatialLIBD</a>. URL: <a href="http://www.bioconductor.org/packages/spatialLIBD" class="external-link">http://www.bioconductor.org/packages/spatialLIBD</a>.</cite>
 </p>
 <p>
 <a id="bib-2021language"></a><a href="#cite-2021language">[21]</a><cite> R Core Team. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. Vienna, Austria, 2021. URL: <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>.</cite>

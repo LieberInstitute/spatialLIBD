@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.15</span>
       </span>
     </div>
 
@@ -149,7 +149,7 @@
 <span class="co">#&gt; 10.18129/B9.bioc.spatialLIBD (URL:</span>
 <span class="co">#&gt; https://doi.org/10.18129/B9.bioc.spatialLIBD),</span>
 <span class="co">#&gt; https://github.com/LieberInstitute/spatialLIBD - R package version</span>
-<span class="co">#&gt; 1.3.14, &lt;URL: http://www.bioconductor.org/packages/spatialLIBD&gt;.</span>
+<span class="co">#&gt; 1.3.15, &lt;URL: http://www.bioconductor.org/packages/spatialLIBD&gt;.</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK, Williams</span>
 <span class="co">#&gt; SR, II JLC, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Kleinman JE,</span>
@@ -358,8 +358,8 @@
 
 <span class="co">## Show the GTF cache location</span>
 <span class="va">gtf_cache</span>
-<span class="co">#&gt;                                                                            BFC7 </span>
-<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/72b28370a22_gencode.v32.annotation.gtf.gz"</span>
+<span class="co">#&gt;                                                                           BFC7 </span>
+<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/780b4c4de2_gencode.v32.annotation.gtf.gz"</span>
 
 <span class="co">## Import into R (takes ~1 min)</span>
 <span class="va">gtf</span> <span class="op">&lt;-</span> <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span><span class="va">gtf_cache</span><span class="op">)</span>
@@ -561,6 +561,7 @@
 <h2 class="hasAnchor">
 <a href="#response-speeds" class="anchor" aria-hidden="true"></a>Response speeds</h2>
 <p>This limitation is mostly due to the number of spots shown under the “clusters (interactive)” section of the interactive website powered by <em><a href="https://CRAN.R-project.org/package=plotly" class="external-link">plotly</a></em>. Each spot is shown four times which is about 16 thousand spots for one Visium slide (depending on any filter steps you applied). The response time will depend on your own computer RAM memory, that is, the <em>client</em> side. This limitation might be more noticeable if you have a computer with 8GB of RAM or lower, as well as if you have other high-memory software open. Furthermore, if you are running web application locally through <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code> then you also need to consider the required memory for the R objects. That is, the <em>server</em> side memory use.</p>
+<p>Thanks to <a href="http://orcid.org/0000-0001-5128-3838" class="external-link">Jesús Vélez Santiago</a>, the app is more responsive as of version 1.3.15 by using <code><a href="https://docs.ropensci.org/plotly/reference/toWebGL.html" class="external-link">plotly::toWebGL()</a></code>.</p>
 </div>
 <div id="image-resolution" class="section level2">
 <h2 class="hasAnchor">
@@ -611,9 +612,9 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code>#&gt; [1] "2021-04-29 07:43:55 UTC"</code></pre>
+<pre><code>#&gt; [1] "2021-04-29 15:44:44 UTC"</code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code>#&gt; Time difference of 1.601 mins</code></pre>
+<pre><code>#&gt; Time difference of 1.516 mins</code></pre>
 <p><code>R</code> session information.</p>
 <pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt;  setting  value                                             
@@ -677,7 +678,7 @@
 #&gt;  DropletUtils             1.11.12    2021-03-19 [1] Bioconductor                                
 #&gt;  DT                       0.18       2021-04-14 [1] CRAN (R 4.1.0)                              
 #&gt;  edgeR                    3.33.3     2021-03-08 [1] Bioconductor                                
-#&gt;  ellipsis                 0.3.1      2020-05-15 [2] CRAN (R 4.1.0)                              
+#&gt;  ellipsis                 0.3.2      2021-04-29 [2] CRAN (R 4.1.0)                              
 #&gt;  evaluate                 0.14       2019-05-28 [2] CRAN (R 4.1.0)                              
 #&gt;  ExperimentHub            1.99.5     2021-04-16 [1] Bioconductor                                
 #&gt;  fansi                    0.4.2      2021-01-15 [2] CRAN (R 4.1.0)                              
@@ -779,7 +780,7 @@
 #&gt;  spam                     2.6-0      2020-12-14 [1] CRAN (R 4.1.0)                              
 #&gt;  sparseMatrixStats        1.3.7      2021-03-29 [1] Bioconductor                                
 #&gt;  SpatialExperiment      * 1.1.5      2021-04-29 [1] Github (drighelli/SpatialExperiment@17e5176)
-#&gt;  spatialLIBD            * 1.3.14     2021-04-29 [1] Bioconductor                                
+#&gt;  spatialLIBD            * 1.3.15     2021-04-29 [1] Bioconductor                                
 #&gt;  stringi                  1.5.3      2020-09-09 [2] CRAN (R 4.1.0)                              
 #&gt;  stringr                  1.4.0      2019-02-10 [2] CRAN (R 4.1.0)                              
 #&gt;  SummarizedExperiment   * 1.21.3     2021-04-07 [1] Bioconductor                                
@@ -832,7 +833,7 @@
 <a id="bib-ole2021biocstyle"></a><a href="#cite-ole2021biocstyle">[6]</a><cite> A. Oleś. <em>BiocStyle: Standard styles for vignettes and other Bioconductor documents</em>. R package version 2.19.2. 2021. URL: <a href="https://github.com/Bioconductor/BiocStyle" class="external-link">https://github.com/Bioconductor/BiocStyle</a>.</cite>
 </p>
 <p>
-<a id="bib-pardo2021spatiallibd"></a><a href="#cite-pardo2021spatiallibd">[7]</a><cite> B. Pardo, A. Spangler, L. M. Weber, et al. <em>spatialLIBD: an R/Bioconductor package to visualize spatially-resolved transcriptomics data</em>. <a href="https://github.com/LieberInstitute/spatialLIBD" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD</a> - R package version 1.3.14. 2021. DOI: <a href="https://doi.org/10.18129/B9.bioc.spatialLIBD" class="external-link">10.18129/B9.bioc.spatialLIBD</a>. URL: <a href="http://www.bioconductor.org/packages/spatialLIBD" class="external-link">http://www.bioconductor.org/packages/spatialLIBD</a>.</cite>
+<a id="bib-pardo2021spatiallibd"></a><a href="#cite-pardo2021spatiallibd">[7]</a><cite> B. Pardo, A. Spangler, L. M. Weber, et al. <em>spatialLIBD: an R/Bioconductor package to visualize spatially-resolved transcriptomics data</em>. <a href="https://github.com/LieberInstitute/spatialLIBD" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD</a> - R package version 1.3.15. 2021. DOI: <a href="https://doi.org/10.18129/B9.bioc.spatialLIBD" class="external-link">10.18129/B9.bioc.spatialLIBD</a>. URL: <a href="http://www.bioconductor.org/packages/spatialLIBD" class="external-link">http://www.bioconductor.org/packages/spatialLIBD</a>.</cite>
 </p>
 <p>
 <a id="bib-2021language"></a><a href="#cite-2021language">[8]</a><cite> R Core Team. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. Vienna, Austria, 2021. URL: <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>.</cite>
