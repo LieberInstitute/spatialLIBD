@@ -1,7 +1,8 @@
 Package: spatialLIBD
-Title: LIBD Visium spatial transcriptomics human pilot data inspector
-Version: 1.3.13
-Date: 2021-04-28
+Title: spatialLIBD: an R/Bioconductor package to visualize spatially-resolved
+    transcriptomics data
+Version: 1.3.14
+Date: 2021-04-29
 Authors@R:
     c(
     person("Leonardo", "Collado-Torres", role = c("aut", "cre"), 
@@ -20,9 +21,10 @@ Authors@R:
     comment = c(ORCID = "0000-0002-0028-9348")
     )
     )
-Description: Inspect interactively the spatial transcriptomics 10x Genomics
-    Visium data from Maynard, Collado-Torres et al, 2020 analyzed by Lieber
-    Institute for Brain Development researchers and collaborators.
+Description: Inspect interactively the spatially-resolved transcriptomics data
+    from the 10x Genomics Visium platform as well as data from the 
+    Maynard, Collado-Torres et al, Nature Neuroscience, 2021 project analyzed by
+    Lieber Institute for Brain Development (LIBD) researchers and collaborators.
 License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true

@@ -139,10 +139,21 @@ from [Bioconductor](http://bioconductor.org/) the following code:
 
 ``` r
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
-      install.packages("BiocManager")
-  }
+    install.packages("BiocManager")
+}
 
 BiocManager::install("spatialLIBD")
+```
+
+If you want to use the development version of `spatialLIBD`, you will
+need to use the R version corresponding to the current
+Bioconductor-devel branch as described in more detail on the
+[Bioconductor
+website](http://bioconductor.org/developers/how-to/useDevel/). Then you
+can install `spatialLIBD` from GitHub using the following command.
+
+``` r
+BiocManager::install("LieberInstitute/spatialLIBD")
 ```
 
 ## Access the data
@@ -176,24 +187,23 @@ spe
 #> rowData names(9): source type ... gene_search is_top_hvg
 #> colnames(47681): AAACAACGAATAGTTC-1 AAACAAGTATCTCCCA-1 ...
 #>   TTGTTTCCATACAACT-1 TTGTTTGTGTAAATTC-1
-#> colData names(65): sample_id Cluster ... pseudobulk_UMAP_spatial
-#>   markers_UMAP_spatial
+#> colData names(67): Barcode sample_id ... spatialLIBD ManualAnnotation
 #> reducedDimNames(6): PCA TSNE_perplexity50 ... TSNE_perplexity80
 #>   UMAP_neighbors15
 #> mainExpName: NULL
 #> altExpNames(0):
-#> spatialData names(6) : barcode in_tissue ... pxl_row_in_fullres
+#> spatialData names(5) : in_tissue array_row array_col pxl_row_in_fullres
 #>   pxl_col_in_fullres
-#> imgData names(6): sample_id image_id ... height scaleFactor
+#> imgData names(4): sample_id image_id data scaleFactor
 
 ## Note the memory size
 pryr::object_size(spe)
-#> 2.08 GB
+#> 2.04 GB
 
 ## Remake the logo image with histology information
 vis_clus(
     spe = spe,
-    clustervar = "layer_guess_reordered",
+    clustervar = "spatialLIBD",
     sampleid = "151673",
     colors = libd_layer_colors,
     ... = " DLPFC Human Brain Layers\nMade with github.com/LieberInstitute/spatialLIBD"
@@ -238,7 +248,7 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 1.3.3, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 1.3.14, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -247,7 +257,7 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #>     author = {Leonardo Collado-Torres and Kristen R. Maynard and Andrew E. Jaffe},
 #>     year = {2021},
 #>     url = {http://www.bioconductor.org/packages/spatialLIBD},
-#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.3},
+#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.14},
 #>     doi = {10.18129/B9.bioc.spatialLIBD},
 #>   }
 #> 
@@ -275,4 +285,3 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 Please note that the `spatialLIBD` was only made possible thanks to many
 other R and bioinformatics software authors, which are cited either in
 the vignettes and/or the paper(s) describing this package.
-

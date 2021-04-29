@@ -39,6 +39,7 @@ app_ui <- function() {
                             label = "Sample to plot",
                             choices = unique(spe$sample_id)
                         ),
+                        helpText("The sample ID to visualize in most tabs except the 'grid' ones."),
                         hr(),
                         selectInput(
                             inputId = "cluster",
@@ -54,6 +55,7 @@ app_ui <- function() {
                             choices = red_dim_names,
                             selected = red_dim_names[length(red_dim_names)]
                         ),
+                        helpText("The first two dimensions are shown in the 'clusters (interactive)' tab."),
                         hr(),
                         pickerInput(
                             inputId = "geneid",
@@ -72,6 +74,7 @@ app_ui <- function() {
                             choices = assayNames(spe),
                             selected = assayNames(spe)[length(assayNames(spe))]
                         ),
+                        helpText("The name of the gene values you want to visualize."),
                         hr(),
                         numericInput(
                             inputId = "minCount",
@@ -95,7 +98,8 @@ app_ui <- function() {
                         hr(),
                         checkboxInput("dropNA",
                             "Drop NA layer entries in the CSV file?",
-                            value = TRUE),
+                            value = TRUE
+                        ),
                         downloadButton("downloadData", "Download manual annotations"),
                         helpText(
                             "Save your manual annotations frequently to avoid losing your work!"
@@ -156,11 +160,13 @@ app_ui <- function() {
                                 "Clusters (interactive)",
                                 plotlyOutput("histology_plotly",
                                     width = "1200px",
-                                    height = "1200px"),
+                                    height = "1200px"
+                                ),
+                                helpText("This is a 2 by 2 plotting area with the top row showing the spatially-resolved data on top of the histology images. The bottom row shows the data on the reduced dimensions. The left column shows the selected continuous variable (typically a gene) while the right column shows the selected discreate variable (typically cluster annotations)."),
                                 textInput("label_manual_ann", "Manual annotation label", "Your Guess"),
                                 checkboxInput(
                                     "label_click",
-                                    "Enable layer-labelling by clicking on points",
+                                    "Enable spot manual annotations by clicking on individual spots (double left-mouse click).",
                                     value = FALSE
                                 ),
                                 verbatimTextOutput("click"),
@@ -206,6 +212,7 @@ app_ui <- function() {
                                 actionButton("grid_update", label = "Update grid plot"),
                                 downloadButton("downloadPlotHistologyGrid", "Download PDF"),
                                 uiOutput("grid_static"),
+                                helpText("Click the 'upgrade grid plot' button above to re-make this plot."),
                                 tags$br(),
                                 tags$br(),
                                 tags$br(),
@@ -237,7 +244,8 @@ app_ui <- function() {
                                 uiOutput("gene_plotly_cluster_subset_ui"),
                                 plotlyOutput("gene_plotly",
                                     width = "600px",
-                                    height = "600px"),
+                                    height = "600px"
+                                ),
                                 textInput(
                                     "label_manual_ann_gene",
                                     "Manual annotation label",
@@ -245,7 +253,7 @@ app_ui <- function() {
                                 ),
                                 checkboxInput(
                                     "label_click_gene",
-                                    "Enable layer-labelling by clicking on points",
+                                    "Enable spot manual annotations by clicking on individual spots (double left-mouse click).",
                                     value = FALSE
                                 ),
                                 verbatimTextOutput("click_gene"),
@@ -294,6 +302,7 @@ app_ui <- function() {
                                 actionButton("gene_grid_update", label = "Update grid plot"),
                                 downloadButton("downloadPlotGeneGrid", "Download PDF"),
                                 uiOutput("gene_grid_static"),
+                                helpText("Click the 'upgrade grid plot' button above to re-make this plot."),
                                 tags$br(),
                                 tags$br(),
                                 tags$br(),
@@ -490,6 +499,7 @@ app_ui <- function() {
                                     max = 1,
                                     step = 0.01
                                 ),
+                                helpText("Use a smaller positive number to change the range of the color scale used."),
                                 hr(),
                                 downloadButton("layer_downloadTstatCor", "Download PDF"),
                                 plotOutput("layer_tstat_cor_plot"),
@@ -549,13 +559,17 @@ app_ui <- function() {
 
 #' @import shiny
 golem_add_external_resources <- function(docs_path) {
-    addResourcePath("www",
-        docs_path)
+    addResourcePath(
+        "www",
+        docs_path
+    )
 
-    tags$head(golem::activate_js(),
+    tags$head(
+        golem::activate_js(),
         # Add here all the external resources
         # If you have a custom.css in the inst/app/www
         # Or for example, you can add shinyalert::useShinyalert() here
         # tags$link(rel="stylesheet", type="text/css", href="www/custom.css")
-        golem::favicon())
+        golem::favicon()
+    )
 }

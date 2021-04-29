@@ -175,12 +175,6 @@ library("spatialLIBD")
 
 ## Download the spot-level data
 spe <- fetch_data(type = "spe")
-#> Warning: DEPRECATION: As of ExperimentHub (>1.17.2), default caching location has changed.
-#>   Problematic cache: /Users/lcollado/Library/Caches/ExperimentHub
-#>   See https://bioconductor.org/packages/devel/bioc/vignettes/ExperimentHub/inst/doc/ExperimentHub.html#default-caching-location-update
-#> Warning: DEPRECATION: As of BiocFileCache (>1.15.1), default caching location has changed.
-#>   Problematic cache: /Users/lcollado/Library/Caches/BiocFileCache
-#>   See https://www.bioconductor.org/packages/devel/bioc/vignettes/BiocFileCache/inst/doc/BiocFileCache.html#default-caching-location-update
 
 ## This is a SpatialExperiment object
 spe
@@ -209,14 +203,11 @@ pryr::object_size(spe)
 ## Remake the logo image with histology information
 vis_clus(
     spe = spe,
-    clustervar = "layer_guess_reordered",
+    clustervar = "spatialLIBD",
     sampleid = "151673",
     colors = libd_layer_colors,
     ... = " DLPFC Human Brain Layers\nMade with github.com/LieberInstitute/spatialLIBD"
 )
-#> Warning: DEPRECATION: As of BiocFileCache (>1.15.1), default caching location has changed.
-#>   Problematic cache: /Users/lcollado/Library/Caches/BiocFileCache
-#>   See https://www.bioconductor.org/packages/devel/bioc/vignettes/BiocFileCache/inst/doc/BiocFileCache.html#default-caching-location-update
 ```
 
 <img src="man/figures/README-access_data-1.png" width="100%" />
@@ -257,7 +248,7 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #> 10.18129/B9.bioc.spatialLIBD (URL:
 #> https://doi.org/10.18129/B9.bioc.spatialLIBD),
 #> https://github.com/LieberInstitute/spatialLIBD - R package version
-#> 1.3.13, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
+#> 1.3.14, <URL: http://www.bioconductor.org/packages/spatialLIBD>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -266,7 +257,7 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #>     author = {Leonardo Collado-Torres and Kristen R. Maynard and Andrew E. Jaffe},
 #>     year = {2021},
 #>     url = {http://www.bioconductor.org/packages/spatialLIBD},
-#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.13},
+#>     note = {https://github.com/LieberInstitute/spatialLIBD - R package version 1.3.14},
 #>     doi = {10.18129/B9.bioc.spatialLIBD},
 #>   }
 #> 

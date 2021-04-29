@@ -120,7 +120,7 @@ pryr::object_size(spe)
 ## Remake the logo image with histology information
 vis_clus(
     spe = spe,
-    clustervar = "layer_guess_reordered",
+    clustervar = "spatialLIBD",
     sampleid = "151673",
     colors = libd_layer_colors,
     ... = " DLPFC Human Brain Layers\nMade with github.com/LieberInstitute/spatialLIBD"

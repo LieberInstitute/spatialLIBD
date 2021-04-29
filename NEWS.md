@@ -1,3 +1,10 @@
+# spatialLIBD 1.3.14
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* The documentation and help messages shown in the web application have been
+revamped and improved.
+
 # spatialLIBD 1.3.12
 
 NEW FEATURES
@@ -69,7 +76,7 @@ BUG FIXES
 SIGNIFICANT USER-VISIBLE CHANGES
 
 * Documentation website is now available at
-http://LieberInstitute.github.io/GenomicState/. It gets updated with every
+http://LieberInstitute.github.io/spatialLIBD/. It gets updated with every
 commit on the master branch (bioc-devel) using GitHub Actions and pkgdown.
 
 
