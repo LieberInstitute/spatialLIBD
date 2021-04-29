@@ -304,19 +304,6 @@ app_server <- function(input, output, session) {
         )
     })
 
-    ## Update the default cluster
-    observeEvent(input$cluster, {
-        if (input$cluster == "") {
-            message("hm... it wasn't set")
-            updateSelectInput(
-                session,
-                inputId = "cluster",
-                selected = default_cluster
-            )
-        }
-    })
-
-
     ## Static plotting functions
     static_histology <- reactive({
         if (input$cluster == "ManualAnnotation") {

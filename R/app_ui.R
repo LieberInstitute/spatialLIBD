@@ -10,8 +10,6 @@ app_ui <- function() {
     title <- golem::get_golem_options("title")
     spe_discrete_vars <- golem::get_golem_options("spe_discrete_vars")
     default_cluster <- golem::get_golem_options("default_cluster")
-    message("default_cluster: ", default_cluster)
-    message("class: ", class(default_cluster))
 
     red_dim_names <- reducedDimNames(spe)
     if (length(red_dim_names) > 0) {
