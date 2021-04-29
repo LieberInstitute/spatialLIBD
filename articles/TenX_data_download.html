@@ -168,7 +168,7 @@
 <div id="download-data-from-10x-genomics" class="section level1">
 <h1 class="hasAnchor">
 <a href="#download-data-from-10x-genomics" class="anchor" aria-hidden="true"></a>Download data from 10x Genomics</h1>
-<p>In this vignette we’ll show you can use <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em> (Pardo, Spangler, Weber, et al., 2021) for exploring spatially resolved transcriptomics data from the <a href="https://www.10xgenomics.com/products/spatial-gene-expression" class="external-link">Visium platform by 10x Genomics</a>. That is, you will learn how to use <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em> for data beyond the one it was initially developed for (Maynard, Collado-Torres, Weber, Uytingco, Barry, Williams, II, Tran, Besich, Tippani, Chew, Yin, Kleinman, Hyde, Rao, Hicks, Martinowich, and Jaffe, 2021). To illustrate these steps, we will use data that 10x Genomics made publicly available at <a href="https://support.10xgenomics.com/spatial-gene-expression/datasets" class="external-link uri">https://support.10xgenomics.com/spatial-gene-expression/datasets</a>. We will use files from the human lymph node example publicly available at <a href="https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node" class="external-link uri">https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node</a>.</p>
+<p>In this vignette we’ll show you how you can use <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em> (Pardo, Spangler, Weber, et al., 2021) for exploring spatially resolved transcriptomics data from the <a href="https://www.10xgenomics.com/products/spatial-gene-expression" class="external-link">Visium platform by 10x Genomics</a>. That is, you will learn how to use <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em> for data beyond the one it was initially developed for (Maynard, Collado-Torres, Weber, Uytingco, Barry, Williams, II, Tran, Besich, Tippani, Chew, Yin, Kleinman, Hyde, Rao, Hicks, Martinowich, and Jaffe, 2021). To illustrate these steps, we will use data that 10x Genomics made publicly available at <a href="https://support.10xgenomics.com/spatial-gene-expression/datasets" class="external-link uri">https://support.10xgenomics.com/spatial-gene-expression/datasets</a>. We will use files from the human lymph node example publicly available at <a href="https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node" class="external-link uri">https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node</a>.</p>
 <div id="load-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#load-packages" class="anchor" aria-hidden="true"></a>Load packages</h2>
@@ -364,7 +364,7 @@
 <span class="co">## Show the GTF cache location</span>
 <span class="va">gtf_cache</span>
 <span class="co">#&gt;                                                                            BFC7 </span>
-<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/9822af0fab9_gencode.v32.annotation.gtf.gz"</span>
+<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/9da6236e266_gencode.v32.annotation.gtf.gz"</span>
 
 <span class="co">## Import into R (takes ~1 min)</span>
 <span class="va">gtf</span> <span class="op">&lt;-</span> <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span><span class="va">gtf_cache</span><span class="op">)</span>
@@ -651,9 +651,9 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code>#&gt; [1] "2021-04-29 17:38:13 UTC"</code></pre>
+<pre><code>#&gt; [1] "2021-04-29 18:28:25 UTC"</code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code>#&gt; Time difference of 1.446 mins</code></pre>
+<pre><code>#&gt; Time difference of 1.427 mins</code></pre>
 <p><code>R</code> session information.</p>
 <pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt;  setting  value                                             
@@ -817,7 +817,7 @@
 #&gt;  shinyWidgets             0.6.0      2021-03-15 [1] CRAN (R 4.1.0)                              
 #&gt;  SingleCellExperiment   * 1.13.14    2021-04-07 [1] Bioconductor                                
 #&gt;  spam                     2.6-0      2020-12-14 [1] CRAN (R 4.1.0)                              
-#&gt;  sparseMatrixStats        1.3.7      2021-03-29 [1] Bioconductor                                
+#&gt;  sparseMatrixStats        1.3.8      2021-04-28 [1] Bioconductor                                
 #&gt;  SpatialExperiment      * 1.1.5      2021-04-29 [1] Github (drighelli/SpatialExperiment@17e5176)
 #&gt;  spatialLIBD            * 1.3.15     2021-04-29 [1] Bioconductor                                
 #&gt;  stringi                  1.5.3      2020-09-09 [2] CRAN (R 4.1.0)                              
