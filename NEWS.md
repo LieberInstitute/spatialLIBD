@@ -1,3 +1,10 @@
+# spatialLIBD 1.3.16
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* The citation information has changed now that `spatialLIBD` has a bioRxiv
+pre-print at https://www.biorxiv.org/content/10.1101/2021.04.29.440149v1.
+
 # spatialLIBD 1.3.15
 
 SIGNIFICANT USER-VISIBLE CHANGES

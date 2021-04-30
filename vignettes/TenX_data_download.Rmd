@@ -15,7 +15,7 @@ author:
     - *libd
     - &ccb Center for Computational Biology, Johns Hopkins University
     email: lcolladotor@gmail.com
-output: 
+output:
   BiocStyle::html_document:
     self_contained: yes
     toc: true
@@ -26,8 +26,8 @@ date: "`r doc_date()`"
 package: "`r pkg_ver('spatialLIBD')`"
 vignette: >
   %\VignetteIndexEntry{Using spatialLIBD with 10x Genomics public datasets}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}  
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r setup, include = FALSE}
@@ -213,7 +213,7 @@ If you have the GTF file from 10x Genomics, we show next how you can read the in
 ```{r "use_10x_gtf", eval = FALSE}
 ## You could:
 ## * download the 11 GB file from
-##https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz
+## https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz
 ## * decompress it
 
 ## Read in the gene information from the annotation GTF file provided by 10x
