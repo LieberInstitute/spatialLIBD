@@ -1,8 +1,8 @@
 pandoc: 2.11.4
 pkgdown: 1.6.1.9001
-pkgdown_sha: dff8062d297c001dba0dfaf567bfffdc8ad89f5c
+pkgdown_sha: 8c7a6f3efac8d7e281ceaba8788a11abb60f4b94
 articles:
   TenX_data_download: TenX_data_download.html
   spatialLIBD: spatialLIBD.html
-last_built: 2021-04-29T18:22Z
+last_built: 2021-04-30T15:53Z
 
