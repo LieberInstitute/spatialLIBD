@@ -78,6 +78,16 @@ This function runs the shiny application that allows users to interact
 with the Visium spatial transcriptomics data from LIBD (by default) or
 any other data that you have shaped according to our object structure.
 }
+\details{
+If you don't have the pseudo-bulked analysis results like we computed them
+in our project \url{https://doi.org/10.1038/s41593-020-00787-0} you can
+set \code{sce_layer}, \code{modeling_results} and \code{sig_genes} to \code{NULL}. Doing so
+will disable the pseudo-bulked portion of the web application. See the
+examples for one such case as well as the vignette that describes how
+you can use \code{spatialLIBD} with public data sets provided by 10x Genomics.
+That vignette is available at
+\url{http://research.libd.org/spatialLIBD/articles/TenX_data_download.html}.
+}
 \examples{
 \dontrun{
 ## The default arguments will download the data from the web

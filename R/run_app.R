@@ -4,6 +4,15 @@
 #' with the Visium spatial transcriptomics data from LIBD (by default) or
 #' any other data that you have shaped according to our object structure.
 #'
+#' If you don't have the pseudo-bulked analysis results like we computed them
+#' in our project <https://doi.org/10.1038/s41593-020-00787-0> you can
+#' set `sce_layer`, `modeling_results` and `sig_genes` to `NULL`. Doing so
+#' will disable the pseudo-bulked portion of the web application. See the
+#' examples for one such case as well as the vignette that describes how
+#' you can use `spatialLIBD` with public data sets provided by 10x Genomics.
+#' That vignette is available at
+#' <http://research.libd.org/spatialLIBD/articles/TenX_data_download.html>.
+#'
 #' @param spe Defaults to the output of
 #' `fetch_data(type = 'spe')`. This is a
 #' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]
