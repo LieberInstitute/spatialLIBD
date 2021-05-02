@@ -93,7 +93,7 @@ any other data that you have shaped according to our object structure." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.17</span>
       </span>
     </div>
 
@@ -245,6 +245,16 @@ the application.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <a href='https://rdrr.io/pkg/shiny/man/shiny.appobj.html'>shiny.appobj</a> that contains the input data.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>If you don't have the pseudo-bulked analysis results like we computed them
+in our project <a href='https://doi.org/10.1038/s41593-020-00787-0'>https://doi.org/10.1038/s41593-020-00787-0</a> you can
+set <code>sce_layer</code>, <code>modeling_results</code> and <code>sig_genes</code> to <code>NULL</code>. Doing so
+will disable the pseudo-bulked portion of the web application. See the
+examples for one such case as well as the vignette that describes how
+you can use <code>spatialLIBD</code> with public data sets provided by 10x Genomics.
+That vignette is available at
+<a href='http://research.libd.org/spatialLIBD/articles/TenX_data_download.html'>http://research.libd.org/spatialLIBD/articles/TenX_data_download.html</a>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>

@@ -31,9 +31,6 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/check_image_path.html</loc>
-  </url>
-  <url>
     <loc>/reference/check_modeling_results.html</loc>
   </url>
   <url>
@@ -82,34 +79,10 @@
     <loc>/reference/libd_layer_colors.html</loc>
   </url>
   <url>
-    <loc>/reference/read_image.html</loc>
-  </url>
-  <url>
     <loc>/reference/run_app.html</loc>
   </url>
   <url>
-    <loc>/reference/sce_image_clus.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sce_image_clus_p.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sce_image_gene.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sce_image_gene_p.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sce_image_grid.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sce_image_grid_gene.html</loc>
-  </url>
-  <url>
     <loc>/reference/sce_to_spe.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sce_to_ve.html</loc>
   </url>
   <url>
     <loc>/reference/sig_genes_extract.html</loc>
@@ -124,16 +97,7 @@
     <loc>/reference/spatialLIBD-package.html</loc>
   </url>
   <url>
-    <loc>/reference/spe_meta.html</loc>
-  </url>
-  <url>
     <loc>/reference/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.html</loc>
-  </url>
-  <url>
-    <loc>/reference/update_scaleFactors.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ve_image_colData.html</loc>
   </url>
   <url>
     <loc>/reference/vis_clus.html</loc>
