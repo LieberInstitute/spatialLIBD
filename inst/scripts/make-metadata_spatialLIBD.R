@@ -45,7 +45,7 @@ write.csv(meta,
 
 ## Check
 if(FALSE) {
-    AnnotationHubData::makeAnnotationHubMetadata(here::here())
+    AnnotationHubData::makeAnnotationHubMetadata(here::here(), fileName = "metadata_spatialLIBD.csv")
 }
 
 ## Reproducibility information
