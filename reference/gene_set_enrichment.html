@@ -93,7 +93,7 @@ genes (FDR &amp;lt; 0.1 by default) genes for a given model type result." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.19</span>
       </span>
     </div>
 
@@ -219,60 +219,63 @@ to see a full script from where this family of functions is derived from.</p>
     <p>Andrew E Jaffe, Leonardo Collado-Torres</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## Read in the SFARI gene sets included in the package</span>
-<span class='va'>asd_sfari</span> <span class='op'>&lt;-</span> <span class='fu'>utils</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span>
-        <span class='st'>"extdata"</span>,
-        <span class='st'>"SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv"</span>,
-        package <span class='op'>=</span> <span class='st'>"spatialLIBD"</span>
-    <span class='op'>)</span>,
-    as.is <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span>
-
-<span class='co'>## Format them appropriately</span>
-<span class='va'>asd_sfari_geneList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-    Gene_SFARI_all <span class='op'>=</span> <span class='va'>asd_sfari</span><span class='op'>$</span><span class='va'>ensembl.id</span>,
-    Gene_SFARI_high <span class='op'>=</span> <span class='va'>asd_sfari</span><span class='op'>$</span><span class='va'>ensembl.id</span><span class='op'>[</span><span class='va'>asd_sfari</span><span class='op'>$</span><span class='va'>gene.score</span> <span class='op'>&lt;</span> <span class='fl'>3</span><span class='op'>]</span>,
-    Gene_SFARI_syndromic <span class='op'>=</span> <span class='va'>asd_sfari</span><span class='op'>$</span><span class='va'>ensembl.id</span><span class='op'>[</span><span class='va'>asd_sfari</span><span class='op'>$</span><span class='va'>syndromic</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span>
-<span class='op'>)</span>
-
-<span class='co'>## Obtain the necessary data</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"modeling_results"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='va'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='co'>#&gt; snapshotDate(): 2021-04-27</div><div class='co'>#&gt; 2021-05-02 17:08:11 loading file /github/home/.cache/R/BiocFileCache/59567da85fd0_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</div><div class='input'>
-<span class='co'>## Compute the gene set enrichment results</span>
-<span class='va'>asd_sfari_enrichment</span> <span class='op'>&lt;-</span> <span class='fu'>gene_set_enrichment</span><span class='op'>(</span>
-    gene_list <span class='op'>=</span> <span class='va'>asd_sfari_geneList</span>,
-    modeling_results <span class='op'>=</span> <span class='va'>modeling_results</span>,
-    model_type <span class='op'>=</span> <span class='st'>"enrichment"</span>
-<span class='op'>)</span>
-
-<span class='co'>## Explore the results</span>
-<span class='va'>asd_sfari_enrichment</span>
-</div><div class='co'>#&gt;           OR         Pval   test                   ID model_type fdr_cut
-#&gt; 1  1.2659915 3.187330e-03     WM       Gene_SFARI_all enrichment     0.1
-#&gt; 2  1.1819109 1.775383e-01     WM      Gene_SFARI_high enrichment     0.1
-#&gt; 3  1.2333378 3.197106e-01     WM Gene_SFARI_syndromic enrichment     0.1
-#&gt; 4  0.9702022 8.516414e-01 Layer1       Gene_SFARI_all enrichment     0.1
-#&gt; 5  0.7192630 1.473598e-01 Layer1      Gene_SFARI_high enrichment     0.1
-#&gt; 6  1.1216176 7.379007e-01 Layer1 Gene_SFARI_syndromic enrichment     0.1
-#&gt; 7  2.7377140 5.965310e-21 Layer2       Gene_SFARI_all enrichment     0.1
-#&gt; 8  2.7066379 1.252575e-09 Layer2      Gene_SFARI_high enrichment     0.1
-#&gt; 9  2.6632367 3.564638e-04 Layer2 Gene_SFARI_syndromic enrichment     0.1
-#&gt; 10 1.3579958 2.647572e-01 Layer3       Gene_SFARI_all enrichment     0.1
-#&gt; 11 1.1738012 6.222717e-01 Layer3      Gene_SFARI_high enrichment     0.1
-#&gt; 12 2.8947133 5.518757e-02 Layer3 Gene_SFARI_syndromic enrichment     0.1
-#&gt; 13 1.2423009 2.434061e-01 Layer4       Gene_SFARI_all enrichment     0.1
-#&gt; 14 1.1445522 6.204613e-01 Layer4      Gene_SFARI_high enrichment     0.1
-#&gt; 15 2.6106289 1.575232e-02 Layer4 Gene_SFARI_syndromic enrichment     0.1
-#&gt; 16 2.0969125 8.658687e-07 Layer5       Gene_SFARI_all enrichment     0.1
-#&gt; 17 2.0956628 1.194573e-03 Layer5      Gene_SFARI_high enrichment     0.1
-#&gt; 18 0.7064982 8.016960e-01 Layer5 Gene_SFARI_syndromic enrichment     0.1
-#&gt; 19 2.6716353 1.779962e-07 Layer6       Gene_SFARI_all enrichment     0.1
-#&gt; 20 2.6206690 5.845493e-04 Layer6      Gene_SFARI_high enrichment     0.1
-#&gt; 21 2.2573853 7.927915e-02 Layer6 Gene_SFARI_syndromic enrichment     0.1</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## Read in the SFARI gene sets included in the package</span></span>
+<span class='r-in'><span class='va'>asd_sfari</span> <span class='op'>&lt;-</span> <span class='fu'>utils</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span></span>
+<span class='r-in'>    <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span></span>
+<span class='r-in'>        <span class='st'>"extdata"</span>,</span>
+<span class='r-in'>        <span class='st'>"SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv"</span>,</span>
+<span class='r-in'>        package <span class='op'>=</span> <span class='st'>"spatialLIBD"</span></span>
+<span class='r-in'>    <span class='op'>)</span>,</span>
+<span class='r-in'>    as.is <span class='op'>=</span> <span class='cn'>TRUE</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Format them appropriately</span></span>
+<span class='r-in'><span class='va'>asd_sfari_geneList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span class='r-in'>    Gene_SFARI_all <span class='op'>=</span> <span class='va'>asd_sfari</span><span class='op'>$</span><span class='va'>ensembl.id</span>,</span>
+<span class='r-in'>    Gene_SFARI_high <span class='op'>=</span> <span class='va'>asd_sfari</span><span class='op'>$</span><span class='va'>ensembl.id</span><span class='op'>[</span><span class='va'>asd_sfari</span><span class='op'>$</span><span class='va'>gene.score</span> <span class='op'>&lt;</span> <span class='fl'>3</span><span class='op'>]</span>,</span>
+<span class='r-in'>    Gene_SFARI_syndromic <span class='op'>=</span> <span class='va'>asd_sfari</span><span class='op'>$</span><span class='va'>ensembl.id</span><span class='op'>[</span><span class='va'>asd_sfari</span><span class='op'>$</span><span class='va'>syndromic</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>]</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Obtain the necessary data</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"modeling_results"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>    <span class='va'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> snapshotDate(): 2021-05-05</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 2021-05-08 20:22:16 loading file /github/home/.cache/R/BiocFileCache/9f579be913d_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Compute the gene set enrichment results</span></span>
+<span class='r-in'><span class='va'>asd_sfari_enrichment</span> <span class='op'>&lt;-</span> <span class='fu'>gene_set_enrichment</span><span class='op'>(</span></span>
+<span class='r-in'>    gene_list <span class='op'>=</span> <span class='va'>asd_sfari_geneList</span>,</span>
+<span class='r-in'>    modeling_results <span class='op'>=</span> <span class='va'>modeling_results</span>,</span>
+<span class='r-in'>    model_type <span class='op'>=</span> <span class='st'>"enrichment"</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Explore the results</span></span>
+<span class='r-in'><span class='va'>asd_sfari_enrichment</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           OR         Pval   test                   ID model_type fdr_cut</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  1.2659915 3.187330e-03     WM       Gene_SFARI_all enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  1.1819109 1.775383e-01     WM      Gene_SFARI_high enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  1.2333378 3.197106e-01     WM Gene_SFARI_syndromic enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  0.9702022 8.516414e-01 Layer1       Gene_SFARI_all enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  0.7192630 1.473598e-01 Layer1      Gene_SFARI_high enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  1.1216176 7.379007e-01 Layer1 Gene_SFARI_syndromic enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  2.7377140 5.965310e-21 Layer2       Gene_SFARI_all enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  2.7066379 1.252575e-09 Layer2      Gene_SFARI_high enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  2.6632367 3.564638e-04 Layer2 Gene_SFARI_syndromic enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 1.3579958 2.647572e-01 Layer3       Gene_SFARI_all enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 1.1738012 6.222717e-01 Layer3      Gene_SFARI_high enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12 2.8947133 5.518757e-02 Layer3 Gene_SFARI_syndromic enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13 1.2423009 2.434061e-01 Layer4       Gene_SFARI_all enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14 1.1445522 6.204613e-01 Layer4      Gene_SFARI_high enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15 2.6106289 1.575232e-02 Layer4 Gene_SFARI_syndromic enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16 2.0969125 8.658687e-07 Layer5       Gene_SFARI_all enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 2.0956628 1.194573e-03 Layer5      Gene_SFARI_high enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18 0.7064982 8.016960e-01 Layer5 Gene_SFARI_syndromic enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 19 2.6716353 1.779962e-07 Layer6       Gene_SFARI_all enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20 2.6206690 5.845493e-04 Layer6      Gene_SFARI_high enrichment     0.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21 2.2573853 7.927915e-02 Layer6 Gene_SFARI_syndromic enrichment     0.1</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -91,7 +91,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.19</span>
       </span>
     </div>
 
@@ -215,28 +215,31 @@ for a full analysis from which this family of functions is derived from.</p>
     <p>Andrew E Jaffe, Leonardo Collado-Torres</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## Obtain the necessary data</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"modeling_results"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='va'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='co'>#&gt; snapshotDate(): 2021-04-27</div><div class='co'>#&gt; 2021-05-02 17:08:48 loading file /github/home/.cache/R/BiocFileCache/59567da85fd0_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</div><div class='input'>
-<span class='co'>## Compute the correlations</span>
-<span class='va'>cor_stats_layer</span> <span class='op'>&lt;-</span> <span class='fu'>layer_stat_cor</span><span class='op'>(</span>
-    <span class='va'>tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer</span>,
-    <span class='va'>modeling_results</span>,
-    <span class='st'>"enrichment"</span>
-<span class='op'>)</span>
-
-<span class='co'>## Explore the correlation matrix</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>cor_stats_layer</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='co'>#&gt;               WM       Layer6     Layer5
-#&gt; 22 (3) 0.6824669 -0.009192291 -0.1934265
-#&gt; 3 (3)  0.7154122 -0.070042729 -0.2290574
-#&gt; 23 (3) 0.6637885 -0.031467704 -0.2018306
-#&gt; 17 (3) 0.6364983 -0.094216046 -0.2026147
-#&gt; 21 (3) 0.6281443 -0.050336358 -0.1988774
-#&gt; 7 (4)  0.1850724 -0.197283175 -0.2716890</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## Obtain the necessary data</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"modeling_results"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>    <span class='va'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> snapshotDate(): 2021-05-05</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 2021-05-08 20:23:04 loading file /github/home/.cache/R/BiocFileCache/9f579be913d_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Compute the correlations</span></span>
+<span class='r-in'><span class='va'>cor_stats_layer</span> <span class='op'>&lt;-</span> <span class='fu'>layer_stat_cor</span><span class='op'>(</span></span>
+<span class='r-in'>    <span class='va'>tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer</span>,</span>
+<span class='r-in'>    <span class='va'>modeling_results</span>,</span>
+<span class='r-in'>    <span class='st'>"enrichment"</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Explore the correlation matrix</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>cor_stats_layer</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               WM       Layer6     Layer5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22 (3) 0.6824669 -0.009192291 -0.1934265</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 (3)  0.7154122 -0.070042729 -0.2290574</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 23 (3) 0.6637885 -0.031467704 -0.2018306</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17 (3) 0.6364983 -0.094216046 -0.2026147</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 21 (3) 0.6281443 -0.050336358 -0.1988774</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7 (4)  0.1850724 -0.197283175 -0.2716890</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

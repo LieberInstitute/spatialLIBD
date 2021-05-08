@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.19</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
 
       
 
-      </header><script src="TenX_data_download_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><script src="TenX_data_download_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Using spatialLIBD with 10x Genomics public datasets</h1>
@@ -102,7 +102,7 @@
       Lieber Institute for Brain Development, Johns Hopkins Medical CampusCenter for Computational Biology, Johns Hopkins University<br><a class="author_email" href="mailto:#"></a><a href="mailto:lcolladotor@gmail.com" class="email">lcolladotor@gmail.com</a>
       </address>
                   
-            <h4 data-toc-skip class="date">2 May 2021</h4>
+            <h4 data-toc-skip class="date">8 May 2021</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/vignettes/TenX_data_download.Rmd" class="external-link"><code>vignettes/TenX_data_download.Rmd</code></a></small>
       <div class="hidden name"><code>TenX_data_download.Rmd</code></div>
@@ -259,12 +259,12 @@
 <span class="co">#&gt; rowData names(1): symbol</span>
 <span class="co">#&gt; colnames(4035): AAACAAGTATCTCCCA-1 AAACAATCTACTAGCA-1 ...</span>
 <span class="co">#&gt;   TTGTTTGTATTACACG-1 TTGTTTGTGTAAATTC-1</span>
-<span class="co">#&gt; colData names(3): Sample Barcode sample_id</span>
+<span class="co">#&gt; colData names(1): sample_id</span>
 <span class="co">#&gt; reducedDimNames(0):</span>
 <span class="co">#&gt; mainExpName: NULL</span>
 <span class="co">#&gt; altExpNames(0):</span>
-<span class="co">#&gt; spatialData names(5) : in_tissue array_row array_col pxl_col_in_fullres</span>
-<span class="co">#&gt;   pxl_row_in_fullres</span>
+<span class="co">#&gt; spatialData names(3) : in_tissue array_row array_col</span>
+<span class="co">#&gt; spatialCoords names(2) : pxl_col_in_fullres pxl_row_in_fullres</span>
 <span class="co">#&gt; imgData names(4): sample_id image_id data scaleFactor</span>
 
 <span class="co">## The counts are saved in a sparse matrix R object</span>
@@ -289,23 +289,50 @@
 </ul>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Add some information used by spatialLIBD</span>
-<span class="va">spe</span><span class="op">$</span><span class="va">key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">spe</span><span class="op">$</span><span class="va">sample_id</span>, <span class="st">"_"</span>, <span class="va">spe</span><span class="op">$</span><span class="va">Barcode</span><span class="op">)</span>
+<span class="va">spe</span><span class="op">$</span><span class="va">key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">spe</span><span class="op">$</span><span class="va">sample_id</span>, <span class="st">"_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span>
 <span class="va">spe</span><span class="op">$</span><span class="va">sum_umi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/assays.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span>
 <span class="va">spe</span><span class="op">$</span><span class="va">sum_gene</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/assays.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
 <div id="add-gene-annotation-information" class="section level2">
 <h2 class="hasAnchor">
 <a href="#add-gene-annotation-information" class="anchor" aria-hidden="true"></a>Add gene annotation information</h2>
 <p>The files <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code> uses to read in the <code>spaceranger</code> outputs into R do not include much information about the genes, such as their chromosomes, coordinates, and other gene annotation information. We thus recommend that you read in this information from a gene annotation file: typically a <code>gtf</code> file. For a real case scenario, you’ll mostly likely have access to the GTF file provided by 10x Genomics. However, we cannot download that file without downloading other files for this example. Thus we’ll show you the code you would use if you had access to the GTF file from 10x Genomics and also show a second approach that works for this vignette.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Initially we don't have much information about the genes</span>
+<span class="fu">rowRanges</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>
+<span class="co">#&gt; GRangesList object of length 36601:</span>
+<span class="co">#&gt; $ENSG00000243485</span>
+<span class="co">#&gt; GRanges object with 0 ranges and 0 metadata columns:</span>
+<span class="co">#&gt;    seqnames    ranges strand</span>
+<span class="co">#&gt;       &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt;</span>
+<span class="co">#&gt;   -------</span>
+<span class="co">#&gt;   seqinfo: no sequences</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ENSG00000237613</span>
+<span class="co">#&gt; GRanges object with 0 ranges and 0 metadata columns:</span>
+<span class="co">#&gt;    seqnames    ranges strand</span>
+<span class="co">#&gt;       &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt;</span>
+<span class="co">#&gt;   -------</span>
+<span class="co">#&gt;   seqinfo: no sequences</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $ENSG00000186092</span>
+<span class="co">#&gt; GRanges object with 0 ranges and 0 metadata columns:</span>
+<span class="co">#&gt;    seqnames    ranges strand</span>
+<span class="co">#&gt;       &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt;</span>
+<span class="co">#&gt;   -------</span>
+<span class="co">#&gt;   seqinfo: no sequences</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ...</span>
+<span class="co">#&gt; &lt;36598 more elements&gt;</span></code></pre></div>
 <div id="from-10x" class="section level3">
 <h3 class="hasAnchor">
 <a href="#from-10x" class="anchor" aria-hidden="true"></a>From 10x</h3>
 <p>Depending on the version of <code>spaceranger</code> you used, you might have used different GTF files 10x Genomics has made available at <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest" class="external-link uri">https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest</a> and described at <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build" class="external-link uri">https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build</a>. These files are too big though and we won’t download them in this example. For instance, <em>References - 2020-A (July 7, 2020)</em> for <em>Human reference (GRCh38)</em> is 11 GB in size and contains files we do not need for this vignette. If you did have the file locally, you could use the following code to read in the GTF file prepared by 10x Genomics and add the information into your <code>spe</code> object that <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code> does not include.</p>
 <p>For example, in our computing cluster this GTF file is located at the following path and is 1.4 GB in size:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd /dcl02/lieber/ajaffe/SpatialTranscriptomics/</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> du <span class="at">-sh</span> <span class="at">--apparent-size</span> refdata-gex-GRCh38-2020-A/genes/genes.gtf</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">1.4G</span>    /dcl02/lieber/ajaffe/SpatialTranscriptomics/refdata-gex-GRCh38-2020-A/genes/genes.gtf</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd /dcl02/lieber/ajaffe/SpatialTranscriptomics/</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> du <span class="at">-sh</span> <span class="at">--apparent-size</span> refdata-gex-GRCh38-2020-A/genes/genes.gtf</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">1.4G</span>    /dcl02/lieber/ajaffe/SpatialTranscriptomics/refdata-gex-GRCh38-2020-A/genes/genes.gtf</span></code></pre></div>
 <p>If you have the GTF file from 10x Genomics, we show next how you can read the information into R, match it appropriately with the information in the <code>spe</code> object and add it back into the <code>spe</code> object.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## You could:</span>
 <span class="co">## * download the 11 GB file from</span>
 <span class="co">## https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz</span>
@@ -350,7 +377,7 @@
 <h3 class="hasAnchor">
 <a href="#from-gencode" class="anchor" aria-hidden="true"></a>From Gencode</h3>
 <p>In this vignette, we’ll use the GTF file from Gencode v32. That’s because the build notes from <em>References - 2020-A (July 7, 2020)</em> and <em>Human reference, GRCh38 (GENCODE v32/Ensembl 98)</em> at <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A" class="external-link uri">https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A</a> show that 10x Genomics used Gencode v32. They also used Ensembl version 98 which is why a few genes we have in our object are going to be missing. We show next how you can read the information into R, match it appropriately with the information in the <code>spe</code> object and add it back into the <code>spe</code> object.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Download the Gencode v32 GTF file and cache it</span>
 <span class="va">gtf_cache</span> <span class="op">&lt;-</span> <span class="fu">BiocFileCache</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">bfcrpath</a></span><span class="op">(</span>
     <span class="va">bfc</span>,
@@ -363,7 +390,7 @@
 <span class="co">## Show the GTF cache location</span>
 <span class="va">gtf_cache</span>
 <span class="co">#&gt;                                                                             BFC7 </span>
-<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/5956715ca5a0_gencode.v32.annotation.gtf.gz"</span>
+<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/9f5772c051b6_gencode.v32.annotation.gtf.gz"</span>
 
 <span class="co">## Import into R (takes ~1 min)</span>
 <span class="va">gtf</span> <span class="op">&lt;-</span> <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span><span class="va">gtf_cache</span><span class="op">)</span>
@@ -431,7 +458,7 @@
 <a href="#enable-a-friendlier-gene-search" class="anchor" aria-hidden="true"></a>Enable a friendlier gene search</h3>
 <p>Regardless of which method you used to obtain the gene annotation information, we can now proceed by adding the gene symbol and gene ID information that helps users search for genes in the shiny app produced by <code>spatialLIBD</code>. This will enable users to search genes by gene symbol or gene ID. If you didn’t do this, users would only be able to search genes by gene ID which makes the web application harder to use.</p>
 <p>We also compute the total expression for the mitochondrial chromosome (chrM) as well as the ratio of chrM expression. Both of these continuous variables are interesting to explore and in some situations could be useful for biological interpretations. For instance, in our pilot data (Maynard, Collado-Torres, Weber, et al., 2021), we noticed that the <code>expr_chrM_ratio</code> was associated to DLPFC layers. That is, spots with high <code>expr_chrM_ratio</code> were not randomly located in our Visium slides.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Add information used by spatialLIBD</span>
 <span class="fu">rowData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_search</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span>
     <span class="fu">rowData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_name</span>, <span class="st">"; "</span>, <span class="fu">rowData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_id</span>
@@ -447,7 +474,7 @@
 <h2 class="hasAnchor">
 <a href="#filter-the-spe-object" class="anchor" aria-hidden="true"></a>Filter the spe object</h2>
 <p>We can now continue with some filtering steps since this can help reduce the object size in memory as well as make it ready to use for downstream processing tools such as those from the <em><a href="https://bioconductor.org/packages/3.13/scran" class="external-link">scran</a></em> and <em><a href="https://bioconductor.org/packages/3.13/scuttle" class="external-link">scuttle</a></em> packages. Though these steps are not absolutely necessary.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Remove genes with no data</span>
 <span class="va">no_expr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/assays.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span>
 
@@ -479,11 +506,11 @@
 <h2 class="hasAnchor">
 <a href="#check-object" class="anchor" aria-hidden="true"></a>Check object</h2>
 <p>Next, we add the <code>ManualAnnotation</code> variable to the sample information table (<code><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-colData.html" class="external-link">colData()</a></code>) with <code>"NA"</code>. That variable is used by the interactive website to store any manual annotations.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Add a variable for saving the manual annotations</span>
 <span class="va">spe</span><span class="op">$</span><span class="va">ManualAnnotation</span> <span class="op">&lt;-</span> <span class="st">"NA"</span></code></pre></div>
 <p>Finally, we can now check the final object using <code><a href="../reference/check_spe.html">spatialLIBD::check_spe()</a></code>. This is a helper function that will warn us if some important element is missing in <code>spe</code> that we use later for the interactive website. If it all goes well, it will return the original <code>spe</code> object.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Check the final dimensions and object size</span>
 <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>
 <span class="co">#&gt; [1] 25175  4035</span>
@@ -491,7 +518,7 @@
 <span class="co">#&gt; 298 MB</span>
 
 <span class="co">## Run check_spe() function</span>
-<span class="fu">spatialLIBD</span><span class="fu">::</span><span class="fu"><a href="../reference/check_spe.html">check_spe</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>
+<span class="fu"><a href="../reference/check_spe.html">check_spe</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>
 <span class="co">#&gt; class: SpatialExperiment </span>
 <span class="co">#&gt; dim: 25175 4035 </span>
 <span class="co">#&gt; metadata(0):</span>
@@ -501,12 +528,12 @@
 <span class="co">#&gt; rowData names(6): source type ... gene_type gene_search</span>
 <span class="co">#&gt; colnames(4035): AAACAAGTATCTCCCA-1 AAACAATCTACTAGCA-1 ...</span>
 <span class="co">#&gt;   TTGTTTGTATTACACG-1 TTGTTTGTGTAAATTC-1</span>
-<span class="co">#&gt; colData names(9): Sample Barcode ... expr_chrM_ratio ManualAnnotation</span>
+<span class="co">#&gt; colData names(25): sample_id key ... array_row array_col</span>
 <span class="co">#&gt; reducedDimNames(0):</span>
 <span class="co">#&gt; mainExpName: NULL</span>
 <span class="co">#&gt; altExpNames(0):</span>
-<span class="co">#&gt; spatialData names(5) : in_tissue array_row array_col pxl_col_in_fullres</span>
-<span class="co">#&gt;   pxl_row_in_fullres</span>
+<span class="co">#&gt; spatialData names(3) : in_tissue array_row array_col</span>
+<span class="co">#&gt; spatialCoords names(2) : pxl_col_in_fullres pxl_row_in_fullres</span>
 <span class="co">#&gt; imgData names(4): sample_id image_id data scaleFactor</span></code></pre></div>
 </div>
 </div>
@@ -514,8 +541,8 @@
 <h1 class="hasAnchor">
 <a href="#explore-the-data" class="anchor" aria-hidden="true"></a>Explore the data</h1>
 <p>With our complete <code>spe</code> object, we can now use <em><a href="https://bioconductor.org/packages/3.13/spatialLIBD" class="external-link">spatialLIBD</a></em> for visualizing our data. We can do so using functions such as <code><a href="../reference/vis_gene.html">vis_gene()</a></code> and <code><a href="../reference/vis_clus.html">vis_clus()</a></code> that are described in more detail at the <em>Introduction to spatialLIBD</em> vignette available through <a href="http://research.libd.org/spatialLIBD/articles/spatialLIBD.html" class="external-link">GitHub</a> or <a href="https://bioconductor.org/packages/spatialLIBD" class="external-link">Bioconductor</a>.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Visualizations</span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Example visualizations. Let's start with a continuous variable.</span>
 <span class="fu">spatialLIBD</span><span class="fu">::</span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span>
     spe <span class="op">=</span> <span class="va">spe</span>,
     sampleid <span class="op">=</span> <span class="st">"lymph"</span>,
@@ -523,10 +550,13 @@
     assayname <span class="op">=</span> <span class="st">"counts"</span>
 <span class="op">)</span></code></pre></div>
 <p><img src="TenX_data_download_files/figure-html/test_visualizations-1.png" width="700"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
+<span class="co">## We next create a random cluster label to visualize</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20210428</span><span class="op">)</span>
 <span class="va">spe</span><span class="op">$</span><span class="va">random_cluster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="co">## Next we visualize that random cluster</span>
 <span class="fu">spatialLIBD</span><span class="fu">::</span><span class="fu"><a href="../reference/vis_clus.html">vis_clus</a></span><span class="op">(</span>
     spe <span class="op">=</span> <span class="va">spe</span>,
     sampleid <span class="op">=</span> <span class="st">"lymph"</span>,
@@ -549,7 +579,7 @@
 <li>
 <code>default_cluster</code>: this is used for indicating the default discrete variable and for now we’ll set it to our <code>random_cluster</code>.</li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Run our shiny app</span>
 <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="../reference/run_app.html">run_app</a></span><span class="op">(</span>
@@ -564,7 +594,7 @@
     <span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>We also recommend creating custom website documentation files as described in the documentation of <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code>. Those documentation files will help you describe your project to your users in a more personalized way. The easiest way to start is to copy our documentation files to a new location and adapt them. You can located them at the following path.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Locate our documentation files</span>
 <span class="va">docs_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"app"</span>, <span class="st">"www"</span>, package <span class="op">=</span> <span class="st">"spatialLIBD"</span><span class="op">)</span>
 <span class="va">docs_path</span>
@@ -589,7 +619,7 @@
 <h2 class="hasAnchor">
 <a href="#memory" class="anchor" aria-hidden="true"></a>Memory</h2>
 <p>Regarding the memory limitation, you can estimate how much memory you need per user by considering the memory required for the <code>spe</code> and <code>sce_layer</code> objects.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html" class="external-link">object_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>
 <span class="co">#&gt; 298 MB</span></code></pre></div>
 <p>In our pilot data (Maynard, Collado-Torres, Weber, et al., 2021) our object uses about 2.1 GB of RAM since it contains the data for 12 Visium slides and we considered using about 3 GB of RAM per user. You could filter the genes more aggressively to drop lowly expressed genes or if you have many Visium slides, you could consider making multiple websites for different sets of slides. You could also have multiple mirrors to support several users, though in that case, we recommend linking users to a stable website instead of one that might not be available if you have too many users: for us our stable website is <a href="http://research.libd.org/spatialLIBD/" class="external-link uri">http://research.libd.org/spatialLIBD/</a> which includes the links to all the mirrors.</p>
@@ -635,13 +665,13 @@
 <li>
 <em><a href="https://CRAN.R-project.org/package=sessioninfo" class="external-link">sessioninfo</a></em> (Csárdi, core, Wickham, Chang, Flight, Müller, and Hester, 2018)</li>
 <li>
-<em><a href="https://bioconductor.org/packages/3.13/SpatialExperiment" class="external-link">SpatialExperiment</a></em> (Righelli and Risso, 2021)</li>
+<em><a href="https://bioconductor.org/packages/3.13/SpatialExperiment" class="external-link">SpatialExperiment</a></em> (Righelli, Risso, Crowell, and Weber, 2021)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=testthat" class="external-link">testthat</a></em> (Wickham, 2011)</li>
 </ul>
 <p>This package was developed using <em><a href="https://bioconductor.org/packages/3.13/biocthis" class="external-link">biocthis</a></em>.</p>
 <p>Code for creating the vignette</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Create the vignette</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/rmarkdown" class="external-link">"rmarkdown"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, <span class="st">"BiocStyle::html_document"</span><span class="op">)</span><span class="op">)</span>
@@ -650,9 +680,9 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code>#&gt; [1] "2021-05-02 17:13:08 UTC"</code></pre>
+<pre><code>#&gt; [1] "2021-05-08 20:28:22 UTC"</code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code>#&gt; Time difference of 1.403 mins</code></pre>
+<pre><code>#&gt; Time difference of 1.714 mins</code></pre>
 <p><code>R</code> session information.</p>
 <pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt;  setting  value                                             
@@ -664,184 +694,184 @@
 #&gt;  collate  en_US.UTF-8                                       
 #&gt;  ctype    en_US.UTF-8                                       
 #&gt;  tz       Etc/UTC                                           
-#&gt;  date     2021-05-02                                        
+#&gt;  date     2021-05-08                                        
 #&gt; 
 #&gt; ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-#&gt;  package                * version    date       lib source                                      
-#&gt;  AnnotationDbi            1.53.1     2021-03-19 [1] Bioconductor                                
-#&gt;  AnnotationHub            2.99.5     2021-04-16 [1] Bioconductor                                
-#&gt;  assertthat               0.2.1      2019-03-21 [1] CRAN (R 4.1.0)                              
-#&gt;  attempt                  0.3.1      2020-05-03 [1] CRAN (R 4.1.0)                              
-#&gt;  beachmat                 2.7.7      2021-03-19 [1] Bioconductor                                
-#&gt;  beeswarm                 0.3.1      2021-03-07 [1] CRAN (R 4.1.0)                              
-#&gt;  benchmarkme              1.0.7      2021-03-21 [1] CRAN (R 4.1.0)                              
-#&gt;  benchmarkmeData          1.0.4      2020-04-23 [1] CRAN (R 4.1.0)                              
-#&gt;  Biobase                * 2.51.0     2021-03-19 [1] Bioconductor                                
-#&gt;  BiocFileCache          * 1.99.7     2021-04-29 [1] Bioconductor                                
-#&gt;  BiocGenerics           * 0.37.4     2021-04-23 [1] Bioconductor                                
-#&gt;  BiocIO                   1.1.2      2021-03-19 [1] Bioconductor                                
-#&gt;  BiocManager              1.30.12    2021-03-28 [2] CRAN (R 4.1.0)                              
-#&gt;  BiocNeighbors            1.9.4      2021-03-19 [1] Bioconductor                                
-#&gt;  BiocParallel             1.25.5     2021-03-19 [1] Bioconductor                                
-#&gt;  BiocSingular             1.7.2      2021-03-19 [1] Bioconductor                                
-#&gt;  BiocStyle              * 2.19.2     2021-03-28 [1] Bioconductor                                
-#&gt;  BiocVersion              3.13.1     2021-03-19 [2] Bioconductor                                
-#&gt;  Biostrings               2.59.2     2021-03-19 [1] Bioconductor                                
-#&gt;  bit                      4.0.4      2020-08-04 [1] CRAN (R 4.1.0)                              
-#&gt;  bit64                    4.0.5      2020-08-30 [1] CRAN (R 4.1.0)                              
-#&gt;  bitops                   1.0-7      2021-04-24 [1] CRAN (R 4.1.0)                              
-#&gt;  blob                     1.2.1      2020-01-20 [1] CRAN (R 4.1.0)                              
-#&gt;  bookdown                 0.22       2021-04-22 [1] CRAN (R 4.1.0)                              
-#&gt;  bslib                    0.2.4      2021-01-25 [1] CRAN (R 4.1.0)                              
-#&gt;  cachem                   1.0.4      2021-02-13 [2] CRAN (R 4.1.0)                              
-#&gt;  cli                      2.5.0      2021-04-26 [2] CRAN (R 4.1.0)                              
-#&gt;  codetools                0.2-18     2020-11-04 [3] CRAN (R 4.1.0)                              
-#&gt;  colorspace               2.0-0      2020-11-11 [1] CRAN (R 4.1.0)                              
-#&gt;  config                   0.3.1      2020-12-17 [1] CRAN (R 4.1.0)                              
-#&gt;  cowplot                  1.1.1      2020-12-30 [1] CRAN (R 4.1.0)                              
-#&gt;  crayon                   1.4.1      2021-02-08 [2] CRAN (R 4.1.0)                              
-#&gt;  curl                     4.3.1      2021-04-30 [2] CRAN (R 4.1.0)                              
-#&gt;  data.table               1.14.0     2021-02-21 [1] CRAN (R 4.1.0)                              
-#&gt;  DBI                      1.1.1      2021-01-15 [1] CRAN (R 4.1.0)                              
-#&gt;  dbplyr                 * 2.1.1      2021-04-06 [1] CRAN (R 4.1.0)                              
-#&gt;  DelayedArray             0.17.11    2021-04-27 [1] Bioconductor                                
-#&gt;  DelayedMatrixStats       1.13.6     2021-04-22 [1] Bioconductor                                
-#&gt;  desc                     1.3.0      2021-03-05 [2] CRAN (R 4.1.0)                              
-#&gt;  digest                   0.6.27     2020-10-24 [2] CRAN (R 4.1.0)                              
-#&gt;  dockerfiler              0.1.3      2019-03-19 [1] CRAN (R 4.1.0)                              
-#&gt;  doParallel               1.0.16     2020-10-16 [1] CRAN (R 4.1.0)                              
-#&gt;  dotCall64                1.0-1      2021-02-11 [1] CRAN (R 4.1.0)                              
-#&gt;  dplyr                    1.0.5      2021-03-05 [1] CRAN (R 4.1.0)                              
-#&gt;  dqrng                    0.3.0      2021-05-01 [1] CRAN (R 4.1.0)                              
-#&gt;  DropletUtils             1.11.12    2021-03-19 [1] Bioconductor                                
-#&gt;  DT                       0.18       2021-04-14 [1] CRAN (R 4.1.0)                              
-#&gt;  edgeR                    3.33.3     2021-03-08 [1] Bioconductor                                
-#&gt;  ellipsis                 0.3.2      2021-04-29 [2] CRAN (R 4.1.0)                              
-#&gt;  evaluate                 0.14       2019-05-28 [2] CRAN (R 4.1.0)                              
-#&gt;  ExperimentHub            1.99.5     2021-04-16 [1] Bioconductor                                
-#&gt;  fansi                    0.4.2      2021-01-15 [2] CRAN (R 4.1.0)                              
-#&gt;  farver                   2.1.0      2021-02-28 [1] CRAN (R 4.1.0)                              
-#&gt;  fastmap                  1.1.0      2021-01-25 [2] CRAN (R 4.1.0)                              
-#&gt;  fields                   11.6       2020-10-09 [1] CRAN (R 4.1.0)                              
-#&gt;  filelock                 1.0.2      2018-10-05 [1] CRAN (R 4.1.0)                              
-#&gt;  foreach                  1.5.1      2020-10-15 [1] CRAN (R 4.1.0)                              
-#&gt;  fs                       1.5.0      2020-07-31 [2] CRAN (R 4.1.0)                              
-#&gt;  generics                 0.1.0      2020-10-31 [1] CRAN (R 4.1.0)                              
-#&gt;  GenomeInfoDb           * 1.27.11    2021-04-09 [1] Bioconductor                                
-#&gt;  GenomeInfoDbData         1.2.4      2021-04-28 [1] Bioconductor                                
-#&gt;  GenomicAlignments        1.27.2     2021-03-19 [1] Bioconductor                                
-#&gt;  GenomicRanges          * 1.43.4     2021-04-04 [1] Bioconductor                                
-#&gt;  ggbeeswarm               0.6.0      2017-08-07 [1] CRAN (R 4.1.0)                              
-#&gt;  ggplot2                  3.3.3      2020-12-30 [1] CRAN (R 4.1.0)                              
-#&gt;  glue                     1.4.2      2020-08-27 [2] CRAN (R 4.1.0)                              
-#&gt;  golem                    0.3.1      2021-04-17 [1] CRAN (R 4.1.0)                              
-#&gt;  gridExtra                2.3        2017-09-09 [1] CRAN (R 4.1.0)                              
-#&gt;  gtable                   0.3.0      2019-03-25 [1] CRAN (R 4.1.0)                              
-#&gt;  HDF5Array                1.19.15    2021-04-25 [1] Bioconductor                                
-#&gt;  highr                    0.9        2021-04-16 [2] CRAN (R 4.1.0)                              
-#&gt;  htmltools                0.5.1.1    2021-01-22 [1] CRAN (R 4.1.0)                              
-#&gt;  htmlwidgets              1.5.3      2020-12-10 [1] CRAN (R 4.1.0)                              
-#&gt;  httpuv                   1.6.0      2021-04-23 [1] CRAN (R 4.1.0)                              
-#&gt;  httr                     1.4.2      2020-07-20 [2] CRAN (R 4.1.0)                              
-#&gt;  interactiveDisplayBase   1.29.0     2021-03-19 [1] Bioconductor                                
-#&gt;  IRanges                * 2.25.10    2021-04-22 [1] Bioconductor                                
-#&gt;  irlba                    2.3.3      2019-02-05 [1] CRAN (R 4.1.0)                              
-#&gt;  iterators                1.0.13     2020-10-15 [1] CRAN (R 4.1.0)                              
-#&gt;  jquerylib                0.1.4      2021-04-26 [1] CRAN (R 4.1.0)                              
-#&gt;  jsonlite                 1.7.2      2020-12-09 [2] CRAN (R 4.1.0)                              
-#&gt;  KEGGREST                 1.31.1     2021-03-19 [1] Bioconductor                                
-#&gt;  knitr                    1.33       2021-04-24 [2] CRAN (R 4.1.0)                              
-#&gt;  labeling                 0.4.2      2020-10-20 [1] CRAN (R 4.1.0)                              
-#&gt;  later                    1.2.0      2021-04-23 [1] CRAN (R 4.1.0)                              
-#&gt;  lattice                  0.20-44    2021-05-02 [3] CRAN (R 4.1.0)                              
-#&gt;  lazyeval                 0.2.2      2019-03-15 [1] CRAN (R 4.1.0)                              
-#&gt;  lifecycle                1.0.0      2021-02-15 [2] CRAN (R 4.1.0)                              
-#&gt;  limma                    3.47.12    2021-03-28 [1] Bioconductor                                
-#&gt;  locfit                   1.5-9.4    2020-03-25 [1] CRAN (R 4.1.0)                              
-#&gt;  lubridate                1.7.10     2021-02-26 [1] CRAN (R 4.1.0)                              
-#&gt;  magick                   2.7.2      2021-05-02 [1] CRAN (R 4.1.0)                              
-#&gt;  magrittr                 2.0.1      2020-11-17 [2] CRAN (R 4.1.0)                              
-#&gt;  maps                     3.3.0      2018-04-03 [1] CRAN (R 4.1.0)                              
-#&gt;  Matrix                   1.3-2      2021-01-06 [3] CRAN (R 4.1.0)                              
-#&gt;  MatrixGenerics         * 1.3.1      2021-03-19 [1] Bioconductor                                
-#&gt;  matrixStats            * 0.58.0     2021-01-29 [1] CRAN (R 4.1.0)                              
-#&gt;  memoise                  2.0.0      2021-01-26 [2] CRAN (R 4.1.0)                              
-#&gt;  mime                     0.10       2021-02-13 [2] CRAN (R 4.1.0)                              
-#&gt;  munsell                  0.5.0      2018-06-12 [1] CRAN (R 4.1.0)                              
-#&gt;  pillar                   1.6.0      2021-04-13 [2] CRAN (R 4.1.0)                              
-#&gt;  pkgconfig                2.0.3      2019-09-22 [2] CRAN (R 4.1.0)                              
-#&gt;  pkgdown                  1.6.1.9001 2021-05-02 [1] Github (r-lib/pkgdown@b94fe34)              
-#&gt;  pkgload                  1.2.1      2021-04-06 [2] CRAN (R 4.1.0)                              
-#&gt;  plotly                   4.9.3      2021-01-10 [1] CRAN (R 4.1.0)                              
-#&gt;  plyr                     1.8.6      2020-03-03 [1] CRAN (R 4.1.0)                              
-#&gt;  png                      0.1-7      2013-12-03 [1] CRAN (R 4.1.0)                              
-#&gt;  Polychrome               1.2.6      2020-11-11 [1] CRAN (R 4.1.0)                              
-#&gt;  promises                 1.2.0.1    2021-02-11 [1] CRAN (R 4.1.0)                              
-#&gt;  pryr                   * 0.1.4      2018-02-18 [1] CRAN (R 4.1.0)                              
-#&gt;  purrr                    0.3.4      2020-04-17 [2] CRAN (R 4.1.0)                              
-#&gt;  R.methodsS3              1.8.1      2020-08-26 [1] CRAN (R 4.1.0)                              
-#&gt;  R.oo                     1.24.0     2020-08-26 [1] CRAN (R 4.1.0)                              
-#&gt;  R.utils                  2.10.1     2020-08-26 [1] CRAN (R 4.1.0)                              
-#&gt;  R6                       2.5.0      2020-10-28 [2] CRAN (R 4.1.0)                              
-#&gt;  ragg                     1.1.2      2021-03-17 [1] CRAN (R 4.1.0)                              
-#&gt;  rappdirs                 0.3.3      2021-01-31 [2] CRAN (R 4.1.0)                              
-#&gt;  RColorBrewer             1.1-2      2014-12-07 [1] CRAN (R 4.1.0)                              
-#&gt;  Rcpp                     1.0.6      2021-01-15 [2] CRAN (R 4.1.0)                              
-#&gt;  RCurl                    1.98-1.3   2021-03-16 [1] CRAN (R 4.1.0)                              
-#&gt;  RefManageR             * 1.3.0      2020-11-13 [1] CRAN (R 4.1.0)                              
-#&gt;  remotes                  2.3.0      2021-04-01 [1] CRAN (R 4.1.0)                              
-#&gt;  restfulr                 0.0.13     2017-08-06 [1] CRAN (R 4.1.0)                              
-#&gt;  rhdf5                    2.35.2     2021-03-19 [1] Bioconductor                                
-#&gt;  rhdf5filters             1.3.5      2021-04-30 [1] Bioconductor                                
-#&gt;  Rhdf5lib                 1.13.5     2021-04-29 [1] Bioconductor                                
-#&gt;  rjson                    0.2.20     2018-06-08 [1] CRAN (R 4.1.0)                              
-#&gt;  rlang                    0.4.11     2021-04-30 [2] CRAN (R 4.1.0)                              
-#&gt;  rmarkdown                2.7        2021-02-19 [1] CRAN (R 4.1.0)                              
-#&gt;  roxygen2                 7.1.1      2020-06-27 [2] CRAN (R 4.1.0)                              
-#&gt;  rprojroot                2.0.2      2020-11-15 [2] CRAN (R 4.1.0)                              
-#&gt;  Rsamtools                2.7.2      2021-04-10 [1] Bioconductor                                
-#&gt;  RSQLite                  2.2.7      2021-04-22 [1] CRAN (R 4.1.0)                              
-#&gt;  rstudioapi               0.13       2020-11-12 [2] CRAN (R 4.1.0)                              
-#&gt;  rsvd                     1.0.5      2021-04-16 [1] CRAN (R 4.1.0)                              
-#&gt;  rtracklayer            * 1.51.5     2021-03-19 [1] Bioconductor                                
-#&gt;  S4Vectors              * 0.29.17    2021-04-23 [1] Bioconductor                                
-#&gt;  sass                     0.3.1      2021-01-24 [1] CRAN (R 4.1.0)                              
-#&gt;  ScaledMatrix             0.99.2     2021-03-19 [1] Bioconductor                                
-#&gt;  scales                   1.1.1      2020-05-11 [1] CRAN (R 4.1.0)                              
-#&gt;  scater                   1.19.11    2021-03-19 [1] Bioconductor                                
-#&gt;  scatterplot3d            0.3-41     2018-03-14 [1] CRAN (R 4.1.0)                              
-#&gt;  scuttle                  1.1.18     2021-03-19 [1] Bioconductor                                
-#&gt;  sessioninfo            * 1.1.1      2018-11-05 [2] CRAN (R 4.1.0)                              
-#&gt;  shiny                    1.6.0      2021-01-25 [1] CRAN (R 4.1.0)                              
-#&gt;  shinyWidgets             0.6.0      2021-03-15 [1] CRAN (R 4.1.0)                              
-#&gt;  SingleCellExperiment   * 1.13.14    2021-04-07 [1] Bioconductor                                
-#&gt;  spam                     2.6-0      2020-12-14 [1] CRAN (R 4.1.0)                              
-#&gt;  sparseMatrixStats        1.3.8      2021-04-28 [1] Bioconductor                                
-#&gt;  SpatialExperiment      * 1.1.5      2021-05-02 [1] Github (drighelli/SpatialExperiment@17e5176)
-#&gt;  spatialLIBD            * 1.3.17     2021-05-02 [1] Bioconductor                                
-#&gt;  stringi                  1.5.3      2020-09-09 [2] CRAN (R 4.1.0)                              
-#&gt;  stringr                  1.4.0      2019-02-10 [2] CRAN (R 4.1.0)                              
-#&gt;  SummarizedExperiment   * 1.21.3     2021-04-07 [1] Bioconductor                                
-#&gt;  systemfonts              1.0.1      2021-02-09 [1] CRAN (R 4.1.0)                              
-#&gt;  testthat                 3.0.2      2021-02-14 [2] CRAN (R 4.1.0)                              
-#&gt;  textshaping              0.3.3      2021-03-16 [1] CRAN (R 4.1.0)                              
-#&gt;  tibble                   3.1.1      2021-04-18 [2] CRAN (R 4.1.0)                              
-#&gt;  tidyr                    1.1.3      2021-03-03 [1] CRAN (R 4.1.0)                              
-#&gt;  tidyselect               1.1.1      2021-04-30 [1] CRAN (R 4.1.0)                              
-#&gt;  usethis                  2.0.1      2021-02-10 [2] CRAN (R 4.1.0)                              
-#&gt;  utf8                     1.2.1      2021-03-12 [2] CRAN (R 4.1.0)                              
-#&gt;  vctrs                    0.3.8      2021-04-29 [2] CRAN (R 4.1.0)                              
-#&gt;  vipor                    0.4.5      2017-03-22 [1] CRAN (R 4.1.0)                              
-#&gt;  viridis                  0.6.0      2021-04-15 [1] CRAN (R 4.1.0)                              
-#&gt;  viridisLite              0.4.0      2021-04-13 [1] CRAN (R 4.1.0)                              
-#&gt;  withr                    2.4.2      2021-04-18 [2] CRAN (R 4.1.0)                              
-#&gt;  xfun                     0.22       2021-03-11 [2] CRAN (R 4.1.0)                              
-#&gt;  XML                      3.99-0.6   2021-03-16 [1] CRAN (R 4.1.0)                              
-#&gt;  xml2                     1.3.2      2020-04-23 [2] CRAN (R 4.1.0)                              
-#&gt;  xtable                   1.8-4      2019-04-21 [1] CRAN (R 4.1.0)                              
-#&gt;  XVector                  0.31.1     2021-03-19 [1] Bioconductor                                
-#&gt;  yaml                     2.2.1      2020-02-01 [2] CRAN (R 4.1.0)                              
-#&gt;  zlibbioc                 1.37.0     2021-03-08 [1] Bioconductor                                
+#&gt;  package                * version    date       lib source                        
+#&gt;  AnnotationDbi            1.53.1     2021-03-19 [1] Bioconductor                  
+#&gt;  AnnotationHub            2.99.6     2021-05-06 [1] Bioconductor                  
+#&gt;  assertthat               0.2.1      2019-03-21 [1] CRAN (R 4.1.0)                
+#&gt;  attempt                  0.3.1      2020-05-03 [1] CRAN (R 4.1.0)                
+#&gt;  beachmat                 2.7.7      2021-03-19 [1] Bioconductor                  
+#&gt;  beeswarm                 0.3.1      2021-03-07 [1] CRAN (R 4.1.0)                
+#&gt;  benchmarkme              1.0.7      2021-03-21 [1] CRAN (R 4.1.0)                
+#&gt;  benchmarkmeData          1.0.4      2020-04-23 [1] CRAN (R 4.1.0)                
+#&gt;  Biobase                * 2.51.0     2021-03-19 [1] Bioconductor                  
+#&gt;  BiocFileCache          * 1.99.8     2021-05-06 [1] Bioconductor                  
+#&gt;  BiocGenerics           * 0.37.5     2021-05-04 [1] Bioconductor                  
+#&gt;  BiocIO                   1.1.2      2021-03-19 [1] Bioconductor                  
+#&gt;  BiocManager              1.30.13    2021-05-07 [1] CRAN (R 4.1.0)                
+#&gt;  BiocNeighbors            1.9.4      2021-03-19 [1] Bioconductor                  
+#&gt;  BiocParallel             1.25.5     2021-03-19 [1] Bioconductor                  
+#&gt;  BiocSingular             1.7.2      2021-03-19 [1] Bioconductor                  
+#&gt;  BiocStyle              * 2.19.2     2021-03-28 [1] Bioconductor                  
+#&gt;  BiocVersion              3.13.1     2021-03-19 [2] Bioconductor                  
+#&gt;  Biostrings               2.59.3     2021-05-07 [1] Bioconductor                  
+#&gt;  bit                      4.0.4      2020-08-04 [1] CRAN (R 4.1.0)                
+#&gt;  bit64                    4.0.5      2020-08-30 [1] CRAN (R 4.1.0)                
+#&gt;  bitops                   1.0-7      2021-04-24 [1] CRAN (R 4.1.0)                
+#&gt;  blob                     1.2.1      2020-01-20 [1] CRAN (R 4.1.0)                
+#&gt;  bookdown                 0.22       2021-04-22 [1] CRAN (R 4.1.0)                
+#&gt;  bslib                    0.2.4      2021-01-25 [1] CRAN (R 4.1.0)                
+#&gt;  cachem                   1.0.4      2021-02-13 [2] CRAN (R 4.1.0)                
+#&gt;  cli                      2.5.0      2021-04-26 [2] CRAN (R 4.1.0)                
+#&gt;  codetools                0.2-18     2020-11-04 [3] CRAN (R 4.1.0)                
+#&gt;  colorspace               2.0-1      2021-05-04 [1] CRAN (R 4.1.0)                
+#&gt;  config                   0.3.1      2020-12-17 [1] CRAN (R 4.1.0)                
+#&gt;  cowplot                  1.1.1      2020-12-30 [1] CRAN (R 4.1.0)                
+#&gt;  crayon                   1.4.1      2021-02-08 [2] CRAN (R 4.1.0)                
+#&gt;  curl                     4.3.1      2021-04-30 [2] CRAN (R 4.1.0)                
+#&gt;  data.table               1.14.0     2021-02-21 [1] CRAN (R 4.1.0)                
+#&gt;  DBI                      1.1.1      2021-01-15 [1] CRAN (R 4.1.0)                
+#&gt;  dbplyr                 * 2.1.1      2021-04-06 [1] CRAN (R 4.1.0)                
+#&gt;  DelayedArray             0.17.13    2021-05-02 [1] Bioconductor                  
+#&gt;  DelayedMatrixStats       1.13.6     2021-04-22 [1] Bioconductor                  
+#&gt;  desc                     1.3.0      2021-03-05 [2] CRAN (R 4.1.0)                
+#&gt;  digest                   0.6.27     2020-10-24 [2] CRAN (R 4.1.0)                
+#&gt;  dockerfiler              0.1.3      2019-03-19 [1] CRAN (R 4.1.0)                
+#&gt;  doParallel               1.0.16     2020-10-16 [1] CRAN (R 4.1.0)                
+#&gt;  dotCall64                1.0-1      2021-02-11 [1] CRAN (R 4.1.0)                
+#&gt;  dplyr                    1.0.6      2021-05-05 [1] CRAN (R 4.1.0)                
+#&gt;  dqrng                    0.3.0      2021-05-01 [1] CRAN (R 4.1.0)                
+#&gt;  DropletUtils             1.11.12    2021-03-19 [1] Bioconductor                  
+#&gt;  DT                       0.18       2021-04-14 [1] CRAN (R 4.1.0)                
+#&gt;  edgeR                    3.33.3     2021-03-08 [1] Bioconductor                  
+#&gt;  ellipsis                 0.3.2      2021-04-29 [2] CRAN (R 4.1.0)                
+#&gt;  evaluate                 0.14       2019-05-28 [2] CRAN (R 4.1.0)                
+#&gt;  ExperimentHub            1.99.7     2021-05-06 [1] Bioconductor                  
+#&gt;  fansi                    0.4.2      2021-01-15 [2] CRAN (R 4.1.0)                
+#&gt;  farver                   2.1.0      2021-02-28 [1] CRAN (R 4.1.0)                
+#&gt;  fastmap                  1.1.0      2021-01-25 [2] CRAN (R 4.1.0)                
+#&gt;  fields                   11.6       2020-10-09 [1] CRAN (R 4.1.0)                
+#&gt;  filelock                 1.0.2      2018-10-05 [1] CRAN (R 4.1.0)                
+#&gt;  foreach                  1.5.1      2020-10-15 [1] CRAN (R 4.1.0)                
+#&gt;  fs                       1.5.0      2020-07-31 [2] CRAN (R 4.1.0)                
+#&gt;  generics                 0.1.0      2020-10-31 [1] CRAN (R 4.1.0)                
+#&gt;  GenomeInfoDb           * 1.27.11    2021-04-09 [1] Bioconductor                  
+#&gt;  GenomeInfoDbData         1.2.5      2021-05-08 [1] Bioconductor                  
+#&gt;  GenomicAlignments        1.27.2     2021-03-19 [1] Bioconductor                  
+#&gt;  GenomicRanges          * 1.43.4     2021-04-04 [1] Bioconductor                  
+#&gt;  ggbeeswarm               0.6.0      2017-08-07 [1] CRAN (R 4.1.0)                
+#&gt;  ggplot2                  3.3.3      2020-12-30 [1] CRAN (R 4.1.0)                
+#&gt;  glue                     1.4.2      2020-08-27 [2] CRAN (R 4.1.0)                
+#&gt;  golem                    0.3.1      2021-04-17 [1] CRAN (R 4.1.0)                
+#&gt;  gridExtra                2.3        2017-09-09 [1] CRAN (R 4.1.0)                
+#&gt;  gtable                   0.3.0      2019-03-25 [1] CRAN (R 4.1.0)                
+#&gt;  HDF5Array                1.19.16    2021-05-02 [1] Bioconductor                  
+#&gt;  highr                    0.9        2021-04-16 [2] CRAN (R 4.1.0)                
+#&gt;  htmltools                0.5.1.1    2021-01-22 [1] CRAN (R 4.1.0)                
+#&gt;  htmlwidgets              1.5.3      2020-12-10 [1] CRAN (R 4.1.0)                
+#&gt;  httpuv                   1.6.1      2021-05-07 [1] CRAN (R 4.1.0)                
+#&gt;  httr                     1.4.2      2020-07-20 [2] CRAN (R 4.1.0)                
+#&gt;  interactiveDisplayBase   1.29.0     2021-03-19 [1] Bioconductor                  
+#&gt;  IRanges                * 2.25.11    2021-05-05 [1] Bioconductor                  
+#&gt;  irlba                    2.3.3      2019-02-05 [1] CRAN (R 4.1.0)                
+#&gt;  iterators                1.0.13     2020-10-15 [1] CRAN (R 4.1.0)                
+#&gt;  jquerylib                0.1.4      2021-04-26 [1] CRAN (R 4.1.0)                
+#&gt;  jsonlite                 1.7.2      2020-12-09 [2] CRAN (R 4.1.0)                
+#&gt;  KEGGREST                 1.31.2     2021-05-05 [1] Bioconductor                  
+#&gt;  knitr                    1.33       2021-04-24 [2] CRAN (R 4.1.0)                
+#&gt;  labeling                 0.4.2      2020-10-20 [1] CRAN (R 4.1.0)                
+#&gt;  later                    1.2.0      2021-04-23 [1] CRAN (R 4.1.0)                
+#&gt;  lattice                  0.20-44    2021-05-02 [3] CRAN (R 4.1.0)                
+#&gt;  lazyeval                 0.2.2      2019-03-15 [1] CRAN (R 4.1.0)                
+#&gt;  lifecycle                1.0.0      2021-02-15 [2] CRAN (R 4.1.0)                
+#&gt;  limma                    3.47.13    2021-05-02 [1] Bioconductor                  
+#&gt;  locfit                   1.5-9.4    2020-03-25 [1] CRAN (R 4.1.0)                
+#&gt;  lubridate                1.7.10     2021-02-26 [1] CRAN (R 4.1.0)                
+#&gt;  magick                   2.7.2      2021-05-02 [1] CRAN (R 4.1.0)                
+#&gt;  magrittr                 2.0.1      2020-11-17 [2] CRAN (R 4.1.0)                
+#&gt;  maps                     3.3.0      2018-04-03 [1] CRAN (R 4.1.0)                
+#&gt;  Matrix                   1.3-3      2021-05-04 [3] CRAN (R 4.1.0)                
+#&gt;  MatrixGenerics         * 1.3.1      2021-03-19 [1] Bioconductor                  
+#&gt;  matrixStats            * 0.58.0     2021-01-29 [1] CRAN (R 4.1.0)                
+#&gt;  memoise                  2.0.0      2021-01-26 [2] CRAN (R 4.1.0)                
+#&gt;  mime                     0.10       2021-02-13 [2] CRAN (R 4.1.0)                
+#&gt;  munsell                  0.5.0      2018-06-12 [1] CRAN (R 4.1.0)                
+#&gt;  pillar                   1.6.0      2021-04-13 [2] CRAN (R 4.1.0)                
+#&gt;  pkgconfig                2.0.3      2019-09-22 [2] CRAN (R 4.1.0)                
+#&gt;  pkgdown                  1.6.1.9001 2021-05-08 [1] Github (r-lib/pkgdown@aae5ce1)
+#&gt;  pkgload                  1.2.1      2021-04-06 [2] CRAN (R 4.1.0)                
+#&gt;  plotly                   4.9.3      2021-01-10 [1] CRAN (R 4.1.0)                
+#&gt;  plyr                     1.8.6      2020-03-03 [1] CRAN (R 4.1.0)                
+#&gt;  png                      0.1-7      2013-12-03 [1] CRAN (R 4.1.0)                
+#&gt;  Polychrome               1.2.6      2020-11-11 [1] CRAN (R 4.1.0)                
+#&gt;  promises                 1.2.0.1    2021-02-11 [1] CRAN (R 4.1.0)                
+#&gt;  pryr                   * 0.1.4      2018-02-18 [1] CRAN (R 4.1.0)                
+#&gt;  purrr                    0.3.4      2020-04-17 [2] CRAN (R 4.1.0)                
+#&gt;  R.methodsS3              1.8.1      2020-08-26 [1] CRAN (R 4.1.0)                
+#&gt;  R.oo                     1.24.0     2020-08-26 [1] CRAN (R 4.1.0)                
+#&gt;  R.utils                  2.10.1     2020-08-26 [1] CRAN (R 4.1.0)                
+#&gt;  R6                       2.5.0      2020-10-28 [2] CRAN (R 4.1.0)                
+#&gt;  ragg                     1.1.2      2021-03-17 [1] CRAN (R 4.1.0)                
+#&gt;  rappdirs                 0.3.3      2021-01-31 [2] CRAN (R 4.1.0)                
+#&gt;  RColorBrewer             1.1-2      2014-12-07 [1] CRAN (R 4.1.0)                
+#&gt;  Rcpp                     1.0.6      2021-01-15 [2] CRAN (R 4.1.0)                
+#&gt;  RCurl                    1.98-1.3   2021-03-16 [1] CRAN (R 4.1.0)                
+#&gt;  RefManageR             * 1.3.0      2020-11-13 [1] CRAN (R 4.1.0)                
+#&gt;  remotes                  2.3.0      2021-04-01 [1] CRAN (R 4.1.0)                
+#&gt;  restfulr                 0.0.13     2017-08-06 [1] CRAN (R 4.1.0)                
+#&gt;  rhdf5                    2.35.4     2021-05-07 [1] Bioconductor                  
+#&gt;  rhdf5filters             1.3.5      2021-04-30 [1] Bioconductor                  
+#&gt;  Rhdf5lib                 1.13.7     2021-05-07 [1] Bioconductor                  
+#&gt;  rjson                    0.2.20     2018-06-08 [1] CRAN (R 4.1.0)                
+#&gt;  rlang                    0.4.11     2021-04-30 [2] CRAN (R 4.1.0)                
+#&gt;  rmarkdown                2.8        2021-05-07 [1] CRAN (R 4.1.0)                
+#&gt;  roxygen2                 7.1.1      2020-06-27 [2] CRAN (R 4.1.0)                
+#&gt;  rprojroot                2.0.2      2020-11-15 [2] CRAN (R 4.1.0)                
+#&gt;  Rsamtools                2.7.2      2021-04-10 [1] Bioconductor                  
+#&gt;  RSQLite                  2.2.7      2021-04-22 [1] CRAN (R 4.1.0)                
+#&gt;  rstudioapi               0.13       2020-11-12 [2] CRAN (R 4.1.0)                
+#&gt;  rsvd                     1.0.5      2021-04-16 [1] CRAN (R 4.1.0)                
+#&gt;  rtracklayer            * 1.51.5     2021-03-19 [1] Bioconductor                  
+#&gt;  S4Vectors              * 0.29.19    2021-05-06 [1] Bioconductor                  
+#&gt;  sass                     0.3.1      2021-01-24 [1] CRAN (R 4.1.0)                
+#&gt;  ScaledMatrix             0.99.2     2021-03-19 [1] Bioconductor                  
+#&gt;  scales                   1.1.1      2020-05-11 [1] CRAN (R 4.1.0)                
+#&gt;  scater                   1.19.11    2021-03-19 [1] Bioconductor                  
+#&gt;  scatterplot3d            0.3-41     2018-03-14 [1] CRAN (R 4.1.0)                
+#&gt;  scuttle                  1.1.18     2021-03-19 [1] Bioconductor                  
+#&gt;  sessioninfo            * 1.1.1      2018-11-05 [2] CRAN (R 4.1.0)                
+#&gt;  shiny                    1.6.0      2021-01-25 [1] CRAN (R 4.1.0)                
+#&gt;  shinyWidgets             0.6.0      2021-03-15 [1] CRAN (R 4.1.0)                
+#&gt;  SingleCellExperiment   * 1.13.14    2021-04-07 [1] Bioconductor                  
+#&gt;  spam                     2.6-0      2020-12-14 [1] CRAN (R 4.1.0)                
+#&gt;  sparseMatrixStats        1.3.8      2021-04-28 [1] Bioconductor                  
+#&gt;  SpatialExperiment      * 1.1.700    2021-05-05 [1] Bioconductor                  
+#&gt;  spatialLIBD            * 1.3.19     2021-05-08 [1] Bioconductor                  
+#&gt;  stringi                  1.5.3      2020-09-09 [2] CRAN (R 4.1.0)                
+#&gt;  stringr                  1.4.0      2019-02-10 [2] CRAN (R 4.1.0)                
+#&gt;  SummarizedExperiment   * 1.21.3     2021-04-07 [1] Bioconductor                  
+#&gt;  systemfonts              1.0.1      2021-02-09 [1] CRAN (R 4.1.0)                
+#&gt;  testthat                 3.0.2      2021-02-14 [2] CRAN (R 4.1.0)                
+#&gt;  textshaping              0.3.3      2021-03-16 [1] CRAN (R 4.1.0)                
+#&gt;  tibble                   3.1.1      2021-04-18 [2] CRAN (R 4.1.0)                
+#&gt;  tidyr                    1.1.3      2021-03-03 [1] CRAN (R 4.1.0)                
+#&gt;  tidyselect               1.1.1      2021-04-30 [1] CRAN (R 4.1.0)                
+#&gt;  usethis                  2.0.1      2021-02-10 [2] CRAN (R 4.1.0)                
+#&gt;  utf8                     1.2.1      2021-03-12 [2] CRAN (R 4.1.0)                
+#&gt;  vctrs                    0.3.8      2021-04-29 [2] CRAN (R 4.1.0)                
+#&gt;  vipor                    0.4.5      2017-03-22 [1] CRAN (R 4.1.0)                
+#&gt;  viridis                  0.6.0      2021-04-15 [1] CRAN (R 4.1.0)                
+#&gt;  viridisLite              0.4.0      2021-04-13 [1] CRAN (R 4.1.0)                
+#&gt;  withr                    2.4.2      2021-04-18 [2] CRAN (R 4.1.0)                
+#&gt;  xfun                     0.22       2021-03-11 [2] CRAN (R 4.1.0)                
+#&gt;  XML                      3.99-0.6   2021-03-16 [1] CRAN (R 4.1.0)                
+#&gt;  xml2                     1.3.2      2020-04-23 [2] CRAN (R 4.1.0)                
+#&gt;  xtable                   1.8-4      2019-04-21 [1] CRAN (R 4.1.0)                
+#&gt;  XVector                  0.31.1     2021-03-19 [1] Bioconductor                  
+#&gt;  yaml                     2.2.1      2020-02-01 [2] CRAN (R 4.1.0)                
+#&gt;  zlibbioc                 1.37.0     2021-03-08 [1] Bioconductor                  
 #&gt; 
 #&gt; [1] /__w/_temp/Library
 #&gt; [2] /usr/local/lib/R/site-library
@@ -853,7 +883,7 @@
 <p>This vignette was generated using <em><a href="https://bioconductor.org/packages/3.13/BiocStyle" class="external-link">BiocStyle</a></em> (Oleś, 2021) with <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie, 2021) and <em><a href="https://CRAN.R-project.org/package=rmarkdown" class="external-link">rmarkdown</a></em> (Allaire, Xie, McPherson, et al., 2021) running behind the scenes.</p>
 <p>Citations made with <em><a href="https://CRAN.R-project.org/package=RefManageR" class="external-link">RefManageR</a></em> (McLean, 2017).</p>
 <p>
-<a id="bib-allaire2021rmarkdown"></a><a href="#cite-allaire2021rmarkdown">[1]</a><cite> J. Allaire, Y. Xie, J. McPherson, et al. <em>rmarkdown: Dynamic Documents for R</em>. R package version 2.7. 2021. URL: <a href="https://github.com/rstudio/rmarkdown" class="external-link">https://github.com/rstudio/rmarkdown</a>.</cite>
+<a id="bib-allaire2021rmarkdown"></a><a href="#cite-allaire2021rmarkdown">[1]</a><cite> J. Allaire, Y. Xie, J. McPherson, et al. <em>rmarkdown: Dynamic Documents for R</em>. R package version 2.8. 2021. URL: <a href="https://github.com/rstudio/rmarkdown" class="external-link">https://github.com/rstudio/rmarkdown</a>.</cite>
 </p>
 <p>
 <a id="bib-csrdi2018sessioninfo"></a><a href="#cite-csrdi2018sessioninfo">[2]</a><cite> G. Csárdi, R. core, H. Wickham, et al. <em>sessioninfo: R Session Information</em>. R package version 1.1.1. 2018. URL: <a href="https://CRAN.R-project.org/package=sessioninfo" class="external-link">https://CRAN.R-project.org/package=sessioninfo</a>.</cite>
@@ -877,10 +907,10 @@
 <a id="bib-2021language"></a><a href="#cite-2021language">[8]</a><cite> R Core Team. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. Vienna, Austria, 2021. URL: <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>.</cite>
 </p>
 <p>
-<a id="bib-righelli2021spatialexperiment"></a><a href="#cite-righelli2021spatialexperiment">[9]</a><cite> D. Righelli and D. Risso. <em>SpatialExperiment: S4 Class for Spatial Experiments handling</em>. R package version 1.1.5. 2021.</cite>
+<a id="bib-righelli2021spatialexperiment"></a><a href="#cite-righelli2021spatialexperiment">[9]</a><cite> D. Righelli, D. Risso, H. Crowell, et al. <em>SpatialExperiment: S4 Class for Spatial Experiments handling</em>. R package version 1.1.700. 2021.</cite>
 </p>
 <p>
-<a id="bib-shepherd2021biocfilecache"></a><a href="#cite-shepherd2021biocfilecache">[10]</a><cite> L. Shepherd and M. Morgan. <em>BiocFileCache: Manage Files Across Sessions</em>. R package version 1.99.7. 2021.</cite>
+<a id="bib-shepherd2021biocfilecache"></a><a href="#cite-shepherd2021biocfilecache">[10]</a><cite> L. Shepherd and M. Morgan. <em>BiocFileCache: Manage Files Across Sessions</em>. R package version 1.99.8. 2021.</cite>
 </p>
 <p>
 <a id="bib-wickham2018pryr"></a><a href="#cite-wickham2018pryr">[11]</a><cite> H. Wickham. <em>pryr: Tools for Computing on the Language</em>. R package version 0.1.4. 2018. URL: <a href="https://CRAN.R-project.org/package=pryr" class="external-link">https://CRAN.R-project.org/package=pryr</a>.</cite>

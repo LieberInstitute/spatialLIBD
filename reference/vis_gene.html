@@ -94,7 +94,7 @@ To visualize clusters (or any discrete variable) use vis_clus()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.19</span>
       </span>
     </div>
 
@@ -234,31 +234,34 @@ data and title for <code><a href='vis_gene_p.html'>vis_gene_p()</a></code>. It a
 <code><a href='vis_grid_gene.html'>vis_grid_gene</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='enough_ram.html'>enough_ram</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='co'>## Obtain the necessary data</span>
-    <span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"spe"</span><span class='op'>)</span><span class='op'>)</span> <span class='va'>spe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span><span class='st'>"spe"</span><span class='op'>)</span>
-
-    <span class='co'>## Valid `geneid` values are those in</span>
-    <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>rowData</span><span class='op'>(</span><span class='va'>spe</span><span class='op'>)</span><span class='op'>$</span><span class='va'>gene_search</span><span class='op'>)</span>
-    <span class='co'>## or continuous variables stored in colData(spe)</span>
-
-    <span class='co'>## Visualize a default gene on the non-viridis scale</span>
-    <span class='fu'>vis_gene</span><span class='op'>(</span>
-        spe <span class='op'>=</span> <span class='va'>spe</span>,
-        sampleid <span class='op'>=</span> <span class='st'>"151507"</span>,
-        viridis <span class='op'>=</span> <span class='cn'>FALSE</span>
-    <span class='op'>)</span>
-
-    <span class='co'>## Visualize a continuous variable, in this case, the ratio of chrM</span>
-    <span class='co'>## gene expression compared to the total expression at the spot-level</span>
-    <span class='fu'>vis_gene</span><span class='op'>(</span>
-        spe <span class='op'>=</span> <span class='va'>spe</span>,
-        sampleid <span class='op'>=</span> <span class='st'>"151507"</span>,
-        geneid <span class='op'>=</span> <span class='st'>"expr_chrM_ratio"</span>
-    <span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='co'>#&gt; snapshotDate(): 2021-04-27</div><div class='co'>#&gt; 2021-05-02 17:10:12 loading file /github/home/.cache/R/BiocFileCache/5db4136be247_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</div><div class='img'><img src='vis_gene-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='enough_ram.html'>enough_ram</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>    <span class='co'>## Obtain the necessary data</span></span>
+<span class='r-in'>    <span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"spe"</span><span class='op'>)</span><span class='op'>)</span> <span class='va'>spe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span><span class='st'>"spe"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>    <span class='co'>## Valid `geneid` values are those in</span></span>
+<span class='r-in'>    <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>rowData</span><span class='op'>(</span><span class='va'>spe</span><span class='op'>)</span><span class='op'>$</span><span class='va'>gene_search</span><span class='op'>)</span></span>
+<span class='r-in'>    <span class='co'>## or continuous variables stored in colData(spe)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>    <span class='co'>## Visualize a default gene on the non-viridis scale</span></span>
+<span class='r-in'>    <span class='fu'>vis_gene</span><span class='op'>(</span></span>
+<span class='r-in'>        spe <span class='op'>=</span> <span class='va'>spe</span>,</span>
+<span class='r-in'>        sampleid <span class='op'>=</span> <span class='st'>"151507"</span>,</span>
+<span class='r-in'>        viridis <span class='op'>=</span> <span class='cn'>FALSE</span></span>
+<span class='r-in'>    <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>    <span class='co'>## Visualize a continuous variable, in this case, the ratio of chrM</span></span>
+<span class='r-in'>    <span class='co'>## gene expression compared to the total expression at the spot-level</span></span>
+<span class='r-in'>    <span class='fu'>vis_gene</span><span class='op'>(</span></span>
+<span class='r-in'>        spe <span class='op'>=</span> <span class='va'>spe</span>,</span>
+<span class='r-in'>        sampleid <span class='op'>=</span> <span class='st'>"151507"</span>,</span>
+<span class='r-in'>        geneid <span class='op'>=</span> <span class='st'>"expr_chrM_ratio"</span></span>
+<span class='r-in'>    <span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> snapshotDate(): 2021-05-05</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 2021-05-08 20:24:51 loading file /github/home/.cache/R/BiocFileCache/a372f51a3bf_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class='r-plt'><img src='vis_gene-1.png' alt='' width='700' height='433' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

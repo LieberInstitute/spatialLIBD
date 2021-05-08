@@ -92,7 +92,7 @@ such that the most frequent cluster is the first one and so on." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.19</span>
       </span>
     </div>
 
@@ -173,18 +173,20 @@ ordered clusters and the names of the factor are the original values from
 <code>clusters</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## Build an initial set of cluster labels</span>
-<span class='va'>clus</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>:</span><span class='fl'>1</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>]</span>
-
-<span class='co'>## In this case, it's a character vector</span>
-<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>clus</span><span class='op'>)</span>
-</div><div class='co'>#&gt; [1] "character"</div><div class='input'>
-<span class='co'>## Sort them and obtain a factor</span>
-<span class='fu'>sort_clusters</span><span class='op'>(</span><span class='va'>clus</span><span class='op'>)</span>
-</div><div class='co'>#&gt; d d d d c c c b b a 
-#&gt; 1 1 1 1 2 2 2 3 3 4 
-#&gt; Levels: 1 2 3 4</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## Build an initial set of cluster labels</span></span>
+<span class='r-in'><span class='va'>clus</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>:</span><span class='fl'>1</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## In this case, it's a character vector</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>clus</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "character"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Sort them and obtain a factor</span></span>
+<span class='r-in'><span class='fu'>sort_clusters</span><span class='op'>(</span><span class='va'>clus</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> d d d d c c c b b a </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 1 1 1 2 2 2 3 3 4 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: 1 2 3 4</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
