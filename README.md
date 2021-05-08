@@ -187,13 +187,13 @@ spe
 #> rowData names(9): source type ... gene_search is_top_hvg
 #> colnames(47681): AAACAACGAATAGTTC-1 AAACAAGTATCTCCCA-1 ...
 #>   TTGTTTCCATACAACT-1 TTGTTTGTGTAAATTC-1
-#> colData names(67): Barcode sample_id ... spatialLIBD ManualAnnotation
+#> colData names(66): sample_id Cluster ... spatialLIBD ManualAnnotation
 #> reducedDimNames(6): PCA TSNE_perplexity50 ... TSNE_perplexity80
 #>   UMAP_neighbors15
 #> mainExpName: NULL
 #> altExpNames(0):
-#> spatialData names(5) : in_tissue array_row array_col pxl_row_in_fullres
-#>   pxl_col_in_fullres
+#> spatialData names(3) : in_tissue array_row array_col
+#> spatialCoords names(2) : pxl_col_in_fullres pxl_row_in_fullres
 #> imgData names(4): sample_id image_id data scaleFactor
 
 ## Note the memory size

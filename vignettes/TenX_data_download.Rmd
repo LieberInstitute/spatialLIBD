@@ -187,7 +187,7 @@ First we start with adding a few variables to the sample information table (`col
 
 ```{r "add_key"}
 ## Add some information used by spatialLIBD
-spe$key <- paste0(spe$sample_id, "_", spe$Barcode)
+spe$key <- paste0(spe$sample_id, "_", colnames(spe))
 spe$sum_umi <- colSums(counts(spe))
 spe$sum_gene <- colSums(counts(spe) > 0)
 ```
@@ -377,7 +377,7 @@ check_spe(spe)
 With our complete `spe` object, we can now use `r Biocpkg("spatialLIBD")` for visualizing our data. We can do so using functions such as `vis_gene()` and `vis_clus()` that are described in more detail at the _Introduction to spatialLIBD_ vignette available through [GitHub](http://research.libd.org/spatialLIBD/articles/spatialLIBD.html) or [Bioconductor](https://bioconductor.org/packages/spatialLIBD).
 
 ```{r "test_visualizations"}
-# Visualizations
+## Example visualizations. Let's start with a continuous variable.
 spatialLIBD::vis_gene(
     spe = spe,
     sampleid = "lymph",
@@ -385,8 +385,11 @@ spatialLIBD::vis_gene(
     assayname = "counts"
 )
 
+## We next create a random cluster label to visualize
 set.seed(20210428)
 spe$random_cluster <- sample(1:7, ncol(spe), replace = TRUE)
+
+## Next we visualize that random cluster
 spatialLIBD::vis_clus(
     spe = spe,
     sampleid = "lymph",

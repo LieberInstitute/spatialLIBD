@@ -48,22 +48,22 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
     # Load rowData
     rowData_visium <- SummarizedExperiment::rowData(sce)
 
+    ## Re-case tissue
+    if (is.factor(sce$tissue)) sce$tissue <- sce$tissue == "1"
+
     # Load colData
     cols_to_drop <-
         c(
             "tissue",
+            "row",
+            "col",
             "imagerow",
             "imagecol"
         )
     colData_visium <-
-        SummarizedExperiment::colData(sce)[, !colnames(SummarizedExperiment::colData(sce)) %in% c(cols_to_drop, "height", "width"), drop = FALSE]
+        SummarizedExperiment::colData(sce)[, !colnames(SummarizedExperiment::colData(sce)) %in% c(cols_to_drop, "height", "width", "barcode"), drop = FALSE]
 
-    names(colData_visium)[names(colData_visium) == "barcode"] <- "Barcode"
     names(colData_visium)[names(colData_visium) == "sample_name"] <- "sample_id"
-    names(colData_visium)[names(colData_visium) == "row"] <- "array_row"
-    names(colData_visium)[names(colData_visium) == "col"] <- "array_col"
-    colData_visium$in_tissue <- sce$tissue ## For some reason, it's duplicated
-    ## in colData(spe) and spatialData(spe) for SpatialExperiment version 1.1.700
 
     # Load spatialCoords
     spatialCoords_visium <-
@@ -71,6 +71,8 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
     names(spatialCoords_visium) <-
         c(
             "in_tissue",
+            "array_row",
+            "array_col",
             "pxl_row_in_fullres",
             "pxl_col_in_fullres"
         )
@@ -139,19 +141,22 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
         spatialCoords_visium$pxl_col_in_fullres <- tmp
     }
 
-    ## Create object manually
-    spe <- new("SpatialExperiment", SingleCellExperiment::SingleCellExperiment(
-        rowData = rowData_visium,
-        colData = colData_visium,
-        assays = assays_visium,
-        reducedDims = reducedDimNames_visium
-    ))
+    # ## Create object manually
+    # spe <- new("SpatialExperiment", SingleCellExperiment::SingleCellExperiment(
+    #     rowData = rowData_visium,
+    #     colData = colData_visium,
+    #     assays = assays_visium,
+    #     reducedDims = reducedDimNames_visium
+    # ))
+    #
+    # ## Add missing spatial info
+    # SpatialExperiment::spatialData(spe) <- spatialCoords_visium
+    # SpatialExperiment::spatialCoordsNames(spe) <- c("pxl_col_in_fullres", "pxl_row_in_fullres")
+    # SpatialExperiment::imgData(spe) <- imageData
+    #
 
-    ## Add missing spatial info
-    SpatialExperiment::spatialData(spe) <- spatialCoords_visium
-    SpatialExperiment::spatialCoordsNames(spe) <- c("pxl_col_in_fullres", "pxl_row_in_fullres")
-    SpatialExperiment::imgData(spe) <- imageData
-    return(spe)
+    ## This works now in SpatialExperiment version 1.1.701, so we no longer
+    ## need the manual code from above
 
     ## The following code ultimately fails due to the current lack of support
     ## for multiple `sample_id`s, as in
@@ -159,18 +164,18 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
     ## or in
     ## https://github.com/drighelli/SpatialExperiment/blob/a9e54fbd5af7fe676f8a5b29e4cfe113402070d4/R/SpatialExperiment.R#L164
 
-    # ve <- SpatialExperiment::SpatialExperiment(
-    #     rowData = rowData_visium,
-    #     colData = colData_visium,
-    #     assays = assays_visium,
-    #     reducedDims = reducedDimNames_visium,
-    #     sample_id = NULL,
-    #     spatialData = spatialCoords_visium,
-    #     spatialCoordsNames = c("array_col", "array_row"),
-    #     scaleFactors = img_dat$scaleFactor,
-    #     imgData = img_dat,
-    #     imageSources = url_images,
-    #     loadImage = FALSE
-    # )
-    # return(ve)
+    spe <- SpatialExperiment::SpatialExperiment(
+        rowData = rowData_visium,
+        colData = colData_visium,
+        assays = assays_visium,
+        reducedDims = reducedDimNames_visium,
+        sample_id = NULL,
+        spatialData = spatialCoords_visium,
+        spatialCoordsNames = c("pxl_col_in_fullres", "pxl_row_in_fullres"),
+        scaleFactors = img_dat$scaleFactor,
+        imgData = img_dat,
+        imageSources = url_images,
+        loadImage = FALSE
+    )
+    return(spe)
 }

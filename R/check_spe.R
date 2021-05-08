@@ -60,7 +60,6 @@ check_spe <- function(spe,
     ## colData(spe) includes information about the samples .
     ## The sample names stored under spe$sample_id
     vars_to_check <- c(
-        "Barcode",
         "sample_id",
         "key",
         "ManualAnnotation",
@@ -75,10 +74,9 @@ check_spe <- function(spe,
         )
     }
 
-    ## A unique spot-level ID (such as barcode) stored under spe$key
+    ## A unique spot-level ID stored under spe$key
     ## The 'key' column is necessary for the plotly code to work.
     stopifnot(length(unique(spe$key)) == ncol(spe))
-    stopifnot(identical(spe$key, paste0(spe$sample_id, "_", colData(spe)$Barcode)))
 
     ## None of the values of rowData(spe)$gene_search should be re-used in
     ## colData(spe)

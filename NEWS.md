@@ -1,3 +1,12 @@
+# spatialLIBD 1.3.19
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* `spatialLIBD` has been updated to work with `SpatialExperiment` version
+1.1.701 which will be released as part of Bioconductor 3.13. This changes
+internal code of `spatialLIBD` which will work with any objects created with
+`SpatialExperiment` version 1.1.700.
+
 # spatialLIBD 1.3.16
 
 SIGNIFICANT USER-VISIBLE CHANGES

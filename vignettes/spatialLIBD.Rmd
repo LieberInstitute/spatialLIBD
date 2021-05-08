@@ -320,11 +320,8 @@ Similar to `vis_clus()`, the `vis_gene()` family of functions use the `spe` spot
 assayNames(spe)
 
 ## Not all of these make sense to visualize
-## In particular, barcode and key are not
-## useful to visualize.
-colnames(colData(spe))[sapply(colData(spe), function(x) {
-    length(unique(x))
-}) > 29]
+## In particular, the key is not useful to visualize.
+colnames(colData(spe))
 
 ## Visualize a gene
 vis_gene(
