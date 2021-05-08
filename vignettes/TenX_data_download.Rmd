@@ -196,6 +196,12 @@ spe$sum_gene <- colSums(counts(spe) > 0)
 
 The files `SpatialExperiment::read10xVisium()` uses to read in the `spaceranger` outputs into R do not include much information about the genes, such as their chromosomes, coordinates, and other gene annotation information. We thus recommend that you read in this information from a gene annotation file: typically a `gtf` file. For a real case scenario, you'll mostly likely have access to the GTF file provided by 10x Genomics. However, we cannot download that file without downloading other files for this example. Thus we'll show you the code you would use if you had access to the GTF file from 10x Genomics and also show a second approach that works for this vignette.
 
+```{r "initial_gene_info"}
+## Initially we don't have much information about the genes
+rowRanges(spe)
+```
+
+
 ### From 10x
 
 Depending on the version of `spaceranger` you used, you might have used different GTF files 10x Genomics has made available at https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest and described at https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build. These files are too big though and we won't download them in this example. For instance, _References - 2020-A (July 7, 2020)_ for _Human reference (GRCh38)_ is 11 GB in size and contains files we do not need for this vignette. If you did have the file locally, you could use the following code to read in the GTF file prepared by 10x Genomics and add the information into your `spe` object that `SpatialExperiment::read10xVisium()` does not include.
@@ -363,7 +369,7 @@ dim(spe)
 pryr::object_size(spe)
 
 ## Run check_spe() function
-spatialLIBD::check_spe(spe)
+check_spe(spe)
 ```
 
 # Explore the data

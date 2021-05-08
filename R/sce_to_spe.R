@@ -52,8 +52,6 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
     cols_to_drop <-
         c(
             "tissue",
-            "row",
-            "col",
             "imagerow",
             "imagecol"
         )
@@ -62,6 +60,10 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
 
     names(colData_visium)[names(colData_visium) == "barcode"] <- "Barcode"
     names(colData_visium)[names(colData_visium) == "sample_name"] <- "sample_id"
+    names(colData_visium)[names(colData_visium) == "row"] <- "array_row"
+    names(colData_visium)[names(colData_visium) == "col"] <- "array_col"
+    colData_visium$in_tissue <- sce$tissue ## For some reason, it's duplicated
+    ## in colData(spe) and spatialData(spe) for SpatialExperiment version 1.1.700
 
     # Load spatialCoords
     spatialCoords_visium <-
@@ -69,8 +71,6 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
     names(spatialCoords_visium) <-
         c(
             "in_tissue",
-            "array_row",
-            "array_col",
             "pxl_row_in_fullres",
             "pxl_col_in_fullres"
         )
@@ -149,7 +149,7 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
 
     ## Add missing spatial info
     SpatialExperiment::spatialData(spe) <- spatialCoords_visium
-    SpatialExperiment::spatialCoordsNames(spe) <- c("array_col", "array_row")
+    SpatialExperiment::spatialCoordsNames(spe) <- c("pxl_col_in_fullres", "pxl_row_in_fullres")
     SpatialExperiment::imgData(spe) <- imageData
     return(spe)
 

@@ -358,7 +358,7 @@ app_server <- function(input, output, session) {
 
         ## From vis_gene() in global.R
         spe_sub <- spe[, spe$sample_id == sampleid]
-        d <- as.data.frame(SpatialExperiment::spatialData(spe_sub, cd_bind = TRUE))
+        d <- as.data.frame(SpatialExperiment::spatialData(spe_sub, colData = TRUE, spatialCoords = TRUE))
         if (geneid %in% colnames(colData(spe_sub))) {
             d$COUNT <- colData(spe_sub)[[geneid]]
         } else {
@@ -727,7 +727,7 @@ app_server <- function(input, output, session) {
         if (!is.null(event.data)) {
             ## Prepare the data
             spe_sub <- spe[, spe$key %in% event.data$key]
-            d <- as.data.frame(SpatialExperiment::spatialData(spe_sub, cd_bind = TRUE))
+            d <- as.data.frame(SpatialExperiment::spatialData(spe_sub, colData = TRUE, spatialCoords = TRUE))
             if (input$geneid %in% colnames(colData(spe_sub))) {
                 d$COUNT <- colData(spe_sub)[[input$geneid]]
             } else {
@@ -757,7 +757,7 @@ app_server <- function(input, output, session) {
         } else {
             ## Prepare the data
             spe_sub <- spe[, spe$key %in% event.data$key]
-            d <- as.data.frame(SpatialExperiment::spatialData(spe_sub, cd_bind = TRUE))
+            d <- as.data.frame(SpatialExperiment::spatialData(spe_sub, colData = TRUE, spatialCoords = TRUE))
             if (input$geneid %in% colnames(colData(spe_sub))) {
                 d$COUNT <- colData(spe_sub)[[input$geneid]]
             } else {

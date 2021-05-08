@@ -164,9 +164,6 @@ jobs:
           ## https://github.com/r-lib/remotes/issues/296
           ## Ideally, all dependencies should get installed in the first pass.
 
-          ## Use the GitHub version of SpatialExperiment since it's not building on BioC at this moment (Feb 12th 2021)
-          BiocManager::install("drighelli/SpatialExperiment")
-
           ## Pass #1 at installing dependencies
           message(paste('****', Sys.time(), 'pass number 1 at installing dependencies: local dependencies ****'))
           remotes::install_local(dependencies = TRUE, repos = BiocManager::repositories(), build_vignettes = TRUE, upgrade = TRUE)
@@ -183,7 +180,6 @@ jobs:
           message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
           remotes::install_cran("rcmdcheck")
           BiocManager::install("BiocCheck")
-          BiocManager::install("Bioconductor/BiocCheck") ## Due to BiocCheck not been available on BioC 3.13 right now
         shell: Rscript {0}
 
       - name: Install BiocGenerics

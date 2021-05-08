@@ -14,7 +14,7 @@ object with the spot-level Visium data and information required for
 visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
 \item{d}{A data.frame with the sample-level information. This is typically
-obtained using \code{spatialData(spe, cd_bind = TRUE, as_df = TRUE)}.}
+obtained using \code{spatialData(spe, colData = TRUE, spatialCoords = TRUE)}.}
 
 \item{clustervar}{A \code{character(1)} with the name of the \code{colData(spe)}
 column that has the cluster values.}
@@ -52,7 +52,7 @@ if (enough_ram()) {
     ## Don't plot the histology information
     vis_clus_p(
         spe = spe_sub,
-        d = as.data.frame(SpatialExperiment::spatialData(spe_sub, cd_bind = TRUE)),
+        d = as.data.frame(SpatialExperiment::spatialData(spe_sub, colData = TRUE, spatialCoords = TRUE)),
         clustervar = "layer_guess_reordered",
         sampleid = "151673",
         colors = libd_layer_colors,

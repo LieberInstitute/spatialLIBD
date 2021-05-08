@@ -57,13 +57,6 @@ check_spe <- function(spe,
     ## Rownames are Ensembl ids
     stopifnot(identical(rownames(spe), rowData(spe)$gene_id))
 
-    ## Information about spot coordinates
-    stopifnot(all(c(
-        "in_tissue", "array_row", "array_col",
-        "pxl_row_in_fullres", "pxl_col_in_fullres"
-    ) %in%
-        colnames(spatialData(spe))))
-
     ## colData(spe) includes information about the samples .
     ## The sample names stored under spe$sample_id
     vars_to_check <- c(

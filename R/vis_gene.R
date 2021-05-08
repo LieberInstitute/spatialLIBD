@@ -64,7 +64,7 @@ vis_gene <-
     viridis = TRUE,
     ...) {
         spe_sub <- spe[, spe$sample_id == sampleid]
-        d <- as.data.frame(SpatialExperiment::spatialData(spe_sub, cd_bind = TRUE))
+        d <- as.data.frame(SpatialExperiment::spatialData(spe_sub, colData = TRUE, spatialCoords = TRUE))
         stopifnot("gene_search" %in% colnames(rowData(spe)))
 
         if (geneid %in% colnames(colData(spe_sub))) {
