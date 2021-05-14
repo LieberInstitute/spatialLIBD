@@ -68,8 +68,6 @@ genes (FDR &amp;lt; 0.1 by default) genes for a given model type result." />
 
 
 
-<!-- dependencies from examples -->
-
 
   
 
@@ -93,7 +91,7 @@ genes (FDR &amp;lt; 0.1 by default) genes for a given model type result." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.19</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.20</span>
       </span>
     </div>
 
@@ -152,13 +150,13 @@ list of gene sets (Ensembl gene IDs) are enrichment among the significant
 genes (FDR &lt; 0.1 by default) genes for a given model type result.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gene_set_enrichment</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>gene_set_enrichment</span><span class='op'>(</span>
   <span class='va'>gene_list</span>,
   fdr_cut <span class='op'>=</span> <span class='fl'>0.1</span>,
   modeling_results <span class='op'>=</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span>,
   model_type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>modeling_results</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>,
   reverse <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -219,7 +217,7 @@ to see a full script from where this family of functions is derived from.</p>
     <p>Andrew E Jaffe, Leonardo Collado-Torres</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'></span>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'></span>
 <span class='r-in'><span class='co'>## Read in the SFARI gene sets included in the package</span></span>
 <span class='r-in'><span class='va'>asd_sfari</span> <span class='op'>&lt;-</span> <span class='fu'>utils</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span></span>
 <span class='r-in'>    <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span></span>
@@ -242,7 +240,7 @@ to see a full script from where this family of functions is derived from.</p>
 <span class='r-in'>    <span class='va'>modeling_results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fetch_data.html'>fetch_data</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>"modeling_results"</span><span class='op'>)</span></span>
 <span class='r-in'><span class='op'>}</span></span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> snapshotDate(): 2021-05-05</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> 2021-05-08 20:22:16 loading file /github/home/.cache/R/BiocFileCache/9f579be913d_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 2021-05-14 22:55:04 loading file /github/home/.cache/R/BiocFileCache/1de35e317b4f_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'>## Compute the gene set enrichment results</span></span>
 <span class='r-in'><span class='va'>asd_sfari_enrichment</span> <span class='op'>&lt;-</span> <span class='fu'>gene_set_enrichment</span><span class='op'>(</span></span>
@@ -275,7 +273,7 @@ to see a full script from where this family of functions is derived from.</p>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 19 2.6716353 1.779962e-07 Layer6       Gene_SFARI_all enrichment     0.1</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 20 2.6206690 5.845493e-04 Layer6      Gene_SFARI_high enrichment     0.1</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 21 2.2573853 7.927915e-02 Layer6 Gene_SFARI_syndromic enrichment     0.1</span>
-</pre>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

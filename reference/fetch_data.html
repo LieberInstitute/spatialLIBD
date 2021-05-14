@@ -72,8 +72,6 @@ way to interact with the data." />
 
 
 
-<!-- dependencies from examples -->
-
 
   
 
@@ -97,7 +95,7 @@ way to interact with the data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.19</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.20</span>
       </span>
     </div>
 
@@ -160,12 +158,12 @@ detect if you have previously downloaded it, thus making it the preferred
 way to interact with the data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fetch_data</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>fetch_data</span><span class='op'>(</span>
   type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sce"</span>, <span class='st'>"sce_layer"</span>, <span class='st'>"modeling_results"</span>, <span class='st'>"sce_example"</span>, <span class='st'>"spe"</span><span class='op'>)</span>,
   destdir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>,
   eh <span class='op'>=</span> <span class='fu'>ExperimentHub</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ExperimentHub/man/ExperimentHub-class.html'>ExperimentHub</a></span><span class='op'>(</span><span class='op'>)</span>,
   bfc <span class='op'>=</span> <span class='fu'>BiocFileCache</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html'>BiocFileCache</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -218,12 +216,12 @@ https://github.com/LieberInstitute/HumanPilot and further refined by
 https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-data_spatialLIBD.R.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'></span>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'></span>
 <span class='r-in'><span class='co'>## Download the SingleCellExperiment object</span></span>
 <span class='r-in'><span class='co'>## at the layer-level</span></span>
 <span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/exists.html'>exists</a></span><span class='op'>(</span><span class='st'>"sce_layer"</span><span class='op'>)</span><span class='op'>)</span> <span class='va'>sce_layer</span> <span class='op'>&lt;-</span> <span class='fu'>fetch_data</span><span class='op'>(</span><span class='st'>"sce_layer"</span><span class='op'>)</span></span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> snapshotDate(): 2021-05-05</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> 2021-05-08 20:22:12 loading file /github/home/.cache/R/BiocFileCache/9f5774e2630a_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 2021-05-14 22:55:01 loading file /github/home/.cache/R/BiocFileCache/1de35e29f1c3_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'>## Explore the data</span></span>
 <span class='r-in'><span class='va'>sce_layer</span></span>
@@ -240,7 +238,7 @@ https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-dat
 <span class='r-out co'><span class='r-pr'>#&gt;</span> reducedDimNames(6): PCA TSNE_perplexity5 ... UMAP_neighbors15 PCAsub</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> mainExpName: NULL</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> altExpNames(0):</span>
-</pre>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
