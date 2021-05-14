@@ -4,7 +4,7 @@
 \alias{enough_ram}
 \title{Determine if you have enough RAM memory}
 \usage{
-enough_ram(how_much = 3e+09)
+enough_ram(how_much = 4e+09)
 }
 \arguments{
 \item{how_much}{The number of bytes you want to compare against.}
@@ -21,8 +21,8 @@ If \code{benchmarkme::get_ram()} fails, this function will return
 }
 \examples{
 
-## Do you have ~ 3 GB in your system?
-enough_ram(3e9)
+## Do you have ~ 4 GB in your system?
+enough_ram(4e9)
 
 ## Do you have ~ 100 GB in your system
 enough_ram(100e9)

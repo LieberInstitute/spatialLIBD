@@ -22,19 +22,13 @@
 #'     ## Obtain the necessary data
 #'     if (!exists("spe")) spe <- fetch_data("spe")
 #'
-#'     ## Subset to two samples of interest
-#'     spe_sub <- spe[, spe$sample_id %in% c("151673", "151674")]
-#'
-#'     ## Obtain the plot list
+#'     ## Subset to two samples of interest and obtain the plot list
 #'     p_list <-
 #'         vis_grid_gene(
-#'             spe_sub,
+#'             spe[, spe$sample_id %in% c("151673", "151674")],
 #'             spatial = FALSE,
 #'             return_plots = TRUE
 #'         )
-#'
-#'     ## Clean up
-#'     rm(spe_sub)
 #'
 #'     ## Visualize the spatial adjacent replicates for position = 0 micro meters
 #'     ## for subject 3

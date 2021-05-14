@@ -13,12 +13,12 @@
 #'
 #' @examples
 #'
-#' ## Do you have ~ 3 GB in your system?
-#' enough_ram(3e9)
+#' ## Do you have ~ 4 GB in your system?
+#' enough_ram(4e9)
 #'
 #' ## Do you have ~ 100 GB in your system
 #' enough_ram(100e9)
-enough_ram <- function(how_much = 3e9) {
+enough_ram <- function(how_much = 4e9) {
 
     ## Found at https://stackoverflow.com/a/56104211/9374370
     ram <- get_ram()
