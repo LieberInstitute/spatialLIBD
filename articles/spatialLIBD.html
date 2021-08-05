@@ -247,7 +247,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Download the small example sce data</span>
 <span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_example"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
-<span class="co">#&gt; 2021-08-05 15:08:31 loading file /github/home/.cache/R/BiocFileCache/dcf5c956e8e_sce_sub_for_vignette.Rdata%3Fdl%3D1</span>
+<span class="co">#&gt; 2021-08-05 15:26:38 loading file /github/home/.cache/R/BiocFileCache/35a206ba874_sce_sub_for_vignette.Rdata%3Fdl%3D1</span>
 
 <span class="co">## Convert to a SpatialExperiment object</span>
 <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sce_to_spe.html">sce_to_spe</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span>
@@ -259,9 +259,9 @@ If you tweet about this website, the data or the R package please use the <code>
 
 <span class="co">## Query ExperimentHub and download the data</span>
 <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
-<span class="co">#&gt; 2021-08-05 15:08:41 loading file /github/home/.cache/R/BiocFileCache/dcf40da0b6_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="co">#&gt; 2021-08-05 15:26:47 loading file /github/home/.cache/R/BiocFileCache/35a4c302a96_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"modeling_results"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
-<span class="co">#&gt; 2021-08-05 15:08:43 loading file /github/home/.cache/R/BiocFileCache/dcf4c4d2f3a_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></code></pre></div>
+<span class="co">#&gt; 2021-08-05 15:26:48 loading file /github/home/.cache/R/BiocFileCache/35a4d5f3599_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></code></pre></div>
 <p>Once you have downloaded the objects, we can explore them a little bit</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## spot-level data</span>
@@ -331,7 +331,7 @@ If you tweet about this website, the data or the R package please use the <code>
         <span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;  12.457   0.504  12.963</span>
+<span class="co">#&gt;  10.736   0.604  11.342</span>
 
 <span class="co">## Explore the result</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span>
@@ -849,9 +849,9 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"spatialLIBD.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code>#&gt; [1] "2021-08-05 15:09:07 UTC"</code></pre>
+<pre><code>#&gt; [1] "2021-08-05 15:27:09 UTC"</code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code>#&gt; Time difference of 52.259 secs</code></pre>
+<pre><code>#&gt; Time difference of 43.492 secs</code></pre>
 <p><code>R</code> session information.</p>
 <pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt;  setting  value                       
@@ -926,7 +926,7 @@ If you tweet about this website, the data or the R package please use the <code>
 #&gt;  fs                       1.5.0      2020-07-31 [2] RSPM (R 4.1.0)                                
 #&gt;  generics                 0.1.0      2020-10-31 [2] RSPM (R 4.1.0)                                
 #&gt;  GenomeInfoDb           * 1.29.3     2021-07-01 [1] Bioconductor                                  
-#&gt;  GenomeInfoDbData         1.2.6      2021-07-30 [1] Bioconductor                                  
+#&gt;  GenomeInfoDbData         1.2.6      2021-08-05 [1] Bioconductor                                  
 #&gt;  GenomicRanges          * 1.45.0     2021-05-19 [1] Bioconductor                                  
 #&gt;  ggbeeswarm               0.6.0      2017-08-07 [1] RSPM (R 4.1.0)                                
 #&gt;  ggplot2                  3.3.5      2021-06-25 [1] RSPM (R 4.1.0)                                
