@@ -163,21 +163,25 @@ jobs:
           ## https://github.com/r-lib/remotes/issues/296
           ## Ideally, all dependencies should get installed in the first pass.
 
-          ## Install dependency that's failing on BioC-devel right now
-          BiocManager::install("PeteHaitch/DelayedMatrixStats")
-
           ## Set the repos source depending on the OS
           ## Alternatively use https://storage.googleapis.com/bioconductor_docker/packages/
           ## though based on https://bit.ly/bioc2021-package-binaries
           ## the Azure link will be the main one going forward.
           gha_repos <- if(.Platform$OS.type == "unix") c("AnVIL" = "https://bioconductordocker.blob.core.windows.net/packages/3.14/bioc", BiocManager::repositories()) else BiocManager::repositories()
 
+          ## For running the checks
+          message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
+          install.packages(c("rcmdcheck", "BiocCheck"), repos = gha_repos)
+
+          ## Install dependency that's failing on BioC-devel right now
+          remotes::install_github("PeteHaitch/DelayedMatrixStats", repos = gha_repos)
+
           ## Pass #1 at installing dependencies
           ## This pass uses AnVIL-powered fast binaries
           ## details at https://github.com/nturaga/bioc2021-bioconductor-binaries
           ## The speed gains only apply to the docker builds.
           message(paste('****', Sys.time(), 'pass number 1 at installing dependencies: local dependencies ****'))
-          remotes::install_local(dependencies = TRUE, repos = gha_repos, build_vignettes = TRUE, upgrade = TRUE)
+          remotes::install_local(dependencies = TRUE, repos = gha_repos, build_vignettes = FALSE, upgrade = TRUE)
         continue-on-error: true
         shell: Rscript {0}
 
@@ -188,11 +192,6 @@ jobs:
           ## that have seen been updated in Bioconductor
           message(paste('****', Sys.time(), 'pass number 2 at installing dependencies: any remaining dependencies ****'))
           remotes::install_local(dependencies = TRUE, repos = BiocManager::repositories(), build_vignettes = TRUE, upgrade = TRUE, force = TRUE)
-
-          ## For running the checks
-          message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
-          remotes::install_cran("rcmdcheck")
-          BiocManager::install("BiocCheck")
         shell: Rscript {0}
 
       - name: Install BiocGenerics
