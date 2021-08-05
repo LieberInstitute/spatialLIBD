@@ -16,7 +16,7 @@
 
 app_server <- function(input, output, session) {
     ## Some variables
-    COUNT <- model_type <- ensembl <- key <- NULL
+    COUNT <- model_type <- ensembl <- key <- ManualAnnotation <- NULL
 
     ## Get options
     spe <- golem::get_golem_options("spe")
