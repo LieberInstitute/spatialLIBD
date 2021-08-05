@@ -69,7 +69,6 @@ as in vis_gene_p()." />
 
 
 
-
   
 
   
@@ -92,7 +91,7 @@ as in vis_gene_p()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.20</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.2</span>
       </span>
     </div>
 
@@ -217,7 +216,7 @@ are required.</p></td>
 <span class='r-in'>    <span class='co'>## Select the first sample and extract the data</span></span>
 <span class='r-in'>    <span class='va'>sample_id</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>spe</span><span class='op'>$</span><span class='va'>sample_id</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span></span>
 <span class='r-in'>    <span class='va'>spe_sub</span> <span class='op'>&lt;-</span> <span class='va'>spe</span><span class='op'>[</span>, <span class='va'>spe</span><span class='op'>$</span><span class='va'>sample_id</span> <span class='op'>==</span> <span class='va'>sample_id</span><span class='op'>]</span></span>
-<span class='r-in'>    <span class='va'>sample_df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'>SpatialExperiment</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-methods.html'>spatialData</a></span><span class='op'>(</span><span class='va'>spe_sub</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>    <span class='va'>sample_df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-colData.html'>colData</a></span><span class='op'>(</span><span class='va'>spe_sub</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-in'></span>
 <span class='r-in'>    <span class='co'>## Obtain the histology image</span></span>
 <span class='r-in'>    <span class='va'>img</span> <span class='op'>&lt;-</span> <span class='fu'>SpatialExperiment</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/SpatialExperiment/man/SpatialImage-class.html'>imgRaster</a></span><span class='op'>(</span><span class='va'>spe_sub</span><span class='op'>)</span></span>
@@ -246,8 +245,8 @@ are required.</p></td>
 <span class='r-in'>    <span class='co'>## Clean up</span></span>
 <span class='r-in'>    <span class='fu'><a href='https://rdrr.io/r/base/rm.html'>rm</a></span><span class='op'>(</span><span class='va'>spe_sub</span><span class='op'>)</span></span>
 <span class='r-in'><span class='op'>}</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> snapshotDate(): 2021-05-05</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> 2021-05-14 22:55:10 loading file /github/home/.cache/R/BiocFileCache/21e220788ecc_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> snapshotDate(): 2021-08-04</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 2021-08-05 03:57:39 loading file /github/home/.cache/R/BiocFileCache/7278757b1995_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class='r-plt'><img src='geom_spatial-1.png' alt='' width='700' height='433' /></span>
 </code></pre></div>
   </div>
