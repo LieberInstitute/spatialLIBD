@@ -23,7 +23,6 @@
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
-#' @importFrom SpatialExperiment spatialData
 #' @importFrom SummarizedExperiment assays
 #' @family Spatial gene visualization functions
 #' @details This function subsets `spe` to the given sample and prepares the
@@ -64,7 +63,7 @@ vis_gene <-
     viridis = TRUE,
     ...) {
         spe_sub <- spe[, spe$sample_id == sampleid]
-        d <- as.data.frame(SpatialExperiment::spatialData(spe_sub, colData = TRUE, spatialCoords = TRUE))
+        d <- as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE))
         stopifnot("gene_search" %in% colnames(rowData(spe)))
 
         if (geneid %in% colnames(colData(spe_sub))) {

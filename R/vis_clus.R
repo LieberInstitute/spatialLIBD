@@ -21,7 +21,6 @@
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @family Spatial cluster visualization functions
 #' @export
-#' @importFrom SpatialExperiment spatialData
 #' @details This function subsets `spe` to the given sample and prepares the
 #' data and title for [vis_clus_p()].
 #'
@@ -73,7 +72,7 @@ vis_clus <- function(spe,
     spatial = TRUE,
     ...) {
     spe_sub <- spe[, spe$sample_id == sampleid]
-    d <- as.data.frame(SpatialExperiment::spatialData(spe_sub, colData = TRUE, spatialCoords = TRUE))
+    d <- as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE))
 
     vis_clus_p(
         spe = spe_sub,

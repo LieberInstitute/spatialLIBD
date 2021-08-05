@@ -66,8 +66,7 @@ vis_grid_gene <-
             print(cowplot::plot_grid(plotlist = plots))
             dev.off()
             return(pdf_file)
-        }
-        else {
+        } else {
             return(plots)
         }
     }

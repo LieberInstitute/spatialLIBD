@@ -1,8 +1,8 @@
 Package: spatialLIBD
 Title: spatialLIBD: an R/Bioconductor package to visualize spatially-resolved
     transcriptomics data
-Version: 1.5.1
-Date: 2021-05-24
+Version: 1.5.2
+Date: 2021-08-04
 Authors@R:
     c(
     person("Leonardo", "Collado-Torres", role = c("aut", "cre"), 
@@ -81,5 +81,5 @@ VignetteBuilder: knitr
 biocViews: Homo_sapiens_Data, ExperimentHub, SequencingData, SingleCellData,
     ExpressionData, Tissue, PackageTypeData
 Depends:
-    SpatialExperiment (>= 1.1.700),
+    SpatialExperiment (>= 1.3.3),
     R (>= 3.6)

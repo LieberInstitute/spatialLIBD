@@ -150,7 +150,7 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
     # ))
     #
     # ## Add missing spatial info
-    # SpatialExperiment::spatialData(spe) <- spatialCoords_visium
+    # colData(spe) <- spatialCoords_visium
     # SpatialExperiment::spatialCoordsNames(spe) <- c("pxl_col_in_fullres", "pxl_row_in_fullres")
     # SpatialExperiment::imgData(spe) <- imageData
     #

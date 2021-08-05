@@ -198,7 +198,7 @@ spe
 
 ## Note the memory size
 pryr::object_size(spe)
-#> 2.04 GB
+#> 2,039,433,000 B
 
 ## Remake the logo image with histology information
 vis_clus(
@@ -303,7 +303,7 @@ By contributing to this project, you agree to abide by its terms.
     *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)*
     customized to use [Bioconductor’s docker
     containers](https://www.bioconductor.org/help/docker/) and
-    *[BiocCheck](https://bioconductor.org/packages/3.13/BiocCheck)*.
+    *[BiocCheck](https://bioconductor.org/packages/3.14/BiocCheck)*.
 -   Code coverage assessment is possible thanks to
     [codecov](https://codecov.io/gh) and
     *[covr](https://CRAN.R-project.org/package=covr)*.
@@ -320,7 +320,7 @@ By contributing to this project, you agree to abide by its terms.
 For more details, check the `dev` directory.
 
 This package was developed using
-*[biocthis](https://bioconductor.org/packages/3.13/biocthis)*.
+*[biocthis](https://bioconductor.org/packages/3.14/biocthis)*.
 
 <a href="https://www.libd.org/"><img src="http://lcolladotor.github.io/img/LIBD_logo.jpg" width="250px"></a>
 
