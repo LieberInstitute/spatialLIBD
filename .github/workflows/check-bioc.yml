@@ -39,6 +39,7 @@ env:
   run_pkgdown: 'true'
   has_RUnit: 'false'
   cache-version: 'cache-v1'
+  run_docker: 'false'
 
 jobs:
   build-check:
@@ -140,8 +141,6 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           ## Edit below if you have any Windows system dependencies
-          install.packages("XML", type = "binary")
-          install.packages("RCurl", type = "binary") ## RCurl 1.98-1.3 doesn't compile on Windows right now
         shell: Rscript {0}
 
       - name: Install BiocManager
@@ -152,7 +151,7 @@ jobs:
 
       - name: Set BiocVersion
         run: |
-          BiocManager::install(version = "${{ matrix.config.bioc }}", ask = FALSE)
+          BiocManager::install(version = "${{ matrix.config.bioc }}", ask = FALSE, force = TRUE)
         shell: Rscript {0}
 
       - name: Install dependencies pass 1
@@ -163,21 +162,32 @@ jobs:
           ## https://stat.ethz.ch/pipermail/bioc-devel/2020-April/016675.html
           ## https://github.com/r-lib/remotes/issues/296
           ## Ideally, all dependencies should get installed in the first pass.
-          
+
           ## Install dependency that's failing on BioC-devel right now
           BiocManager::install("PeteHaitch/DelayedMatrixStats")
 
+          ## Set the repos source depending on the OS
+          ## Alternatively use https://storage.googleapis.com/bioconductor_docker/packages/
+          ## though based on https://bit.ly/bioc2021-package-binaries
+          ## the Azure link will be the main one going forward.
+          gha_repos <- if(.Platform$OS.type == "unix") c("AnVIL" = "https://bioconductordocker.blob.core.windows.net/packages/3.14/bioc", BiocManager::repositories()) else BiocManager::repositories()
+
           ## Pass #1 at installing dependencies
+          ## This pass uses AnVIL-powered fast binaries
+          ## details at https://github.com/nturaga/bioc2021-bioconductor-binaries
+          ## The speed gains only apply to the docker builds.
           message(paste('****', Sys.time(), 'pass number 1 at installing dependencies: local dependencies ****'))
-          remotes::install_local(dependencies = TRUE, repos = c("AnVIL" = "https://storage.googleapis.com/bioconductor_docker/packages/3.14/bioc", BiocManager::repositories()), build_vignettes = TRUE, upgrade = TRUE)
+          remotes::install_local(dependencies = TRUE, repos = gha_repos, build_vignettes = TRUE, upgrade = TRUE)
         continue-on-error: true
         shell: Rscript {0}
 
       - name: Install dependencies pass 2
         run: |
           ## Pass #2 at installing dependencies
+          ## This pass does not use AnVIL and will thus update any packages
+          ## that have seen been updated in Bioconductor
           message(paste('****', Sys.time(), 'pass number 2 at installing dependencies: any remaining dependencies ****'))
-          remotes::install_local(dependencies = TRUE, repos = BiocManager::repositories(), build_vignettes = TRUE, upgrade = TRUE)
+          remotes::install_local(dependencies = TRUE, repos = BiocManager::repositories(), build_vignettes = TRUE, upgrade = TRUE, force = TRUE)
 
           ## For running the checks
           message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
@@ -273,3 +283,13 @@ jobs:
         with:
           name: ${{ runner.os }}-biocversion-devel-r-4.1-results
           path: check
+
+      - uses: docker/build-push-action@v1
+        if: "!contains(github.event.head_commit.message, '/nodocker') && env.run_docker == 'true' && runner.os == 'Linux' "
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: lieberinstitute/spatiallibd
+          tag_with_ref: true
+          tag_with_sha: true
+          tags: latest
