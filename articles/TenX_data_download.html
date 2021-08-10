@@ -85,7 +85,7 @@
 
       
 
-      </header><script src="TenX_data_download_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><script src="TenX_data_download_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Using spatialLIBD with 10x Genomics public datasets</h1>
@@ -102,7 +102,7 @@
       Lieber Institute for Brain Development, Johns Hopkins Medical CampusCenter for Computational Biology, Johns Hopkins University<br><a class="author_email" href="mailto:#"></a><a href="mailto:lcolladotor@gmail.com" class="email">lcolladotor@gmail.com</a>
       </address>
                   
-            <h4 data-toc-skip class="date">5 August 2021</h4>
+            <h4 data-toc-skip class="date">10 August 2021</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/vignettes/TenX_data_download.Rmd" class="external-link"><code>vignettes/TenX_data_download.Rmd</code></a></small>
       <div class="hidden name"><code>TenX_data_download.Rmd</code></div>
@@ -390,7 +390,7 @@
 <span class="co">## Show the GTF cache location</span>
 <span class="va">gtf_cache</span>
 <span class="co">#&gt;                                                                            BFC7 </span>
-<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/4703119e7bd_gencode.v32.annotation.gtf.gz"</span>
+<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/63071da8afd_gencode.v32.annotation.gtf.gz"</span>
 
 <span class="co">## Import into R (takes ~1 min)</span>
 <span class="va">gtf</span> <span class="op">&lt;-</span> <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span><span class="va">gtf_cache</span><span class="op">)</span>
@@ -680,9 +680,9 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code>#&gt; [1] "2021-08-05 18:41:49 UTC"</code></pre>
+<pre><code>#&gt; [1] "2021-08-10 00:48:19 UTC"</code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code>#&gt; Time difference of 1.476 mins</code></pre>
+<pre><code>#&gt; Time difference of 1.624 mins</code></pre>
 <p><code>R</code> session information.</p>
 <pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt;  setting  value                       
@@ -694,7 +694,7 @@
 #&gt;  collate  en_US.UTF-8                 
 #&gt;  ctype    en_US.UTF-8                 
 #&gt;  tz       UTC                         
-#&gt;  date     2021-08-05                  
+#&gt;  date     2021-08-10                  
 #&gt; 
 #&gt; ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt;  package                * version    date       lib source                                        
@@ -735,7 +735,7 @@
 #&gt;  DBI                      1.1.1      2021-01-15 [1] RSPM (R 4.1.0)                                
 #&gt;  dbplyr                 * 2.1.1      2021-04-06 [1] RSPM (R 4.1.0)                                
 #&gt;  DelayedArray             0.19.1     2021-06-25 [1] Bioconductor                                  
-#&gt;  DelayedMatrixStats       1.15.2     2021-08-05 [1] Github (PeteHaitch/DelayedMatrixStats@d9d3cb7)
+#&gt;  DelayedMatrixStats       1.15.2     2021-08-10 [1] Github (PeteHaitch/DelayedMatrixStats@d9d3cb7)
 #&gt;  desc                     1.3.0      2021-03-05 [2] RSPM (R 4.1.0)                                
 #&gt;  digest                   0.6.27     2020-10-24 [2] RSPM (R 4.1.0)                                
 #&gt;  dockerfiler              0.1.3      2019-03-19 [1] RSPM (R 4.1.0)                                
@@ -787,7 +787,7 @@
 #&gt;  lattice                  0.20-44    2021-05-02 [3] CRAN (R 4.1.0)                                
 #&gt;  lazyeval                 0.2.2      2019-03-15 [1] RSPM (R 4.1.0)                                
 #&gt;  lifecycle                1.0.0      2021-02-15 [2] RSPM (R 4.1.0)                                
-#&gt;  limma                    3.49.2     2021-08-03 [1] Bioconductor                                  
+#&gt;  limma                    3.49.4     2021-08-08 [1] Bioconductor                                  
 #&gt;  lobstr                   1.1.1      2019-07-02 [1] RSPM (R 4.1.0)                                
 #&gt;  locfit                   1.5-9.4    2020-03-25 [1] RSPM (R 4.1.0)                                
 #&gt;  lubridate                1.7.10     2021-02-26 [1] RSPM (R 4.1.0)                                
@@ -795,7 +795,7 @@
 #&gt;  magrittr                 2.0.1      2020-11-17 [2] RSPM (R 4.1.0)                                
 #&gt;  maps                     3.3.0      2018-04-03 [1] RSPM (R 4.1.0)                                
 #&gt;  Matrix                   1.3-4      2021-06-01 [2] RSPM (R 4.1.0)                                
-#&gt;  MatrixGenerics         * 1.5.2      2021-08-02 [1] Bioconductor                                  
+#&gt;  MatrixGenerics         * 1.5.3      2021-08-05 [1] Bioconductor                                  
 #&gt;  matrixStats            * 0.60.0     2021-07-26 [1] RSPM (R 4.1.0)                                
 #&gt;  memoise                  2.0.0      2021-01-26 [2] RSPM (R 4.1.0)                                
 #&gt;  mime                     0.11       2021-06-23 [2] RSPM (R 4.1.0)                                
@@ -828,7 +828,7 @@
 #&gt;  Rhdf5lib                 1.15.2     2021-07-01 [1] Bioconductor                                  
 #&gt;  rjson                    0.2.20     2018-06-08 [1] RSPM (R 4.1.0)                                
 #&gt;  rlang                    0.4.11     2021-04-30 [2] RSPM (R 4.1.0)                                
-#&gt;  rmarkdown                2.9        2021-06-15 [1] RSPM (R 4.1.0)                                
+#&gt;  rmarkdown                2.10       2021-08-06 [1] RSPM (R 4.1.0)                                
 #&gt;  roxygen2                 7.1.1      2020-06-27 [2] RSPM (R 4.1.0)                                
 #&gt;  rprojroot                2.0.2      2020-11-15 [2] RSPM (R 4.1.0)                                
 #&gt;  Rsamtools                2.9.1      2021-06-17 [1] Bioconductor                                  
@@ -842,15 +842,15 @@
 #&gt;  scales                   1.1.1      2020-05-11 [1] RSPM (R 4.1.0)                                
 #&gt;  scater                   1.21.3     2021-08-01 [1] Bioconductor                                  
 #&gt;  scatterplot3d            0.3-41     2018-03-14 [1] RSPM (R 4.1.0)                                
-#&gt;  scuttle                  1.3.0      2021-05-19 [1] Bioconductor                                  
+#&gt;  scuttle                  1.3.1      2021-08-05 [1] Bioconductor                                  
 #&gt;  sessioninfo            * 1.1.1      2018-11-05 [2] RSPM (R 4.1.0)                                
 #&gt;  shiny                    1.6.0      2021-01-25 [1] RSPM (R 4.1.0)                                
 #&gt;  shinyWidgets             0.6.0      2021-03-15 [1] RSPM (R 4.1.0)                                
 #&gt;  SingleCellExperiment   * 1.15.1     2021-05-21 [1] Bioconductor                                  
 #&gt;  spam                     2.7-0      2021-06-25 [1] RSPM (R 4.1.0)                                
-#&gt;  sparseMatrixStats        1.5.0      2021-05-19 [1] Bioconductor                                  
+#&gt;  sparseMatrixStats        1.5.2      2021-08-05 [1] Bioconductor                                  
 #&gt;  SpatialExperiment      * 1.3.3      2021-08-02 [1] Bioconductor                                  
-#&gt;  spatialLIBD            * 1.5.3      2021-08-05 [1] Bioconductor                                  
+#&gt;  spatialLIBD            * 1.5.3      2021-08-10 [1] Bioconductor                                  
 #&gt;  stringi                  1.7.3      2021-07-16 [2] RSPM (R 4.1.0)                                
 #&gt;  stringr                  1.4.0      2019-02-10 [2] RSPM (R 4.1.0)                                
 #&gt;  SummarizedExperiment   * 1.23.1     2021-06-24 [1] Bioconductor                                  
@@ -867,7 +867,7 @@
 #&gt;  viridis                  0.6.1      2021-05-11 [1] RSPM (R 4.1.0)                                
 #&gt;  viridisLite              0.4.0      2021-04-13 [1] RSPM (R 4.1.0)                                
 #&gt;  withr                    2.4.2      2021-04-18 [2] RSPM (R 4.1.0)                                
-#&gt;  xfun                     0.24       2021-06-15 [2] RSPM (R 4.1.0)                                
+#&gt;  xfun                     0.25       2021-08-06 [2] RSPM (R 4.1.0)                                
 #&gt;  XML                      3.99-0.6   2021-03-16 [1] RSPM (R 4.1.0)                                
 #&gt;  xml2                     1.3.2      2020-04-23 [2] RSPM (R 4.1.0)                                
 #&gt;  xtable                   1.8-4      2019-04-21 [1] RSPM (R 4.1.0)                                
@@ -885,7 +885,7 @@
 <p>This vignette was generated using <em><a href="https://bioconductor.org/packages/3.14/BiocStyle" class="external-link">BiocStyle</a></em> (Oleś, 2021) with <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie, 2021) and <em><a href="https://CRAN.R-project.org/package=rmarkdown" class="external-link">rmarkdown</a></em> (Allaire, Xie, McPherson, et al., 2021) running behind the scenes.</p>
 <p>Citations made with <em><a href="https://CRAN.R-project.org/package=RefManageR" class="external-link">RefManageR</a></em> (McLean, 2017).</p>
 <p>
-<a id="bib-allaire2021rmarkdown"></a><a href="#cite-allaire2021rmarkdown">[1]</a><cite> J. Allaire, Y. Xie, J. McPherson, et al. <em>rmarkdown: Dynamic Documents for R</em>. R package version 2.9. 2021. URL: <a href="https://github.com/rstudio/rmarkdown" class="external-link">https://github.com/rstudio/rmarkdown</a>.</cite>
+<a id="bib-allaire2021rmarkdown"></a><a href="#cite-allaire2021rmarkdown">[1]</a><cite> J. Allaire, Y. Xie, J. McPherson, et al. <em>rmarkdown: Dynamic Documents for R</em>. R package version 2.10. 2021. URL: <a href="https://github.com/rstudio/rmarkdown" class="external-link">https://github.com/rstudio/rmarkdown</a>.</cite>
 </p>
 <p>
 <a id="bib-csrdi2018sessioninfo"></a><a href="#cite-csrdi2018sessioninfo">[2]</a><cite> G. Csárdi, R. core, H. Wickham, et al. <em>sessioninfo: R Session Information</em>. R package version 1.1.1. 2018. URL: <a href="https://github.com/r-lib/sessioninfo#readme" class="external-link">https://github.com/r-lib/sessioninfo#readme</a>.</cite>
