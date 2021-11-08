@@ -29,7 +29,7 @@
 #'     ## Select the first sample and extract the data
 #'     sample_id <- unique(spe$sample_id)[1]
 #'     spe_sub <- spe[, spe$sample_id == sample_id]
-#'     sample_df <- as.data.frame(colData(spe_sub))
+#'     sample_df <- as.data.frame(colData(spe_sub), optional = TRUE)
 #'
 #'     ## Obtain the histology image
 #'     img <- SpatialExperiment::imgRaster(spe_sub)

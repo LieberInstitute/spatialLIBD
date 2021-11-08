@@ -5,6 +5,8 @@ BUG FIXES
 * Fixed an issue introduced by newer versions of `shiny`. This version of
 `spatialLIBD` works with `shiny` version 1.7.1, though it's likely backwards
 compatible. Resolves https://github.com/LieberInstitute/spatialLIBD/issues/24.
+* Fix an issue where `as.data.frame(colData(spe))` uses `check.names = TRUE` by
+default and then changes the column names unintentionally.
 
 # spatialLIBD 1.7.1
 

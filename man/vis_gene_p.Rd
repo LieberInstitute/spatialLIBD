@@ -52,7 +52,7 @@ if (enough_ram()) {
 
     ## Prepare the data for the plotting function
     spe_sub <- spe[, spe$sample_id == "151673"]
-    df <- as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE))
+    df <- as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE), optional = TRUE)
     df$COUNT <- df$expr_chrM_ratio
 
     ## Use the manual color palette by Lukas M Weber

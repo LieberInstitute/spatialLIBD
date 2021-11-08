@@ -29,7 +29,7 @@
 #'     ## Don't plot the histology information
 #'     vis_clus_p(
 #'         spe = spe_sub,
-#'         d = as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE)),
+#'         d = as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE), optional = TRUE),
 #'         clustervar = "layer_guess_reordered",
 #'         sampleid = "151673",
 #'         colors = libd_layer_colors,
