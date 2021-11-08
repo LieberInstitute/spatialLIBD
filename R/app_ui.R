@@ -151,6 +151,11 @@ app_ui <- function() {
                             ),
                             tabPanel(
                                 "Clusters (static)",
+                                checkboxInput(
+                                    "side_by_side_histology",
+                                    "Show clusters and background image side by side.",
+                                    value = FALSE
+                                ),
                                 downloadButton("downloadPlotHistology", "Download PDF"),
                                 plotOutput("histology"),
                                 tags$br(),
@@ -234,6 +239,11 @@ app_ui <- function() {
                             ),
                             tabPanel(
                                 "Gene (static)",
+                                checkboxInput(
+                                    "side_by_side_gene",
+                                    "Show gene and background image side by side.",
+                                    value = FALSE
+                                ),
                                 downloadButton("downloadPlotGene", "Download PDF"),
                                 plotOutput("gene"),
                                 tags$br(),

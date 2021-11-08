@@ -92,14 +92,30 @@ app_server <- function(input, output, session) {
         if (input$cluster == "ManualAnnotation") {
             spe$ManualAnnotation <- rv$ManualAnnotation
         }
-        vis_clus(
-            spe,
-            sampleid = input$sample,
-            clustervar = input$cluster,
-            colors = cluster_colors(),
-            image_id = input$imageid,
-            ... = paste(" with", input$cluster)
-        )
+        p <- vis_clus(
+                spe,
+                sampleid = input$sample,
+                clustervar = input$cluster,
+                colors = cluster_colors(),
+                image_id = input$imageid,
+                ... = paste(" with", input$cluster)
+            )
+        if (!input$side_by_side_histology) {
+            return(p)
+        } else {
+            p_no_spots <- p
+            p_no_spots$layers[[2]] <- NULL
+
+            p_no_spatial <- p
+            p_no_spatial$layers[[1]] <- NULL
+            cowplot::plot_grid(
+                plotlist = list(
+                    p_no_spots, #+ ggplot2::geom_point(colour = "black", fill = NA, shape = 21),
+                    p_no_spatial + ggplot2::theme(legend.position = "none")
+                ), nrow = 1, ncol = 2
+            )
+        }
+
     })
 
     static_histology_grid <- reactive({
@@ -128,7 +144,7 @@ app_server <- function(input, output, session) {
     })
 
     static_gene <- reactive({
-        vis_gene(
+        p <- vis_gene(
             spe,
             sampleid = input$sample,
             geneid = input$geneid,
@@ -137,6 +153,21 @@ app_server <- function(input, output, session) {
             viridis = input$genecolor == "viridis",
             image_id = input$imageid
         )
+        if (!input$side_by_side_gene) {
+            return(p)
+        } else {
+            p_no_spots <- p
+            p_no_spots$layers[[2]] <- NULL
+
+            p_no_spatial <- p
+            p_no_spatial$layers[[1]] <- NULL
+            cowplot::plot_grid(
+                plotlist = list(
+                    p_no_spots, #+ ggplot2::geom_point(colour = "black", fill = NA, shape = 21),
+                    p_no_spatial + ggplot2::theme(legend.position = "none")
+                ), nrow = 1, ncol = 2
+            )
+        }
     })
 
     static_gene_grid <- reactive({
@@ -183,7 +214,7 @@ app_server <- function(input, output, session) {
                 file = file,
                 useDingbats = FALSE,
                 height = 8,
-                width = 9
+                width = 9 * ifelse(input$side_by_side_histology, 2, 1)
             )
             print(static_histology())
             dev.off()
@@ -239,7 +270,7 @@ app_server <- function(input, output, session) {
                 file = file,
                 useDingbats = FALSE,
                 height = 8,
-                width = 8
+                width = 8 * ifelse(input$side_by_side_gene, 2, 1)
             )
             print(static_gene())
             dev.off()
@@ -279,7 +310,7 @@ app_server <- function(input, output, session) {
         {
             static_histology()
         },
-        width = 600,
+        width = function() 600 * ifelse(input$side_by_side_histology, 2, 1),
         height = 600
     )
 
@@ -307,7 +338,7 @@ app_server <- function(input, output, session) {
         {
             static_gene()
         },
-        width = 600,
+        width = function() 600 * ifelse(input$side_by_side_gene, 2, 1),
         height = 600
     )
 
