@@ -210,9 +210,9 @@ Depending on the version of `spaceranger` you used, you might have used differen
 For example, in our computing cluster this GTF file is located at the following path and is 1.4 GB in size:
 
 ```{bash, eval = FALSE}
-$ cd /dcl02/lieber/ajaffe/SpatialTranscriptomics/
-$ du -sh --apparent-size refdata-gex-GRCh38-2020-A/genes/genes.gtf
-1.4G	/dcl02/lieber/ajaffe/SpatialTranscriptomics/refdata-gex-GRCh38-2020-A/genes/genes.gtf
+$ cd /dcs04/lieber/lcolladotor/annotationFiles_LIBD001/10x/refdata-gex-GRCh38-2020-A
+$ du -sh --apparent-size genes/genes.gtf
+1.4G	genes/genes.gtf
 ```
 
 If you have the GTF file from 10x Genomics, we show next how you can read the information into R, match it appropriately with the information in the `spe` object and add it back into the `spe` object.
@@ -435,7 +435,7 @@ list.files(docs_path)
 
 # Wrapper functions
 
-To facilitate reading in the data and preparing it to visualize it interactively using `spatialLIBD::run_app()`, we implemented `read10xVisiumWrapper()` which expands `SpatialExperiment::read10xVisium()` and performs the steps described in this vignette.
+To facilitate reading in the data and preparing it to visualize it interactively using `spatialLIBD::run_app()`, we implemented `read10xVisiumWrapper()` which expands `SpatialExperiment::read10xVisium()` and performs the steps described in this vignette. In this example, we'll load all four images created by SpaceRanger: lowres, hires, detected, and aligned. That way we can toggle between them on the web application.
 
 ```{r wrapper_functions}
 ## Import the data as a SpatialExperiment object
@@ -443,7 +443,7 @@ spe_wrapper <- read10xVisiumWrapper(
     samples = tempdir(),
     sample_id = "lymph",
     type = "sparse", data = "filtered",
-    images = c("lowres", "highres"), load = TRUE,
+    images = c("lowres", "hires", "detected", "aligned"), load = TRUE,
     reference_gtf = gtf_cache
 )
 ```

@@ -4,7 +4,15 @@
 \alias{vis_gene_p}
 \title{Sample spatial gene visualization workhorse function}
 \usage{
-vis_gene_p(spe, d, sampleid, spatial, title, viridis = TRUE)
+vis_gene_p(
+  spe,
+  d,
+  sampleid,
+  spatial,
+  title,
+  viridis = TRUE,
+  image_id = "lowres"
+)
 }
 \arguments{
 \item{spe}{Defaults to the output of
@@ -33,6 +41,9 @@ in the paper that was chosen for contrast when visualizing the data on
 top of the histology image. One issue is being able to differentiate low
 values from NA ones due to the purple-ish histology information that is
 dependent on cell density.}
+
+\item{image_id}{A \code{character(1)} with the name of the image ID you want to
+use in the background.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2} object.

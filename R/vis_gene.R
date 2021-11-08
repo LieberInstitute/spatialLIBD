@@ -61,6 +61,7 @@ vis_gene <-
     assayname = "logcounts",
     minCount = 0,
     viridis = TRUE,
+    image_id = "lowres",
     ...) {
         spe_sub <- spe[, spe$sample_id == sampleid]
         d <- as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE), optional = TRUE)
@@ -83,7 +84,8 @@ vis_gene <-
                 geneid,
                 ...
             ),
-            viridis = viridis
+            viridis = viridis,
+            image_id = image_id
         )
         p + labs(caption = paste(
             if (!geneid %in% colnames(colData(spe_sub))) {

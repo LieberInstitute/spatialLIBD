@@ -14,6 +14,7 @@ vis_grid_clus(
   spatial = TRUE,
   height = 24,
   width = 36,
+  image_id = "lowres",
   ...
 )
 }
@@ -47,6 +48,9 @@ layer from \code{\link[=geom_spatial]{geom_spatial()}}. If you plan to use
 \item{height}{A \code{numeric(1)} passed to \link[grDevices:pdf]{pdf}.}
 
 \item{width}{A \code{numeric(1)} passed to \link[grDevices:pdf]{pdf}.}
+
+\item{image_id}{A \code{character(1)} with the name of the image ID you want to
+use in the background.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}

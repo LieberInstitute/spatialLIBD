@@ -97,6 +97,7 @@ app_server <- function(input, output, session) {
             sampleid = input$sample,
             clustervar = input$cluster,
             colors = cluster_colors(),
+            image_id = input$imageid,
             ... = paste(" with", input$cluster)
         )
     })
@@ -116,6 +117,7 @@ app_server <- function(input, output, session) {
                 sort_clust = FALSE,
                 colors = cluster_colors(),
                 return_plots = TRUE,
+                image_id = input$imageid,
                 ... = paste(" with", isolate(input$cluster))
             )
         cowplot::plot_grid(
@@ -132,7 +134,8 @@ app_server <- function(input, output, session) {
             geneid = input$geneid,
             assayname = input$assayname,
             minCount = input$minCount,
-            viridis = input$genecolor == "viridis"
+            viridis = input$genecolor == "viridis",
+            image_id = input$imageid
         )
     })
 
@@ -148,7 +151,8 @@ app_server <- function(input, output, session) {
                 assayname = isolate(input$assayname),
                 minCount = isolate(input$minCount),
                 return_plots = TRUE,
-                viridis = isolate(input$genecolor == "viridis")
+                viridis = isolate(input$genecolor == "viridis"),
+                image_id = input$imageid
             )
         cowplot::plot_grid(
             plotlist = plots,
@@ -354,7 +358,7 @@ app_server <- function(input, output, session) {
         # genecolor <- "viridis"
 
         ## Read in the histology image
-        img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid)
+        img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = input$imageid)
 
         ## From vis_gene() in global.R
         spe_sub <- spe[, spe$sample_id == sampleid]
@@ -400,7 +404,8 @@ app_server <- function(input, output, session) {
                 },
                 "min >",
                 minCount
-            )
+            ),
+            image_id = input$imageid
         )
 
         ## Next the gene plot
@@ -410,7 +415,8 @@ app_server <- function(input, output, session) {
             sampleid = sampleid,
             spatial = FALSE,
             title = "",
-            viridis = genecolor == "viridis"
+            viridis = genecolor == "viridis",
+            image_id = input$imageid
         )
 
         ## Make the reduced dimensions ggplot
@@ -503,8 +509,8 @@ app_server <- function(input, output, session) {
         plotly_clus <- layout(
             ggplotly(
                 p_clus,
-                width = ncol(img) * 2,
-                height = nrow(img) * 2,
+                width = 600 * 2,
+                height = 600 * 2,
                 source = "plotly_histology",
                 tooltip = c("fill", "key")
             ),
@@ -648,17 +654,18 @@ app_server <- function(input, output, session) {
                 assayname = input$assayname,
                 minCount = input$minCount,
                 spatial = FALSE,
-                viridis = input$genecolor == "viridis"
+                viridis = input$genecolor == "viridis",
+                image_id = input$imageid
             )
 
         ## Read in the histology image
-        img <- SpatialExperiment::imgRaster(spe, sample_id = input$sample)
+        img <- SpatialExperiment::imgRaster(spe, sample_id = input$sample, image_id = input$imageid)
 
         suppressMessages(suppressWarnings(toWebGL(layout(
             ggplotly(
                 p,
-                width = ncol(img),
-                height = nrow(img),
+                width = 600,
+                height = 600,
                 source = "plotly_gene",
                 tooltip = c("fill", "key")
             ),

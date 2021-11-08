@@ -1,3 +1,11 @@
+# spatialLIBD 1.7.3
+
+NEW FEATURES
+
+* Added support for more than one background picture per sample. This was done
+through the new argument `image_id`. Resolves
+https://github.com/LieberInstitute/spatialLIBD/issues/25.
+
 # spatialLIBD 1.7.2
 
 BUG FIXES

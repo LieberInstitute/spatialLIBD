@@ -12,6 +12,7 @@ vis_gene(
   assayname = "logcounts",
   minCount = 0,
   viridis = TRUE,
+  image_id = "lowres",
   ...
 )
 }
@@ -46,6 +47,9 @@ in the paper that was chosen for contrast when visualizing the data on
 top of the histology image. One issue is being able to differentiate low
 values from NA ones due to the purple-ish histology information that is
 dependent on cell density.}
+
+\item{image_id}{A \code{character(1)} with the name of the image ID you want to
+use in the background.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}

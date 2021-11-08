@@ -47,7 +47,8 @@ vis_clus_p <-
     sampleid,
     colors,
     spatial,
-    title) {
+    title,
+    image_id = "lowres") {
 
         ## Some variables
         pxl_row_in_fullres <- pxl_col_in_fullres <- key <- NULL
@@ -61,13 +62,13 @@ vis_clus_p <-
         )) {
             title <- gsub(clustervar, "LIBD Layers", title)
         }
-        img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid)
+        img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = image_id)
 
         p <- ggplot(
             d,
             aes(
-                x = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid),
-                y = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid),
+                x = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id),
+                y = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id),
                 fill = factor(!!sym(clustervar)),
                 key = key
             )
