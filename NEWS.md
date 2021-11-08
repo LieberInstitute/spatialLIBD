@@ -1,3 +1,20 @@
+# spatialLIBD 1.7.2
+
+BUG FIXES
+
+* Fixed an issue introduced by newer versions of `shiny`. This version of
+`spatialLIBD` works with `shiny` version 1.7.1, though it's likely backwards
+compatible. Resolves https://github.com/LieberInstitute/spatialLIBD/issues/24.
+
+# spatialLIBD 1.7.1
+
+NEW FEATURES
+
+* Added `read10xVisiumWrapper()` and related functions that make it easier
+to read in the SpaceRanger output files and launch a shiny web application
+using `run_app()`. These new functions read in the analysis output from
+SpaceRanger by 10x Genomics, in particular, the clustering and dimension
+reduction (projection) results.
 # spatialLIBD 1.3.19
 
 SIGNIFICANT USER-VISIBLE CHANGES
