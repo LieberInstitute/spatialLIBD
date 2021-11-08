@@ -15,6 +15,8 @@
 #' @param spatial A `logical(1)` indicating whether to include the histology
 #' layer from [geom_spatial()]. If you plan to use
 #' [ggplotly()][plotly::ggplotly] then it's best to set this to `FALSE`.
+#' @param image_id A `character(1)` with the name of the image ID you want to
+#' use in the background.
 #' @param ... Passed to [paste0()][base::paste] for making the title of the
 #' plot following the `sampleid`.
 #'
@@ -70,6 +72,7 @@ vis_clus <- function(spe,
         "purple"
     ),
     spatial = TRUE,
+    image_id = "lowres",
     ...) {
     spe_sub <- spe[, spe$sample_id == sampleid]
     d <- as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE), optional = TRUE)
@@ -81,6 +84,7 @@ vis_clus <- function(spe,
         sampleid = sampleid,
         spatial = spatial,
         title = paste0(sampleid, ...),
-        colors = get_colors(colors, d[, clustervar])
+        colors = get_colors(colors, d[, clustervar]),
+        image_id = image_id
     )
 }

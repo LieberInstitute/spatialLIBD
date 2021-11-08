@@ -11,6 +11,7 @@ vis_clus(
   colors = c("#b2df8a", "#e41a1c", "#377eb8", "#4daf4a", "#ff7f00", "gold", "#a65628",
     "#999999", "black", "grey", "white", "purple"),
   spatial = TRUE,
+  image_id = "lowres",
   ...
 )
 }
@@ -34,6 +35,9 @@ values of \code{clustervar}.}
 \item{spatial}{A \code{logical(1)} indicating whether to include the histology
 layer from \code{\link[=geom_spatial]{geom_spatial()}}. If you plan to use
 \link[plotly:ggplotly]{ggplotly()} then it's best to set this to \code{FALSE}.}
+
+\item{image_id}{A \code{character(1)} with the name of the image ID you want to
+use in the background.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}

@@ -54,6 +54,7 @@ vis_grid_clus <-
     spatial = TRUE,
     height = 24,
     width = 36,
+    image_id = "lowres",
     ...) {
         if (sort_clust) {
             colData(spe)[[clustervar]] <-
@@ -66,6 +67,7 @@ vis_grid_clus <-
                     clustervar,
                     colors = colors,
                     spatial = spatial,
+                    image_id = image_id,
                     ...
                 )
             })

@@ -51,19 +51,20 @@ vis_gene_p <-
     sampleid,
     spatial,
     title,
-    viridis = TRUE) {
+    viridis = TRUE,
+    image_id = "lowres") {
 
         ## Some variables
         pxl_row_in_fullres <- pxl_col_in_fullres <- key <- COUNT <- NULL
         # stopifnot(all(c("pxl_col_in_fullres", "pxl_row_in_fullres", "COUNT", "key") %in% colnames(d)))
-        img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid)
+        img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = image_id)
 
         p <-
             ggplot(
                 d,
                 aes(
-                    x = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid),
-                    y = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid),
+                    x = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id),
+                    y = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id),
                     fill = COUNT,
                     color = COUNT,
                     key = key

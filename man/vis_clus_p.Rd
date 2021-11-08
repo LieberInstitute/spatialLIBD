@@ -4,7 +4,16 @@
 \alias{vis_clus_p}
 \title{Sample spatial cluster visualization workhorse function}
 \usage{
-vis_clus_p(spe, d, clustervar, sampleid, colors, spatial, title)
+vis_clus_p(
+  spe,
+  d,
+  clustervar,
+  sampleid,
+  colors,
+  spatial,
+  title,
+  image_id = "lowres"
+)
 }
 \arguments{
 \item{spe}{Defaults to the output of
@@ -31,6 +40,9 @@ layer from \code{\link[=geom_spatial]{geom_spatial()}}. If you plan to use
 \link[plotly:ggplotly]{ggplotly()} then it's best to set this to \code{FALSE}.}
 
 \item{title}{The title for the plot.}
+
+\item{image_id}{A \code{character(1)} with the name of the image ID you want to
+use in the background.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2} object.

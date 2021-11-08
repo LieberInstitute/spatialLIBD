@@ -76,6 +76,14 @@ app_ui <- function() {
                         ),
                         helpText("The name of the gene values you want to visualize."),
                         hr(),
+                        selectInput(
+                            inputId = "imageid",
+                            label = "Image name",
+                            choices = unique(imgData(spe)$image_id),
+                            selected = unique(imgData(spe)$image_id)[1]
+                        ),
+                        helpText("The name of the background image you want to visualize."),
+                        hr(),
                         numericInput(
                             inputId = "minCount",
                             label = "Minimum count value",
