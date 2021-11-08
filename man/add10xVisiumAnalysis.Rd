@@ -4,10 +4,7 @@
 \alias{add10xVisiumAnalysis}
 \title{Add analysis data from a 10x Genomics Visium experiment to a SPE object}
 \usage{
-add10xVisiumAnalysis(
-  spe,
-  visium_analysis = read10xVisiumAnalysis(samples = unique(spe$sample_id))
-)
+add10xVisiumAnalysis(spe, visium_analysis)
 }
 \arguments{
 \item{spe}{A
