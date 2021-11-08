@@ -64,7 +64,8 @@ Imports:
     tibble,
     rtracklayer,
     Matrix,
-    BiocGenerics
+    BiocGenerics,
+    GenomicRanges
 RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/LieberInstitute/spatialLIBD
