@@ -5,6 +5,9 @@ NEW FEATURES
 * Added support for more than one background picture per sample. This was done
 through the new argument `image_id`. Resolves
 https://github.com/LieberInstitute/spatialLIBD/issues/25.
+* Added options for side by side visualization of the background image and the
+clusters or gene expression values in the static versions. Resolves
+https://github.com/LieberInstitute/spatialLIBD/issues/19.
 
 # spatialLIBD 1.7.2
 
