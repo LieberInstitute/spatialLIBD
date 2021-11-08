@@ -29,14 +29,11 @@
 #'
 #' ## Note that ?SpatialExperiment::read10xVisium doesn't include all the files
 #' ## we need to illustrate read10xVisiumWrapper().
-add10xVisiumAnalysis <- function(
-    spe,
-    visium_analysis
-    ) {
-
+add10xVisiumAnalysis <- function(spe,
+    visium_analysis) {
     col_info <- colData(spe)
     barcode_present <- "barcode" %in% colnames(col_info)
-    if(!barcode_present) {
+    if (!barcode_present) {
         col_info$barcode <- rownames(col_info)
     }
 
@@ -55,13 +52,12 @@ add10xVisiumAnalysis <- function(
     merged_info <- merged_info[m, ]
     rownames(merged_info) <- rownames(col_info)
 
-    if(!barcode_present) {
+    if (!barcode_present) {
         merged_info$barcode <- NULL
     }
 
     basic_structure <- col_info[, c("barcode", "sample_id")]
     projections_list <- lapply(visium_analysis$projections, function(x) {
-
         merged_projection <- merge(basic_structure, x, sort = FALSE, all = TRUE)
         key_projection <- paste0(merged_projection$barcode, "_", merged_projection$sample_id)
         m_proj <- match(key_spe, key_projection)

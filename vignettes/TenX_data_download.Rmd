@@ -488,7 +488,7 @@ spe_wrapper <- read10xVisiumWrapper(
 ## Run our shiny app
 if (interactive()) {
     vars <- colnames(colData(spe_wrapper))
-    
+
     run_app(
         spe_wrapper,
         sce_layer = NULL,

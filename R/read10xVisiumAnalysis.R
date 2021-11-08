@@ -24,20 +24,20 @@
 #'
 #' ## Note that ?SpatialExperiment::read10xVisium doesn't include all the files
 #' ## we need to illustrate read10xVisiumWrapper().
-read10xVisiumAnalysis <- function(
-    samples = "",
-    sample_id = paste0("sample", sprintf("%02d", seq_along(samples)))
-) {
+read10xVisiumAnalysis <- function(samples = "",
+    sample_id = paste0("sample", sprintf("%02d", seq_along(samples)))) {
 
     # check sample identifiers
     if (is.null(sids <- names(samples))) {
         if (is.null(sids <- sample_id)) {
             stop("'sample_id' mustn't be NULL when 'samples' are unnamed")
-        } else if (!is.character(sample_id)
-            && length(unique(sample_id)) != length(samples))
-            stop("'sample_id' should contain as many unique values as 'samples'")
-    } else if (length(unique(sids)) != length(samples))
-        stop("names of 'samples' should be unique")
+        } else if (!is.character(sample_id) &&
+            length(unique(sample_id)) != length(samples)) {
+              stop("'sample_id' should contain as many unique values as 'samples'")
+          }
+    } else if (length(unique(sids)) != length(samples)) {
+          stop("names of 'samples' should be unique")
+      }
     names(samples) <- sids
 
     dir <- file.path(samples, "analysis")
@@ -84,7 +84,6 @@ read10xVisiumAnalysis <- function(
 
     projection_names <- unique(unlist(lapply(projection_all, names)))
     projections_combined <- lapply(projection_names, function(projection_name) {
-
         one_projection_list <- lapply(projection_all, "[[", projection_name)
         do.call(rbind, one_projection_list)
     })
@@ -95,7 +94,6 @@ read10xVisiumAnalysis <- function(
     colnames(clusters_all)[cluster_cols] <- paste0("10x_", colnames(clusters_all)[cluster_cols])
 
     return(list(clusters = clusters_all, projections = projections_combined))
-
 }
 
 
@@ -103,9 +101,8 @@ read_barcoded_csv <- function(x) {
     df <- read.csv(x)
     colnames(df) <- tolower(colnames(df))
 
-    if(colnames(df)[2] == "cluster") {
+    if (colnames(df)[2] == "cluster") {
         colnames(df)[2] <- basename(dirname(x))
     }
     return(df)
 }
-

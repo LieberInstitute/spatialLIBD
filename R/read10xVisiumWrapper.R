@@ -41,8 +41,7 @@
 #'
 #' ## Note that ?SpatialExperiment::read10xVisium doesn't include all the files
 #' ## we need to illustrate read10xVisiumWrapper().
-read10xVisiumWrapper <- function(
-    samples = "",
+read10xVisiumWrapper <- function(samples = "",
     sample_id = paste0("sample", sprintf("%02d", seq_along(samples))),
     type = c("HDF5", "sparse"),
     data = c("filtered", "raw"),
@@ -51,12 +50,10 @@ read10xVisiumWrapper <- function(
     reference_gtf = NULL,
     chrM = "chrM",
     gtf_cols = c("source", "type", "gene_id", "gene_version", "gene_name", "gene_type"),
-    verbose = TRUE
-) {
-
+    verbose = TRUE) {
     stopifnot(all(c("gene_name", "gene_id") %in% gtf_cols))
 
-    if(missing(reference_gtf)) {
+    if (missing(reference_gtf)) {
         summary_file <- file.path(samples[1], "web_summary.html")
         web <- readLines(summary_file)
         reference_path <- gsub('.*"', "", regmatches(web, regexpr('\\["Reference Path", "[/|A-z|0-9|-]+', web)))
@@ -64,7 +61,7 @@ read10xVisiumWrapper <- function(
     }
     stopifnot(file.exists(reference_gtf))
 
-    if(verbose) message(Sys.time(), " read10xVisium: reading basic data from SpaceRanger")
+    if (verbose) message(Sys.time(), " read10xVisium: reading basic data from SpaceRanger")
     spe <- SpatialExperiment::read10xVisium(
         samples = samples,
         sample_id = sample_id,
@@ -74,32 +71,32 @@ read10xVisiumWrapper <- function(
         load = load
     )
 
-    if(verbose) message(Sys.time(), " SpatialExperiment::read10xVisiumAnalysis: reading analysis output from SpaceRanger")
+    if (verbose) message(Sys.time(), " SpatialExperiment::read10xVisiumAnalysis: reading analysis output from SpaceRanger")
     visium_analysis <- read10xVisiumAnalysis(
         samples = samples,
         sample_id = sample_id
     )
 
-    if(verbose) message(Sys.time(), " add10xVisiumAnalysis: adding analysis output from SpaceRanger")
+    if (verbose) message(Sys.time(), " add10xVisiumAnalysis: adding analysis output from SpaceRanger")
     spe <- add10xVisiumAnalysis(spe, visium_analysis)
 
     ## Read in the gene information from the annotation GTF file
-    if(verbose) message(Sys.time(), " rtracklayer::import: reading the reference GTF file")
+    if (verbose) message(Sys.time(), " rtracklayer::import: reading the reference GTF file")
     gtf <- rtracklayer::import(reference_gtf)
     gtf <- gtf[gtf$type == "gene"]
     names(gtf) <- gtf$gene_id
 
     ## Match the genes
-    if(verbose) message(Sys.time(), " adding gene information to the SPE object")
+    if (verbose) message(Sys.time(), " adding gene information to the SPE object")
     match_genes <- match(rownames(spe), gtf$gene_id)
 
-    if(all(is.na(match_genes))) {
+    if (all(is.na(match_genes))) {
         ## Protect against scenario where one set has GENCODE IDs and the other one has ENSEMBL IDs.
         warning("Gene IDs did not match. This typically happens when you are not using the same GTF file as the one that was used by SpaceRanger.", call. = FALSE)
         match_genes <- match(gsub("\\..*", "", rownames(spe)), gsub("\\..*", "", gtf$gene_id))
     }
 
-    if(any(is.na(match_genes))) {
+    if (any(is.na(match_genes))) {
         warning("Dropping ", sum(is.na(match_genes)), " out of ", length(match_genes), " genes for which we don't have information on the reference GTF file. This typically happens when you are not using the same GTF file as the one that was used by SpaceRanger.", call. = FALSE)
         ## Drop the few genes for which we don't have information
         spe <- spe[!is.na(match_genes), ]
@@ -113,8 +110,8 @@ read10xVisiumWrapper <- function(
     rowRanges(spe) <- gtf[match_genes]
 
     ## Add information used by spatialLIBD
-    if(verbose) message(Sys.time(), " adding information used by spatialLIBD")
-    spe$key <- paste0(colnames(spe), '_', spe$sample_id)
+    if (verbose) message(Sys.time(), " adding information used by spatialLIBD")
+    spe$key <- paste0(colnames(spe), "_", spe$sample_id)
     spe$sum_umi <- colSums(counts(spe))
     spe$sum_gene <- colSums(counts(spe) > 0)
     rowData(spe)$gene_search <- paste0(rowData(spe)$gene_name, "; ", rowData(spe)$gene_id)
