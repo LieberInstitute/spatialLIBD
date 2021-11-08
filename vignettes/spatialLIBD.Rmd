@@ -52,6 +52,7 @@ bib <- c(
     DT = citation("DT")[1],
     ExperimentHub = citation("ExperimentHub")[1],
     fields = citation("fields")[1],
+    GenomicRanges = citation("GenomicRanges")[1],
     ggplot2 = citation("ggplot2")[1],
     golem = citation("golem")[1],
     IRanges = citation("IRanges")[1],
@@ -566,6 +567,7 @@ The `r Biocpkg('spatialLIBD')` package `r Citep(bib[['spatialLIBD']])` was made 
 * `r CRANpkg('DT')` `r Citep(bib[['DT']])`
 * `r Biocpkg('ExperimentHub')` `r Citep(bib[['ExperimentHub']])`
 * `r CRANpkg('fields')` `r Citep(bib[['fields']])`
+* `r Biocpkg('GenomicRanges')` `r Citep(bib[['GenomicRanges']])`
 * `r CRANpkg('ggplot2')` `r Citep(bib[['ggplot2']])`
 * `r CRANpkg('golem')` `r Citep(bib[['golem']])`
 * `r Biocpkg('IRanges')` `r Citep(bib[['IRanges']])`

@@ -61,8 +61,12 @@ Imports:
     SingleCellExperiment,
     BiocFileCache,
     jsonlite,
-    tibble
-RoxygenNote: 7.1.1
+    tibble,
+    rtracklayer,
+    Matrix,
+    BiocGenerics,
+    GenomicRanges
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/LieberInstitute/spatialLIBD
 BugReports: https://support.bioconductor.org/t/spatialLIBD

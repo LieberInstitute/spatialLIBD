@@ -28,7 +28,10 @@
 #' @importFrom SpatialExperiment read10xVisium
 #' @importFrom rtracklayer import
 #' @importMethodsFrom Matrix colSums
+#' @importFrom SummarizedExperiment "rowRanges<-" "rowData<-"
+#' @importFrom S4Vectors "mcols<-" mcols
 #' @importFrom BiocGenerics which
+#' @importFrom GenomicRanges seqnames
 #' @family Utility functions for reading data from SpaceRanger output by 10x
 #' Genomics
 #'
