@@ -95,7 +95,7 @@ read10xVisiumWrapper <- function(samples = "",
 
     if (all(is.na(match_genes))) {
         ## Protect against scenario where one set has GENCODE IDs and the other one has ENSEMBL IDs.
-        warning("Gene IDs did not match. This typically happens when you are not using the same GTF file as the one that was used by SpaceRanger.", call. = FALSE)
+        warning("Gene IDs did not match. This typically happens when you are not using the same GTF file as the one that was used by SpaceRanger. For example, one file uses GENCODE IDs and the other one ENSEMBL IDs. read10xVisiumWrapper() will try to convert them to ENSEMBL IDs.", call. = FALSE)
         match_genes <- match(gsub("\\..*", "", rownames(spe)), gsub("\\..*", "", gtf$gene_id))
     }
 

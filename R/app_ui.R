@@ -539,20 +539,22 @@ app_ui <- function() {
                     verbatimTextOutput("session_info")
                 )
             ),
-            hr(),
-            tagList(includeHTML(
-                file.path(resourcePaths()["www"], "footer.html")
-            )),
-            tags$br(),
-            tags$br(),
-            tags$br(),
-            tags$br(),
-            tags$br(),
-            tags$br(),
-            tags$br(),
-            tags$br(),
-            tags$br(),
-            tags$br()
+            footer = tagList(
+                hr(),
+                includeHTML(
+                    file.path(resourcePaths()["www"], "footer.html")
+                ),
+                tags$br(),
+                tags$br(),
+                tags$br(),
+                tags$br(),
+                tags$br(),
+                tags$br(),
+                tags$br(),
+                tags$br(),
+                tags$br(),
+                tags$br()
+            )
         )
     )
 }

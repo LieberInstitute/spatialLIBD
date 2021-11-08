@@ -433,6 +433,39 @@ docs_path
 list.files(docs_path)
 ```
 
+# Wrapper functions
+
+To facilitate reading in the data and preparing it to visualize it interactively using `spatialLIBD::run_app()`, we implemented `read10xVisiumWrapper()` which expands `SpatialExperiment::read10xVisium()` and performs the steps described in this vignette.
+
+```{r wrapper_functions}
+## Import the data as a SpatialExperiment object
+spe_wrapper <- read10xVisiumWrapper(
+    samples = tempdir(),
+    sample_id = "lymph",
+    type = "sparse", data = "filtered",
+    images = c("lowres", "highres"), load = TRUE,
+    reference_gtf = gtf_cache
+)
+```
+
+```{r "run_shiny_app_wrapper"}
+## Run our shiny app
+if (interactive()) {
+    vars <- colnames(colData(spe_wrapper))
+
+    run_app(
+        spe_wrapper,
+        sce_layer = NULL,
+        modeling_results = NULL,
+        sig_genes = NULL,
+        title = "spatialLIBD: human lymph node by 10x Genomics (made with wrapper)",
+        spe_discrete_vars = c(vars[grep("10x_", vars)], "ManualAnnotation"),
+        spe_continuous_vars = c("sum_umi", "sum_gene", "expr_chrM", "expr_chrM_ratio"),
+        default_cluster = "10x_graphclust"
+    )
+}
+```
+
 # Limitations
 
 `spatialLIBD::run_app()` has limitations that are inherent to the methods used to implement it, such as:
@@ -469,38 +502,6 @@ When you construct the SpatialExperiment `spe` object with `r Biocpkg("SpatialEx
 
 While the documentation, title, icon and HTML footer are all customizable at `spatialLIBD::run_app()`, ultimately the panels shown are not unless you fork and adapt the internal code of this package. Thus, the interactive web applications powered by `r Biocpkg("spatialLIBD")` are not as easy to customize as say `r Biocpkg("iSEE")` web applications are. We think of our web application as a good enough prototype that can be useful for initial explorations of 10x Genomics Visium data. We welcome additions to our code, though we recognize that you might want to build your own production-level solution.
 
-## Wrapper functions
-
-To facilitate reading in the data and preparing it to visualize it interactively using `spatialLIBD::run_app()`, we implemented `read10xVisiumWrapper()` which expands `SpatialExperiment::read10xVisium()` and performs the steps described in this vignette.
-
-```{r wrapper_functions}
-## Import the data as a SpatialExperiment object
-spe_wrapper <- read10xVisiumWrapper(
-    samples = tempdir(),
-    sample_id = "lymph",
-    type = "sparse", data = "filtered",
-    images = c("lowres", "highres"), load = TRUE,
-    reference_gtf = gtf_cache
-)
-```
-
-```{r "run_shiny_app_wrapper"}
-## Run our shiny app
-if (interactive()) {
-    vars <- colnames(colData(spe_wrapper))
-
-    run_app(
-        spe_wrapper,
-        sce_layer = NULL,
-        modeling_results = NULL,
-        sig_genes = NULL,
-        title = "spatialLIBD: human lymph node by 10x Genomics (made with wrapper)",
-        spe_discrete_vars = c(vars[grep("10x_", vars)], "ManualAnnotation"),
-        spe_continuous_vars = c("sum_umi", "sum_gene", "expr_chrM", "expr_chrM_ratio"),
-        default_cluster = "10x_graphclust"
-    )
-}
-```
 
 # Reproducibility
 

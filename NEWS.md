@@ -1,3 +1,11 @@
+# spatialLIBD 1.7.2
+
+BUG FIXES
+
+* Fixed an issue introduced by newer versions of `shiny`. This version of
+`spatialLIBD` works with `shiny` version 1.7.1, though it's likely backwards
+compatible. Resolves https://github.com/LieberInstitute/spatialLIBD/issues/24.
+
 # spatialLIBD 1.7.1
 
 NEW FEATURES
