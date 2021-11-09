@@ -212,6 +212,7 @@ app_server <- function(input, output, session) {
                 spe,
                 sampleid = input$sampleid,
                 image_id = input$imageid,
+                channel = input$editImg_channel,
                 brightness = input$editImg_brightness,
                 saturation = input$editImg_saturation,
                 hue = input$editImg_hue,
@@ -223,6 +224,7 @@ app_server <- function(input, output, session) {
                 equalize = input$editImg_equalize,
                 transparent_color = input$editImg_transparent_color,
                 transparent_fuzz = input$editImg_transparent_fuzz,
+                background_color = input$editImg_background_color,
                 median_radius = input$editImg_median_radius,
                 negate = input$editImg_negate
             )
@@ -236,6 +238,7 @@ app_server <- function(input, output, session) {
                 image_id = input$imageid,
                 new_image_id = "edited_imaged",
                 overwrite = input$editImg_overwrite,
+                channel = input$editImg_channel,
                 brightness = input$editImg_brightness,
                 saturation = input$editImg_saturation,
                 hue = input$editImg_hue,
@@ -247,6 +250,7 @@ app_server <- function(input, output, session) {
                 equalize = input$editImg_equalize,
                 transparent_color = input$editImg_transparent_color,
                 transparent_fuzz = input$editImg_transparent_fuzz,
+                background_color = input$editImg_background_color,
                 median_radius = input$editImg_median_radius,
                 negate = input$editImg_negate
             )
