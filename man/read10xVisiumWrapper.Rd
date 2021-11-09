@@ -9,7 +9,7 @@ read10xVisiumWrapper(
   sample_id = paste0("sample", sprintf("\%02d", seq_along(samples))),
   type = c("HDF5", "sparse"),
   data = c("filtered", "raw"),
-  images = "lowres",
+  images = c("lowres", "hires", "detected", "aligned"),
   load = TRUE,
   reference_gtf = NULL,
   chrM = "chrM",

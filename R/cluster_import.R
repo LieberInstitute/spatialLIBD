@@ -44,7 +44,7 @@ cluster_import <- function(spe, cluster_dir = file.path(tempdir(), "exported_clu
     colnames(clusters)[cluster_cols] <- paste0(prefix, colnames(clusters)[cluster_cols])
 
     if ("key" %in% colnames(colData(spe))) {
-        warning("Overwriting 'key'", call. = FALSE)
+        warning("Overwriting 'spe$key'", call. = FALSE)
     }
     spe$key <- paste0(colnames(spe), "_", spe$sample_id)
 

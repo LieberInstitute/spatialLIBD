@@ -83,7 +83,8 @@ use in the background.}
 \link[magick:color]{magick::negate}.}
 }
 \value{
-
+A \code{magick} image object such as the one returned by
+\link[magick:editing]{magick::image_read}.
 }
 \description{
 This function uses the \code{magick} package to edit the color and perform other
@@ -101,7 +102,8 @@ if (enough_ram()) {
     if (!exists("spe")) spe <- fetch_data("spe")
 
     ## Reduce brightness to 25\%
-    img_edit(spe, sampleid = "151507", brightness = 25)
+    x <- img_edit(spe, sampleid = "151507", brightness = 25)
+    plot(x)
 }
 }
 \seealso{
