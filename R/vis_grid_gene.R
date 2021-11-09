@@ -46,6 +46,7 @@ vis_grid_gene <-
     height = 24,
     width = 36,
     image_id = "lowres",
+    alpha = 1,
     ...) {
         stopifnot("gene_search" %in% colnames(rowData(spe)))
         plots <- lapply(unique(spe$sample_id), function(sampleid) {
@@ -58,6 +59,7 @@ vis_grid_gene <-
                 minCount,
                 viridis,
                 image_id = image_id,
+                alpha = alpha,
                 ...
             )
         })

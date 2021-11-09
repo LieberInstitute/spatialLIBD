@@ -11,7 +11,8 @@ vis_gene_p(
   spatial,
   title,
   viridis = TRUE,
-  image_id = "lowres"
+  image_id = "lowres",
+  alpha = 1
 )
 }
 \arguments{
@@ -44,6 +45,9 @@ dependent on cell density.}
 
 \item{image_id}{A \code{character(1)} with the name of the image ID you want to
 use in the background.}
+
+\item{alpha}{A \code{numeric(1)} in the \verb{[0, 1]} range that specifies the
+transparency level of the data on the spots.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2} object.

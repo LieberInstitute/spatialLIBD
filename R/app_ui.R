@@ -85,6 +85,16 @@ app_ui <- function() {
                         helpText("The name of the background image you want to visualize."),
                         hr(),
                         numericInput(
+                            "alphalevel",
+                            "Spot transparency level",
+                            value = 1,
+                            min = 0,
+                            max = 1,
+                            step = 0.1
+                        ),
+                        helptext("Use values between 0 (transparent) to 1 (full color)."),
+                        hr(),
+                        numericInput(
                             inputId = "minCount",
                             label = "Minimum count value",
                             value = 0,

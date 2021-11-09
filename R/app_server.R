@@ -57,8 +57,6 @@ app_server <- function(input, output, session) {
         return(res)
     }
 
-
-
     cluster_colors <- reactive({
         colors <- NULL
         if (input$cluster %in% c("Maynard", "Martinowich")) {
@@ -93,13 +91,14 @@ app_server <- function(input, output, session) {
             spe$ManualAnnotation <- rv$ManualAnnotation
         }
         p <- vis_clus(
-                spe,
-                sampleid = input$sample,
-                clustervar = input$cluster,
-                colors = cluster_colors(),
-                image_id = input$imageid,
-                ... = paste(" with", input$cluster)
-            )
+            spe,
+            sampleid = input$sample,
+            clustervar = input$cluster,
+            colors = cluster_colors(),
+            image_id = input$imageid,
+            alpha = input$alphalevel,
+            ... = paste(" with", input$cluster)
+        )
         if (!input$side_by_side_histology) {
             return(p)
         } else {
@@ -115,7 +114,6 @@ app_server <- function(input, output, session) {
                 ), nrow = 1, ncol = 2
             )
         }
-
     })
 
     static_histology_grid <- reactive({
@@ -134,6 +132,7 @@ app_server <- function(input, output, session) {
                 colors = cluster_colors(),
                 return_plots = TRUE,
                 image_id = input$imageid,
+                alpha = input$alphalevel,
                 ... = paste(" with", isolate(input$cluster))
             )
         cowplot::plot_grid(
@@ -151,7 +150,8 @@ app_server <- function(input, output, session) {
             assayname = input$assayname,
             minCount = input$minCount,
             viridis = input$genecolor == "viridis",
-            image_id = input$imageid
+            image_id = input$imageid,
+            alpha = input$alphalevel
         )
         if (!input$side_by_side_gene) {
             return(p)
@@ -183,7 +183,8 @@ app_server <- function(input, output, session) {
                 minCount = isolate(input$minCount),
                 return_plots = TRUE,
                 viridis = isolate(input$genecolor == "viridis"),
-                image_id = input$imageid
+                image_id = input$imageid,
+                alpha = input$alphalevel
             )
         cowplot::plot_grid(
             plotlist = plots,
@@ -436,7 +437,8 @@ app_server <- function(input, output, session) {
                 "min >",
                 minCount
             ),
-            image_id = input$imageid
+            image_id = input$imageid,
+            alpha = input$alphalevel
         )
 
         ## Next the gene plot
@@ -447,7 +449,8 @@ app_server <- function(input, output, session) {
             spatial = FALSE,
             title = "",
             viridis = genecolor == "viridis",
-            image_id = input$imageid
+            image_id = input$imageid,
+            alpha = input$alphalevel
         )
 
         ## Make the reduced dimensions ggplot
@@ -686,7 +689,8 @@ app_server <- function(input, output, session) {
                 minCount = input$minCount,
                 spatial = FALSE,
                 viridis = input$genecolor == "viridis",
-                image_id = input$imageid
+                image_id = input$imageid,
+                alpha = input$alphalevel
             )
 
         ## Read in the histology image

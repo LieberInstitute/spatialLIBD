@@ -48,7 +48,8 @@ vis_clus_p <-
     colors,
     spatial,
     title,
-    image_id = "lowres") {
+    image_id = "lowres",
+    alpha = 1) {
 
         ## Some variables
         pxl_row_in_fullres <- pxl_col_in_fullres <- key <- NULL
@@ -87,8 +88,9 @@ vis_clus_p <-
             geom_point(
                 shape = 21,
                 size = 1.25,
-                stroke = 0.25,
-                colour = "transparent"
+                stroke = 0,
+                colour = "transparent",
+                alpha = alpha
             ) +
             coord_cartesian(expand = FALSE) +
             scale_fill_manual(values = colors) +
