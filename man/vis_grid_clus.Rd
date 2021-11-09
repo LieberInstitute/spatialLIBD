@@ -15,6 +15,7 @@ vis_grid_clus(
   height = 24,
   width = 36,
   image_id = "lowres",
+  alpha = 1,
   ...
 )
 }
@@ -51,6 +52,9 @@ layer from \code{\link[=geom_spatial]{geom_spatial()}}. If you plan to use
 
 \item{image_id}{A \code{character(1)} with the name of the image ID you want to
 use in the background.}
+
+\item{alpha}{A \code{numeric(1)} in the \verb{[0, 1]} range that specifies the
+transparency level of the data on the spots.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}

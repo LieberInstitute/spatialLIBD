@@ -8,6 +8,8 @@ https://github.com/LieberInstitute/spatialLIBD/issues/25.
 * Added options for side by side visualization of the background image and the
 clusters or gene expression values in the static versions. Resolves
 https://github.com/LieberInstitute/spatialLIBD/issues/19.
+* Allow changing the transparency level of the spots with the `alpha` argument.
+Resolves https://github.com/LieberInstitute/spatialLIBD/issues/20.
 
 # spatialLIBD 1.7.2
 
