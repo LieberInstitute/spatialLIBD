@@ -45,6 +45,8 @@ Throughout the rest of this document, we'll refer to this object by the name `sp
 * `Reduced dimensions`: which reduced dimension to visualize on the `clusters (interactive)` tab. Only the first two dimensions will be shown.
 * `Continuous variable to plot`: which gene or continuous variable (such as the cell count, the ratio of the mitochondrial chromosome expression) to visualize in the gene tabs as well as on the `clusters (interactive)` tab.
 * `Gene scale`: whether to use the raw expression values (`counts`) or the scaled and log transformed values (`logcounts`).
+* `Image name`: the name of the background image to use. You can edit this image on the `Edit image` tab.
+* `Spot transparency level`: the transparency of the spots in the visualizations. It can be useful if the spot colors are blocking the background image.
 * `Minimum count value`: Values from the selected `continuous variable to plot` at or below this threshold will not be displayed.
 * `Gene color scale`: Whether to use the color blind friendly palette (`viridis`) or to use a custom palette that we used for our `paper`.
 
@@ -52,7 +54,7 @@ We will cover the download button and upload CSV options at the end of this docu
 
 ## Clusters (static)
 
-Displays the selected cluster variable (from `discrete variable to plot`) for the given sample (from `samples to plot`). 
+Displays the selected cluster variable (from `discrete variable to plot`) for the given sample (from `samples to plot`). You can also choose to see the background image and clusters side to side.
 
 ```{r}
 ## Reproduce locally with
@@ -84,7 +86,7 @@ spatialLIBD::vis_grid_clus()
 
 ## Gene (static)
 
-This tab is similar to `clusters (static)` but instead of displaying discrete values (like clusters), it displays continuous values such as the gene expression of a given gene or the number of cells per spot. By default, spots whose value is below or at 0 are not shown, which makes it easier for you to distinguish points with low values from those below the threshold of your interest (controlled by `minimum count value`). The points can be colored in two different color scales.
+This tab is similar to `clusters (static)` but instead of displaying discrete values (like clusters), it displays continuous values such as the gene expression of a given gene or the number of cells per spot. By default, spots whose value is below or at 0 are not shown, which makes it easier for you to distinguish points with low values from those below the threshold of your interest (controlled by `minimum count value`). The points can be colored in two different color scales. You can also choose to see the background image and continuous values side to side.
 
 ```{r}
 ## Reproduce locally with
@@ -104,6 +106,15 @@ This is the equivalent of `clusters grid (static)` but for continuous variables,
 ```{r}
 ## Reproduce locally with
 spatialLIBD::vis_grid_gene()
+```
+
+## Edit image
+
+This panel shows you all the options we have for manipulating the colors and properties of the selected background image. These results will be available under the `edited_image` option in the image chooser menu. You can perform sequential manipulations of the image, though it will get hard to keep track of all the changes you made.
+
+```{r}
+## Reproduce locally with
+spatialLIBD::img_update_all()
 ```
 
 ## Saving and uploading your `spe$ManualAnnotation` results
