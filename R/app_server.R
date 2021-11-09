@@ -193,6 +193,54 @@ app_server <- function(input, output, session) {
         )
     })
 
+    editImg_manipulations <- reactive({
+        edited_imaged <-
+            img_edit(
+                spe,
+                sampleid = input$sampleid,
+                image_id = input$imageid,
+                brightness = input$editImg_brightness,
+                saturation = input$editImg_saturation,
+                hue = input$editImg_hue,
+                enhance = input$editImg_enhance,
+                normalize = input$editImg_normalize,
+                contrast_sharpen = input$editImg_contrast_sharpen,
+                quantize_max = input$editImg_quantize_max,
+                quantize_dither = input$editImg_quantize_dither,
+                equalize = input$editImg_equalize,
+                transparent_color = input$editImg_transparent_color,
+                transparent_fuzz = input$editImg_transparent_fuzz,
+                median_radius = input$editImg_median_radius,
+                negate = input$editImg_negate
+            )
+        as.raster(edited_imaged)
+    })
+
+    observeEvent(input$editImg_update, {
+        spe <<-
+            img_update_all(
+                spe,
+                image_id = input$imageid,
+                new_image_id = "edited_imaged",
+                overwrite = input$editImg_overwrite,
+                brightness = input$editImg_brightness,
+                saturation = input$editImg_saturation,
+                hue = input$editImg_hue,
+                enhance = input$editImg_enhance,
+                normalize = input$editImg_normalize,
+                contrast_sharpen = input$editImg_contrast_sharpen,
+                quantize_max = input$editImg_quantize_max,
+                quantize_dither = input$editImg_quantize_dither,
+                equalize = input$editImg_equalize,
+                transparent_color = input$editImg_transparent_color,
+                transparent_fuzz = input$editImg_transparent_fuzz,
+                median_radius = input$editImg_median_radius,
+                negate = input$editImg_negate
+            )
+    })
+
+
+
     ## Download static plots as PDFs
     output$downloadPlotHistology <- downloadHandler(
         filename = function() {
@@ -306,6 +354,34 @@ app_server <- function(input, output, session) {
         }
     )
 
+    output$downloadPlotEditImg <- downloadHandler(
+        filename = function() {
+            gsub(
+                " ",
+                "_",
+                paste0(
+                    "spatialLIBD_editedImage_",
+                    input$imageid,
+                    "_",
+                    input$sample,
+                    "_",
+                    Sys.time(),
+                    ".pdf"
+                )
+            )
+        },
+        content = function(file) {
+            pdf(
+                file = file,
+                useDingbats = FALSE,
+                height = 8,
+                width = 8
+            )
+            plot(editImg_manipulations())
+            dev.off()
+        }
+    )
+
     ## Clusters/Layers
     output$histology <- renderPlot(
         {
@@ -360,6 +436,14 @@ app_server <- function(input, output, session) {
         },
         width = "auto",
         height = "auto"
+    )
+
+    output$editImg_plot <- renderPlot(
+        {
+            plot(editImg_manipulations())
+        },
+        width = 600,
+        height = 600
     )
 
 

@@ -10,6 +10,10 @@ clusters or gene expression values in the static versions. Resolves
 https://github.com/LieberInstitute/spatialLIBD/issues/19.
 * Allow changing the transparency level of the spots with the `alpha` argument.
 Resolves https://github.com/LieberInstitute/spatialLIBD/issues/20.
+* Add support for image manipulation with the `magick` package. Adds functions
+`img_edit()`, `img_update()` and `img_update_all()` as well as new features
+on the web application. Resolves
+https://github.com/LieberInstitute/spatialLIBD/issues/21.
 
 # spatialLIBD 1.7.2
 

@@ -58,6 +58,7 @@ bib <- c(
     golem = citation("golem")[1],
     IRanges = citation("IRanges")[1],
     knitr = citation("knitr")[3],
+    magick = citation("magick")[1],
     Matrix = citation("Matrix")[1],
     plotly = citation("plotly")[1],
     Polychrome = citation("Polychrome")[1],
@@ -576,6 +577,7 @@ The `r Biocpkg('spatialLIBD')` package `r Citep(bib[['spatialLIBD']])` was made 
 * `r CRANpkg('golem')` `r Citep(bib[['golem']])`
 * `r Biocpkg('IRanges')` `r Citep(bib[['IRanges']])`
 * `r CRANpkg('knitr')` `r Citep(bib[['knitr']])`
+* `r CRANpkg('magick')` `r Citep(bib[['magick']])`
 * `r CRANpkg('Matrix')` `r Citep(bib[['Matrix']])`
 * `r CRANpkg('plotly')` `r Citep(bib[['plotly']])`
 * `r CRANpkg('Polychrome')` `r Citep(bib[['Polychrome']])`
