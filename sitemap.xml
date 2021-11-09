@@ -31,6 +31,9 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/add10xVisiumAnalysis.html</loc>
+  </url>
+  <url>
     <loc>/reference/check_modeling_results.html</loc>
   </url>
   <url>
@@ -41,6 +44,12 @@
   </url>
   <url>
     <loc>/reference/check_spe.html</loc>
+  </url>
+  <url>
+    <loc>/reference/cluster_export.html</loc>
+  </url>
+  <url>
+    <loc>/reference/cluster_import.html</loc>
   </url>
   <url>
     <loc>/reference/enough_ram.html</loc>
@@ -61,6 +70,15 @@
     <loc>/reference/get_colors.html</loc>
   </url>
   <url>
+    <loc>/reference/img_edit.html</loc>
+  </url>
+  <url>
+    <loc>/reference/img_update.html</loc>
+  </url>
+  <url>
+    <loc>/reference/img_update_all.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
@@ -77,6 +95,12 @@
   </url>
   <url>
     <loc>/reference/libd_layer_colors.html</loc>
+  </url>
+  <url>
+    <loc>/reference/read10xVisiumAnalysis.html</loc>
+  </url>
+  <url>
+    <loc>/reference/read10xVisiumWrapper.html</loc>
   </url>
   <url>
     <loc>/reference/run_app.html</loc>

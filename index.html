@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.3</span>
       </span>
     </div>
 
@@ -75,7 +75,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/LieberInstitute/spatialLIBD/">
+  <a href="https://github.com/LieberInstitute/spatialLIBD/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -92,9 +92,8 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="spatiallibd-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#spatiallibd-" class="anchor" aria-hidden="true"></a>spatialLIBD <img src="reference/figures/logo.png" align="right">
+<div class="section level1">
+<div class="page-header"><h1 id="spatiallibd-">spatialLIBD <img src="reference/figures/logo.png" align="right"><a class="anchor" aria-label="anchor" href="#spatiallibd-"></a>
 </h1></div>
 <!-- badges: start -->
 
@@ -106,9 +105,9 @@
 </ul>
 <p>The web application allows you to browse the LIBD human dorsolateral pre-frontal cortex (DLPFC) spatial transcriptomics data generated with the 10x Genomics Visium platform. Through the <a href="https://bioconductor.org/packages/spatialLIBD" class="external-link">R/Bioconductor package</a> you can also download the data as well as visualize your own datasets using this web application. Please check the <a href="https://doi.org/10.1038/s41593-020-00787-0" class="external-link">manuscript</a> or <a href="https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1" class="external-link">bioRxiv pre-print</a> for more details about this project.</p>
 If you tweet about this website, the data or the R package please use the <code>#spatialLIBD</code> hashtag. You can find previous tweets that way as shown <a href="https://twitter.com/search?q=%23spatialLIBD&amp;src=typed_query" class="external-link">here</a>. Thank you! <a href="https://twitter.com/intent/tweet?button_hashtag=spatialLIBD&amp;ref_src=twsrc%5Etfw" class="external-link twitter-hashtag-button" data-show-count="false">Tweet #spatialLIBD</a>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><div id="study-design" class="section level2">
-<h2 class="hasAnchor">
-<a href="#study-design" class="anchor" aria-hidden="true"></a>Study design</h2>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><div class="section level2">
+<h2 id="study-design">Study design<a class="anchor" aria-label="anchor" href="#study-design"></a>
+</h2>
 <p>As a quick overview, the data presented here is from portion of the DLPFC that spans six neuronal layers plus white matter (<strong>A</strong>) for a total of three subjects with two pairs of spatially adjacent replicates (<strong>B</strong>). Each dissection of DLPFC was designed to span all six layers plus white matter (<strong>C</strong>). Using this web application you can explore the expression of known genes such as <em>SNAP25</em> (<strong>D</strong>, a neuronal gene), <em>MOBP</em> (<strong>E</strong>, an oligodendrocyte gene), and known layer markers from mouse studies such as <em>PCP4</em> (<strong>F</strong>, a known layer 5 marker gene).</p>
 <p><img src="reference/figures/paper_figure1.jpg" align="center" width="800px"></p>
 <p>This web application was built such that we could annotate the spots to layers as you can see under the <strong>spot-level data</strong> tab. Once we annotated each spot to a layer, we compressed the information by a pseudo-bulking approach into <strong>layer-level data</strong>. We then analyzed the expression through a set of models whose results you can also explore through this web application. Finally, you can upload your own gene sets of interest as well as layer enrichment statistics and compare them with our LIBD Human DLPFC Visium dataset.</p>
@@ -125,9 +124,9 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">## in detail in the package vignette documentation</span>
 <span class="co">## at http://research.libd.org/spatialLIBD/.</span></code></pre></div>
 </div>
-<div id="shiny-website-mirrors" class="section level2">
-<h2 class="hasAnchor">
-<a href="#shiny-website-mirrors" class="anchor" aria-hidden="true"></a>Shiny website mirrors</h2>
+<div class="section level2">
+<h2 id="shiny-website-mirrors">Shiny website mirrors<a class="anchor" aria-label="anchor" href="#shiny-website-mirrors"></a>
+</h2>
 <ul>
 <li><a href="http://spatial.libd.org/spatialLIBD" class="external-link">Main shiny application website</a></li>
 <li><a href="https://jhubiostatistics.shinyapps.io/spatialLIBD/" class="external-link">Shinyapps</a></li>
@@ -135,9 +134,9 @@ If you tweet about this website, the data or the R package please use the <code>
 <li><a href="https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror02/" class="external-link">Shinyapps Mirror 2</a></li>
 </ul>
 </div>
-<div id="rbioconductor-package" class="section level2">
-<h2 class="hasAnchor">
-<a href="#rbioconductor-package" class="anchor" aria-hidden="true"></a>R/Bioconductor package</h2>
+<div class="section level2">
+<h2 id="rbioconductor-package">R/Bioconductor package<a class="anchor" aria-label="anchor" href="#rbioconductor-package"></a>
+</h2>
 <p>The <code>spatialLIBD</code> package contains functions for:</p>
 <ul>
 <li>Accessing the spatial transcriptomics data from the LIBD Human Pilot project (<a href="https://github.com/LieberInstitute/HumanPilot" class="external-link">code on GitHub</a>) generated with the Visium platform from 10x Genomics. The data is retrieved from <a href="http://bioconductor.org/" class="external-link">Bioconductor</a>’s <code>ExperimentHub</code>.</li>
@@ -146,9 +145,9 @@ If you tweet about this website, the data or the R package please use the <code>
 </ul>
 <p>For more details, please check the <a href="http://lieberinstitute.github.io/spatialLIBD" class="external-link">documentation website</a> or the Bioconductor package landing page <a href="https://bioconductor.org/packages/spatialLIBD" class="external-link">here</a>.</p>
 </div>
-<div id="installation-instructions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation-instructions" class="anchor" aria-hidden="true"></a>Installation instructions</h2>
+<div class="section level2">
+<h2 id="installation-instructions">Installation instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
+</h2>
 <p>Get the latest stable <code>R</code> release from <a href="http://cran.r-project.org/" class="external-link">CRAN</a>. Then install <code>spatialLIBD</code> from <a href="http://bioconductor.org/" class="external-link">Bioconductor</a> using the following code:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -160,13 +159,13 @@ If you tweet about this website, the data or the R package please use the <code>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"LieberInstitute/spatialLIBD"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="access-the-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#access-the-data" class="anchor" aria-hidden="true"></a>Access the data</h2>
+<div class="section level2">
+<h2 id="access-the-data">Access the data<a class="anchor" aria-label="anchor" href="#access-the-data"></a>
+</h2>
 <p>Through the <code>spatialLIBD</code> package you can access the processed data in it’s final R format. However, we also provide a table of links so you can download the raw data we received from 10x Genomics.</p>
-<div id="processed-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#processed-data" class="anchor" aria-hidden="true"></a>Processed data</h3>
+<div class="section level3">
+<h3 id="processed-data">Processed data<a class="anchor" aria-label="anchor" href="#processed-data"></a>
+</h3>
 <p>Using <code>spatialLIBD</code> you can access the Human DLPFC spatial transcriptomics data from the 10x Genomics Visium platform. For example, this is the code you can use to access the layer-level data. For more details, check the help file for <code><a href="reference/fetch_data.html">fetch_data()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Load the package</span>
@@ -209,9 +208,9 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-access_data-1.png" width="100%"></p>
 </div>
-<div id="raw-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#raw-data" class="anchor" aria-hidden="true"></a>Raw data</h3>
+<div class="section level3">
+<h3 id="raw-data">Raw data<a class="anchor" aria-label="anchor" href="#raw-data"></a>
+</h3>
 <p>You can access all the raw data through <a href="http://research.libd.org/globus/" class="external-link">Globus</a> (<code>jhpce#HumanPilot10x</code>). Furthermore, below you can find the links to the raw data we received from 10x Genomics.</p>
 <table class="table">
 <thead><tr class="header">
@@ -349,9 +348,9 @@ If you tweet about this website, the data or the R package please use the <code>
 </table>
 </div>
 </div>
-<div id="citation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#citation" class="anchor" aria-hidden="true"></a>Citation</h2>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
 <p>Below is the citation output from using <code>citation('spatialLIBD')</code> in R. Please run this yourself to check for any updates on how to cite <strong>spatialLIBD</strong>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"spatialLIBD"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -395,14 +394,14 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt;   }</span></code></pre></div>
 <p>Please note that the <code>spatialLIBD</code> was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.</p>
 </div>
-<div id="code-of-conduct" class="section level2">
-<h2 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor" aria-hidden="true"></a>Code of Conduct</h2>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
 <p>Please note that the spatialLIBD project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
-<div id="development-tools" class="section level2">
-<h2 class="hasAnchor">
-<a href="#development-tools" class="anchor" aria-hidden="true"></a>Development tools</h2>
+<div class="section level2">
+<h2 id="development-tools">Development tools<a class="anchor" aria-label="anchor" href="#development-tools"></a>
+</h2>
 <ul>
 <li>Continuous code testing is possible thanks to <a href="https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/" class="external-link">GitHub actions</a> through <em><a href="https://CRAN.R-project.org/package=usethis" class="external-link">usethis</a></em>, <em><a href="https://CRAN.R-project.org/package=remotes" class="external-link">remotes</a></em>, <em><a href="https://github.com/r-hub/sysreqs" class="external-link">sysreqs</a></em> and <em><a href="https://CRAN.R-project.org/package=rcmdcheck" class="external-link">rcmdcheck</a></em> customized to use <a href="https://www.bioconductor.org/help/docker/" class="external-link">Bioconductor’s docker containers</a> and <em><a href="https://bioconductor.org/packages/3.14/BiocCheck" class="external-link">BiocCheck</a></em>.</li>
 <li>Code coverage assessment is possible thanks to <a href="https://codecov.io/gh" class="external-link">codecov</a> and <em><a href="https://CRAN.R-project.org/package=covr" class="external-link">covr</a></em>.</li>
@@ -432,19 +431,16 @@ If you tweet about this website, the data or the R package please use the <code>
     <div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from BIOC at <br><a href="https://www.bioconductor.org/packages/spatialLIBD">https://​www.bioconductor.org/​packages/​spatialLIBD</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/LieberInstitute/spatialLIBD/">https://​github.com/​LieberInstitute/​spatialLIBD/​</a>
-</li>
-<li>Report a bug at <br><a href="https://support.bioconductor.org/t/spatialLIBD">https://​support.bioconductor.org/​t/​spatialLIBD</a>
-</li>
+<li><a href="https://www.bioconductor.org/packages/spatialLIBD" class="external-link">View on Bioconductor</a></li>
+<li><a href="https://github.com/LieberInstitute/spatialLIBD/" class="external-link">Browse source code</a></li>
+<li><a href="https://support.bioconductor.org/t/spatialLIBD" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
 <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/Artistic-2.0">Artistic-2.0</a></li>
+<li><a href="https://www.r-project.org/Licenses/Artistic-2.0" class="external-link">Artistic-2.0</a></li>
 </ul>
 </div>
 
@@ -466,8 +462,8 @@ If you tweet about this website, the data or the R package please use the <code>
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Leonardo Collado-Torres <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-2140-308X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">More on authors...</a></li>
+<li>Leonardo Collado-Torres <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-2140-308X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
@@ -496,7 +492,7 @@ If you tweet about this website, the data or the R package please use the <code>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
 </div>
 
       </footer>

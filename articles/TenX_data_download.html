@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.3</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
 
       
 
-      </header><script src="TenX_data_download_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Using spatialLIBD with 10x Genomics public datasets</h1>
@@ -102,21 +102,20 @@
       Lieber Institute for Brain Development, Johns Hopkins Medical CampusCenter for Computational Biology, Johns Hopkins University<br><a class="author_email" href="mailto:#"></a><a href="mailto:lcolladotor@gmail.com" class="email">lcolladotor@gmail.com</a>
       </address>
                   
-            <h4 data-toc-skip class="date">10 August 2021</h4>
+            <h4 data-toc-skip class="date">9 November 2021</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/vignettes/TenX_data_download.Rmd" class="external-link"><code>vignettes/TenX_data_download.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/vignettes/TenX_data_download.Rmd" class="external-link"><code>vignettes/TenX_data_download.Rmd</code></a></small>
       <div class="hidden name"><code>TenX_data_download.Rmd</code></div>
 
     </div>
 
     
     
-<div id="basics" class="section level1">
-<h1 class="hasAnchor">
-<a href="#basics" class="anchor" aria-hidden="true"></a>Basics</h1>
-<div id="install-spatiallibd" class="section level2">
-<h2 class="hasAnchor">
-<a href="#install-spatiallibd" class="anchor" aria-hidden="true"></a>Install <code>spatialLIBD</code>
+<div class="section level1">
+<h1 id="basics">Basics<a class="anchor" aria-label="anchor" href="#basics"></a>
+</h1>
+<div class="section level2">
+<h2 id="install-spatiallibd">Install <code>spatialLIBD</code><a class="anchor" aria-label="anchor" href="#install-spatiallibd"></a>
 </h2>
 <p><code>R</code> is an open-source statistical environment which can be easily modified to enhance its functionality via packages. <em><a href="https://bioconductor.org/packages/3.14/spatialLIBD" class="external-link">spatialLIBD</a></em> (Pardo, Spangler, Weber, Hicks, Jaffe, Martinowich, Maynard, and Collado-Torres, 2021) is an <code>R</code> package available via the <a href="http://bioconductor.org" class="external-link">Bioconductor</a> repository for packages. <code>R</code> can be installed on any operating system from <a href="https://cran.r-project.org/" class="external-link">CRAN</a> after which you can install <em><a href="https://bioconductor.org/packages/3.14/spatialLIBD" class="external-link">spatialLIBD</a></em> by using the following commands in your <code>R</code> session:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -129,14 +128,13 @@
 <span class="co">## Check that you have a valid Bioconductor installation</span>
 <span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/valid.html" class="external-link">valid</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="required-knowledge" class="section level2">
-<h2 class="hasAnchor">
-<a href="#required-knowledge" class="anchor" aria-hidden="true"></a>Required knowledge</h2>
+<div class="section level2">
+<h2 id="required-knowledge">Required knowledge<a class="anchor" aria-label="anchor" href="#required-knowledge"></a>
+</h2>
 <p>Please first check the <em>Introduction to spatialLIBD</em> vignette available through <a href="http://research.libd.org/spatialLIBD/articles/spatialLIBD.html" class="external-link">GitHub</a> or <a href="https://bioconductor.org/packages/spatialLIBD" class="external-link">Bioconductor</a>.</p>
 </div>
-<div id="citing-spatiallibd" class="section level2">
-<h2 class="hasAnchor">
-<a href="#citing-spatiallibd" class="anchor" aria-hidden="true"></a>Citing <code>spatialLIBD</code>
+<div class="section level2">
+<h2 id="citing-spatiallibd">Citing <code>spatialLIBD</code><a class="anchor" aria-label="anchor" href="#citing-spatiallibd"></a>
 </h2>
 <p>We hope that <em><a href="https://bioconductor.org/packages/3.14/spatialLIBD" class="external-link">spatialLIBD</a></em> will be useful for your research. Please use the following information to cite the package and the overall approach. Thank you!</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -164,13 +162,13 @@
 <span class="co">#&gt; 'options(citation.bibtex.max=999)'.</span></code></pre></div>
 </div>
 </div>
-<div id="download-data-from-10x-genomics" class="section level1">
-<h1 class="hasAnchor">
-<a href="#download-data-from-10x-genomics" class="anchor" aria-hidden="true"></a>Download data from 10x Genomics</h1>
+<div class="section level1">
+<h1 id="download-data-from-10x-genomics">Download data from 10x Genomics<a class="anchor" aria-label="anchor" href="#download-data-from-10x-genomics"></a>
+</h1>
 <p>In this vignette we’ll show you how you can use <em><a href="https://bioconductor.org/packages/3.14/spatialLIBD" class="external-link">spatialLIBD</a></em> (Pardo, Spangler, Weber, et al., 2021) for exploring spatially resolved transcriptomics data from the <a href="https://www.10xgenomics.com/products/spatial-gene-expression" class="external-link">Visium platform by 10x Genomics</a>. That is, you will learn how to use <em><a href="https://bioconductor.org/packages/3.14/spatialLIBD" class="external-link">spatialLIBD</a></em> for data beyond the one it was initially developed for (Maynard, Collado-Torres, Weber, Uytingco, Barry, Williams, II, Tran, Besich, Tippani, Chew, Yin, Kleinman, Hyde, Rao, Hicks, Martinowich, and Jaffe, 2021). To illustrate these steps, we will use data that 10x Genomics made publicly available at <a href="https://support.10xgenomics.com/spatial-gene-expression/datasets" class="external-link uri">https://support.10xgenomics.com/spatial-gene-expression/datasets</a>. We will use files from the human lymph node example publicly available at <a href="https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node" class="external-link uri">https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node</a>.</p>
-<div id="load-packages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#load-packages" class="anchor" aria-hidden="true"></a>Load packages</h2>
+<div class="section level2">
+<h2 id="load-packages">Load packages<a class="anchor" aria-label="anchor" href="#load-packages"></a>
+</h2>
 <p>To get started, lets load the different packages we’ll need for this vignette. Here’s a brief summary of why we need these packages:</p>
 <ul>
 <li>
@@ -192,9 +190,9 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/hadley/pryr" class="external-link">"pryr"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/LieberInstitute/spatialLIBD" class="external-link">"spatialLIBD"</a></span><span class="op">)</span></code></pre></div>
 </div>
-<div id="download-spaceranger-output-files" class="section level2">
-<h2 class="hasAnchor">
-<a href="#download-spaceranger-output-files" class="anchor" aria-hidden="true"></a>Download spaceranger output files</h2>
+<div class="section level2">
+<h2 id="download-spaceranger-output-files">Download spaceranger output files<a class="anchor" aria-label="anchor" href="#download-spaceranger-output-files"></a>
+</h2>
 <p>Next we download data from 10x Genomics available from the human lymph node example, available at <a href="https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node" class="external-link uri">https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node</a>. We don’t need to download all the files listed there since <em><a href="https://bioconductor.org/packages/3.14/SpatialExperiment" class="external-link">SpatialExperiment</a></em> doesn’t need all of them for importing the data into R. These files are part of the output that gets generated by <code>spaceranger</code> which is the processing pipeline provided by 10x Genomics for Visium data.</p>
 <p>We’ll use <em><a href="https://bioconductor.org/packages/3.14/BiocFileCache" class="external-link">BiocFileCache</a></em> to keep the data in a local cache in case we want to run this example again and don’t want to re-download the data from the web.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -206,7 +204,8 @@
         <span class="st">"1.1.0/V1_Human_Lymph_Node/"</span>,
         <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
             <span class="st">"V1_Human_Lymph_Node_filtered_feature_bc_matrix.tar.gz"</span>,
-            <span class="st">"V1_Human_Lymph_Node_spatial.tar.gz"</span>
+            <span class="st">"V1_Human_Lymph_Node_spatial.tar.gz"</span>,
+            <span class="st">"V1_Human_Lymph_Node_analysis.tar.gz"</span>
         <span class="op">)</span>
     <span class="op">)</span>
 <span class="va">lymph.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">lymph.url</span>, <span class="fu">BiocFileCache</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">bfcrpath</a></span>, x <span class="op">=</span> <span class="va">bfc</span><span class="op">)</span></code></pre></div>
@@ -218,20 +217,24 @@
 <span class="co">#&gt; https://cf.10xgenomics.com/samples/spatial-exp/1.1.0/V1_Human_Lymph_Node/V1_Human_Lymph_Node_filtered_feature_bc_matrix.tar.gz.BFC5 </span>
 <span class="co">#&gt;                                                                                                                                   0 </span>
 <span class="co">#&gt;                    https://cf.10xgenomics.com/samples/spatial-exp/1.1.0/V1_Human_Lymph_Node/V1_Human_Lymph_Node_spatial.tar.gz.BFC6 </span>
+<span class="co">#&gt;                                                                                                                                   0 </span>
+<span class="co">#&gt;                   https://cf.10xgenomics.com/samples/spatial-exp/1.1.0/V1_Human_Lymph_Node/V1_Human_Lymph_Node_analysis.tar.gz.BFC7 </span>
 <span class="co">#&gt;                                                                                                                                   0</span>
 
 <span class="co">## List the files we downloaded and extracted</span>
 <span class="co">## These files are typically SpaceRanger outputs</span>
 <span class="va">lymph.dirs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span>
     <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"filtered_feature_bc_matrix"</span>, <span class="st">"spatial"</span>, <span class="st">"raw_feature_bc_matrix"</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"filtered_feature_bc_matrix"</span>, <span class="st">"spatial"</span>, <span class="st">"raw_feature_bc_matrix"</span>, <span class="st">"analysis"</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">lymph.dirs</span><span class="op">)</span>
-<span class="co">#&gt; [1] "aligned_fiducials.jpg"     "barcodes.tsv.gz"          </span>
-<span class="co">#&gt; [3] "detected_tissue_image.jpg" "features.tsv.gz"          </span>
-<span class="co">#&gt; [5] "matrix.mtx.gz"             "scalefactors_json.json"   </span>
-<span class="co">#&gt; [7] "tissue_hires_image.png"    "tissue_lowres_image.png"  </span>
-<span class="co">#&gt; [9] "tissue_positions_list.csv"</span></code></pre></div>
+<span class="co">#&gt;  [1] "aligned_fiducials.jpg"     "barcodes.tsv.gz"          </span>
+<span class="co">#&gt;  [3] "clustering"                "detected_tissue_image.jpg"</span>
+<span class="co">#&gt;  [5] "diffexp"                   "features.tsv.gz"          </span>
+<span class="co">#&gt;  [7] "matrix.mtx.gz"             "pca"                      </span>
+<span class="co">#&gt;  [9] "scalefactors_json.json"    "tissue_hires_image.png"   </span>
+<span class="co">#&gt; [11] "tissue_lowres_image.png"   "tissue_positions_list.csv"</span>
+<span class="co">#&gt; [13] "tsne"                      "umap"</span></code></pre></div>
 <p>Now that we have the files that we need, we can import the data into R using <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">read10xVisium()</a></code> from <em><a href="https://bioconductor.org/packages/3.14/SpatialExperiment" class="external-link">SpatialExperiment</a></em>. We’ll import the low resolution histology images produced by <code>spaceranger</code> using the <code>images = "lowres"</code> and <code>load = TRUE</code> arguments. We’ll also load the filtered gene expression data using the <code>data = "filtered"</code> argument. The count matrix can still be quite large, which is why we’ll use the <code>type = "sparse"</code> argument to load the data into an R object that is memory-efficient for sparse data.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Import the data as a SpatialExperiment object</span>
@@ -274,9 +277,9 @@
 <span class="co">#&gt; [1] "Matrix"</span></code></pre></div>
 </div>
 </div>
-<div id="modify-spe-for-spatiallibd" class="section level1">
-<h1 class="hasAnchor">
-<a href="#modify-spe-for-spatiallibd" class="anchor" aria-hidden="true"></a>Modify spe for spatialLIBD</h1>
+<div class="section level1">
+<h1 id="modify-spe-for-spatiallibd">Modify spe for spatialLIBD<a class="anchor" aria-label="anchor" href="#modify-spe-for-spatiallibd"></a>
+</h1>
 <p>Now that we have an <code>SpatialExperiment</code> R object (<code>spe</code>) with the data from 10x Genomics for the human lymph node example, we need to add a few features to the R object in order to create the interactive website using <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code>. These additional elements power features in the interactive website that you might be interested in.</p>
 <p>First we start with adding a few variables to the sample information table (<code><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-colData.html" class="external-link">colData()</a></code>) of our <code>spe</code> object. We add:</p>
 <ul>
@@ -292,9 +295,9 @@
 <span class="va">spe</span><span class="op">$</span><span class="va">key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">spe</span><span class="op">$</span><span class="va">sample_id</span>, <span class="st">"_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span>
 <span class="va">spe</span><span class="op">$</span><span class="va">sum_umi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/assays.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span>
 <span class="va">spe</span><span class="op">$</span><span class="va">sum_gene</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/assays.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
-<div id="add-gene-annotation-information" class="section level2">
-<h2 class="hasAnchor">
-<a href="#add-gene-annotation-information" class="anchor" aria-hidden="true"></a>Add gene annotation information</h2>
+<div class="section level2">
+<h2 id="add-gene-annotation-information">Add gene annotation information<a class="anchor" aria-label="anchor" href="#add-gene-annotation-information"></a>
+</h2>
 <p>The files <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code> uses to read in the <code>spaceranger</code> outputs into R do not include much information about the genes, such as their chromosomes, coordinates, and other gene annotation information. We thus recommend that you read in this information from a gene annotation file: typically a <code>gtf</code> file. For a real case scenario, you’ll mostly likely have access to the GTF file provided by 10x Genomics. However, we cannot download that file without downloading other files for this example. Thus we’ll show you the code you would use if you had access to the GTF file from 10x Genomics and also show a second approach that works for this vignette.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Initially we don't have much information about the genes</span>
@@ -323,14 +326,14 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ...</span>
 <span class="co">#&gt; &lt;36598 more elements&gt;</span></code></pre></div>
-<div id="from-10x" class="section level3">
-<h3 class="hasAnchor">
-<a href="#from-10x" class="anchor" aria-hidden="true"></a>From 10x</h3>
+<div class="section level3">
+<h3 id="from-10x">From 10x<a class="anchor" aria-label="anchor" href="#from-10x"></a>
+</h3>
 <p>Depending on the version of <code>spaceranger</code> you used, you might have used different GTF files 10x Genomics has made available at <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest" class="external-link uri">https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest</a> and described at <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build" class="external-link uri">https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build</a>. These files are too big though and we won’t download them in this example. For instance, <em>References - 2020-A (July 7, 2020)</em> for <em>Human reference (GRCh38)</em> is 11 GB in size and contains files we do not need for this vignette. If you did have the file locally, you could use the following code to read in the GTF file prepared by 10x Genomics and add the information into your <code>spe</code> object that <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code> does not include.</p>
 <p>For example, in our computing cluster this GTF file is located at the following path and is 1.4 GB in size:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd /dcl02/lieber/ajaffe/SpatialTranscriptomics/</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> du <span class="at">-sh</span> <span class="at">--apparent-size</span> refdata-gex-GRCh38-2020-A/genes/genes.gtf</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">1.4G</span>    /dcl02/lieber/ajaffe/SpatialTranscriptomics/refdata-gex-GRCh38-2020-A/genes/genes.gtf</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd /dcs04/lieber/lcolladotor/annotationFiles_LIBD001/10x/refdata-gex-GRCh38-2020-A</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> du <span class="at">-sh</span> <span class="at">--apparent-size</span> genes/genes.gtf</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">1.4G</span>    genes/genes.gtf</span></code></pre></div>
 <p>If you have the GTF file from 10x Genomics, we show next how you can read the information into R, match it appropriately with the information in the <code>spe</code> object and add it back into the <code>spe</code> object.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## You could:</span>
@@ -373,9 +376,9 @@
 <span class="co">## Inspect the gene annotation data we added</span>
 <span class="fu">rowRanges</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="from-gencode" class="section level3">
-<h3 class="hasAnchor">
-<a href="#from-gencode" class="anchor" aria-hidden="true"></a>From Gencode</h3>
+<div class="section level3">
+<h3 id="from-gencode">From Gencode<a class="anchor" aria-label="anchor" href="#from-gencode"></a>
+</h3>
 <p>In this vignette, we’ll use the GTF file from Gencode v32. That’s because the build notes from <em>References - 2020-A (July 7, 2020)</em> and <em>Human reference, GRCh38 (GENCODE v32/Ensembl 98)</em> at <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A" class="external-link uri">https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A</a> show that 10x Genomics used Gencode v32. They also used Ensembl version 98 which is why a few genes we have in our object are going to be missing. We show next how you can read the information into R, match it appropriately with the information in the <code>spe</code> object and add it back into the <code>spe</code> object.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Download the Gencode v32 GTF file and cache it</span>
@@ -389,8 +392,8 @@
 
 <span class="co">## Show the GTF cache location</span>
 <span class="va">gtf_cache</span>
-<span class="co">#&gt;                                                                            BFC7 </span>
-<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/63071da8afd_gencode.v32.annotation.gtf.gz"</span>
+<span class="co">#&gt;                                                                             BFC8 </span>
+<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/6e925ae7e057_gencode.v32.annotation.gtf.gz"</span>
 
 <span class="co">## Import into R (takes ~1 min)</span>
 <span class="va">gtf</span> <span class="op">&lt;-</span> <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span><span class="va">gtf_cache</span><span class="op">)</span>
@@ -453,9 +456,9 @@
 <span class="co">#&gt;   -------</span>
 <span class="co">#&gt;   seqinfo: 25 sequences from an unspecified genome; no seqlengths</span></code></pre></div>
 </div>
-<div id="enable-a-friendlier-gene-search" class="section level3">
-<h3 class="hasAnchor">
-<a href="#enable-a-friendlier-gene-search" class="anchor" aria-hidden="true"></a>Enable a friendlier gene search</h3>
+<div class="section level3">
+<h3 id="enable-a-friendlier-gene-search">Enable a friendlier gene search<a class="anchor" aria-label="anchor" href="#enable-a-friendlier-gene-search"></a>
+</h3>
 <p>Regardless of which method you used to obtain the gene annotation information, we can now proceed by adding the gene symbol and gene ID information that helps users search for genes in the shiny app produced by <code>spatialLIBD</code>. This will enable users to search genes by gene symbol or gene ID. If you didn’t do this, users would only be able to search genes by gene ID which makes the web application harder to use.</p>
 <p>We also compute the total expression for the mitochondrial chromosome (chrM) as well as the ratio of chrM expression. Both of these continuous variables are interesting to explore and in some situations could be useful for biological interpretations. For instance, in our pilot data (Maynard, Collado-Torres, Weber, et al., 2021), we noticed that the <code>expr_chrM_ratio</code> was associated to DLPFC layers. That is, spots with high <code>expr_chrM_ratio</code> were not randomly located in our Visium slides.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -470,9 +473,9 @@
 <span class="va">spe</span><span class="op">$</span><span class="va">expr_chrM_ratio</span> <span class="op">&lt;-</span> <span class="va">spe</span><span class="op">$</span><span class="va">expr_chrM</span> <span class="op">/</span> <span class="va">spe</span><span class="op">$</span><span class="va">sum_umi</span></code></pre></div>
 </div>
 </div>
-<div id="filter-the-spe-object" class="section level2">
-<h2 class="hasAnchor">
-<a href="#filter-the-spe-object" class="anchor" aria-hidden="true"></a>Filter the spe object</h2>
+<div class="section level2">
+<h2 id="filter-the-spe-object">Filter the spe object<a class="anchor" aria-label="anchor" href="#filter-the-spe-object"></a>
+</h2>
 <p>We can now continue with some filtering steps since this can help reduce the object size in memory as well as make it ready to use for downstream processing tools such as those from the <em><a href="https://bioconductor.org/packages/3.14/scran" class="external-link">scran</a></em> and <em><a href="https://bioconductor.org/packages/3.14/scuttle" class="external-link">scuttle</a></em> packages. Though these steps are not absolutely necessary.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Remove genes with no data</span>
@@ -502,9 +505,9 @@
     <span class="va">spe</span> <span class="op">&lt;-</span> <span class="va">spe</span><span class="op">[</span>, <span class="op">-</span><span class="va">spots_no_counts</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>
 <span class="op">}</span></code></pre></div>
 </div>
-<div id="check-object" class="section level2">
-<h2 class="hasAnchor">
-<a href="#check-object" class="anchor" aria-hidden="true"></a>Check object</h2>
+<div class="section level2">
+<h2 id="check-object">Check object<a class="anchor" aria-label="anchor" href="#check-object"></a>
+</h2>
 <p>Next, we add the <code>ManualAnnotation</code> variable to the sample information table (<code><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-colData.html" class="external-link">colData()</a></code>) with <code>"NA"</code>. That variable is used by the interactive website to store any manual annotations.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Add a variable for saving the manual annotations</span>
@@ -537,9 +540,9 @@
 <span class="co">#&gt; imgData names(4): sample_id image_id data scaleFactor</span></code></pre></div>
 </div>
 </div>
-<div id="explore-the-data" class="section level1">
-<h1 class="hasAnchor">
-<a href="#explore-the-data" class="anchor" aria-hidden="true"></a>Explore the data</h1>
+<div class="section level1">
+<h1 id="explore-the-data">Explore the data<a class="anchor" aria-label="anchor" href="#explore-the-data"></a>
+</h1>
 <p>With our complete <code>spe</code> object, we can now use <em><a href="https://bioconductor.org/packages/3.14/spatialLIBD" class="external-link">spatialLIBD</a></em> for visualizing our data. We can do so using functions such as <code><a href="../reference/vis_gene.html">vis_gene()</a></code> and <code><a href="../reference/vis_clus.html">vis_clus()</a></code> that are described in more detail at the <em>Introduction to spatialLIBD</em> vignette available through <a href="http://research.libd.org/spatialLIBD/articles/spatialLIBD.html" class="external-link">GitHub</a> or <a href="https://bioconductor.org/packages/spatialLIBD" class="external-link">Bioconductor</a>.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Example visualizations. Let's start with a continuous variable.</span>
@@ -563,9 +566,9 @@
     clustervar <span class="op">=</span> <span class="st">"random_cluster"</span>
 <span class="op">)</span></code></pre></div>
 <p><img src="TenX_data_download_files/figure-html/test_visualizations-2.png" width="700"></p>
-<div id="run-the-interactive-website" class="section level2">
-<h2 class="hasAnchor">
-<a href="#run-the-interactive-website" class="anchor" aria-hidden="true"></a>Run the interactive website</h2>
+<div class="section level2">
+<h2 id="run-the-interactive-website">Run the interactive website<a class="anchor" aria-label="anchor" href="#run-the-interactive-website"></a>
+</h2>
 <p>We are now ready to create our interactive website for the human lymph node data. The interactive website is a <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em> web application that uses <em><a href="https://CRAN.R-project.org/package=plotly" class="external-link">plotly</a></em> to power several of the interactive features. We can create the interactive website using the <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code> function. The default arguments of that function are customized for the data from our initial study (Maynard, Collado-Torres, Weber, et al., 2021), so we will need to make some adjustments:</p>
 <ul>
 <li>
@@ -605,9 +608,52 @@
 <span class="co">#&gt; [5] "README.md"</span></code></pre></div>
 </div>
 </div>
-<div id="limitations" class="section level1">
-<h1 class="hasAnchor">
-<a href="#limitations" class="anchor" aria-hidden="true"></a>Limitations</h1>
+<div class="section level1">
+<h1 id="wrapper-functions">Wrapper functions<a class="anchor" aria-label="anchor" href="#wrapper-functions"></a>
+</h1>
+<p>To facilitate reading in the data and preparing it to visualize it interactively using <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code>, we implemented <code><a href="../reference/read10xVisiumWrapper.html">read10xVisiumWrapper()</a></code> which expands <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code> and performs the steps described in this vignette. In this example, we’ll load all four images created by SpaceRanger: lowres, hires, detected, and aligned. That way we can toggle between them on the web application.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Import the data as a SpatialExperiment object</span>
+<span class="va">spe_wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read10xVisiumWrapper.html">read10xVisiumWrapper</a></span><span class="op">(</span>
+    samples <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,
+    sample_id <span class="op">=</span> <span class="st">"lymph"</span>,
+    type <span class="op">=</span> <span class="st">"sparse"</span>, data <span class="op">=</span> <span class="st">"filtered"</span>,
+    images <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lowres"</span>, <span class="st">"hires"</span>, <span class="st">"detected"</span>, <span class="st">"aligned"</span><span class="op">)</span>, load <span class="op">=</span> <span class="cn">TRUE</span>,
+    reference_gtf <span class="op">=</span> <span class="va">gtf_cache</span>
+<span class="op">)</span>
+<span class="co">#&gt; 2021-11-09 23:18:43 read10xVisium: reading basic data from SpaceRanger</span>
+<span class="co">#&gt; 2021-11-09 23:19:00 SpatialExperiment::read10xVisiumAnalysis: reading analysis output from SpaceRanger</span>
+<span class="co">#&gt; 2021-11-09 23:19:00 add10xVisiumAnalysis: adding analysis output from SpaceRanger</span>
+<span class="co">#&gt; 2021-11-09 23:19:00 rtracklayer::import: reading the reference GTF file</span>
+<span class="co">#&gt; 2021-11-09 23:19:37 adding gene information to the SPE object</span>
+<span class="co">#&gt; Warning: Gene IDs did not match. This typically happens when you are not using</span>
+<span class="co">#&gt; the same GTF file as the one that was used by SpaceRanger. For example, one file</span>
+<span class="co">#&gt; uses GENCODE IDs and the other one ENSEMBL IDs. read10xVisiumWrapper() will try</span>
+<span class="co">#&gt; to convert them to ENSEMBL IDs.</span>
+<span class="co">#&gt; Warning: Dropping 29 out of 36601 genes for which we don't have information on</span>
+<span class="co">#&gt; the reference GTF file. This typically happens when you are not using the same</span>
+<span class="co">#&gt; GTF file as the one that was used by SpaceRanger.</span>
+<span class="co">#&gt; 2021-11-09 23:19:38 adding information used by spatialLIBD</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Run our shiny app</span>
+<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-colData.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">spe_wrapper</span><span class="op">)</span><span class="op">)</span>
+
+    <span class="fu"><a href="../reference/run_app.html">run_app</a></span><span class="op">(</span>
+        <span class="va">spe_wrapper</span>,
+        sce_layer <span class="op">=</span> <span class="cn">NULL</span>,
+        modeling_results <span class="op">=</span> <span class="cn">NULL</span>,
+        sig_genes <span class="op">=</span> <span class="cn">NULL</span>,
+        title <span class="op">=</span> <span class="st">"spatialLIBD: human lymph node by 10x Genomics (made with wrapper)"</span>,
+        spe_discrete_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">vars</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"10x_"</span>, <span class="va">vars</span><span class="op">)</span><span class="op">]</span>, <span class="st">"ManualAnnotation"</span><span class="op">)</span>,
+        spe_continuous_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sum_umi"</span>, <span class="st">"sum_gene"</span>, <span class="st">"expr_chrM"</span>, <span class="st">"expr_chrM_ratio"</span><span class="op">)</span>,
+        default_cluster <span class="op">=</span> <span class="st">"10x_graphclust"</span>
+    <span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+</div>
+<div class="section level1">
+<h1 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
+</h1>
 <p><code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code> has limitations that are inherent to the methods used to implement it, such as:</p>
 <ol style="list-style-type: decimal">
 <li>the memory per user required by a server for hosting the web application,</li>
@@ -615,36 +661,36 @@
 <li>the resolution of the images displayed limiting the usefulness to magnify specific spots,</li>
 <li>and customization of the web application by the end user.</li>
 </ol>
-<div id="memory" class="section level2">
-<h2 class="hasAnchor">
-<a href="#memory" class="anchor" aria-hidden="true"></a>Memory</h2>
+<div class="section level2">
+<h2 id="memory">Memory<a class="anchor" aria-label="anchor" href="#memory"></a>
+</h2>
 <p>Regarding the memory limitation, you can estimate how much memory you need per user by considering the memory required for the <code>spe</code> and <code>sce_layer</code> objects.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html" class="external-link">object_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>
 <span class="co">#&gt; 297,829,664 B</span></code></pre></div>
 <p>In our pilot data (Maynard, Collado-Torres, Weber, et al., 2021) our object uses about 2.1 GB of RAM since it contains the data for 12 Visium slides and we considered using about 3 GB of RAM per user. You could filter the genes more aggressively to drop lowly expressed genes or if you have many Visium slides, you could consider making multiple websites for different sets of slides. You could also have multiple mirrors to support several users, though in that case, we recommend linking users to a stable website instead of one that might not be available if you have too many users: for us our stable website is <a href="http://research.libd.org/spatialLIBD/" class="external-link uri">http://research.libd.org/spatialLIBD/</a> which includes the links to all the mirrors.</p>
 <p>Given these memory limitations, we chose to deploy our main web application at <a href="http://spatial.libd.org/spatialLIBD/" class="external-link uri">http://spatial.libd.org/spatialLIBD/</a> using an Amazon EC2 instance: an ‘r5.4xlarge’ EC2 instance with 16 vCPUs, 128 GB DRAM, 10 Gb max network, 1.008 USD/Hour. We also have deployed mirrors at <a href="https://www.shinyapps.io/" class="external-link uri">https://www.shinyapps.io/</a> using the “3X-Large (8 GB)” instances they provide.</p>
 </div>
-<div id="response-speeds" class="section level2">
-<h2 class="hasAnchor">
-<a href="#response-speeds" class="anchor" aria-hidden="true"></a>Response speeds</h2>
+<div class="section level2">
+<h2 id="response-speeds">Response speeds<a class="anchor" aria-label="anchor" href="#response-speeds"></a>
+</h2>
 <p>This limitation is mostly due to the number of spots shown under the “clusters (interactive)” section of the interactive website powered by <em><a href="https://CRAN.R-project.org/package=plotly" class="external-link">plotly</a></em>. Each spot is shown four times which is about 16 thousand spots for one Visium slide (depending on any filter steps you applied). The response time will depend on your own computer RAM memory, that is, the <em>client</em> side. This limitation might be more noticeable if you have a computer with 8GB of RAM or lower, as well as if you have other high-memory software open. Furthermore, if you are running web application locally through <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code> then you also need to consider the required memory for the R objects. That is, the <em>server</em> side memory use.</p>
-<p>Thanks to <a href="http://orcid.org/0000-0001-5128-3838" class="external-link">Jesús Vélez Santiago</a>, the app is more responsive as of version 1.3.15 by using <code><a href="https://docs.ropensci.org/plotly/reference/toWebGL.html" class="external-link">plotly::toWebGL()</a></code>.</p>
+<p>Thanks to <a href="http://orcid.org/0000-0001-5128-3838" class="external-link">Jesús Vélez Santiago</a>, the app is more responsive as of version 1.3.15 by using <code><a href="https://rdrr.io/pkg/plotly/man/toWebGL.html" class="external-link">plotly::toWebGL()</a></code>.</p>
 </div>
-<div id="image-resolution" class="section level2">
-<h2 class="hasAnchor">
-<a href="#image-resolution" class="anchor" aria-hidden="true"></a>Image resolution</h2>
+<div class="section level2">
+<h2 id="image-resolution">Image resolution<a class="anchor" aria-label="anchor" href="#image-resolution"></a>
+</h2>
 <p>When you construct the SpatialExperiment <code>spe</code> object with <em><a href="https://bioconductor.org/packages/3.14/SpatialExperiment" class="external-link">SpatialExperiment</a></em>, you can read in higher resolution images. However, the benefit of loading the raw histology images (500 MB to 20 GB per image) is likely non-existent in this web application. The memory required would likely become prohibitive. Other solutions load these raw histology images in chunks and display the chunks necessary for a given visualization area. We thus recommend using other software if you want to zoom in at the spot and/or cell resolution.</p>
 </div>
-<div id="customization" class="section level2">
-<h2 class="hasAnchor">
-<a href="#customization" class="anchor" aria-hidden="true"></a>Customization</h2>
+<div class="section level2">
+<h2 id="customization">Customization<a class="anchor" aria-label="anchor" href="#customization"></a>
+</h2>
 <p>While the documentation, title, icon and HTML footer are all customizable at <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code>, ultimately the panels shown are not unless you fork and adapt the internal code of this package. Thus, the interactive web applications powered by <em><a href="https://bioconductor.org/packages/3.14/spatialLIBD" class="external-link">spatialLIBD</a></em> are not as easy to customize as say <em><a href="https://bioconductor.org/packages/3.14/iSEE" class="external-link">iSEE</a></em> web applications are. We think of our web application as a good enough prototype that can be useful for initial explorations of 10x Genomics Visium data. We welcome additions to our code, though we recognize that you might want to build your own production-level solution.</p>
 </div>
 </div>
-<div id="reproducibility" class="section level1">
-<h1 class="hasAnchor">
-<a href="#reproducibility" class="anchor" aria-hidden="true"></a>Reproducibility</h1>
+<div class="section level1">
+<h1 id="reproducibility">Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility"></a>
+</h1>
 <p>The <em><a href="https://bioconductor.org/packages/3.14/spatialLIBD" class="external-link">spatialLIBD</a></em> package (Pardo, Spangler, Weber, et al., 2021) was made possible thanks to:</p>
 <ul>
 <li>R (R Core Team, 2021)</li>
@@ -663,7 +709,7 @@
 <li>
 <em><a href="https://bioconductor.org/packages/3.14/rtracklayer" class="external-link">rtracklayer</a></em> (Lawrence, Gentleman, and Carey, 2009)</li>
 <li>
-<em><a href="https://CRAN.R-project.org/package=sessioninfo" class="external-link">sessioninfo</a></em> (Csárdi, core, Wickham, Chang, Flight, Müller, and Hester, 2018)</li>
+<em><a href="https://CRAN.R-project.org/package=sessioninfo" class="external-link">sessioninfo</a></em> (Wickham, Chang, Flight, Müller, and Hester, 2021)</li>
 <li>
 <em><a href="https://bioconductor.org/packages/3.14/SpatialExperiment" class="external-link">SpatialExperiment</a></em> (Righelli, Risso, Crowell, and Weber, 2021)</li>
 <li>
@@ -671,7 +717,7 @@
 </ul>
 <p>This package was developed using <em><a href="https://bioconductor.org/packages/3.14/biocthis" class="external-link">biocthis</a></em>.</p>
 <p>Code for creating the vignette</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Create the vignette</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/rmarkdown" class="external-link">"rmarkdown"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, <span class="st">"BiocStyle::html_document"</span><span class="op">)</span><span class="op">)</span>
@@ -680,248 +726,258 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code>#&gt; [1] "2021-08-10 00:48:19 UTC"</code></pre>
+<pre><code><span class="co">#&gt; [1] "2021-11-09 23:19:41 UTC"</span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code>#&gt; Time difference of 1.624 mins</code></pre>
+<pre><code><span class="co">#&gt; Time difference of 2.555 mins</span></code></pre>
 <p><code>R</code> session information.</p>
-<pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
-#&gt;  setting  value                       
-#&gt;  version  R version 4.1.0 (2021-05-18)
-#&gt;  os       Ubuntu 20.04.2 LTS          
-#&gt;  system   x86_64, linux-gnu           
-#&gt;  ui       X11                         
-#&gt;  language (EN)                        
-#&gt;  collate  en_US.UTF-8                 
-#&gt;  ctype    en_US.UTF-8                 
-#&gt;  tz       UTC                         
-#&gt;  date     2021-08-10                  
-#&gt; 
-#&gt; ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-#&gt;  package                * version    date       lib source                                        
-#&gt;  AnnotationDbi            1.55.1     2021-06-07 [1] Bioconductor                                  
-#&gt;  AnnotationHub            3.1.4      2021-07-23 [1] Bioconductor                                  
-#&gt;  assertthat               0.2.1      2019-03-21 [1] RSPM (R 4.1.0)                                
-#&gt;  attempt                  0.3.1      2020-05-03 [1] RSPM (R 4.1.0)                                
-#&gt;  beachmat                 2.9.0      2021-05-19 [1] Bioconductor                                  
-#&gt;  beeswarm                 0.4.0      2021-06-01 [1] RSPM (R 4.1.0)                                
-#&gt;  benchmarkme              1.0.7      2021-03-21 [1] RSPM (R 4.1.0)                                
-#&gt;  benchmarkmeData          1.0.4      2020-04-23 [1] RSPM (R 4.1.0)                                
-#&gt;  Biobase                * 2.53.0     2021-05-19 [1] Bioconductor                                  
-#&gt;  BiocFileCache          * 2.1.1      2021-06-23 [1] Bioconductor                                  
-#&gt;  BiocGenerics           * 0.39.1     2021-06-08 [1] Bioconductor                                  
-#&gt;  BiocIO                   1.3.0      2021-05-19 [1] Bioconductor                                  
-#&gt;  BiocManager              1.30.16    2021-06-15 [2] CRAN (R 4.1.0)                                
-#&gt;  BiocNeighbors            1.11.0     2021-05-19 [1] Bioconductor                                  
-#&gt;  BiocParallel             1.27.2     2021-07-12 [1] Bioconductor                                  
-#&gt;  BiocSingular             1.9.1      2021-06-08 [1] Bioconductor                                  
-#&gt;  BiocStyle              * 2.21.3     2021-06-16 [1] Bioconductor                                  
-#&gt;  BiocVersion              3.14.0     2021-05-19 [2] Bioconductor                                  
-#&gt;  Biostrings               2.61.2     2021-08-04 [1] Bioconductor                                  
-#&gt;  bit                      4.0.4      2020-08-04 [1] RSPM (R 4.1.0)                                
-#&gt;  bit64                    4.0.5      2020-08-30 [1] RSPM (R 4.1.0)                                
-#&gt;  bitops                   1.0-7      2021-04-24 [1] RSPM (R 4.1.0)                                
-#&gt;  blob                     1.2.2      2021-07-23 [1] RSPM (R 4.1.0)                                
-#&gt;  bookdown                 0.22       2021-04-22 [1] RSPM (R 4.1.0)                                
-#&gt;  bslib                    0.2.5.1    2021-05-18 [1] RSPM (R 4.1.0)                                
-#&gt;  cachem                   1.0.5      2021-05-15 [2] RSPM (R 4.1.0)                                
-#&gt;  cli                      3.0.1      2021-07-17 [2] RSPM (R 4.1.0)                                
-#&gt;  codetools                0.2-18     2020-11-04 [3] CRAN (R 4.1.0)                                
-#&gt;  colorspace               2.0-2      2021-06-24 [1] RSPM (R 4.1.0)                                
-#&gt;  config                   0.3.1      2020-12-17 [1] RSPM (R 4.1.0)                                
-#&gt;  cowplot                  1.1.1      2020-12-30 [1] RSPM (R 4.1.0)                                
-#&gt;  crayon                   1.4.1      2021-02-08 [2] RSPM (R 4.1.0)                                
-#&gt;  curl                     4.3.2      2021-06-23 [2] RSPM (R 4.1.0)                                
-#&gt;  data.table               1.14.0     2021-02-21 [1] RSPM (R 4.1.0)                                
-#&gt;  DBI                      1.1.1      2021-01-15 [1] RSPM (R 4.1.0)                                
-#&gt;  dbplyr                 * 2.1.1      2021-04-06 [1] RSPM (R 4.1.0)                                
-#&gt;  DelayedArray             0.19.1     2021-06-25 [1] Bioconductor                                  
-#&gt;  DelayedMatrixStats       1.15.2     2021-08-10 [1] Github (PeteHaitch/DelayedMatrixStats@d9d3cb7)
-#&gt;  desc                     1.3.0      2021-03-05 [2] RSPM (R 4.1.0)                                
-#&gt;  digest                   0.6.27     2020-10-24 [2] RSPM (R 4.1.0)                                
-#&gt;  dockerfiler              0.1.3      2019-03-19 [1] RSPM (R 4.1.0)                                
-#&gt;  doParallel               1.0.16     2020-10-16 [1] RSPM (R 4.1.0)                                
-#&gt;  dotCall64                1.0-1      2021-02-11 [1] RSPM (R 4.1.0)                                
-#&gt;  dplyr                    1.0.7      2021-06-18 [2] RSPM (R 4.1.0)                                
-#&gt;  dqrng                    0.3.0      2021-05-01 [1] RSPM (R 4.1.0)                                
-#&gt;  DropletUtils             1.13.1     2021-06-01 [1] Bioconductor                                  
-#&gt;  DT                       0.18       2021-04-14 [1] RSPM (R 4.1.0)                                
-#&gt;  edgeR                    3.35.0     2021-05-19 [1] Bioconductor                                  
-#&gt;  ellipsis                 0.3.2      2021-04-29 [2] RSPM (R 4.1.0)                                
-#&gt;  evaluate                 0.14       2019-05-28 [2] RSPM (R 4.1.0)                                
-#&gt;  ExperimentHub            2.1.4      2021-07-27 [1] Bioconductor                                  
-#&gt;  fansi                    0.5.0      2021-05-25 [2] RSPM (R 4.1.0)                                
-#&gt;  farver                   2.1.0      2021-02-28 [1] RSPM (R 4.1.0)                                
-#&gt;  fastmap                  1.1.0      2021-01-25 [2] RSPM (R 4.1.0)                                
-#&gt;  fields                   12.5       2021-06-25 [1] RSPM (R 4.1.0)                                
-#&gt;  filelock                 1.0.2      2018-10-05 [1] RSPM (R 4.1.0)                                
-#&gt;  foreach                  1.5.1      2020-10-15 [1] RSPM (R 4.1.0)                                
-#&gt;  fs                       1.5.0      2020-07-31 [2] RSPM (R 4.1.0)                                
-#&gt;  generics                 0.1.0      2020-10-31 [2] RSPM (R 4.1.0)                                
-#&gt;  GenomeInfoDb           * 1.29.3     2021-07-01 [1] Bioconductor                                  
-#&gt;  GenomeInfoDbData         1.2.6      2021-08-05 [1] Bioconductor                                  
-#&gt;  GenomicAlignments        1.29.0     2021-05-19 [1] Bioconductor                                  
-#&gt;  GenomicRanges          * 1.45.0     2021-05-19 [1] Bioconductor                                  
-#&gt;  ggbeeswarm               0.6.0      2017-08-07 [1] RSPM (R 4.1.0)                                
-#&gt;  ggplot2                  3.3.5      2021-06-25 [1] RSPM (R 4.1.0)                                
-#&gt;  ggrepel                  0.9.1      2021-01-15 [1] RSPM (R 4.1.0)                                
-#&gt;  glue                     1.4.2      2020-08-27 [2] RSPM (R 4.1.0)                                
-#&gt;  golem                    0.3.1      2021-04-17 [1] RSPM (R 4.1.0)                                
-#&gt;  gridExtra                2.3        2017-09-09 [1] RSPM (R 4.1.0)                                
-#&gt;  gtable                   0.3.0      2019-03-25 [1] RSPM (R 4.1.0)                                
-#&gt;  HDF5Array                1.21.0     2021-05-19 [1] Bioconductor                                  
-#&gt;  highr                    0.9        2021-04-16 [2] RSPM (R 4.1.0)                                
-#&gt;  htmltools                0.5.1.1    2021-01-22 [1] RSPM (R 4.1.0)                                
-#&gt;  htmlwidgets              1.5.3      2020-12-10 [1] RSPM (R 4.1.0)                                
-#&gt;  httpuv                   1.6.1      2021-05-07 [1] RSPM (R 4.1.0)                                
-#&gt;  httr                     1.4.2      2020-07-20 [2] RSPM (R 4.1.0)                                
-#&gt;  interactiveDisplayBase   1.31.2     2021-07-30 [1] Bioconductor                                  
-#&gt;  IRanges                * 2.27.0     2021-05-19 [1] Bioconductor                                  
-#&gt;  irlba                    2.3.3      2019-02-05 [1] RSPM (R 4.1.0)                                
-#&gt;  iterators                1.0.13     2020-10-15 [1] RSPM (R 4.1.0)                                
-#&gt;  jquerylib                0.1.4      2021-04-26 [1] RSPM (R 4.1.0)                                
-#&gt;  jsonlite                 1.7.2      2020-12-09 [2] RSPM (R 4.1.0)                                
-#&gt;  KEGGREST                 1.33.0     2021-05-19 [1] Bioconductor                                  
-#&gt;  knitr                    1.33       2021-04-24 [2] RSPM (R 4.1.0)                                
-#&gt;  labeling                 0.4.2      2020-10-20 [1] RSPM (R 4.1.0)                                
-#&gt;  later                    1.2.0      2021-04-23 [1] RSPM (R 4.1.0)                                
-#&gt;  lattice                  0.20-44    2021-05-02 [3] CRAN (R 4.1.0)                                
-#&gt;  lazyeval                 0.2.2      2019-03-15 [1] RSPM (R 4.1.0)                                
-#&gt;  lifecycle                1.0.0      2021-02-15 [2] RSPM (R 4.1.0)                                
-#&gt;  limma                    3.49.4     2021-08-08 [1] Bioconductor                                  
-#&gt;  lobstr                   1.1.1      2019-07-02 [1] RSPM (R 4.1.0)                                
-#&gt;  locfit                   1.5-9.4    2020-03-25 [1] RSPM (R 4.1.0)                                
-#&gt;  lubridate                1.7.10     2021-02-26 [1] RSPM (R 4.1.0)                                
-#&gt;  magick                   2.7.2      2021-05-02 [1] RSPM (R 4.1.0)                                
-#&gt;  magrittr                 2.0.1      2020-11-17 [2] RSPM (R 4.1.0)                                
-#&gt;  maps                     3.3.0      2018-04-03 [1] RSPM (R 4.1.0)                                
-#&gt;  Matrix                   1.3-4      2021-06-01 [2] RSPM (R 4.1.0)                                
-#&gt;  MatrixGenerics         * 1.5.3      2021-08-05 [1] Bioconductor                                  
-#&gt;  matrixStats            * 0.60.0     2021-07-26 [1] RSPM (R 4.1.0)                                
-#&gt;  memoise                  2.0.0      2021-01-26 [2] RSPM (R 4.1.0)                                
-#&gt;  mime                     0.11       2021-06-23 [2] RSPM (R 4.1.0)                                
-#&gt;  munsell                  0.5.0      2018-06-12 [1] RSPM (R 4.1.0)                                
-#&gt;  pillar                   1.6.2      2021-07-29 [2] RSPM (R 4.1.0)                                
-#&gt;  pkgconfig                2.0.3      2019-09-22 [2] RSPM (R 4.1.0)                                
-#&gt;  pkgdown                  1.6.1.9001 2021-08-05 [1] Github (r-lib/pkgdown@ce9781a)                
-#&gt;  pkgload                  1.2.1      2021-04-06 [2] RSPM (R 4.1.0)                                
-#&gt;  plotly                   4.9.4.1    2021-06-18 [1] RSPM (R 4.1.0)                                
-#&gt;  plyr                     1.8.6      2020-03-03 [1] RSPM (R 4.1.0)                                
-#&gt;  png                      0.1-7      2013-12-03 [1] RSPM (R 4.1.0)                                
-#&gt;  Polychrome               1.3.1      2021-07-16 [1] RSPM (R 4.1.0)                                
-#&gt;  promises                 1.2.0.1    2021-02-11 [1] RSPM (R 4.1.0)                                
-#&gt;  pryr                   * 0.1.5      2021-07-26 [1] RSPM (R 4.1.0)                                
-#&gt;  purrr                    0.3.4      2020-04-17 [2] RSPM (R 4.1.0)                                
-#&gt;  R.methodsS3              1.8.1      2020-08-26 [1] RSPM (R 4.1.0)                                
-#&gt;  R.oo                     1.24.0     2020-08-26 [1] RSPM (R 4.1.0)                                
-#&gt;  R.utils                  2.10.1     2020-08-26 [1] RSPM (R 4.1.0)                                
-#&gt;  R6                       2.5.0      2020-10-28 [2] RSPM (R 4.1.0)                                
-#&gt;  ragg                     1.1.3      2021-06-09 [1] RSPM (R 4.1.0)                                
-#&gt;  rappdirs                 0.3.3      2021-01-31 [2] RSPM (R 4.1.0)                                
-#&gt;  RColorBrewer             1.1-2      2014-12-07 [1] RSPM (R 4.1.0)                                
-#&gt;  Rcpp                     1.0.7      2021-07-07 [2] RSPM (R 4.1.0)                                
-#&gt;  RCurl                    1.98-1.3   2021-03-16 [1] RSPM (R 4.1.0)                                
-#&gt;  RefManageR             * 1.3.0      2020-11-13 [1] RSPM (R 4.1.0)                                
-#&gt;  remotes                  2.4.0      2021-06-02 [1] RSPM (R 4.1.0)                                
-#&gt;  restfulr                 0.0.13     2017-08-06 [1] RSPM (R 4.1.0)                                
-#&gt;  rhdf5                    2.37.0     2021-05-19 [1] Bioconductor                                  
-#&gt;  rhdf5filters             1.5.0      2021-05-19 [1] Bioconductor                                  
-#&gt;  Rhdf5lib                 1.15.2     2021-07-01 [1] Bioconductor                                  
-#&gt;  rjson                    0.2.20     2018-06-08 [1] RSPM (R 4.1.0)                                
-#&gt;  rlang                    0.4.11     2021-04-30 [2] RSPM (R 4.1.0)                                
-#&gt;  rmarkdown                2.10       2021-08-06 [1] RSPM (R 4.1.0)                                
-#&gt;  roxygen2                 7.1.1      2020-06-27 [2] RSPM (R 4.1.0)                                
-#&gt;  rprojroot                2.0.2      2020-11-15 [2] RSPM (R 4.1.0)                                
-#&gt;  Rsamtools                2.9.1      2021-06-17 [1] Bioconductor                                  
-#&gt;  RSQLite                  2.2.7      2021-04-22 [1] RSPM (R 4.1.0)                                
-#&gt;  rstudioapi               0.13       2020-11-12 [2] RSPM (R 4.1.0)                                
-#&gt;  rsvd                     1.0.5      2021-04-16 [1] RSPM (R 4.1.0)                                
-#&gt;  rtracklayer            * 1.53.0     2021-05-19 [1] Bioconductor                                  
-#&gt;  S4Vectors              * 0.31.0     2021-05-19 [1] Bioconductor                                  
-#&gt;  sass                     0.4.0      2021-05-12 [1] RSPM (R 4.1.0)                                
-#&gt;  ScaledMatrix             1.1.0      2021-05-19 [1] Bioconductor                                  
-#&gt;  scales                   1.1.1      2020-05-11 [1] RSPM (R 4.1.0)                                
-#&gt;  scater                   1.21.3     2021-08-01 [1] Bioconductor                                  
-#&gt;  scatterplot3d            0.3-41     2018-03-14 [1] RSPM (R 4.1.0)                                
-#&gt;  scuttle                  1.3.1      2021-08-05 [1] Bioconductor                                  
-#&gt;  sessioninfo            * 1.1.1      2018-11-05 [2] RSPM (R 4.1.0)                                
-#&gt;  shiny                    1.6.0      2021-01-25 [1] RSPM (R 4.1.0)                                
-#&gt;  shinyWidgets             0.6.0      2021-03-15 [1] RSPM (R 4.1.0)                                
-#&gt;  SingleCellExperiment   * 1.15.1     2021-05-21 [1] Bioconductor                                  
-#&gt;  spam                     2.7-0      2021-06-25 [1] RSPM (R 4.1.0)                                
-#&gt;  sparseMatrixStats        1.5.2      2021-08-05 [1] Bioconductor                                  
-#&gt;  SpatialExperiment      * 1.3.3      2021-08-02 [1] Bioconductor                                  
-#&gt;  spatialLIBD            * 1.5.3      2021-08-10 [1] Bioconductor                                  
-#&gt;  stringi                  1.7.3      2021-07-16 [2] RSPM (R 4.1.0)                                
-#&gt;  stringr                  1.4.0      2019-02-10 [2] RSPM (R 4.1.0)                                
-#&gt;  SummarizedExperiment   * 1.23.1     2021-06-24 [1] Bioconductor                                  
-#&gt;  systemfonts              1.0.2      2021-05-11 [1] RSPM (R 4.1.0)                                
-#&gt;  testthat                 3.0.4      2021-07-01 [2] RSPM (R 4.1.0)                                
-#&gt;  textshaping              0.3.5      2021-06-09 [1] RSPM (R 4.1.0)                                
-#&gt;  tibble                   3.1.3      2021-07-23 [2] RSPM (R 4.1.0)                                
-#&gt;  tidyr                    1.1.3      2021-03-03 [2] RSPM (R 4.1.0)                                
-#&gt;  tidyselect               1.1.1      2021-04-30 [2] RSPM (R 4.1.0)                                
-#&gt;  usethis                  2.0.1      2021-02-10 [2] RSPM (R 4.1.0)                                
-#&gt;  utf8                     1.2.2      2021-07-24 [2] RSPM (R 4.1.0)                                
-#&gt;  vctrs                    0.3.8      2021-04-29 [2] RSPM (R 4.1.0)                                
-#&gt;  vipor                    0.4.5      2017-03-22 [1] RSPM (R 4.1.0)                                
-#&gt;  viridis                  0.6.1      2021-05-11 [1] RSPM (R 4.1.0)                                
-#&gt;  viridisLite              0.4.0      2021-04-13 [1] RSPM (R 4.1.0)                                
-#&gt;  withr                    2.4.2      2021-04-18 [2] RSPM (R 4.1.0)                                
-#&gt;  xfun                     0.25       2021-08-06 [2] RSPM (R 4.1.0)                                
-#&gt;  XML                      3.99-0.6   2021-03-16 [1] RSPM (R 4.1.0)                                
-#&gt;  xml2                     1.3.2      2020-04-23 [2] RSPM (R 4.1.0)                                
-#&gt;  xtable                   1.8-4      2019-04-21 [1] RSPM (R 4.1.0)                                
-#&gt;  XVector                  0.33.0     2021-05-19 [1] Bioconductor                                  
-#&gt;  yaml                     2.2.1      2020-02-01 [2] RSPM (R 4.1.0)                                
-#&gt;  zlibbioc                 1.39.0     2021-05-19 [1] Bioconductor                                  
-#&gt; 
-#&gt; [1] /__w/_temp/Library
-#&gt; [2] /usr/local/lib/R/site-library
-#&gt; [3] /usr/local/lib/R/library</code></pre>
+<pre><code><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info  ──────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span class="co">#&gt;  hash: yin yang, girl: light skin tone, folded hands: medium skin tone</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span>
+<span class="co">#&gt;  version  R version 4.1.1 (2021-08-10)</span>
+<span class="co">#&gt;  os       Ubuntu 20.04.3 LTS</span>
+<span class="co">#&gt;  system   x86_64, linux-gnu</span>
+<span class="co">#&gt;  ui       X11</span>
+<span class="co">#&gt;  language en</span>
+<span class="co">#&gt;  collate  en_US.UTF-8</span>
+<span class="co">#&gt;  ctype    en_US.UTF-8</span>
+<span class="co">#&gt;  tz       UTC</span>
+<span class="co">#&gt;  date     2021-11-09</span>
+<span class="co">#&gt;  pandoc   2.11.4 @ /usr/local/bin/ (via rmarkdown)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package               </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version         </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span>
+<span class="co">#&gt;  AnnotationDbi            1.56.1           <span style="color: #555555;">2021-10-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  AnnotationHub            3.2.0            <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  assertthat               0.2.1            <span style="color: #555555;">2019-03-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  attempt                  0.3.1            <span style="color: #555555;">2020-05-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  beachmat                 2.10.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  beeswarm                 0.4.0            <span style="color: #555555;">2021-06-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  benchmarkme              1.0.7            <span style="color: #555555;">2021-03-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  benchmarkmeData          1.0.4            <span style="color: #555555;">2020-04-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  Biobase                * 2.54.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  BiocFileCache          * 2.2.0            <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  BiocGenerics           * 0.40.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  BiocIO                   1.4.0            <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  BiocManager              1.30.16          <span style="color: #555555;">2021-06-15</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.1.1)</span></span>
+<span class="co">#&gt;  BiocNeighbors            1.12.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  BiocParallel             1.28.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  BiocSingular             1.10.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  BiocStyle              * 2.22.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  BiocVersion              3.14.0           <span style="color: #555555;">2021-05-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  Biostrings               2.62.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  bit                      4.0.4            <span style="color: #555555;">2020-08-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  bit64                    4.0.5            <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  bitops                   1.0-7            <span style="color: #555555;">2021-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  blob                     1.2.2            <span style="color: #555555;">2021-07-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  bookdown                 0.24             <span style="color: #555555;">2021-09-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  bslib                    0.3.1            <span style="color: #555555;">2021-10-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  cachem                   1.0.6            <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  callr                    3.7.0            <span style="color: #555555;">2021-04-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  cli                      3.1.0            <span style="color: #555555;">2021-10-27</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  codetools                0.2-18           <span style="color: #555555;">2020-11-04</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.1.1)</span></span>
+<span class="co">#&gt;  colorspace               2.0-2            <span style="color: #555555;">2021-06-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  config                   0.3.1            <span style="color: #555555;">2020-12-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  cowplot                  1.1.1            <span style="color: #555555;">2020-12-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  crayon                   1.4.2            <span style="color: #555555;">2021-10-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  curl                     4.3.2            <span style="color: #555555;">2021-06-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  data.table               1.14.2           <span style="color: #555555;">2021-09-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  DBI                      1.1.1            <span style="color: #555555;">2021-01-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  dbplyr                 * 2.1.1            <span style="color: #555555;">2021-04-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  DelayedArray             0.20.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  DelayedMatrixStats       1.15.4           <span style="color: #555555;">2021-11-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">Github (PeteHaitch/DelayedMatrixStats@e489473)</span></span>
+<span class="co">#&gt;  desc                     1.4.0            <span style="color: #555555;">2021-09-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  digest                   0.6.28           <span style="color: #555555;">2021-09-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  dockerfiler              0.1.4            <span style="color: #555555;">2021-09-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  doParallel               1.0.16           <span style="color: #555555;">2020-10-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  dotCall64                1.0-1            <span style="color: #555555;">2021-02-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  dplyr                    1.0.7            <span style="color: #555555;">2021-06-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  dqrng                    0.3.0            <span style="color: #555555;">2021-05-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  DropletUtils             1.14.1           <span style="color: #555555;">2021-11-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  DT                       0.19             <span style="color: #555555;">2021-09-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  edgeR                    3.36.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  ellipsis                 0.3.2            <span style="color: #555555;">2021-04-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  evaluate                 0.14             <span style="color: #555555;">2019-05-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  ExperimentHub            2.2.0            <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  fansi                    0.5.0            <span style="color: #555555;">2021-05-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  farver                   2.1.0            <span style="color: #555555;">2021-02-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  fastmap                  1.1.0            <span style="color: #555555;">2021-01-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  fields                   13.3             <span style="color: #555555;">2021-10-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  filelock                 1.0.2            <span style="color: #555555;">2018-10-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  foreach                  1.5.1            <span style="color: #555555;">2020-10-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  fs                       1.5.0            <span style="color: #555555;">2020-07-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  generics                 0.1.1            <span style="color: #555555;">2021-10-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  GenomeInfoDb           * 1.30.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  GenomeInfoDbData         1.2.7            <span style="color: #555555;">2021-11-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  GenomicAlignments        1.30.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  GenomicRanges          * 1.46.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  ggbeeswarm               0.6.0            <span style="color: #555555;">2017-08-07</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  ggplot2                  3.3.5            <span style="color: #555555;">2021-06-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  ggrepel                  0.9.1            <span style="color: #555555;">2021-01-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  glue                     1.5.0            <span style="color: #555555;">2021-11-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  golem                    0.3.1            <span style="color: #555555;">2021-04-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  gridExtra                2.3              <span style="color: #555555;">2017-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  gtable                   0.3.0            <span style="color: #555555;">2019-03-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  HDF5Array                1.22.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  highr                    0.9              <span style="color: #555555;">2021-04-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  htmltools                0.5.2            <span style="color: #555555;">2021-08-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  htmlwidgets              1.5.4            <span style="color: #555555;">2021-09-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  httpuv                   1.6.3            <span style="color: #555555;">2021-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  httr                     1.4.2            <span style="color: #555555;">2020-07-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  interactiveDisplayBase   1.32.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  IRanges                * 2.28.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  irlba                    2.3.3            <span style="color: #555555;">2019-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  iterators                1.0.13           <span style="color: #555555;">2020-10-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  jquerylib                0.1.4            <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  jsonlite                 1.7.2            <span style="color: #555555;">2020-12-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  KEGGREST                 1.34.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  knitr                    1.36             <span style="color: #555555;">2021-09-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  labeling                 0.4.2            <span style="color: #555555;">2020-10-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  later                    1.3.0            <span style="color: #555555;">2021-08-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  lattice                  0.20-45          <span style="color: #555555;">2021-09-22</span> <span style="color: #555555;">[3]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  lazyeval                 0.2.2            <span style="color: #555555;">2019-03-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  lifecycle                1.0.1            <span style="color: #555555;">2021-09-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  limma                    3.50.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  lobstr                   1.1.1            <span style="color: #555555;">2019-07-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  locfit                   1.5-9.4          <span style="color: #555555;">2020-03-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  lubridate                1.8.0            <span style="color: #555555;">2021-10-07</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  magick                   2.7.3            <span style="color: #555555;">2021-08-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  magrittr                 2.0.1            <span style="color: #555555;">2020-11-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  maps                     3.4.0            <span style="color: #555555;">2021-09-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  Matrix                   1.3-4            <span style="color: #555555;">2021-06-01</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.1.1)</span></span>
+<span class="co">#&gt;  MatrixGenerics         * 1.6.0            <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  matrixStats            * 0.61.0           <span style="color: #555555;">2021-09-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  memoise                  2.0.0            <span style="color: #555555;">2021-01-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  mime                     0.12             <span style="color: #555555;">2021-09-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  munsell                  0.5.0            <span style="color: #555555;">2018-06-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  pillar                   1.6.4            <span style="color: #555555;">2021-10-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  pkgbuild                 1.2.0            <span style="color: #555555;">2020-12-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  pkgconfig                2.0.3            <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  pkgdown                  <span style="color: #BB00BB; font-weight: bold;">1.9000.9000.9000</span> <span style="color: #555555;">2021-11-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">Github (r-lib/pkgdown@8122179)</span></span>
+<span class="co">#&gt;  pkgload                  1.2.3            <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  plotly                   4.10.0           <span style="color: #555555;">2021-10-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  plyr                     1.8.6            <span style="color: #555555;">2020-03-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  png                      0.1-7            <span style="color: #555555;">2013-12-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  Polychrome               1.3.1            <span style="color: #555555;">2021-07-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  prettyunits              1.1.1            <span style="color: #555555;">2020-01-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  processx                 3.5.2            <span style="color: #555555;">2021-04-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  promises                 1.2.0.1          <span style="color: #555555;">2021-02-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  pryr                   * 0.1.5            <span style="color: #555555;">2021-07-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  ps                       1.6.0            <span style="color: #555555;">2021-02-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  purrr                    0.3.4            <span style="color: #555555;">2020-04-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  R.methodsS3              1.8.1            <span style="color: #555555;">2020-08-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  R.oo                     1.24.0           <span style="color: #555555;">2020-08-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  R.utils                  2.11.0           <span style="color: #555555;">2021-09-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  R6                       2.5.1            <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  ragg                     1.2.0            <span style="color: #555555;">2021-10-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  rappdirs                 0.3.3            <span style="color: #555555;">2021-01-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  RColorBrewer             1.1-2            <span style="color: #555555;">2014-12-07</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  Rcpp                     1.0.7            <span style="color: #555555;">2021-07-07</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  RCurl                    1.98-1.5         <span style="color: #555555;">2021-09-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  RefManageR             * 1.3.0            <span style="color: #555555;">2020-11-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  remotes                  2.4.1            <span style="color: #555555;">2021-09-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  restfulr                 0.0.13           <span style="color: #555555;">2017-08-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  rhdf5                    2.38.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  rhdf5filters             1.6.0            <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  Rhdf5lib                 1.16.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  rjson                    0.2.20           <span style="color: #555555;">2018-06-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  rlang                    0.4.12           <span style="color: #555555;">2021-10-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  rmarkdown                2.11             <span style="color: #555555;">2021-09-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  roxygen2                 7.1.2            <span style="color: #555555;">2021-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  rprojroot                2.0.2            <span style="color: #555555;">2020-11-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  Rsamtools                2.10.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  RSQLite                  2.2.8            <span style="color: #555555;">2021-08-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  rstudioapi               0.13             <span style="color: #555555;">2020-11-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  rsvd                     1.0.5            <span style="color: #555555;">2021-04-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  rtracklayer            * 1.54.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  S4Vectors              * 0.32.2           <span style="color: #555555;">2021-11-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  sass                     0.4.0            <span style="color: #555555;">2021-05-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  ScaledMatrix             1.2.0            <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  scales                   1.1.1            <span style="color: #555555;">2020-05-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  scater                   1.22.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  scatterplot3d            0.3-41           <span style="color: #555555;">2018-03-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  scuttle                  1.4.0            <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  sessioninfo            * 1.2.1            <span style="color: #555555;">2021-11-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  shiny                    1.7.1            <span style="color: #555555;">2021-10-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  shinyWidgets             0.6.2            <span style="color: #555555;">2021-09-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  SingleCellExperiment   * 1.16.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  spam                     2.7-0            <span style="color: #555555;">2021-06-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  sparseMatrixStats        1.6.0            <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  SpatialExperiment      * 1.4.0            <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  spatialLIBD            * 1.7.3            <span style="color: #555555;">2021-11-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  stringi                  1.7.5            <span style="color: #555555;">2021-10-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  stringr                  1.4.0            <span style="color: #555555;">2019-02-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  SummarizedExperiment   * 1.24.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  systemfonts              1.0.3            <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  testthat                 3.1.0            <span style="color: #555555;">2021-10-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  textshaping              0.3.6            <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  tibble                   3.1.6            <span style="color: #555555;">2021-11-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  tidyr                    1.1.4            <span style="color: #555555;">2021-09-27</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  tidyselect               1.1.1            <span style="color: #555555;">2021-04-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  usethis                  2.1.3            <span style="color: #555555;">2021-10-27</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  utf8                     1.2.2            <span style="color: #555555;">2021-07-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  vctrs                    0.3.8            <span style="color: #555555;">2021-04-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  vipor                    0.4.5            <span style="color: #555555;">2017-03-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  viridis                  0.6.2            <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  viridisLite              0.4.0            <span style="color: #555555;">2021-04-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  withr                    2.4.2            <span style="color: #555555;">2021-04-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  xfun                     0.28             <span style="color: #555555;">2021-11-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  XML                      3.99-0.8         <span style="color: #555555;">2021-09-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  xml2                     1.3.2            <span style="color: #555555;">2020-04-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  xtable                   1.8-4            <span style="color: #555555;">2019-04-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  XVector                  0.34.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  yaml                     2.2.1            <span style="color: #555555;">2020-02-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
+<span class="co">#&gt;  zlibbioc                 1.40.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; <span style="color: #555555;"> [1] /__w/_temp/Library</span></span>
+<span class="co">#&gt; <span style="color: #555555;"> [2] /usr/local/lib/R/site-library</span></span>
+<span class="co">#&gt; <span style="color: #555555;"> [3] /usr/local/lib/R/library</span></span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></code></pre>
 </div>
-<div id="bibliography" class="section level1">
-<h1 class="hasAnchor">
-<a href="#bibliography" class="anchor" aria-hidden="true"></a>Bibliography</h1>
+<div class="section level1">
+<h1 id="bibliography">Bibliography<a class="anchor" aria-label="anchor" href="#bibliography"></a>
+</h1>
 <p>This vignette was generated using <em><a href="https://bioconductor.org/packages/3.14/BiocStyle" class="external-link">BiocStyle</a></em> (Oleś, 2021) with <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie, 2021) and <em><a href="https://CRAN.R-project.org/package=rmarkdown" class="external-link">rmarkdown</a></em> (Allaire, Xie, McPherson, et al., 2021) running behind the scenes.</p>
 <p>Citations made with <em><a href="https://CRAN.R-project.org/package=RefManageR" class="external-link">RefManageR</a></em> (McLean, 2017).</p>
 <p>
-<a id="bib-allaire2021rmarkdown"></a><a href="#cite-allaire2021rmarkdown">[1]</a><cite> J. Allaire, Y. Xie, J. McPherson, et al. <em>rmarkdown: Dynamic Documents for R</em>. R package version 2.10. 2021. URL: <a href="https://github.com/rstudio/rmarkdown" class="external-link">https://github.com/rstudio/rmarkdown</a>.</cite>
+<a id="bib-allaire2021rmarkdown"></a><a href="#cite-allaire2021rmarkdown">[1]</a><cite> J. Allaire, Y. Xie, J. McPherson, et al. <em>rmarkdown: Dynamic Documents for R</em>. R package version 2.11. 2021. URL: <a href="https://github.com/rstudio/rmarkdown" class="external-link">https://github.com/rstudio/rmarkdown</a>.</cite>
 </p>
 <p>
-<a id="bib-csrdi2018sessioninfo"></a><a href="#cite-csrdi2018sessioninfo">[2]</a><cite> G. Csárdi, R. core, H. Wickham, et al. <em>sessioninfo: R Session Information</em>. R package version 1.1.1. 2018. URL: <a href="https://github.com/r-lib/sessioninfo#readme" class="external-link">https://github.com/r-lib/sessioninfo#readme</a>.</cite>
+<a id="bib-lawrence2009rtracklayer"></a><a href="#cite-lawrence2009rtracklayer">[2]</a><cite> M. Lawrence, R. Gentleman, and V. Carey. “rtracklayer: an R package for interfacing with genome browsers”. In: <em>Bioinformatics</em> 25 (2009), pp. 1841-1842. DOI: <a href="https://doi.org/10.1093/bioinformatics/btp328" class="external-link">10.1093/bioinformatics/btp328</a>. URL: <a href="http://bioinformatics.oxfordjournals.org/content/25/14/1841.abstract" class="external-link">http://bioinformatics.oxfordjournals.org/content/25/14/1841.abstract</a>.</cite>
 </p>
 <p>
-<a id="bib-lawrence2009rtracklayer"></a><a href="#cite-lawrence2009rtracklayer">[3]</a><cite> M. Lawrence, R. Gentleman, and V. Carey. “rtracklayer: an R package for interfacing with genome browsers”. In: <em>Bioinformatics</em> 25 (2009), pp. 1841-1842. DOI: <a href="https://doi.org/10.1093/bioinformatics/btp328" class="external-link">10.1093/bioinformatics/btp328</a>. URL: <a href="http://bioinformatics.oxfordjournals.org/content/25/14/1841.abstract" class="external-link">http://bioinformatics.oxfordjournals.org/content/25/14/1841.abstract</a>.</cite>
+<a id="bib-maynard2021transcriptome"></a><a href="#cite-maynard2021transcriptome">[3]</a><cite> K. R. Maynard, L. Collado-Torres, L. M. Weber, et al. “Transcriptome-scale spatial gene expression in the human dorsolateral prefrontal cortex”. In: <em>Nature Neuroscience</em> (2021). DOI: <a href="https://doi.org/10.1038/s41593-020-00787-0" class="external-link">10.1038/s41593-020-00787-0</a>. URL: <a href="https://www.nature.com/articles/s41593-020-00787-0" class="external-link">https://www.nature.com/articles/s41593-020-00787-0</a>.</cite>
 </p>
 <p>
-<a id="bib-maynard2021transcriptome"></a><a href="#cite-maynard2021transcriptome">[4]</a><cite> K. R. Maynard, L. Collado-Torres, L. M. Weber, et al. “Transcriptome-scale spatial gene expression in the human dorsolateral prefrontal cortex”. In: <em>Nature Neuroscience</em> (2021). DOI: <a href="https://doi.org/10.1038/s41593-020-00787-0" class="external-link">10.1038/s41593-020-00787-0</a>. URL: <a href="https://www.nature.com/articles/s41593-020-00787-0" class="external-link">https://www.nature.com/articles/s41593-020-00787-0</a>.</cite>
+<a id="bib-mclean2017refmanager"></a><a href="#cite-mclean2017refmanager">[4]</a><cite> M. W. McLean. “RefManageR: Import and Manage BibTeX and BibLaTeX References in R”. In: <em>The Journal of Open Source Software</em> (2017). DOI: <a href="https://doi.org/10.21105/joss.00338" class="external-link">10.21105/joss.00338</a>.</cite>
 </p>
 <p>
-<a id="bib-mclean2017refmanager"></a><a href="#cite-mclean2017refmanager">[5]</a><cite> M. W. McLean. “RefManageR: Import and Manage BibTeX and BibLaTeX References in R”. In: <em>The Journal of Open Source Software</em> (2017). DOI: <a href="https://doi.org/10.21105/joss.00338" class="external-link">10.21105/joss.00338</a>.</cite>
+<a id="bib-ole2021biocstyle"></a><a href="#cite-ole2021biocstyle">[5]</a><cite> A. Oleś. <em>BiocStyle: Standard styles for vignettes and other Bioconductor documents</em>. R package version 2.22.0. 2021. URL: <a href="https://github.com/Bioconductor/BiocStyle" class="external-link">https://github.com/Bioconductor/BiocStyle</a>.</cite>
 </p>
 <p>
-<a id="bib-ole2021biocstyle"></a><a href="#cite-ole2021biocstyle">[6]</a><cite> A. Oleś. <em>BiocStyle: Standard styles for vignettes and other Bioconductor documents</em>. R package version 2.21.3. 2021. URL: <a href="https://github.com/Bioconductor/BiocStyle" class="external-link">https://github.com/Bioconductor/BiocStyle</a>.</cite>
+<a id="bib-pardo2021spatiallibd"></a><a href="#cite-pardo2021spatiallibd">[6]</a><cite> B. Pardo, A. Spangler, L. M. Weber, et al. “spatialLIBD: an R/Bioconductor package to visualize spatially-resolved transcriptomics data”. In: <em>bioRxiv</em> (2021). DOI: <a href="https://doi.org/10.1101/2021.04.29.440149" class="external-link">10.1101/2021.04.29.440149</a>. URL: <a href="https://www.biorxiv.org/content/10.1101/2021.04.29.440149v1" class="external-link">https://www.biorxiv.org/content/10.1101/2021.04.29.440149v1</a>.</cite>
 </p>
 <p>
-<a id="bib-pardo2021spatiallibd"></a><a href="#cite-pardo2021spatiallibd">[7]</a><cite> B. Pardo, A. Spangler, L. M. Weber, et al. “spatialLIBD: an R/Bioconductor package to visualize spatially-resolved transcriptomics data”. In: <em>bioRxiv</em> (2021). DOI: <a href="https://doi.org/10.1101/2021.04.29.440149" class="external-link">10.1101/2021.04.29.440149</a>. URL: <a href="https://www.biorxiv.org/content/10.1101/2021.04.29.440149v1" class="external-link">https://www.biorxiv.org/content/10.1101/2021.04.29.440149v1</a>.</cite>
+<a id="bib-2021language"></a><a href="#cite-2021language">[7]</a><cite> R Core Team. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. Vienna, Austria, 2021. URL: <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>.</cite>
 </p>
 <p>
-<a id="bib-2021language"></a><a href="#cite-2021language">[8]</a><cite> R Core Team. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. Vienna, Austria, 2021. URL: <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>.</cite>
+<a id="bib-righelli2021spatialexperiment"></a><a href="#cite-righelli2021spatialexperiment">[8]</a><cite> D. Righelli, D. Risso, H. Crowell, et al. <em>SpatialExperiment: S4 Class for Spatial Experiments handling</em>. R package version 1.4.0. 2021.</cite>
 </p>
 <p>
-<a id="bib-righelli2021spatialexperiment"></a><a href="#cite-righelli2021spatialexperiment">[9]</a><cite> D. Righelli, D. Risso, H. Crowell, et al. <em>SpatialExperiment: S4 Class for Spatial Experiments handling</em>. R package version 1.3.3. 2021.</cite>
+<a id="bib-shepherd2021biocfilecache"></a><a href="#cite-shepherd2021biocfilecache">[9]</a><cite> L. Shepherd and M. Morgan. <em>BiocFileCache: Manage Files Across Sessions</em>. R package version 2.2.0. 2021.</cite>
 </p>
 <p>
-<a id="bib-shepherd2021biocfilecache"></a><a href="#cite-shepherd2021biocfilecache">[10]</a><cite> L. Shepherd and M. Morgan. <em>BiocFileCache: Manage Files Across Sessions</em>. R package version 2.1.1. 2021.</cite>
+<a id="bib-wickham2021pryr"></a><a href="#cite-wickham2021pryr">[10]</a><cite> H. Wickham. <em>pryr: Tools for Computing on the Language</em>. R package version 0.1.5. 2021. URL: <a href="https://github.com/hadley/pryr" class="external-link">https://github.com/hadley/pryr</a>.</cite>
 </p>
 <p>
-<a id="bib-wickham2021pryr"></a><a href="#cite-wickham2021pryr">[11]</a><cite> H. Wickham. <em>pryr: Tools for Computing on the Language</em>. R package version 0.1.5. 2021. URL: <a href="https://github.com/hadley/pryr" class="external-link">https://github.com/hadley/pryr</a>.</cite>
+<a id="bib-wickham2011testthat"></a><a href="#cite-wickham2011testthat">[11]</a><cite> H. Wickham. “testthat: Get Started with Testing”. In: <em>The R Journal</em> 3 (2011), pp. 5–10. URL: <a href="https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf" class="external-link">https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf</a>.</cite>
 </p>
 <p>
-<a id="bib-wickham2011testthat"></a><a href="#cite-wickham2011testthat">[12]</a><cite> H. Wickham. “testthat: Get Started with Testing”. In: <em>The R Journal</em> 3 (2011), pp. 5–10. URL: <a href="https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf" class="external-link">https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf</a>.</cite>
+<a id="bib-wickham2021sessioninfo"></a><a href="#cite-wickham2021sessioninfo">[12]</a><cite> H. Wickham, W. Chang, R. Flight, et al. <em>sessioninfo: R Session Information</em>. <a href="https://github.com/r-lib/sessioninfo#readme" class="external-link uri">https://github.com/r-lib/sessioninfo#readme</a>, <a href="https://r-lib.github.io/sessioninfo/" class="external-link uri">https://r-lib.github.io/sessioninfo/</a>. 2021.</cite>
 </p>
 <p>
-<a id="bib-xie2021knitr"></a><a href="#cite-xie2021knitr">[13]</a><cite> Y. Xie. <em>knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. R package version 1.33. 2021. URL: <a href="https://yihui.org/knitr/" class="external-link">https://yihui.org/knitr/</a>.</cite>
+<a id="bib-xie2021knitr"></a><a href="#cite-xie2021knitr">[13]</a><cite> Y. Xie. <em>knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. R package version 1.36. 2021. URL: <a href="https://yihui.org/knitr/" class="external-link">https://yihui.org/knitr/</a>.</cite>
 </p>
 </div>
   </div>
@@ -943,7 +999,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
 </div>
 
       </footer>
