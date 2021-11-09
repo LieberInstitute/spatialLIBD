@@ -18,6 +18,9 @@ https://github.com/LieberInstitute/spatialLIBD/issues/21.
 application also added support for reversing the order of the scale.
 Resolves https://github.com/LieberInstitute/spatialLIBD/issues/22 and
 https://github.com/LieberInstitute/spatialLIBD/issues/23.
+* Added `export_cluster()` and `import_cluster()` to help export/import
+clustering results instead of having to save large `spe` objects when
+exploring different clustering methods.
 
 # spatialLIBD 1.7.2
 
