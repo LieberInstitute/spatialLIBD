@@ -109,10 +109,15 @@ app_ui <- function() {
                         selectInput(
                             inputId = "genecolor",
                             label = "Gene color scale",
-                            choices = c("viridis", "paper"),
+                            choices = c("viridis", "paper", "magma", "inferno", "plasma", "cividis", "rocket", "mako", "turbo"),
                             selected = "viridis"
                         ),
                         helpText("The viridis scale is color-blind friendly."),
+                        checkboxInput(
+                            "genecolor_direction",
+                            "Should the colors be ordered from darkest to lightest?",
+                            value = TRUE
+                        ),
                         hr(),
                         checkboxInput("dropNA",
                             "Drop NA layer entries in the CSV file?",

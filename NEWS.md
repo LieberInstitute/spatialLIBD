@@ -14,6 +14,10 @@ Resolves https://github.com/LieberInstitute/spatialLIBD/issues/20.
 `img_edit()`, `img_update()` and `img_update_all()` as well as new features
 on the web application. Resolves
 https://github.com/LieberInstitute/spatialLIBD/issues/21.
+* Added support for more control over the gene color scale and in the web
+application also added support for reversing the order of the scale.
+Resolves https://github.com/LieberInstitute/spatialLIBD/issues/22 and
+https://github.com/LieberInstitute/spatialLIBD/issues/23.
 
 # spatialLIBD 1.7.2
 

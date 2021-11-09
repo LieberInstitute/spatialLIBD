@@ -12,7 +12,9 @@ vis_gene_p(
   title,
   viridis = TRUE,
   image_id = "lowres",
-  alpha = 1
+  alpha = 1,
+  cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4",
+    "springgreen", "goldenrod", "red")
 )
 }
 \arguments{
@@ -48,6 +50,9 @@ use in the background.}
 
 \item{alpha}{A \code{numeric(1)} in the \verb{[0, 1]} range that specifies the
 transparency level of the data on the spots.}
+
+\item{cont_colors}{A \code{character()} vector of colors that supersedes the
+\code{viridis} argument.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2} object.

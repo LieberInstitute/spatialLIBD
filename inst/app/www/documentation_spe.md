@@ -48,7 +48,8 @@ Throughout the rest of this document, we'll refer to this object by the name `sp
 * `Image name`: the name of the background image to use. You can edit this image on the `Edit image` tab.
 * `Spot transparency level`: the transparency of the spots in the visualizations. It can be useful if the spot colors are blocking the background image.
 * `Minimum count value`: Values from the selected `continuous variable to plot` at or below this threshold will not be displayed.
-* `Gene color scale`: Whether to use the color blind friendly palette (`viridis`) or to use a custom palette that we used for our `paper`.
+* `Gene color scale`: Whether to use the color blind friendly palette (`viridis`) or to use a custom palette that we used for our `paper`. Other options from the [viridisLite R package](https://sjmgarnier.github.io/viridisLite/reference/viridis.html#details) are also supported.
+* `Gene color direction`: whether colors should be ordered from darkest to lightest or in the reverse direction.
 
 We will cover the download button and upload CSV options at the end of this document.
 

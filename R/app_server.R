@@ -73,6 +73,19 @@ app_server <- function(input, output, session) {
         return(colors)
     })
 
+    cont_colors <- reactive({
+        paper_cols <- c("aquamarine4", "springgreen", "goldenrod", "red")
+        cont_colors <- if (input$genecolor == "paper") {
+            if (input$genecolor_direction) {
+                paper_cols
+            } else {
+                rev(paper_cols)
+            }
+        } else {
+            viridis(21, option = input$genecolor, direction = ifelse(input$genecolor_direction, 1, -1))
+        }
+    })
+
     # Set the max based on the assay
     observeEvent(input$assayname, {
         updateNumericInput(
@@ -149,7 +162,7 @@ app_server <- function(input, output, session) {
             geneid = input$geneid,
             assayname = input$assayname,
             minCount = input$minCount,
-            viridis = input$genecolor == "viridis",
+            cont_colors = cont_colors(),
             image_id = input$imageid,
             alpha = input$alphalevel
         )
@@ -182,7 +195,7 @@ app_server <- function(input, output, session) {
                 assayname = isolate(input$assayname),
                 minCount = isolate(input$minCount),
                 return_plots = TRUE,
-                viridis = isolate(input$genecolor == "viridis"),
+                cont_colors = isolate(cont_colors()),
                 image_id = input$imageid,
                 alpha = input$alphalevel
             )
@@ -532,7 +545,7 @@ app_server <- function(input, output, session) {
             sampleid = sampleid,
             spatial = FALSE,
             title = "",
-            viridis = genecolor == "viridis",
+            cont_colors = cont_colors(),
             image_id = input$imageid,
             alpha = input$alphalevel
         )
@@ -585,30 +598,16 @@ app_server <- function(input, output, session) {
             p_dim <- p_dim_gene <- ggplot(d_key, aes(key = key))
         }
 
+        p_dim_gene <- p_dim_gene + scale_fill_gradientn(
+            colors = cont_colors(),
+            na.value = c("black" = "#0000002D"),
+            guide = FALSE
+        ) + scale_color_gradientn(
+            colors = cont_colors(),
+            na.value = c("black" = "#0000002D"),
+            guide = FALSE
+        )
 
-        if (genecolor == "viridis") {
-            p_dim_gene <-
-                p_dim_gene + scale_fill_gradientn(
-                    colors = viridis(21),
-                    na.value = c("black" = "#0000002D"),
-                    guide = FALSE
-                ) +
-                scale_color_gradientn(
-                    colors = viridis(21),
-                    na.value = c("black" = "#0000002D"),
-                    guide = FALSE
-                )
-        } else {
-            p_dim_gene <- p_dim_gene + scale_fill_gradientn(
-                colors = c("aquamarine4", "springgreen", "goldenrod", "red"),
-                na.value = c("black" = "#0000002D"),
-                guide = FALSE
-            ) + scale_color_gradientn(
-                colors = c("aquamarine4", "springgreen", "goldenrod", "red"),
-                na.value = c("black" = "#0000002D"),
-                guide = FALSE
-            )
-        }
 
         p_dim_gene <- p_dim_gene +
             labs(fill = NULL) +
@@ -772,7 +771,7 @@ app_server <- function(input, output, session) {
                 assayname = input$assayname,
                 minCount = input$minCount,
                 spatial = FALSE,
-                viridis = input$genecolor == "viridis",
+                cont_colors = cont_colors(),
                 image_id = input$imageid,
                 alpha = input$alphalevel
             )

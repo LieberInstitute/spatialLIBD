@@ -17,6 +17,8 @@ vis_grid_gene(
   width = 36,
   image_id = "lowres",
   alpha = 1,
+  cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4",
+    "springgreen", "goldenrod", "red"),
   ...
 )
 }
@@ -64,6 +66,9 @@ use in the background.}
 
 \item{alpha}{A \code{numeric(1)} in the \verb{[0, 1]} range that specifies the
 transparency level of the data on the spots.}
+
+\item{cont_colors}{A \code{character()} vector of colors that supersedes the
+\code{viridis} argument.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}
