@@ -14,6 +14,8 @@ vis_gene(
   viridis = TRUE,
   image_id = "lowres",
   alpha = 1,
+  cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4",
+    "springgreen", "goldenrod", "red"),
   ...
 )
 }
@@ -55,6 +57,9 @@ use in the background.}
 \item{alpha}{A \code{numeric(1)} in the \verb{[0, 1]} range that specifies the
 transparency level of the data on the spots.}
 
+\item{cont_colors}{A \code{character()} vector of colors that supersedes the
+\code{viridis} argument.}
+
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}
 }
@@ -86,6 +91,13 @@ if (enough_ram()) {
         spe = spe,
         sampleid = "151507",
         viridis = FALSE
+    )
+
+    ## Use a custom set of colors in the reverse order than usual
+    vis_gene(
+        spe = spe,
+        sampleid = "151507",
+        cont_colors = rev(viridisLite::viridis(21, option = "magma"))
     )
 
     ## Visualize a continuous variable, in this case, the ratio of chrM

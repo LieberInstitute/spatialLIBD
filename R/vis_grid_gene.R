@@ -47,6 +47,7 @@ vis_grid_gene <-
     width = 36,
     image_id = "lowres",
     alpha = 1,
+    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
     ...) {
         stopifnot("gene_search" %in% colnames(rowData(spe)))
         plots <- lapply(unique(spe$sample_id), function(sampleid) {
@@ -60,6 +61,7 @@ vis_grid_gene <-
                 viridis,
                 image_id = image_id,
                 alpha = alpha,
+                cont_colors = cont_colors,
                 ...
             )
         })

@@ -53,7 +53,8 @@ vis_gene_p <-
     title,
     viridis = TRUE,
     image_id = "lowres",
-    alpha = 1) {
+    alpha = 1,
+    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red")) {
 
         ## Some variables
         pxl_row_in_fullres <- pxl_col_in_fullres <- key <- COUNT <- NULL
@@ -97,24 +98,14 @@ vis_gene_p <-
             ) +
             coord_cartesian(expand = FALSE)
 
-        if (viridis) {
-            p <- p + scale_fill_gradientn(
-                colors = viridis(21),
-                na.value = c("black" = "#0000002D")
-            ) +
-                scale_color_gradientn(
-                    colors = viridis(21),
-                    na.value = c("black" = "#0000002D")
-                )
-        } else {
-            p <- p + scale_fill_gradientn(
-                colors = c("aquamarine4", "springgreen", "goldenrod", "red"),
-                na.value = c("black" = "#0000002D")
-            ) + scale_color_gradientn(
-                colors = c("aquamarine4", "springgreen", "goldenrod", "red"),
+        p <- p + scale_fill_gradientn(
+            colors = cont_colors,
+            na.value = c("black" = "#0000002D")
+        ) +
+            scale_color_gradientn(
+                colors = cont_colors,
                 na.value = c("black" = "#0000002D")
             )
-        }
 
         p <- p +
             xlim(0, ncol(img)) +

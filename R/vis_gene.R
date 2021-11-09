@@ -20,6 +20,8 @@
 #' top of the histology image. One issue is being able to differentiate low
 #' values from NA ones due to the purple-ish histology information that is
 #' dependent on cell density.
+#' @param cont_colors A `character()` vector of colors that supersedes the
+#' `viridis` argument.
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
@@ -45,6 +47,13 @@
 #'         viridis = FALSE
 #'     )
 #'
+#'     ## Use a custom set of colors in the reverse order than usual
+#'     vis_gene(
+#'         spe = spe,
+#'         sampleid = "151507",
+#'         cont_colors = rev(viridisLite::viridis(21, option = "magma"))
+#'     )
+#'
 #'     ## Visualize a continuous variable, in this case, the ratio of chrM
 #'     ## gene expression compared to the total expression at the spot-level
 #'     vis_gene(
@@ -63,6 +72,7 @@ vis_gene <-
     viridis = TRUE,
     image_id = "lowres",
     alpha = 1,
+    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
     ...) {
         spe_sub <- spe[, spe$sample_id == sampleid]
         d <- as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE), optional = TRUE)
@@ -87,7 +97,8 @@ vis_gene <-
             ),
             viridis = viridis,
             image_id = image_id,
-            alpha = alpha
+            alpha = alpha,
+            cont_colors = cont_colors
         )
         p + labs(caption = paste(
             if (!geneid %in% colnames(colData(spe_sub))) {
