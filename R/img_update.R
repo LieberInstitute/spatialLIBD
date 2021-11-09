@@ -58,6 +58,11 @@ img_update <-
                 return(spe)
             }
         } else {
+            ## For R CMD check
+            sample_id <- NULL
+
+            ## Remove the input image to avoid duplicating it later on
+            ## when we rbind()
             img_data <-
                 subset(
                     img_data,

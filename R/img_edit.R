@@ -39,7 +39,8 @@
 #' @param negate A `logical(1)` controlling whether to use
 #' [magick::negate][magick::color].
 #'
-#' @return
+#' @return A `magick` image object such as the one returned by
+#' [magick::image_read][magick::editing].
 #' @importFrom magick image_read image_modulate image_enhance image_contrast
 #' image_quantize image_equalize image_transparent image_median image_negate
 #' image_background image_channel
@@ -53,7 +54,8 @@
 #'     if (!exists("spe")) spe <- fetch_data("spe")
 #'
 #'     ## Reduce brightness to 25%
-#'     img_edit(spe, sampleid = "151507", brightness = 25)
+#'     x <- img_edit(spe, sampleid = "151507", brightness = 25)
+#'     plot(x)
 #' }
 img_edit <-
     function(spe,
