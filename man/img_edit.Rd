@@ -8,6 +8,7 @@ img_edit(
   spe,
   sampleid,
   image_id = "lowres",
+  channel = NA,
   brightness = 100,
   saturation = 100,
   hue = 100,
@@ -19,6 +20,7 @@ img_edit(
   normalize = FALSE,
   transparent_color = NA,
   transparent_fuzz = 0,
+  background_color = NA,
   median_radius = NA,
   negate = FALSE
 )
@@ -27,6 +29,7 @@ img_edit(
   spe,
   sampleid,
   image_id = "lowres",
+  channel = NA,
   brightness = 100,
   saturation = 100,
   hue = 100,
@@ -38,6 +41,7 @@ img_edit(
   normalize = FALSE,
   transparent_color = NA,
   transparent_fuzz = 0,
+  background_color = NA,
   median_radius = NA,
   negate = FALSE
 )
@@ -55,9 +59,14 @@ visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more 
 \item{image_id}{A \code{character(1)} with the name of the image ID you want to
 use in the background.}
 
-\item{brightness}{A \code{numeric(1)} passed to \link[magick:color]{magick::image_modulate}.}
+\item{channel}{A \code{character(1)} passed to
+\link[magick:color]{magick::image_channel}. If \code{NA} this step is skipped.}
 
-\item{saturation}{A \code{numeric(1)} passed to \link[magick:color]{magick::image_modulate}.}
+\item{brightness}{A \code{numeric(1)} passed to
+\link[magick:color]{magick::image_modulate}.}
+
+\item{saturation}{A \code{numeric(1)} passed to
+\link[magick:color]{magick::image_modulate}.}
 
 \item{hue}{A \code{numeric(1)} passed to \link[magick:color]{magick::image_modulate}.}
 
@@ -84,6 +93,9 @@ use in the background.}
 
 \item{transparent_fuzz}{A \code{numeric(1)} passed to
 \link[magick:color]{magick::image_transparent}.}
+
+\item{background_color}{A \code{character(1)} passed to
+\link[magick:color]{magick::image_background}. If \code{NA} this step is skipped.}
 
 \item{median_radius}{A \code{numeric(1)} passed to
 \link[magick:color]{magick::image_median}. If \code{NA} this step is skipped.}

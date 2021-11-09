@@ -9,8 +9,12 @@
 #' directly use the `magick` package.
 #'
 #' @inheritParams vis_clus
-#' @param brightness A `numeric(1)` passed to [magick::image_modulate][magick::color].
-#' @param saturation A `numeric(1)` passed to [magick::image_modulate][magick::color].
+#' @param channel A `character(1)` passed to
+#' [magick::image_channel][magick::color]. If `NA` this step is skipped.
+#' @param brightness A `numeric(1)` passed to
+#' [magick::image_modulate][magick::color].
+#' @param saturation A `numeric(1)` passed to
+#' [magick::image_modulate][magick::color].
 #' @param hue A `numeric(1)` passed to [magick::image_modulate][magick::color].
 #' @param enhance A `logical(1)` controlling whether to use
 #' [magick::enhance][magick::color].
@@ -28,6 +32,8 @@
 #' [magick::image_transparent][magick::color]. If `NA` this step is skipped.
 #' @param transparent_fuzz A `numeric(1)` passed to
 #' [magick::image_transparent][magick::color].
+#' @param background_color  A `character(1)` passed to
+#' [magick::image_background][magick::color]. If `NA` this step is skipped.
 #' @param median_radius  A `numeric(1)` passed to
 #' [magick::image_median][magick::color]. If `NA` this step is skipped.
 #' @param negate A `logical(1)` controlling whether to use
@@ -36,6 +42,7 @@
 #' @return
 #' @importFrom magick image_read image_modulate image_enhance image_contrast
 #' image_quantize image_equalize image_transparent image_median image_negate
+#' image_background image_channel
 #' @importFrom SpatialExperiment imgRaster
 #' @export
 #' @family Image editing functions
@@ -52,6 +59,7 @@ img_edit <-
     function(spe,
     sampleid,
     image_id = "lowres",
+    channel = NA,
     brightness = 100,
     saturation = 100,
     hue = 100,
@@ -63,11 +71,17 @@ img_edit <-
     normalize = FALSE,
     transparent_color = NA,
     transparent_fuzz = 0,
+    background_color = NA,
     median_radius = NA,
     negate = FALSE) {
         img <-
             magick::image_read(SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = image_id))
 
+
+        if (!(is.na(channel) || channel == "")) {
+            img <-
+                magick::image_channel(img, channel = channel)
+        }
         img <-
             magick::image_modulate(img,
                 brightness = brightness,
@@ -75,32 +89,36 @@ img_edit <-
                 hue = hue
             )
         if (enhance) {
-              img <- magick::image_enhance(img)
-          }
+            img <- magick::image_enhance(img)
+        }
         if (!is.na(contrast_sharpen)) {
-              img <-
-                  magick::image_contrast(img, sharpen = contrast_sharpen)
-          }
+            img <-
+                magick::image_contrast(img, sharpen = contrast_sharpen)
+        }
         if (!is.na(quantize_max)) {
-              img <-
-                  magick::image_quantize(img, max = quantize_max, dither = quantize_dither)
-          }
+            img <-
+                magick::image_quantize(img, max = quantize_max, dither = quantize_dither)
+        }
         if (equalize) {
-              img <- magick::image_equalize(img)
-          }
+            img <- magick::image_equalize(img)
+        }
         if (normalize) {
-              img <- magick::image_normalize(img)
-          }
+            img <- magick::image_normalize(img)
+        }
         if (!is.na(transparent_color)) {
-              img <-
-                  magick::image_transparent(img, color = transparent_color, fuzz = transparent_fuzz)
-          }
+            img <-
+                magick::image_transparent(img, color = transparent_color, fuzz = transparent_fuzz)
+        }
+        if (!is.na(background_color)) {
+            img <-
+                magick::image_background(img, color = background_color)
+        }
         if (!is.na(median_radius)) {
-              img <- magick::image_median(img, radius = median_radius)
-          }
+            img <- magick::image_median(img, radius = median_radius)
+        }
         if (negate) {
-              img <- magick::image_negate(img)
-          }
+            img <- magick::image_negate(img)
+        }
 
         return(img)
     }
