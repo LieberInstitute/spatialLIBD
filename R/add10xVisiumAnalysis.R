@@ -50,7 +50,6 @@ add10xVisiumAnalysis <- function(spe,
     key_analysis <- paste0(merged_info$barcode, "_", merged_info$sample_id)
     m <- match(key_spe, key_analysis)
     merged_info <- merged_info[m, ]
-    rownames(merged_info) <- rownames(col_info)
 
     if (!barcode_present) {
         merged_info$barcode <- NULL
@@ -67,11 +66,8 @@ add10xVisiumAnalysis <- function(spe,
     })
 
     reducedDims(spe) <- c(reducedDims(spe), projections_list)
-
-    spot_names <- rownames(colData(spe))
-
     colData(spe) <- DataFrame(merged_info, check.names = FALSE)
-    colnames(spe) <- spot_names
+    colnames(spe) <- rownames(col_info)
 
     return(spe)
 }
