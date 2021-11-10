@@ -67,6 +67,11 @@ add10xVisiumAnalysis <- function(spe,
     })
 
     reducedDims(spe) <- c(reducedDims(spe), projections_list)
+
+    spot_names <- rownames(colData(spe))
+
     colData(spe) <- DataFrame(merged_info, check.names = FALSE)
+    colnames(spe) <- spot_names
+
     return(spe)
 }
