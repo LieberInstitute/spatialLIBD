@@ -48,8 +48,9 @@ img_update <-
     overwrite = FALSE,
     ...) {
         img_data <- SpatialExperiment::imgData(spe)
+        img_exist_i <- img_data$image_id == new_image_id & img_data$sample_id == sampleid
         if (!overwrite) {
-            if (image_id == new_image_id) {
+            if (any(img_exist_i)) {
                 warning("Did you mean to overwrite image_id '",
                     image_id,
                     "'?",
@@ -58,16 +59,9 @@ img_update <-
                 return(spe)
             }
         } else {
-            ## For R CMD check
-            sample_id <- NULL
-
             ## Remove the input image to avoid duplicating it later on
             ## when we rbind()
-            img_data <-
-                subset(
-                    img_data,
-                    !(image_id == new_image_id & sample_id == sampleid)
-                )
+            img_data <- img_data[ !img_exist_i,  ]
         }
 
         edited_img <-
