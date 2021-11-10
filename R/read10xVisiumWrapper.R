@@ -64,7 +64,7 @@ read10xVisiumWrapper <- function(samples = "",
     }
     stopifnot(file.exists(reference_gtf))
 
-    if (verbose) message(Sys.time(), " read10xVisium: reading basic data from SpaceRanger")
+    if (verbose) message(Sys.time(), " SpatialExperiment::read10xVisium: reading basic data from SpaceRanger")
     spe <- SpatialExperiment::read10xVisium(
         samples = samples,
         sample_id = sample_id,
@@ -74,7 +74,7 @@ read10xVisiumWrapper <- function(samples = "",
         load = load
     )
 
-    if (verbose) message(Sys.time(), " SpatialExperiment::read10xVisiumAnalysis: reading analysis output from SpaceRanger")
+    if (verbose) message(Sys.time(), " read10xVisiumAnalysis: reading analysis output from SpaceRanger")
     visium_analysis <- read10xVisiumAnalysis(
         samples = samples,
         sample_id = sample_id
