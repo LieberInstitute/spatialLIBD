@@ -60,8 +60,9 @@ add10xVisiumAnalysis <- function(spe,
         merged_projection <- merge(basic_structure, x, sort = FALSE, all = TRUE)
         key_projection <- paste0(merged_projection$barcode, "_", merged_projection$sample_id)
         m_proj <- match(key_spe, key_projection)
-        result <- merged_projection[m_proj, -which(colnames(merged_projection) %in% c("barcode", "sample_id"))]
-        return(as.matrix(result))
+        result <- as.matrix(merged_projection[m_proj, -which(colnames(merged_projection) %in% c("barcode", "sample_id"))])
+        rownames(result) <- rownames(col_info)
+        return(result)
     })
 
     reducedDims(spe) <- c(reducedDims(spe), projections_list)
