@@ -102,7 +102,7 @@
       Lieber Institute for Brain Development, Johns Hopkins Medical Campus<br><a class="author_email" href="mailto:#"></a><a href="mailto:andrew.jaffe@libd.org" class="email">andrew.jaffe@libd.org</a>
       </address>
                   
-            <h4 data-toc-skip class="date">9 November 2021</h4>
+            <h4 data-toc-skip class="date">10 November 2021</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/vignettes/spatialLIBD.Rmd" class="external-link"><code>vignettes/spatialLIBD.Rmd</code></a></small>
       <div class="hidden name"><code>spatialLIBD.Rmd</code></div>
@@ -244,7 +244,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Download the small example sce data</span>
 <span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_example"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
-<span class="co">#&gt; 2021-11-09 23:20:18 loading file /github/home/.cache/R/BiocFileCache/6e923343fb44_sce_sub_for_vignette.Rdata%3Fdl%3D1</span>
+<span class="co">#&gt; 2021-11-10 20:51:07 loading file /github/home/.cache/R/BiocFileCache/4155cc5389d_sce_sub_for_vignette.Rdata%3Fdl%3D1</span>
 
 <span class="co">## Convert to a SpatialExperiment object</span>
 <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sce_to_spe.html">sce_to_spe</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span>
@@ -256,9 +256,9 @@ If you tweet about this website, the data or the R package please use the <code>
 
 <span class="co">## Query ExperimentHub and download the data</span>
 <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
-<span class="co">#&gt; 2021-11-09 23:20:25 loading file /github/home/.cache/R/BiocFileCache/6e922bedc0c7_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="co">#&gt; 2021-11-10 20:51:18 loading file /github/home/.cache/R/BiocFileCache/4153276022_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"modeling_results"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
-<span class="co">#&gt; 2021-11-09 23:20:27 loading file /github/home/.cache/R/BiocFileCache/6e924e21596a_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></code></pre></div>
+<span class="co">#&gt; 2021-11-10 20:51:19 loading file /github/home/.cache/R/BiocFileCache/41541c85dd6_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></code></pre></div>
 <p>Once you have downloaded the objects, we can explore them a little bit</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## spot-level data</span>
@@ -328,7 +328,7 @@ If you tweet about this website, the data or the R package please use the <code>
         <span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;  13.761   0.476  14.247</span>
+<span class="co">#&gt;  15.317   0.592  16.025</span>
 
 <span class="co">## Explore the result</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span>
@@ -857,12 +857,12 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"spatialLIBD.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span class="co">#&gt; [1] "2021-11-09 23:20:51 UTC"</span></code></pre>
+<pre><code><span class="co">#&gt; [1] "2021-11-10 20:51:46 UTC"</span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span class="co">#&gt; Time difference of 51.042 secs</span></code></pre>
+<pre><code><span class="co">#&gt; Time difference of 1.032 mins</span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info  ──────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span class="co">#&gt;  hash: family: man, woman, boy, candy, tooth</span>
+<span class="co">#&gt;  hash: baguette bread, flag: Puerto Rico, thumbs down: light skin tone</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span>
 <span class="co">#&gt;  version  R version 4.1.1 (2021-08-10)</span>
@@ -873,7 +873,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt;  collate  en_US.UTF-8</span>
 <span class="co">#&gt;  ctype    en_US.UTF-8</span>
 <span class="co">#&gt;  tz       UTC</span>
-<span class="co">#&gt;  date     2021-11-09</span>
+<span class="co">#&gt;  date     2021-11-10</span>
 <span class="co">#&gt;  pandoc   2.11.4 @ /usr/local/bin/ (via rmarkdown)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
@@ -916,7 +916,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt;  DBI                      1.1.1            <span style="color: #555555;">2021-01-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  dbplyr                   2.1.1            <span style="color: #555555;">2021-04-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  DelayedArray             0.20.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
-<span class="co">#&gt;  DelayedMatrixStats       1.15.4           <span style="color: #555555;">2021-11-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">Github (PeteHaitch/DelayedMatrixStats@e489473)</span></span>
+<span class="co">#&gt;  DelayedMatrixStats       1.15.4           <span style="color: #555555;">2021-11-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">Github (PeteHaitch/DelayedMatrixStats@e489473)</span></span>
 <span class="co">#&gt;  desc                     1.4.0            <span style="color: #555555;">2021-09-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  digest                   0.6.28           <span style="color: #555555;">2021-09-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  dockerfiler              0.1.4            <span style="color: #555555;">2021-09-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
@@ -1033,7 +1033,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt;  spam                     2.7-0            <span style="color: #555555;">2021-06-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  sparseMatrixStats        1.6.0            <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
 <span class="co">#&gt;  SpatialExperiment      * 1.4.0            <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
-<span class="co">#&gt;  spatialLIBD            * 1.7.3            <span style="color: #555555;">2021-11-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  spatialLIBD            * 1.7.3            <span style="color: #555555;">2021-11-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
 <span class="co">#&gt;  stringi                  1.7.5            <span style="color: #555555;">2021-10-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  stringr                  1.4.0            <span style="color: #555555;">2019-02-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.1.0)</span></span>
 <span class="co">#&gt;  SummarizedExperiment   * 1.24.0           <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
