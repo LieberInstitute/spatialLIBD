@@ -27,7 +27,7 @@
 #'     ## scale factor information from
 #'     ## https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151507/scalefactors_json.json
 #' }
-add_image_all <-
+add_images <-
     function(spe,
         image_dir,
         image_pattern,
