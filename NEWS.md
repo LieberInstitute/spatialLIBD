@@ -21,6 +21,8 @@ https://github.com/LieberInstitute/spatialLIBD/issues/23.
 * Added `export_cluster()` and `import_cluster()` to help export/import
 clustering results instead of having to save large `spe` objects when
 exploring different clustering methods.
+* Added `locate_images()` and `add_images()` for adding non-standard images
+to a `spe` object.
 
 # spatialLIBD 1.7.2
 

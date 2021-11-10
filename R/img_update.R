@@ -61,7 +61,7 @@ img_update <-
         } else {
             ## Remove the input image to avoid duplicating it later on
             ## when we rbind()
-            img_data <- img_data[ !img_exist_i,  ]
+            img_data <- img_data[!img_exist_i, ]
         }
 
         edited_img <-
