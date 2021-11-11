@@ -181,9 +181,6 @@ jobs:
           message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
           install.packages(c("rcmdcheck", "BiocCheck"), repos = gha_repos)
 
-          ## Install dependency that's failing on BioC-devel right now
-          remotes::install_github("PeteHaitch/DelayedMatrixStats", repos = gha_repos)
-
           ## Pass #1 at installing dependencies
           ## This pass uses AnVIL-powered fast binaries
           ## details at https://github.com/nturaga/bioc2021-bioconductor-binaries
