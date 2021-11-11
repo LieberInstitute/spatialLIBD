@@ -34,6 +34,9 @@
     <loc>/reference/add10xVisiumAnalysis.html</loc>
   </url>
   <url>
+    <loc>/reference/add_images.html</loc>
+  </url>
+  <url>
     <loc>/reference/check_modeling_results.html</loc>
   </url>
   <url>
@@ -95,6 +98,9 @@
   </url>
   <url>
     <loc>/reference/libd_layer_colors.html</loc>
+  </url>
+  <url>
+    <loc>/reference/locate_images.html</loc>
   </url>
   <url>
     <loc>/reference/read10xVisiumAnalysis.html</loc>
