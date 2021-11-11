@@ -16,7 +16,11 @@
 #' with the additional images.
 #' @param image_id A `character(1)` specifying the name to use in the new
 #' images. It cannot be the same as one used for existing images in `spe` for a
-#' given sample.
+#' given sample. It equals `image_pattern` by default.
+#' @param image_paths A named `character()` vector with the paths to the images.
+#' The names have to match the `spe$sample_id` and cannot be repeated. By
+#' default `locate_images()` is used but you can alternatively specify
+#' `image_paths` and ignore `image_dir` and `image_pattern`.
 #'
 #' @return A
 #' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class] object

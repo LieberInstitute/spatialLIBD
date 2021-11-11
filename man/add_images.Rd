@@ -32,7 +32,12 @@ with the additional images.}
 
 \item{image_id}{A \code{character(1)} specifying the name to use in the new
 images. It cannot be the same as one used for existing images in \code{spe} for a
-given sample.}
+given sample. It equals \code{image_pattern} by default.}
+
+\item{image_paths}{A named \code{character()} vector with the paths to the images.
+The names have to match the \code{spe$sample_id} and cannot be repeated. By
+default \code{locate_images()} is used but you can alternatively specify
+\code{image_paths} and ignore \code{image_dir} and \code{image_pattern}.}
 }
 \value{
 A
