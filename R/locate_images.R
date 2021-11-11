@@ -12,6 +12,7 @@
 #'
 #' @return A named `character()` vector with the path to images.
 #' @export
+#' @importFrom stats setNames
 #' @family Functions for adding non-standard images
 #'
 #' @examples
