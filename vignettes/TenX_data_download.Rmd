@@ -42,10 +42,8 @@ knitr::opts_chunk$set(
 ```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
 ## Track time spent on making the vignette
 startTime <- Sys.time()
-
 ## Bib setup
 library("RefManageR")
-
 ## Write bibliography information
 bib <- c(
     R = citation(),
@@ -74,9 +72,7 @@ bib <- c(
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
-
 BiocManager::install("spatialLIBD")
-
 ## Check that you have a valid Bioconductor installation
 BiocManager::valid()
 ```
@@ -132,7 +128,8 @@ lymph.url <-
         "1.1.0/V1_Human_Lymph_Node/",
         c(
             "V1_Human_Lymph_Node_filtered_feature_bc_matrix.tar.gz",
-            "V1_Human_Lymph_Node_spatial.tar.gz"
+            "V1_Human_Lymph_Node_spatial.tar.gz",
+            "V1_Human_Lymph_Node_analysis.tar.gz"
         )
     )
 lymph.data <- sapply(lymph.url, BiocFileCache::bfcrpath, x = bfc)
@@ -144,12 +141,11 @@ lymph.data <- sapply(lymph.url, BiocFileCache::bfcrpath, x = bfc)
 ## Extract the files to a temporary location
 ## (they'll be deleted once you close your R session)
 sapply(lymph.data, utils::untar, exdir = tempdir())
-
 ## List the files we downloaded and extracted
 ## These files are typically SpaceRanger outputs
 lymph.dirs <- file.path(
     tempdir(),
-    c("filtered_feature_bc_matrix", "spatial", "raw_feature_bc_matrix")
+    c("filtered_feature_bc_matrix", "spatial", "raw_feature_bc_matrix", "analysis")
 )
 list.files(lymph.dirs)
 ```
@@ -169,7 +165,6 @@ spe <- SpatialExperiment::read10xVisium(
 class(spe)
 pryr::object_size(spe)
 spe
-
 ## The counts are saved in a sparse matrix R object
 class(counts(spe))
 ```
@@ -221,25 +216,19 @@ If you have the GTF file from 10x Genomics, we show next how you can read the in
 ## * download the 11 GB file from
 ## https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz
 ## * decompress it
-
 ## Read in the gene information from the annotation GTF file provided by 10x
 gtf <-
     rtracklayer::import(
         "/path/to/refdata-gex-GRCh38-2020-A/genes/genes.gtf"
     )
-
 ## Subject to genes only
 gtf <- gtf[gtf$type == "gene"]
-
 ## Set the names to be the gene IDs
 names(gtf) <- gtf$gene_id
-
 ## Match the genes
 match_genes <- match(rownames(spe), gtf$gene_id)
-
 ## They should all be present if you are using the correct GTF file from 10x
 stopifnot(all(!is.na(match_genes)))
-
 ## Keep only some columns from the gtf (you could keep all of them if you want)
 mcols(gtf) <-
     mcols(gtf)[, c(
@@ -250,10 +239,8 @@ mcols(gtf) <-
         "gene_name",
         "gene_type"
     )]
-
 ## Add the gene info to our SPE object
 rowRanges(spe) <- gtf[match_genes]
-
 ## Inspect the gene annotation data we added
 rowRanges(spe)
 ```
@@ -271,36 +258,26 @@ gtf_cache <- BiocFileCache::bfcrpath(
         "release_32/gencode.v32.annotation.gtf.gz"
     )
 )
-
 ## Show the GTF cache location
 gtf_cache
-
 ## Import into R (takes ~1 min)
 gtf <- rtracklayer::import(gtf_cache)
-
 ## Subset to genes only
 gtf <- gtf[gtf$type == "gene"]
-
 ## Remove the .x part of the gene IDs
 gtf$gene_id <- gsub("\\..*", "", gtf$gene_id)
-
 ## Set the names to be the gene IDs
 names(gtf) <- gtf$gene_id
-
 ## Match the genes
 match_genes <- match(rownames(spe), gtf$gene_id)
 table(is.na(match_genes))
-
 ## Drop the few genes for which we don't have information
 spe <- spe[!is.na(match_genes), ]
 match_genes <- match_genes[!is.na(match_genes)]
-
 ## Keep only some columns from the gtf
 mcols(gtf) <- mcols(gtf)[, c("source", "type", "gene_id", "gene_name", "gene_type")]
-
 ## Add the gene info to our SPE object
 rowRanges(spe) <- gtf[match_genes]
-
 ## Inspect the gene annotation data we added
 rowRanges(spe)
 ```
@@ -316,7 +293,6 @@ We also compute the total expression for the mitochondrial chromosome (chrM) as 
 rowData(spe)$gene_search <- paste0(
     rowData(spe)$gene_name, "; ", rowData(spe)$gene_id
 )
-
 ## Compute chrM expression and chrM expression ratio
 is_mito <- which(seqnames(spe) == "chrM")
 spe$expr_chrM <- colSums(counts(spe)[is_mito, , drop = FALSE])
@@ -330,17 +306,13 @@ We can now continue with some filtering steps since this can help reduce the obj
 ```{r "filter_spe"}
 ## Remove genes with no data
 no_expr <- which(rowSums(counts(spe)) == 0)
-
 ## Number of genes with no counts
 length(no_expr)
-
 ## Compute the percent of genes with no counts
 length(no_expr) / nrow(spe) * 100
 spe <- spe[-no_expr, , drop = FALSE]
-
 ## Remove spots without counts
 summary(spe$sum_umi)
-
 ## If we had spots with no counts, we would remove them
 if (any(spe$sum_umi == 0)) {
     spots_no_counts <- which(spe$sum_umi == 0)
@@ -367,7 +339,6 @@ Finally, we can now check the final object using `spatialLIBD::check_spe()`. Thi
 ## Check the final dimensions and object size
 dim(spe)
 pryr::object_size(spe)
-
 ## Run check_spe() function
 check_spe(spe)
 ```
@@ -384,11 +355,9 @@ spatialLIBD::vis_gene(
     geneid = "sum_umi",
     assayname = "counts"
 )
-
 ## We next create a random cluster label to visualize
 set.seed(20210428)
 spe$random_cluster <- sample(1:7, ncol(spe), replace = TRUE)
-
 ## Next we visualize that random cluster
 spatialLIBD::vis_clus(
     spe = spe,
@@ -451,7 +420,6 @@ spe_wrapper <- read10xVisiumWrapper(
 ## Run our shiny app
 if (interactive()) {
     vars <- colnames(colData(spe_wrapper))
-
     run_app(
         spe_wrapper,
         sce_layer = NULL,
@@ -527,7 +495,6 @@ Code for creating the vignette
 ## Create the vignette
 library("rmarkdown")
 system.time(render("TenX_data_download.Rmd", "BiocStyle::html_document"))
-
 ## Extract the R code
 library("knitr")
 knit("TenX_data_download.Rmd", tangle = TRUE)

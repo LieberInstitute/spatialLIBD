@@ -43,6 +43,7 @@ to read in the SpaceRanger output files and launch a shiny web application
 using `run_app()`. These new functions read in the analysis output from
 SpaceRanger by 10x Genomics, in particular, the clustering and dimension
 reduction (projection) results.
+
 # spatialLIBD 1.3.19
 
 SIGNIFICANT USER-VISIBLE CHANGES

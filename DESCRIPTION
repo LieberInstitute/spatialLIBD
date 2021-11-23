@@ -80,7 +80,6 @@ Suggests:
     covr,
     here,
     BiocManager,
-    rtracklayer,
     pryr
 VignetteBuilder: knitr
 biocViews: Homo_sapiens_Data, ExperimentHub, SequencingData, SingleCellData,
