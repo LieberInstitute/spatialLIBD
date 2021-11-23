@@ -31,8 +31,6 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -45,12 +43,18 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li>
+  <a href="index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
 <li>
   <a href="articles/spatialLIBD.html">Get started</a>
 </li>
@@ -75,7 +79,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/LieberInstitute/spatialLIBD/" class="external-link">
+  <a href="https://github.com/LieberInstitute/spatialLIBD/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -92,22 +96,23 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div class="section level1">
-<div class="page-header"><h1 id="spatiallibd-">spatialLIBD <img src="reference/figures/logo.png" align="right"><a class="anchor" aria-label="anchor" href="#spatiallibd-"></a>
+<div id="spatiallibd-" class="section level1">
+<div class="page-header"><h1 class="hasAnchor">
+<a href="#spatiallibd-" class="anchor"></a>spatialLIBD <img src="reference/figures/logo.png" align="right">
 </h1></div>
 <!-- badges: start -->
 
 <p>Welcome to the <code>spatialLIBD</code> project! It is composed of:</p>
 <ul>
-<li>a <a href="https://shiny.rstudio.com/" class="external-link">shiny</a> web application that we are hosting at <a href="http://spatial.libd.org/spatialLIBD/" class="external-link">spatial.libd.org/spatialLIBD/</a> that can handle a <a href="https://github.com/LieberInstitute/spatialLIBD/issues/2" class="external-link">limited</a> set of concurrent users,</li>
-<li>a Bioconductor package at <a href="http://bioconductor.org/packages/spatialLIBD" class="external-link">bioconductor.org/packages/spatialLIBD</a> (or from <a href="http://research.libd.org/spatialLIBD/" class="external-link">here</a>) that lets you analyze the data and run a local version of our web application (with our data or yours),</li>
-<li>and a <a href="https://doi.org/10.1038/s41593-020-00787-0" class="external-link">research article</a> with the scientific knowledge we drew from this dataset. The analysis code for our project is available <a href="https://github.com/LieberInstitute/HumanPilot/" class="external-link">here</a> and the high quality figures for the manuscript are available through <a href="https://doi.org/10.6084/m9.figshare.13623902.v1" class="external-link">Figshare</a>.</li>
+<li>a <a href="https://shiny.rstudio.com/">shiny</a> web application that we are hosting at <a href="http://spatial.libd.org/spatialLIBD/">spatial.libd.org/spatialLIBD/</a> that can handle a <a href="https://github.com/LieberInstitute/spatialLIBD/issues/2">limited</a> set of concurrent users,</li>
+<li>a Bioconductor package at <a href="http://bioconductor.org/packages/spatialLIBD">bioconductor.org/packages/spatialLIBD</a> (or from <a href="http://research.libd.org/spatialLIBD/">here</a>) that lets you analyze the data and run a local version of our web application (with our data or yours),</li>
+<li>and a <a href="https://doi.org/10.1038/s41593-020-00787-0">research article</a> with the scientific knowledge we drew from this dataset. The analysis code for our project is available <a href="https://github.com/LieberInstitute/HumanPilot/">here</a> and the high quality figures for the manuscript are available through <a href="https://doi.org/10.6084/m9.figshare.13623902.v1">Figshare</a>.</li>
 </ul>
-<p>The web application allows you to browse the LIBD human dorsolateral pre-frontal cortex (DLPFC) spatial transcriptomics data generated with the 10x Genomics Visium platform. Through the <a href="https://bioconductor.org/packages/spatialLIBD" class="external-link">R/Bioconductor package</a> you can also download the data as well as visualize your own datasets using this web application. Please check the <a href="https://doi.org/10.1038/s41593-020-00787-0" class="external-link">manuscript</a> or <a href="https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1" class="external-link">bioRxiv pre-print</a> for more details about this project.</p>
-If you tweet about this website, the data or the R package please use the <code>#spatialLIBD</code> hashtag. You can find previous tweets that way as shown <a href="https://twitter.com/search?q=%23spatialLIBD&amp;src=typed_query" class="external-link">here</a>. Thank you! <a href="https://twitter.com/intent/tweet?button_hashtag=spatialLIBD&amp;ref_src=twsrc%5Etfw" class="external-link twitter-hashtag-button" data-show-count="false">Tweet #spatialLIBD</a>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><div class="section level2">
-<h2 id="study-design">Study design<a class="anchor" aria-label="anchor" href="#study-design"></a>
-</h2>
+<p>The web application allows you to browse the LIBD human dorsolateral pre-frontal cortex (DLPFC) spatial transcriptomics data generated with the 10x Genomics Visium platform. Through the <a href="https://bioconductor.org/packages/spatialLIBD">R/Bioconductor package</a> you can also download the data as well as visualize your own datasets using this web application. Please check the <a href="https://doi.org/10.1038/s41593-020-00787-0">manuscript</a> or <a href="https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1">bioRxiv pre-print</a> for more details about this project.</p>
+If you tweet about this website, the data or the R package please use the <code>#spatialLIBD</code> hashtag. You can find previous tweets that way as shown <a href="https://twitter.com/search?q=%23spatialLIBD&amp;src=typed_query">here</a>. Thank you! <a href="https://twitter.com/intent/tweet?button_hashtag=spatialLIBD&amp;ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #spatialLIBD</a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><div id="study-design" class="section level2">
+<h2 class="hasAnchor">
+<a href="#study-design" class="anchor"></a>Study design</h2>
 <p>As a quick overview, the data presented here is from portion of the DLPFC that spans six neuronal layers plus white matter (<strong>A</strong>) for a total of three subjects with two pairs of spatially adjacent replicates (<strong>B</strong>). Each dissection of DLPFC was designed to span all six layers plus white matter (<strong>C</strong>). Using this web application you can explore the expression of known genes such as <em>SNAP25</em> (<strong>D</strong>, a neuronal gene), <em>MOBP</em> (<strong>E</strong>, an oligodendrocyte gene), and known layer markers from mouse studies such as <em>PCP4</em> (<strong>F</strong>, a known layer 5 marker gene).</p>
 <p><img src="reference/figures/paper_figure1.jpg" align="center" width="800px"></p>
 <p>This web application was built such that we could annotate the spots to layers as you can see under the <strong>spot-level data</strong> tab. Once we annotated each spot to a layer, we compressed the information by a pseudo-bulking approach into <strong>layer-level data</strong>. We then analyzed the expression through a set of models whose results you can also explore through this web application. Finally, you can upload your own gene sets of interest as well as layer enrichment statistics and compare them with our LIBD Human DLPFC Visium dataset.</p>
@@ -124,52 +129,52 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">## in detail in the package vignette documentation</span>
 <span class="co">## at http://research.libd.org/spatialLIBD/.</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="shiny-website-mirrors">Shiny website mirrors<a class="anchor" aria-label="anchor" href="#shiny-website-mirrors"></a>
-</h2>
+<div id="shiny-website-mirrors" class="section level2">
+<h2 class="hasAnchor">
+<a href="#shiny-website-mirrors" class="anchor"></a>Shiny website mirrors</h2>
 <ul>
-<li><a href="http://spatial.libd.org/spatialLIBD" class="external-link">Main shiny application website</a></li>
-<li><a href="https://jhubiostatistics.shinyapps.io/spatialLIBD/" class="external-link">Shinyapps</a></li>
-<li><a href="https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror01/" class="external-link">Shinyapps Mirror 1</a></li>
-<li><a href="https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror02/" class="external-link">Shinyapps Mirror 2</a></li>
+<li><a href="http://spatial.libd.org/spatialLIBD">Main shiny application website</a></li>
+<li><a href="https://jhubiostatistics.shinyapps.io/spatialLIBD/">Shinyapps</a></li>
+<li><a href="https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror01/">Shinyapps Mirror 1</a></li>
+<li><a href="https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror02/">Shinyapps Mirror 2</a></li>
 </ul>
 </div>
-<div class="section level2">
-<h2 id="rbioconductor-package">R/Bioconductor package<a class="anchor" aria-label="anchor" href="#rbioconductor-package"></a>
-</h2>
+<div id="rbioconductor-package" class="section level2">
+<h2 class="hasAnchor">
+<a href="#rbioconductor-package" class="anchor"></a>R/Bioconductor package</h2>
 <p>The <code>spatialLIBD</code> package contains functions for:</p>
 <ul>
-<li>Accessing the spatial transcriptomics data from the LIBD Human Pilot project (<a href="https://github.com/LieberInstitute/HumanPilot" class="external-link">code on GitHub</a>) generated with the Visium platform from 10x Genomics. The data is retrieved from <a href="http://bioconductor.org/" class="external-link">Bioconductor</a>’s <code>ExperimentHub</code>.</li>
+<li>Accessing the spatial transcriptomics data from the LIBD Human Pilot project (<a href="https://github.com/LieberInstitute/HumanPilot">code on GitHub</a>) generated with the Visium platform from 10x Genomics. The data is retrieved from <a href="http://bioconductor.org/">Bioconductor</a>’s <code>ExperimentHub</code>.</li>
 <li>Visualizing the spot-level spatial gene expression data and clusters.</li>
-<li>Inspecting the data interactively either on your computer or through <a href="http://spatial.libd.org/spatialLIBD/" class="external-link">spatial.libd.org/spatialLIBD/</a>.</li>
+<li>Inspecting the data interactively either on your computer or through <a href="http://spatial.libd.org/spatialLIBD/">spatial.libd.org/spatialLIBD/</a>.</li>
 </ul>
-<p>For more details, please check the <a href="http://lieberinstitute.github.io/spatialLIBD" class="external-link">documentation website</a> or the Bioconductor package landing page <a href="https://bioconductor.org/packages/spatialLIBD" class="external-link">here</a>.</p>
+<p>For more details, please check the <a href="http://lieberinstitute.github.io/spatialLIBD">documentation website</a> or the Bioconductor package landing page <a href="https://bioconductor.org/packages/spatialLIBD">here</a>.</p>
 </div>
-<div class="section level2">
-<h2 id="installation-instructions">Installation instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
-</h2>
-<p>Get the latest stable <code>R</code> release from <a href="http://cran.r-project.org/" class="external-link">CRAN</a>. Then install <code>spatialLIBD</code> from <a href="http://bioconductor.org/" class="external-link">Bioconductor</a> using the following code:</p>
+<div id="installation-instructions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation-instructions" class="anchor"></a>Installation instructions</h2>
+<p>Get the latest stable <code>R</code> release from <a href="http://cran.r-project.org/">CRAN</a>. Then install <code>spatialLIBD</code> from <a href="http://bioconductor.org/">Bioconductor</a> using the following code:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
 <span class="op">}</span>
 
-<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"spatialLIBD"</span><span class="op">)</span></code></pre></div>
-<p>If you want to use the development version of <code>spatialLIBD</code>, you will need to use the R version corresponding to the current Bioconductor-devel branch as described in more detail on the <a href="http://bioconductor.org/developers/how-to/useDevel/" class="external-link">Bioconductor website</a>. Then you can install <code>spatialLIBD</code> from GitHub using the following command.</p>
+<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"spatialLIBD"</span><span class="op">)</span></code></pre></div>
+<p>If you want to use the development version of <code>spatialLIBD</code>, you will need to use the R version corresponding to the current Bioconductor-devel branch as described in more detail on the <a href="http://bioconductor.org/developers/how-to/useDevel/">Bioconductor website</a>. Then you can install <code>spatialLIBD</code> from GitHub using the following command.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"LieberInstitute/spatialLIBD"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"LieberInstitute/spatialLIBD"</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="access-the-data">Access the data<a class="anchor" aria-label="anchor" href="#access-the-data"></a>
-</h2>
+<div id="access-the-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#access-the-data" class="anchor"></a>Access the data</h2>
 <p>Through the <code>spatialLIBD</code> package you can access the processed data in it’s final R format. However, we also provide a table of links so you can download the raw data we received from 10x Genomics.</p>
-<div class="section level3">
-<h3 id="processed-data">Processed data<a class="anchor" aria-label="anchor" href="#processed-data"></a>
-</h3>
+<div id="processed-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#processed-data" class="anchor"></a>Processed data</h3>
 <p>Using <code>spatialLIBD</code> you can access the Human DLPFC spatial transcriptomics data from the 10x Genomics Visium platform. For example, this is the code you can use to access the layer-level data. For more details, check the help file for <code><a href="reference/fetch_data.html">fetch_data()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Load the package</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/LieberInstitute/spatialLIBD" class="external-link">"spatialLIBD"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/LieberInstitute/spatialLIBD">"spatialLIBD"</a></span><span class="op">)</span>
 
 <span class="co">## Download the spot-level data</span>
 <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"spe"</span><span class="op">)</span>
@@ -195,7 +200,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt; imgData names(4): sample_id image_id data scaleFactor</span>
 
 <span class="co">## Note the memory size</span>
-<span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html" class="external-link">object_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>
+<span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html">object_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>
 <span class="co">#&gt; 2,039,433,000 B</span>
 
 <span class="co">## Remake the logo image with histology information</span>
@@ -208,10 +213,10 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-access_data-1.png" width="100%"></p>
 </div>
-<div class="section level3">
-<h3 id="raw-data">Raw data<a class="anchor" aria-label="anchor" href="#raw-data"></a>
-</h3>
-<p>You can access all the raw data through <a href="http://research.libd.org/globus/" class="external-link">Globus</a> (<code>jhpce#HumanPilot10x</code>). Furthermore, below you can find the links to the raw data we received from 10x Genomics.</p>
+<div id="raw-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#raw-data" class="anchor"></a>Raw data</h3>
+<p>You can access all the raw data through <a href="http://research.libd.org/globus/">Globus</a> (<code>jhpce#HumanPilot10x</code>). Furthermore, below you can find the links to the raw data we received from 10x Genomics.</p>
 <table class="table">
 <thead><tr class="header">
 <th align="right">SampleID</th>
@@ -226,134 +231,134 @@ If you tweet about this website, the data or the R package please use the <code>
 <tbody>
 <tr class="odd">
 <td align="right">151507</td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151507_filtered_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151507_raw_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_full_image.tif" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_hires_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_lowres_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151507.cloupe" class="external-link">AWS</a></td>
-<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151507/151507_web_summary.html" class="external-link">GitHub</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151507_filtered_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151507_raw_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_full_image.tif">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_hires_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_lowres_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151507.cloupe">AWS</a></td>
+<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151507/151507_web_summary.html">GitHub</a></td>
 </tr>
 <tr class="even">
 <td align="right">151508</td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151508_filtered_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151508_raw_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_full_image.tif" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_hires_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_lowres_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151508.cloupe" class="external-link">AWS</a></td>
-<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151508/151508_web_summary.html" class="external-link">GitHub</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151508_filtered_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151508_raw_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_full_image.tif">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_hires_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_lowres_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151508.cloupe">AWS</a></td>
+<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151508/151508_web_summary.html">GitHub</a></td>
 </tr>
 <tr class="odd">
 <td align="right">151509</td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151509_filtered_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151509_raw_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_full_image.tif" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_tissue_hires_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_tissue_lowres_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151509.cloupe" class="external-link">AWS</a></td>
-<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151509/151509_web_summary.html" class="external-link">GitHub</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151509_filtered_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151509_raw_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_full_image.tif">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_tissue_hires_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151509_tissue_lowres_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151509.cloupe">AWS</a></td>
+<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151509/151509_web_summary.html">GitHub</a></td>
 </tr>
 <tr class="even">
 <td align="right">151510</td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151510_filtered_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151510_raw_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151510_full_image.tif" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151510_tissue_hires_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151510_tissue_lowres_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151510.cloupe" class="external-link">AWS</a></td>
-<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151510/151510_web_summary.html" class="external-link">GitHub</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151510_filtered_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151510_raw_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151510_full_image.tif">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151510_tissue_hires_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151510_tissue_lowres_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151510.cloupe">AWS</a></td>
+<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151510/151510_web_summary.html">GitHub</a></td>
 </tr>
 <tr class="odd">
 <td align="right">151669</td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151669_filtered_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151669_raw_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_full_image.tif" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_tissue_hires_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_tissue_lowres_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151669.cloupe" class="external-link">AWS</a></td>
-<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151669/151669_web_summary.html" class="external-link">GitHub</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151669_filtered_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151669_raw_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_full_image.tif">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_tissue_hires_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151669_tissue_lowres_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151669.cloupe">AWS</a></td>
+<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151669/151669_web_summary.html">GitHub</a></td>
 </tr>
 <tr class="even">
 <td align="right">151670</td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151670_filtered_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151670_raw_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151670_full_image.tif" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151670_tissue_hires_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151670_tissue_lowres_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151670.cloupe" class="external-link">AWS</a></td>
-<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151670/151670_web_summary.html" class="external-link">GitHub</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151670_filtered_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151670_raw_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151670_full_image.tif">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151670_tissue_hires_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151670_tissue_lowres_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151670.cloupe">AWS</a></td>
+<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151670/151670_web_summary.html">GitHub</a></td>
 </tr>
 <tr class="odd">
 <td align="right">151671</td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151671_filtered_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151671_raw_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151671_full_image.tif" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151671_tissue_hires_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151671_tissue_lowres_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151671.cloupe" class="external-link">AWS</a></td>
-<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151671/151671_web_summary.html" class="external-link">GitHub</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151671_filtered_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151671_raw_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151671_full_image.tif">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151671_tissue_hires_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151671_tissue_lowres_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151671.cloupe">AWS</a></td>
+<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151671/151671_web_summary.html">GitHub</a></td>
 </tr>
 <tr class="even">
 <td align="right">151672</td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151672_filtered_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151672_raw_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151672_full_image.tif" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151672_tissue_hires_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151672_tissue_lowres_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151672.cloupe" class="external-link">AWS</a></td>
-<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151672/151672_web_summary.html" class="external-link">GitHub</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151672_filtered_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151672_raw_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151672_full_image.tif">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151672_tissue_hires_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151672_tissue_lowres_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151672.cloupe">AWS</a></td>
+<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151672/151672_web_summary.html">GitHub</a></td>
 </tr>
 <tr class="odd">
 <td align="right">151673</td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151673_filtered_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151673_raw_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_full_image.tif" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_tissue_hires_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_tissue_lowres_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151673.cloupe" class="external-link">AWS</a></td>
-<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151673/151673_web_summary.html" class="external-link">GitHub</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151673_filtered_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151673_raw_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_full_image.tif">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_tissue_hires_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151673_tissue_lowres_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151673.cloupe">AWS</a></td>
+<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151673/151673_web_summary.html">GitHub</a></td>
 </tr>
 <tr class="even">
 <td align="right">151674</td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151674_filtered_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151674_raw_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151674_full_image.tif" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151674_tissue_hires_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151674_tissue_lowres_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151674.cloupe" class="external-link">AWS</a></td>
-<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151674/151674_web_summary.html" class="external-link">GitHub</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151674_filtered_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151674_raw_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151674_full_image.tif">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151674_tissue_hires_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151674_tissue_lowres_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151674.cloupe">AWS</a></td>
+<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151674/151674_web_summary.html">GitHub</a></td>
 </tr>
 <tr class="odd">
 <td align="right">151675</td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151675_filtered_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151675_raw_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151675_full_image.tif" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151675_tissue_hires_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151675_tissue_lowres_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151675.cloupe" class="external-link">AWS</a></td>
-<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151675/151675_web_summary.html" class="external-link">GitHub</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151675_filtered_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151675_raw_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151675_full_image.tif">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151675_tissue_hires_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151675_tissue_lowres_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151675.cloupe">AWS</a></td>
+<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151675/151675_web_summary.html">GitHub</a></td>
 </tr>
 <tr class="even">
 <td align="right">151676</td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151676_filtered_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151676_raw_feature_bc_matrix.h5" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151676_full_image.tif" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151676_tissue_hires_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151676_tissue_lowres_image.png" class="external-link">AWS</a></td>
-<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151676.cloupe" class="external-link">AWS</a></td>
-<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151676/151676_web_summary.html" class="external-link">GitHub</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151676_filtered_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151676_raw_feature_bc_matrix.h5">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151676_full_image.tif">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151676_tissue_hires_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151676_tissue_lowres_image.png">AWS</a></td>
+<td align="left"><a href="https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151676.cloupe">AWS</a></td>
+<td align="left"><a href="https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151676/151676_web_summary.html">GitHub</a></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="section level2">
-<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
-</h2>
+<div id="citation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#citation" class="anchor"></a>Citation</h2>
 <p>Below is the citation output from using <code>citation('spatialLIBD')</code> in R. Please run this yourself to check for any updates on how to cite <strong>spatialLIBD</strong>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"spatialLIBD"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"spatialLIBD"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Pardo B, Spangler A, Weber LM, Hicks SC, Jaffe AE, Martinowich K,</span>
 <span class="co">#&gt; Maynard KR, Collado-Torres L (2021). "spatialLIBD: an R/Bioconductor</span>
@@ -394,24 +399,24 @@ If you tweet about this website, the data or the R package please use the <code>
 <span class="co">#&gt;   }</span></code></pre></div>
 <p>Please note that the <code>spatialLIBD</code> was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.</p>
 </div>
-<div class="section level2">
-<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
-</h2>
-<p>Please note that the spatialLIBD project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<div id="code-of-conduct" class="section level2">
+<h2 class="hasAnchor">
+<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
+<p>Please note that the spatialLIBD project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
-<div class="section level2">
-<h2 id="development-tools">Development tools<a class="anchor" aria-label="anchor" href="#development-tools"></a>
-</h2>
+<div id="development-tools" class="section level2">
+<h2 class="hasAnchor">
+<a href="#development-tools" class="anchor"></a>Development tools</h2>
 <ul>
-<li>Continuous code testing is possible thanks to <a href="https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/" class="external-link">GitHub actions</a> through <em><a href="https://CRAN.R-project.org/package=usethis" class="external-link">usethis</a></em>, <em><a href="https://CRAN.R-project.org/package=remotes" class="external-link">remotes</a></em>, <em><a href="https://github.com/r-hub/sysreqs" class="external-link">sysreqs</a></em> and <em><a href="https://CRAN.R-project.org/package=rcmdcheck" class="external-link">rcmdcheck</a></em> customized to use <a href="https://www.bioconductor.org/help/docker/" class="external-link">Bioconductor’s docker containers</a> and <em><a href="https://bioconductor.org/packages/3.14/BiocCheck" class="external-link">BiocCheck</a></em>.</li>
-<li>Code coverage assessment is possible thanks to <a href="https://codecov.io/gh" class="external-link">codecov</a> and <em><a href="https://CRAN.R-project.org/package=covr" class="external-link">covr</a></em>.</li>
-<li>The <a href="http://lieberinstitute.github.io/spatialLIBD" class="external-link">documentation website</a> is automatically updated thanks to <em><a href="https://CRAN.R-project.org/package=pkgdown" class="external-link">pkgdown</a></em>.</li>
-<li>The code is styled automatically thanks to <em><a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a></em>.</li>
-<li>The documentation is formatted thanks to <em><a href="https://CRAN.R-project.org/package=devtools" class="external-link">devtools</a></em> and <em><a href="https://CRAN.R-project.org/package=roxygen2" class="external-link">roxygen2</a></em>.</li>
+<li>Continuous code testing is possible thanks to <a href="https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/">GitHub actions</a> through <em><a href="https://CRAN.R-project.org/package=usethis">usethis</a></em>, <em><a href="https://CRAN.R-project.org/package=remotes">remotes</a></em>, <em><a href="https://github.com/r-hub/sysreqs">sysreqs</a></em> and <em><a href="https://CRAN.R-project.org/package=rcmdcheck">rcmdcheck</a></em> customized to use <a href="https://www.bioconductor.org/help/docker/">Bioconductor’s docker containers</a> and <em><a href="https://bioconductor.org/packages/3.14/BiocCheck">BiocCheck</a></em>.</li>
+<li>Code coverage assessment is possible thanks to <a href="https://codecov.io/gh">codecov</a> and <em><a href="https://CRAN.R-project.org/package=covr">covr</a></em>.</li>
+<li>The <a href="http://lieberinstitute.github.io/spatialLIBD">documentation website</a> is automatically updated thanks to <em><a href="https://CRAN.R-project.org/package=pkgdown">pkgdown</a></em>.</li>
+<li>The code is styled automatically thanks to <em><a href="https://CRAN.R-project.org/package=styler">styler</a></em>.</li>
+<li>The documentation is formatted thanks to <em><a href="https://CRAN.R-project.org/package=devtools">devtools</a></em> and <em><a href="https://CRAN.R-project.org/package=roxygen2">roxygen2</a></em>.</li>
 </ul>
 <p>For more details, check the <code>dev</code> directory.</p>
-<p>This package was developed using <em><a href="https://bioconductor.org/packages/3.14/biocthis" class="external-link">biocthis</a></em>.</p>
-<p><a href="https://www.libd.org/" class="external-link"><img src="http://lcolladotor.github.io/img/LIBD_logo.jpg" width="250px"></a></p>
+<p>This package was developed using <em><a href="https://bioconductor.org/packages/3.14/biocthis">biocthis</a></em>.</p>
+<p><a href="https://www.libd.org/"><img src="http://lcolladotor.github.io/img/LIBD_logo.jpg" width="250px"></a></p>
 <center>
 <script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?cl=ffffff&amp;w=300&amp;t=n&amp;d=FRs8oQ9HVpMg6QLJJKAExpF8seGfPVlH-YOnwqUE8Hg"></script>
 </center>
@@ -429,70 +434,66 @@ If you tweet about this website, the data or the R package please use the <code>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2 data-toc-skip>Links</h2>
+<h2>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.bioconductor.org/packages/spatialLIBD" class="external-link">View on Bioconductor</a></li>
-<li><a href="https://github.com/LieberInstitute/spatialLIBD/" class="external-link">Browse source code</a></li>
-<li><a href="https://support.bioconductor.org/t/spatialLIBD" class="external-link">Report a bug</a></li>
+<li>Download from BIOC at <br><a href="https://www.bioconductor.org/packages/spatialLIBD">https://​www.bioconductor.org/​packages/​spatialLIBD</a>
+</li>
+<li>Browse source code at <br><a href="https://github.com/LieberInstitute/spatialLIBD/">https://​github.com/​LieberInstitute/​spatialLIBD/​</a>
+</li>
+<li>Report a bug at <br><a href="https://support.bioconductor.org/t/spatialLIBD">https://​support.bioconductor.org/​t/​spatialLIBD</a>
+</li>
 </ul>
 </div>
-
 <div class="license">
-<h2 data-toc-skip>License</h2>
+<h2>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/Artistic-2.0" class="external-link">Artistic-2.0</a></li>
+<li><a href="https://www.r-project.org/Licenses/Artistic-2.0">Artistic-2.0</a></li>
 </ul>
 </div>
-
 <div class="community">
-<h2 data-toc-skip>Community</h2>
+<h2>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
-
 <div class="citation">
-<h2 data-toc-skip>Citation</h2>
+<h2>Citation</h2>
 <ul class="list-unstyled">
 <li><a href="authors.html">Citing spatialLIBD</a></li>
 </ul>
 </div>
-
 <div class="developers">
-<h2 data-toc-skip>Developers</h2>
+<h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Leonardo Collado-Torres <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-2140-308X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">More about authors...</a></li>
+<li>Leonardo Collado-Torres <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-2140-308X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
+  <div class="dev-status">
+<h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.tidyverse.org/lifecycle/#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
-<li><a href="http://bioconductor.org/checkResults/release/data-experiment-LATEST/spatialLIBD/" class="external-link"><img src="http://bioconductor.org/shields/build/release/data-experiment/spatialLIBD.svg" alt="BioC status"></a></li>
-<li><a href="http://bioconductor.org/checkResults/devel/data-experiment-LATEST/spatialLIBD/" class="external-link"><img src="http://bioconductor.org/shields/build/devel/data-experiment/spatialLIBD.svg" alt="BioC dev status"></a></li>
-<li><a href="https://codecov.io/gh/LieberInstitute/spatialLIBD?branch=master" class="external-link"><img src="https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://github.com/LieberInstitute/spatialLIBD/actions" class="external-link"><img src="https://github.com/LieberInstitute/spatialLIBD/workflows/R-CMD-check-bioc/badge.svg" alt="R build status"></a></li>
-<li><a href="https://support.bioconductor.org/t/spatialLIBD/" class="external-link"><img src="http://www.bioconductor.org/shields/posts/spatialLIBD.svg" alt="Support site activity, last 6 months: tagged questions/avg. answers per question/avg. comments per question/accepted answers, or 0 if no tagged posts."></a></li>
-<li><a href="https://github.com/LieberInstitute/spatialLIBD/issues" class="external-link"><img src="https://img.shields.io/github/issues/LieberInstitute/spatialLIBD" alt="GitHub issues"></a></li>
-<li><a href="https://zenodo.org/badge/latestdoi/225913568" class="external-link"><img src="https://zenodo.org/badge/225913568.svg" alt="DOI"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
+<li><a href="http://bioconductor.org/checkResults/release/data-experiment-LATEST/spatialLIBD/"><img src="http://bioconductor.org/shields/build/release/data-experiment/spatialLIBD.svg" alt="BioC status"></a></li>
+<li><a href="http://bioconductor.org/checkResults/devel/data-experiment-LATEST/spatialLIBD/"><img src="http://bioconductor.org/shields/build/devel/data-experiment/spatialLIBD.svg" alt="BioC dev status"></a></li>
+<li><a href="https://codecov.io/gh/LieberInstitute/spatialLIBD?branch=master"><img src="https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/LieberInstitute/spatialLIBD/actions"><img src="https://github.com/LieberInstitute/spatialLIBD/workflows/R-CMD-check-bioc/badge.svg" alt="R build status"></a></li>
+<li><a href="https://support.bioconductor.org/t/spatialLIBD/"><img src="http://www.bioconductor.org/shields/posts/spatialLIBD.svg" alt="Support site activity, last 6 months: tagged questions/avg. answers per question/avg. comments per question/accepted answers, or 0 if no tagged posts."></a></li>
+<li><a href="https://github.com/LieberInstitute/spatialLIBD/issues"><img src="https://img.shields.io/github/issues/LieberInstitute/spatialLIBD" alt="GitHub issues"></a></li>
+<li><a href="https://zenodo.org/badge/latestdoi/225913568"><img src="https://zenodo.org/badge/225913568.svg" alt="DOI"></a></li>
 </ul>
 </div>
-
-  </div>
+</div>
 </div>
 
 
       <footer><div class="copyright">
-  <p></p>
-<p>Developed by Leonardo Collado-Torres.</p>
+  <p>Developed by Leonardo Collado-Torres.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
@@ -500,8 +501,6 @@ If you tweet about this website, the data or the R package please use the <code>
 
   
 
-
-  
 
   </body>
 </html>
