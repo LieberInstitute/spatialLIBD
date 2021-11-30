@@ -1,3 +1,10 @@
+# spatialLIBD 1.7.4
+
+BUG FIXES
+
+* `vis_gene()` and `vis_grid_gene()` now support `geneid`s that are found in
+the `rownames(spe)`. This makese these functions more flexible.
+
 # spatialLIBD 1.7.3
 
 NEW FEATURES
