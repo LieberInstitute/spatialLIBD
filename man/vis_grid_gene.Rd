@@ -31,7 +31,8 @@ visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more 
 
 \item{geneid}{A \code{character(1)} specifying the gene ID stored in
 \code{rowData(spe)$gene_search} or a continuous variable stored in \code{colData(spe)}
-to visualize.}
+to visualize. If \code{rowData(spe)$gene_search} is missing, then \code{rownames(spe)}
+is used to search for the gene ID.}
 
 \item{pdf_file}{A \code{character(1)} specifying the path for the resulting PDF.}
 

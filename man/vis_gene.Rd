@@ -31,7 +31,8 @@ visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more 
 
 \item{geneid}{A \code{character(1)} specifying the gene ID stored in
 \code{rowData(spe)$gene_search} or a continuous variable stored in \code{colData(spe)}
-to visualize.}
+to visualize. If \code{rowData(spe)$gene_search} is missing, then \code{rownames(spe)}
+is used to search for the gene ID.}
 
 \item{spatial}{A \code{logical(1)} indicating whether to include the histology
 layer from \code{\link[=geom_spatial]{geom_spatial()}}. If you plan to use
@@ -85,6 +86,7 @@ if (enough_ram()) {
     ## Valid `geneid` values are those in
     head(rowData(spe)$gene_search)
     ## or continuous variables stored in colData(spe)
+    ## or rownames(spe)
 
     ## Visualize a default gene on the non-viridis scale
     vis_gene(
@@ -106,6 +108,13 @@ if (enough_ram()) {
         spe = spe,
         sampleid = "151507",
         geneid = "expr_chrM_ratio"
+    )
+
+    ## Visualize a gene using the rownames(spe)
+    vis_gene(
+        spe = spe,
+        sampleid = "151507",
+        geneid = rownames(spe)[which(rowData(spe)$gene_name == "MOBP")]
     )
 }
 }

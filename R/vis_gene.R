@@ -8,7 +8,8 @@
 #' @inheritParams vis_clus
 #' @param geneid A `character(1)` specifying the gene ID stored in
 #' `rowData(spe)$gene_search` or a continuous variable stored in `colData(spe)`
-#' to visualize.
+#' to visualize. If `rowData(spe)$gene_search` is missing, then `rownames(spe)`
+#' is used to search for the gene ID.
 #' @param assayname The name of the `assays(spe)` to use for extracting the
 #' gene expression data. Defaults to `logcounts`.
 #' @param minCount A `numeric(1)` specifying the minimum gene expression (or
@@ -39,6 +40,7 @@
 #'     ## Valid `geneid` values are those in
 #'     head(rowData(spe)$gene_search)
 #'     ## or continuous variables stored in colData(spe)
+#'     ## or rownames(spe)
 #'
 #'     ## Visualize a default gene on the non-viridis scale
 #'     vis_gene(
@@ -61,6 +63,13 @@
 #'         sampleid = "151507",
 #'         geneid = "expr_chrM_ratio"
 #'     )
+#'
+#'     ## Visualize a gene using the rownames(spe)
+#'     vis_gene(
+#'         spe = spe,
+#'         sampleid = "151507",
+#'         geneid = rownames(spe)[which(rowData(spe)$gene_name == "MOBP")]
+#'     )
 #' }
 vis_gene <-
     function(spe,
@@ -76,13 +85,16 @@ vis_gene <-
     ...) {
         spe_sub <- spe[, spe$sample_id == sampleid]
         d <- as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE), optional = TRUE)
-        stopifnot("gene_search" %in% colnames(rowData(spe)))
 
         if (geneid %in% colnames(colData(spe_sub))) {
             d$COUNT <- colData(spe_sub)[[geneid]]
-        } else {
+        } else if (geneid %in% rowData(spe_sub)$gene_search) {
             d$COUNT <-
                 assays(spe_sub)[[assayname]][which(rowData(spe_sub)$gene_search == geneid), ]
+        } else if (geneid %in% rownames(spe_sub)) {
+            d$COUNT <- assays(spe_sub)[[assayname]][which(rownames(spe_sub) == geneid), ]
+        } else {
+            stop("Could not find the 'geneid' ", geneid, call. = FALSE)
         }
         d$COUNT[d$COUNT <= minCount] <- NA
         p <- vis_gene_p(
