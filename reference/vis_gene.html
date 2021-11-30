@@ -83,7 +83,7 @@ To visualize clusters (or any discrete variable) use vis_clus()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.4</span>
       </span>
     </div>
 
@@ -184,7 +184,8 @@ visualizing the histology. See <code><a href='fetch_data.html'>fetch_data()</a><
       <th>geneid</th>
       <td><p>A <code>character(1)</code> specifying the gene ID stored in
 <code>rowData(spe)$gene_search</code> or a continuous variable stored in <code>colData(spe)</code>
-to visualize.</p></td>
+to visualize. If <code>rowData(spe)$gene_search</code> is missing, then <code>rownames(spe)</code>
+is used to search for the gene ID.</p></td>
     </tr>
     <tr>
       <th>spatial</th>
@@ -256,6 +257,7 @@ data and title for <code><a href='vis_gene_p.html'>vis_gene_p()</a></code>. It a
 <span class='r-in'>    <span class='co'>## Valid `geneid` values are those in</span></span>
 <span class='r-in'>    <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'>rowData</span><span class='op'>(</span><span class='va'>spe</span><span class='op'>)</span><span class='op'>$</span><span class='va'>gene_search</span><span class='op'>)</span></span>
 <span class='r-in'>    <span class='co'>## or continuous variables stored in colData(spe)</span></span>
+<span class='r-in'>    <span class='co'>## or rownames(spe)</span></span>
 <span class='r-in'></span>
 <span class='r-in'>    <span class='co'>## Visualize a default gene on the non-viridis scale</span></span>
 <span class='r-in'>    <span class='fu'>vis_gene</span><span class='op'>(</span></span>
@@ -278,9 +280,16 @@ data and title for <code><a href='vis_gene_p.html'>vis_gene_p()</a></code>. It a
 <span class='r-in'>        sampleid <span class='op'>=</span> <span class='st'>"151507"</span>,</span>
 <span class='r-in'>        geneid <span class='op'>=</span> <span class='st'>"expr_chrM_ratio"</span></span>
 <span class='r-in'>    <span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>    <span class='co'>## Visualize a gene using the rownames(spe)</span></span>
+<span class='r-in'>    <span class='fu'>vis_gene</span><span class='op'>(</span></span>
+<span class='r-in'>        spe <span class='op'>=</span> <span class='va'>spe</span>,</span>
+<span class='r-in'>        sampleid <span class='op'>=</span> <span class='st'>"151507"</span>,</span>
+<span class='r-in'>        geneid <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>spe</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='fu'>rowData</span><span class='op'>(</span><span class='va'>spe</span><span class='op'>)</span><span class='op'>$</span><span class='va'>gene_name</span> <span class='op'>==</span> <span class='st'>"MOBP"</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-in'>    <span class='op'>)</span></span>
 <span class='r-in'><span class='op'>}</span></span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> snapshotDate(): 2021-10-19</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> 2021-11-23 02:47:31 loading file /github/home/.cache/R/BiocFileCache/71c71a008483_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 2021-11-30 23:03:41 loading file /github/home/.cache/R/BiocFileCache/7224b548ed8_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class='r-plt img'><img src='vis_gene-1.png' alt='' width='700' height='433' /></span>
 </pre>
   </div>
