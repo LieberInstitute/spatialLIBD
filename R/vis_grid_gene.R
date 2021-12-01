@@ -48,9 +48,11 @@ vis_grid_gene <-
     image_id = "lowres",
     alpha = 1,
     cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
+    sample_order = unique(spe$sample_id),
     ...) {
-        stopifnot("gene_search" %in% colnames(rowData(spe)))
-        plots <- lapply(unique(spe$sample_id), function(sampleid) {
+        stopifnot(all(sample_order %in% unique(spe$sample_id)))
+
+        plots <- lapply(sample_order, function(sampleid) {
             vis_gene(
                 spe,
                 sampleid,
@@ -65,7 +67,7 @@ vis_grid_gene <-
                 ...
             )
         })
-        names(plots) <- unique(spe$sample_id)
+        names(plots) <- sample_order
 
         if (!return_plots) {
             pdf(pdf_file, height = height, width = width)

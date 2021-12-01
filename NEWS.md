@@ -4,6 +4,10 @@ BUG FIXES
 
 * `vis_gene()` and `vis_grid_gene()` now support `geneid`s that are found in
 the `rownames(spe)`. This makese these functions more flexible.
+* `vis_grid_gene()` and `vis_grid_clus()` now have the `sample_order` argument
+which gives you more control in case you want to plot a subset of samples. This
+should also reduced the memory required as discovered at
+https://github.com/LieberInstitute/spatialDLPFC/issues/45.
 
 # spatialLIBD 1.7.3
 
