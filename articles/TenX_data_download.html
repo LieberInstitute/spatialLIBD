@@ -106,7 +106,7 @@
       Lieber Institute for Brain Development, Johns Hopkins Medical CampusCenter for Computational Biology, Johns Hopkins University<br><a class="author_email" href="mailto:#"></a><a href="mailto:lcolladotor@gmail.com" class="email">lcolladotor@gmail.com</a>
       </address>
                   
-            <h4 class="date">30 November 2021</h4>
+            <h4 class="date">1 December 2021</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/vignettes/TenX_data_download.Rmd"><code>vignettes/TenX_data_download.Rmd</code></a></small>
       <div class="hidden name"><code>TenX_data_download.Rmd</code></div>
@@ -398,8 +398,8 @@
 
 <span class="co">## Show the GTF cache location</span>
 <span class="va">gtf_cache</span>
-<span class="co">#&gt;                                                                             BFC8 </span>
-<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/6e6910d954a5_gencode.v32.annotation.gtf.gz"</span>
+<span class="co">#&gt;                                                                            BFC8 </span>
+<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/374608e27a9_gencode.v32.annotation.gtf.gz"</span>
 
 <span class="co">## Import into R (takes ~1 min)</span>
 <span class="va">gtf</span> <span class="op">&lt;-</span> <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span><span class="va">gtf_cache</span><span class="op">)</span>
@@ -627,11 +627,11 @@
     images <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lowres"</span>, <span class="st">"hires"</span>, <span class="st">"detected"</span>, <span class="st">"aligned"</span><span class="op">)</span>, load <span class="op">=</span> <span class="cn">TRUE</span>,
     reference_gtf <span class="op">=</span> <span class="va">gtf_cache</span>
 <span class="op">)</span>
-<span class="co">#&gt; 2021-11-30 23:07:31 SpatialExperiment::read10xVisium: reading basic data from SpaceRanger</span>
-<span class="co">#&gt; 2021-11-30 23:07:50 read10xVisiumAnalysis: reading analysis output from SpaceRanger</span>
-<span class="co">#&gt; 2021-11-30 23:07:51 add10xVisiumAnalysis: adding analysis output from SpaceRanger</span>
-<span class="co">#&gt; 2021-11-30 23:07:51 rtracklayer::import: reading the reference GTF file</span>
-<span class="co">#&gt; 2021-11-30 23:08:37 adding gene information to the SPE object</span>
+<span class="co">#&gt; 2021-12-01 15:53:50 SpatialExperiment::read10xVisium: reading basic data from SpaceRanger</span>
+<span class="co">#&gt; 2021-12-01 15:54:10 read10xVisiumAnalysis: reading analysis output from SpaceRanger</span>
+<span class="co">#&gt; 2021-12-01 15:54:10 add10xVisiumAnalysis: adding analysis output from SpaceRanger</span>
+<span class="co">#&gt; 2021-12-01 15:54:11 rtracklayer::import: reading the reference GTF file</span>
+<span class="co">#&gt; 2021-12-01 15:54:57 adding gene information to the SPE object</span>
 <span class="co">#&gt; Warning: Gene IDs did not match. This typically happens when you are not using</span>
 <span class="co">#&gt; the same GTF file as the one that was used by SpaceRanger. For example, one file</span>
 <span class="co">#&gt; uses GENCODE IDs and the other one ENSEMBL IDs. read10xVisiumWrapper() will try</span>
@@ -639,7 +639,7 @@
 <span class="co">#&gt; Warning: Dropping 29 out of 36601 genes for which we don't have information on</span>
 <span class="co">#&gt; the reference GTF file. This typically happens when you are not using the same</span>
 <span class="co">#&gt; GTF file as the one that was used by SpaceRanger.</span>
-<span class="co">#&gt; 2021-11-30 23:08:38 adding information used by spatialLIBD</span></code></pre></div>
+<span class="co">#&gt; 2021-12-01 15:54:59 adding information used by spatialLIBD</span></code></pre></div>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Run our shiny app</span>
 <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -732,12 +732,12 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html">knit</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code>#&gt; [1] "2021-11-30 23:08:41 UTC"</code></pre>
+<pre><code>#&gt; [1] "2021-12-01 15:55:02 UTC"</code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code>#&gt; Time difference of 3.057 mins</code></pre>
+<pre><code>#&gt; Time difference of 3.053 mins</code></pre>
 <p><code>R</code> session information.</p>
 <pre><code>#&gt; ─ Session info  ──────────────────────────────────────────────────────────────────────────────────────────────────────
-#&gt;  hash: writing hand: dark skin tone, flag: Denmark, flag: Guadeloupe
+#&gt;  hash: SOS button, backhand index pointing down: dark skin tone, dress
 #&gt; 
 #&gt;  setting  value
 #&gt;  version  R version 4.1.2 (2021-11-01)
@@ -748,7 +748,7 @@
 #&gt;  collate  en_US.UTF-8
 #&gt;  ctype    en_US.UTF-8
 #&gt;  tz       UTC
-#&gt;  date     2021-11-30
+#&gt;  date     2021-12-01
 #&gt;  pandoc   2.14.0.3 @ /usr/local/bin/ (via rmarkdown)
 #&gt; 
 #&gt; ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -910,7 +910,7 @@
 #&gt;  spam                     2.7-0    2021-06-25 [1] RSPM (R 4.1.0)
 #&gt;  sparseMatrixStats        1.6.0    2021-10-26 [1] Bioconductor
 #&gt;  SpatialExperiment      * 1.4.0    2021-10-26 [1] Bioconductor
-#&gt;  spatialLIBD            * 1.7.4    2021-11-30 [1] Bioconductor
+#&gt;  spatialLIBD            * 1.7.4    2021-12-01 [1] Bioconductor
 #&gt;  stringi                  1.7.6    2021-11-29 [2] RSPM (R 4.1.0)
 #&gt;  stringr                  1.4.0    2019-02-10 [2] RSPM (R 4.1.0)
 #&gt;  SummarizedExperiment   * 1.24.0   2021-10-26 [1] Bioconductor
