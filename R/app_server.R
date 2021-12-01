@@ -135,17 +135,16 @@ app_server <- function(input, output, session) {
         if (isolate(input$cluster == "ManualAnnotation")) {
             spe$ManualAnnotation <- rv$ManualAnnotation
         }
-        spe_sub <-
-            spe[, spe$sample_id %in% isolate(input$grid_samples)]
         plots <-
             vis_grid_clus(
-                spe_sub,
+                spe,
                 isolate(input$cluster),
                 sort_clust = FALSE,
-                colors = cluster_colors(),
+                colors = isolate(cluster_colors()),
                 return_plots = TRUE,
-                image_id = input$imageid,
-                alpha = input$alphalevel,
+                image_id = isolate(input$imageid),
+                alpha = isolate(input$alphalevel),
+                sample_order = isolate(input$grid_samples),
                 ... = paste(" with", isolate(input$cluster))
             )
         cowplot::plot_grid(
@@ -186,18 +185,17 @@ app_server <- function(input, output, session) {
     static_gene_grid <- reactive({
         input$gene_grid_update
 
-        spe_sub <-
-            spe[, spe$sample_id %in% isolate(input$gene_grid_samples)]
         plots <-
             vis_grid_gene(
-                spe_sub,
+                spe,
                 geneid = isolate(input$geneid),
                 assayname = isolate(input$assayname),
                 minCount = isolate(input$minCount),
                 return_plots = TRUE,
                 cont_colors = isolate(cont_colors()),
-                image_id = input$imageid,
-                alpha = input$alphalevel
+                image_id = isolate(input$imageid),
+                alpha = isolate(input$alphalevel),
+                sample_order = isolate(input$gene_grid_samples)
             )
         cowplot::plot_grid(
             plotlist = plots,
@@ -494,19 +492,18 @@ app_server <- function(input, output, session) {
         img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = input$imageid)
 
         ## From vis_gene() in global.R
-        spe_sub <- spe[, spe$sample_id == sampleid]
-        d <- as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE), optional = TRUE)
-        if (geneid %in% colnames(colData(spe_sub))) {
-            d$COUNT <- colData(spe_sub)[[geneid]]
+        d <- as.data.frame(colData(spe, spatialData = TRUE, spatialCoords = TRUE)[spe$sample_id == sampleid, ], optional = TRUE)
+        if (geneid %in% colnames(d)) {
+            d$COUNT <- d[[geneid]]
         } else {
             d$COUNT <-
-                assays(spe_sub)[[assayname]][which(rowData(spe_sub)$gene_search == geneid), ]
+                assays(spe)[[assayname]][which(rowData(spe)$gene_search == geneid), spe$sample_id == sampleid]
         }
         d$COUNT[d$COUNT <= minCount] <- NA
 
         ## Add the reduced dims
         if (reduced_name != "") {
-            red_dims <- reducedDim(spe_sub, reduced_name)
+            red_dims <- reducedDim(spe, reduced_name)[spe$sample_id == sampleid, ]
             colnames(red_dims) <-
                 paste(reduced_name, "dim", seq_len(ncol(red_dims)))
             d <- cbind(d, red_dims)
@@ -520,7 +517,7 @@ app_server <- function(input, output, session) {
 
         ## Make the cluster plot
         p_clus <- vis_clus_p(
-            spe = spe_sub,
+            spe = spe,
             d = d_key,
             clustervar = clustervar,
             sampleid = sampleid,
@@ -530,7 +527,7 @@ app_server <- function(input, output, session) {
                 sampleid,
                 clustervar,
                 geneid,
-                if (!geneid %in% colnames(colData(spe_sub))) {
+                if (!geneid %in% colnames(colData(spe))) {
                     assayname
                 } else {
                     NULL
@@ -544,7 +541,7 @@ app_server <- function(input, output, session) {
 
         ## Next the gene plot
         p_gene <- vis_gene_p(
-            spe = spe_sub,
+            spe = spe,
             d = d_key,
             sampleid = sampleid,
             spatial = FALSE,
@@ -570,7 +567,7 @@ app_server <- function(input, output, session) {
                     size = 1.25,
                     stroke = 0.25
                 ) +
-                scale_fill_manual(values = get_colors(colors, colData(spe_sub)[[clustervar]])) +
+                scale_fill_manual(values = get_colors(colors, colData(spe)[[clustervar]][spe$sample_id == sampleid])) +
                 guides(fill = FALSE) +
                 ggtitle("") +
                 theme_set(theme_bw(base_size = 20)) +
@@ -855,13 +852,12 @@ app_server <- function(input, output, session) {
         }
         if (!is.null(event.data)) {
             ## Prepare the data
-            spe_sub <- spe[, spe$key %in% event.data$key]
-            d <- as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE), optional = TRUE)
-            if (input$geneid %in% colnames(colData(spe_sub))) {
-                d$COUNT <- colData(spe_sub)[[input$geneid]]
+            d <- as.data.frame(colData(spe, spatialData = TRUE, spatialCoords = TRUE)[spe$key %in% event.data$key, ], optional = TRUE)
+            if (input$geneid %in% colnames(d)) {
+                d$COUNT <- d[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(spe_sub)[[input$assayname]][which(rowData(spe_sub)$gene_search == input$geneid), ]
+                    assays(spe)[[input$assayname]][which(rowData(spe)$gene_search == input$geneid), spe$key %in% event.data$key]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
@@ -885,13 +881,12 @@ app_server <- function(input, output, session) {
             )
         } else {
             ## Prepare the data
-            spe_sub <- spe[, spe$key %in% event.data$key]
-            d <- as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE), optional = TRUE)
-            if (input$geneid %in% colnames(colData(spe_sub))) {
-                d$COUNT <- colData(spe_sub)[[input$geneid]]
+            d <- as.data.frame(colData(spe, spatialData = TRUE, spatialCoords = TRUE)[spe$key %in% event.data$key, ], optional = TRUE)
+            if (input$geneid %in% colnames(d)) {
+                d$COUNT <- d[[input$geneid]]
             } else {
                 d$COUNT <-
-                    assays(spe_sub)[[input$assayname]][which(rowData(spe_sub)$gene_search == input$geneid), ]
+                    assays(spe)[[input$assayname]][which(rowData(spe)$gene_search == input$geneid), spe$key %in% event.data$key]
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 

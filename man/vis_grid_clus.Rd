@@ -16,6 +16,7 @@ vis_grid_clus(
   width = 36,
   image_id = "lowres",
   alpha = 1,
+  sample_order = unique(spe$sample_id),
   ...
 )
 }
@@ -55,6 +56,9 @@ use in the background.}
 
 \item{alpha}{A \code{numeric(1)} in the \verb{[0, 1]} range that specifies the
 transparency level of the data on the spots.}
+
+\item{sample_order}{A \code{character()} with the names of the samples to use
+and their order.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}

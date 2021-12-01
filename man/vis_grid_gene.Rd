@@ -19,6 +19,7 @@ vis_grid_gene(
   alpha = 1,
   cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4",
     "springgreen", "goldenrod", "red"),
+  sample_order = unique(spe$sample_id),
   ...
 )
 }
@@ -70,6 +71,9 @@ transparency level of the data on the spots.}
 
 \item{cont_colors}{A \code{character()} vector of colors that supersedes the
 \code{viridis} argument.}
+
+\item{sample_order}{A \code{character()} with the names of the samples to use
+and their order.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}

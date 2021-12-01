@@ -13,6 +13,8 @@
 #' [plot_grid][cowplot::plot_grid()].
 #' @param height A `numeric(1)` passed to [pdf][grDevices::pdf()].
 #' @param width A `numeric(1)` passed to [pdf][grDevices::pdf()].
+#' @param sample_order A `character()` with the names of the samples to use
+#' and their order.
 #'
 #' @return A list of [ggplot2][ggplot2::ggplot] objects.
 #' @export
@@ -56,13 +58,16 @@ vis_grid_clus <-
     width = 36,
     image_id = "lowres",
     alpha = 1,
+    sample_order = unique(spe$sample_id),
     ...) {
+        stopifnot(all(sample_order %in% unique(spe$sample_id)))
+
         if (sort_clust) {
             colData(spe)[[clustervar]] <-
                 sort_clusters(colData(spe)[[clustervar]])
         }
         plots <-
-            lapply(unique(spe$sample_id), function(sampleid) {
+            lapply(sample_order, function(sampleid) {
                 vis_clus(spe,
                     sampleid,
                     clustervar,
@@ -73,7 +78,7 @@ vis_grid_clus <-
                     ...
                 )
             })
-        names(plots) <- unique(spe$sample_id)
+        names(plots) <- sample_order
 
 
         if (!return_plots) {
