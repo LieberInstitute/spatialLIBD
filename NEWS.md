@@ -1,3 +1,12 @@
+# spatialLIBD 1.7.5
+
+NEW FEATURES
+
+* Expanded the _Using spatialLIBD with 10x Genomics public datasets_ vignette
+to show how you can deploy your web application. See
+https://libd.shinyapps.io/spatialLIBD_Human_Lymph_Node_10x/ for the live
+example.
+
 # spatialLIBD 1.7.4
 
 BUG FIXES

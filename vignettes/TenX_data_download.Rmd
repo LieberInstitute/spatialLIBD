@@ -392,7 +392,7 @@ if (interactive()) {
 }
 ```
 
-We also recommend creating custom website documentation files as described in the documentation of `spatialLIBD::run_app()`. Those documentation files will help you describe your project to your users in a more personalized way. The easiest way to start is to copy our documentation files to a new location and adapt them. You can located them at the following path.
+We also recommend creating custom website documentation files as described in the documentation of `spatialLIBD::run_app()`. Those documentation files will help you describe your project to your users in a more personalized way. The easiest way to start is to copy our documentation files to a new location and adapt them. You can locate them at the following path.
 
 ```{r "locate_documentation_files"}
 ## Locate our documentation files
@@ -432,6 +432,54 @@ if (interactive()) {
     )
 }
 ```
+
+# Publishing your web application
+
+Now we have have our `spe_wrapper` object and have verified that the web application works, we can share it with others through [shinyapps.io](https://www.shinyapps.io/) by RStudio if our data is small enough. To do, you will need to:
+
+* create a directory `app_dir` which will contain the script for loading the data and running the web application
+* save the `spe_wrapper` object into that directory such as `app_dir/spe_wrapper.rds`
+* create an `app.R` script and save it at `app_dir/app.R`
+* optionally copy the contents from `system.file("app", "www", package = "spatialLIBD")` into `app_dir/www`
+* authenticate to [shinyapps.io](https://www.shinyapps.io/) and deploy the app, which we usually do with a `app_dir/deploy.R` script
+
+Below we illustrate these steps
+
+```{r "save_wrapper", eval = FALSE}
+## Directory we created to host the data for the web application
+## Use a directory of your preference instead of copy-pasting this code
+app_dir <- here::here("inst", "spe_wrapper_app")
+dir.create(app_dir, showWarnings = FALSE)
+
+## Code we used to save the data
+saveRDS(spe_wrapper, file = file.path(app_dir, "spe_wrapper.rds"))
+
+## Copy the contents of system.file("app", "www", package = "spatialLIBD")
+file.copy(system.file("app", "www", package = "spatialLIBD"), app_dir, recursive = TRUE)
+## Manually edit them to your liking.
+```
+
+Next, create an `app_dir/app.R` script with these contents.
+
+```{r spatialLIBD_app_file, echo = FALSE}
+cat(paste0(readLines(system.file("spe_wrapper_app", "app.R", package = "spatialLIBD")), "\n"))
+```
+
+Next create an `app_dir/deploy.R` script with these contents. You will need to login to your [shinyapps.io](https://www.shinyapps.io/) account to get the exact authentication details for your access token.
+
+```{r spatialLIBD_deploy_file, echo = FALSE}
+cat(paste0(readLines(system.file("spe_wrapper_app", "deploy.R", package = "spatialLIBD")), "\n"))
+```
+
+Next, you should test that `app_dir/app.R` works locally before running `app_dir/deploy.R`.
+
+You'll end up with a website [just like this one](https://libd.shinyapps.io/spatialLIBD_Human_Lymph_Node_10x/). In our case, we further configured our website through the shinyapps.io dashboard. We selected the following options:
+
+* _General_ `Instance Size`: 3X-Large (8GB)
+* _Advanced_ `Max Worker Processes`: 1. Setting this to one helps reduce the memory burden.
+* _Advanced_ `Max Connections`: 15. You don't want `Max Worker Processes` multiplied by `Max Connections` and the object memory to exceed the `Instance Size`. So this this value to `8 / (lobstr::obj_size(spe_wrapper) / 1024^3)` or lower.
+* _Advanced_ `Startup Timeout`: 300. This one is important otherwise your app might error out before even loading since the default is 5 seconds, which is typically too short.
+* _Advanced_ `Idle Timeout`: 60. This is useful since you might want to give users as much time for their manual annotations as possible.
 
 # Limitations
 
