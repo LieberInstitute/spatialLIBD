@@ -54,7 +54,8 @@ vis_gene_p <-
     viridis = TRUE,
     image_id = "lowres",
     alpha = 1,
-    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red")) {
+    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
+    point_size = 1.25) {
 
         ## Some variables
         pxl_row_in_fullres <- pxl_col_in_fullres <- key <- COUNT <- NULL
@@ -92,7 +93,7 @@ vis_gene_p <-
         p <- p +
             geom_point(
                 shape = 21,
-                size = 1.25,
+                size = point_size,
                 stroke = 0,
                 alpha = alpha
             ) +

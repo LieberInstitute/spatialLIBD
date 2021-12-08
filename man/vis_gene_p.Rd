@@ -14,7 +14,8 @@ vis_gene_p(
   image_id = "lowres",
   alpha = 1,
   cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4",
-    "springgreen", "goldenrod", "red")
+    "springgreen", "goldenrod", "red"),
+  point_size = 1.25
 )
 }
 \arguments{
@@ -53,6 +54,9 @@ transparency level of the data on the spots.}
 
 \item{cont_colors}{A \code{character()} vector of colors that supersedes the
 \code{viridis} argument.}
+
+\item{point_size}{A \code{numeric(1)} specifying the size of the points. Defaults
+to \code{1.25}. Some colors look better if you use \code{2} for instance.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2} object.

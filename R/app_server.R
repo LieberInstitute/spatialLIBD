@@ -110,6 +110,7 @@ app_server <- function(input, output, session) {
             colors = cluster_colors(),
             image_id = input$imageid,
             alpha = input$alphalevel,
+            point_size = input$pointsize,
             ... = paste(" with", input$cluster)
         )
         if (!input$side_by_side_histology) {
@@ -145,6 +146,7 @@ app_server <- function(input, output, session) {
                 image_id = isolate(input$imageid),
                 alpha = isolate(input$alphalevel),
                 sample_order = isolate(input$grid_samples),
+                point_size = isolate(input$pointsize),
                 ... = paste(" with", isolate(input$cluster))
             )
         cowplot::plot_grid(
@@ -163,7 +165,8 @@ app_server <- function(input, output, session) {
             minCount = input$minCount,
             cont_colors = cont_colors(),
             image_id = input$imageid,
-            alpha = input$alphalevel
+            alpha = input$alphalevel,
+            point_size = input$pointsize
         )
         if (!input$side_by_side_gene) {
             return(p)
@@ -195,6 +198,7 @@ app_server <- function(input, output, session) {
                 cont_colors = isolate(cont_colors()),
                 image_id = isolate(input$imageid),
                 alpha = isolate(input$alphalevel),
+                point_size = isolate(input$pointsize),
                 sample_order = isolate(input$gene_grid_samples)
             )
         cowplot::plot_grid(
@@ -536,7 +540,8 @@ app_server <- function(input, output, session) {
                 minCount
             ),
             image_id = input$imageid,
-            alpha = input$alphalevel
+            alpha = input$alphalevel,
+            point_size = input$pointsize
         )
 
         ## Next the gene plot
@@ -548,7 +553,8 @@ app_server <- function(input, output, session) {
             title = "",
             cont_colors = cont_colors(),
             image_id = input$imageid,
-            alpha = input$alphalevel
+            alpha = input$alphalevel,
+            point_size = input$pointsize
         )
 
         ## Make the reduced dimensions ggplot
@@ -564,7 +570,7 @@ app_server <- function(input, output, session) {
             ) +
                 geom_point(
                     shape = 21,
-                    size = 1.25,
+                    size = input$pointsize,
                     stroke = 0.25
                 ) +
                 scale_fill_manual(values = get_colors(colors, colData(spe)[[clustervar]][spe$sample_id == sampleid])) +
@@ -592,7 +598,7 @@ app_server <- function(input, output, session) {
             ) +
                 geom_point(
                     shape = 21,
-                    size = 1.25,
+                    size = input$pointsize,
                     stroke = 0.25
                 )
         } else {
@@ -774,7 +780,8 @@ app_server <- function(input, output, session) {
                 spatial = FALSE,
                 cont_colors = cont_colors(),
                 image_id = input$imageid,
-                alpha = input$alphalevel
+                alpha = input$alphalevel,
+                point_size = input$pointsize
             )
 
         ## Read in the histology image

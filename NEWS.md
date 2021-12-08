@@ -1,3 +1,18 @@
+# spatialLIBD 1.7.6
+
+NEW FEATURES
+
+* `vis_gene_p()`, `vis_clus_p()` and all related functions now have an argument
+`point_size` which lets you control how big the points are plotted. This can
+be useful for visualization purposes.
+* The shiny app now has an input controlling the point size. If you increase it
+to say `5`, then if you zoom in the `clusters (interactive)` panel, you can
+see larger spots when zooming in.
+* These features are related to
+https://github.com/LieberInstitute/spatialLIBD/issues/28 although the spot
+diameter is still not the true spot diameter. However, now you have more
+flexibility for visualizing the spots.
+
 # spatialLIBD 1.7.5
 
 NEW FEATURES

@@ -13,6 +13,7 @@ vis_clus(
   spatial = TRUE,
   image_id = "lowres",
   alpha = 1,
+  point_size = 1.25,
   ...
 )
 }
@@ -42,6 +43,9 @@ use in the background.}
 
 \item{alpha}{A \code{numeric(1)} in the \verb{[0, 1]} range that specifies the
 transparency level of the data on the spots.}
+
+\item{point_size}{A \code{numeric(1)} specifying the size of the points. Defaults
+to \code{1.25}. Some colors look better if you use \code{2} for instance.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}

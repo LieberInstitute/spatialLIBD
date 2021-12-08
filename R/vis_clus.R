@@ -19,6 +19,8 @@
 #' use in the background.
 #' @param alpha A `numeric(1)` in the `[0, 1]` range that specifies the
 #' transparency level of the data on the spots.
+#' @param point_size A `numeric(1)` specifying the size of the points. Defaults
+#' to `1.25`. Some colors look better if you use `2` for instance.
 #' @param ... Passed to [paste0()][base::paste] for making the title of the
 #' plot following the `sampleid`.
 #'
@@ -76,6 +78,7 @@ vis_clus <- function(spe,
     spatial = TRUE,
     image_id = "lowres",
     alpha = 1,
+    point_size = 1.25,
     ...) {
     spe_sub <- spe[, spe$sample_id == sampleid]
     d <- as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE), optional = TRUE)
@@ -89,6 +92,7 @@ vis_clus <- function(spe,
         title = paste0(sampleid, ...),
         colors = get_colors(colors, d[, clustervar]),
         image_id = image_id,
-        alpha = alpha
+        alpha = alpha,
+        point_size = point_size
     )
 }
