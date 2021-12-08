@@ -59,6 +59,7 @@ vis_grid_clus <-
     image_id = "lowres",
     alpha = 1,
     sample_order = unique(spe$sample_id),
+    point_size = 1.25,
     ...) {
         stopifnot(all(sample_order %in% unique(spe$sample_id)))
 
@@ -75,6 +76,7 @@ vis_grid_clus <-
                     spatial = spatial,
                     image_id = image_id,
                     alpha = alpha,
+                    point_size = point_size,
                     ...
                 )
             })

@@ -49,6 +49,7 @@ vis_grid_gene <-
     alpha = 1,
     cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
     sample_order = unique(spe$sample_id),
+    point_size = 1.25,
     ...) {
         stopifnot(all(sample_order %in% unique(spe$sample_id)))
 
@@ -64,6 +65,7 @@ vis_grid_gene <-
                 image_id = image_id,
                 alpha = alpha,
                 cont_colors = cont_colors,
+                point_size = point_size,
                 ...
             )
         })

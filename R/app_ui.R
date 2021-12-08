@@ -95,6 +95,16 @@ app_ui <- function() {
                         helpText("Use values between 0 (transparent) to 1 (full color)."),
                         hr(),
                         numericInput(
+                            "pointsize",
+                            "Spot point size",
+                            value = 1.25,
+                            min = 1,
+                            max = 3,
+                            step = 0.1
+                        ),
+                        helpText("We recommend that you use values between 1.25 (default) and 2."),
+                        hr(),
+                        numericInput(
                             inputId = "minCount",
                             label = "Minimum count value",
                             value = 0,

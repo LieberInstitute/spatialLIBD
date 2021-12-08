@@ -17,6 +17,7 @@ vis_grid_clus(
   image_id = "lowres",
   alpha = 1,
   sample_order = unique(spe$sample_id),
+  point_size = 1.25,
   ...
 )
 }
@@ -59,6 +60,9 @@ transparency level of the data on the spots.}
 
 \item{sample_order}{A \code{character()} with the names of the samples to use
 and their order.}
+
+\item{point_size}{A \code{numeric(1)} specifying the size of the points. Defaults
+to \code{1.25}. Some colors look better if you use \code{2} for instance.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}

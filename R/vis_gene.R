@@ -82,6 +82,7 @@ vis_gene <-
     image_id = "lowres",
     alpha = 1,
     cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
+    point_size = 1.25,
     ...) {
         spe_sub <- spe[, spe$sample_id == sampleid]
         d <- as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE), optional = TRUE)
@@ -110,7 +111,8 @@ vis_gene <-
             viridis = viridis,
             image_id = image_id,
             alpha = alpha,
-            cont_colors = cont_colors
+            cont_colors = cont_colors,
+            point_size = point_size
         )
         p + labs(caption = paste(
             if (!geneid %in% colnames(colData(spe_sub))) {
