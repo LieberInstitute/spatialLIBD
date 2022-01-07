@@ -1,3 +1,10 @@
+# spatialLIBD 1.7.7
+
+BUG FIXES
+
+* Fixed a bug where the using the left-mouse click was not working for
+annotating individual spots under the "gene (interactive)" tab.
+
 # spatialLIBD 1.7.6
 
 NEW FEATURES
