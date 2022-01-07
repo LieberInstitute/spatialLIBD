@@ -878,7 +878,7 @@ app_server <- function(input, output, session) {
 
     output$click_gene <- renderPrint({
         if (!is.null(input$gene_plotly_cluster_subset)) {
-            event.data <- event_data("plotly_selected", source = "plotly_gene")
+            event.data <- event_data("plotly_click", source = "plotly_gene")
         } else {
             event.data <- NULL
         }
