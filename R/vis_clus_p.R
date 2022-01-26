@@ -7,7 +7,7 @@
 #'
 #' @inheritParams vis_clus
 #' @param d A data.frame with the sample-level information. This is typically
-#' obtained using `colData(spe, spatialData = TRUE, spatialCoords = TRUE)`.
+#' obtained using `cbind(colData(spe), spatialCoords(spe))`.
 #' @param title The title for the plot.
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
@@ -29,7 +29,7 @@
 #'     ## Don't plot the histology information
 #'     vis_clus_p(
 #'         spe = spe_sub,
-#'         d = as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE), optional = TRUE),
+#'         d = as.data.frame(cbind(colData(spe_sub), spatialCoords(spe_sub)), optional = TRUE),
 #'         clustervar = "layer_guess_reordered",
 #'         sampleid = "151673",
 #'         colors = libd_layer_colors,

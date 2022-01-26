@@ -7,7 +7,7 @@
 #' To visualize clusters (or any discrete variable) use [vis_clus_p()].
 #'
 #' @param d A data.frame with the sample-level information. This is typically
-#' obtained using `colData(spe, spatialData = TRUE, spatialCoords = TRUE)`.
+#' obtained using `cbind(colData(spe), spatialCoords(spe))`.
 #' The data.frame has to contain
 #' a column with the continuous variable data to plot stored under `d$COUNT`.
 #' @inheritParams vis_clus_p
@@ -29,7 +29,7 @@
 #'
 #'     ## Prepare the data for the plotting function
 #'     spe_sub <- spe[, spe$sample_id == "151673"]
-#'     df <- as.data.frame(colData(spe_sub, spatialData = TRUE, spatialCoords = TRUE), optional = TRUE)
+#'     df <- as.data.frame(cbind(colData(spe_sub), spatialCoords(spe_sub)), optional = TRUE)
 #'     df$COUNT <- df$expr_chrM_ratio
 #'
 #'     ## Use the manual color palette by Lukas M Weber
