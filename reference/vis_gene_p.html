@@ -21,7 +21,7 @@ To visualize clusters (or any discrete variable) use vis_clus_p()."><meta proper
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.9</span>
       </span>
     </div>
 
@@ -99,7 +99,7 @@ object with the spot-level Visium data and information required for
 visualizing the histology. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details.</p></dd>
 <dt>d</dt>
 <dd><p>A data.frame with the sample-level information. This is typically
-obtained using <code>colData(spe, spatialData = TRUE, spatialCoords = TRUE)</code>.
+obtained using <code>cbind(colData(spe), spatialCoords(spe))</code>.
 The data.frame has to contain
 a column with the continuous variable data to plot stored under <code>d$COUNT</code>.</p></dd>
 <dt>sampleid</dt>
@@ -151,7 +151,7 @@ to <code>1.25</code>. Some colors look better if you use <code>2</code> for inst
 <span class="r-in"></span>
 <span class="r-in">    <span class="co">## Prepare the data for the plotting function</span></span>
 <span class="r-in">    <span class="va">spe_sub</span> <span class="op">&lt;-</span> <span class="va">spe</span><span class="op">[</span>, <span class="va">spe</span><span class="op">$</span><span class="va">sample_id</span> <span class="op">==</span> <span class="st">"151673"</span><span class="op">]</span></span>
-<span class="r-in">    <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-colData.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">spe_sub</span>, spatialData <span class="op">=</span> <span class="cn">TRUE</span>, spatialCoords <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, optional <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in">    <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-colData.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">spe_sub</span><span class="op">)</span>, <span class="fu">SpatialExperiment</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-methods.html" class="external-link">spatialCoords</a></span><span class="op">(</span><span class="va">spe_sub</span><span class="op">)</span><span class="op">)</span>, optional <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in">    <span class="va">df</span><span class="op">$</span><span class="va">COUNT</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">$</span><span class="va">expr_chrM_ratio</span></span>
 <span class="r-in"></span>
 <span class="r-in">    <span class="co">## Use the manual color palette by Lukas M Weber</span></span>
@@ -167,8 +167,8 @@ to <code>1.25</code>. Some colors look better if you use <code>2</code> for inst
 <span class="r-in">    <span class="co">## Clean up</span></span>
 <span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">spe_sub</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2021-10-19</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-01-07 22:28:23 loading file /github/home/.cache/R/BiocFileCache/73f5ef270c3_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-01-20</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-01-26 22:07:04 loading file /github/home/.cache/R/BiocFileCache/f42925649ac3_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 </code></pre></div>
     </div>
   </div>
@@ -183,7 +183,7 @@ to <code>1.25</code>. Some colors look better if you use <code>2</code> for inst
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
 </div>
 
       </footer></div>

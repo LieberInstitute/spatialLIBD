@@ -20,7 +20,7 @@ object."><meta property="og:image" content="/logo.png"><!-- mathjax --><script s
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.9</span>
       </span>
     </div>
 
@@ -119,12 +119,12 @@ with the imported clusters appended on the <code><a href="https://rdrr.io/pkg/Sp
 <span class="r-in">    <span class="co">## Re-import them</span></span>
 <span class="r-in">    <span class="fu"><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-colData.html" class="external-link">colData</a></span><span class="op">(</span><span class="fu">cluster_import</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2021-10-19</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-01-07 22:23:53 loading file /github/home/.cache/R/BiocFileCache/73f5ef270c3_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpMeRHVI/exported_clusters/spatialLIBD' already exists</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpMeRHVI/exported_clusters/GraphBased' already exists</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-01-20</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-01-26 22:03:03 loading file /github/home/.cache/R/BiocFileCache/f42925649ac3_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpQM2Qci/exported_clusters/spatialLIBD' already exists</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/tmp/RtmpQM2Qci/exported_clusters/GraphBased' already exists</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Overwriting 'spe$key'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 47681 rows and 68 columns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 47681 rows and 71 columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                       key   sample_id   Cluster   sum_umi</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                               &lt;character&gt; &lt;character&gt; &lt;integer&gt; &lt;numeric&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1 AAACAACGAATAGTTC-1_1..      151507         6       948</span>
@@ -346,32 +346,32 @@ with the imported clusters appended on the <code><a href="https://rdrr.io/pkg/Sp
 <span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1                8                       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1                2                       4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1                1                       2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    markers_UMAP_spatial spatialLIBD ManualAnnotation</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                               &lt;integer&gt;    &lt;factor&gt;      &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1                    1          L1               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1                    1          L3               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1                    6          L1               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1                    1          WM               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1                    1          L6               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                                 ...         ...              ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1                    1          L6               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1                    1          WM               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1                    1          WM               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1                    7          L6               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1                    5          L1               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    imported_GraphBased imported_spatialLIBD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                              &lt;integer&gt;          &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1                   6                   L1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1                   3                   L3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1                   2                   L1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1                   5                   WM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1                   1                   L6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                                ...                  ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1                   5                   L6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1                   2                   WM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1                   2                   WM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1                   7                   L6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1                   1                   L1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    markers_UMAP_spatial spatialLIBD ManualAnnotation in_tissue</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                               &lt;integer&gt;    &lt;factor&gt;      &lt;character&gt; &lt;logical&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1                    1          L1               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1                    1          L3               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1                    6          L1               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1                    1          WM               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1                    1          L6               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                                 ...         ...              ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1                    1          L6               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1                    1          WM               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1                    1          WM               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1                    7          L6               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1                    5          L1               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    array_row array_col imported_GraphBased imported_spatialLIBD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    &lt;integer&gt; &lt;integer&gt;           &lt;integer&gt;          &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1         0        16                   6                   L1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1        50       102                   3                   L3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1         3        43                   2                   L1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1        59        19                   5                   WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1        43         9                   1                   L6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                      ...       ...                 ...                  ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1        31        77                   5                   L6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1        58        42                   2                   WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1        60        30                   2                   WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1        45        27                   7                   L6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1         7        51                   1                   L1</span>
 </code></pre></div>
     </div>
   </div>
@@ -386,7 +386,7 @@ with the imported clusters appended on the <code><a href="https://rdrr.io/pkg/Sp
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
 </div>
 
       </footer></div>
