@@ -81,7 +81,7 @@ vis_clus <- function(spe,
     point_size = 1.25,
     ...) {
     spe_sub <- spe[, spe$sample_id == sampleid]
-    d <- as.data.frame(cbind(colData(spe_sub), spatialCoords(spe_sub)), optional = TRUE)
+    d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
 
     vis_clus_p(
         spe = spe_sub,

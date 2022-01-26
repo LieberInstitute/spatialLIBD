@@ -29,7 +29,7 @@
 #'
 #'     ## Prepare the data for the plotting function
 #'     spe_sub <- spe[, spe$sample_id == "151673"]
-#'     df <- as.data.frame(cbind(colData(spe_sub), spatialCoords(spe_sub)), optional = TRUE)
+#'     df <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
 #'     df$COUNT <- df$expr_chrM_ratio
 #'
 #'     ## Use the manual color palette by Lukas M Weber

@@ -85,7 +85,7 @@ vis_gene <-
     point_size = 1.25,
     ...) {
         spe_sub <- spe[, spe$sample_id == sampleid]
-        d <- as.data.frame(cbind(colData(spe_sub), spatialCoords(spe_sub)), optional = TRUE)
+        d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
 
         if (geneid %in% colnames(colData(spe_sub))) {
             d$COUNT <- colData(spe_sub)[[geneid]]
