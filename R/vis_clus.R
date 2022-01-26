@@ -27,6 +27,7 @@
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @family Spatial cluster visualization functions
 #' @export
+#' @importFrom SpatialExperiment spatialCoords
 #' @details This function subsets `spe` to the given sample and prepares the
 #' data and title for [vis_clus_p()].
 #'

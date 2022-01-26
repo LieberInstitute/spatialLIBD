@@ -27,6 +27,7 @@
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
 #' @importFrom SummarizedExperiment assays
+#' @importFrom SpatialExperiment spatialCoords
 #' @family Spatial gene visualization functions
 #' @details This function subsets `spe` to the given sample and prepares the
 #' data and title for [vis_gene_p()]. It also adds a caption to the plot.
