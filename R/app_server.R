@@ -496,7 +496,7 @@ app_server <- function(input, output, session) {
         img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = input$imageid)
 
         ## From vis_gene() in global.R
-        d <- as.data.frame(colData(spe, spatialData = TRUE, spatialCoords = TRUE)[spe$sample_id == sampleid, ], optional = TRUE)
+        d <- as.data.frame(cbind(colData(spe), SpatialExperiment::spatialCoords(spe))[spe$sample_id == sampleid, ], optional = TRUE)
         if (geneid %in% colnames(d)) {
             d$COUNT <- d[[geneid]]
         } else {
@@ -859,7 +859,7 @@ app_server <- function(input, output, session) {
         }
         if (!is.null(event.data)) {
             ## Prepare the data
-            d <- as.data.frame(colData(spe, spatialData = TRUE, spatialCoords = TRUE)[spe$key %in% event.data$key, ], optional = TRUE)
+            d <- as.data.frame(cbind(colData(spe), SpatialExperiment::spatialCoords(spe))[spe$key %in% event.data$key, ], optional = TRUE)
             if (input$geneid %in% colnames(d)) {
                 d$COUNT <- d[[input$geneid]]
             } else {
@@ -888,7 +888,7 @@ app_server <- function(input, output, session) {
             )
         } else {
             ## Prepare the data
-            d <- as.data.frame(colData(spe, spatialData = TRUE, spatialCoords = TRUE)[spe$key %in% event.data$key, ], optional = TRUE)
+            d <- as.data.frame(cbind(colData(spe), SpatialExperiment::spatialCoords(spe))[spe$key %in% event.data$key, ], optional = TRUE)
             if (input$geneid %in% colnames(d)) {
                 d$COUNT <- d[[input$geneid]]
             } else {

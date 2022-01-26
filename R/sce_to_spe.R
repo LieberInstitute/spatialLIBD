@@ -24,7 +24,7 @@
 #' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]  object.
 #' @export
 #' @importFrom SpatialExperiment "imgData<-" "spatialCoordsNames<-"
-#' "spatialData<-" SpatialImage
+#' "colData<-" SpatialImage
 #' @importFrom jsonlite read_json
 #' @importFrom methods new
 #' @family SpatialExperiment-related functions
@@ -166,11 +166,10 @@ sce_to_spe <- function(sce = fetch_data("sce"), imageData = NULL) {
 
     spe <- SpatialExperiment::SpatialExperiment(
         rowData = rowData_visium,
-        colData = colData_visium,
+        colData = cbind(colData_visium, spatialCoords_visium),
         assays = assays_visium,
         reducedDims = reducedDimNames_visium,
         sample_id = NULL,
-        spatialData = spatialCoords_visium,
         spatialCoordsNames = c("pxl_col_in_fullres", "pxl_row_in_fullres"),
         scaleFactors = img_dat$scaleFactor,
         imgData = img_dat,
