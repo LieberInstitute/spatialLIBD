@@ -1,3 +1,11 @@
+# spatialLIBD 1.7.9
+
+NEW FEATURES
+
+* This version is now compatible with the bioc-devel version of
+SpatialExperiment where spatialData() was deprecated. Details at
+https://github.com/LieberInstitute/spatialLIBD/pull/29/files.
+
 # spatialLIBD 1.7.7
 
 BUG FIXES
