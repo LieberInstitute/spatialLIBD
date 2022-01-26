@@ -85,7 +85,7 @@ Suggests:
     pryr
 VignetteBuilder: knitr
 biocViews: Homo_sapiens_Data, ExperimentHub, SequencingData, SingleCellData,
-    ExpressionData, Tissue, PackageTypeData
+    ExpressionData, Tissue, PackageTypeData, SpatialData
 Depends:
     SpatialExperiment (>= 1.3.3),
     R (>= 3.6)
