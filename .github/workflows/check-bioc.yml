@@ -195,6 +195,11 @@ jobs:
 
       - name: Install dependencies pass 2
         run: |
+          ## Test with the GitHub version of BiocCheck
+          ## to see if https://github.com/Bioconductor/BiocCheck/issues/148
+          ## gets resolved
+          remotes::install_github("Bioconductor/BiocCheck")
+
           ## Pass #2 at installing dependencies
           ## This pass does not use AnVIL and will thus update any packages
           ## that have seen been updated in Bioconductor
