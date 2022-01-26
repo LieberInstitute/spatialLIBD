@@ -144,12 +144,12 @@ lymph.data <- sapply(lymph.url, BiocFileCache::bfcrpath, x = bfc)
 ```{r "extract_files"}
 ## Extract the files to a temporary location
 ## (they'll be deleted once you close your R session)
-sapply(lymph.data, utils::untar, exdir = tempdir())
+sapply(lymph.data, utils::untar, exdir = file.path(tempdir(), "outs"))
 
 ## List the files we downloaded and extracted
 ## These files are typically SpaceRanger outputs
 lymph.dirs <- file.path(
-    tempdir(),
+    tempdir(), "outs",
     c("filtered_feature_bc_matrix", "spatial", "raw_feature_bc_matrix", "analysis")
 )
 list.files(lymph.dirs)
@@ -440,7 +440,7 @@ To facilitate reading in the data and preparing it to visualize it interactively
 ```{r wrapper_functions}
 ## Import the data as a SpatialExperiment object
 spe_wrapper <- read10xVisiumWrapper(
-    samples = tempdir(),
+    samples = file.path(tempdir(), "outs"),
     sample_id = "lymph",
     type = "sparse", data = "filtered",
     images = c("lowres", "hires", "detected", "aligned"), load = TRUE,
