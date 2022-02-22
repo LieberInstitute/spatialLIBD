@@ -114,7 +114,7 @@ read10xVisiumWrapper <- function(samples = "",
 
     ## Add information used by spatialLIBD
     if (verbose) message(Sys.time(), " adding information used by spatialLIBD")
-    spe$key <- paste0(colnames(spe), "_", spe$sample_id)
+    spe <- add_key(spe)
     spe$sum_umi <- colSums(counts(spe))
     spe$sum_gene <- colSums(counts(spe) > 0)
     rowData(spe)$gene_search <- paste0(rowData(spe)$gene_name, "; ", rowData(spe)$gene_id)

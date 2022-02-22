@@ -33,11 +33,11 @@ read10xVisiumAnalysis <- function(samples = "",
             stop("'sample_id' mustn't be NULL when 'samples' are unnamed")
         } else if (!is.character(sample_id) &&
             length(unique(sample_id)) != length(samples)) {
-              stop("'sample_id' should contain as many unique values as 'samples'")
-          }
+            stop("'sample_id' should contain as many unique values as 'samples'")
+        }
     } else if (length(unique(sids)) != length(samples)) {
-          stop("names of 'samples' should be unique")
-      }
+        stop("names of 'samples' should be unique")
+    }
     names(samples) <- sids
 
     dir <- file.path(samples, "analysis")

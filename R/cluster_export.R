@@ -11,6 +11,7 @@
 #' export.
 #' @param cluster_dir A `character(1)` specifying the output directory, similar
 #' to the `outs/analysis/clustering` produced by SpaceRanger.
+#' @inheritParams add_key
 #'
 #' @return The path to the exported `clusters.csv` file.
 #' @export
@@ -25,10 +26,10 @@
 #'     cluster_export(spe, "spatialLIBD")
 #'     cluster_export(spe, "GraphBased")
 #' }
-cluster_export <- function(spe, cluster_var, cluster_dir = file.path(tempdir(), "exported_clusters")) {
+cluster_export <- function(spe, cluster_var, cluster_dir = file.path(tempdir(), "exported_clusters"), overwrite = TRUE) {
     stopifnot(cluster_var %in% colnames(colData(spe)))
 
-    key <- paste0(colnames(spe), "_", spe$sample_id)
+    spe <- add_key(spe, overwrite = overwrite)
 
     df <- data.frame(
         key = key,

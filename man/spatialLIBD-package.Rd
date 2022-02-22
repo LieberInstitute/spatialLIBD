@@ -28,6 +28,7 @@ Other contributors:
   \item Brenda Pardo \email{bpardo@lcgej.unam.mx} (\href{https://orcid.org/0000-0001-8103-7136}{ORCID}) [contributor]
   \item Abby Spangler \email{aspangle@gmail.com} (\href{https://orcid.org/0000-0002-0028-9348}{ORCID}) [contributor]
   \item Jesús Vélez Santiago \email{jvelezmagic@gmail.com} (\href{https://orcid.org/0000-0001-5128-3838}{ORCID}) [contributor]
+  \item Lukas M. Weber \email{lukas.weber.edu@gmail.com} (\href{https://orcid.org/0000-0002-3282-1730}{ORCID}) [contributor]
 }
 
 }

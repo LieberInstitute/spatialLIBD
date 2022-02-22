@@ -50,7 +50,9 @@ img_update <-
         img_data <- SpatialExperiment::imgData(spe)
 
         ## Skip this sample if there's no existing image to update
-        if(!any(img_data$image_id == image_id & img_data$sample_id == sampleid)) return(spe)
+        if (!any(img_data$image_id == image_id & img_data$sample_id == sampleid)) {
+            return(spe)
+        }
 
         ## Check if the new image exists
         img_exist_i <- img_data$image_id == new_image_id & img_data$sample_id == sampleid

@@ -7,7 +7,8 @@
 cluster_import(
   spe,
   cluster_dir = file.path(tempdir(), "exported_clusters"),
-  prefix = "imported_"
+  prefix = "imported_",
+  overwrite = TRUE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ to the \code{outs/analysis/clustering} produced by SpaceRanger.}
 
 \item{prefix}{A \code{character(1)} specifying the prefix to use when naming
 these new cluster variables.}
+
+\item{overwrite}{A \code{logical(1)} indicating whether to overwrite the \code{spe$key}.}
 }
 \value{
 A

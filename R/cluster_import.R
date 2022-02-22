@@ -8,6 +8,7 @@
 #' @inheritParams cluster_export
 #' @param prefix A `character(1)` specifying the prefix to use when naming
 #' these new cluster variables.
+#' @inheritParams add_key
 #'
 #' @return A
 #' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class] object
@@ -28,7 +29,7 @@
 #'     ## Re-import them
 #'     colData(cluster_import(spe))
 #' }
-cluster_import <- function(spe, cluster_dir = file.path(tempdir(), "exported_clusters"), prefix = "imported_") {
+cluster_import <- function(spe, cluster_dir = file.path(tempdir(), "exported_clusters"), prefix = "imported_", overwrite = TRUE) {
     clustering_files <-
         list.files(
             cluster_dir,
@@ -43,10 +44,7 @@ cluster_import <- function(spe, cluster_dir = file.path(tempdir(), "exported_clu
     cluster_cols <- which(colnames(clusters) != "key")
     colnames(clusters)[cluster_cols] <- paste0(prefix, colnames(clusters)[cluster_cols])
 
-    if ("key" %in% colnames(colData(spe))) {
-        warning("Overwriting 'spe$key'", call. = FALSE)
-    }
-    spe$key <- paste0(colnames(spe), "_", spe$sample_id)
+    spe <- add_key(spe, overwrite = overwrite)
 
     merged_info <-
         merge(

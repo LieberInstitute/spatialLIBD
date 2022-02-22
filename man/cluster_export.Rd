@@ -7,7 +7,8 @@
 cluster_export(
   spe,
   cluster_var,
-  cluster_dir = file.path(tempdir(), "exported_clusters")
+  cluster_dir = file.path(tempdir(), "exported_clusters"),
+  overwrite = TRUE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ export.}
 
 \item{cluster_dir}{A \code{character(1)} specifying the output directory, similar
 to the \code{outs/analysis/clustering} produced by SpaceRanger.}
+
+\item{overwrite}{A \code{logical(1)} indicating whether to overwrite the \code{spe$key}.}
 }
 \value{
 The path to the exported \code{clusters.csv} file.

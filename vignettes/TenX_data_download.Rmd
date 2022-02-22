@@ -188,7 +188,7 @@ First we start with adding a few variables to the sample information table (`col
 
 ```{r "add_key"}
 ## Add some information used by spatialLIBD
-spe$key <- paste0(spe$sample_id, "_", colnames(spe))
+spe <- add_key(spe)
 spe$sum_umi <- colSums(counts(spe))
 spe$sum_gene <- colSums(counts(spe) > 0)
 ```

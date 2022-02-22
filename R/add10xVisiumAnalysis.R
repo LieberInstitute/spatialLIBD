@@ -46,10 +46,9 @@ add10xVisiumAnalysis <- function(spe,
             all = TRUE
         )
 
-    key_spe <- paste0(col_info$barcode, "_", col_info$sample_id)
+    spe <- add_key(spe)
     key_analysis <- paste0(merged_info$barcode, "_", merged_info$sample_id)
-    m <- match(key_spe, key_analysis)
-    merged_info <- merged_info[m, ]
+    merged_info <- merged_info[match(spe$key, key_analysis), , drop = FALSE]
 
     if (!barcode_present) {
         merged_info$barcode <- NULL
@@ -59,8 +58,8 @@ add10xVisiumAnalysis <- function(spe,
     projections_list <- lapply(visium_analysis$projections, function(x) {
         merged_projection <- merge(basic_structure, x, sort = FALSE, all = TRUE)
         key_projection <- paste0(merged_projection$barcode, "_", merged_projection$sample_id)
-        m_proj <- match(key_spe, key_projection)
-        result <- as.matrix(merged_projection[m_proj, -which(colnames(merged_projection) %in% c("barcode", "sample_id"))])
+        m_proj <- match(spe$key, key_projection)
+        result <- as.matrix(merged_projection[m_proj, -which(colnames(merged_projection) %in% c("barcode", "sample_id")), drop = FALSE])
         rownames(result) <- rownames(col_info)
         return(result)
     })
