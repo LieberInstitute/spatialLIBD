@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.11</span>
       </span>
     </div>
 
@@ -70,7 +70,8 @@
   <span class="va">stats</span>,
   modeling_results <span class="op">=</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span>,
   model_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">modeling_results</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,
-  reverse <span class="op">=</span> <span class="cn">FALSE</span>
+  reverse <span class="op">=</span> <span class="cn">FALSE</span>,
+  top_n <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -104,6 +105,9 @@ are F-statistics.</p></dd>
 <dd><p>A <code>logical(1)</code> indicating whether to multiply by <code>-1</code> the
 input statistics and reverse the <code>layerA-layerB</code> column names (using the <code>-</code>)
 into <code>layerB-layerA</code>.</p></dd>
+<dt>top_n</dt>
+<dd><p>An <code>integer(1)</code> specifying whether to filter to the top n marker
+genes. The default is <code>NULL</code> in which case no filtering is done.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -134,14 +138,14 @@ for a full analysis from which this family of functions is derived from.</p>
 <span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in">    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-01-20</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-01-26 22:25:15 loading file /github/home/.cache/R/BiocFileCache/edd97d51d317_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-02-22</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-02-22 18:33:15 loading file /github/home/.cache/R/BiocFileCache/e40b42858d13_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Compute the correlations</span></span>
 <span class="r-in"><span class="va">cor_stats_layer</span> <span class="op">&lt;-</span> <span class="fu">layer_stat_cor</span><span class="op">(</span></span>
 <span class="r-in">    <span class="va">tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer</span>,</span>
 <span class="r-in">    <span class="va">modeling_results</span>,</span>
-<span class="r-in">    <span class="st">"enrichment"</span></span>
+<span class="r-in">    model_type <span class="op">=</span> <span class="st">"enrichment"</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Explore the correlation matrix</span></span>
@@ -153,6 +157,50 @@ for a full analysis from which this family of functions is derived from.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17 (3) 0.6364983 -0.094216046 -0.2026147</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 21 (3) 0.6281443 -0.050336358 -0.1988774</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7 (4)  0.1850724 -0.197283175 -0.2716890</span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">cor_stats_layer</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        WM               Layer6              Layer5             Layer4         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :-0.46352   Min.   :-0.197283   Min.   :-0.27169   Min.   :-0.253477  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:-0.26653   1st Qu.:-0.071919   1st Qu.:-0.14318   1st Qu.:-0.152714  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :-0.19813   Median :-0.039558   Median : 0.03858   Median : 0.003875  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :-0.02982   Mean   : 0.004476   Mean   : 0.01355   Mean   : 0.019215  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.: 0.12482   3rd Qu.: 0.018964   3rd Qu.: 0.16692   3rd Qu.: 0.160288  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   : 0.71541   Max.   : 0.457031   Max.   : 0.30194   Max.   : 0.425598  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Layer3             Layer2             Layer1        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :-0.36105   Min.   :-0.31419   Min.   :-0.29670  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:-0.10007   1st Qu.:-0.06673   1st Qu.:-0.12129  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Median : 0.05998   Median : 0.01664   Median :-0.01590  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   : 0.02022   Mean   : 0.01056   Mean   :-0.01750  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.: 0.13638   3rd Qu.: 0.11008   3rd Qu.: 0.03523  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   : 0.56413   Max.   : 0.50734   Max.   : 0.63940  </span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## Repeat with top_n set to 10</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu">layer_stat_cor</span><span class="op">(</span></span>
+<span class="r-in">    <span class="va">tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer</span>,</span>
+<span class="r-in">    <span class="va">modeling_results</span>,</span>
+<span class="r-in">    model_type <span class="op">=</span> <span class="st">"enrichment"</span>,</span>
+<span class="r-in">    top_n <span class="op">=</span> <span class="fl">10</span></span>
+<span class="r-in"><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        WM                Layer6              Layer5         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :-0.419078   Min.   :-0.245585   Min.   :-0.309621  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:-0.223879   1st Qu.:-0.148746   1st Qu.:-0.177987  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :-0.104689   Median :-0.034822   Median : 0.049559  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :-0.003598   Mean   :-0.008681   Mean   :-0.004698  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.: 0.040547   3rd Qu.: 0.036607   3rd Qu.: 0.145510  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   : 0.733922   Max.   : 0.586829   Max.   : 0.393224  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Layer4              Layer3               Layer2         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :-0.333112   Min.   :-0.3983700   Min.   :-0.206511  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:-0.119284   1st Qu.:-0.1264219   1st Qu.:-0.101970  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :-0.004004   Median :-0.0000972   Median :-0.017683  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   : 0.007484   Mean   : 0.0055855   Mean   : 0.009139  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.: 0.116301   3rd Qu.: 0.1143531   3rd Qu.: 0.092592  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   : 0.458987   Max.   : 0.6718714   Max.   : 0.472751  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Layer1         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :-0.263452  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:-0.149696  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :-0.064278  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :-0.001268  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.: 0.032686  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   : 0.728782  </span>
 </code></pre></div>
     </div>
   </div>
@@ -167,7 +215,8 @@ for a full analysis from which this family of functions is derived from.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.9000.</p>
 </div>
 
       </footer></div>
