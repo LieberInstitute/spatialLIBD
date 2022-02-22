@@ -68,7 +68,7 @@ if (!exists("modeling_results")) {
 cor_stats_layer <- layer_stat_cor(
     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
     modeling_results,
-    "enrichment"
+    model_type = "enrichment"
 )
 
 ## Explore the correlation matrix
@@ -79,7 +79,7 @@ summary(cor_stats_layer)
 summary(layer_stat_cor(
     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
     modeling_results,
-    "enrichment",
+    model_type = "enrichment",
     top_n = 10
 ))
 }

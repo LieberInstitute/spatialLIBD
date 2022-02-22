@@ -39,20 +39,28 @@
 #' cor_stats_layer <- layer_stat_cor(
 #'     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
 #'     modeling_results,
-#'     "enrichment"
+#'     model_type = "enrichment"
 #' )
 #'
 #' ## Visualize the correlation matrix
-#' layer_stat_cor_plot(cor_stats_layer)
+#' layer_stat_cor_plot(cor_stats_layer, max = max(cor_stats_layer))
 #'
-#' ## Restrict the range of colors
+#' ## Restrict the range of colors further
 #' layer_stat_cor_plot(cor_stats_layer, max = 0.3)
 #'
 #' ## Repeat with just the top 10 layer marker genes
 #' layer_stat_cor_plot(layer_stat_cor(
 #'     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
 #'     modeling_results,
-#'     "enrichment",
+#'     model_type = "enrichment",
+#'     top_n = 10
+#' ), max = 0.3)
+#'
+#' ## Now with the "pairwise" modeling results and also top_n = 10
+#' layer_stat_cor_plot(layer_stat_cor(
+#'     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
+#'     modeling_results,
+#'     model_type = "pairwise",
 #'     top_n = 10
 #' ), max = 0.3)
 layer_stat_cor_plot <-
