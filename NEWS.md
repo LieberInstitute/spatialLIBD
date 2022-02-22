@@ -1,3 +1,11 @@
+# spatialLIBD 1.7.11
+
+NEW FEATURES
+
+* Now `layer_stat_cor()` has the `top_n` argument which can be used for
+subsetting the marker genes prior to computing the correlation as part of the
+spatial registration process.
+
 # spatialLIBD 1.7.10
 
 NEW FEATURES
