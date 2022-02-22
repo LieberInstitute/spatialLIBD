@@ -47,6 +47,14 @@
 #'
 #' ## Restrict the range of colors
 #' layer_stat_cor_plot(cor_stats_layer, max = 0.3)
+#'
+#' ## Repeat with just the top 10 layer marker genes
+#' layer_stat_cor_plot(layer_stat_cor(
+#'     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
+#'     modeling_results,
+#'     "enrichment",
+#'     top_n = 10
+#' ), max = 0.3)
 layer_stat_cor_plot <-
     function(cor_stats_layer,
     max = 0.81,

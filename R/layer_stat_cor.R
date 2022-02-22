@@ -8,6 +8,8 @@
 #' are derived from comparing one layer against the rest. The `stats` will be
 #' matched and then correlated with our statistics.
 #' @inheritParams sig_genes_extract
+#' @param top_n An `integer(1)` specifying whether to filter to the top n marker
+#' genes. The default is `NULL` in which case no filtering is done.
 #'
 #' @return A correlation matrix between `stats` and our statistics using only
 #' the Ensembl gene IDs present in both tables. The columns are sorted using
@@ -37,11 +39,21 @@
 #'
 #' ## Explore the correlation matrix
 #' head(cor_stats_layer[, seq_len(3)])
+#' summary(cor_stats_layer)
+#'
+#' ## Repeat with top_n set to 10
+#' summary(layer_stat_cor(
+#'     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
+#'     modeling_results,
+#'     "enrichment",
+#'     top_n = 10
+#' ))
 layer_stat_cor <-
     function(stats,
     modeling_results = fetch_data(type = "modeling_results"),
     model_type = names(modeling_results)[1],
-    reverse = FALSE) {
+    reverse = FALSE,
+    top_n = NULL) {
         model_results <- modeling_results[[model_type]]
 
         tstats <-
@@ -55,6 +67,19 @@ layer_stat_cor <-
                 vapply(strsplit(colnames(tstats), "-"), function(x) {
                     paste(rev(x), collapse = "-")
                 }, character(1))
+        }
+
+        ## Subset to the 'top_n' marker genes if specified
+        if (!is.null(top_n)) {
+            stopifnot(top_n < nrow(tstats) & top_n > 0)
+            ## Adapted from
+            ## https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/ad_snRNAseq_recast.R#L207-L213
+            top_n_index <- unique(as.vector(apply(tstats, 2, function(t) {
+                order(t, decreasing = TRUE)[seq_len(top_n)]
+            })))
+            ## Subset to top n marker genes
+            model_results <- model_results[top_n_index, , drop = FALSE]
+            tstats <- tstats[top_n_index, , drop = FALSE]
         }
 
         ## Adapted from https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R

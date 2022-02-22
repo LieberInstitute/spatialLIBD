@@ -8,7 +8,8 @@ layer_stat_cor(
   stats,
   modeling_results = fetch_data(type = "modeling_results"),
   model_type = names(modeling_results)[1],
-  reverse = FALSE
+  reverse = FALSE,
+  top_n = NULL
 )
 }
 \arguments{
@@ -39,6 +40,9 @@ are F-statistics.}
 \item{reverse}{A \code{logical(1)} indicating whether to multiply by \code{-1} the
 input statistics and reverse the \code{layerA-layerB} column names (using the \code{-})
 into \code{layerB-layerA}.}
+
+\item{top_n}{An \code{integer(1)} specifying whether to filter to the top n marker
+genes. The default is \code{NULL} in which case no filtering is done.}
 }
 \value{
 A correlation matrix between \code{stats} and our statistics using only
@@ -69,6 +73,15 @@ cor_stats_layer <- layer_stat_cor(
 
 ## Explore the correlation matrix
 head(cor_stats_layer[, seq_len(3)])
+summary(cor_stats_layer)
+
+## Repeat with top_n set to 10
+summary(layer_stat_cor(
+    tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
+    modeling_results,
+    "enrichment",
+    top_n = 10
+))
 }
 \seealso{
 Other Layer correlation functions: 
