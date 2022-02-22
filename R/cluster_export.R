@@ -32,7 +32,7 @@ cluster_export <- function(spe, cluster_var, cluster_dir = file.path(tempdir(), 
     spe <- add_key(spe, overwrite = overwrite)
 
     df <- data.frame(
-        key = key,
+        key = spe$key,
         cluster = colData(spe)[[cluster_var]]
     )
 
