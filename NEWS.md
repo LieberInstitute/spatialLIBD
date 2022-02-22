@@ -1,3 +1,10 @@
+# spatialLIBD 1.7.10
+
+NEW FEATURES
+
+* Added the `add_key()` function to reduce code duplication and resolve
+https://github.com/LieberInstitute/spatialLIBD/issues/31.
+
 # spatialLIBD 1.7.9
 
 NEW FEATURES
