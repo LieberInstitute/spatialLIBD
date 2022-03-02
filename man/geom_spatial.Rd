@@ -63,8 +63,8 @@ if (enough_ram()) {
     p <- ggplot2::ggplot(
         sample_df,
         ggplot2::aes(
-            x = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe_sub),
-            y = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe_sub),
+            x = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe_sub),
+            y = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe_sub),
         )
     ) +
         geom_spatial(

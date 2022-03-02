@@ -1,3 +1,18 @@
+# spatialLIBD 1.7.12
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* The visualization functions `vis_*()` of `SpatialLIBD` in this version
+match the Bioconductor 3.15 version of `SpatialExperiment`.
+Note that if you used `SpatialExperiment::read10xVisium()`, the names of
+the spatial coordinates changed at 
+https://github.com/drighelli/SpatialExperiment/commit/6710fe8b0a7919191ecce989bb6831647385ef5f
+and thus you might need to switch them back if you created your
+`SpatialExperiment` object before this change. You can do so with
+`spatialCoordsNames(spe) <- rev(spatialCoordsNames(spe))`.
+`read10xVisiumWrapper()` uses `SpatialExperiment::read10xVisium()` internally,
+so this change on `SpatialExperiment` would then also affect you.
+
 # spatialLIBD 1.7.11
 
 NEW FEATURES

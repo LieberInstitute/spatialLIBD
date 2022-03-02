@@ -69,8 +69,8 @@ vis_clus_p <-
         p <- ggplot(
             d,
             aes(
-                x = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id),
-                y = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id),
+                x = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id),
+                y = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id),
                 fill = factor(!!sym(clustervar)),
                 key = key
             )

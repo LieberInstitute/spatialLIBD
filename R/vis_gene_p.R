@@ -66,8 +66,8 @@ vis_gene_p <-
             ggplot(
                 d,
                 aes(
-                    x = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id),
-                    y = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id),
+                    x = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id),
+                    y = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id),
                     fill = COUNT,
                     color = COUNT,
                     key = key
