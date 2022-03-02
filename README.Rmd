@@ -115,7 +115,7 @@ spe <- fetch_data(type = "spe")
 spe
 
 ## Note the memory size
-pryr::object_size(spe)
+lobstr::obj_size(spe) / 1024^3 ## Convert to GB
 
 ## Remake the logo image with histology information
 vis_clus(

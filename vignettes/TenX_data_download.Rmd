@@ -52,7 +52,7 @@ bib <- c(
     BiocFileCache = citation("BiocFileCache")[1],
     BiocStyle = citation("BiocStyle")[1],
     knitr = citation("knitr")[1],
-    pryr = citation("pryr")[1],
+    lobstr = citation("lobstr")[1],
     RefManageR = citation("RefManageR")[1],
     rmarkdown = citation("rmarkdown")[1],
     rtracklayer = citation("rtracklayer")[1],
@@ -105,7 +105,7 @@ To get started, lets load the different packages we'll need for this vignette. H
 * `r Biocpkg("BiocFileCache")`: for downloading and saving a local cache of the data
 * `r Biocpkg("SpatialExperiment")`: for reading the `spaceranger` files provided by 10x Genomics
 * `r Biocpkg("rtracklayer")`: for importing a gene annotation GTF file
-* `r CRANpkg("pryr")`: for checking how much memory our object is using
+* `r CRANpkg("lobstr")`: for checking how much memory our object is using
 * `r Biocpkg("spatialLIBD")`: for launching an interactive website to explore the data
 
 ```{r "start", message=FALSE}
@@ -113,7 +113,7 @@ To get started, lets load the different packages we'll need for this vignette. H
 library("BiocFileCache")
 library("SpatialExperiment")
 library("rtracklayer")
-library("pryr")
+library("lobstr")
 library("spatialLIBD")
 ```
 
@@ -168,7 +168,7 @@ spe <- SpatialExperiment::read10xVisium(
 ## Inspect the R object we just created: class, memory, and how it looks in
 ## general
 class(spe)
-pryr::object_size(spe)
+lobstr::obj_size(spe) / 1024^2 ## Convert to MB
 spe
 
 ## The counts are saved in a sparse matrix R object
@@ -367,7 +367,7 @@ Finally, we can now check the final object using `spatialLIBD::check_spe()`. Thi
 ```{r "check_spe"}
 ## Check the final dimensions and object size
 dim(spe)
-pryr::object_size(spe)
+lobstr::obj_size(spe) / 1024^2 ## Convert to MB
 
 ## Run check_spe() function
 check_spe(spe)
@@ -528,7 +528,7 @@ You'll end up with a website [just like this one](https://libd.shinyapps.io/spat
 Regarding the memory limitation, you can estimate how much memory you need per user by considering the memory required for the `spe` and `sce_layer` objects. 
 
 ```{r "check_mem"}
-pryr::object_size(spe)
+lobstr::obj_size(spe) / 1024^2 ## Convert to MB
 ```
 
 In our pilot data `r Citep(bib[['spatialLIBDpaper']])` our object uses about 2.1 GB of RAM since it contains the data for 12 Visium slides and we considered using about 3 GB of RAM per user. You could filter the genes more aggressively to drop lowly expressed genes or if you have many Visium slides, you could consider making multiple websites for different sets of slides. You could also have multiple mirrors to support several users, though in that case, we recommend linking users to a stable website instead of one that might not be available if you have too many users: for us our stable website is http://research.libd.org/spatialLIBD/ which includes the links to all the mirrors.
@@ -559,7 +559,7 @@ The `r Biocpkg("spatialLIBD")` package `r Citep(bib[["spatialLIBD"]])` was made 
 * `r Biocpkg("BiocFileCache")` `r Citep(bib[["BiocFileCache"]])`
 * `r Biocpkg("BiocStyle")` `r Citep(bib[["BiocStyle"]])`
 * `r CRANpkg("knitr")` `r Citep(bib[["knitr"]])`
-* `r CRANpkg("pryr")` `r Citep(bib[["pryr"]])`
+* `r CRANpkg("lobstr")` `r Citep(bib[["lobstr"]])`
 * `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`
 * `r CRANpkg("rmarkdown")` `r Citep(bib[["rmarkdown"]])`
 * `r Biocpkg("rtracklayer")` `r Citep(bib[["rtracklayer"]])`

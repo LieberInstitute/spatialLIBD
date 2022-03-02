@@ -4,7 +4,7 @@ library("spatialLIBD")
 ## with the memory issues at
 ## https://travis-ci.com/LieberInstitute/spatialLIBD/builds/150177257?utm_medium=notification&utm_source=slack
 if (!exists("sce")) sce <- fetch_data(type = "sce", eh = ehub)
-pryr::object_size(sce)
+lobstr::obj_size(sce) / 1024^3 ## Convert to GB
 # 2.08
 # GB
 
@@ -12,7 +12,7 @@ pryr::object_size(sce)
 ## object and load it. Details:
 ## https://travis-ci.com/LieberInstitute/spatialLIBD/builds/150199037?utm_medium=notification&utm_source=slack
 sce_sub <- sce[, sce$sample_name == "151673"]
-pryr::object_size(sce_sub)
+lobstr::obj_size(sce_sub) / 1024^2 ## Convert to MB
 # 247
 #  MB
 
@@ -26,7 +26,7 @@ assays(sce_sub)$counts <- assays(sce_sub)$logcounts <- Matrix::sparseMatrix(
     dims = c(nrow(sce_sub), ncol(sce_sub)),
     dimnames = dimnames(sce_sub)
 )
-pryr::object_size(sce_sub)
+lobstr::obj_size(sce_sub) / 1024^2 ## Convert to MB
 # 96.5 MB
 save(sce_sub, file = here::here("data-raw", "sce_sub_for_vignette.Rdata"))
 system2("ls", paste("-lh", here::here("data-raw", "sce_sub_for_vignette.Rdata")))

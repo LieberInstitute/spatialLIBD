@@ -197,8 +197,8 @@ spe
 #> imgData names(4): sample_id image_id data scaleFactor
 
 ## Note the memory size
-pryr::object_size(spe)
-#> 2.04 GB
+lobstr::obj_size(spe) / 1024^3 ## Convert to GB
+#> 1.89937 B
 
 ## Remake the logo image with histology information
 vis_clus(

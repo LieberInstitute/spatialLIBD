@@ -243,7 +243,7 @@ spatial_clus <-
         lapply(local_cluster_csvs, read.csv, stringsAsFactors = FALSE))
 
 ## It's too big to include as data in the pkg
-pryr::object_size(spatial_clus)
+lobstr::obj_size(spatial_clus) / 1024^2 ## Convert to MB
 # 8.01 MB
 
 ## Check the order

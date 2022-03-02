@@ -159,7 +159,7 @@ t0_contrasts_cell <-
     t0_contrasts_cell[, as.character(ct$prelimCluster)]
 colnames(t0_contrasts_cell) <- ct$lab
 
-pryr::object_size(t0_contrasts_cell)
+lobstr::obj_size(t0_contrasts_cell) / 1024^2 ## Convert to MB
 # 10.7 MB
 
 ## Subset further for illustration purposes
@@ -184,7 +184,7 @@ layer_ind <- unique(as.numeric(layer_specific_indices))
 
 tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer <-
     t0_contrasts_cell[results_specificity$ensembl[layer_ind], ]
-pryr::object_size(tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer)
+lobstr::obj_size(tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer) / 1024 ## Convert to KB
 # 224 kB
 save(
     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
