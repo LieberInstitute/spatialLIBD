@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.12</span>
       </span>
     </div>
 
@@ -257,8 +257,8 @@ details, check the help file for <code><a href="reference/fetch_data.html">fetch
 <span class="co">#&gt; imgData names(4): sample_id image_id data scaleFactor</span>
 
 <span class="co">## Note the memory size</span>
-<span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html" class="external-link">object_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>
-<span class="co">#&gt; 2,039,433,000 B</span>
+<span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/obj_size.html" class="external-link">obj_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1024</span><span class="op">^</span><span class="fl">3</span> <span class="co">## Convert to GB</span>
+<span class="co">#&gt; 1.89937 B</span>
 
 <span class="co">## Remake the logo image with histology information</span>
 <span class="fu"><a href="reference/vis_clus.html">vis_clus</a></span><span class="op">(</span>

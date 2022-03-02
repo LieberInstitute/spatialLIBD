@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.12</span>
       </span>
     </div>
 
@@ -60,6 +60,23 @@
       <small>Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.7.12" id="spatiallibd-1712">spatialLIBD 1.7.12<a class="anchor" aria-label="anchor" href="#spatiallibd-1712"></a></h2>
+<p>SIGNIFICANT USER-VISIBLE CHANGES</p>
+<ul><li>The visualization functions <code>vis_*()</code> of
+<code>SpatialLIBD</code> in this version match the Bioconductor 3.15
+version of <code>SpatialExperiment</code>. Note that if you used
+<code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code>, the names of the
+spatial coordinates changed at <a href="https://github.com/drighelli/SpatialExperiment/commit/6710fe8b0a7919191ecce989bb6831647385ef5f" class="external-link uri">https://github.com/drighelli/SpatialExperiment/commit/6710fe8b0a7919191ecce989bb6831647385ef5f</a>
+and thus you might need to switch them back if you created your
+<code>SpatialExperiment</code> object before this change. You can do so
+with
+<code>spatialCoordsNames(spe) &lt;- rev(spatialCoordsNames(spe))</code>.
+<code><a href="../reference/read10xVisiumWrapper.html">read10xVisiumWrapper()</a></code> uses
+<code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code> internally, so this
+change on <code>SpatialExperiment</code> would then also affect
+you.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.11" id="spatiallibd-1711">spatialLIBD 1.7.11<a class="anchor" aria-label="anchor" href="#spatiallibd-1711"></a></h2>
 <p>NEW FEATURES</p>
