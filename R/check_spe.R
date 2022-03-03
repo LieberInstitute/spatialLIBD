@@ -42,7 +42,7 @@ check_spe <- function(spe,
     ) %in% colnames(imgData(spe))))
 
     ## Check that the images have been loaded
-    stopifnot(all(vapply(imgData(spe)$data, is, logical(1), "SpatialImage")))
+    stopifnot(all(vapply(imgData(spe)$data, is, logical(1), "VirtualSpatialImage")))
 
     ## Check gene data
     stopifnot(all(
