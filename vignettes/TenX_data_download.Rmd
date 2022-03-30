@@ -156,7 +156,12 @@ lymph.data <- sapply(lymph.url, BiocFileCache::bfcrpath, x = bfc)
 ```{r "extract_files"}
 ## Extract the files to a temporary location
 ## (they'll be deleted once you close your R session)
-sapply(lymph.data, utils::untar, exdir = file.path(tempdir(), "outs"))
+xx <- sapply(lymph.data, utils::untar, exdir = file.path(tempdir(), "outs"))
+## The names are the URLs, which are long and thus too wide to be shown here,
+## so we shorten them to only show the file name prior to displaying the
+## utils::untar() output status
+names(xx) <- basename(names(xx))
+xx
 
 ## List the files we downloaded and extracted
 ## These files are typically SpaceRanger outputs
