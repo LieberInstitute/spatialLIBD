@@ -87,6 +87,12 @@ To run all the code in this vignette, you might need to install other R/Biocondu
 BiocManager::install("spatialLIBD", dependencies = TRUE)
 ```
 
+If you want to use the development version of `spatialLIBD`, you will need to use the R version corresponding to the current Bioconductor-devel branch as described in more detail on the [Bioconductor website](http://bioconductor.org/developers/how-to/useDevel/). Then you can install `spatialLIBD` from GitHub using the following command.
+
+```{r "install_devel", eval = FALSE}
+BiocManager::install("LieberInstitute/spatialLIBD")
+```
+
 ## Required knowledge
 
 Please first check the _Introduction to spatialLIBD_ vignette available through [GitHub](http://research.libd.org/spatialLIBD/articles/spatialLIBD.html) or [Bioconductor](https://bioconductor.org/packages/spatialLIBD).

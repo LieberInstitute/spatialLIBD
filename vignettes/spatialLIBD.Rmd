@@ -127,6 +127,12 @@ To run all the code in this vignette, you might need to install other R/Biocondu
 BiocManager::install("spatialLIBD", dependencies = TRUE)
 ```
 
+If you want to use the development version of `spatialLIBD`, you will need to use the R version corresponding to the current Bioconductor-devel branch as described in more detail on the [Bioconductor website](http://bioconductor.org/developers/how-to/useDevel/). Then you can install `spatialLIBD` from GitHub using the following command.
+
+```{r "install_devel", eval = FALSE}
+BiocManager::install("LieberInstitute/spatialLIBD")
+```
+
 ## Required knowledge
 
 `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])` is based on many other packages and in particular in those that have implemented the infrastructure needed for dealing with single cell RNA sequencing data, visualization functions, and interactive data exploration. That is, packages like `r Biocpkg('SingleCellExperiment')` that allow you to store the data, `r CRANpkg('ggplot2')` and `r CRANpkg('plotly')` for visualizing the data, and `r CRANpkg('shiny')` for building an interactive interface. A `r Biocpkg('spatialLIBD')` user who only accesses the web application is not expected to deal with those packages directly. A `r Biocpkg('spatialLIBD')` user will need to be familiar with `r Biocpkg('SingleCellExperiment')` and `r CRANpkg('ggplot2')` to understand the data provided by `r Biocpkg('spatialLIBD')` or the graphical results `r Biocpkg('spatialLIBD')` provides. Furthermore, it'll be useful for the user to know about `r CRANpkg('shiny')` and `r CRANpkg('plotly')` if you wish to adapt the web application provided by `r Biocpkg('spatialLIBD')`.
