@@ -81,6 +81,12 @@ BiocManager::install("spatialLIBD")
 BiocManager::valid()
 ```
 
+To run all the code in this vignette, you might need to install other R/Bioconductor packages, which you can do with:
+
+```{r "install_deps", eval = FALSE}
+BiocManager::install("spatialLIBD", dependencies = TRUE)
+```
+
 ## Required knowledge
 
 Please first check the _Introduction to spatialLIBD_ vignette available through [GitHub](http://research.libd.org/spatialLIBD/articles/spatialLIBD.html) or [Bioconductor](https://bioconductor.org/packages/spatialLIBD).
