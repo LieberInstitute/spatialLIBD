@@ -55,12 +55,12 @@ pre-print](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1)
 for more details about this project.
 
 If you tweet about this website, the data or the R package please use
-the <code>\#spatialLIBD</code> hashtag. You can find previous tweets
-that way as shown
+the <code>#spatialLIBD</code> hashtag. You can find previous tweets that
+way as shown
 <a href="https://twitter.com/search?q=%23spatialLIBD&src=typed_query">here</a>.
 Thank you!
 <a href="https://twitter.com/intent/tweet?button_hashtag=spatialLIBD&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet
-\#spatialLIBD</a>
+#spatialLIBD</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ## Study design
@@ -187,18 +187,17 @@ spe
 #> rowData names(9): source type ... gene_search is_top_hvg
 #> colnames(47681): AAACAACGAATAGTTC-1 AAACAAGTATCTCCCA-1 ...
 #>   TTGTTTCCATACAACT-1 TTGTTTGTGTAAATTC-1
-#> colData names(66): sample_id Cluster ... spatialLIBD ManualAnnotation
+#> colData names(69): sample_id Cluster ... array_row array_col
 #> reducedDimNames(6): PCA TSNE_perplexity50 ... TSNE_perplexity80
 #>   UMAP_neighbors15
 #> mainExpName: NULL
 #> altExpNames(0):
-#> spatialData names(3) : in_tissue array_row array_col
 #> spatialCoords names(2) : pxl_col_in_fullres pxl_row_in_fullres
 #> imgData names(4): sample_id image_id data scaleFactor
 
 ## Note the memory size
 lobstr::obj_size(spe) / 1024^3 ## Convert to GB
-#> 1.89937 B
+#> 1.899369 B
 
 ## Remake the logo image with histology information
 vis_clus(
@@ -219,7 +218,7 @@ You can access all the raw data through
 Furthermore, below you can find the links to the raw data we received
 from 10x Genomics.
 
-| SampleID | h5\_filtered                                                                                    | h5\_raw                                                                                    | image\_full                                                                          | image\_hi                                                                                    | image\_lo                                                                                     | loupe                                                                       | HTML\_report                                                                                           |
+| SampleID | h5_filtered                                                                                     | h5_raw                                                                                     | image_full                                                                           | image_hi                                                                                     | image_lo                                                                                      | loupe                                                                       | HTML_report                                                                                            |
 |---------:|:------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------|
 |   151507 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151507_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151507_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151507_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151507.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151507/151507_web_summary.html) |
 |   151508 | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151508_filtered_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/h5/151508_raw_feature_bc_matrix.h5) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_full_image.tif) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_hires_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/images/151508_tissue_lowres_image.png) | [AWS](https://spatial-dlpfc.s3.us-east-2.amazonaws.com/loupe/151508.cloupe) | [GitHub](https://github.com/LieberInstitute/HumanPilot/blob/master/10X/151508/151508_web_summary.html) |
@@ -303,7 +302,7 @@ By contributing to this project, you agree to abide by its terms.
     *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)*
     customized to use [Bioconductor’s docker
     containers](https://www.bioconductor.org/help/docker/) and
-    *[BiocCheck](https://bioconductor.org/packages/3.14/BiocCheck)*.
+    *[BiocCheck](https://bioconductor.org/packages/3.15/BiocCheck)*.
 -   Code coverage assessment is possible thanks to
     [codecov](https://codecov.io/gh) and
     *[covr](https://CRAN.R-project.org/package=covr)*.
@@ -320,7 +319,7 @@ By contributing to this project, you agree to abide by its terms.
 For more details, check the `dev` directory.
 
 This package was developed using
-*[biocthis](https://bioconductor.org/packages/3.14/biocthis)*.
+*[biocthis](https://bioconductor.org/packages/3.15/biocthis)*.
 
 <a href="https://www.libd.org/"><img src="http://lcolladotor.github.io/img/LIBD_logo.jpg" width="250px"></a>
 
