@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.14</span>
       </span>
     </div>
 
@@ -112,7 +112,7 @@ CampusCenter for Computational Biology, Johns Hopkins
 University<br><a class="author_email" href="mailto:#"></a><a href="mailto:lcolladotor@gmail.com" class="email">lcolladotor@gmail.com</a>
       </address>
                   
-            <h4 data-toc-skip class="date">30 March 2022</h4>
+            <h4 data-toc-skip class="date">31 March 2022</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/vignettes/TenX_data_download.Rmd" class="external-link"><code>vignettes/TenX_data_download.Rmd</code></a></small>
       <div class="hidden name"><code>TenX_data_download.Rmd</code></div>
@@ -505,8 +505,8 @@ add it back into the <code>spe</code> object.</p>
 
 <span class="co">## Show the GTF cache location</span>
 <span class="va">gtf_cache</span>
-<span class="co">#&gt;                                                                             BFC4 </span>
-<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/eaf53ca6489a_gencode.v32.annotation.gtf.gz"</span>
+<span class="co">#&gt;                                                                            BFC4 </span>
+<span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/ce55d7a1d2e_gencode.v32.annotation.gtf.gz"</span>
 
 <span class="co">## Import into R (takes ~1 min)</span>
 <span class="va">gtf</span> <span class="op">&lt;-</span> <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span><span class="va">gtf_cache</span><span class="op">)</span>
@@ -792,11 +792,11 @@ we can toggle between them on the web application.</p>
     images <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lowres"</span>, <span class="st">"hires"</span>, <span class="st">"detected"</span>, <span class="st">"aligned"</span><span class="op">)</span>, load <span class="op">=</span> <span class="cn">TRUE</span>,
     reference_gtf <span class="op">=</span> <span class="va">gtf_cache</span>
 <span class="op">)</span>
-<span class="co">#&gt; 2022-03-30 23:15:48 SpatialExperiment::read10xVisium: reading basic data from SpaceRanger</span>
-<span class="co">#&gt; 2022-03-30 23:16:10 read10xVisiumAnalysis: reading analysis output from SpaceRanger</span>
-<span class="co">#&gt; 2022-03-30 23:16:10 add10xVisiumAnalysis: adding analysis output from SpaceRanger</span>
-<span class="co">#&gt; 2022-03-30 23:16:11 rtracklayer::import: reading the reference GTF file</span>
-<span class="co">#&gt; 2022-03-30 23:16:50 adding gene information to the SPE object</span>
+<span class="co">#&gt; 2022-03-31 00:44:27 SpatialExperiment::read10xVisium: reading basic data from SpaceRanger</span>
+<span class="co">#&gt; 2022-03-31 00:44:44 read10xVisiumAnalysis: reading analysis output from SpaceRanger</span>
+<span class="co">#&gt; 2022-03-31 00:44:44 add10xVisiumAnalysis: adding analysis output from SpaceRanger</span>
+<span class="co">#&gt; 2022-03-31 00:44:45 rtracklayer::import: reading the reference GTF file</span>
+<span class="co">#&gt; 2022-03-31 00:45:16 adding gene information to the SPE object</span>
 <span class="co">#&gt; Warning: Gene IDs did not match. This typically happens when you are not using</span>
 <span class="co">#&gt; the same GTF file as the one that was used by SpaceRanger. For example, one file</span>
 <span class="co">#&gt; uses GENCODE IDs and the other one ENSEMBL IDs. read10xVisiumWrapper() will try</span>
@@ -804,7 +804,7 @@ we can toggle between them on the web application.</p>
 <span class="co">#&gt; Warning: Dropping 29 out of 36601 genes for which we don't have information on</span>
 <span class="co">#&gt; the reference GTF file. This typically happens when you are not using the same</span>
 <span class="co">#&gt; GTF file as the one that was used by SpaceRanger.</span>
-<span class="co">#&gt; 2022-03-30 23:16:52 adding information used by spatialLIBD</span></code></pre></div>
+<span class="co">#&gt; 2022-03-31 00:45:18 adding information used by spatialLIBD</span></code></pre></div>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Run our shiny app</span>
 <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -1087,9 +1087,9 @@ Chang, and Iannone, 2022)</li>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span class="co">#&gt; [1] "2022-03-30 23:16:55 UTC"</span></code></pre>
+<pre><code><span class="co">#&gt; [1] "2022-03-31 00:45:21 UTC"</span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span class="co">#&gt; Time difference of 2.739 mins</span></code></pre>
+<pre><code><span class="co">#&gt; Time difference of 2.325 mins</span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
 <span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span>
@@ -1101,7 +1101,7 @@ Chang, and Iannone, 2022)</li>
 <span class="co">#&gt;  collate  en_US.UTF-8</span>
 <span class="co">#&gt;  ctype    en_US.UTF-8</span>
 <span class="co">#&gt;  tz       UTC</span>
-<span class="co">#&gt;  date     2022-03-30</span>
+<span class="co">#&gt;  date     2022-03-31</span>
 <span class="co">#&gt;  pandoc   2.17.1.1 @ /usr/local/bin/ (via rmarkdown)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
@@ -1256,7 +1256,7 @@ Chang, and Iannone, 2022)</li>
 <span class="co">#&gt;  spam                     2.8-0      <span style="color: #555555;">2022-01-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span>
 <span class="co">#&gt;  sparseMatrixStats        1.7.0      <span style="color: #555555;">2021-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
 <span class="co">#&gt;  SpatialExperiment      * 1.5.4      <span style="color: #555555;">2022-03-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
-<span class="co">#&gt;  spatialLIBD            * 1.7.13     <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
+<span class="co">#&gt;  spatialLIBD            * 1.7.14     <span style="color: #555555;">2022-03-31</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>
 <span class="co">#&gt;  stringi                  1.7.6      <span style="color: #555555;">2021-11-29</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span>
 <span class="co">#&gt;  stringr                  1.4.0      <span style="color: #555555;">2019-02-10</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span>
 <span class="co">#&gt;  SummarizedExperiment   * 1.25.3     <span style="color: #555555;">2021-12-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span>

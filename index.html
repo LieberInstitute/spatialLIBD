@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.14</span>
       </span>
     </div>
 
@@ -247,18 +247,17 @@ details, check the help file for <code><a href="reference/fetch_data.html">fetch
 <span class="co">#&gt; rowData names(9): source type ... gene_search is_top_hvg</span>
 <span class="co">#&gt; colnames(47681): AAACAACGAATAGTTC-1 AAACAAGTATCTCCCA-1 ...</span>
 <span class="co">#&gt;   TTGTTTCCATACAACT-1 TTGTTTGTGTAAATTC-1</span>
-<span class="co">#&gt; colData names(66): sample_id Cluster ... spatialLIBD ManualAnnotation</span>
+<span class="co">#&gt; colData names(69): sample_id Cluster ... array_row array_col</span>
 <span class="co">#&gt; reducedDimNames(6): PCA TSNE_perplexity50 ... TSNE_perplexity80</span>
 <span class="co">#&gt;   UMAP_neighbors15</span>
 <span class="co">#&gt; mainExpName: NULL</span>
 <span class="co">#&gt; altExpNames(0):</span>
-<span class="co">#&gt; spatialData names(3) : in_tissue array_row array_col</span>
 <span class="co">#&gt; spatialCoords names(2) : pxl_col_in_fullres pxl_row_in_fullres</span>
 <span class="co">#&gt; imgData names(4): sample_id image_id data scaleFactor</span>
 
 <span class="co">## Note the memory size</span>
 <span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lobstr/man/obj_size.html" class="external-link">obj_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1024</span><span class="op">^</span><span class="fl">3</span> <span class="co">## Convert to GB</span>
-<span class="co">#&gt; 1.89937 B</span>
+<span class="co">#&gt; 1.899369 B</span>
 
 <span class="co">## Remake the logo image with histology information</span>
 <span class="fu"><a href="reference/vis_clus.html">vis_clus</a></span><span class="op">(</span>
@@ -490,7 +489,7 @@ actions</a> through <em><a href="https://CRAN.R-project.org/package=usethis" cla
 <em><a href="https://github.com/r-hub/sysreqs" class="external-link">sysreqs</a></em> and
 <em><a href="https://CRAN.R-project.org/package=rcmdcheck" class="external-link">rcmdcheck</a></em>
 customized to use <a href="https://www.bioconductor.org/help/docker/" class="external-link">Bioconductor’s docker
-containers</a> and <em><a href="https://bioconductor.org/packages/3.14/BiocCheck" class="external-link">BiocCheck</a></em>.</li>
+containers</a> and <em><a href="https://bioconductor.org/packages/3.15/BiocCheck" class="external-link">BiocCheck</a></em>.</li>
 <li>Code coverage assessment is possible thanks to <a href="https://codecov.io/gh" class="external-link">codecov</a> and <em><a href="https://CRAN.R-project.org/package=covr" class="external-link">covr</a></em>.</li>
 <li>The <a href="http://lieberinstitute.github.io/spatialLIBD" class="external-link">documentation
 website</a> is automatically updated thanks to <em><a href="https://CRAN.R-project.org/package=pkgdown" class="external-link">pkgdown</a></em>.</li>
@@ -499,7 +498,7 @@ website</a> is automatically updated thanks to <em><a href="https://CRAN.R-proje
 <em><a href="https://CRAN.R-project.org/package=roxygen2" class="external-link">roxygen2</a></em>.</li>
 </ul>
 <p>For more details, check the <code>dev</code> directory.</p>
-<p>This package was developed using <em><a href="https://bioconductor.org/packages/3.14/biocthis" class="external-link">biocthis</a></em>.</p>
+<p>This package was developed using <em><a href="https://bioconductor.org/packages/3.15/biocthis" class="external-link">biocthis</a></em>.</p>
 <p><a href="https://www.libd.org/" class="external-link"><img src="http://lcolladotor.github.io/img/LIBD_logo.jpg" width="250px"></a></p>
 <center>
 <script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?cl=ffffff&amp;w=300&amp;t=n&amp;d=FRs8oQ9HVpMg6QLJJKAExpF8seGfPVlH-YOnwqUE8Hg"></script>
