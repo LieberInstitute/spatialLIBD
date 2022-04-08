@@ -393,7 +393,7 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Download the small example sce data</span>
 <span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_example"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
-<span class="co">#&gt; 2022-04-08 20:01:27 loading file /github/home/.cache/R/BiocFileCache/eb6e57fd6897_sce_sub_for_vignette.Rdata%3Fdl%3D1</span>
+<span class="co">#&gt; 2022-04-08 20:34:09 loading file /github/home/.cache/R/BiocFileCache/eb6264a35438_sce_sub_for_vignette.Rdata%3Fdl%3D1</span>
 
 <span class="co">## Convert to a SpatialExperiment object</span>
 <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sce_to_spe.html">sce_to_spe</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span>
@@ -405,9 +405,9 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 
 <span class="co">## Query ExperimentHub and download the data</span>
 <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
-<span class="co">#&gt; 2022-04-08 20:01:35 loading file /github/home/.cache/R/BiocFileCache/eb6e4ae96ba7_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="co">#&gt; 2022-04-08 20:34:16 loading file /github/home/.cache/R/BiocFileCache/eb6253f5836d_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"modeling_results"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span>
-<span class="co">#&gt; 2022-04-08 20:01:37 loading file /github/home/.cache/R/BiocFileCache/eb6e161cf2e4_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></code></pre></div>
+<span class="co">#&gt; 2022-04-08 20:34:17 loading file /github/home/.cache/R/BiocFileCache/eb624a071adf_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></code></pre></div>
 <p>Once you have downloaded the objects, we can explore them a little
 bit</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -480,7 +480,7 @@ long format and add some useful information. Let’s do so below.</p>
         <span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;  12.995   0.516  13.518</span>
+<span class="co">#&gt;  11.437   0.520  11.962</span>
 
 <span class="co">## Explore the result</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span>
@@ -1005,7 +1005,10 @@ Pardo</a> and Leonardo.</p>
 <div class="section level3">
 <h3 id="using-spatiallibd-with-your-own-data">Using spatialLIBD with your own data<a class="anchor" aria-label="anchor" href="#using-spatiallibd-with-your-own-data"></a>
 </h3>
-<p>TODO (but way simpler now thanks to <em><a href="https://bioconductor.org/packages/3.15/SpatialExperiment" class="external-link">SpatialExperiment</a></em>.)</p>
+<p>Please check the second vignette on how to use <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
+with your own data as exemplified with a public 10x Genomics dataset or
+go directly to the <code><a href="../reference/read10xVisiumWrapper.html">read10xVisiumWrapper()</a></code>
+documentation.</p>
 </div>
 <div class="section level3">
 <h3 id="expected-characteristics-of-the-data">Expected characteristics of the data<a class="anchor" aria-label="anchor" href="#expected-characteristics-of-the-data"></a>
@@ -1236,9 +1239,9 @@ Marco, Scherer, and Cédric, 2021)</li>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"spatialLIBD.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span class="co">#&gt; [1] "2022-04-08 20:02:01 UTC"</span></code></pre>
+<pre><code><span class="co">#&gt; [1] "2022-04-08 20:34:38 UTC"</span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span class="co">#&gt; Time difference of 52.512 secs</span></code></pre>
+<pre><code><span class="co">#&gt; Time difference of 45.423 secs</span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
 <span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span>
