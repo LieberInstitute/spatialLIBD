@@ -543,7 +543,7 @@ This work was done by [Brenda Pardo](https://twitter.com/PardoBree) and Leonardo
 
 ## Using spatialLIBD with your own data
 
-TODO (but way simpler now thanks to `r Biocpkg('SpatialExperiment')`.)
+Please check the second vignette on how to use `r Biocpkg('spatialLIBD')` with your own data as exemplified with a public 10x Genomics dataset or go directly to the `read10xVisiumWrapper()` documentation.
 
 ## Expected characteristics of the data
 
