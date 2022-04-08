@@ -32,7 +32,7 @@ object.
 \details{
 Note that the resulting object is a bit more complex than a regular SPE
 because it contains the data from the spatialLIBD project which you might
-otherwise have to generate for your own data. See TODO for more information.
+otherwise have to generate for your own data.
 }
 \examples{
 
