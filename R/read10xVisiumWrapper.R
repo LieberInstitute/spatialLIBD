@@ -59,9 +59,10 @@ read10xVisiumWrapper <- function(samples = "",
     if (missing(reference_gtf)) {
         summary_file <- file.path(samples[1], "web_summary.html")
         web <- readLines(summary_file)
-        reference_path <- gsub('.*"', "", regmatches(web, regexpr('\\["Reference Path", "[/|A-z|0-9|-]+', web)))
+        reference_path <- gsub('.*"', "", regmatches(web, regexpr('\\["Reference Path", *"[/|A-z|0-9|-]+', web)))
         reference_gtf <- file.path(reference_path, "genes", "genes.gtf")
     }
+    stopifnot(length(reference_gtf) == 1)
     stopifnot(file.exists(reference_gtf))
 
     if (verbose) message(Sys.time(), " SpatialExperiment::read10xVisium: reading basic data from SpaceRanger")
