@@ -67,7 +67,7 @@ sig_genes_extract <- function(n = 10,
     model_results <- modeling_results[[model_type]]
 
     tstats <-
-        model_results[, grep("[f|t]_stat_", colnames(model_results))]
+        model_results[, grep("[f|t]_stat_", colnames(model_results)), drop = FALSE]
     colnames(tstats) <- gsub("[f|t]_stat_", "", colnames(tstats))
 
     if (reverse) {
@@ -79,8 +79,8 @@ sig_genes_extract <- function(n = 10,
     }
 
     pvals <-
-        model_results[, grep("p_value_", colnames(model_results))]
-    fdrs <- model_results[, grep("fdr_", colnames(model_results))]
+        model_results[, grep("p_value_", colnames(model_results)), drop = FALSE]
+    fdrs <- model_results[, grep("fdr_", colnames(model_results)), drop = FALSE]
 
     sig_genes <- apply(tstats, 2, function(x) {
         rowData(sce_layer)$gene_name[order(x, decreasing = TRUE)[seq_len(n)]]

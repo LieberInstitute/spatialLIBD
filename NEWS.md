@@ -1,3 +1,10 @@
+# spatialLIBD 1.7.16
+
+BUG FIXES
+
+* Fixed a bug in `sig_genes_extract()` when there's only one set of t-statistics
+or F statistics to extract.
+
 # spatialLIBD 1.7.12
 
 SIGNIFICANT USER-VISIBLE CHANGES
