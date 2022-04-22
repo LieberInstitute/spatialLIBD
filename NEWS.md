@@ -1,3 +1,10 @@
+# spatialLIBD 1.7.17
+
+BUG FIXES
+
+* Fix bugs in `layer_boxplot()` where it was too specific to the Maynard et al
+2021 data. We have made it more flexible now.
+
 # spatialLIBD 1.7.16
 
 BUG FIXES

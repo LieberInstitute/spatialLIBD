@@ -23,6 +23,7 @@ app_server <- function(input, output, session) {
     sce_layer <- golem::get_golem_options("sce_layer")
     modeling_results <- golem::get_golem_options("modeling_results")
     sig_genes <- golem::get_golem_options("sig_genes")
+    default_cluster <- golem::get_golem_options("default_cluster")
 
 
     # List the first level callModules here
@@ -1075,7 +1076,8 @@ app_server <- function(input, output, session) {
                     "firebrick4"
                 )
             ),
-            cex = 2.7
+            cex = 2.7,
+            group_var = default_cluster
         )
     })
 

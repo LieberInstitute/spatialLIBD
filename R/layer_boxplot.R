@@ -20,6 +20,8 @@
 #' with higher expression.
 #' @param col_high_point Similar to `col_high_box` but for the points.
 #' @param cex Controls the size of the text, points and axis legends.
+#' @param group_var A `character(1)` specifying a `colData(sce_layer)` column
+#' name to use for the x-axis.
 #'
 #' @return This function creates a boxplot of the layer-level data
 #' (group-level) separated by layer and colored based on the model type from row
@@ -120,7 +122,8 @@ layer_boxplot <- function(i = 1,
     col_low_point = "darkviolet",
     col_high_box = "skyblue",
     col_high_point = "dodgerblue4",
-    cex = 2) {
+    cex = 2,
+    group_var = "layer_guess_reordered_short") {
     ## Extract the logcounts
     mat <- assays(sce_layer)$logcounts
 
@@ -132,23 +135,26 @@ layer_boxplot <- function(i = 1,
         ifelse(grepl("-", x), x, paste0(x, "-rest"))
     }
 
+    groups <- factor(colData(sce_layer)[[group_var]])
+    n_groups <- length(unique(groups))
+
     assign_color <- function(x, bkg, high, low) {
         if (grepl("-", x)) {
-            col <- rep(bkg, 7)
-            col[levels(sce_layer$layer_guess_reordered) == gsub("-.*", "", x)] <-
+            col <- rep(bkg, n_groups)
+            col[levels(groups) == gsub("-.*", "", x)] <-
                 high
-            col[levels(sce_layer$layer_guess_reordered) == gsub(".*-", "", x)] <-
+            col[levels(groups) == gsub(".*-", "", x)] <-
                 low
         } else {
-            col <- rep(low, 7)
-            col[levels(sce_layer$layer_guess_reordered) == x] <-
+            col <- rep(low, n_groups)
+            col[levels(groups) == x] <-
                 high
             if (grepl("noWM", x)) {
-                col[levels(sce_layer$layer_guess_reordered) == "WM"] <-
+                col[levels(groups) == "WM"] <-
                     bkg
             }
         }
-        names(col) <- levels(sce_layer$layer_guess_reordered_short)
+        names(col) <- levels(groups)
         return(col)
     }
 
@@ -207,15 +213,16 @@ layer_boxplot <- function(i = 1,
         )
     }
 
+    mai_extra <- max(nchar(levels(sce_layer$path_groups))) %/% 3
     if (short_title) {
-        par(mar = c(3, 6, 3, 1) + 0.1)
+        par(mai = par()$mai + c(0.3 * mai_extra, 0.5, 0, 0))
     } else {
-        par(mar = c(3, 6, 7, 1) + 0.1)
+        par(mai = par()$mai + c(0.3 * mai_extra, 0.5, 0.3, 0))
     }
 
     # message(paste(Sys.time(), 'making the plot for', i, 'gene', sig_genes$gene[i]))
     boxplot(
-        mat[sig_genes$gene_index[i], ] ~ sce_layer$layer_guess_reordered_short,
+        mat[sig_genes$gene_index[i], ] ~ groups,
         xlab = "",
         ylab = "logcounts",
         main = title,
@@ -225,14 +232,15 @@ layer_boxplot <- function(i = 1,
         cex.lab = cex,
         cex.main = ifelse(short_title, cex, cex * 3 / 4),
         col = add_bkg_col(sig_genes$test[i]),
-        ylim = range(mat[sig_genes$gene_index[i], ])
+        ylim = range(mat[sig_genes$gene_index[i], ]),
+        las = 2
     )
     points(
         mat[sig_genes$gene_index[i], ] ~ jitter(as.integer(
-            sce_layer$layer_guess_reordered_short
+            groups
         )),
         pch = 21,
-        bg = add_col(sig_genes$test[i])[as.character(sce_layer$layer_guess_reordered_short)],
+        bg = add_col(sig_genes$test[i])[as.character(groups)],
         cex = cex
     )
 }

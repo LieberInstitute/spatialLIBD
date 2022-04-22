@@ -15,6 +15,12 @@ app_ui <- function() {
     modeling_results <- golem::get_golem_options("modeling_results")
     sig_genes <- golem::get_golem_options("sig_genes")
 
+    default_model_type <- ifelse(
+        "enrichment" %in% names(modeling_results),
+        "enrichment",
+        names(modeling_results)[1]
+    )
+
     red_dim_names <- reducedDimNames(spe)
     if (length(red_dim_names) > 0) {
         red_dim_names <- sort(red_dim_names)
@@ -506,8 +512,8 @@ app_ui <- function() {
                         selectInput(
                             inputId = "layer_model",
                             label = "Model results",
-                            choices = c("enrichment", "pairwise", "anova"),
-                            selected = "enrichment"
+                            choices = names(modeling_results),
+                            selected = default_model_type
                         ),
                         hr(),
                         pickerInput(
@@ -546,7 +552,11 @@ app_ui <- function() {
                                     inputId = "layer_which_dim",
                                     label = "Reduced Dimension",
                                     choices = sort(reducedDimNames(sce_layer)),
-                                    selected = "PCA"
+                                    selected = ifelse(
+                                        "PCA" %in% reducedDimNames(sce_layer),
+                                        "PCA",
+                                        reducedDimNames(sce_layer)[1]
+                                    )
                                 ),
                                 selectInput(
                                     inputId = "layer_which_dim_color",
@@ -572,7 +582,7 @@ app_ui <- function() {
                                 selectInput(
                                     inputId = "layer_model_test",
                                     label = "Model test",
-                                    choices = sort(unique(sig_genes$test[sig_genes$model_type == "enrichment"]))
+                                    choices = sort(unique(sig_genes$test[sig_genes$model_type == default_model_type]))
                                 ),
                                 selectInput(
                                     inputId = "layer_boxcolor",

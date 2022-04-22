@@ -15,7 +15,8 @@ layer_boxplot(
   col_low_point = "darkviolet",
   col_high_box = "skyblue",
   col_high_point = "dodgerblue4",
-  cex = 2
+  cex = 2,
+  group_var = "layer_guess_reordered_short"
 )
 }
 \arguments{
@@ -49,6 +50,9 @@ with higher expression.}
 \item{col_high_point}{Similar to \code{col_high_box} but for the points.}
 
 \item{cex}{Controls the size of the text, points and axis legends.}
+
+\item{group_var}{A \code{character(1)} specifying a \code{colData(sce_layer)} column
+name to use for the x-axis.}
 }
 \value{
 This function creates a boxplot of the layer-level data
