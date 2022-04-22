@@ -260,6 +260,29 @@ app_server <- function(input, output, session) {
             )
     })
 
+    observeEvent(input$editImg_reset_menus, {
+        ## Column 1
+        updateSelectInput(inputId = "editImg_channel", selected = "")
+        updateNumericInput(inputId = "editImg_brightness", value = 100)
+        updateNumericInput(inputId = "editImg_saturation", value = 100)
+        updateNumericInput(inputId = "editImg_hue", value = 100)
+
+        ## Column 2
+        updateCheckboxInput(inputId = "editImg_enhance", value = FALSE)
+        updateCheckboxInput(inputId = "editImg_normalize", value = FALSE)
+        updateNumericInput(inputId = "editImg_contrast_sharpen", value = NA)
+        updateNumericInput(inputId = "editImg_quantize_max", value = NA)
+        updateCheckboxInput(inputId = "editImg_quantize_dither", value = TRUE)
+
+        ## Column 3
+        updateCheckboxInput(inputId = "editImg_equalize", value = FALSE)
+        updateTextInput(inputId = "editImg_transparent_color", value = NA)
+        updateNumericInput(inputId = "editImg_transparent_fuzz", value = 0)
+        updateTextInput(inputId = "editImg_background_color", value = NA)
+        updateNumericInput(inputId = "editImg_median_radius", value = NA)
+        updateCheckboxInput(inputId = "editImg_negate", value = FALSE)
+    })
+
 
 
     ## Download static plots as PDFs

@@ -480,6 +480,8 @@ app_ui <- function() {
                                         )
                                     )
                                 ),
+                                actionButton("editImg_reset_menus", label = "Reset menus"),
+                                helpText("Reset all image editing menus to their default values."),
                                 hr(),
                                 downloadButton("downloadPlotEditImg", "Download PDF"),
                                 plotOutput("editImg_plot"),
