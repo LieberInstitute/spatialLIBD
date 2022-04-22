@@ -1,5 +1,5 @@
 #' @import shiny
-#' @importFrom shinyWidgets pickerInput pickerOptions
+#' @importFrom shinyWidgets pickerInput pickerOptions updatePickerInput
 #' @import SingleCellExperiment
 #' @importFrom DT DTOutput
 #' @importFrom SummarizedExperiment assays
@@ -48,6 +48,14 @@ app_ui <- function() {
                         helpText("The sample ID to visualize in most tabs except the 'grid' ones."),
                         hr(),
                         selectInput(
+                            inputId = "imageid",
+                            label = "Image name",
+                            choices = c(unique(imgData(spe)$image_id), "edited_imaged"),
+                            selected = unique(imgData(spe)$image_id)[1]
+                        ),
+                        helpText("The name of the background image you want to visualize."),
+                        hr(),
+                        selectInput(
                             inputId = "cluster",
                             label = "Discrete variable to plot",
                             choices = spe_discrete_vars,
@@ -55,13 +63,33 @@ app_ui <- function() {
                         ),
                         helpText("Typically cluster labels or any other discrete variable."),
                         hr(),
-                        selectInput(
-                            inputId = "reduced_name",
-                            label = "Reduced dimensions",
-                            choices = red_dim_names,
-                            selected = red_dim_names[length(red_dim_names)]
+                        pickerInput(
+                            inputId = "clustercolor",
+                            label = "Discrete color scale",
+                            choices = c(
+                                colnames(colData(spe))[grep("_colors$", colnames(colData(spe)))],
+                                with(
+                                    subset(
+                                        paletteer::palettes_d_names,
+                                        length >= length(unique(colData(spe)[[default_cluster]]))
+                                    ),
+                                    paste0(package, "::", palette)
+                                )
+                            ),
+                            selected = ifelse(
+                                paste0(default_cluster, "_colors") %in% colnames(colData(spe)),
+                                paste0(default_cluster, "_colors"),
+                                "Polychrome::palette36"
+                            ),
+                            options = pickerOptions(liveSearch = TRUE)
                         ),
-                        helpText("The first two dimensions are shown in the 'clusters (interactive)' tab."),
+                        helpText("Either any columns that end with '_colors' or options from the 'paletteer' R package. Only valid options are shown."),
+                        HTML("You can visually explore these options at the <a href='https://emilhvitfeldt.github.io/r-color-palettes/discrete.html'>Palette Picker</a> website."),
+                        checkboxInput(
+                            "clustercolor_direction",
+                            "Should the color order be reversed?",
+                            value = FALSE
+                        ),
                         hr(),
                         pickerInput(
                             inputId = "geneid",
@@ -81,34 +109,6 @@ app_ui <- function() {
                             selected = assayNames(spe)[length(assayNames(spe))]
                         ),
                         helpText("The name of the gene values you want to visualize."),
-                        hr(),
-                        selectInput(
-                            inputId = "imageid",
-                            label = "Image name",
-                            choices = c(unique(imgData(spe)$image_id), "edited_imaged"),
-                            selected = unique(imgData(spe)$image_id)[1]
-                        ),
-                        helpText("The name of the background image you want to visualize."),
-                        hr(),
-                        numericInput(
-                            "alphalevel",
-                            "Spot transparency level",
-                            value = 1,
-                            min = 0,
-                            max = 1,
-                            step = 0.1
-                        ),
-                        helpText("Use values between 0 (transparent) to 1 (full color)."),
-                        hr(),
-                        numericInput(
-                            "pointsize",
-                            "Spot point size",
-                            value = 1.25,
-                            min = 1,
-                            max = 3,
-                            step = 0.1
-                        ),
-                        helpText("We recommend that you use values between 1.25 (default) and 2."),
                         hr(),
                         numericInput(
                             inputId = "minCount",
@@ -134,6 +134,34 @@ app_ui <- function() {
                             "Should the colors be ordered from darkest to lightest?",
                             value = TRUE
                         ),
+                        hr(),
+                        numericInput(
+                            "alphalevel",
+                            "Spot transparency level",
+                            value = 1,
+                            min = 0,
+                            max = 1,
+                            step = 0.1
+                        ),
+                        helpText("Use values between 0 (transparent) to 1 (full color)."),
+                        hr(),
+                        numericInput(
+                            "pointsize",
+                            "Spot point size",
+                            value = 1.25,
+                            min = 1,
+                            max = 3,
+                            step = 0.1
+                        ),
+                        helpText("We recommend that you use values between 1.25 (default) and 2."),
+                        hr(),
+                        selectInput(
+                            inputId = "reduced_name",
+                            label = "Reduced dimensions",
+                            choices = red_dim_names,
+                            selected = red_dim_names[length(red_dim_names)]
+                        ),
+                        helpText("The first two dimensions are shown in the 'clusters (interactive)' tab."),
                         hr(),
                         checkboxInput("dropNA",
                             "Drop NA layer entries in the CSV file?",

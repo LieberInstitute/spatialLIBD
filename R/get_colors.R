@@ -5,7 +5,7 @@
 #'
 #' @param colors A vector of colors. If `NULL` then a set of default colors will
 #' be used when `clusters` has less than 12 unique values, otherwise
-#' [palette36.colors][Polychrome::palettes] will be used which can
+#' `Polychrome::palette36` will be used which can
 #' generate up to 36 unique colors. If the number of unique clusters is beyond
 #' 36 then this function will fail.
 #' @param clusters A vector of cluster names.
@@ -50,7 +50,7 @@ get_colors <- function(colors = NULL, clusters) {
 
         colors <-
             if (n_clus > 12) {
-                Polychrome::palette36.colors(n_clus)
+                paletteer::paletteer("Polychrome::palette36", n_clus)
             } else {
                 c(
                     "#b2df8a",

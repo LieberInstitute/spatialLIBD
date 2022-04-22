@@ -9,7 +9,7 @@ get_colors(colors = NULL, clusters)
 \arguments{
 \item{colors}{A vector of colors. If \code{NULL} then a set of default colors will
 be used when \code{clusters} has less than 12 unique values, otherwise
-\link[Polychrome:palettes]{palette36.colors} will be used which can
+\code{Polychrome::palette36} will be used which can
 generate up to 36 unique colors. If the number of unique clusters is beyond
 36 then this function will fail.}
 

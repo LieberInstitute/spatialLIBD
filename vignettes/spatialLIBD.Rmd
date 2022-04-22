@@ -60,8 +60,8 @@ bib <- c(
     knitr = citation("knitr")[3],
     magick = citation("magick")[1],
     Matrix = citation("Matrix")[1],
+    paletteer = citation("paletteer")[1],
     plotly = citation("plotly")[1],
-    Polychrome = citation("Polychrome")[1],
     RColorBrewer = citation("RColorBrewer")[1],
     RefManageR = citation("RefManageR")[1],
     rmarkdown = citation("rmarkdown")[1],
@@ -591,8 +591,8 @@ The `r Biocpkg('spatialLIBD')` package `r Citep(bib[['spatialLIBD']])` was made 
 * `r CRANpkg('knitr')` `r Citep(bib[['knitr']])`
 * `r CRANpkg('magick')` `r Citep(bib[['magick']])`
 * `r CRANpkg('Matrix')` `r Citep(bib[['Matrix']])`
+* `r CRANpkg('paletteer')` `r Citep(bib[['paletteer']])`
 * `r CRANpkg('plotly')` `r Citep(bib[['plotly']])`
-* `r CRANpkg('Polychrome')` `r Citep(bib[['Polychrome']])`
 * `r CRANpkg('RColorBrewer')` `r Citep(bib[['RColorBrewer']])`
 * `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`
 * `r CRANpkg('rmarkdown')` `r Citep(bib[['rmarkdown']])`

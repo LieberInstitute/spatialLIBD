@@ -1,3 +1,18 @@
+# spatialLIBD 1.7.18
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* `run_app()` now offers the option to chose any of the `paletteer::paletteer_d`
+color palettes for discrete variables.
+* `Polychrome` has been replaced as a dependency by `paletteer`. Note that
+`Polychrome::palette36` is still the default.
+* `run_app()` now looks for columns that end with '_colors' in their name
+which can be used to pre-specify colors for any companion variables. For example
+if you have `spe$my_groups` and `spe$my_groups_colors` then the second one
+can specify the colors that will be used for visualizing `spe$my_groups`. This
+makes specifying default colors more flexible than before, and the user is still
+free to change them if necessary.
+
 # spatialLIBD 1.7.17
 
 BUG FIXES

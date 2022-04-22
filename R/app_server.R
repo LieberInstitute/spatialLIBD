@@ -2,7 +2,7 @@
 #' @import SingleCellExperiment
 #' @import ggplot2
 #' @import grid
-#' @import Polychrome
+#' @import paletteer
 #' @importFrom cowplot plot_grid
 #' @importFrom viridisLite viridis
 #' @importFrom sessioninfo session_info
@@ -58,19 +58,48 @@ app_server <- function(input, output, session) {
         return(res)
     }
 
+    observeEvent(input$cluster, {
+        tmp <- input$clustercolor
+        updatePickerInput(
+            session = session,
+            inputId = "clustercolor",
+            choices = c(
+                colnames(colData(spe))[grep("_colors$", colnames(colData(spe)))],
+                with(
+                    subset(
+                        paletteer::palettes_d_names,
+                        length >= length(unique(colData(spe)[[input$cluster]]))
+                    ),
+                    paste0(package, "::", palette)
+                )
+            ),
+            selected = tmp
+        )
+    })
+
     cluster_colors <- reactive({
-        colors <- Polychrome::palette36.colors(length(unique(colData(spe)[[input$cluster]])))
-        names(colors) <- unique(colData(spe)[[input$cluster]])
         if (input$cluster %in% c("Maynard", "Martinowich")) {
             colors <- cols_layers_martinowich
         } else if (input$cluster == "ManualAnnotation") {
-            colors <-
-                Polychrome::palette36.colors(length(unique(rv$ManualAnnotation)))
+            colors <- paletteer::paletteer_d(
+                palette = input$clustercolor,
+                n = length(unique(rv$ManualAnnotation)),
+                direction = ifelse(input$clustercolor_direction, -1, 1)
+            )
             names(colors) <- unique(rv$ManualAnnotation)
         } else if (input$cluster %in% c("layer_guess", "layer_guess_reordered")) {
             colors <- cols_layers_paper()
         } else if (input$cluster %in% c("layer_guess_reordered_short", "spatialLIBD")) {
             colors <- cols_layers_paper_short()
+        } else if (input$clustercolor %in% colnames(colData(spe))) {
+            colors <- unique(colData(spe)[[input$clustercolor]])
+        } else {
+            colors <- paletteer::paletteer_d(
+                palette = input$clustercolor,
+                n = length(unique(colData(spe)[[input$cluster]])),
+                direction = ifelse(input$clustercolor_direction, -1, 1)
+            )
+            names(colors) <- unique(colData(spe)[[input$cluster]])
         }
         return(colors)
     })
