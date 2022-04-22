@@ -216,11 +216,11 @@ layer_boxplot <- function(i = 1,
         )
     }
 
-    mai_extra <- max(nchar(levels(sce_layer$path_groups))) %/% 3
+    mar_extra <- max(nchar(levels(sce_layer$path_groups))) %/% 3
     if (short_title) {
-        par(mai = par()$mai + c(0.3 * mai_extra, 1.2, 0, 0))
+        par(mar = c(3 + mar_extra * 2, 6, 3, 1) + 0.1)
     } else {
-        par(mai = par()$mai + c(0.3 * mai_extra, 1.2, 0.3, 0))
+        par(mar = c(3 + mar_extra * 2, 6, 7, 1) + 0.1)
     }
 
     # message(paste(Sys.time(), 'making the plot for', i, 'gene', sig_genes$gene[i]))
