@@ -16,7 +16,8 @@ layer_boxplot(
   col_high_box = "skyblue",
   col_high_point = "dodgerblue4",
   cex = 2,
-  group_var = "layer_guess_reordered_short"
+  group_var = "layer_guess_reordered_short",
+  assayname = "logcounts"
 )
 }
 \arguments{
@@ -53,6 +54,9 @@ with higher expression.}
 
 \item{group_var}{A \code{character(1)} specifying a \code{colData(sce_layer)} column
 name to use for the x-axis.}
+
+\item{assayname}{A \code{character(1)} specifying the default assay to use from
+\code{assays(sce_layer)}.}
 }
 \value{
 This function creates a boxplot of the layer-level data

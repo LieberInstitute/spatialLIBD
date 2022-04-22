@@ -22,6 +22,8 @@
 #' @param cex Controls the size of the text, points and axis legends.
 #' @param group_var A `character(1)` specifying a `colData(sce_layer)` column
 #' name to use for the x-axis.
+#' @param assayname A `character(1)` specifying the default assay to use from
+#' `assays(sce_layer)`.
 #'
 #' @return This function creates a boxplot of the layer-level data
 #' (group-level) separated by layer and colored based on the model type from row
@@ -123,9 +125,10 @@ layer_boxplot <- function(i = 1,
     col_high_box = "skyblue",
     col_high_point = "dodgerblue4",
     cex = 2,
-    group_var = "layer_guess_reordered_short") {
-    ## Extract the logcounts
-    mat <- assays(sce_layer)$logcounts
+    group_var = "layer_guess_reordered_short",
+    assayname = "logcounts") {
+    ## Extract the logcounts (default)
+    mat <- assay(sce_layer, assayname)
 
     ## Some internal functions
     add_rest <- function(x) {
@@ -215,16 +218,16 @@ layer_boxplot <- function(i = 1,
 
     mai_extra <- max(nchar(levels(sce_layer$path_groups))) %/% 3
     if (short_title) {
-        par(mai = par()$mai + c(0.3 * mai_extra, 0.5, 0, 0))
+        par(mai = par()$mai + c(0.3 * mai_extra, 1.2, 0, 0))
     } else {
-        par(mai = par()$mai + c(0.3 * mai_extra, 0.5, 0.3, 0))
+        par(mai = par()$mai + c(0.3 * mai_extra, 1.2, 0.3, 0))
     }
 
     # message(paste(Sys.time(), 'making the plot for', i, 'gene', sig_genes$gene[i]))
     boxplot(
         mat[sig_genes$gene_index[i], ] ~ groups,
         xlab = "",
-        ylab = "logcounts",
+        ylab = assayname,
         main = title,
         outline = FALSE,
         cex = cex,
