@@ -66,7 +66,7 @@ layer_matrix_plot <-
     breaks = NULL,
     axis.args = NULL,
     srt = 45,
-    mar = c(8, 4, 4, 2) + 0.1,
+    mar = c(8, 4 + (max(nchar(rownames(matrix_values))) %/% 3) * 0.5, 4, 2) + 0.1,
     cex = 1.2) {
         ## Create some default values in case the user didn't specify them
         if (is.null(xlabs)) {

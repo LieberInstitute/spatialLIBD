@@ -150,6 +150,6 @@ gene_set_enrichment_plot <-
             layerHeights = layerHeights,
             mypal = mypal,
             cex = cex,
-            mar = c(12, 4, 4, 2) + 0.1
+            mar = c(12, 4 + (max(nchar(rownames(wide_p))) %/% 3) * 0.5, 4, 2) + 0.1
         )
     }

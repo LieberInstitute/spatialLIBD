@@ -4,6 +4,8 @@ BUG FIXES
 
 * Fix bugs in `layer_boxplot()` where it was too specific to the Maynard et al
 2021 data. We have made it more flexible now.
+* Made the y-axis space more dynamic in `gene_set_enrichment_plot()` and
+`layer_matrix_plot()`.
 
 # spatialLIBD 1.7.16
 
