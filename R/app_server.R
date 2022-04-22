@@ -59,7 +59,8 @@ app_server <- function(input, output, session) {
     }
 
     cluster_colors <- reactive({
-        colors <- NULL
+        colors <- Polychrome::palette36.colors(length(unique(colData(spe)[[input$cluster]])))
+        names(colors) <- unique(colData(spe)[[input$cluster]])
         if (input$cluster %in% c("Maynard", "Martinowich")) {
             colors <- cols_layers_martinowich
         } else if (input$cluster == "ManualAnnotation") {
