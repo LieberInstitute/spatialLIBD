@@ -590,6 +590,16 @@ app_ui <- function() {
                                     choices = c("viridis", "paper", "bluered"),
                                     selected = "viridis"
                                 ),
+                                selectInput(
+                                    inputId = "layer_model_assayname",
+                                    label = "Assay name",
+                                    choices = assayNames(sce_layer),
+                                    selected = ifelse(
+                                        "logcounts" %in% assayNames(sce_layer),
+                                        "logcounts",
+                                        assayNames(sce_layer)[1]
+                                    )
+                                ),
                                 checkboxInput(
                                     "layer_box_shortitle",
                                     "Enable short title on boxplots.",
@@ -612,10 +622,17 @@ app_ui <- function() {
                                 tags$br(),
                                 tags$br(),
                                 hr(),
+                                tags$h2("Selected model and gene across all tests"),
                                 downloadButton("layer_downloadModelTable", "Download CSV"),
                                 tags$br(),
                                 tags$br(),
-                                DT::DTOutput("layer_model_table")
+                                DT::DTOutput("layer_model_table"),
+                                 hr(),
+                                tags$h2("Selected model and test across all genes"),
+                                downloadButton("layer_downloadModelTable_full", "Download CSV"),
+                                tags$br(),
+                                tags$br(),
+                                DT::DTOutput("layer_model_table_full"),
                             ),
                             tabPanel(
                                 "Gene Set Enrichment",

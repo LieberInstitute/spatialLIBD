@@ -1078,7 +1078,8 @@ app_server <- function(input, output, session) {
                 )
             ),
             cex = 2.7,
-            group_var = default_cluster
+            group_var = default_cluster,
+            assayname = input$layer_model_assayname
         )
     })
 
@@ -1366,8 +1367,31 @@ app_server <- function(input, output, session) {
         ))
     })
 
+    layer_model_table_full_reactive <- reactive({
+        as.data.frame(subset(
+            sig_genes[, seq_len(which(colnames(sig_genes) == "ensembl"))],
+            model_type == input$layer_model &
+                test == input$layer_model_test
+        ))
+    })
+
     output$layer_model_table <- DT::renderDT(
         layer_model_table_reactive(),
+        style = "bootstrap",
+        rownames = FALSE,
+        filter = "top",
+        options = list(
+            columnDefs = list(list(
+                className = "dt-center", targets = 1
+            )),
+            pageLength = 10,
+            lengthMenu = c(5, 10, 25, 50, 100),
+            order = list(list(0, "asc"))
+        )
+    )
+
+    output$layer_model_table_full <- DT::renderDT(
+        layer_model_table_full_reactive(),
         style = "bootstrap",
         rownames = FALSE,
         filter = "top",
@@ -1432,6 +1456,32 @@ app_server <- function(input, output, session) {
         content = function(file) {
             write.csv(
                 layer_model_table_reactive(),
+                file = file,
+                quote = FALSE,
+                row.names = FALSE
+            )
+        }
+    )
+
+    output$layer_downloadModelTable_full <- downloadHandler(
+        filename = function() {
+            gsub(
+                " ",
+                "_",
+                paste0(
+                    "spatialLIBD_layer_",
+                    input$layer_model,
+                    "_",
+                    input$layer_model_test,
+                    "_",
+                    Sys.time(),
+                    ".csv"
+                )
+            )
+        },
+        content = function(file) {
+            write.csv(
+                layer_model_table_full_reactive(),
                 file = file,
                 quote = FALSE,
                 row.names = FALSE
