@@ -216,7 +216,7 @@ layer_boxplot <- function(i = 1,
         )
     }
 
-    mar_extra <- max(nchar(levels(sce_layer$path_groups))) %/% 3
+    mar_extra <- max(nchar(levels(groups))) %/% 3
     if (short_title) {
         par(mar = c(3 + mar_extra * 2, 6, 3, 1) + 0.1)
     } else {
