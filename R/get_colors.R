@@ -50,7 +50,7 @@ get_colors <- function(colors = NULL, clusters) {
 
         colors <-
             if (n_clus > 12) {
-                paletteer::paletteer("Polychrome::palette36", n_clus)
+                paletteer::paletteer_d("Polychrome::palette36", n_clus)
             } else {
                 c(
                     "#b2df8a",
