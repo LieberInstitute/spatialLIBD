@@ -591,7 +591,11 @@ app_ui <- function() {
                                 selectInput(
                                     inputId = "layer_which_dim_color",
                                     label = "Color by",
-                                    choices = sort(colnames(colData(sce_layer))),
+                                    choices = sort(
+                                        colnames(colData(sce_layer))[
+                                            !grepl("_colors$", colnames(colData(sce_layer)))
+                                        ]
+                                    ),
                                     selected = default_cluster
                                 ),
                                 downloadButton("layer_downloadReducedDim", "Download PDF"),

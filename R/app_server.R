@@ -1051,15 +1051,23 @@ app_server <- function(input, output, session) {
             "layer_guess_reordered"
         )) {
             p <-
-                p + ggplot2::scale_fill_manual(
+                p + ggplot2::scale_color_manual(
                     values = cols_layers_paper(),
                     name = "Layer"
                 )
         } else if (input$layer_which_dim_color %in% "layer_guess_reordered_short") {
             p <-
-                p + ggplot2::scale_fill_manual(
+                p + ggplot2::scale_color_manual(
                     values = cols_layers_paper_short(),
                     name = "Layer"
+                )
+        } else if (paste0(input$layer_which_dim_color, "_colors") %in% colnames(colData(sce_layer))) {
+            p <-
+                p + ggplot2::scale_color_manual(
+                    values = colData(sce_layer)[[paste0(input$layer_which_dim_color, "_colors")]],
+                    name = input$layer_which_dim_color,
+                    labels = levels(colData(sce_layer)[[input$layer_which_dim_color]]),
+                    breaks = levels(colData(sce_layer)[[input$layer_which_dim_color]])
                 )
         }
         return(p)
