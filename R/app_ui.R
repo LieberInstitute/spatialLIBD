@@ -396,6 +396,7 @@ app_ui <- function() {
                             tabPanel(
                                 "Edit image",
                                 helpText("Edit the selected image by manipulating the colors and apperance, which can be useful when inspecting the selected image from the left menu ('image name'). Once you have a set of edits you like, click the 'update custom image' button below to save your edits. Next, select on the left menu ('image name') the 'edited_image' option to use your new image as the background image in the rest of the visualizations. Most of these image manipulations are explained at", HTML("<a href='https://docs.ropensci.org/magick/reference/color.html'>the magick R package documentation</a>.")),
+                                helpText("If you want a uniform colored background, set the brightness to 0 which will make it black, then either proceeed or select the 'negate' checkbox for white, click the 'edit custom image' button, and select the input 'image name' as 'edited image'. Instead of using 'negate' you could use 'transparent (color)' and type 'black' then under 'background (color)' type a valid R color name such as 'purple' or 'lightblue' or a color HEX value such as '#e1eb34'."),
                                 hr(),
                                 fluidRow(
                                     column(
@@ -415,7 +416,6 @@ app_ui <- function() {
                                             min = 0,
                                             max = 100
                                         ),
-                                        helpText("If you want a white background, set the brightness to 0 then select the 'negate' checkbox, click the 'edit custom image' button, and select the input 'image name' as 'edited image'."),
                                         numericInput(
                                             "editImg_saturation",
                                             label = "Image saturation level",
@@ -477,7 +477,7 @@ app_ui <- function() {
                                         hr(),
                                         textInput(
                                             "editImg_transparent_color",
-                                            label = "transparent (color) : set pixels approximately matching given color",
+                                            label = "transparent (color): set pixels approximately matching given color",
                                             value = NA
                                         ),
                                         numericInput(
@@ -490,7 +490,7 @@ app_ui <- function() {
                                         helpText("Type 'purple' and select a fuzz of 25 to start with."),
                                         textInput(
                                             "editImg_background_color",
-                                            label = "background (color) : sets background color",
+                                            label = "background (color): sets background color",
                                             value = NA
                                         ),
                                         hr(),
@@ -785,6 +785,7 @@ app_ui <- function() {
                                 tags$br(),
                                 hr(),
                                 downloadButton("layer_downloadTstatCorTable", "Download CSV"),
+                                helpText("Correlation matrix that is visually illustrated with the previous plot."),
                                 tags$br(),
                                 tags$br(),
                                 DT::DTOutput("layer_tstat_cor_table")
