@@ -1038,13 +1038,23 @@ app_server <- function(input, output, session) {
     })
 
     ## layer static plots
+    observeEvent(input$layer_which_dim, {
+        updateNumericInput(
+            inputId = "layer_reduced_dim_ncomponents",
+            value = 2,
+            max = ncol(reducedDim(sce_layer, input$layer_which_dim))
+        )
+    })
+
     static_layer_reducedDim <- reactive({
         p <- scater::plotReducedDim(
             sce_layer,
             dimred = input$layer_which_dim,
             colour_by = input$layer_which_dim_color,
-            theme_size = 30,
-            point_size = 7
+            theme_size = input$layer_reduced_dim_theme_size,
+            point_size = input$layer_reduced_dim_point_size,
+            ncomponents = input$layer_reduced_dim_ncomponents,
+            label_format = c("%s %02i", " (%i%%)")
         )
         if (input$layer_which_dim_color %in% c(
             "layer_guess",
@@ -1233,8 +1243,8 @@ app_server <- function(input, output, session) {
             pdf(
                 file = file,
                 useDingbats = FALSE,
-                height = 8,
-                width = 9
+                height = 9 + input$layer_reduced_dim_ncomponents %/% 2,
+                width = 10 + input$layer_reduced_dim_ncomponents %/% 2
             )
             print(static_layer_reducedDim())
             dev.off()
@@ -1391,8 +1401,8 @@ app_server <- function(input, output, session) {
         {
             print(static_layer_reducedDim())
         },
-        width = 700,
-        height = 600
+        width = function() { 600 + 100 * input$layer_reduced_dim_ncomponents %/% 2} ,
+        height = function() { 500 + 100 * input$layer_reduced_dim_ncomponents %/% 2}
     )
 
     output$layer_boxplot <- renderPlot(

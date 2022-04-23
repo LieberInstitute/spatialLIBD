@@ -28,6 +28,12 @@ app_ui <- function() {
         red_dim_names <- NULL
     }
 
+    default_reduced_dim <- ifelse(
+        "PCA" %in% reducedDimNames(sce_layer),
+        "PCA",
+        reducedDimNames(sce_layer)[1]
+    )
+
     tagList(
         # Leave this function for adding external resources
         golem_add_external_resources(docs_path),
@@ -579,28 +585,59 @@ app_ui <- function() {
                             ),
                             tabPanel(
                                 "Reduced Dim",
-                                selectInput(
-                                    inputId = "layer_which_dim",
-                                    label = "Reduced Dimension",
-                                    choices = sort(reducedDimNames(sce_layer)),
-                                    selected = ifelse(
-                                        "PCA" %in% reducedDimNames(sce_layer),
-                                        "PCA",
-                                        reducedDimNames(sce_layer)[1]
+                                fluidRow(
+                                    column(
+                                        width = 6,
+                                        selectInput(
+                                            inputId = "layer_which_dim",
+                                            label = "Reduced Dimension",
+                                            choices = sort(reducedDimNames(sce_layer)),
+                                            selected = default_reduced_dim
+                                        ),
+                                        helpText("Select a reduced dimension name to visualize. These are pre-computed with the pseudo-bulk level data (layer-level for Maynard et al, Nature Neurosci, 2021)."),
+                                        numericInput(
+                                            inputId = "layer_reduced_dim_ncomponents",
+                                            label = "Number of dimensions to show",
+                                            value = 2,
+                                            min = 2,
+                                            max = ncol(reducedDim(sce_layer, default_reduced_dim)),
+                                            step = 1
+                                        ),
+                                        helpText("Use a minimum value of 2. If you use the up arrow button, it is automatically restricted to the maximum range for the selected reduced dimension name. For values of 3 or larger, paired scatterplots will be shown.")
+                                    ),
+                                    column(
+                                        width = 6,
+                                        selectInput(
+                                            inputId = "layer_which_dim_color",
+                                            label = "Color by",
+                                            choices = sort(
+                                                colnames(colData(sce_layer))[
+                                                    !grepl("_colors$", colnames(colData(sce_layer)))
+                                                ]
+                                            ),
+                                            selected = default_cluster
+                                        ),
+                                        helpText("Select a variable name to use for coloring the pseudo-bulked samples in the reduced dimensions plot."),
+                                        numericInput(
+                                            inputId = "layer_reduced_dim_theme_size",
+                                            label = "Theme font size: default 30.",
+                                            value = 30,
+                                            min = 1,
+                                            step = 1
+                                        ),
+                                        helpText("This controls the text font size. For example, if you are visualizing 10 dimensions, consider using a theme size of 13."),
+                                        numericInput(
+                                            inputId = "layer_reduced_dim_point_size",
+                                            label = "Point size: default 7.",
+                                            value = 7,
+                                            min = 1,
+                                            step = 1
+                                        ),
+                                        helpText("This controls the point size. For example, if you are visualizing 10 dimensions, consider using a point size of 4.")
                                     )
                                 ),
-                                selectInput(
-                                    inputId = "layer_which_dim_color",
-                                    label = "Color by",
-                                    choices = sort(
-                                        colnames(colData(sce_layer))[
-                                            !grepl("_colors$", colnames(colData(sce_layer)))
-                                        ]
-                                    ),
-                                    selected = default_cluster
-                                ),
                                 downloadButton("layer_downloadReducedDim", "Download PDF"),
-                                plotOutput("layer_reduced_dim"),
+                                plotOutput("layer_reduced_dim", width = "auto", height = "auto"),
                                 tags$br(),
                                 tags$br(),
                                 tags$br(),
