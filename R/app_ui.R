@@ -634,11 +634,13 @@ app_ui <- function() {
                                         assayNames(sce_layer)[1]
                                     )
                                 ),
+                                helpText("Type of gene expression values you would like to see."),
                                 checkboxInput(
                                     "layer_box_shortitle",
                                     "Enable short title on boxplots.",
                                     value = TRUE
                                 ),
+                                helpText("De-selecting this can help if the short title is too long and is being cut off. For example, if you can't see some of the last digits for the p-value."),
                                 hr(),
                                 downloadButton("layer_downloadBoxplot", "Download PDF"),
                                 plotOutput("layer_boxplot"),
