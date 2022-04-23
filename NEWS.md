@@ -1,3 +1,18 @@
+# spatialLIBD 1.7.19
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* Documentation of the `layer-level data` panel at `run_app()` has been
+significantly increased. You can now also visualize more than 2 reduced
+dimensions computed on the pseudo-bulk level data (layer-level for the Maynard
+et al, Nature Neurosci, 2021 data). 
+* Users can now control the font and point size on the reduced dimension plots,
+as well as the overall font size on the model boxplots.
+* Image edit scenarios you might be interested
+in for having a uniform color background image are now documented; for example
+if you want a white or black background, or actually any valid R color name or
+color HEX value.
+
 # spatialLIBD 1.7.18
 
 SIGNIFICANT USER-VISIBLE CHANGES
