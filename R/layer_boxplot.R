@@ -218,9 +218,9 @@ layer_boxplot <- function(i = 1,
 
     mar_extra <- max(nchar(levels(groups))) %/% 3
     if (short_title) {
-        par(mar = c(3 + mar_extra * 2, 6, 3, 1) + 0.1)
+        par(mar = c(3 + mar_extra * 2, 7, 3, 1) + 0.1)
     } else {
-        par(mar = c(3 + mar_extra * 2, 6, 7, 1) + 0.1)
+        par(mar = c(3 + mar_extra * 2, 7, 7, 1) + 0.1)
     }
 
     # message(paste(Sys.time(), 'making the plot for', i, 'gene', sig_genes$gene[i]))
