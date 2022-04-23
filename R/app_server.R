@@ -1137,7 +1137,7 @@ app_server <- function(input, output, session) {
                     "firebrick4"
                 )
             ),
-            cex = 2.7,
+            cex = input$layer_box_cex,
             group_var = default_cluster,
             assayname = input$layer_model_assayname
         )
@@ -1321,7 +1321,7 @@ app_server <- function(input, output, session) {
                         "firebrick4"
                     )
                 ),
-                cex = 2.7,
+                cex = input$layer_box_cex,
                 group_var = input$layer_which_dim_color,
                 assayname = input$layer_model_assayname
             )

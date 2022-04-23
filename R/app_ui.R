@@ -50,7 +50,7 @@ app_ui <- function() {
                         selectInput(
                             inputId = "imageid",
                             label = "Image name",
-                            choices = c(unique(imgData(spe)$image_id), "edited_imaged"),
+                            choices = c("edited_imaged", unique(imgData(spe)$image_id)),
                             selected = unique(imgData(spe)$image_id)[1]
                         ),
                         helpText("The name of the background image you want to visualize."),
@@ -415,6 +415,7 @@ app_ui <- function() {
                                             min = 0,
                                             max = 100
                                         ),
+                                        helpText("If you want a white background, set the brightness to 0 then select the 'negate' checkbox, click the 'edit custom image' button, and select the input 'image name' as 'edited image'."),
                                         numericInput(
                                             "editImg_saturation",
                                             label = "Image saturation level",
@@ -613,34 +614,53 @@ app_ui <- function() {
                             ),
                             tabPanel(
                                 "Model boxplots",
-                                selectInput(
-                                    inputId = "layer_model_test",
-                                    label = "Model test",
-                                    choices = sort(unique(sig_genes$test[sig_genes$model_type == default_model_type]))
-                                ),
-                                selectInput(
-                                    inputId = "layer_boxcolor",
-                                    label = "Boxplot color scale",
-                                    choices = c("viridis", "paper", "bluered"),
-                                    selected = "viridis"
-                                ),
-                                selectInput(
-                                    inputId = "layer_model_assayname",
-                                    label = "Assay name",
-                                    choices = assayNames(sce_layer),
-                                    selected = ifelse(
-                                        "logcounts" %in% assayNames(sce_layer),
-                                        "logcounts",
-                                        assayNames(sce_layer)[1]
+                                fluidRow(
+                                    column(
+                                        width = 6,
+                                        selectInput(
+                                            inputId = "layer_model_test",
+                                            label = "Model test",
+                                            choices = sort(unique(sig_genes$test[sig_genes$model_type == default_model_type]))
+                                        ),
+                                        helpText("Short label for the statistical test done. For the model type 'enrichment', 'model test' is the selected group against all other ones. For 'pairwise' it's 'G1-G2' where the t-statistics are G1 > G2. For 'anova', it's an F-statistic."),
+                                        selectInput(
+                                            inputId = "layer_boxcolor",
+                                            label = "Boxplot color scale",
+                                            choices = c("viridis", "paper", "bluered"),
+                                            selected = "viridis"
+                                        ),
+                                        helpText("'viridis' are color-blind friendly colors (default). 'paper' are the ones used in Maynard et al, Nature Neurosci, 2021. 'bluered' are blue and red colors.")
+                                    ),
+                                    column(
+                                        width = 6,
+                                        selectInput(
+                                            inputId = "layer_model_assayname",
+                                            label = "Assay name",
+                                            choices = assayNames(sce_layer),
+                                            selected = ifelse(
+                                                "logcounts" %in% assayNames(sce_layer),
+                                                "logcounts",
+                                                assayNames(sce_layer)[1]
+                                            )
+                                        ),
+                                        helpText("Type of gene expression values you would like to see. Typical options are 'counts' for raw counts and 'logcounts' for log normalized counts."),
+                                        numericInput(
+                                            inputId = "layer_box_cex",
+                                            label = "Font size",
+                                            value = 2.7,
+                                            min = 1,
+                                            max = 5,
+                                            step = 0.1
+                                        ),
+                                        helpText("Select a smaller value if your group labels are too long. Default: 2.7."),
+                                        checkboxInput(
+                                            "layer_box_shortitle",
+                                            "Enable short title on boxplots.",
+                                            value = TRUE
+                                        ),
+                                        helpText("Delect if you want a longer title that includes the gene ID (typically ENSEMBL) and the t or F statistic value.")
                                     )
                                 ),
-                                helpText("Type of gene expression values you would like to see."),
-                                checkboxInput(
-                                    "layer_box_shortitle",
-                                    "Enable short title on boxplots.",
-                                    value = TRUE
-                                ),
-                                helpText("De-selecting this can help if the short title is too long and is being cut off. For example, if you can't see some of the last digits for the p-value."),
                                 hr(),
                                 downloadButton("layer_downloadBoxplot", "Download PDF"),
                                 plotOutput("layer_boxplot"),
@@ -660,12 +680,14 @@ app_ui <- function() {
                                 hr(),
                                 tags$h2("Selected model and gene across all tests"),
                                 downloadButton("layer_downloadModelTable", "Download CSV"),
+                                helpText("This table shows the selected gene across all 'test's for the selected 'model type'. This information is useful if you want to quickly check the results for other 'test's under the same 'model type' context."),
                                 tags$br(),
                                 tags$br(),
                                 DT::DTOutput("layer_model_table"),
                                  hr(),
                                 tags$h2("Selected model and test across all genes"),
                                 downloadButton("layer_downloadModelTable_full", "Download CSV"),
+                                helpText("This table shows the selected 'model type' and 'test' across all genes. This table is useful if you want to find how other genes rank under the same model type and test context. It can be useful to find genes to select."),
                                 tags$br(),
                                 tags$br(),
                                 DT::DTOutput("layer_model_table_full"),
