@@ -658,7 +658,7 @@ app_ui <- function() {
                                             "Enable short title on boxplots.",
                                             value = TRUE
                                         ),
-                                        helpText("Delect if you want a longer title that includes the gene ID (typically ENSEMBL) and the t or F statistic value.")
+                                        helpText("Deselect if you want a longer title that includes the gene ID (typically ENSEMBL) and the t or F statistic value.")
                                     )
                                 ),
                                 hr(),
@@ -681,42 +681,47 @@ app_ui <- function() {
                                 tags$h2("Selected model and gene across all tests"),
                                 downloadButton("layer_downloadModelTable", "Download CSV"),
                                 helpText("This table shows the selected gene across all 'test's for the selected 'model type'. This information is useful if you want to quickly check the results for other 'test's under the same 'model type' context."),
-                                tags$br(),
-                                tags$br(),
+                                helpText("Column specifications are the following ones. 'top' is the rank of the gene ordered by the given statistic for a given 'model type' and 'test' . 'model type' is either an 'anova' F-statistic (any group is different), a 'pairwise' t-statistic (group 1 > group 2), or an 'enrichment' t-statistic (selected group > all others). 'test' is the short name identifying the selected group. 'gene' is the gene symbol. 'stat' is the F or t-statistic depending on the 'model type'. 'pval' is the un-adjusted p-value and 'fdr' is the FDR-adjusted p-value. 'gene_index' is the row number for from the input SpatialExperiment object corresponding to this gene. 'ensembl' is the gene ENSEMBL ID."),
                                 DT::DTOutput("layer_model_table"),
                                  hr(),
                                 tags$h2("Selected model and test across all genes"),
                                 downloadButton("layer_downloadModelTable_full", "Download CSV"),
                                 helpText("This table shows the selected 'model type' and 'test' across all genes. This table is useful if you want to find how other genes rank under the same model type and test context. It can be useful to find genes to select."),
-                                tags$br(),
-                                tags$br(),
                                 DT::DTOutput("layer_model_table_full"),
                             ),
                             tabPanel(
                                 "Gene Set Enrichment",
-                                fileInput(
-                                    "geneSet",
-                                    "Upload a CSV file with one column per gene set with a header row and then Ensembl gene IDs as values.",
-                                    accept = c(
-                                        "text/csv",
-                                        ".csv",
-                                        "text/comma-separated-values,text/plain"
+                                fluidRow(
+                                    column(
+                                        width = 6,
+                                        fileInput(
+                                            "geneSet",
+                                            "Upload a CSV file with one column per gene set with a header row and then Ensembl gene IDs as values.",
+                                            accept = c(
+                                                "text/csv",
+                                                ".csv",
+                                                "text/comma-separated-values,text/plain"
+                                            )
+                                        ),
+                                        helpText(
+                                            "It should be a CSV file without row names and similar to ",
+                                            HTML(
+                                                '<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/asd_sfari_geneList.csv">this example file.</a>'
+                                            )
+                                        )
+                                    ),
+                                    column(
+                                        width = 6,
+                                        numericInput(
+                                            "layer_gene_fdrcut",
+                                            label = "FDR cutoff",
+                                            value = 0.1,
+                                            min = 0,
+                                            max = 1,
+                                            step = 0.01
+                                        ),
+                                        helpText("FDR cutoff for the gene enrichment odd ratios. Odd ratios with a p-value below the FDR cutoff won't be colored in the resulting heatmap. Use 1 to show all. Default: 0.1."),
                                     )
-                                ),
-                                helpText(
-                                    "It should be a CSV file without row names and similar to ",
-                                    HTML(
-                                        '<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/asd_sfari_geneList.csv">this example file.</a>'
-                                    )
-                                ),
-                                hr(),
-                                numericInput(
-                                    "layer_gene_fdrcut",
-                                    label = "FDR cutoff",
-                                    value = 0.1,
-                                    min = 0,
-                                    max = 1,
-                                    step = 0.01
                                 ),
                                 hr(),
                                 downloadButton("layer_downloadGeneSet", "Download PDF"),
@@ -736,37 +741,43 @@ app_ui <- function() {
                                 tags$br(),
                                 hr(),
                                 downloadButton("layer_downloadGeneSetTable", "Download CSV"),
-                                tags$br(),
-                                tags$br(),
+                                helpText("Column specifications are the following ones. 'OR' is the odds ratio for enrichment among the input genes for the given 'ID' set and the genes significantly associated with given 'test' and 'model type' combination. 'Pval' is the odds ratio un-adjusted p-value. ''model type' is either an 'anova' F-statistic (any group is different), a 'pairwise' t-statistic (group 1 > group 2), or an 'enrichment' t-statistic (selected group > all others). 'test' is the short name identifying the selected group. 'ID' is the user-chosen label for identifying a given gene set: the example data has 3 such sets. 'fdr_cut' is the FDR cutoff on the odd ratio p-values colored in the previous heatmap."),
                                 DT::DTOutput("layer_gene_set_table")
                             ),
                             tabPanel(
                                 "Spatial registration",
-                                fileInput(
-                                    "externalTstat",
-                                    "Upload a CSV file with one column per cell type or layer that contains the enrichment t-stat equivalent and with Ensembl gene IDs as the row names.",
-                                    accept = c(
-                                        "text/csv",
-                                        ".csv",
-                                        "text/comma-separated-values,text/plain"
+                                fluidRow(
+                                    column(
+                                        width = 6,
+                                        fileInput(
+                                            "externalTstat",
+                                            "Upload a CSV file with one column per cell type or layer that contains the enrichment t-stat equivalent and with Ensembl gene IDs as the row names.",
+                                            accept = c(
+                                                "text/csv",
+                                                ".csv",
+                                                "text/comma-separated-values,text/plain"
+                                            )
+                                        ),
+                                        helpText(
+                                            "It should be a CSV file similar to ",
+                                            HTML(
+                                                '<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv">this example file.</a>'
+                                            )
+                                        )
+                                    ),
+                                    column(
+                                        width = 6,
+                                        numericInput(
+                                            "layer_tstat_max",
+                                            label = "Maximum correlation",
+                                            value = 0.81,
+                                            min = 0,
+                                            max = 1,
+                                            step = 0.01
+                                        ),
+                                        helpText("Use a smaller positive number to change the range of the color scale used. Use 1 if you want the color range to reflect the maximum range of correlation values. Default: 0.81.")
                                     )
                                 ),
-                                helpText(
-                                    "It should be a CSV file similar to ",
-                                    HTML(
-                                        '<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv">this example file.</a>'
-                                    )
-                                ),
-                                hr(),
-                                numericInput(
-                                    "layer_tstat_max",
-                                    label = "Maximum correlation",
-                                    value = 0.81,
-                                    min = 0,
-                                    max = 1,
-                                    step = 0.01
-                                ),
-                                helpText("Use a smaller positive number to change the range of the color scale used."),
                                 hr(),
                                 downloadButton("layer_downloadTstatCor", "Download PDF"),
                                 plotOutput("layer_tstat_cor_plot"),
@@ -786,8 +797,6 @@ app_ui <- function() {
                                 hr(),
                                 downloadButton("layer_downloadTstatCorTable", "Download CSV"),
                                 helpText("Correlation matrix that is visually illustrated with the previous plot."),
-                                tags$br(),
-                                tags$br(),
                                 DT::DTOutput("layer_tstat_cor_table")
                             )
                         )
