@@ -91,8 +91,11 @@ app_server <- function(input, output, session) {
             colors <- cols_layers_paper()
         } else if (input$cluster %in% c("layer_guess_reordered_short", "spatialLIBD")) {
             colors <- cols_layers_paper_short()
+        } else if (input$clustercolor %in% colnames(colData(spe)) && is.factor(colData(spe)[[input$cluster]])) {
+            colors <- colData(spe)[[input$clustercolor]][unique(names(colData(spe)[[input$clustercolor]]))]
+            colors <- colors[levels(colData(spe)[[input$cluster]])]
         } else if (input$clustercolor %in% colnames(colData(spe))) {
-            colors <- unique(colData(spe)[[input$clustercolor]])
+            colors <- colData(spe)[[input$clustercolor]][unique(names(colData(spe)[[input$clustercolor]]))]
         } else {
             colors <- paletteer::paletteer_d(
                 palette = input$clustercolor,
