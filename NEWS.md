@@ -1,10 +1,10 @@
-# spatialLIBD
+# spatialLIBD 1.9.3
 
 BUG FIXES
 
 * Added a more informative error message when 'stats' does not have ENSEMBL
 gene IDs as the `rownames()`. Reported by @abspangler13 and @sparthib at 
-https://github.com/LieberInstitute/spatialLIBD/issues/33#issuecomment-1137544893.
+https://github.com/LieberInstitute/spatialLIBD/issues/33#issuecomment-1137544893
 
 # spatialLIBD 1.7.19
 
