@@ -84,6 +84,9 @@ layer_stat_cor <-
 
         ## Adapted from https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R
         mm <- match(model_results$ensembl, rownames(stats))
+        if(all(is.na(mm))) {
+            stop("It looks like 'stats' does not have ENSEMBL gene names on the rownames or none of the genes are matching.", call. = FALSE)
+        }
 
         tstats <- tstats[!is.na(mm), ]
         external_stats <- stats[mm[!is.na(mm)], ]
