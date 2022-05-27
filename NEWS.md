@@ -1,4 +1,4 @@
-# spatialLIBD
+# spatialLIBD 1.8.3
 
 BUG FIXES
 
