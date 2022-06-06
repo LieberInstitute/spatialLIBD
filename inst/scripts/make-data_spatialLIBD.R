@@ -1,5 +1,5 @@
 ## Run this on JHPCE at
-## /dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/spatialLIBD_files
+## /dcs04/lieber/lcolladotor/with10x_LIBD001/HumanPilot/Analysis/spatialLIBD_files
 
 library('SingleCellExperiment')
 library('here')
@@ -200,7 +200,7 @@ dir(here('Analysis',
 usethis::use_directory("data-raw/spatialLIBD_files", ignore = TRUE)
 system2('scp',
     paste0(
-        'e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/spatialLIBD_files/* ',
+        'e:/dcs04/lieber/lcolladotor/with10x_LIBD001/HumanPilot/Analysis/spatialLIBD_files/* ',
         here::here('data-raw/spatialLIBD_files'),
         '/'
     )
@@ -209,7 +209,7 @@ system2('scp',
 ## Update on 2020-02-21 the modeling results only
 # system(
 #     paste0(
-#         'scp e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/spatialLIBD_files/Human_DLPFC_Visium_modeling_results.Rdata ',
+#         'scp e:/dcs04/lieber/lcolladotor/with10x_LIBD001/HumanPilot/Analysis/spatialLIBD_files/Human_DLPFC_Visium_modeling_results.Rdata ',
 #         here::here('data-raw/spatialLIBD_files'),
 #         '/'
 #     )
