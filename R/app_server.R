@@ -31,7 +31,7 @@ app_server <- function(input, output, session) {
     ## Global variables needed throughout the app
     rv <- reactiveValues(ManualAnnotation = rep("NA", ncol(spe)))
 
-    ## From /dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/rda_scran/clust_10x_layer_maynard_martinowich.Rdata
+    ## From /dcs04/lieber/lcolladotor/with10x_LIBD001/HumanPilot/Analysis/rda_scran/clust_10x_layer_maynard_martinowich.Rdata
     # cat(paste0("'", names(cols_layers_martinowich), "' = '", cols_layers_martinowich, "',\n"))
     cols_layers_martinowich <- c(
         "WM" = "#b2df8a",

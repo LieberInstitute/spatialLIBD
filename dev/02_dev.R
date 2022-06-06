@@ -105,7 +105,7 @@ sapply(unique(sce$sample_name), function(x) {
 sapply(unique(sce$sample_name), function(x) {
     system(
         paste0(
-            "scp e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/10X/",
+            "scp e:/dcs04/lieber/lcolladotor/with10x_LIBD001/HumanPilot/10X/",
             x,
             "/tissue_lowres_image.png inst/app/www/data/",
             x,
@@ -116,7 +116,7 @@ sapply(unique(sce$sample_name), function(x) {
 
 ## 2.9 Misc
 system(
-    "scp e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/Layer_Guesses/gene_sets/SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv inst/extdata/"
+    "scp e:/dcs04/lieber/lcolladotor/with10x_LIBD001/HumanPilot/Analysis/Layer_Guesses/gene_sets/SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv inst/extdata/"
 )
 
 
@@ -209,7 +209,7 @@ save(
 )
 
 ## Then copy to data-raw (outside of JHPCE)
-system("scp e:/dcl02/lieber/ajaffe/SpatialTranscriptomics/HumanPilot/Analysis/Layer_Guesses/rda/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.Rdata data-raw/")
+system("scp e:/dcs04/lieber/lcolladotor/with10x_LIBD001/HumanPilot/Analysis/Layer_Guesses/rda/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.Rdata data-raw/")
 usethis::use_data_raw(name = "tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer")
 
 # 3. Documentation
