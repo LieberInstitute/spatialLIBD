@@ -67,7 +67,7 @@
 #'
 #'     ## When using shinyapps.io aim for less than 3 GB of RAM with your
 #'     ## objects. Check each input object with:
-#'     ## lobstr::obj_size(x) / 1024^3 ## for GB
+#'     ## lobstr::obj_size(x) 
 #'     ## Do not create the large input objects on the app.R script before
 #'     ## subsetting them. Do this outside app.R since the app.R script is
 #'     ## run at shinyapps.io, so subsetting on that script to reduce the
