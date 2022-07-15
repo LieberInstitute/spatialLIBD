@@ -1054,10 +1054,11 @@ app_server <- function(input, output, session) {
     })
 
     # Set the genes based on the model test
-    observeEvent(input$layer_model_test, {
-        if (!is.null(input$layer_model_test)) {
+    observeEvent(!is.null(input$layer_model) && !is.null(input$layer_model_test), {
+        if (!is.null(input$layer_model) && !is.null(input$layer_model_test)) {
             sig_genes_sub <- subset(sig_genes, model_type == input$layer_model & test == input$layer_model_test)
             current <- input$layer_geneid
+            if (is.null(current)) current <- sort(rowData(sce_layer)$gene_search)[1]
             new_gene <- ifelse(
                 current %in% rowData(sce_layer)$gene_search[sig_genes_sub$gene_index],
                 current,
@@ -1132,6 +1133,8 @@ app_server <- function(input, output, session) {
         i <- static_layer_boxplot_i()
         if (length(i) > 0) {
             set.seed(20200206)
+        } else {
+            return(NULL)
         }
         layer_boxplot(
             i = i,
