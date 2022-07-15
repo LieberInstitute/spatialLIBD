@@ -197,7 +197,7 @@ spe
 
 ## Note the memory size
 lobstr::obj_size(spe) 
-#> 1.899369 B
+#> 2.04 GB
 
 ## Remake the logo image with histology information
 vis_clus(
