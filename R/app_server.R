@@ -59,21 +59,23 @@ app_server <- function(input, output, session) {
     }
 
     observeEvent(input$cluster, {
-        tmp <- input$clustercolor
+        choices <- c(
+            colnames(colData(spe))[grep(
+                paste0(isolate(input$cluster), "_colors$"), colnames(colData(spe))
+                )],
+            with(
+                subset(
+                    paletteer::palettes_d_names,
+                    length >= length(unique(colData(spe)[[isolate(input$cluster)]]))
+                ),
+                paste0(package, "::", palette)
+            )
+        )
         updatePickerInput(
             session = session,
             inputId = "clustercolor",
-            choices = c(
-                colnames(colData(spe))[grep("_colors$", colnames(colData(spe)))],
-                with(
-                    subset(
-                        paletteer::palettes_d_names,
-                        length >= length(unique(colData(spe)[[input$cluster]]))
-                    ),
-                    paste0(package, "::", palette)
-                )
-            ),
-            selected = tmp
+            choices = choices,
+            selected = choices[1]
         )
     })
 
