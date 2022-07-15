@@ -1,3 +1,12 @@
+# spatialLIBD
+
+BUG FIXES
+
+* Fix https://github.com/LieberInstitute/spatialLIBD/issues/41. Reported by
+@abspangler13. Now the gene selector changes automatically when you change the
+'model results' (model type) or 'model test' inputs. The gene selector is now
+only shown inside the 'model boxplots' panel since it only affects that one.
+
 # spatialLIBD 1.9.4
 
 BUG FIXES
