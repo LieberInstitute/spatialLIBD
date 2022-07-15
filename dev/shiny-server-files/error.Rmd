@@ -48,13 +48,13 @@ shiny::HTML(
 ```{r 'add_google_tag', echo = FALSE}
 shiny::HTML(
     "<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src='https://www.googletagmanager.com/gtag/js?id=UA-159132967-1'></script>
+<script async src='https://www.googletagmanager.com/gtag/js?id=G-QKT3SV9EFL'></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-159132967-1');
+  gtag('config', 'G-QKT3SV9EFL');
 </script>
       "
 )
