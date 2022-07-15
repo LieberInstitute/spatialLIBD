@@ -18,7 +18,8 @@ run_app(
     "HVG_UMAP", "pseudobulk_UMAP", "markers_UMAP", "SpatialDE_PCA_spatial",
     "SpatialDE_pool_PCA_spatial", "HVG_PCA_spatial", "pseudobulk_PCA_spatial",
     "markers_PCA_spatial", "SpatialDE_UMAP_spatial", "SpatialDE_pool_UMAP_spatial",
-    "HVG_UMAP_spatial", "pseudobulk_UMAP_spatial",      "markers_UMAP_spatial"),
+    "HVG_UMAP_spatial", "pseudobulk_UMAP_spatial", 
+     "markers_UMAP_spatial"),
   spe_continuous_vars = c("cell_count", "sum_umi", "sum_gene", "expr_chrM",
     "expr_chrM_ratio"),
   default_cluster = "spatialLIBD",
@@ -46,7 +47,8 @@ p-values, and the FDR adjusted p-values. Then the \code{ensembl} column is used
 for matching in some cases. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
 \item{sig_genes}{The output of \code{\link[=sig_genes_extract_all]{sig_genes_extract_all()}} which is a table
-in long format with the modeling results.}
+in long format with the modeling results. You can subset this if the object
+requires too much memory.}
 
 \item{docs_path}{A \code{character(1)} specifying the path to the directory
 containing the website documentation files. The directory has to contain
@@ -108,6 +110,14 @@ if (enough_ram(4e9)) {
         sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
         title = "spatialLIBD without layer info"
     )
+
+    ## When using shinyapps.io aim for less than 3 GB of RAM with your
+    ## objects. Check each input object with:
+    ## lobstr::obj_size(x) / 1024^3 ## for GB
+    ## Do not create the large input objects on the app.R script before
+    ## subsetting them. Do this outside app.R since the app.R script is
+    ## run at shinyapps.io, so subsetting on that script to reduce the
+    ## memory load is pointless. You have to do it outside of app.R.
 }
 }
 }
