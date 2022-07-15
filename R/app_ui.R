@@ -49,10 +49,11 @@ app_ui <- function() {
             tabPanel("spot-level data", tagList(
                 sidebarLayout(
                     sidebarPanel(
-                        selectInput(
+                        pickerInput(
                             inputId = "sample",
                             label = "Sample to plot",
-                            choices = unique(spe$sample_id)
+                            choices = unique(spe$sample_id),
+                            options = pickerOptions(liveSearch = TRUE)
                         ),
                         helpText("The sample ID to visualize in most tabs except the 'grid' ones."),
                         hr(),
@@ -64,11 +65,12 @@ app_ui <- function() {
                         ),
                         helpText("The name of the background image you want to visualize."),
                         hr(),
-                        selectInput(
+                        pickerInput(
                             inputId = "cluster",
                             label = "Discrete variable to plot",
                             choices = spe_discrete_vars,
-                            selected = default_cluster
+                            selected = default_cluster,
+                            options = pickerOptions(liveSearch = TRUE)
                         ),
                         helpText("Typically cluster labels or any other discrete variable."),
                         hr(),
