@@ -20,7 +20,8 @@
 #' visualizing the histology. See [fetch_data()] for more details.
 #' @inheritParams sig_genes_extract
 #' @param sig_genes The output of [sig_genes_extract_all()] which is a table
-#' in long format with the modeling results.
+#' in long format with the modeling results. You can subset this if the object
+#' requires too much memory.
 #' @param docs_path A `character(1)` specifying the path to the directory
 #' containing the website documentation files. The directory has to contain
 #' the files: `documentation_sce_layer.md`, `documentation_spe.md`,
@@ -63,6 +64,14 @@
 #'         sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
 #'         title = "spatialLIBD without layer info"
 #'     )
+#'
+#'     ## When using shinyapps.io aim for less than 3 GB of RAM with your
+#'     ## objects. Check each input object with:
+#'     ## lobstr::obj_size(x) / 1024^3 ## for GB
+#'     ## Do not create the large input objects on the app.R script before
+#'     ## subsetting them. Do this outside app.R since the app.R script is
+#'     ## run at shinyapps.io, so subsetting on that script to reduce the
+#'     ## memory load is pointless. You have to do it outside of app.R.
 #' }
 #' }
 run_app <- function(spe = fetch_data(type = "spe"),
