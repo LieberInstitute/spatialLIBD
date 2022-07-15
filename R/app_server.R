@@ -1013,7 +1013,7 @@ app_server <- function(input, output, session) {
                     previous_work$sample_id
                 )
             m <- match(previous_work$key, spe$key)
-            if(all(is.na(m))) {
+            if (all(is.na(m))) {
                 ## For backwards compatibility with older versions of spatialLIBD
                 previous_work$key <-
                     paste0(
@@ -1022,7 +1022,7 @@ app_server <- function(input, output, session) {
                         previous_work$spot_name
                     )
                 m <- match(previous_work$key, spe$key)
-                if(all(is.na(m))) {
+                if (all(is.na(m))) {
                     stop("Cannot use previous manual annotations.", call. = FALSE)
                 }
             }
@@ -1438,8 +1438,12 @@ app_server <- function(input, output, session) {
         {
             print(static_layer_reducedDim())
         },
-        width = function() { 600 + 100 * input$layer_reduced_dim_ncomponents %/% 2} ,
-        height = function() { 500 + 100 * input$layer_reduced_dim_ncomponents %/% 2}
+        width = function() {
+            600 + 100 * input$layer_reduced_dim_ncomponents %/% 2
+        },
+        height = function() {
+            500 + 100 * input$layer_reduced_dim_ncomponents %/% 2
+        }
     )
 
     output$layer_boxplot <- renderPlot(
