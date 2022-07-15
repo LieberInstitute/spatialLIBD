@@ -6,7 +6,7 @@
 \alias{spatialLIBD-package}
 \title{spatialLIBD: spatialLIBD: an R/Bioconductor package to visualize spatially-resolved transcriptomics data}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
 Inspect interactively the spatially-resolved transcriptomics data from the 10x Genomics Visium platform as well as data from the Maynard, Collado-Torres et al, Nature Neuroscience, 2021 project analyzed by Lieber Institute for Brain Development (LIBD) researchers and collaborators.
 }
