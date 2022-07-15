@@ -556,14 +556,6 @@ app_ui <- function() {
                             selected = default_model_type
                         ),
                         hr(),
-                        pickerInput(
-                            inputId = "layer_geneid",
-                            label = "Gene",
-                            choices =
-                                sort(rowData(sce_layer)$gene_search),
-                            options = pickerOptions(liveSearch = TRUE)
-                        ),
-                        hr(),
                         width = 2
                     ),
                     mainPanel(
@@ -663,6 +655,14 @@ app_ui <- function() {
                                             choices = sort(unique(sig_genes$test[sig_genes$model_type == default_model_type]))
                                         ),
                                         helpText("Short label for the statistical test done. For the model type 'enrichment', 'model test' is the selected group against all other ones. For 'pairwise' it's 'G1-G2' where the t-statistics are G1 > G2. For 'anova', it's an F-statistic."),
+                                        pickerInput(
+                                            inputId = "layer_geneid",
+                                            label = "Gene",
+                                            choices =
+                                                sort(rowData(sce_layer)$gene_search),
+                                            options = pickerOptions(liveSearch = TRUE)
+                                        ),
+                                        helpText("Select a gene to show. Only genes whose data is included are shown, so the set of genes is dependent on the 'model results' and 'model test' selected."),
                                         selectInput(
                                             inputId = "layer_boxcolor",
                                             label = "Boxplot color scale",

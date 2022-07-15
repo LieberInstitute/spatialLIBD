@@ -1053,6 +1053,27 @@ app_server <- function(input, output, session) {
         }
     })
 
+    # Set the genes based on the model test
+    observeEvent(input$layer_model_test, {
+        if (!is.null(input$layer_model_test)) {
+            sig_genes_sub <- subset(sig_genes, model_type == input$layer_model & test == input$layer_model_test)
+            current <- input$layer_geneid
+            new_gene <- ifelse(
+                current %in% rowData(sce_layer)$gene_search[sig_genes_sub$gene_index],
+                current,
+                sort(rowData(sce_layer)$gene_search[sig_genes_sub$gene_index])[1]
+            )
+            updatePickerInput(
+                session,
+                inputId = "layer_geneid",
+                choices =
+                    sort(rowData(sce_layer)$gene_search[sig_genes_sub$gene_index]),
+                selected = new_gene,
+                options = pickerOptions(liveSearch = TRUE)
+            )
+        }
+    })
+
     ## layer static plots
     observeEvent(input$layer_which_dim, {
         updateNumericInput(
