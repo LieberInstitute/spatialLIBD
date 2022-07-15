@@ -1008,9 +1008,9 @@ app_server <- function(input, output, session) {
             previous_work <- subset(previous_work, ManualAnnotation != "NA")
             previous_work$key <-
                 paste0(
-                    previous_work$sample_id,
+                    previous_work$spot_name,
                     "_",
-                    previous_work$spot_name
+                    previous_work$sample_id
                 )
             m <- match(previous_work$key, spe$key)
             if (all(is.na(m))) {
