@@ -243,21 +243,21 @@ Please run this yourself to check for any updates on how to cite
 print(citation("spatialLIBD"), bibtex = TRUE)
 #> 
 #> Pardo B, Spangler A, Weber LM, Hicks SC, Jaffe AE, Martinowich K,
-#> Maynard KR, Collado-Torres L (2021). "spatialLIBD: an R/Bioconductor
+#> Maynard KR, Collado-Torres L (2022). "spatialLIBD: an R/Bioconductor
 #> package to visualize spatially-resolved transcriptomics data."
-#> _bioRxiv_. doi: 10.1101/2021.04.29.440149 (URL:
-#> https://doi.org/10.1101/2021.04.29.440149), <URL:
-#> https://www.biorxiv.org/content/10.1101/2021.04.29.440149v1>.
+#> _BMC Genomics_. doi: 10.1186/s12864-022-08601-w (URL:
+#> https://doi.org/10.1186/s12864-022-08601-w), <URL:
+#> https://doi.org/10.1186/s12864-022-08601-w>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Article{,
 #>     title = {spatialLIBD: an R/Bioconductor package to visualize spatially-resolved transcriptomics data},
 #>     author = {Brenda Pardo and Abby Spangler and Lukas M. Weber and Stephanie C. Hicks and Andrew E. Jaffe and Keri Martinowich and Kristen R. Maynard and Leonardo Collado-Torres},
-#>     year = {2021},
-#>     journal = {bioRxiv},
-#>     doi = {10.1101/2021.04.29.440149},
-#>     url = {https://www.biorxiv.org/content/10.1101/2021.04.29.440149v1},
+#>     year = {2022},
+#>     journal = {BMC Genomics},
+#>     doi = {10.1186/s12864-022-08601-w},
+#>     url = {https://doi.org/10.1186/s12864-022-08601-w},
 #>   }
 #> 
 #> Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK, Williams
