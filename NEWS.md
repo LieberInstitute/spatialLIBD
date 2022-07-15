@@ -1,3 +1,10 @@
+# spatialLIBD
+
+BUG FIXES
+
+* Fix https://github.com/LieberInstitute/spatialLIBD/issues/40. Reported by
+@Erik-D-Nelson.
+
 # spatialLIBD 1.9.3
 
 BUG FIXES
