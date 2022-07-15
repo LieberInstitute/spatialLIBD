@@ -12,10 +12,10 @@ c(
             as.person("Kristen R. Maynard"),
             as.person("Leonardo Collado-Torres")
         ),
-        year = 2021,
-        journal = "bioRxiv",
-        doi = "10.1101/2021.04.29.440149",
-        url = "https://www.biorxiv.org/content/10.1101/2021.04.29.440149v1"
+        year = 2022,
+        journal = "BMC Genomics",
+        doi = "10.1186/s12864-022-08601-w",
+        url = "https://doi.org/10.1186/s12864-022-08601-w"
     ),
     bibentry(bibtype="article",
         title = "Transcriptome-scale spatial gene expression in the human dorsolateral prefrontal cortex",
