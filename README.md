@@ -327,11 +327,11 @@ This package was developed using
 <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=300&t=n&d=FRs8oQ9HVpMg6QLJJKAExpF8seGfPVlH-YOnwqUE8Hg'></script>
 </center>
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159132967-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QKT3SV9EFL"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-159132967-1');
+  gtag('config', 'G-QKT3SV9EFL');
 </script>
