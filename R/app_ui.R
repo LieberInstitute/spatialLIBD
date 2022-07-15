@@ -723,7 +723,7 @@ app_ui <- function() {
                                 helpText("This table shows the selected gene across all 'test's for the selected 'model type'. This information is useful if you want to quickly check the results for other 'test's under the same 'model type' context."),
                                 helpText("Column specifications are the following ones. 'top' is the rank of the gene ordered by the given statistic for a given 'model type' and 'test' . 'model type' is either an 'anova' F-statistic (any group is different), a 'pairwise' t-statistic (group 1 > group 2), or an 'enrichment' t-statistic (selected group > all others). 'test' is the short name identifying the selected group. 'gene' is the gene symbol. 'stat' is the F or t-statistic depending on the 'model type'. 'pval' is the un-adjusted p-value and 'fdr' is the FDR-adjusted p-value. 'gene_index' is the row number for from the input SpatialExperiment object corresponding to this gene. 'ensembl' is the gene ENSEMBL ID."),
                                 DT::DTOutput("layer_model_table"),
-                                 hr(),
+                                hr(),
                                 tags$h2("Selected model and test across all genes"),
                                 downloadButton("layer_downloadModelTable_full", "Download CSV"),
                                 helpText("This table shows the selected 'model type' and 'test' across all genes. This table is useful if you want to find how other genes rank under the same model type and test context. It can be useful to find genes to select."),
