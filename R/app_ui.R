@@ -159,12 +159,12 @@ app_ui <- function() {
                         numericInput(
                             "pointsize",
                             "Spot point size",
-                            value = 1.25,
+                            value = 2,
                             min = 1,
                             max = 3,
                             step = 0.1
                         ),
-                        helpText("We recommend that you use values between 1.25 (default) and 2."),
+                        helpText("We recommend that you use values between 1.25 and 2 (default)."),
                         hr(),
                         selectInput(
                             inputId = "reduced_name",
