@@ -14,8 +14,8 @@ options("golem.app.prod" = TRUE)
 
 ## In this case, I'm using my local files instead of downloading them
 ## by telling fetch_data(destdir) where my local files are stored at.
-if (!exists('sce')) sce <-
-    fetch_data('sce', here::here('data-raw/spatialLIBD_files'))
+if (!exists('spe')) spe <-
+    fetch_data('spe', here::here('data-raw/spatialLIBD_files'))
 if (!exists('sce_layer')) sce_layer <-
     fetch_data('sce_layer', here::here('data-raw/spatialLIBD_files'))
 if (!exists('modeling_results')) modeling_results <-
@@ -29,7 +29,7 @@ sig_genes <-
 
 options(repos = BiocManager::repositories())
 spatialLIBD::run_app(
-    scp = sce_to_spe(sce),
+    scp = spe,
     sce_layer = sce_layer,
     modeling_results = modeling_results,
     sig_genes = sig_genes,
