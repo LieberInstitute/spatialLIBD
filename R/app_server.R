@@ -829,9 +829,15 @@ app_server <- function(input, output, session) {
             return(NULL)
         }
 
+        gene_selected <- ifelse(
+            input$geneid %in% rowData(spe)$gene_search,
+            which(rowData(spe)$gene_search == input$geneid),
+            1
+        )
+
         p <-
             vis_gene(
-                spe[, cluster_opts],
+                spe[gene_selected, cluster_opts],
                 sampleid = input$sample,
                 geneid = input$geneid,
                 assayname = input$assayname,
