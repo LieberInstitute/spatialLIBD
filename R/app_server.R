@@ -1045,12 +1045,12 @@ app_server <- function(input, output, session) {
     # Set the options based on the model
     observeEvent(input$layer_model, {
         if (!is.null(input$layer_model)) {
-            sig_genes_sub <- subset(sig_genes, model_type == input$layer_model)
+            model_i <-  which(sig_genes$model_type == input$layer_model)
             updateSelectInput(
                 session,
                 inputId = "layer_model_test",
-                choices = sort(unique(sig_genes_sub$test)),
-                selected = sort(unique(sig_genes_sub$test))[1]
+                choices = sort(unique(sig_genes$test[model_i])),
+                selected = sort(unique(sig_genes$test[model_i]))[1]
             )
         }
     })
@@ -1058,19 +1058,19 @@ app_server <- function(input, output, session) {
     # Set the genes based on the model test
     observeEvent(!is.null(input$layer_model) && !is.null(input$layer_model_test), {
         if (!is.null(input$layer_model) && !is.null(input$layer_model_test)) {
-            sig_genes_sub <- subset(sig_genes, model_type == input$layer_model & test == input$layer_model_test)
+            model_test_i <- which(sig_genes$model_type == input$layer_model & sig_genes$test == input$layer_model_test)
             current <- input$layer_geneid
             if (is.null(current)) current <- sort(rowData(sce_layer)$gene_search)[1]
             new_gene <- ifelse(
-                current %in% rowData(sce_layer)$gene_search[sig_genes_sub$gene_index],
+                current %in% rowData(sce_layer)$gene_search[sig_genes$gene_index[model_test_i]],
                 current,
-                sort(rowData(sce_layer)$gene_search[sig_genes_sub$gene_index])[1]
+                sort(rowData(sce_layer)$gene_search[sig_genes$gene_index[model_test_i]])[1]
             )
             updatePickerInput(
                 session,
                 inputId = "layer_geneid",
                 choices =
-                    sort(rowData(sce_layer)$gene_search[sig_genes_sub$gene_index]),
+                    sort(rowData(sce_layer)$gene_search[sig_genes$gene_index[model_test_i]]),
                 selected = new_gene,
                 options = pickerOptions(liveSearch = TRUE)
             )
