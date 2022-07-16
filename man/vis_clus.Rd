@@ -13,7 +13,7 @@ vis_clus(
   spatial = TRUE,
   image_id = "lowres",
   alpha = 1,
-  point_size = 1.25,
+  point_size = 2,
   ...
 )
 }

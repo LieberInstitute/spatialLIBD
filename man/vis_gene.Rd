@@ -16,7 +16,7 @@ vis_gene(
   alpha = 1,
   cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4",
     "springgreen", "goldenrod", "red"),
-  point_size = 1.25,
+  point_size = 2,
   ...
 )
 }

@@ -50,7 +50,7 @@ vis_clus_p <-
     title,
     image_id = "lowres",
     alpha = 1,
-    point_size = 1.25) {
+    point_size = 2) {
 
         ## Some variables
         pxl_row_in_fullres <- pxl_col_in_fullres <- key <- NULL

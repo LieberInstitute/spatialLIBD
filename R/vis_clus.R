@@ -79,7 +79,7 @@ vis_clus <- function(spe,
     spatial = TRUE,
     image_id = "lowres",
     alpha = 1,
-    point_size = 1.25,
+    point_size = 2,
     ...) {
     spe_sub <- spe[, spe$sample_id == sampleid]
     d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)

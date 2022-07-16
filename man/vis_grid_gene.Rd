@@ -20,7 +20,7 @@ vis_grid_gene(
   cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4",
     "springgreen", "goldenrod", "red"),
   sample_order = unique(spe$sample_id),
-  point_size = 1.25,
+  point_size = 2,
   ...
 )
 }
