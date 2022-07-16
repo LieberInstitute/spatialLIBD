@@ -272,6 +272,11 @@ app_ui <- function() {
                             ),
                             tabPanel(
                                 "Clusters grid (static)",
+                                checkboxInput(
+                                    "grid_spatial_clus",
+                                    "Use spatial image?",
+                                    value = FALSE
+                                ),
                                 checkboxGroupInput(
                                     "grid_samples",
                                     label = "Select samples to show in the grid",
@@ -368,6 +373,11 @@ app_ui <- function() {
                             ),
                             tabPanel(
                                 "Gene grid (static)",
+                                checkboxInput(
+                                    "grid_spatial_gene",
+                                    "Use spatial image?",
+                                    value = FALSE
+                                ),
                                 checkboxGroupInput(
                                     "gene_grid_samples",
                                     label = "Select samples to show in the grid",
