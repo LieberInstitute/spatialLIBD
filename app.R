@@ -29,7 +29,7 @@ sig_genes <-
 
 options(repos = BiocManager::repositories())
 spatialLIBD::run_app(
-    sce = sce,
+    scp = sce_to_spe(sce),
     sce_layer = sce_layer,
     modeling_results = modeling_results,
     sig_genes = sig_genes,
