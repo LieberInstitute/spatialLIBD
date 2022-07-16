@@ -1,3 +1,12 @@
+# spatialLIBD 1.9.9
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* Made the shiny application more memory efficient in different areas.
+* Changed the default `point_size` from 1.25 to 2.
+* Added the option to show or hide the spatial images on the grid panels in
+the shiny web application. Turn off by default since it is more efficient.
+
 # spatialLIBD 1.9.5
 
 BUG FIXES
