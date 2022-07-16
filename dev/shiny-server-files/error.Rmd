@@ -12,9 +12,7 @@ Thank you for your interest in `spatialLIBD`! We apologize for the error you see
 Due to some limitations our web application can only handle a [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2) number of concurrent users. However, fear not, as we have multiple mirrors of our web application that you can use. Please try accessing another mirror.
 
 * [Main shiny application website](http://spatial.libd.org/spatialLIBD)
-* [Shinyapps](https://jhubiostatistics.shinyapps.io/spatialLIBD/)
-* [Shinyapps Mirror 1](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror01/)
-* [Shinyapps Mirror 2](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror02/)
+* [Shinyapps](https://libd.shinyapps.io/spatialLIBD/)
 
 ## Error
 

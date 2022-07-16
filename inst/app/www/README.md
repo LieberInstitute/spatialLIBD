@@ -106,11 +106,7 @@ spatialLIBD::run_app()
 
 -   [Main shiny application
     website](http://spatial.libd.org/spatialLIBD)
--   [Shinyapps](https://jhubiostatistics.shinyapps.io/spatialLIBD/)
--   [Shinyapps Mirror
-    1](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror01/)
--   [Shinyapps Mirror
-    2](https://jhubiostatistics.shinyapps.io/spatialLIBD_mirror02/)
+-   [Shinyapps](https://libd.shinyapps.io/spatialLIBD/)
 
 ## R/Bioconductor package
 
