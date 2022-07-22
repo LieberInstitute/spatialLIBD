@@ -59,23 +59,40 @@ app_server <- function(input, output, session) {
     }
 
     observeEvent(input$cluster, {
-        choices <- c(
-            colnames(colData(spe))[grep(
+        if (isolate(input$cluster) == "ManualAnnotation") {
+            current_n <- length(unique(rv$ManualAnnotation))
+        } else {
+            current_n <- length(unique(colData(spe)[[isolate(input$cluster)]]))
+        }
+
+        preferred_choice <- colnames(colData(spe))[grep(
                 paste0(isolate(input$cluster), "_colors$"), colnames(colData(spe))
-                )],
+                )]
+
+        choices <- c(
+            preferred_choice,
             with(
                 subset(
                     paletteer::palettes_d_names,
-                    length >= length(unique(colData(spe)[[isolate(input$cluster)]]))
+                    length >= current_n
                 ),
                 paste0(package, "::", palette)
             )
         )
+
+        if (length(preferred_choice) == 0) {
+            preferred_choice <- ifelse(
+                "Polychrome::palette36" %in% choices,
+                "Polychrome::palette36",
+                choices[1]
+            )
+        }
+
         updatePickerInput(
             session = session,
             inputId = "clustercolor",
             choices = choices,
-            selected = choices[1]
+            selected = preferred_choice
         )
     })
 
