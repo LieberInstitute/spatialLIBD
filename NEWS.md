@@ -1,3 +1,15 @@
+# spatialLIBD 1.8.10
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* Improved the automatic color palette selector when you switch discrete
+variables. It also now supports the ManualAnnotation option.
+* Discrete variable (cluster) legend is no longer duplicated under the clusters
+interactive tab.
+* You can now search the model test, which helps if you have lots of tests
+to choose from (this most likely occurs when you are looking at the pairwise
+results).
+
 # spatialLIBD 1.8.9
 
 SIGNIFICANT USER-VISIBLE CHANGES
