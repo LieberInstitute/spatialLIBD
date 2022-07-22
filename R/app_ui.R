@@ -243,7 +243,7 @@ app_ui <- function() {
                             tabPanel(
                                 "Clusters (interactive)",
                                 plotlyOutput("histology_plotly",
-                                    width = "1200px",
+                                    width = "1440px",
                                     height = "1200px"
                                 ),
                                 helpText("This is a 2 by 2 plotting area with the top row showing the spatially-resolved data on top of the histology images. The bottom row shows the data on the reduced dimensions. The left column shows the selected continuous variable (typically a gene) while the right column shows the selected discreate variable (typically cluster annotations)."),
