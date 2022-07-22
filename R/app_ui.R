@@ -661,10 +661,11 @@ app_ui <- function() {
                                 fluidRow(
                                     column(
                                         width = 6,
-                                        selectInput(
+                                        pickerInput(
                                             inputId = "layer_model_test",
                                             label = "Model test",
-                                            choices = sort(unique(sig_genes$test[sig_genes$model_type == default_model_type]))
+                                            choices = sort(unique(sig_genes$test[sig_genes$model_type == default_model_type])),
+                                            options = pickerOptions(liveSearch = TRUE)
                                         ),
                                         helpText("Short label for the statistical test done. For the model type 'enrichment', 'model test' is the selected group against all other ones. For 'pairwise' it's 'G1-G2' where the t-statistics are G1 > G2. For 'anova', it's an F-statistic."),
                                         pickerInput(

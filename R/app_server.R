@@ -1071,11 +1071,12 @@ app_server <- function(input, output, session) {
     observeEvent(input$layer_model, {
         if (!is.null(input$layer_model)) {
             model_i <-  which(sig_genes$model_type == input$layer_model)
-            updateSelectInput(
+            updatePickerInput(
                 session,
                 inputId = "layer_model_test",
                 choices = sort(unique(sig_genes$test[model_i])),
-                selected = sort(unique(sig_genes$test[model_i]))[1]
+                selected = sort(unique(sig_genes$test[model_i]))[1],
+                options = pickerOptions(liveSearch = TRUE)
             )
         }
     })
