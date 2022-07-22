@@ -632,10 +632,10 @@ app_server <- function(input, output, session) {
                 geom_point(
                     shape = 21,
                     size = input$pointsize,
-                    stroke = 0.25
+                    stroke = 0
                 ) +
                 scale_fill_manual(values = get_colors(colors, colData(spe)[[clustervar]][spe$sample_id == sampleid])) +
-                guides(fill = FALSE) +
+                guides(fill = "none") +
                 ggtitle("") +
                 theme_set(theme_bw(base_size = 20)) +
                 theme(
@@ -660,7 +660,7 @@ app_server <- function(input, output, session) {
                 geom_point(
                     shape = 21,
                     size = input$pointsize,
-                    stroke = 0.25
+                    stroke = 0
                 )
         } else {
             p_dim <- p_dim_gene <- ggplot(d_key, aes(key = key))
@@ -669,16 +669,15 @@ app_server <- function(input, output, session) {
         p_dim_gene <- p_dim_gene + scale_fill_gradientn(
             colors = cont_colors(),
             na.value = c("black" = "#0000002D"),
-            guide = FALSE
+            guide = "none"
         ) + scale_color_gradientn(
             colors = cont_colors(),
             na.value = c("black" = "#0000002D"),
-            guide = FALSE
+            guide = "none"
         )
 
 
         p_dim_gene <- p_dim_gene +
-            labs(fill = NULL) +
             ggtitle("") +
             theme_set(theme_bw(base_size = 20)) +
             theme(
@@ -691,10 +690,11 @@ app_server <- function(input, output, session) {
             )
 
         ## Make the plotly objects with histology in the background
+        x_scale <- 1.2
         plotly_clus <- layout(
             ggplotly(
                 p_clus,
-                width = 600 * 2,
+                width = 600 * 2 * x_scale,
                 height = 600 * 2,
                 source = "plotly_histology",
                 tooltip = c("fill", "key")
@@ -742,7 +742,7 @@ app_server <- function(input, output, session) {
             dragmode = "select"
         )
 
-        plotly_dim <- layout(ggplotly(p_dim,
+        plotly_dim <- layout(ggplotly(p_dim + theme(legend.position='none'),
             source = "plotly_histology",
             tooltip = c("fill", "key")
         ))
@@ -767,20 +767,20 @@ app_server <- function(input, output, session) {
                     shareY = TRUE,
                     which_layout = 2
                 ),
-                subplot(
+                style(subplot(
                     plotly_dim_gene,
                     plotly_dim,
                     nrows = 1,
                     shareX = TRUE,
                     shareY = TRUE,
                     which_layout = 2
-                ),
+                ), showlegend = FALSE),
                 nrows = 2,
                 shareX = FALSE,
                 shareY = FALSE,
                 which_layout = 1
             ),
-            legend = list(tracegroupgap = 0, x = 1.1)
+            legend = list(tracegroupgap = 0, x = x_scale)
         )
 
         ## Restore some axis titles for the reduced dim plot
