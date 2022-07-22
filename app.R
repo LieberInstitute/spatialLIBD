@@ -1,10 +1,11 @@
+library("spatialLIBD")
 library("markdown") ## due to a shinyapps.io bug
 
 # Launch the ShinyApp (Do not remove this comment)
 # To deploy, run: rsconnect::deployApp()
 # Or use the blue button on top of this file
 
-pkgload::load_all()
+# pkgload::load_all()
 options("golem.app.prod" = TRUE)
 
 ## will download the data automatically
@@ -23,6 +24,11 @@ if (!exists('sce_layer')) sce_layer <-
 if (!exists('modeling_results')) modeling_results <-
     fetch_data('modeling_results',
         here::here('data-raw/spatialLIBD_files'))
+
+modeling_results <- lapply(modeling_results, function(x) {
+    colnames(x) <- gsub("ayer", "", colnames(x))
+    return(x)
+})
 
 sig_genes <-
     sig_genes_extract_all(n = nrow(sce_layer),
