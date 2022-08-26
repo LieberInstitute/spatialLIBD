@@ -1,13 +1,14 @@
 #' Evaluate the enrichment for a list of gene sets
 #'
 #' Using the layer-level (group-level) data, this function evaluates whether
-#' list of gene sets (Ensembl gene IDs) are enrichment among the significant
-#' genes (FDR < 0.1 by default) genes for a given model type result.
+#' list of gene sets (Ensembl gene IDs) are enriched among the significant
+#' genes (FDR < 0.1 by default) genes for a given model type result. If you want
+#' to check depleted genes, change `reverse` to `TRUE`.
 #'
 #' @param gene_list A named `list` object (could be a `data.frame`) where each
 #' element of the list is a character vector of Ensembl gene IDs.
 #' @param fdr_cut A `numeric(1)` specifying the FDR cutoff to use for
-#' determining significance among the
+#' determining significance among the modeling results genes.
 #' @inheritParams sig_genes_extract
 #'
 #' @return A table in long format with the enrichment results using
