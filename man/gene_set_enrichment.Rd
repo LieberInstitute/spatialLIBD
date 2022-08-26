@@ -17,7 +17,7 @@ gene_set_enrichment(
 element of the list is a character vector of Ensembl gene IDs.}
 
 \item{fdr_cut}{A \code{numeric(1)} specifying the FDR cutoff to use for
-determining significance among the}
+determining significance among the modeling results genes.}
 
 \item{modeling_results}{Defaults to the output of
 \code{fetch_data(type = 'modeling_results')}. This is a list of tables with the
@@ -45,8 +45,9 @@ A table in long format with the enrichment results using
 }
 \description{
 Using the layer-level (group-level) data, this function evaluates whether
-list of gene sets (Ensembl gene IDs) are enrichment among the significant
-genes (FDR < 0.1 by default) genes for a given model type result.
+list of gene sets (Ensembl gene IDs) are enriched among the significant
+genes (FDR < 0.1 by default) genes for a given model type result. If you want
+to check depleted genes, change \code{reverse} to \code{TRUE}.
 }
 \details{
 Check
