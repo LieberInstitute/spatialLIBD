@@ -774,6 +774,12 @@ app_ui <- function() {
                                             step = 0.01
                                         ),
                                         helpText("FDR cutoff for the gene enrichment odd ratios. Odd ratios with a p-value below the FDR cutoff won't be colored in the resulting heatmap. Use 1 to show all. Default: 0.1."),
+                                        checkboxInput(
+                                            "enrichment_reverse",
+                                            "Reverse enrichment direction. Only applies for 'model results' of type 'enrichment' or 'pairwise'.",
+                                            value = FALSE
+                                        ),
+                                        helpText("For 'enrichment', switch to 'depletion'. For 'pairwise', reverse the direction.")
                                     )
                                 ),
                                 hr(),

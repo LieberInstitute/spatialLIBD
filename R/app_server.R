@@ -1255,7 +1255,8 @@ app_server <- function(input, output, session) {
             gene_list,
             input$layer_gene_fdrcut,
             modeling_results,
-            input$layer_model
+            input$layer_model,
+            reverse = ifelse(input$layer_model != "anova", input$enrichment_reverse, FALSE)
         )
     })
 

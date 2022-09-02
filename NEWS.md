@@ -1,3 +1,12 @@
+# spatialLIBD
+
+BUG FIXES
+
+* Fixed bugs in `gene_set_enrichment()` for `reverse = TRUE` reported by
+@sparthib.
+* Added a `reverse` option on the shiny app under the gene set enrichment tab,
+that we tested with the example `spe` data.
+
 # spatialLIBD 1.9.10
 
 SIGNIFICANT USER-VISIBLE CHANGES
