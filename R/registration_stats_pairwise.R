@@ -23,13 +23,11 @@
 #' head(results_pairwise)
 registration_stats_pairwise <-
     function(sce_pseudo,
-        registration_model,
-        block_cor,
-        var_sample_id = "registration_sample_id",
-        gene_ensembl = NULL,
-        gene_name = NULL) {
-
-
+    registration_model,
+    block_cor,
+    var_sample_id = "registration_sample_id",
+    gene_ensembl = NULL,
+    gene_name = NULL) {
         message(Sys.time(), " running the baseline pairwise model")
         fit <-
             limma::lmFit(

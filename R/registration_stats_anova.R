@@ -28,14 +28,13 @@
 #' ## prior to computing ANOVA F-statistics.
 registration_stats_anova <-
     function(sce_pseudo,
-        block_cor,
-        covars = NULL,
-        var_registration = "registration_variable",
-        var_sample_id = "registration_sample_id",
-        gene_ensembl = NULL,
-        gene_name = NULL,
-        prefix = "") {
-
+    block_cor,
+    covars = NULL,
+    var_registration = "registration_variable",
+    var_sample_id = "registration_sample_id",
+    gene_ensembl = NULL,
+    gene_name = NULL,
+    prefix = "") {
         if (is.null(covars)) {
             mat_formula <- eval(str2expression(paste("~", var_registration)))
         } else {
@@ -54,11 +53,11 @@ registration_stats_anova <-
 
         ## Compute F-statistics
         top <- limma::topTable(
-                x,
-                coef = seq(2, ncol(x$coefficients), by = 1),
-                sort.by = "none",
-                number = length(x$F)
-            )
+            x,
+            coef = seq(2, ncol(x$coefficients), by = 1),
+            sort.by = "none",
+            number = length(x$F)
+        )
 
         ## Reformat results
         results_anova <- data.frame(
@@ -69,7 +68,7 @@ registration_stats_anova <-
         )
         colnames(results_anova) <- paste0(prefix, "_", colnames(results_anova))
 
-         ## Add gene info
+        ## Add gene info
         results_anova$ensembl <-
             rowData(sce_pseudo)[[gene_ensembl]]
         results_anova$gene <- rowData(sce_pseudo)[[gene_name]]
