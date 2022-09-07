@@ -49,11 +49,6 @@ rowData(sce)$gene_name <- paste0("gene", seq_len(nrow(sce)))
 ## Pseudo-bulk
 sce_pseudo <- registration_pseudobulk(sce, "Treatment", "sample_id", c("age"))
 colData(sce_pseudo)
-
-## For tests
-# sce$batches <- sample(1:3, ncol(sce), replace=TRUE)
-# sce_pseudo <- registration_pseudobulk(sce, "Treatment", "sample_id", c("age", "batches"))
-
 }
 \seealso{
 Other spatial registration and statistical modeling functions.: 

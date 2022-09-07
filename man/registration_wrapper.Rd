@@ -66,8 +66,10 @@ rowData(sce)$ensembl <- paste0("ENSG", seq_len(nrow(sce)))
 rowData(sce)$gene_name <- paste0("gene", seq_len(nrow(sce)))
 
 ## Compute all modeling results
-example_modeling_results <- registration_wrapper(sce,
-    "Treatment", "sample_id", c("age"), "ensembl", "gene_name", "wrapper")
+example_modeling_results <- registration_wrapper(
+    sce,
+    "Treatment", "sample_id", c("age"), "ensembl", "gene_name", "wrapper"
+)
 }
 \seealso{
 Other spatial registration and statistical modeling functions.: 

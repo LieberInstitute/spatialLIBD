@@ -20,7 +20,8 @@
 #' block_cor <- registration_block_cor(sce_pseudo, registration_mod)
 registration_block_cor <- function(sce_pseudo, registration_model, var_sample_id = "registration_sample_id") {
 
-    ## get duplicate correlation #http://web.mit.edu/~r/current/arch/i386_linux26/lib/R/library/limma/html/dupcor.html
+    ## Compute the duplicate correlation so we don't have to compute it
+    ## multiple times
     message(Sys.time(), " run duplicateCorrelation()")
     corfit <- limma::duplicateCorrelation(logcounts(sce_pseudo), registration_model,
         block = sce_pseudo[[var_sample_id]]

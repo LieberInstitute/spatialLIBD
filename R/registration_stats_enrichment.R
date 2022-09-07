@@ -33,7 +33,7 @@ registration_stats_enrichment <-
     var_sample_id = "registration_sample_id",
     gene_ensembl = NULL,
     gene_name = NULL) {
-        ## Next for each layer test that layer vs the rest
+        ## For each cluster, test it against the rest
         cluster_idx <- split(seq(along = sce_pseudo[[var_registration]]), sce_pseudo[[var_registration]])
 
         message(Sys.time(), " computing enrichment statistics")
@@ -49,9 +49,6 @@ registration_stats_enrichment <-
                 res_formula <- eval(str2expression(paste("~", "res")))
             }
             m <- model.matrix(res_formula, data = colData(sce_pseudo))
-
-            # josh suggested use top table as a wrapper because it makes the output of eBayes nicer
-
             limma::eBayes(
                 limma::lmFit(
                     logcounts(sce_pseudo),
@@ -64,7 +61,7 @@ registration_stats_enrichment <-
 
 
         message(Sys.time(), " extract and reformat enrichment results")
-        ##########
+
         ## Extract the p-values
         pvals0_contrasts_cluster <-
             sapply(eb0_list_cluster, function(x) {
@@ -72,28 +69,38 @@ registration_stats_enrichment <-
             })
         rownames(pvals0_contrasts_cluster) <- rownames(sce_pseudo)
 
+        ## Extract t-statistics
         t0_contrasts_cluster <- sapply(eb0_list_cluster, function(x) {
             x$t[, 2, drop = FALSE]
         })
         rownames(t0_contrasts_cluster) <- rownames(sce_pseudo)
 
+        ## Compute FDRs
         fdrs0_contrasts_cluster <-
             apply(pvals0_contrasts_cluster, 2, p.adjust, "fdr")
 
+        ## Merge into one data.frame
         results_specificity <-
             f_merge(p = pvals0_contrasts_cluster, fdr = fdrs0_contrasts_cluster, t = t0_contrasts_cluster)
 
+        ## Add gene info
         results_specificity$ensembl <-
             rowData(sce_pseudo)[[gene_ensembl]]
         results_specificity$gene <- rowData(sce_pseudo)[[gene_name]]
+
+        ## Done!
         return(results_specificity)
     }
 
 ## Helper function
 f_merge <- function(p, fdr, t) {
+    ## Add some prefixes to the columns that will be recognized by
+    ## other spatialLIBD functions
     colnames(p) <- paste0("p_value_", colnames(p))
     colnames(fdr) <- paste0("fdr_", colnames(fdr))
     colnames(t) <- paste0("t_stat_", colnames(t))
+
+    ## Merge into a data.frame
     res <- as.data.frame(cbind(t, p, fdr))
     return(res)
 }

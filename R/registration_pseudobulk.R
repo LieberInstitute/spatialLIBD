@@ -42,13 +42,13 @@
 #' ## Pseudo-bulk
 #' sce_pseudo <- registration_pseudobulk(sce, "Treatment", "sample_id", c("age"))
 #' colData(sce_pseudo)
-#'
-#' ## For tests
-#' # sce$batches <- sample(1:3, ncol(sce), replace=TRUE)
-#' # sce_pseudo <- registration_pseudobulk(sce, "Treatment", "sample_id", c("age", "batches"))
-#'
 registration_pseudobulk <-
-    function(sce, var_registration, var_sample_id, covars = NULL) {
+    function(sce,
+    var_registration,
+    var_sample_id,
+    covars = NULL) {
+
+        ## Check that inputs are correct
         stopifnot(is(sce, "SingleCellExperiment"))
         stopifnot(var_registration %in% colnames(colData(sce)))
         stopifnot(var_sample_id %in% colnames(colData(sce)))
@@ -56,10 +56,20 @@ registration_pseudobulk <-
             !c("registration_sample_id", "registration_variable") %in% colnames(colData(sce))
         ))
 
+        ## Avoid any incorrect inputs that are otherwise hard to detect
+        stopifnot(!var_registration %in% covars)
+        stopifnot(!var_sample_id %in% covars)
+        stopifnot(var_registration != var_sample_id)
+
         ## Check that the values in the registration variable are ok
         uniq_var_regis <- unique(sce[[var_registration]])
         if (any(grepl("\\+|\\-", uniq_var_regis))) {
-            stop("Remove the + and - signs in colData(sce)[, '", var_registration, "'] to avoid downstream issues.", call. = FALSE)
+            stop(
+                "Remove the + and - signs in colData(sce)[, '",
+                var_registration,
+                "'] to avoid downstream issues.",
+                call. = FALSE
+            )
         }
 
         ## Pseudo-bulk for our current BayesSpace cluster results
@@ -83,17 +93,23 @@ registration_pseudobulk <-
         if (!is.null(covars)) {
             for (covariate_i in covars) {
                 if (sum(is.na(sce_pseudo[[covariate_i]])) == ncol(sce_pseudo)) {
-                    stop("Covariate '", covariate_i, "' has all NAs after pseudo-bulking. Might be due to not being a sample-level covariate.", call. = FALSE)
+                    stop(
+                        "Covariate '",
+                        covariate_i,
+                        "' has all NAs after pseudo-bulking. Might be due to not being a sample-level covariate.",
+                        call. = FALSE
+                    )
                 }
             }
         }
 
-        ###############################
+        ## Drop lowly-expressed genes
         message(Sys.time(), " drop lowly expressed genes")
         keep_expr <-
             edgeR::filterByExpr(sce_pseudo, group = "registration_variable")
         sce_pseudo <- sce_pseudo[which(keep_expr), ]
 
+        ## Compute the logcounts
         message(Sys.time(), " normalize expression")
         logcounts(sce_pseudo) <-
             edgeR::cpm(edgeR::calcNormFactors(sce_pseudo),
@@ -101,5 +117,6 @@ registration_pseudobulk <-
                 prior.count = 1
             )
 
+        ## Done!
         return(sce_pseudo)
     }

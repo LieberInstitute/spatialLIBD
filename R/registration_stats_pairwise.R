@@ -28,6 +28,10 @@ registration_stats_pairwise <-
     var_sample_id = "registration_sample_id",
     gene_ensembl = NULL,
     gene_name = NULL) {
+
+        ## Identify which are the pairwise columns of interest (aka, don't use
+        ## the sample-level covariates we are adjusting for) and then
+        ## shorten the names
         regis_cols <- grep("^registration_variable", colnames(registration_model))
         colnames(registration_model) <- gsub("^registration_variable", "", colnames(registration_model))
         regis_combs <- combn(colnames(registration_model)[regis_cols], 2)
