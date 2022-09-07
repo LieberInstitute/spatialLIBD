@@ -1,25 +1,36 @@
-#' Title
+#' Spatial registration: model
 #'
-#' @param sce_pseudo
-#' @param covars
-#' @param var_registration
+#' This function defines the statistical model that will be used for computing
+#' the block correlation as well as pairwise statistics. It is useful to check
+#' it in case your sample-level covariates need to be casted. For example, an
+#' `integer()` variable might have to be casted into a `factor()` if you wish
+#' to model it as a categorical variable and not a continuous one.
 #'
-#' @return
+#' @param sce_pseudo The output of `registration_pseudobulk()`.
+#' @param var_registration A `character(1)` specifying the `colData(sce_pseudo)`
+#' variable of interest against which will be used for computing the relevant
+#' statistics.
+#' @inheritParams registration_pseudobulk
+#'
+#' @return The output of `model.matrix()` which you can inspect to verify that
+#' your sample-level covariates are being properly modeled.
 #' @export
+#' @family spatial registration and statistical modeling functions.
 #'
 #' @examples
-#' mod <- registration_model(sce_pseudo, "age")
-#' registration_model(sce_pseudo)
-#' registration_model(sce_pseudo, "absent")
-
+#' example("registration_pseudobulk", package = "spatialLIBD")
+#' registration_mod <- registration_model(sce_pseudo, "age")
+#' head(registration_mod)
+#'
+#' ## For tests later
+#' # registration_model(sce_pseudo)
+#' # registration_model(sce_pseudo, "absent")
+#'
 registration_model <- function(sce_pseudo, covars = NULL, var_registration = "registration_variable") {
-
     if (is.null(covars)) {
         mat_formula <- eval(str2expression(paste("~", "0", "+", var_registration)))
-
     } else {
         mat_formula <- eval(str2expression(paste("~", "0", "+", var_registration, "+", paste(covars, collapse = " + "))))
-
     }
 
     ### access different elements of formula and check to see if they're in colData(sce_pseudo)
@@ -38,5 +49,4 @@ registration_model <- function(sce_pseudo, covars = NULL, var_registration = "re
     ) # binarizes factors
 
     return(mod)
-
 }

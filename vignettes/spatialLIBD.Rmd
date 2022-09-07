@@ -51,6 +51,7 @@ bib <- c(
     BiocStyle = citation("BiocStyle")[1],
     cowplot = citation("cowplot")[1],
     DT = citation("DT")[1],
+    edgeR = citation("edgeR")[1],
     ExperimentHub = citation("ExperimentHub")[1],
     fields = citation("fields")[1],
     GenomicRanges = citation("GenomicRanges")[1],
@@ -58,6 +59,7 @@ bib <- c(
     golem = citation("golem")[1],
     IRanges = citation("IRanges")[1],
     knitr = citation("knitr")[3],
+    limma = citation("limma")[1],
     magick = citation("magick")[1],
     Matrix = citation("Matrix")[1],
     paletteer = citation("paletteer")[1],
@@ -68,6 +70,7 @@ bib <- c(
     rtracklayer = citation("rtracklayer")[1],
     S4Vectors = citation("S4Vectors")[1],
     scater = citation("scater")[1],
+    scuttle = citation("scuttle")[1],
     sessioninfo = citation("sessioninfo")[1],
     SingleCellExperiment = citation("SingleCellExperiment")[1],
     shiny = citation("shiny")[1],
@@ -580,6 +583,7 @@ The `r Biocpkg('spatialLIBD')` package `r Citep(bib[['spatialLIBD']])` was made 
 * `r Biocpkg('BiocStyle')` `r Citep(bib[['BiocStyle']])`
 * `r CRANpkg('cowplot')` `r Citep(bib[['cowplot']])`
 * `r CRANpkg('DT')` `r Citep(bib[['DT']])`
+* `r Biocpkg('edgeR')` `r Citep(bib[['edgeR']])`
 * `r Biocpkg('ExperimentHub')` `r Citep(bib[['ExperimentHub']])`
 * `r CRANpkg('fields')` `r Citep(bib[['fields']])`
 * `r Biocpkg('GenomicRanges')` `r Citep(bib[['GenomicRanges']])`
@@ -587,6 +591,7 @@ The `r Biocpkg('spatialLIBD')` package `r Citep(bib[['spatialLIBD']])` was made 
 * `r CRANpkg('golem')` `r Citep(bib[['golem']])`
 * `r Biocpkg('IRanges')` `r Citep(bib[['IRanges']])`
 * `r CRANpkg('knitr')` `r Citep(bib[['knitr']])`
+* `r Biocpkg('limma')` `r Citep(bib[['limma']])`
 * `r CRANpkg('magick')` `r Citep(bib[['magick']])`
 * `r CRANpkg('Matrix')` `r Citep(bib[['Matrix']])`
 * `r CRANpkg('paletteer')` `r Citep(bib[['paletteer']])`
@@ -597,6 +602,7 @@ The `r Biocpkg('spatialLIBD')` package `r Citep(bib[['spatialLIBD']])` was made 
 * `r Biocpkg('rtracklayer')` `r Citep(bib[['rtracklayer']])`
 * `r Biocpkg('S4Vectors')` `r Citep(bib[['S4Vectors']])`
 * `r Biocpkg('scater')` `r Citep(bib[['scater']])`
+* `r Biocpkg('scuttle')` `r Citep(bib[['scuttle']])`
 * `r CRANpkg('sessioninfo')` `r Citep(bib[['sessioninfo']])`
 * `r Biocpkg('SingleCellExperiment')` `r Citep(bib[['SingleCellExperiment']])`
 * `r CRANpkg('shiny')` `r Citep(bib[['shiny']])`
