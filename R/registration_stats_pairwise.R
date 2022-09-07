@@ -12,7 +12,7 @@
 #' similar to `fetch_data("modeling_results")$pairwise`.
 #' @export
 #' @family spatial registration and statistical modeling functions.
-#' @importFrom limma lmFit eBayes makeConstrasts contrasts.fit
+#' @importFrom limma lmFit eBayes makeContrasts contrasts.fit
 #'
 #' @examples
 #' example("registration_block_cor", package = "spatialLIBD")
@@ -42,7 +42,7 @@ registration_stats_pairwise <-
 
 
         ## Define the contrasts for each group vs another one
-        message(Sys.time(), " run pairwise models")
+        message(Sys.time(), " computing pairwise statistics")
         regis_cols <- grep("^registration_variable", colnames(registration_model))
         colnames(registration_model) <- gsub("^registration_variable", "", colnames(registration_model))
         regis_combs <- combn(colnames(registration_model)[regis_cols], 2)

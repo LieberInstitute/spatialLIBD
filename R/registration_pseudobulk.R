@@ -16,7 +16,7 @@
 #' @return A pseudo-bulked [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class] object.
 #' @importFrom SingleCellExperiment logcounts
 #' @importFrom scuttle aggregateAcrossCells
-#' @importFrom edgeR filterByExpr calcNormFactors cpm
+#' @importFrom edgeR filterByExpr calcNormFactors
 #' @export
 #' @family spatial registration and statistical modeling functions.
 #'

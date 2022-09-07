@@ -50,6 +50,7 @@ Other spatial registration and statistical modeling functions.:
 \code{\link{registration_block_cor}()},
 \code{\link{registration_model}()},
 \code{\link{registration_pseudobulk}()},
+\code{\link{registration_stats_anova}()},
 \code{\link{registration_stats_enrichment}()}
 }
 \concept{spatial registration and statistical modeling functions.}

@@ -36,7 +36,7 @@ registration_stats_enrichment <-
         ## Next for each layer test that layer vs the rest
         cluster_idx <- split(seq(along = sce_pseudo[[var_registration]]), sce_pseudo[[var_registration]])
 
-        message(Sys.time(), " run enrichment statistics")
+        message(Sys.time(), " computing enrichment statistics")
         eb0_list_cluster <- lapply(cluster_idx, function(x) {
             res <- rep(0, ncol(sce_pseudo))
             res[x] <- 1
