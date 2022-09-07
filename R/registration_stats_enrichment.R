@@ -34,7 +34,7 @@ registration_stats_enrichment <-
     gene_ensembl = NULL,
     gene_name = NULL) {
         ## Next for each layer test that layer vs the rest
-        cluster_idx <- rafalib::splitit(sce_pseudo[[var_registration]])
+        cluster_idx <- split(seq(along = sce_pseudo[[var_registration]]), sce_pseudo[[var_registration]])
 
         message(Sys.time(), " run enrichment statistics")
         eb0_list_cluster <- lapply(cluster_idx, function(x) {
