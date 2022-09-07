@@ -46,12 +46,14 @@ annotate_registered_clusters <- function(cor_matrix, confidence_threshold = 0.25
         annotated <- gsub("^WM\\/", "WM\\/L", annotated)
     }
 
-    data.frame(
+    result <- data.frame(
         cluster = names(annotated),
         layer_confidence = ifelse(apply(cor_matrix, 1, max) > confidence_threshold, "good", "poor"),
         layer_label = annotated,
         row.names = NULL
     )
+    result$layer_label <- paste0(result$layer_label, ifelse(result$layer_confidence == "good", "", "*"))
+    return(result)
 }
 
 annotate_registered_cluster <- function(remaining, label = "", current = NULL, cutoff_merge_ratio = 0.25) {
