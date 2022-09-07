@@ -113,7 +113,7 @@ spe <- fetch_data(type = "spe")
 spe
 
 ## Note the memory size
-lobstr::obj_size(spe) 
+lobstr::obj_size(spe)
 
 ## Remake the logo image with histology information
 vis_clus(

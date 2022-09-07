@@ -4,7 +4,7 @@ library("spatialLIBD")
 ## with the memory issues at
 ## https://travis-ci.com/LieberInstitute/spatialLIBD/builds/150177257?utm_medium=notification&utm_source=slack
 if (!exists("sce")) sce <- fetch_data(type = "sce", eh = ehub)
-lobstr::obj_size(sce) 
+lobstr::obj_size(sce)
 # 2.08
 # GB
 

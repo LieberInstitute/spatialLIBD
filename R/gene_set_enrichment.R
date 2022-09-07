@@ -76,7 +76,7 @@ gene_set_enrichment <-
 
         if (reverse) {
             tstats <- tstats * -1
-            if(model_type == "pairwise") {
+            if (model_type == "pairwise") {
                 colnames(tstats) <-
                     vapply(strsplit(colnames(tstats), "-"), function(x) {
                         paste(rev(x), collapse = "-")
@@ -84,7 +84,6 @@ gene_set_enrichment <-
             } else if (model_type == "anova") {
                 stop("reverse = TRUE does not work with model_type = anova since F-statistics cannot have negative values.", call. = FALSE)
             }
-
         }
 
         fdrs <-
@@ -114,7 +113,7 @@ gene_set_enrichment <-
             }))
 
         enrichTab$model_type <- model_type
-        if(model_type == "enrichment" && reverse) {
+        if (model_type == "enrichment" && reverse) {
             enrichTab$model_type <- "depletion"
         }
         enrichTab$fdr_cut <- fdr_cut

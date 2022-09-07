@@ -66,8 +66,8 @@ app_server <- function(input, output, session) {
         }
 
         preferred_choice <- colnames(colData(spe))[grep(
-                paste0(isolate(input$cluster), "_colors$"), colnames(colData(spe))
-                )]
+            paste0(isolate(input$cluster), "_colors$"), colnames(colData(spe))
+        )]
 
         choices <- c(
             preferred_choice,
@@ -759,7 +759,7 @@ app_server <- function(input, output, session) {
             dragmode = "select"
         )
 
-        plotly_dim <- layout(ggplotly(p_dim + theme(legend.position='none'),
+        plotly_dim <- layout(ggplotly(p_dim + theme(legend.position = "none"),
             source = "plotly_histology",
             tooltip = c("fill", "key")
         ))
@@ -1070,7 +1070,7 @@ app_server <- function(input, output, session) {
     # Set the options based on the model
     observeEvent(input$layer_model, {
         if (!is.null(input$layer_model)) {
-            model_i <-  which(sig_genes$model_type == input$layer_model)
+            model_i <- which(sig_genes$model_type == input$layer_model)
             updatePickerInput(
                 session,
                 inputId = "layer_model_test",
