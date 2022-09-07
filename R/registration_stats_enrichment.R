@@ -20,11 +20,11 @@
 #'
 #' @examples
 #' example("registration_block_cor", package = "spatialLIBD")
-#' results_specificity <- registration_stats_enrichment(sce_pseudo,
+#' results_enrichment <- registration_stats_enrichment(sce_pseudo,
 #'     block_cor, "age",
 #'     gene_ensembl = "ensembl", gene_name = "gene_name"
 #' )
-#' head(results_specificity)
+#' head(results_enrichment)
 registration_stats_enrichment <-
     function(sce_pseudo,
     block_cor,

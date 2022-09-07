@@ -28,6 +28,11 @@ registration_stats_pairwise <-
     var_sample_id = "registration_sample_id",
     gene_ensembl = NULL,
     gene_name = NULL) {
+
+        regis_cols <- grep("^registration_variable", colnames(registration_model))
+        colnames(registration_model) <- gsub("^registration_variable", "", colnames(registration_model))
+        regis_combs <- combn(colnames(registration_model)[regis_cols], 2)
+
         message(Sys.time(), " running the baseline pairwise model")
         fit <-
             limma::lmFit(
@@ -38,12 +43,8 @@ registration_stats_pairwise <-
             )
         eb <- limma::eBayes(fit)
 
-
         ## Define the contrasts for each group vs another one
         message(Sys.time(), " computing pairwise statistics")
-        regis_cols <- grep("^registration_variable", colnames(registration_model))
-        colnames(registration_model) <- gsub("^registration_variable", "", colnames(registration_model))
-        regis_combs <- combn(colnames(registration_model)[regis_cols], 2)
         regis_constrasts <- apply(regis_combs, 2, function(x) {
             z <- paste(x, collapse = "-")
             limma::makeContrasts(contrasts = z, levels = registration_model)

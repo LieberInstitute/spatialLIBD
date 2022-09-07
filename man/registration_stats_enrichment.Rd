@@ -45,11 +45,11 @@ registration with \code{layer_stat_cor()} and related functions.
 }
 \examples{
 example("registration_block_cor", package = "spatialLIBD")
-results_specificity <- registration_stats_enrichment(sce_pseudo,
+results_enrichment <- registration_stats_enrichment(sce_pseudo,
     block_cor, "age",
     gene_ensembl = "ensembl", gene_name = "gene_name"
 )
-head(results_specificity)
+head(results_enrichment)
 }
 \seealso{
 Other spatial registration and statistical modeling functions.: 
@@ -57,6 +57,7 @@ Other spatial registration and statistical modeling functions.:
 \code{\link{registration_model}()},
 \code{\link{registration_pseudobulk}()},
 \code{\link{registration_stats_anova}()},
-\code{\link{registration_stats_pairwise}()}
+\code{\link{registration_stats_pairwise}()},
+\code{\link{registration_wrapper}()}
 }
 \concept{spatial registration and statistical modeling functions.}

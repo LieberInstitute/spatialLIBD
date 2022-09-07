@@ -5,7 +5,7 @@
 #'
 #' @param sce A
 #' [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class]
-#' object.
+#' object or one that inherits its properties.
 #' @param var_registration A `character(1)` specifying the `colData(sce)`
 #' variable of interest against which will be used for computing the relevant
 #' statistics.
@@ -21,6 +21,8 @@
 #' @family spatial registration and statistical modeling functions.
 #'
 #' @examples
+#' ## Ensure reproducibility of example data
+#' set.seed(20220907)
 #'
 #' ## Generate example data
 #' sce <- scuttle::mockSCE()
