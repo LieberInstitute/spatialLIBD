@@ -3,6 +3,7 @@
 export(add10xVisiumAnalysis)
 export(add_images)
 export(add_key)
+export(annotate_registered_clusters)
 export(check_modeling_results)
 export(check_sce)
 export(check_sce_layer)

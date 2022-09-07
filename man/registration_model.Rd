@@ -34,6 +34,7 @@ to model it as a categorical variable and not a continuous one.
 example("registration_pseudobulk", package = "spatialLIBD")
 registration_mod <- registration_model(sce_pseudo, "age")
 head(registration_mod)
+
 }
 \seealso{
 Other spatial registration and statistical modeling functions.: 
