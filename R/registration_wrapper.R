@@ -36,20 +36,23 @@
 #' rowData(sce)$gene_name <- paste0("gene", seq_len(nrow(sce)))
 #'
 #' ## Compute all modeling results
-#' example_modeling_results <- registration_wrapper(sce,
-#'     "Treatment", "sample_id", c("age"), "ensembl", "gene_name", "wrapper")
+#' example_modeling_results <- registration_wrapper(
+#'     sce,
+#'     "Treatment", "sample_id", c("age"), "ensembl", "gene_name", "wrapper"
+#' )
 registration_wrapper <-
     function(sce,
-        var_registration,
-        var_sample_id,
-        covars = NULL,
-        gene_ensembl = NULL,
-        gene_name = NULL,
-        prefix = "") {
+    var_registration,
+    var_sample_id,
+    covars = NULL,
+    gene_ensembl = NULL,
+    gene_name = NULL,
+    prefix = "") {
         sce_pseudo <-
             registration_pseudobulk(sce,
                 var_registration = var_registration,
-                var_sample_id = var_sample_id)
+                var_sample_id = var_sample_id
+            )
         registration_mod <-
             registration_model(sce_pseudo, covars = covars)
         block_cor <-

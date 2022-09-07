@@ -28,7 +28,6 @@ registration_stats_pairwise <-
     var_sample_id = "registration_sample_id",
     gene_ensembl = NULL,
     gene_name = NULL) {
-
         regis_cols <- grep("^registration_variable", colnames(registration_model))
         colnames(registration_model) <- gsub("^registration_variable", "", colnames(registration_model))
         regis_combs <- combn(colnames(registration_model)[regis_cols], 2)
