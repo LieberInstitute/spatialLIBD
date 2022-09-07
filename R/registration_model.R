@@ -43,7 +43,7 @@ registration_model <- function(sce_pseudo, covars = NULL, var_registration = "re
     }
 
     # create matrix where the rownames are the sample:clusters and the columns are the other variables (spatial.cluster + region + age + sex)
-    message("Create model matrix - ", Sys.time())
+    message(Sys.time(), " create model matrix")
     mod <- model.matrix(mat_formula,
         data = colData(sce_pseudo)
     ) # binarizes factors

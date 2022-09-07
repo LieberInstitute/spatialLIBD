@@ -57,6 +57,7 @@ colData(sce_pseudo)
 Other spatial registration and statistical modeling functions.: 
 \code{\link{registration_block_cor}()},
 \code{\link{registration_model}()},
-\code{\link{registration_stats_enrichment}()}
+\code{\link{registration_stats_enrichment}()},
+\code{\link{registration_stats_pairwise}()}
 }
 \concept{spatial registration and statistical modeling functions.}

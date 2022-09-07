@@ -35,6 +35,7 @@ block_cor <- registration_block_cor(sce_pseudo, registration_mod)
 Other spatial registration and statistical modeling functions.: 
 \code{\link{registration_model}()},
 \code{\link{registration_pseudobulk}()},
-\code{\link{registration_stats_enrichment}()}
+\code{\link{registration_stats_enrichment}()},
+\code{\link{registration_stats_pairwise}()}
 }
 \concept{spatial registration and statistical modeling functions.}
