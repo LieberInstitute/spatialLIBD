@@ -10,6 +10,10 @@
 #' @inheritParams registration_pseudobulk
 #' @inheritParams registration_stats_enrichment
 #' @inheritParams registration_stats_anova
+#' @param min_ncells An `integer(1)` greater than 0 specifying the minimum
+#' number of cells (for scRNA-seq) or spots (for spatial) that are combined
+#' when pseudo-bulking. Pseudo-bulked samples with less than `min_ncells` on
+#' `sce_pseudo$ncells` will be dropped.
 #'
 #' @return A `list()` of `data.frame()` with the statistical results. This is
 #' similar to `fetch_data("modeling_results")`.
@@ -47,12 +51,23 @@ registration_wrapper <-
     covars = NULL,
     gene_ensembl = NULL,
     gene_name = NULL,
-    prefix = "") {
+    prefix = "",
+    min_ncells = NULL) {
         sce_pseudo <-
             registration_pseudobulk(sce,
                 var_registration = var_registration,
                 var_sample_id = var_sample_id
             )
+
+        if (!is.null(min_ncells)) {
+            message(
+                Sys.time(),
+                " dropping ",
+                sum(sce_pseudo$ncells < min_ncells),
+                " pseudo-bulked samples that are below 'min_ncells'."
+            )
+            sce_pseudo <- sce_pseudo[, sce_pseudo$ncells >= min_ncells]
+        }
         registration_mod <-
             registration_model(sce_pseudo, covars = covars)
         block_cor <-

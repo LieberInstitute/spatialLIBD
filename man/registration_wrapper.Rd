@@ -11,7 +11,8 @@ registration_wrapper(
   covars = NULL,
   gene_ensembl = NULL,
   gene_name = NULL,
-  prefix = ""
+  prefix = "",
+  min_ncells = NULL
 )
 }
 \arguments{
@@ -37,6 +38,11 @@ column with the gene names (symbols).}
 \item{prefix}{A \code{character(1)} specifying the prefix to use for the
 F-statistics column. This is particularly useful if you will run this
 function more than once and want to be able to merge the results.}
+
+\item{min_ncells}{An \code{integer(1)} greater than 0 specifying the minimum
+number of cells (for scRNA-seq) or spots (for spatial) that are combined
+when pseudo-bulking. Pseudo-bulked samples with less than \code{min_ncells} on
+\code{sce_pseudo$ncells} will be dropped.}
 }
 \value{
 A \code{list()} of \code{data.frame()} with the statistical results. This is
