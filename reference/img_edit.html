@@ -19,7 +19,7 @@ highlight certain features of these images."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.12</span>
       </span>
     </div>
 
@@ -70,26 +70,26 @@ highlight certain features of these images.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">img_edit</span><span class="op">(</span>
-  <span class="va">spe</span>,
-  <span class="va">sampleid</span>,
-  image_id <span class="op">=</span> <span class="st">"lowres"</span>,
-  channel <span class="op">=</span> <span class="cn">NA</span>,
-  brightness <span class="op">=</span> <span class="fl">100</span>,
-  saturation <span class="op">=</span> <span class="fl">100</span>,
-  hue <span class="op">=</span> <span class="fl">100</span>,
-  enhance <span class="op">=</span> <span class="cn">FALSE</span>,
-  contrast_sharpen <span class="op">=</span> <span class="cn">NA</span>,
-  quantize_max <span class="op">=</span> <span class="cn">NA</span>,
-  quantize_dither <span class="op">=</span> <span class="cn">TRUE</span>,
-  equalize <span class="op">=</span> <span class="cn">FALSE</span>,
-  normalize <span class="op">=</span> <span class="cn">FALSE</span>,
-  transparent_color <span class="op">=</span> <span class="cn">NA</span>,
-  transparent_fuzz <span class="op">=</span> <span class="fl">0</span>,
-  background_color <span class="op">=</span> <span class="cn">NA</span>,
-  median_radius <span class="op">=</span> <span class="cn">NA</span>,
-  negate <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">img_edit</span><span class="op">(</span></span>
+<span>  <span class="va">spe</span>,</span>
+<span>  <span class="va">sampleid</span>,</span>
+<span>  image_id <span class="op">=</span> <span class="st">"lowres"</span>,</span>
+<span>  channel <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  brightness <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  saturation <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  hue <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  enhance <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  contrast_sharpen <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  quantize_max <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  quantize_dither <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  equalize <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  normalize <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  transparent_color <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  transparent_fuzz <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  background_color <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  median_radius <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  negate <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -100,60 +100,97 @@ highlight certain features of these images.</p>
 <a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html" class="external-link">SpatialExperiment-class</a>
 object with the spot-level Visium data and information required for
 visualizing the histology. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details.</p></dd>
+
+
 <dt>sampleid</dt>
 <dd><p>A <code>character(1)</code> specifying which sample to plot from
 <code>colData(spe)$sample_name</code>.</p></dd>
+
+
 <dt>image_id</dt>
 <dd><p>A <code>character(1)</code> with the name of the image ID you want to
 use in the background.</p></dd>
+
+
 <dt>channel</dt>
 <dd><p>A <code>character(1)</code> passed to
 <a href="https://docs.ropensci.org/magick/reference/color.html" class="external-link">magick::image_channel</a>. If <code>NA</code> this step is skipped.</p></dd>
+
+
 <dt>brightness</dt>
 <dd><p>A <code>numeric(1)</code> passed to
 <a href="https://docs.ropensci.org/magick/reference/color.html" class="external-link">magick::image_modulate</a>.</p></dd>
+
+
 <dt>saturation</dt>
 <dd><p>A <code>numeric(1)</code> passed to
 <a href="https://docs.ropensci.org/magick/reference/color.html" class="external-link">magick::image_modulate</a>.</p></dd>
+
+
 <dt>hue</dt>
 <dd><p>A <code>numeric(1)</code> passed to <a href="https://docs.ropensci.org/magick/reference/color.html" class="external-link">magick::image_modulate</a>.</p></dd>
+
+
 <dt>enhance</dt>
 <dd><p>A <code>logical(1)</code> controlling whether to use
 <a href="https://docs.ropensci.org/magick/reference/color.html" class="external-link">magick::enhance</a>.</p></dd>
+
+
 <dt>contrast_sharpen</dt>
 <dd><p>A <code>numeric(1)</code> passed to
 <a href="https://docs.ropensci.org/magick/reference/color.html" class="external-link">magick::image_contrast</a>. If <code>NA</code> this step is skipped.</p></dd>
+
+
 <dt>quantize_max</dt>
 <dd><p>A <code>numeric(1)</code> passed to
 <a href="https://docs.ropensci.org/magick/reference/color.html" class="external-link">magick::image_quantize</a>. If <code>NA</code> this step is skipped.</p></dd>
+
+
 <dt>quantize_dither</dt>
 <dd><p>A <code>logical(1)</code> passed to
 <a href="https://docs.ropensci.org/magick/reference/color.html" class="external-link">magick::image_quantize</a>.</p></dd>
+
+
 <dt>equalize</dt>
 <dd><p>A <code>logical(1)</code> controlling whether to use
 <a href="https://docs.ropensci.org/magick/reference/color.html" class="external-link">magick::equalize</a>.</p></dd>
+
+
 <dt>normalize</dt>
 <dd><p>A <code>logical(1)</code> controlling whether to use
 <a href="https://docs.ropensci.org/magick/reference/color.html" class="external-link">magick::normalize</a>.</p></dd>
+
+
 <dt>transparent_color</dt>
 <dd><p>A <code>character(1)</code> passed to
 <a href="https://docs.ropensci.org/magick/reference/color.html" class="external-link">magick::image_transparent</a>. If <code>NA</code> this step is skipped.</p></dd>
+
+
 <dt>transparent_fuzz</dt>
 <dd><p>A <code>numeric(1)</code> passed to
 <a href="https://docs.ropensci.org/magick/reference/color.html" class="external-link">magick::image_transparent</a>.</p></dd>
+
+
 <dt>background_color</dt>
 <dd><p>A <code>character(1)</code> passed to
 <a href="https://docs.ropensci.org/magick/reference/color.html" class="external-link">magick::image_background</a>. If <code>NA</code> this step is skipped.</p></dd>
+
+
 <dt>median_radius</dt>
 <dd><p>A <code>numeric(1)</code> passed to
 <a href="https://docs.ropensci.org/magick/reference/color.html" class="external-link">magick::image_median</a>. If <code>NA</code> this step is skipped.</p></dd>
+
+
 <dt>negate</dt>
 <dd><p>A <code>logical(1)</code> controlling whether to use
 <a href="https://docs.ropensci.org/magick/reference/color.html" class="external-link">magick::negate</a>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>magick</code> image object such as the one returned by
+    
+
+<p>A <code>magick</code> image object such as the one returned by
 <a href="https://docs.ropensci.org/magick/reference/editing.html" class="external-link">magick::image_read</a>.</p>
     </div>
     <div id="details">
@@ -171,16 +208,16 @@ directly use the <code>magick</code> package.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="enough_ram.html">enough_ram</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="co">## Obtain the necessary data</span></span>
-<span class="r-in">    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span><span class="op">)</span> <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">    <span class="co">## Reduce brightness to 25%</span></span>
-<span class="r-in">    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">img_edit</span><span class="op">(</span><span class="va">spe</span>, sampleid <span class="op">=</span> <span class="st">"151507"</span>, brightness <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-06</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-04-08 20:26:19 loading file /github/home/.cache/R/BiocFileCache/f1aa43d53629_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="enough_ram.html">enough_ram</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co">## Obtain the necessary data</span></span></span>
+<span class="r-in"><span>    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span><span class="op">)</span> <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Reduce brightness to 25%</span></span></span>
+<span class="r-in"><span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">img_edit</span><span class="op">(</span><span class="va">spe</span>, sampleid <span class="op">=</span> <span class="st">"151507"</span>, brightness <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:12:58 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/3ae9464272d_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-plt img"><img src="img_edit-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -196,8 +233,7 @@ directly use the <code>magick</code> package.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

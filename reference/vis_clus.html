@@ -19,7 +19,7 @@ gene-level (or any continuous variable) use vis_gene()."><meta property="og:imag
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.12</span>
       </span>
     </div>
 
@@ -70,18 +70,18 @@ gene-level (or any continuous variable) use <code><a href="vis_gene.html">vis_ge
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vis_clus</span><span class="op">(</span>
-  <span class="va">spe</span>,
-  <span class="va">sampleid</span>,
-  <span class="va">clustervar</span>,
-  colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#b2df8a"</span>, <span class="st">"#e41a1c"</span>, <span class="st">"#377eb8"</span>, <span class="st">"#4daf4a"</span>, <span class="st">"#ff7f00"</span>, <span class="st">"gold"</span>, <span class="st">"#a65628"</span>,
-    <span class="st">"#999999"</span>, <span class="st">"black"</span>, <span class="st">"grey"</span>, <span class="st">"white"</span>, <span class="st">"purple"</span><span class="op">)</span>,
-  spatial <span class="op">=</span> <span class="cn">TRUE</span>,
-  image_id <span class="op">=</span> <span class="st">"lowres"</span>,
-  alpha <span class="op">=</span> <span class="fl">1</span>,
-  point_size <span class="op">=</span> <span class="fl">1.25</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vis_clus</span><span class="op">(</span></span>
+<span>  <span class="va">spe</span>,</span>
+<span>  <span class="va">sampleid</span>,</span>
+<span>  <span class="va">clustervar</span>,</span>
+<span>  colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#b2df8a"</span>, <span class="st">"#e41a1c"</span>, <span class="st">"#377eb8"</span>, <span class="st">"#4daf4a"</span>, <span class="st">"#ff7f00"</span>, <span class="st">"gold"</span>, <span class="st">"#a65628"</span>,</span>
+<span>    <span class="st">"#999999"</span>, <span class="st">"black"</span>, <span class="st">"grey"</span>, <span class="st">"white"</span>, <span class="st">"purple"</span><span class="op">)</span>,</span>
+<span>  spatial <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  image_id <span class="op">=</span> <span class="st">"lowres"</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  point_size <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -92,36 +92,55 @@ gene-level (or any continuous variable) use <code><a href="vis_gene.html">vis_ge
 <a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html" class="external-link">SpatialExperiment-class</a>
 object with the spot-level Visium data and information required for
 visualizing the histology. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details.</p></dd>
+
+
 <dt>sampleid</dt>
 <dd><p>A <code>character(1)</code> specifying which sample to plot from
 <code>colData(spe)$sample_name</code>.</p></dd>
+
+
 <dt>clustervar</dt>
 <dd><p>A <code>character(1)</code> with the name of the <code>colData(spe)</code>
 column that has the cluster values.</p></dd>
+
+
 <dt>colors</dt>
 <dd><p>A vector of colors to use for visualizing the clusters
 from <code>clustervar</code>. If the vector has names, then those should match the
 values of <code>clustervar</code>.</p></dd>
+
+
 <dt>spatial</dt>
 <dd><p>A <code>logical(1)</code> indicating whether to include the histology
 layer from <code><a href="geom_spatial.html">geom_spatial()</a></code>. If you plan to use
 <a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">ggplotly()</a> then it's best to set this to <code>FALSE</code>.</p></dd>
+
+
 <dt>image_id</dt>
 <dd><p>A <code>character(1)</code> with the name of the image ID you want to
 use in the background.</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>A <code>numeric(1)</code> in the <code>[0, 1]</code> range that specifies the
 transparency level of the data on the spots.</p></dd>
+
+
 <dt>point_size</dt>
 <dd><p>A <code>numeric(1)</code> specifying the size of the points. Defaults
 to <code>1.25</code>. Some colors look better if you use <code>2</code> for instance.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Passed to <a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0()</a> for making the title of the
 plot following the <code>sampleid</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2</a> object.</p>
+    
+
+<p>A <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2</a> object.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -137,35 +156,35 @@ data and title for <code><a href="vis_clus_p.html">vis_clus_p()</a></code>.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="enough_ram.html">enough_ram</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="co">## Obtain the necessary data</span></span>
-<span class="r-in">    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span><span class="op">)</span> <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">    <span class="co">## Check the colors defined by Lukas M Weber</span></span>
-<span class="r-in">    <span class="va">libd_layer_colors</span></span>
-<span class="r-in"></span>
-<span class="r-in">    <span class="co">## Use the manual color palette by Lukas M Weber</span></span>
-<span class="r-in">    <span class="fu">vis_clus</span><span class="op">(</span></span>
-<span class="r-in">        spe <span class="op">=</span> <span class="va">spe</span>,</span>
-<span class="r-in">        clustervar <span class="op">=</span> <span class="st">"layer_guess_reordered"</span>,</span>
-<span class="r-in">        sampleid <span class="op">=</span> <span class="st">"151673"</span>,</span>
-<span class="r-in">        colors <span class="op">=</span> <span class="va">libd_layer_colors</span>,</span>
-<span class="r-in">        ... <span class="op">=</span> <span class="st">" LIBD Layers"</span></span>
-<span class="r-in">    <span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">    <span class="co">## Without histology</span></span>
-<span class="r-in">    <span class="fu">vis_clus</span><span class="op">(</span></span>
-<span class="r-in">        spe <span class="op">=</span> <span class="va">spe</span>,</span>
-<span class="r-in">        clustervar <span class="op">=</span> <span class="st">"layer_guess_reordered"</span>,</span>
-<span class="r-in">        sampleid <span class="op">=</span> <span class="st">"151673"</span>,</span>
-<span class="r-in">        colors <span class="op">=</span> <span class="va">libd_layer_colors</span>,</span>
-<span class="r-in">        ... <span class="op">=</span> <span class="st">" LIBD Layers"</span>,</span>
-<span class="r-in">        spatial <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span class="r-in">    <span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-06</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-04-08 20:28:27 loading file /github/home/.cache/R/BiocFileCache/f1aa43d53629_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="enough_ram.html">enough_ram</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co">## Obtain the necessary data</span></span></span>
+<span class="r-in"><span>    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span><span class="op">)</span> <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Check the colors defined by Lukas M Weber</span></span></span>
+<span class="r-in"><span>    <span class="va">libd_layer_colors</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Use the manual color palette by Lukas M Weber</span></span></span>
+<span class="r-in"><span>    <span class="fu">vis_clus</span><span class="op">(</span></span></span>
+<span class="r-in"><span>        spe <span class="op">=</span> <span class="va">spe</span>,</span></span>
+<span class="r-in"><span>        clustervar <span class="op">=</span> <span class="st">"layer_guess_reordered"</span>,</span></span>
+<span class="r-in"><span>        sampleid <span class="op">=</span> <span class="st">"151673"</span>,</span></span>
+<span class="r-in"><span>        colors <span class="op">=</span> <span class="va">libd_layer_colors</span>,</span></span>
+<span class="r-in"><span>        ... <span class="op">=</span> <span class="st">" LIBD Layers"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Without histology</span></span></span>
+<span class="r-in"><span>    <span class="fu">vis_clus</span><span class="op">(</span></span></span>
+<span class="r-in"><span>        spe <span class="op">=</span> <span class="va">spe</span>,</span></span>
+<span class="r-in"><span>        clustervar <span class="op">=</span> <span class="st">"layer_guess_reordered"</span>,</span></span>
+<span class="r-in"><span>        sampleid <span class="op">=</span> <span class="st">"151673"</span>,</span></span>
+<span class="r-in"><span>        colors <span class="op">=</span> <span class="va">libd_layer_colors</span>,</span></span>
+<span class="r-in"><span>        ... <span class="op">=</span> <span class="st">" LIBD Layers"</span>,</span></span>
+<span class="r-in"><span>        spatial <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:14:11 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/3ae9464272d_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-plt img"><img src="vis_clus-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -181,8 +200,7 @@ data and title for <code><a href="vis_clus_p.html">vis_clus_p()</a></code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

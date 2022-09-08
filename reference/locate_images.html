@@ -19,7 +19,7 @@ the image files don't use the spe$sample_id."><meta property="og:image" content=
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.12</span>
       </span>
     </div>
 
@@ -70,7 +70,7 @@ the image files don't use the <code>spe$sample_id</code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">locate_images</span><span class="op">(</span><span class="va">spe</span>, <span class="va">image_dir</span>, <span class="va">image_pattern</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">locate_images</span><span class="op">(</span><span class="va">spe</span>, <span class="va">image_dir</span>, <span class="va">image_pattern</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -81,16 +81,23 @@ the image files don't use the <code>spe$sample_id</code>.</p>
 <a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html" class="external-link">SpatialExperiment-class</a>
 object with the spot-level Visium data and information required for
 visualizing the histology. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details.</p></dd>
+
+
 <dt>image_dir</dt>
 <dd><p>A <code>character(1)</code> specifying a path to a directory containing
 image files with the pattern <code>sampleID_pattern.png</code>.</p></dd>
+
+
 <dt>image_pattern</dt>
 <dd><p>A <code>character(1)</code> specifying the pattern for the image
 files.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A named <code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code> vector with the path to images.</p>
+    
+
+<p>A named <code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code> vector with the path to images.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -100,9 +107,9 @@ files.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">locate_images</span><span class="op">(</span><span class="va">spe</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"testImage"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">locate_images</span><span class="op">(</span><span class="va">spe</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"testImage"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -117,8 +124,7 @@ files.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

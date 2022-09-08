@@ -40,6 +40,9 @@
     <loc>/reference/add_key.html</loc>
   </url>
   <url>
+    <loc>/reference/annotate_registered_clusters.html</loc>
+  </url>
+  <url>
     <loc>/reference/check_modeling_results.html</loc>
   </url>
   <url>
@@ -110,6 +113,27 @@
   </url>
   <url>
     <loc>/reference/read10xVisiumWrapper.html</loc>
+  </url>
+  <url>
+    <loc>/reference/registration_block_cor.html</loc>
+  </url>
+  <url>
+    <loc>/reference/registration_model.html</loc>
+  </url>
+  <url>
+    <loc>/reference/registration_pseudobulk.html</loc>
+  </url>
+  <url>
+    <loc>/reference/registration_stats_anova.html</loc>
+  </url>
+  <url>
+    <loc>/reference/registration_stats_enrichment.html</loc>
+  </url>
+  <url>
+    <loc>/reference/registration_stats_pairwise.html</loc>
+  </url>
+  <url>
+    <loc>/reference/registration_wrapper.html</loc>
   </url>
   <url>
     <loc>/reference/run_app.html</loc>

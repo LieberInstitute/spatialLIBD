@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.12</span>
       </span>
     </div>
 
@@ -66,13 +66,13 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">layer_stat_cor</span><span class="op">(</span>
-  <span class="va">stats</span>,
-  modeling_results <span class="op">=</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span>,
-  model_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">modeling_results</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,
-  reverse <span class="op">=</span> <span class="cn">FALSE</span>,
-  top_n <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">layer_stat_cor</span><span class="op">(</span></span>
+<span>  <span class="va">stats</span>,</span>
+<span>  modeling_results <span class="op">=</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span>,</span>
+<span>  model_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">modeling_results</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  reverse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  top_n <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -85,6 +85,8 @@ statistics should be computed similarly to the modeling results from
 the data we provide. For example, like the <code>enrichment</code> t-statistics that
 are derived from comparing one layer against the rest. The <code>stats</code> will be
 matched and then correlated with our statistics.</p></dd>
+
+
 <dt>modeling_results</dt>
 <dd><p>Defaults to the output of
 <code>fetch_data(type = 'modeling_results')</code>. This is a list of tables with the
@@ -92,6 +94,8 @@ columns <code>f_stat_*</code> or <code>t_stat_*</code> as well as <code>p_value_
 <code>ensembl</code>. The column name is used to extract the statistic results, the
 p-values, and the FDR adjusted p-values. Then the <code>ensembl</code> column is used
 for matching in some cases. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details.</p></dd>
+
+
 <dt>model_type</dt>
 <dd><p>A named element of the <code>modeling_results</code> list. By default
 that is either <code>enrichment</code> for the model that tests one human brain layer
@@ -101,17 +105,24 @@ than <code>layerB</code>, and <code>anova</code> which determines if any layer (
 from the rest adjusting for the mean expression level. The statistics for
 <code>enrichment</code> and <code>pairwise</code> are t-statistics while the <code>anova</code> model ones
 are F-statistics.</p></dd>
+
+
 <dt>reverse</dt>
 <dd><p>A <code>logical(1)</code> indicating whether to multiply by <code>-1</code> the
 input statistics and reverse the <code>layerA-layerB</code> column names (using the <code>-</code>)
 into <code>layerB-layerA</code>.</p></dd>
+
+
 <dt>top_n</dt>
 <dd><p>An <code>integer(1)</code> specifying whether to filter to the top n marker
 genes. The default is <code>NULL</code> in which case no filtering is done.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A correlation matrix between <code>stats</code> and our statistics using only
+    
+
+<p>A correlation matrix between <code>stats</code> and our statistics using only
 the Ensembl gene IDs present in both tables. The columns are sorted using
 a hierarchical cluster.</p>
     </div>
@@ -124,6 +135,7 @@ for a full analysis from which this family of functions is derived from.</p>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other Layer correlation functions: 
+<code><a href="annotate_registered_clusters.html">annotate_registered_clusters</a>()</code>,
 <code><a href="layer_stat_cor_plot.html">layer_stat_cor_plot</a>()</code></p></div>
     </div>
     <div id="author">
@@ -133,23 +145,23 @@ for a full analysis from which this family of functions is derived from.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## Obtain the necessary data</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-06</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-04-08 20:27:51 loading file /github/home/.cache/R/BiocFileCache/eb624a071adf_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Compute the correlations</span></span>
-<span class="r-in"><span class="va">cor_stats_layer</span> <span class="op">&lt;-</span> <span class="fu">layer_stat_cor</span><span class="op">(</span></span>
-<span class="r-in">    <span class="va">tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer</span>,</span>
-<span class="r-in">    <span class="va">modeling_results</span>,</span>
-<span class="r-in">    model_type <span class="op">=</span> <span class="st">"enrichment"</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Explore the correlation matrix</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cor_stats_layer</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Obtain the necessary data</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:13:42 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/425b2b3c4015_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Compute the correlations</span></span></span>
+<span class="r-in"><span><span class="va">cor_stats_layer</span> <span class="op">&lt;-</span> <span class="fu">layer_stat_cor</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer</span>,</span></span>
+<span class="r-in"><span>    <span class="va">modeling_results</span>,</span></span>
+<span class="r-in"><span>    model_type <span class="op">=</span> <span class="st">"enrichment"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Explore the correlation matrix</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cor_stats_layer</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               WM       Layer6     Layer5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 22 (3) 0.6824669 -0.009192291 -0.1934265</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 (3)  0.7154122 -0.070042729 -0.2290574</span>
@@ -157,7 +169,7 @@ for a full analysis from which this family of functions is derived from.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17 (3) 0.6364983 -0.094216046 -0.2026147</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 21 (3) 0.6281443 -0.050336358 -0.1988774</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7 (4)  0.1850724 -0.197283175 -0.2716890</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">cor_stats_layer</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">cor_stats_layer</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        WM               Layer6              Layer5             Layer4         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :-0.46352   Min.   :-0.197283   Min.   :-0.27169   Min.   :-0.253477  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:-0.26653   1st Qu.:-0.071919   1st Qu.:-0.14318   1st Qu.:-0.152714  </span>
@@ -172,14 +184,14 @@ for a full analysis from which this family of functions is derived from.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   : 0.02022   Mean   : 0.01056   Mean   :-0.01750  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.: 0.13638   3rd Qu.: 0.11008   3rd Qu.: 0.03523  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   : 0.56413   Max.   : 0.50734   Max.   : 0.63940  </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Repeat with top_n set to 10</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu">layer_stat_cor</span><span class="op">(</span></span>
-<span class="r-in">    <span class="va">tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer</span>,</span>
-<span class="r-in">    <span class="va">modeling_results</span>,</span>
-<span class="r-in">    model_type <span class="op">=</span> <span class="st">"enrichment"</span>,</span>
-<span class="r-in">    top_n <span class="op">=</span> <span class="fl">10</span></span>
-<span class="r-in"><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Repeat with top_n set to 10</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu">layer_stat_cor</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer</span>,</span></span>
+<span class="r-in"><span>    <span class="va">modeling_results</span>,</span></span>
+<span class="r-in"><span>    model_type <span class="op">=</span> <span class="st">"enrichment"</span>,</span></span>
+<span class="r-in"><span>    top_n <span class="op">=</span> <span class="fl">10</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        WM                Layer6              Layer5         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :-0.419078   Min.   :-0.245585   Min.   :-0.309621  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:-0.223879   1st Qu.:-0.148746   1st Qu.:-0.177987  </span>
@@ -215,8 +227,7 @@ for a full analysis from which this family of functions is derived from.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

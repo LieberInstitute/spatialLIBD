@@ -19,7 +19,7 @@ of a given gene and display the modeling results for the given gene."><meta prop
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.12</span>
       </span>
     </div>
 
@@ -70,19 +70,21 @@ of a given gene and display the modeling results for the given gene.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">layer_boxplot</span><span class="op">(</span>
-  i <span class="op">=</span> <span class="fl">1</span>,
-  sig_genes <span class="op">=</span> <span class="fu"><a href="sig_genes_extract.html">sig_genes_extract</a></span><span class="op">(</span><span class="op">)</span>,
-  short_title <span class="op">=</span> <span class="cn">TRUE</span>,
-  sce_layer <span class="op">=</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span>,
-  col_bkg_box <span class="op">=</span> <span class="st">"grey80"</span>,
-  col_bkg_point <span class="op">=</span> <span class="st">"grey40"</span>,
-  col_low_box <span class="op">=</span> <span class="st">"violet"</span>,
-  col_low_point <span class="op">=</span> <span class="st">"darkviolet"</span>,
-  col_high_box <span class="op">=</span> <span class="st">"skyblue"</span>,
-  col_high_point <span class="op">=</span> <span class="st">"dodgerblue4"</span>,
-  cex <span class="op">=</span> <span class="fl">2</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">layer_boxplot</span><span class="op">(</span></span>
+<span>  i <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  sig_genes <span class="op">=</span> <span class="fu"><a href="sig_genes_extract.html">sig_genes_extract</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  short_title <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  sce_layer <span class="op">=</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span>,</span>
+<span>  col_bkg_box <span class="op">=</span> <span class="st">"grey80"</span>,</span>
+<span>  col_bkg_point <span class="op">=</span> <span class="st">"grey40"</span>,</span>
+<span>  col_low_box <span class="op">=</span> <span class="st">"violet"</span>,</span>
+<span>  col_low_point <span class="op">=</span> <span class="st">"darkviolet"</span>,</span>
+<span>  col_high_box <span class="op">=</span> <span class="st">"skyblue"</span>,</span>
+<span>  col_high_point <span class="op">=</span> <span class="st">"dodgerblue4"</span>,</span>
+<span>  cex <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  group_var <span class="op">=</span> <span class="st">"layer_guess_reordered_short"</span>,</span>
+<span>  assayname <span class="op">=</span> <span class="st">"logcounts"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -90,38 +92,71 @@ of a given gene and display the modeling results for the given gene.</p>
     <dl><dt>i</dt>
 <dd><p>A <code>integer(1)</code> indicating which row of <code>sig_genes</code> do you want to
 plot.</p></dd>
+
+
 <dt>sig_genes</dt>
 <dd><p>The output of <code><a href="sig_genes_extract_all.html">sig_genes_extract_all()</a></code>.</p></dd>
+
+
 <dt>short_title</dt>
 <dd><p>A <code>logical(1)</code> indicating whether to print a short title
 or not.</p></dd>
+
+
 <dt>sce_layer</dt>
 <dd><p>Defaults to the output of
 <code>fetch_data(type = 'sce_layer')</code>. This is a
 SingleCellExperiment
 object with the spot-level Visium data compressed via pseudo-bulking to the
 layer-level (group-level) resolution. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details.</p></dd>
+
+
 <dt>col_bkg_box</dt>
 <dd><p>Box background color for layers not used when visualizing
 the <code>pairwise</code> model results.</p></dd>
+
+
 <dt>col_bkg_point</dt>
 <dd><p>Similar to <code>col_bkg_box</code> but for the points.</p></dd>
+
+
 <dt>col_low_box</dt>
 <dd><p>Box background color for layer(s) with the expected
 lower expression based on the actual test for row <code>i</code> of <code>sig_genes</code>.</p></dd>
+
+
 <dt>col_low_point</dt>
 <dd><p>Similar to <code>col_low_box</code> but for the points.</p></dd>
+
+
 <dt>col_high_box</dt>
 <dd><p>Similar to <code>col_low_box</code> but for the expected layer(s)
 with higher expression.</p></dd>
+
+
 <dt>col_high_point</dt>
 <dd><p>Similar to <code>col_high_box</code> but for the points.</p></dd>
+
+
 <dt>cex</dt>
 <dd><p>Controls the size of the text, points and axis legends.</p></dd>
+
+
+<dt>group_var</dt>
+<dd><p>A <code>character(1)</code> specifying a <code>colData(sce_layer)</code> column
+name to use for the x-axis.</p></dd>
+
+
+<dt>assayname</dt>
+<dd><p>A <code>character(1)</code> specifying the default assay to use from
+<code>assays(sce_layer)</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>This function creates a boxplot of the layer-level data
+    
+
+<p>This function creates a boxplot of the layer-level data
 (group-level) separated by layer and colored based on the model type from row
 <code>i</code> of <code>sig_genes</code>.</p>
     </div>
@@ -139,93 +174,93 @@ https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## Obtain the necessary data</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-06</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-04-08 20:27:44 loading file /github/home/.cache/R/BiocFileCache/eb624a071adf_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-06</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-04-08 20:27:45 loading file /github/home/.cache/R/BiocFileCache/eb6253f5836d_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Top 2 genes from the enrichment model</span></span>
-<span class="r-in"><span class="va">sig_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="sig_genes_extract_all.html">sig_genes_extract_all</a></span><span class="op">(</span></span>
-<span class="r-in">    n <span class="op">=</span> <span class="fl">2</span>,</span>
-<span class="r-in">    modeling_results <span class="op">=</span> <span class="va">modeling_results</span>,</span>
-<span class="r-in">    sce_layer <span class="op">=</span> <span class="va">sce_layer</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Example default boxplot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">layer_boxplot</span><span class="op">(</span>sig_genes <span class="op">=</span> <span class="va">sig_genes</span>, sce_layer <span class="op">=</span> <span class="va">sce_layer</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Obtain the necessary data</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:13:39 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/425b2b3c4015_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:13:40 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/1752a2a7d59e5_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Top 2 genes from the enrichment model</span></span></span>
+<span class="r-in"><span><span class="va">sig_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="sig_genes_extract_all.html">sig_genes_extract_all</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    n <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>    modeling_results <span class="op">=</span> <span class="va">modeling_results</span>,</span></span>
+<span class="r-in"><span>    sce_layer <span class="op">=</span> <span class="va">sce_layer</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Example default boxplot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">layer_boxplot</span><span class="op">(</span>sig_genes <span class="op">=</span> <span class="va">sig_genes</span>, sce_layer <span class="op">=</span> <span class="va">sce_layer</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="layer_boxplot-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Now show the long title version</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">layer_boxplot</span><span class="op">(</span></span>
-<span class="r-in">    sig_genes <span class="op">=</span> <span class="va">sig_genes</span>,</span>
-<span class="r-in">    short_title <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">    sce_layer <span class="op">=</span> <span class="va">sce_layer</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Now show the long title version</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">layer_boxplot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    sig_genes <span class="op">=</span> <span class="va">sig_genes</span>,</span></span>
+<span class="r-in"><span>    short_title <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>    sce_layer <span class="op">=</span> <span class="va">sce_layer</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="layer_boxplot-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">layer_boxplot</span><span class="op">(</span></span>
-<span class="r-in">    i <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">$</span><span class="va">model_type</span> <span class="op">==</span> <span class="st">"anova"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span class="r-in">    sig_genes <span class="op">=</span> <span class="va">sig_genes</span>,</span>
-<span class="r-in">    sce_layer <span class="op">=</span> <span class="va">sce_layer</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">layer_boxplot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    i <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">$</span><span class="va">model_type</span> <span class="op">==</span> <span class="st">"anova"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>    sig_genes <span class="op">=</span> <span class="va">sig_genes</span>,</span></span>
+<span class="r-in"><span>    sce_layer <span class="op">=</span> <span class="va">sce_layer</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="layer_boxplot-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">layer_boxplot</span><span class="op">(</span></span>
-<span class="r-in">    i <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">$</span><span class="va">model_type</span> <span class="op">==</span> <span class="st">"pairwise"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span class="r-in">    sig_genes <span class="op">=</span> <span class="va">sig_genes</span>,</span>
-<span class="r-in">    sce_layer <span class="op">=</span> <span class="va">sce_layer</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">layer_boxplot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    i <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">$</span><span class="va">model_type</span> <span class="op">==</span> <span class="st">"pairwise"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>    sig_genes <span class="op">=</span> <span class="va">sig_genes</span>,</span></span>
+<span class="r-in"><span>    sce_layer <span class="op">=</span> <span class="va">sce_layer</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="layer_boxplot-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Viridis colors displayed in the shiny app</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://sjmgarnier.github.io/viridisLite/" class="external-link">"viridisLite"</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">layer_boxplot</span><span class="op">(</span></span>
-<span class="r-in">    sig_genes <span class="op">=</span> <span class="va">sig_genes</span>,</span>
-<span class="r-in">    sce_layer <span class="op">=</span> <span class="va">sce_layer</span>,</span>
-<span class="r-in">    col_low_box <span class="op">=</span> <span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
-<span class="r-in">    col_low_point <span class="op">=</span> <span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span class="r-in">    col_high_box <span class="op">=</span> <span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span class="r-in">    col_high_point <span class="op">=</span> <span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Viridis colors displayed in the shiny app</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://sjmgarnier.github.io/viridisLite/" class="external-link">"viridisLite"</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">layer_boxplot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    sig_genes <span class="op">=</span> <span class="va">sig_genes</span>,</span></span>
+<span class="r-in"><span>    sce_layer <span class="op">=</span> <span class="va">sce_layer</span>,</span></span>
+<span class="r-in"><span>    col_low_box <span class="op">=</span> <span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>    col_low_point <span class="op">=</span> <span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>    col_high_box <span class="op">=</span> <span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>    col_high_point <span class="op">=</span> <span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="layer_boxplot-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Paper colors displayed in the shiny app</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">layer_boxplot</span><span class="op">(</span></span>
-<span class="r-in">    sig_genes <span class="op">=</span> <span class="va">sig_genes</span>,</span>
-<span class="r-in">    sce_layer <span class="op">=</span> <span class="va">sce_layer</span>,</span>
-<span class="r-in">    col_low_box <span class="op">=</span> <span class="st">"palegreen3"</span>,</span>
-<span class="r-in">    col_low_point <span class="op">=</span> <span class="st">"springgreen2"</span>,</span>
-<span class="r-in">    col_high_box <span class="op">=</span> <span class="st">"darkorange2"</span>,</span>
-<span class="r-in">    col_high_point <span class="op">=</span> <span class="st">"orange1"</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Paper colors displayed in the shiny app</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">layer_boxplot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    sig_genes <span class="op">=</span> <span class="va">sig_genes</span>,</span></span>
+<span class="r-in"><span>    sce_layer <span class="op">=</span> <span class="va">sce_layer</span>,</span></span>
+<span class="r-in"><span>    col_low_box <span class="op">=</span> <span class="st">"palegreen3"</span>,</span></span>
+<span class="r-in"><span>    col_low_point <span class="op">=</span> <span class="st">"springgreen2"</span>,</span></span>
+<span class="r-in"><span>    col_high_box <span class="op">=</span> <span class="st">"darkorange2"</span>,</span></span>
+<span class="r-in"><span>    col_high_point <span class="op">=</span> <span class="st">"orange1"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="layer_boxplot-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Blue/red colors displayed in the shiny app</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">layer_boxplot</span><span class="op">(</span></span>
-<span class="r-in">    i <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">$</span><span class="va">model_type</span> <span class="op">==</span> <span class="st">"pairwise"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span class="r-in">    sig_genes <span class="op">=</span> <span class="va">sig_genes</span>,</span>
-<span class="r-in">    sce_layer <span class="op">=</span> <span class="va">sce_layer</span>,</span>
-<span class="r-in">    col_bkg_box <span class="op">=</span> <span class="st">"grey90"</span>,</span>
-<span class="r-in">    col_bkg_point <span class="op">=</span> <span class="st">"grey60"</span>,</span>
-<span class="r-in">    col_low_box <span class="op">=</span> <span class="st">"skyblue2"</span>,</span>
-<span class="r-in">    col_low_point <span class="op">=</span> <span class="st">"royalblue3"</span>,</span>
-<span class="r-in">    col_high_box <span class="op">=</span> <span class="st">"tomato2"</span>,</span>
-<span class="r-in">    col_high_point <span class="op">=</span> <span class="st">"firebrick4"</span>,</span>
-<span class="r-in">    cex <span class="op">=</span> <span class="fl">3</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Blue/red colors displayed in the shiny app</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">layer_boxplot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    i <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">$</span><span class="va">model_type</span> <span class="op">==</span> <span class="st">"pairwise"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>    sig_genes <span class="op">=</span> <span class="va">sig_genes</span>,</span></span>
+<span class="r-in"><span>    sce_layer <span class="op">=</span> <span class="va">sce_layer</span>,</span></span>
+<span class="r-in"><span>    col_bkg_box <span class="op">=</span> <span class="st">"grey90"</span>,</span></span>
+<span class="r-in"><span>    col_bkg_point <span class="op">=</span> <span class="st">"grey60"</span>,</span></span>
+<span class="r-in"><span>    col_low_box <span class="op">=</span> <span class="st">"skyblue2"</span>,</span></span>
+<span class="r-in"><span>    col_low_point <span class="op">=</span> <span class="st">"royalblue3"</span>,</span></span>
+<span class="r-in"><span>    col_high_box <span class="op">=</span> <span class="st">"tomato2"</span>,</span></span>
+<span class="r-in"><span>    col_high_point <span class="op">=</span> <span class="st">"firebrick4"</span>,</span></span>
+<span class="r-in"><span>    cex <span class="op">=</span> <span class="fl">3</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="layer_boxplot-7.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -241,8 +276,7 @@ https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

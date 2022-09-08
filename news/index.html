@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.12</span>
       </span>
     </div>
 
@@ -61,243 +61,217 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.9.12" id="spatiallibd-1912">spatialLIBD 1.9.12<a class="anchor" aria-label="anchor" href="#spatiallibd-1912"></a></h2>
+<p>NEW FEATURES</p>
+<ul><li>Added functions for computing the modeling statistics used by the spatial registration process. See <code><a href="../reference/registration_wrapper.html">registration_wrapper()</a></code> and related functions.</li>
+<li>Added a function for using the output of <code><a href="../reference/layer_stat_cor.html">layer_stat_cor()</a></code> and for labeling the clusters. This can help interpret the spatial registration results. See <code><a href="../reference/annotate_registered_clusters.html">annotate_registered_clusters()</a></code> for more details.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.9.11" id="spatiallibd-1911">spatialLIBD 1.9.11<a class="anchor" aria-label="anchor" href="#spatiallibd-1911"></a></h2>
+<p>BUG FIXES</p>
+<ul><li>Fixed bugs in <code><a href="../reference/gene_set_enrichment.html">gene_set_enrichment()</a></code> for <code>reverse = TRUE</code> reported by</li>
+</ul><ol class="example" style="list-style-type: decimal"><li>
+</li></ol><ul><li>Added a <code>reverse</code> option on the shiny app under the gene set enrichment tab, that we tested with the example <code>spe</code> data.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.9.10" id="spatiallibd-1910">spatialLIBD 1.9.10<a class="anchor" aria-label="anchor" href="#spatiallibd-1910"></a></h2>
+<p>SIGNIFICANT USER-VISIBLE CHANGES</p>
+<ul><li>Improved the automatic color palette selector when you switch discrete variables. It also now supports the ManualAnnotation option.</li>
+<li>Discrete variable (cluster) legend is no longer duplicated under the clusters interactive tab.</li>
+<li>You can now search the model test, which helps if you have lots of tests to choose from (this most likely occurs when you are looking at the pairwise results).</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.9.9" id="spatiallibd-199">spatialLIBD 1.9.9<a class="anchor" aria-label="anchor" href="#spatiallibd-199"></a></h2>
+<p>SIGNIFICANT USER-VISIBLE CHANGES</p>
+<ul><li>Made the shiny application more memory efficient in different areas.</li>
+<li>Changed the default <code>point_size</code> from 1.25 to 2.</li>
+<li>Added the option to show or hide the spatial images on the grid panels in the shiny web application. Turn off by default since it is more efficient.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.9.5" id="spatiallibd-195">spatialLIBD 1.9.5<a class="anchor" aria-label="anchor" href="#spatiallibd-195"></a></h2>
+<p>BUG FIXES</p>
+<ul><li>Fix <a href="https://github.com/LieberInstitute/spatialLIBD/issues/41" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/41</a>. Reported by</li>
+</ul><ol start="2" class="example" style="list-style-type: decimal"><li>Now the gene selector changes automatically when you change the ‘model results’ (model type) or ‘model test’ inputs. The gene selector is now only shown inside the ‘model boxplots’ panel since it only affects that one.</li>
+</ol></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.9.4" id="spatiallibd-194">spatialLIBD 1.9.4<a class="anchor" aria-label="anchor" href="#spatiallibd-194"></a></h2>
+<p>BUG FIXES</p>
+<ul><li>Fix <a href="https://github.com/LieberInstitute/spatialLIBD/issues/40" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/40</a>. Reported by</li>
+</ul><ol start="3" class="example" style="list-style-type: decimal"><li>
+</li></ol></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.9.3" id="spatiallibd-193">spatialLIBD 1.9.3<a class="anchor" aria-label="anchor" href="#spatiallibd-193"></a></h2>
+<p>BUG FIXES</p>
+<ul><li>Added a more informative error message when ‘stats’ does not have ENSEMBL gene IDs as the <code><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames()</a></code>. Reported by 2 and 1 at <a href="https://github.com/LieberInstitute/spatialLIBD/issues/33#issuecomment-1137544893" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/33#issuecomment-1137544893</a>
+</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.7.19" id="spatiallibd-1719">spatialLIBD 1.7.19<a class="anchor" aria-label="anchor" href="#spatiallibd-1719"></a></h2>
+<p>SIGNIFICANT USER-VISIBLE CHANGES</p>
+<ul><li>Documentation of the <code>layer-level data</code> panel at <code><a href="../reference/run_app.html">run_app()</a></code> has been significantly increased. You can now also visualize more than 2 reduced dimensions computed on the pseudo-bulk level data (layer-level for the Maynard et al, Nature Neurosci, 2021 data).</li>
+<li>Users can now control the font and point size on the reduced dimension plots, as well as the overall font size on the model boxplots.</li>
+<li>Image edit scenarios you might be interested in for having a uniform color background image are now documented; for example if you want a white or black background, or actually any valid R color name or color HEX value.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.7.18" id="spatiallibd-1718">spatialLIBD 1.7.18<a class="anchor" aria-label="anchor" href="#spatiallibd-1718"></a></h2>
+<p>SIGNIFICANT USER-VISIBLE CHANGES</p>
+<ul><li>
+<code><a href="../reference/run_app.html">run_app()</a></code> now offers the option to chose any of the <code><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.html" class="external-link">paletteer::paletteer_d</a></code> color palettes for discrete variables.</li>
+<li>
+<code>Polychrome</code> has been replaced as a dependency by <code>paletteer</code>. Note that <code><a href="https://rdrr.io/pkg/Polychrome/man/palette36.html" class="external-link">Polychrome::palette36</a></code> is still the default.</li>
+<li>
+<code><a href="../reference/run_app.html">run_app()</a></code> now looks for columns that end with ’_colors’ in their name which can be used to pre-specify colors for any companion variables. For example if you have <code>spe$my_groups</code> and <code>spe$my_groups_colors</code> then the second one can specify the colors that will be used for visualizing <code>spe$my_groups</code>. This makes specifying default colors more flexible than before, and the user is still free to change them if necessary.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.7.17" id="spatiallibd-1717">spatialLIBD 1.7.17<a class="anchor" aria-label="anchor" href="#spatiallibd-1717"></a></h2>
+<p>BUG FIXES</p>
+<ul><li>Fix bugs in <code><a href="../reference/layer_boxplot.html">layer_boxplot()</a></code> where it was too specific to the Maynard et al 2021 data. We have made it more flexible now.</li>
+<li>Made the y-axis space more dynamic in <code><a href="../reference/gene_set_enrichment_plot.html">gene_set_enrichment_plot()</a></code> and <code><a href="../reference/layer_matrix_plot.html">layer_matrix_plot()</a></code>.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.7.16" id="spatiallibd-1716">spatialLIBD 1.7.16<a class="anchor" aria-label="anchor" href="#spatiallibd-1716"></a></h2>
+<p>BUG FIXES</p>
+<ul><li>Fixed a bug in <code><a href="../reference/sig_genes_extract.html">sig_genes_extract()</a></code> when there’s only one set of t-statistics or F statistics to extract.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.12" id="spatiallibd-1712">spatialLIBD 1.7.12<a class="anchor" aria-label="anchor" href="#spatiallibd-1712"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
-<ul><li>The visualization functions <code>vis_*()</code> of
-<code>SpatialLIBD</code> in this version match the Bioconductor 3.15
-version of <code>SpatialExperiment</code>. Note that if you used
-<code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code>, the names of the
-spatial coordinates changed at <a href="https://github.com/drighelli/SpatialExperiment/commit/6710fe8b0a7919191ecce989bb6831647385ef5f" class="external-link uri">https://github.com/drighelli/SpatialExperiment/commit/6710fe8b0a7919191ecce989bb6831647385ef5f</a>
-and thus you might need to switch them back if you created your
-<code>SpatialExperiment</code> object before this change. You can do so
-with
-<code>spatialCoordsNames(spe) &lt;- rev(spatialCoordsNames(spe))</code>.
-<code><a href="../reference/read10xVisiumWrapper.html">read10xVisiumWrapper()</a></code> uses
-<code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code> internally, so this
-change on <code>SpatialExperiment</code> would then also affect
-you.</li>
+<ul><li>The visualization functions <code>vis_*()</code> of <code>SpatialLIBD</code> in this version match the Bioconductor 3.15 version of <code>SpatialExperiment</code>. Note that if you used <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code>, the names of the spatial coordinates changed at <a href="https://github.com/drighelli/SpatialExperiment/commit/6710fe8b0a7919191ecce989bb6831647385ef5f" class="external-link uri">https://github.com/drighelli/SpatialExperiment/commit/6710fe8b0a7919191ecce989bb6831647385ef5f</a> and thus you might need to switch them back if you created your <code>SpatialExperiment</code> object before this change. You can do so with <code>spatialCoordsNames(spe) &lt;- rev(spatialCoordsNames(spe))</code>. <code><a href="../reference/read10xVisiumWrapper.html">read10xVisiumWrapper()</a></code> uses <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code> internally, so this change on <code>SpatialExperiment</code> would then also affect you.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.11" id="spatiallibd-1711">spatialLIBD 1.7.11<a class="anchor" aria-label="anchor" href="#spatiallibd-1711"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>Now <code><a href="../reference/layer_stat_cor.html">layer_stat_cor()</a></code> has the <code>top_n</code>
-argument which can be used for subsetting the marker genes prior to
-computing the correlation as part of the spatial registration
-process.</li>
+<ul><li>Now <code><a href="../reference/layer_stat_cor.html">layer_stat_cor()</a></code> has the <code>top_n</code> argument which can be used for subsetting the marker genes prior to computing the correlation as part of the spatial registration process.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.10" id="spatiallibd-1710">spatialLIBD 1.7.10<a class="anchor" aria-label="anchor" href="#spatiallibd-1710"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>Added the <code><a href="../reference/add_key.html">add_key()</a></code> function to reduce code duplication
-and resolve <a href="https://github.com/LieberInstitute/spatialLIBD/issues/31" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/31</a>.</li>
+<ul><li>Added the <code><a href="../reference/add_key.html">add_key()</a></code> function to reduce code duplication and resolve <a href="https://github.com/LieberInstitute/spatialLIBD/issues/31" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/31</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.9" id="spatiallibd-179">spatialLIBD 1.7.9<a class="anchor" aria-label="anchor" href="#spatiallibd-179"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>This version is now compatible with the bioc-devel version of
-SpatialExperiment where spatialData() was deprecated. Details at <a href="https://github.com/LieberInstitute/spatialLIBD/pull/29/files" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/29/files</a>.</li>
+<ul><li>This version is now compatible with the bioc-devel version of SpatialExperiment where spatialData() was deprecated. Details at <a href="https://github.com/LieberInstitute/spatialLIBD/pull/29/files" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/29/files</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.7" id="spatiallibd-177">spatialLIBD 1.7.7<a class="anchor" aria-label="anchor" href="#spatiallibd-177"></a></h2>
 <p>BUG FIXES</p>
-<ul><li>Fixed a bug where the using the left-mouse click was not working for
-annotating individual spots under the “gene (interactive)” tab.</li>
+<ul><li>Fixed a bug where the using the left-mouse click was not working for annotating individual spots under the “gene (interactive)” tab.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.6" id="spatiallibd-176">spatialLIBD 1.7.6<a class="anchor" aria-label="anchor" href="#spatiallibd-176"></a></h2>
 <p>NEW FEATURES</p>
 <ul><li>
-<code><a href="../reference/vis_gene_p.html">vis_gene_p()</a></code>, <code><a href="../reference/vis_clus_p.html">vis_clus_p()</a></code> and all related
-functions now have an argument <code>point_size</code> which lets you
-control how big the points are plotted. This can be useful for
-visualization purposes.</li>
-<li>The shiny app now has an input controlling the point size. If you
-increase it to say <code>5</code>, then if you zoom in the
-<code>clusters (interactive)</code> panel, you can see larger spots when
-zooming in.</li>
-<li>These features are related to <a href="https://github.com/LieberInstitute/spatialLIBD/issues/28" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/28</a>
-although the spot diameter is still not the true spot diameter. However,
-now you have more flexibility for visualizing the spots.</li>
+<code><a href="../reference/vis_gene_p.html">vis_gene_p()</a></code>, <code><a href="../reference/vis_clus_p.html">vis_clus_p()</a></code> and all related functions now have an argument <code>point_size</code> which lets you control how big the points are plotted. This can be useful for visualization purposes.</li>
+<li>The shiny app now has an input controlling the point size. If you increase it to say <code>5</code>, then if you zoom in the <code>clusters (interactive)</code> panel, you can see larger spots when zooming in.</li>
+<li>These features are related to <a href="https://github.com/LieberInstitute/spatialLIBD/issues/28" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/28</a> although the spot diameter is still not the true spot diameter. However, now you have more flexibility for visualizing the spots.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.5" id="spatiallibd-175">spatialLIBD 1.7.5<a class="anchor" aria-label="anchor" href="#spatiallibd-175"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>Expanded the <em>Using spatialLIBD with 10x Genomics public
-datasets</em> vignette to show how you can deploy your web application.
-See <a href="https://libd.shinyapps.io/spatialLIBD_Human_Lymph_Node_10x/" class="external-link uri">https://libd.shinyapps.io/spatialLIBD_Human_Lymph_Node_10x/</a>
-for the live example.</li>
+<ul><li>Expanded the <em>Using spatialLIBD with 10x Genomics public datasets</em> vignette to show how you can deploy your web application. See <a href="https://libd.shinyapps.io/spatialLIBD_Human_Lymph_Node_10x/" class="external-link uri">https://libd.shinyapps.io/spatialLIBD_Human_Lymph_Node_10x/</a> for the live example.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.4" id="spatiallibd-174">spatialLIBD 1.7.4<a class="anchor" aria-label="anchor" href="#spatiallibd-174"></a></h2>
 <p>BUG FIXES</p>
 <ul><li>
-<code><a href="../reference/vis_gene.html">vis_gene()</a></code> and <code><a href="../reference/vis_grid_gene.html">vis_grid_gene()</a></code> now support
-<code>geneid</code>s that are found in the <code>rownames(spe)</code>.
-This makese these functions more flexible.</li>
+<code><a href="../reference/vis_gene.html">vis_gene()</a></code> and <code><a href="../reference/vis_grid_gene.html">vis_grid_gene()</a></code> now support <code>geneid</code>s that are found in the <code>rownames(spe)</code>. This makese these functions more flexible.</li>
 <li>
-<code><a href="../reference/vis_grid_gene.html">vis_grid_gene()</a></code> and <code><a href="../reference/vis_grid_clus.html">vis_grid_clus()</a></code> now
-have the <code>sample_order</code> argument which gives you more control
-in case you want to plot a subset of samples. This should also reduced
-the memory required as discovered at <a href="https://github.com/LieberInstitute/spatialDLPFC/issues/45" class="external-link uri">https://github.com/LieberInstitute/spatialDLPFC/issues/45</a>.</li>
+<code><a href="../reference/vis_grid_gene.html">vis_grid_gene()</a></code> and <code><a href="../reference/vis_grid_clus.html">vis_grid_clus()</a></code> now have the <code>sample_order</code> argument which gives you more control in case you want to plot a subset of samples. This should also reduced the memory required as discovered at <a href="https://github.com/LieberInstitute/spatialDLPFC/issues/45" class="external-link uri">https://github.com/LieberInstitute/spatialDLPFC/issues/45</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.3" id="spatiallibd-173">spatialLIBD 1.7.3<a class="anchor" aria-label="anchor" href="#spatiallibd-173"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>Added support for more than one background picture per sample. This
-was done through the new argument <code>image_id</code>. Resolves <a href="https://github.com/LieberInstitute/spatialLIBD/issues/25" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/25</a>.</li>
-<li>Added options for side by side visualization of the background image
-and the clusters or gene expression values in the static versions.
-Resolves <a href="https://github.com/LieberInstitute/spatialLIBD/issues/19" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/19</a>.</li>
-<li>Allow changing the transparency level of the spots with the
-<code>alpha</code> argument. Resolves <a href="https://github.com/LieberInstitute/spatialLIBD/issues/20" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/20</a>.</li>
-<li>Add support for image manipulation with the <code>magick</code>
-package. Adds functions <code><a href="../reference/img_edit.html">img_edit()</a></code>,
-<code><a href="../reference/img_update.html">img_update()</a></code> and <code><a href="../reference/img_update_all.html">img_update_all()</a></code> as well as
-new features on the web application. Resolves <a href="https://github.com/LieberInstitute/spatialLIBD/issues/21" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/21</a>.</li>
-<li>Added support for more control over the gene color scale and in the
-web application also added support for reversing the order of the scale.
-Resolves <a href="https://github.com/LieberInstitute/spatialLIBD/issues/22" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/22</a>
-and <a href="https://github.com/LieberInstitute/spatialLIBD/issues/23" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/23</a>.</li>
-<li>Added <code>export_cluster()</code> and
-<code>import_cluster()</code> to help export/import clustering results
-instead of having to save large <code>spe</code> objects when exploring
-different clustering methods.</li>
-<li>Added <code><a href="../reference/locate_images.html">locate_images()</a></code> and <code><a href="../reference/add_images.html">add_images()</a></code> for
-adding non-standard images to a <code>spe</code> object.</li>
+<ul><li>Added support for more than one background picture per sample. This was done through the new argument <code>image_id</code>. Resolves <a href="https://github.com/LieberInstitute/spatialLIBD/issues/25" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/25</a>.</li>
+<li>Added options for side by side visualization of the background image and the clusters or gene expression values in the static versions. Resolves <a href="https://github.com/LieberInstitute/spatialLIBD/issues/19" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/19</a>.</li>
+<li>Allow changing the transparency level of the spots with the <code>alpha</code> argument. Resolves <a href="https://github.com/LieberInstitute/spatialLIBD/issues/20" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/20</a>.</li>
+<li>Add support for image manipulation with the <code>magick</code> package. Adds functions <code><a href="../reference/img_edit.html">img_edit()</a></code>, <code><a href="../reference/img_update.html">img_update()</a></code> and <code><a href="../reference/img_update_all.html">img_update_all()</a></code> as well as new features on the web application. Resolves <a href="https://github.com/LieberInstitute/spatialLIBD/issues/21" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/21</a>.</li>
+<li>Added support for more control over the gene color scale and in the web application also added support for reversing the order of the scale. Resolves <a href="https://github.com/LieberInstitute/spatialLIBD/issues/22" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/22</a> and <a href="https://github.com/LieberInstitute/spatialLIBD/issues/23" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/23</a>.</li>
+<li>Added <code>export_cluster()</code> and <code>import_cluster()</code> to help export/import clustering results instead of having to save large <code>spe</code> objects when exploring different clustering methods.</li>
+<li>Added <code><a href="../reference/locate_images.html">locate_images()</a></code> and <code><a href="../reference/add_images.html">add_images()</a></code> for adding non-standard images to a <code>spe</code> object.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.2" id="spatiallibd-172">spatialLIBD 1.7.2<a class="anchor" aria-label="anchor" href="#spatiallibd-172"></a></h2>
 <p>BUG FIXES</p>
-<ul><li>Fixed an issue introduced by newer versions of <code>shiny</code>.
-This version of <code>spatialLIBD</code> works with <code>shiny</code>
-version 1.7.1, though it’s likely backwards compatible. Resolves <a href="https://github.com/LieberInstitute/spatialLIBD/issues/24" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/24</a>.</li>
-<li>Fix an issue where <code>as.data.frame(colData(spe))</code> uses
-<code>check.names = TRUE</code> by default and then changes the column
-names unintentionally.</li>
+<ul><li>Fixed an issue introduced by newer versions of <code>shiny</code>. This version of <code>spatialLIBD</code> works with <code>shiny</code> version 1.7.1, though it’s likely backwards compatible. Resolves <a href="https://github.com/LieberInstitute/spatialLIBD/issues/24" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/24</a>.</li>
+<li>Fix an issue where <code>as.data.frame(colData(spe))</code> uses <code>check.names = TRUE</code> by default and then changes the column names unintentionally.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.1" id="spatiallibd-171">spatialLIBD 1.7.1<a class="anchor" aria-label="anchor" href="#spatiallibd-171"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>Added <code><a href="../reference/read10xVisiumWrapper.html">read10xVisiumWrapper()</a></code> and related functions that
-make it easier to read in the SpaceRanger output files and launch a
-shiny web application using <code><a href="../reference/run_app.html">run_app()</a></code>. These new functions
-read in the analysis output from SpaceRanger by 10x Genomics, in
-particular, the clustering and dimension reduction (projection)
-results.</li>
+<ul><li>Added <code><a href="../reference/read10xVisiumWrapper.html">read10xVisiumWrapper()</a></code> and related functions that make it easier to read in the SpaceRanger output files and launch a shiny web application using <code><a href="../reference/run_app.html">run_app()</a></code>. These new functions read in the analysis output from SpaceRanger by 10x Genomics, in particular, the clustering and dimension reduction (projection) results.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.3.19" id="spatiallibd-1319">spatialLIBD 1.3.19<a class="anchor" aria-label="anchor" href="#spatiallibd-1319"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
 <ul><li>
-<code>spatialLIBD</code> has been updated to work with
-<code>SpatialExperiment</code> version 1.1.701 which will be released as
-part of Bioconductor 3.13. This changes internal code of
-<code>spatialLIBD</code> which will work with any objects created with
-<code>SpatialExperiment</code> version 1.1.700.</li>
+<code>spatialLIBD</code> has been updated to work with <code>SpatialExperiment</code> version 1.1.701 which will be released as part of Bioconductor 3.13. This changes internal code of <code>spatialLIBD</code> which will work with any objects created with <code>SpatialExperiment</code> version 1.1.700.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.3.16" id="spatiallibd-1316">spatialLIBD 1.3.16<a class="anchor" aria-label="anchor" href="#spatiallibd-1316"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
-<ul><li>The citation information has changed now that
-<code>spatialLIBD</code> has a bioRxiv pre-print at <a href="https://www.biorxiv.org/content/10.1101/2021.04.29.440149v1" class="external-link uri">https://www.biorxiv.org/content/10.1101/2021.04.29.440149v1</a>.</li>
+<ul><li>The citation information has changed now that <code>spatialLIBD</code> has a bioRxiv pre-print at <a href="https://www.biorxiv.org/content/10.1101/2021.04.29.440149v1" class="external-link uri">https://www.biorxiv.org/content/10.1101/2021.04.29.440149v1</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.3.15" id="spatiallibd-1315">spatialLIBD 1.3.15<a class="anchor" aria-label="anchor" href="#spatiallibd-1315"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
-<ul><li>We now use <code><a href="https://rdrr.io/pkg/plotly/man/toWebGL.html" class="external-link">plotly::toWebGL()</a></code> to make the web
-application more responsive.</li>
+<ul><li>We now use <code><a href="https://rdrr.io/pkg/plotly/man/toWebGL.html" class="external-link">plotly::toWebGL()</a></code> to make the web application more responsive.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.3.14" id="spatiallibd-1314">spatialLIBD 1.3.14<a class="anchor" aria-label="anchor" href="#spatiallibd-1314"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
-<ul><li>The documentation and help messages shown in the web application
-have been revamped and improved.</li>
+<ul><li>The documentation and help messages shown in the web application have been revamped and improved.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.3.12" id="spatiallibd-1312">spatialLIBD 1.3.12<a class="anchor" aria-label="anchor" href="#spatiallibd-1312"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>We added a new vignette that shows how you can use
-<code>spatialLIBD</code> with any 10x Genomics Visium dataset processed
-with <code>spaceranger</code>. The vignette uses the publicly available
-human lymph node example from the 10x Genomics website.</li>
+<ul><li>We added a new vignette that shows how you can use <code>spatialLIBD</code> with any 10x Genomics Visium dataset processed with <code>spaceranger</code>. The vignette uses the publicly available human lymph node example from the 10x Genomics website.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.3.3" id="spatiallibd-133">spatialLIBD 1.3.3<a class="anchor" aria-label="anchor" href="#spatiallibd-133"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>Overall the package has been updated to use
-<code>SpatialExperiment</code> version 1.1.427 available on Bioconductor
-3.13 (bioc-devel). Several functions were re-named such as
-<code>sce_image_gene_p()</code> now has a shorter name
-<code><a href="../reference/vis_gene_p.html">vis_gene_p()</a></code>. This update also changes these visualization
-functions to ONLY support <code>SpatialExperiment</code> objects instead
-of the original modified <code>SingleCellExperiment</code> objects.</li>
-<li>Updated citation information to reflect that <a href="https://doi.org/10.1038/s41593-020-00787-0" class="external-link uri">https://doi.org/10.1038/s41593-020-00787-0</a> is now
-public. Also added a link on the README to <a href="https://doi.org/10.6084/m9.figshare.13623902.v1" class="external-link uri">https://doi.org/10.6084/m9.figshare.13623902.v1</a> for the
-manuscript high resolution images.</li>
+<ul><li>Overall the package has been updated to use <code>SpatialExperiment</code> version 1.1.427 available on Bioconductor 3.13 (bioc-devel). Several functions were re-named such as <code>sce_image_gene_p()</code> now has a shorter name <code><a href="../reference/vis_gene_p.html">vis_gene_p()</a></code>. This update also changes these visualization functions to ONLY support <code>SpatialExperiment</code> objects instead of the original modified <code>SingleCellExperiment</code> objects.</li>
+<li>Updated citation information to reflect that <a href="https://doi.org/10.1038/s41593-020-00787-0" class="external-link uri">https://doi.org/10.1038/s41593-020-00787-0</a> is now public. Also added a link on the README to <a href="https://doi.org/10.6084/m9.figshare.13623902.v1" class="external-link uri">https://doi.org/10.6084/m9.figshare.13623902.v1</a> for the manuscript high resolution images.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.7" id="spatiallibd-117">spatialLIBD 1.1.7<a class="anchor" aria-label="anchor" href="#spatiallibd-117"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>The functions <code>sce_image_gene_p()</code>,
-<code>sce_image_gene()</code>, <code>sce_image_grid()</code>,
-<code>sce_image_grid_gene()</code>, <code>sce_image_clus()</code>,
-<code>sce_image_clus_p()</code>, <code><a href="../reference/geom_spatial.html">geom_spatial()</a></code> now work
-with VisiumExperiment objects thanks to the new function
-<code>read_image()</code> and <code>ve_image_colData()</code>. This work
-was done by Brenda Pardo and Leonardo.</li>
+<ul><li>The functions <code>sce_image_gene_p()</code>, <code>sce_image_gene()</code>, <code>sce_image_grid()</code>, <code>sce_image_grid_gene()</code>, <code>sce_image_clus()</code>, <code>sce_image_clus_p()</code>, <code><a href="../reference/geom_spatial.html">geom_spatial()</a></code> now work with VisiumExperiment objects thanks to the new function <code>read_image()</code> and <code>ve_image_colData()</code>. This work was done by Brenda Pardo and Leonardo.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.5" id="spatiallibd-115">spatialLIBD 1.1.5<a class="anchor" aria-label="anchor" href="#spatiallibd-115"></a></h2>
 <p>NEW FEATURES</p>
 <ul><li>
-<code><a href="../reference/fetch_data.html">fetch_data()</a></code> takes the data from sce object and creates
-a VisiumExperiment object containing these data thanks to the function
-<code>sce_to_ve()</code>. VisiumExperiment object can be obtained with
-<code>fetch_data("ve")</code>. This work was done by Brenda Pardo and
-Leonardo.</li>
+<code><a href="../reference/fetch_data.html">fetch_data()</a></code> takes the data from sce object and creates a VisiumExperiment object containing these data thanks to the function <code>sce_to_ve()</code>. VisiumExperiment object can be obtained with <code>fetch_data("ve")</code>. This work was done by Brenda Pardo and Leonardo.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.4" id="spatiallibd-114">spatialLIBD 1.1.4<a class="anchor" aria-label="anchor" href="#spatiallibd-114"></a></h2>
 <p>NEW FEATURES</p>
 <ul><li>
-<code><a href="../reference/fetch_data.html">fetch_data()</a></code> now uses <code><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache()</a></code> when
-downloading the data from Dropbox.</li>
+<code><a href="../reference/fetch_data.html">fetch_data()</a></code> now uses <code><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache()</a></code> when downloading the data from Dropbox.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.14" id="spatiallibd-09914">spatialLIBD 0.99.14<a class="anchor" aria-label="anchor" href="#spatiallibd-09914"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
-<ul><li>Added the function <code><a href="../reference/enough_ram.html">enough_ram()</a></code> which is used to
-control the execution of examples. If it fails when using
-<code>fetch_data("sce")</code> then <code><a href="../reference/fetch_data.html">fetch_data()</a></code> will show
-a warning.</li>
+<ul><li>Added the function <code><a href="../reference/enough_ram.html">enough_ram()</a></code> which is used to control the execution of examples. If it fails when using <code>fetch_data("sce")</code> then <code><a href="../reference/fetch_data.html">fetch_data()</a></code> will show a warning.</li>
 <li>
-<code>fetch_data(type = "sce_example")</code> is now supported and
-used visibly in the vignette, eliminating the need for
-<code>eval = FALSE</code> chunks. This should enable testing the
-vignette code on the Bioconductor Single Package Builder on Windows (max
-2.5 GB of RAM available).</li>
+<code>fetch_data(type = "sce_example")</code> is now supported and used visibly in the vignette, eliminating the need for <code>eval = FALSE</code> chunks. This should enable testing the vignette code on the Bioconductor Single Package Builder on Windows (max 2.5 GB of RAM available).</li>
 </ul><p>BUG FIXES</p>
 <ul><li>Fixed the example in <code><a href="../reference/get_colors.html">get_colors()</a></code>.</li>
-<li>Fixed <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> for when <code>min</code>
-and/or <code>max</code> are specified.</li>
+<li>Fixed <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> for when <code>min</code> and/or <code>max</code> are specified.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.13" id="spatiallibd-09913">spatialLIBD 0.99.13<a class="anchor" aria-label="anchor" href="#spatiallibd-09913"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
-<ul><li>Documentation website is now available at <a href="http://LieberInstitute.github.io/spatialLIBD/" class="external-link uri">http://LieberInstitute.github.io/spatialLIBD/</a>. It gets
-updated with every commit on the master branch (bioc-devel) using GitHub
-Actions and pkgdown.</li>
+<ul><li>Documentation website is now available at <a href="http://LieberInstitute.github.io/spatialLIBD/" class="external-link uri">http://LieberInstitute.github.io/spatialLIBD/</a>. It gets updated with every commit on the master branch (bioc-devel) using GitHub Actions and pkgdown.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.12" id="spatiallibd-09912">spatialLIBD 0.99.12<a class="anchor" aria-label="anchor" href="#spatiallibd-09912"></a></h2>
 <p>BUG FIXES</p>
-<ul><li>Remove the spatialLIBD.Rproj file =( since BioC’s SBP is asking me
-to do so <a href="http://bioconductor.org/spb_reports/spatialLIBD_buildreport_20200303135350.html" class="external-link uri">http://bioconductor.org/spb_reports/spatialLIBD_buildreport_20200303135350.html</a>
+<ul><li>Remove the spatialLIBD.Rproj file =( since BioC’s SBP is asking me to do so <a href="http://bioconductor.org/spb_reports/spatialLIBD_buildreport_20200303135350.html" class="external-link uri">http://bioconductor.org/spb_reports/spatialLIBD_buildreport_20200303135350.html</a>
 </li>
 <li>Use <code><a href="https://rdrr.io/r/base/system2.html" class="external-link">system2()</a></code> instead of <code><a href="https://rdrr.io/r/base/system.html" class="external-link">system()</a></code>.</li>
-<li>Move the <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code> call outside of
-<code><a href="../reference/layer_boxplot.html">layer_boxplot()</a></code> as noted by Martin Morgan <a href="https://github.com/Bioconductor/Contributions/issues/1389#issuecomment-594099852" class="external-link uri">https://github.com/Bioconductor/Contributions/issues/1389#issuecomment-594099852</a>
-.</li>
+<li>Move the <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code> call outside of <code><a href="../reference/layer_boxplot.html">layer_boxplot()</a></code> as noted by Martin Morgan <a href="https://github.com/Bioconductor/Contributions/issues/1389#issuecomment-594099852" class="external-link uri">https://github.com/Bioconductor/Contributions/issues/1389#issuecomment-594099852</a> .</li>
 <li>Use <code>\linkS4class</code> as I see being done at <a href="https://github.com/drisso/SingleCellExperiment/search?q=linkS4class&amp;unscoped_q=linkS4class" class="external-link uri">https://github.com/drisso/SingleCellExperiment/search?q=linkS4class&amp;unscoped_q=linkS4class</a>.</li>
 <li>Use <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply()</a></code> instead of <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply()</a></code>.</li>
 <li>Fix (or attempt to) some doc links.</li>
@@ -305,33 +279,25 @@ to do so <a href="http://bioconductor.org/spb_reports/spatialLIBD_buildreport_20
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.11" id="spatiallibd-09911">spatialLIBD 0.99.11<a class="anchor" aria-label="anchor" href="#spatiallibd-09911"></a></h2>
 <p>BUG FIXES</p>
-<ul><li>Check if removing the <code>RcppAnnoy</code> line in the DESCRIPTION
-actually works now based on Aaron Lun’s comment at <a href="https://github.com/eddelbuettel/rcppannoy/issues/57#issuecomment-594097241" class="external-link uri">https://github.com/eddelbuettel/rcppannoy/issues/57#issuecomment-594097241</a>.</li>
+<ul><li>Check if removing the <code>RcppAnnoy</code> line in the DESCRIPTION actually works now based on Aaron Lun’s comment at <a href="https://github.com/eddelbuettel/rcppannoy/issues/57#issuecomment-594097241" class="external-link uri">https://github.com/eddelbuettel/rcppannoy/issues/57#issuecomment-594097241</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.10" id="spatiallibd-09910">spatialLIBD 0.99.10<a class="anchor" aria-label="anchor" href="#spatiallibd-09910"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
-<ul><li>Include AWS links to the image TIFF files (~500mb each) as requested
-by Qian Zhu <a href="mailto:zqian@jimmy.harvard.edu" class="email">zqian@jimmy.harvard.edu</a> for visualizing the data on
-the Giotto Viewer <a href="https://www.biorxiv.org/content/10.1101/701680v1" class="external-link uri">https://www.biorxiv.org/content/10.1101/701680v1</a>.</li>
+<ul><li>Include AWS links to the image TIFF files (~500mb each) as requested by Qian Zhu <a href="mailto:zqian@jimmy.harvard.edu" class="email">zqian@jimmy.harvard.edu</a> for visualizing the data on the Giotto Viewer <a href="https://www.biorxiv.org/content/10.1101/701680v1" class="external-link uri">https://www.biorxiv.org/content/10.1101/701680v1</a>.</li>
 </ul><p>BUG FIXES</p>
-<ul><li>Fix <code><a href="../reference/fetch_data.html">fetch_data()</a></code> and the vignette by specifying the
-<code>mode = "wb"</code> for <code><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">utils::download.file()</a></code> in
-order to resolve an issue with Windows OS reported here <a href="http://bioconductor.org/spb_reports/spatialLIBD_buildreport_20200302120158.html#tokay2_buildsrc_anchor" class="external-link uri">http://bioconductor.org/spb_reports/spatialLIBD_buildreport_20200302120158.html#tokay2_buildsrc_anchor</a>.</li>
+<ul><li>Fix <code><a href="../reference/fetch_data.html">fetch_data()</a></code> and the vignette by specifying the <code>mode = "wb"</code> for <code><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">utils::download.file()</a></code> in order to resolve an issue with Windows OS reported here <a href="http://bioconductor.org/spb_reports/spatialLIBD_buildreport_20200302120158.html#tokay2_buildsrc_anchor" class="external-link uri">http://bioconductor.org/spb_reports/spatialLIBD_buildreport_20200302120158.html#tokay2_buildsrc_anchor</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.9" id="spatiallibd-0999">spatialLIBD 0.99.9<a class="anchor" aria-label="anchor" href="#spatiallibd-0999"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
-<ul><li>Link to <a href="https://doi.org/10.1101/2020.02.28.969931" class="external-link uri">https://doi.org/10.1101/2020.02.28.969931</a> now that its
-public.</li>
+<ul><li>Link to <a href="https://doi.org/10.1101/2020.02.28.969931" class="external-link uri">https://doi.org/10.1101/2020.02.28.969931</a> now that its public.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.8" id="spatiallibd-0998">spatialLIBD 0.99.8<a class="anchor" aria-label="anchor" href="#spatiallibd-0998"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
 <ul><li>
-<a href="https://spatial.libd.org/spatialLIBD" class="external-link uri">https://spatial.libd.org/spatialLIBD</a> is not supported
-since we are using Shiny Server and not Shiny Server Pro. So all links
-have now been updated to <a href="http://spatial.libd.org/spatialLIBD" class="external-link uri">http://spatial.libd.org/spatialLIBD</a>.</li>
+<a href="https://spatial.libd.org/spatialLIBD" class="external-link uri">https://spatial.libd.org/spatialLIBD</a> is not supported since we are using Shiny Server and not Shiny Server Pro. So all links have now been updated to <a href="http://spatial.libd.org/spatialLIBD" class="external-link uri">http://spatial.libd.org/spatialLIBD</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.7" id="spatiallibd-0997">spatialLIBD 0.99.7<a class="anchor" aria-label="anchor" href="#spatiallibd-0997"></a></h2>
@@ -346,51 +312,37 @@ have now been updated to <a href="http://spatial.libd.org/spatialLIBD" class="ex
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.5" id="spatiallibd-0995">spatialLIBD 0.99.5<a class="anchor" aria-label="anchor" href="#spatiallibd-0995"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
-<ul><li>Make <code><a href="../reference/fetch_data.html">fetch_data()</a></code> more flexible. Should now work when
-the data is absent.</li>
+<ul><li>Make <code><a href="../reference/fetch_data.html">fetch_data()</a></code> more flexible. Should now work when the data is absent.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.4" id="spatiallibd-0994">spatialLIBD 0.99.4<a class="anchor" aria-label="anchor" href="#spatiallibd-0994"></a></h2>
 <p>BUG FIXES</p>
 <ul><li>Fix Travis badges</li>
 <li>Fix Kristen’s name on the vignette</li>
-<li>Add the same welcome information to the top of the vignette, since
-this will be what Bioconductor users see first. Basically, we have made
-sure that users will see the same information first regardless if they
-find the package README, open the shiny app, or find the package
-vignette.</li>
+<li>Add the same welcome information to the top of the vignette, since this will be what Bioconductor users see first. Basically, we have made sure that users will see the same information first regardless if they find the package README, open the shiny app, or find the package vignette.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.3" id="spatiallibd-0993">spatialLIBD 0.99.3<a class="anchor" aria-label="anchor" href="#spatiallibd-0993"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
-<ul><li>Further refine the READMEs (pkg and shiny). They now include the
-list of links to the raw 10x Genomics files as well as a short
-description of the project at the top. This was in response to feedback
-by Andrew Jaffe.</li>
+<ul><li>Further refine the READMEs (pkg and shiny). They now include the list of links to the raw 10x Genomics files as well as a short description of the project at the top. This was in response to feedback by Andrew Jaffe.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.2" id="spatiallibd-0992">spatialLIBD 0.99.2<a class="anchor" aria-label="anchor" href="#spatiallibd-0992"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
-<ul><li>Update main package READMEs to reflect the changes to the shiny web
-app README.md.</li>
+<ul><li>Update main package READMEs to reflect the changes to the shiny web app README.md.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.1" id="spatiallibd-0991">spatialLIBD 0.99.1<a class="anchor" aria-label="anchor" href="#spatiallibd-0991"></a></h2>
 <p>NEW FEATURES</p>
 <ul><li>Added Kristen R Maynard to the DESCRIPTION file.</li>
 <li>Improved the shiny app page footer.</li>
-<li>Moved around the documentation and added a new main tab with an
-overview in response to the feedback by Stephanie Hicks.</li>
+<li>Moved around the documentation and added a new main tab with an overview in response to the feedback by Stephanie Hicks.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.99.0" id="spatiallibd-0990">spatialLIBD 0.99.0<a class="anchor" aria-label="anchor" href="#spatiallibd-0990"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>Added a <code>NEWS.md</code> file to track changes to the
-package.</li>
-<li>First full version of the package to be submitted to Bioconductor.
-Note that the <code><a href="https://rdrr.io/pkg/ExperimentHub/man/ExperimentHub-class.html" class="external-link">ExperimentHub::ExperimentHub()</a></code> functionality
-won’t work until they approve the package. However, for now
-<code><a href="../reference/fetch_data.html">fetch_data()</a></code> has a backup mechanism in place.</li>
+<ul><li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
+<li>First full version of the package to be submitted to Bioconductor. Note that the <code><a href="https://rdrr.io/pkg/ExperimentHub/man/ExperimentHub-class.html" class="external-link">ExperimentHub::ExperimentHub()</a></code> functionality won’t work until they approve the package. However, for now <code><a href="../reference/fetch_data.html">fetch_data()</a></code> has a backup mechanism in place.</li>
 <li>Submitted to Bioconductor <a href="https://github.com/Bioconductor/Contributions/issues/1389" class="external-link">here</a>.</li>
 </ul></div>
   </div>
@@ -407,8 +359,7 @@ won’t work until they approve the package. However, for now
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -20,7 +20,7 @@ used by gene_set_enrichment_plot() and layer_stat_cor_plot()."><meta property="o
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.12</span>
       </span>
     </div>
 
@@ -72,19 +72,19 @@ used by <code><a href="gene_set_enrichment_plot.html">gene_set_enrichment_plot()
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">layer_matrix_plot</span><span class="op">(</span>
-  <span class="va">matrix_values</span>,
-  matrix_labels <span class="op">=</span> <span class="cn">NULL</span>,
-  xlabs <span class="op">=</span> <span class="cn">NULL</span>,
-  layerHeights <span class="op">=</span> <span class="cn">NULL</span>,
-  mypal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="op">(</span><span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html" class="external-link">colorRampPalette</a></span><span class="op">(</span><span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">9</span>,
-    <span class="st">"YlOrRd"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">(</span><span class="fl">50</span><span class="op">)</span><span class="op">)</span>,
-  breaks <span class="op">=</span> <span class="cn">NULL</span>,
-  axis.args <span class="op">=</span> <span class="cn">NULL</span>,
-  srt <span class="op">=</span> <span class="fl">45</span>,
-  mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.1</span>,
-  cex <span class="op">=</span> <span class="fl">1.2</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">layer_matrix_plot</span><span class="op">(</span></span>
+<span>  <span class="va">matrix_values</span>,</span>
+<span>  matrix_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  xlabs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  layerHeights <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mypal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="op">(</span><span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html" class="external-link">colorRampPalette</a></span><span class="op">(</span><span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">9</span>,</span>
+<span>    <span class="st">"YlOrRd"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">(</span><span class="fl">50</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  axis.args <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  srt <span class="op">=</span> <span class="fl">45</span>,</span>
+<span>  mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">4</span> <span class="op">+</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">matrix_values</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%/%</a></span><span class="fl">3</span><span class="op">)</span> <span class="op">*</span> <span class="fl">0.5</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.1</span>,</span>
+<span>  cex <span class="op">=</span> <span class="fl">1.2</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -92,36 +92,57 @@ used by <code><a href="gene_set_enrichment_plot.html">gene_set_enrichment_plot()
     <dl><dt>matrix_values</dt>
 <dd><p>A <code><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix()</a></code> with one column per set of interest and
 one row per layer (group) with numeric values.</p></dd>
+
+
 <dt>matrix_labels</dt>
 <dd><p>Optionally a character <code><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix()</a></code> with the same
 dimensions and <code><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames()</a></code> as <code>matrix_values</code> with text labels for the
 cells.</p></dd>
+
+
 <dt>xlabs</dt>
 <dd><p>A vector of names in the same order and length as
 <code>colnames(matrix_values)</code>.</p></dd>
+
+
 <dt>layerHeights</dt>
 <dd><p>A <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code> vector of length equal to
 <code>nrow(matrix_values) + 1</code> that starts at 0 specifying where
 to plot the y-axis breaks which can be used for re-creating the length of
 each brain layer.</p></dd>
+
+
 <dt>mypal</dt>
 <dd><p>A vector with the color palette to use.</p></dd>
+
+
 <dt>breaks</dt>
 <dd><p>Passed to <code><a href="https://rdrr.io/pkg/fields/man/image.plot.html" class="external-link">fields::image.plot()</a></code>. Used by
 <code><a href="layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code>.</p></dd>
+
+
 <dt>axis.args</dt>
 <dd><p>Passed to <code><a href="https://rdrr.io/pkg/fields/man/image.plot.html" class="external-link">fields::image.plot()</a></code>. Used by
 <code><a href="layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code>.</p></dd>
+
+
 <dt>srt</dt>
 <dd><p>The angle for the x-axis labels. Used by <code><a href="layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code>.</p></dd>
+
+
 <dt>mar</dt>
 <dd><p>Passed to <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphics::par()</a></code>.</p></dd>
+
+
 <dt>cex</dt>
 <dd><p>Used for the x-axis labels and the text inside the cells.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A base R plot visualizing the input <code>matrix_values</code> with optional
+    
+
+<p>A base R plot visualizing the input <code>matrix_values</code> with optional
 text labels for <code>matrix_labels</code>.</p>
     </div>
     <div id="author">
@@ -131,28 +152,28 @@ text labels for <code>matrix_labels</code>.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## Create some random data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200224</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">7</span> <span class="op">*</span> <span class="fl">8</span>, min <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"WM"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"L"</span>, <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Var"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Create some text labels</span></span>
-<span class="r-in"><span class="va">mat_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="st">""</span>, nrow <span class="op">=</span> <span class="fl">7</span>, ncol <span class="op">=</span> <span class="fl">8</span>, dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">mat_text</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Make the plot</span></span>
-<span class="r-in"><span class="fu">layer_matrix_plot</span><span class="op">(</span><span class="va">mat</span>, <span class="va">mat_text</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Create some random data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200224</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">7</span> <span class="op">*</span> <span class="fl">8</span>, min <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"WM"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"L"</span>, <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Var"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Create some text labels</span></span></span>
+<span class="r-in"><span><span class="va">mat_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="st">""</span>, nrow <span class="op">=</span> <span class="fl">7</span>, ncol <span class="op">=</span> <span class="fl">8</span>, dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">mat_text</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Make the plot</span></span></span>
+<span class="r-in"><span><span class="fu">layer_matrix_plot</span><span class="op">(</span><span class="va">mat</span>, <span class="va">mat_text</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="layer_matrix_plot-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Try to re-create the anatomical proportions of the human brain layers</span></span>
-<span class="r-in"><span class="fu">layer_matrix_plot</span><span class="op">(</span></span>
-<span class="r-in">    <span class="va">mat</span>,</span>
-<span class="r-in">    <span class="va">mat_text</span>,</span>
-<span class="r-in">    layerHeights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span>, <span class="fl">55</span>, <span class="fl">75</span>, <span class="fl">85</span>, <span class="fl">110</span>, <span class="fl">120</span>, <span class="fl">135</span><span class="op">)</span>,</span>
-<span class="r-in">    cex <span class="op">=</span> <span class="fl">2</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Try to re-create the anatomical proportions of the human brain layers</span></span></span>
+<span class="r-in"><span><span class="fu">layer_matrix_plot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">mat</span>,</span></span>
+<span class="r-in"><span>    <span class="va">mat_text</span>,</span></span>
+<span class="r-in"><span>    layerHeights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40</span>, <span class="fl">55</span>, <span class="fl">75</span>, <span class="fl">85</span>, <span class="fl">110</span>, <span class="fl">120</span>, <span class="fl">135</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    cex <span class="op">=</span> <span class="fl">2</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="layer_matrix_plot-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -168,8 +189,7 @@ text labels for <code>matrix_labels</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

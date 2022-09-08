@@ -23,7 +23,7 @@ way to interact with the data."><meta property="og:image" content="/logo.png"><!
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.12</span>
       </span>
     </div>
 
@@ -78,12 +78,12 @@ way to interact with the data.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">fetch_data</span><span class="op">(</span>
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sce"</span>, <span class="st">"sce_layer"</span>, <span class="st">"modeling_results"</span>, <span class="st">"sce_example"</span>, <span class="st">"spe"</span><span class="op">)</span>,
-  destdir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,
-  eh <span class="op">=</span> <span class="fu">ExperimentHub</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ExperimentHub/man/ExperimentHub-class.html" class="external-link">ExperimentHub</a></span><span class="op">(</span><span class="op">)</span>,
-  bfc <span class="op">=</span> <span class="fu">BiocFileCache</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fetch_data</span><span class="op">(</span></span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sce"</span>, <span class="st">"sce_layer"</span>, <span class="st">"modeling_results"</span>, <span class="st">"sce_example"</span>, <span class="st">"spe"</span><span class="op">)</span>,</span>
+<span>  destdir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  eh <span class="op">=</span> <span class="fu">ExperimentHub</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ExperimentHub/man/ExperimentHub-class.html" class="external-link">ExperimentHub</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  bfc <span class="op">=</span> <span class="fu">BiocFileCache</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -102,22 +102,31 @@ or <code>modeling_results</code> for the list of tables with the <code>enrichmen
 be <code>sce_example</code> which is a reduced version of <code>sce</code> just for example
 purposes. As of BioC version 3.13 <code>spe</code> downloads a
 <a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html" class="external-link">SpatialExperiment-class</a>  object.</p></dd>
+
+
 <dt>destdir</dt>
 <dd><p>The destination directory to where files will be downloaded
 to in case the <code>ExperimentHub</code> resource is not available. If you already
 downloaded the files, you can set this to the current path where the files
 were previously downloaded to avoid re-downloading them.</p></dd>
+
+
 <dt>eh</dt>
 <dd><p>An <code>ExperimentHub</code> object
 <a href="https://rdrr.io/pkg/ExperimentHub/man/ExperimentHub-class.html" class="external-link">ExperimentHub-class</a>.</p></dd>
+
+
 <dt>bfc</dt>
 <dd><p>A <code>BiocFileCache</code> object
 <a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache-class</a>. Used when
 <code>eh</code> is not available.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The requested object: <code>sce</code>, <code>sce_layer</code>, <code>ve</code> or <code>modeling_results</code> that
+    
+
+<p>The requested object: <code>sce</code>, <code>sce_layer</code>, <code>ve</code> or <code>modeling_results</code> that
 you have to assign to an object. If you didn't you can still avoid
 re-loading the object by using <code>.Last.value</code>.</p>
     </div>
@@ -130,15 +139,15 @@ https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-dat
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## Download the SingleCellExperiment object</span></span>
-<span class="r-in"><span class="co">## at the layer-level</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu">fetch_data</span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-06</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-04-08 20:25:48 loading file /github/home/.cache/R/BiocFileCache/eb6253f5836d_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Explore the data</span></span>
-<span class="r-in"><span class="va">sce_layer</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Download the SingleCellExperiment object</span></span></span>
+<span class="r-in"><span><span class="co">## at the layer-level</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu">fetch_data</span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:12:38 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/1752a2a7d59e5_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Explore the data</span></span></span>
+<span class="r-in"><span><span class="va">sce_layer</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class: SingleCellExperiment </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dim: 22331 76 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> metadata(0):</span>
@@ -166,8 +175,7 @@ https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-dat
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

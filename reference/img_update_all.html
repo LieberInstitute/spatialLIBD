@@ -19,7 +19,7 @@ imgData()."><meta property="og:image" content="/logo.png"><!-- mathjax --><scrip
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.12</span>
       </span>
     </div>
 
@@ -70,13 +70,13 @@ every sample and edits the image with <code><a href="img_edit.html">img_edit()</
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">img_update_all</span><span class="op">(</span>
-  <span class="va">spe</span>,
-  image_id <span class="op">=</span> <span class="st">"lowres"</span>,
-  new_image_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"edited_"</span>, <span class="va">image_id</span><span class="op">)</span>,
-  overwrite <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">img_update_all</span><span class="op">(</span></span>
+<span>  <span class="va">spe</span>,</span>
+<span>  image_id <span class="op">=</span> <span class="st">"lowres"</span>,</span>
+<span>  new_image_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"edited_"</span>, <span class="va">image_id</span><span class="op">)</span>,</span>
+<span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -87,20 +87,31 @@ every sample and edits the image with <code><a href="img_edit.html">img_edit()</
 <a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html" class="external-link">SpatialExperiment-class</a>
 object with the spot-level Visium data and information required for
 visualizing the histology. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details.</p></dd>
+
+
 <dt>image_id</dt>
 <dd><p>A <code>character(1)</code> with the name of the image ID you want to
 use in the background.</p></dd>
+
+
 <dt>new_image_id</dt>
 <dd><p>A <code>character(1)</code> specifying the new <code>image_id</code> to use.</p></dd>
+
+
 <dt>overwrite</dt>
 <dd><p>A <code>logical(1)</code> specifying whether to overwrite the
 <code>image_id</code> if it already exists.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Parameters passed to <code><a href="img_edit.html">img_edit()</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A
+    
+
+<p>A
 <a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html" class="external-link">SpatialExperiment-class</a>  object
 with an updated <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-methods.html" class="external-link">imgData()</a></code> slot.</p>
     </div>
@@ -113,16 +124,16 @@ with an updated <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/Spatial
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="enough_ram.html">enough_ram</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="co">## Obtain the necessary data</span></span>
-<span class="r-in">    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span><span class="op">)</span> <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">    <span class="co">## Reduce brightness to 25% for the 'lowres' image for all samples and</span></span>
-<span class="r-in">    <span class="co">## update the imgData()</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-methods.html" class="external-link">imgData</a></span><span class="op">(</span><span class="fu">img_update_all</span><span class="op">(</span><span class="va">spe</span>, brightness <span class="op">=</span> <span class="fl">25</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-06</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-04-08 20:27:15 loading file /github/home/.cache/R/BiocFileCache/f1aa43d53629_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="enough_ram.html">enough_ram</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co">## Obtain the necessary data</span></span></span>
+<span class="r-in"><span>    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span><span class="op">)</span> <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Reduce brightness to 25% for the 'lowres' image for all samples and</span></span></span>
+<span class="r-in"><span>    <span class="co">## update the imgData()</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-methods.html" class="external-link">imgData</a></span><span class="op">(</span><span class="fu">img_update_all</span><span class="op">(</span><span class="va">spe</span>, brightness <span class="op">=</span> <span class="fl">25</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:13:25 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/3ae9464272d_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 24 rows and 4 columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       sample_id      image_id   data scaleFactor</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;character&gt;   &lt;character&gt; &lt;list&gt;   &lt;numeric&gt;</span>
@@ -151,8 +162,7 @@ with an updated <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/Spatial
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

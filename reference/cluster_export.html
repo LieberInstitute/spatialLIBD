@@ -21,7 +21,7 @@ duplicated."><meta property="og:image" content="/logo.png"><!-- mathjax --><scri
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.12</span>
       </span>
     </div>
 
@@ -74,12 +74,12 @@ duplicated.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">cluster_export</span><span class="op">(</span>
-  <span class="va">spe</span>,
-  <span class="va">cluster_var</span>,
-  cluster_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"exported_clusters"</span><span class="op">)</span>,
-  overwrite <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cluster_export</span><span class="op">(</span></span>
+<span>  <span class="va">spe</span>,</span>
+<span>  <span class="va">cluster_var</span>,</span>
+<span>  cluster_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"exported_clusters"</span><span class="op">)</span>,</span>
+<span>  overwrite <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -90,18 +90,27 @@ duplicated.</p>
 <a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html" class="external-link">SpatialExperiment-class</a>
 object with the spot-level Visium data and information required for
 visualizing the histology. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details.</p></dd>
+
+
 <dt>cluster_var</dt>
 <dd><p>A <code>character(1)</code> with the name of the variable you wish to
 export.</p></dd>
+
+
 <dt>cluster_dir</dt>
 <dd><p>A <code>character(1)</code> specifying the output directory, similar
 to the <code>outs/analysis/clustering</code> produced by SpaceRanger.</p></dd>
+
+
 <dt>overwrite</dt>
 <dd><p>A <code>logical(1)</code> indicating whether to overwrite the <code>spe$key</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The path to the exported <code>clusters.csv</code> file.</p>
+    
+
+<p>The path to the exported <code>clusters.csv</code> file.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -111,16 +120,16 @@ to the <code>outs/analysis/clustering</code> produced by SpaceRanger.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="enough_ram.html">enough_ram</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="co">## Obtain the necessary data</span></span>
-<span class="r-in">    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span><span class="op">)</span> <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">    <span class="co">## Export two cluster variables</span></span>
-<span class="r-in">    <span class="fu">cluster_export</span><span class="op">(</span><span class="va">spe</span>, <span class="st">"spatialLIBD"</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu">cluster_export</span><span class="op">(</span><span class="va">spe</span>, <span class="st">"GraphBased"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-06</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-04-08 20:25:06 loading file /github/home/.cache/R/BiocFileCache/f1aa43d53629_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="enough_ram.html">enough_ram</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co">## Obtain the necessary data</span></span></span>
+<span class="r-in"><span>    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span><span class="op">)</span> <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Export two cluster variables</span></span></span>
+<span class="r-in"><span>    <span class="fu">cluster_export</span><span class="op">(</span><span class="va">spe</span>, <span class="st">"spatialLIBD"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu">cluster_export</span><span class="op">(</span><span class="va">spe</span>, <span class="st">"GraphBased"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:12:11 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/3ae9464272d_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.</span>
 </code></pre></div>
@@ -137,8 +146,7 @@ to the <code>outs/analysis/clustering</code> produced by SpaceRanger.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

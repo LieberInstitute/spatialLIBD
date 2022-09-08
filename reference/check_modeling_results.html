@@ -18,7 +18,7 @@ For more details please check the vignette documentation."><meta property="og:im
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.12</span>
       </span>
     </div>
 
@@ -68,7 +68,7 @@ For more details please check the vignette documentation.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">check_modeling_results</span><span class="op">(</span><span class="va">modeling_results</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">check_modeling_results</span><span class="op">(</span><span class="va">modeling_results</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -80,10 +80,13 @@ columns <code>f_stat_*</code> or <code>t_stat_*</code> as well as <code>p_value_
 <code>ensembl</code>. The column name is used to extract the statistic results, the
 p-values, and the FDR adjusted p-values. Then the <code>ensembl</code> column is used
 for matching in some cases. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The input object if all checks are passed.</p>
+    
+
+<p>The input object if all checks are passed.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -95,15 +98,15 @@ for matching in some cases. See <code><a href="fetch_data.html">fetch_data()</a>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-06</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-04-08 20:24:38 loading file /github/home/.cache/R/BiocFileCache/eb624a071adf_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Check the object</span></span>
-<span class="r-in"><span class="va">xx</span> <span class="op">&lt;-</span> <span class="fu">check_modeling_results</span><span class="op">(</span><span class="va">modeling_results</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:11:54 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/425b2b3c4015_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Check the object</span></span></span>
+<span class="r-in"><span><span class="va">xx</span> <span class="op">&lt;-</span> <span class="fu">check_modeling_results</span><span class="op">(</span><span class="va">modeling_results</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -118,8 +121,7 @@ for matching in some cases. See <code><a href="fetch_data.html">fetch_data()</a>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -21,7 +21,7 @@ informative titles."><meta property="og:image" content="/logo.png"><!-- mathjax 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.12</span>
       </span>
     </div>
 
@@ -74,19 +74,21 @@ informative titles.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">sig_genes_extract</span><span class="op">(</span>
-  n <span class="op">=</span> <span class="fl">10</span>,
-  modeling_results <span class="op">=</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span>,
-  model_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">modeling_results</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,
-  reverse <span class="op">=</span> <span class="cn">FALSE</span>,
-  sce_layer <span class="op">=</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sig_genes_extract</span><span class="op">(</span></span>
+<span>  n <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  modeling_results <span class="op">=</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span>,</span>
+<span>  model_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">modeling_results</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  reverse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  sce_layer <span class="op">=</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>n</dt>
 <dd><p>The number of the top ranked genes to extract.</p></dd>
+
+
 <dt>modeling_results</dt>
 <dd><p>Defaults to the output of
 <code>fetch_data(type = 'modeling_results')</code>. This is a list of tables with the
@@ -94,6 +96,8 @@ columns <code>f_stat_*</code> or <code>t_stat_*</code> as well as <code>p_value_
 <code>ensembl</code>. The column name is used to extract the statistic results, the
 p-values, and the FDR adjusted p-values. Then the <code>ensembl</code> column is used
 for matching in some cases. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details.</p></dd>
+
+
 <dt>model_type</dt>
 <dd><p>A named element of the <code>modeling_results</code> list. By default
 that is either <code>enrichment</code> for the model that tests one human brain layer
@@ -103,20 +107,27 @@ than <code>layerB</code>, and <code>anova</code> which determines if any layer (
 from the rest adjusting for the mean expression level. The statistics for
 <code>enrichment</code> and <code>pairwise</code> are t-statistics while the <code>anova</code> model ones
 are F-statistics.</p></dd>
+
+
 <dt>reverse</dt>
 <dd><p>A <code>logical(1)</code> indicating whether to multiply by <code>-1</code> the
 input statistics and reverse the <code>layerA-layerB</code> column names (using the <code>-</code>)
 into <code>layerB-layerA</code>.</p></dd>
+
+
 <dt>sce_layer</dt>
 <dd><p>Defaults to the output of
 <code>fetch_data(type = 'sce_layer')</code>. This is a
 SingleCellExperiment
 object with the spot-level Visium data compressed via pseudo-bulking to the
 layer-level (group-level) resolution. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame()</a></code> with the top <code>n</code> significant genes
+    
+
+<p>A <code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame()</a></code> with the top <code>n</code> significant genes
 (as ordered by their statistics in decreasing order) in long format. The
 specific columns are described further in the vignette.</p>
     </div>
@@ -134,22 +145,22 @@ https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## Obtain the necessary data</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-06</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-04-08 20:28:16 loading file /github/home/.cache/R/BiocFileCache/eb624a071adf_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-06</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-04-08 20:28:17 loading file /github/home/.cache/R/BiocFileCache/eb6253f5836d_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## anova top 10 genes</span></span>
-<span class="r-in"><span class="fu">sig_genes_extract</span><span class="op">(</span></span>
-<span class="r-in">    modeling_results <span class="op">=</span> <span class="va">modeling_results</span>,</span>
-<span class="r-in">    sce_layer <span class="op">=</span> <span class="va">sce_layer</span></span>
-<span class="r-in"><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Obtain the necessary data</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:14:04 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/425b2b3c4015_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:14:05 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/1752a2a7d59e5_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## anova top 10 genes</span></span></span>
+<span class="r-in"><span><span class="fu">sig_genes_extract</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    modeling_results <span class="op">=</span> <span class="va">modeling_results</span>,</span></span>
+<span class="r-in"><span>    sce_layer <span class="op">=</span> <span class="va">sce_layer</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    top model_type test     gene     stat         pval          fdr gene_index</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    1      anova full    KRT17 142.6223 1.047345e-37 2.338827e-33      18321</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    2      anova full SERPINE2 130.0159 2.154786e-36 2.405926e-32       3621</span>
@@ -192,13 +203,13 @@ https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18 ENSG00000123416</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19 ENSG00000122254</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20 ENSG00000006468</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Extract all genes</span></span>
-<span class="r-in"><span class="fu">sig_genes_extract</span><span class="op">(</span></span>
-<span class="r-in">    modeling_results <span class="op">=</span> <span class="va">modeling_results</span>,</span>
-<span class="r-in">    sce_layer <span class="op">=</span> <span class="va">sce_layer</span>,</span>
-<span class="r-in">    n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sce_layer</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Extract all genes</span></span></span>
+<span class="r-in"><span><span class="fu">sig_genes_extract</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    modeling_results <span class="op">=</span> <span class="va">modeling_results</span>,</span></span>
+<span class="r-in"><span>    sce_layer <span class="op">=</span> <span class="va">sce_layer</span>,</span></span>
+<span class="r-in"><span>    n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sce_layer</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         top model_type test            gene       stat         pval</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         1      anova full           KRT17 142.622262 1.047345e-37</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2         2      anova full        SERPINE2 130.015902 2.154786e-36</span>
@@ -22438,8 +22449,7 @@ https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
