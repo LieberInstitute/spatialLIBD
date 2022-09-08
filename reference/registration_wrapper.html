@@ -22,7 +22,7 @@ related functions of sc/snRNA-seq datasets."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.14</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@ related functions of sc/snRNA-seq datasets.</p>
 <span>  gene_ensembl <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  gene_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  prefix <span class="op">=</span> <span class="st">""</span>,</span>
-<span>  min_ncells <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  min_ncells <span class="op">=</span> <span class="fl">10</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -141,6 +141,16 @@ when pseudo-bulking. Pseudo-bulked samples with less than <code>min_ncells</code
 <p>A <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> of <code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame()</a></code> with the statistical results. This is
 similar to <code>fetch_data("modeling_results")</code>.</p>
     </div>
+    <div id="details">
+    <h2>Details</h2>
+    <p>We chose a default of <code>min_ncells = 10</code> based on OSCA from section 4.3
+at
+<a href="http://bioconductor.org/books/3.15/OSCA.multisample/multi-sample-comparisons.html" class="external-link">http://bioconductor.org/books/3.15/OSCA.multisample/multi-sample-comparisons.html</a>.
+They cite <a href="https://doi.org/10.1038/s41467-020-19894-4" class="external-link">https://doi.org/10.1038/s41467-020-19894-4</a> as the paper where
+they came up with the definition of "very low" being 10. You might want
+to use <code><a href="registration_pseudobulk.html">registration_pseudobulk()</a></code> and manually explore <code>sce_pseudo$ncells</code>
+to choose the best cutoff.</p>
+    </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other spatial registration and statistical modeling functions: 
@@ -177,18 +187,19 @@ similar to <code>fetch_data("modeling_results")</code>.</p>
 <span class="r-in"><span>    <span class="va">sce</span>,</span></span>
 <span class="r-in"><span>    <span class="st">"Treatment"</span>, <span class="st">"sample_id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>, <span class="st">"ensembl"</span>, <span class="st">"gene_name"</span>, <span class="st">"wrapper"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 12:34:28 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:16 make pseudobulk object</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'use.altexps=' is deprecated.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'applySCE(x, aggregateAcrossCells)' instead.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 12:34:28 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 12:34:28 normalize expression</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 12:34:28 create model matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 12:34:28 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 12:34:29 computing enrichment statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 12:34:29 extract and reformat enrichment results</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 12:34:29 running the baseline pairwise model</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 12:34:29 computing pairwise statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 12:34:29 computing F-statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:16 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:16 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:16 dropping 0 pseudo-bulked samples that are below 'min_ncells'.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:16 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:16 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:16 computing enrichment statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:16 extract and reformat enrichment results</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:16 running the baseline pairwise model</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:16 computing pairwise statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:16 computing F-statistics</span>
 </code></pre></div>
     </div>
   </div>
