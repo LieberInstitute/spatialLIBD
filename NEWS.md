@@ -1,3 +1,13 @@
+# spatialLIBD 1.9.12
+
+NEW FEATURES
+
+* Added functions for computing the modeling statistics used by the spatial
+registration process. See `registration_wrapper()` and related functions.
+* Added a function for using the output of `layer_stat_cor()` and for
+labeling the clusters. This can help interpret the spatial registration results.
+See `annotate_registered_clusters()` for more details.
+
 # spatialLIBD 1.9.11
 
 BUG FIXES
