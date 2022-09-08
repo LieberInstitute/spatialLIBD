@@ -11,7 +11,7 @@
 #' your own spatially-resolved transcriptomics data that doesn't have to be
 #' about DLPFC layers.
 #'
-#' @param cor_matrix The output of `layer_stat_cor()`.
+#' @inheritParams layer_stat_cor_plot
 #' @param confidence_threshold A `numeric(1)` specifying the minimum correlation
 #' that a given cluster must have against any of the layers (by default) to
 #' be considered as having a 'good' assignment. Otherwise, the confidence will
@@ -27,6 +27,7 @@
 #' @return A `data.frame` with 3 columns. Your `cluster`s, the `layer_confidence`
 #' which depends on `confidence_threshold`, and the `layer_label`.
 #' @export
+#' @family Layer correlation functions
 #'
 #' @examples
 #' example("layer_stat_cor", package = "spatialLIBD")
@@ -36,8 +37,8 @@
 #'
 #' ## More relaxed merging threshold
 #' annotate_registered_clusters(cor_stats_layer, cutoff_merge_ratio = 1)
-annotate_registered_clusters <- function(cor_matrix, confidence_threshold = 0.25, cutoff_merge_ratio = 0.25) {
-    annotated <- apply(cor_matrix, 1, annotate_registered_cluster, cutoff_merge_ratio = cutoff_merge_ratio)
+annotate_registered_clusters <- function(cor_stats_layer, confidence_threshold = 0.25, cutoff_merge_ratio = 0.25) {
+    annotated <- apply(cor_stats_layer, 1, annotate_registered_cluster, cutoff_merge_ratio = cutoff_merge_ratio)
 
     if (all(colnames(cor_stats_layer) %in% c("WM", paste0("Layer", seq_len(6))))) {
         ## Simplify names when working with the default data
@@ -48,7 +49,7 @@ annotate_registered_clusters <- function(cor_matrix, confidence_threshold = 0.25
 
     result <- data.frame(
         cluster = names(annotated),
-        layer_confidence = ifelse(apply(cor_matrix, 1, max) > confidence_threshold, "good", "poor"),
+        layer_confidence = ifelse(apply(cor_stats_layer, 1, max) > confidence_threshold, "good", "poor"),
         layer_label = annotated,
         row.names = NULL
     )
@@ -61,7 +62,7 @@ annotate_registered_cluster <- function(remaining, label = "", current = NULL, c
     remaining <- remaining[remaining > 0]
 
     ## There's nothing else to continue with
-    if(length(remaining) == 0) {
+    if (length(remaining) == 0) {
         return(label)
     }
 
@@ -69,7 +70,7 @@ annotate_registered_cluster <- function(remaining, label = "", current = NULL, c
     next_i <- which.max(remaining)
     next_cor <- remaining[next_i]
 
-    if(label == "") {
+    if (label == "") {
         ## Initial case when we didn't have a label
         annotate_registered_cluster(
             remaining = remaining[-next_i],

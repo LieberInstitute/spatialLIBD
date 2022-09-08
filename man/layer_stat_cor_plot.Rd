@@ -82,6 +82,7 @@ layer_stat_cor_plot(layer_stat_cor(
 layer_matrix_plot
 
 Other Layer correlation functions: 
+\code{\link{annotate_registered_clusters}()},
 \code{\link{layer_stat_cor}()}
 }
 \author{

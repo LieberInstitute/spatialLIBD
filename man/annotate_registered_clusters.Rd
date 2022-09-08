@@ -5,13 +5,13 @@
 \title{Annotated spatially-registered clusters}
 \usage{
 annotate_registered_clusters(
-  cor_matrix,
+  cor_stats_layer,
   confidence_threshold = 0.25,
   cutoff_merge_ratio = 0.25
 )
 }
 \arguments{
-\item{cor_matrix}{The output of \code{layer_stat_cor()}.}
+\item{cor_stats_layer}{The output of \code{\link[=layer_stat_cor]{layer_stat_cor()}}.}
 
 \item{confidence_threshold}{A \code{numeric(1)} specifying the minimum correlation
 that a given cluster must have against any of the layers (by default) to
@@ -52,3 +52,9 @@ annotate_registered_clusters(cor_stats_layer)
 ## More relaxed merging threshold
 annotate_registered_clusters(cor_stats_layer, cutoff_merge_ratio = 1)
 }
+\seealso{
+Other Layer correlation functions: 
+\code{\link{layer_stat_cor_plot}()},
+\code{\link{layer_stat_cor}()}
+}
+\concept{Layer correlation functions}
