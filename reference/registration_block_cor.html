@@ -115,7 +115,10 @@ variable with the sample ID.</p></dd>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/example.html" class="external-link">example</a></span><span class="op">(</span><span class="st">"registration_model"</span>, package <span class="op">=</span> <span class="st">"spatialLIBD"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; example(registration_pseudobulk)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; example("registration_pseudobulk", package = "spatialLIBD")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; ## Ensure reproducibility of example data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; set.seed(20220907)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; ## Generate example data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; sce &lt;- scuttle::mockSCE()</span>
@@ -137,74 +140,52 @@ variable with the sample ID.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; ## Pseudo-bulk</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; sce_pseudo &lt;- registration_pseudobulk(sce, "Treatment", "sample_id", c("age"))</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:13:45 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:25:52 make pseudobulk object</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'use.altexps=' is deprecated.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'applySCE(x, aggregateAcrossCells)' instead.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:13:45 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:13:45 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:25:53 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:25:53 normalize expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; colData(sce_pseudo)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 10 rows and 8 columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Mutation_Status  Cell_Cycle   Treatment   sample_id       age</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat1              NA          NA      treat1           A   20.2173</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat1              NA          NA      treat1           B   30.1334</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat1              NA          NA      treat1           C   21.9478</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat1              NA          NA      treat1           D   25.7191</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat1              NA          NA      treat1           E   22.9478</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat2              NA          NA      treat2           A   20.2173</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat2              NA          NA      treat2           B   30.1334</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat2              NA          NA      treat2           C   21.9478</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat2              NA          NA      treat2           D   25.7191</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat2              NA          NA      treat2           E   22.9478</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat1              NA          NA      treat1           A   19.1872</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat1              NA          NA      treat1           B   25.3496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat1              NA          NA      treat1           C   24.1802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat1              NA          NA      treat1           D   15.5211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat1              NA          NA      treat1           E   20.9701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat2              NA          NA      treat2           A   19.1872</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat2              NA          NA      treat2           B   25.3496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat2              NA          NA      treat2           C   24.1802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat2              NA          NA      treat2           D   15.5211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat2              NA          NA      treat2           E   20.9701</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          registration_variable registration_sample_id    ncells</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    &lt;character&gt;            &lt;character&gt; &lt;integer&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_treat1                treat1                      A        18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat1                treat1                      B        15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat1                treat1                      C        23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat1                treat1                      D        13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat1                treat1                      E        25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat2                treat2                      A        27</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat2                treat2                      B        19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat2                treat2                      C        21</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat2                treat2                      D        25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat2                treat2                      E        14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat1                treat1                      B        19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat1                treat1                      C        18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat1                treat1                      D        24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat1                treat1                      E        22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat2                treat2                      A        18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat2                treat2                      B        23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat2                treat2                      C        20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat2                treat2                      D        20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat2                treat2                      E        18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; ## For tests</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; # sce$batches &lt;- sample(1:3, ncol(sce), replace=TRUE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; # sce_pseudo &lt;- registration_pseudobulk(sce, "Treatment", "sample_id", c("age", "batches"))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; registration_mod &lt;- registration_model(sce_pseudo, "age")</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:25:53 create model matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; mod &lt;- registration_model(sce_pseudo, "age")</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Create model matrix - 2022-09-08 10:13:45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; registration_model(sce_pseudo)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Create model matrix - 2022-09-08 10:13:45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          registration_variabletreat1 registration_variabletreat2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat1                           1                           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat1                           1                           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat1                           1                           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat1                           1                           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat1                           1                           0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat2                           0                           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat2                           0                           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat2                           0                           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat2                           0                           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat2                           0                           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"assign")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"contrasts")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"contrasts")$registration_variable</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "contr.treatment"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; registration_model(sce_pseudo, "absent")</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Formula term 'absent' is not contained in colData()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; head(registration_mod)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          registration_variabletreat1 registration_variabletreat2      age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat1                           1                           0 19.18719</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat1                           1                           0 25.34965</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat1                           1                           0 24.18019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat1                           1                           0 15.52107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat1                           1                           0 20.97006</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat2                           0                           1 19.18719</span>
 <span class="r-in"><span><span class="va">block_cor</span> <span class="op">&lt;-</span> <span class="fu">registration_block_cor</span><span class="op">(</span><span class="va">sce_pseudo</span>, <span class="va">registration_mod</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:13:45 run duplicateCorrelation()</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in limma::duplicateCorrelation(logcounts(sce_pseudo), registration_model,     block = sce_pseudo[[var_sample_id]]):</span> object 'registration_mod' not found</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:25:53 run duplicateCorrelation()</span>
 </code></pre></div>
     </div>
   </div>

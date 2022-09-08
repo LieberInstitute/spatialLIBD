@@ -147,15 +147,93 @@ similar to <code>fetch_data("modeling_results")$anova</code>.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/example.html" class="external-link">example</a></span><span class="op">(</span><span class="st">"registration_block_cor"</span>, package <span class="op">=</span> <span class="st">"spatialLIBD"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgst__master &gt; block_cor &lt;- registration_block_cor(sce_pseudo, mod)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:13:47 run duplicateCorrelation()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgst__master &gt; example("registration_model", package = "spatialLIBD")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; example("registration_pseudobulk", package = "spatialLIBD")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; ## Ensure reproducibility of example data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; set.seed(20220907)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; ## Generate example data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; sce &lt;- scuttle::mockSCE()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; ## Add some sample IDs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; sce$sample_id &lt;- sample(LETTERS[1:5], ncol(sce), replace = TRUE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; ## Add a sample-level covariate: age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; ages &lt;- rnorm(5, mean = 20, sd = 4)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; names(ages) &lt;- LETTERS[1:5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; sce$age &lt;- ages[sce$sample_id]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; ## Add gene-level information</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; rowData(sce)$ensembl &lt;- paste0("ENSG", seq_len(nrow(sce)))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; rowData(sce)$gene_name &lt;- paste0("gene", seq_len(nrow(sce)))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; ## Pseudo-bulk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; sce_pseudo &lt;- registration_pseudobulk(sce, "Treatment", "sample_id", c("age"))</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:25:55 make pseudobulk object</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'use.altexps=' is deprecated.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'applySCE(x, aggregateAcrossCells)' instead.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:25:55 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:25:55 normalize expression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; colData(sce_pseudo)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 10 rows and 8 columns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Mutation_Status  Cell_Cycle   Treatment   sample_id       age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat1              NA          NA      treat1           A   19.1872</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat1              NA          NA      treat1           B   25.3496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat1              NA          NA      treat1           C   24.1802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat1              NA          NA      treat1           D   15.5211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat1              NA          NA      treat1           E   20.9701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat2              NA          NA      treat2           A   19.1872</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat2              NA          NA      treat2           B   25.3496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat2              NA          NA      treat2           C   24.1802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat2              NA          NA      treat2           D   15.5211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat2              NA          NA      treat2           E   20.9701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          registration_variable registration_sample_id    ncells</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    &lt;character&gt;            &lt;character&gt; &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat1                treat1                      A        18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat1                treat1                      B        19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat1                treat1                      C        18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat1                treat1                      D        24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat1                treat1                      E        22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat2                treat2                      A        18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat2                treat2                      B        23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat2                treat2                      C        20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat2                treat2                      D        20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat2                treat2                      E        18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; registration_mod &lt;- registration_model(sce_pseudo, "age")</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:25:55 create model matrix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; head(registration_mod)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          registration_variabletreat1 registration_variabletreat2      age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat1                           1                           0 19.18719</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat1                           1                           0 25.34965</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat1                           1                           0 24.18019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat1                           1                           0 15.52107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat1                           1                           0 20.97006</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat2                           0                           1 19.18719</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgst__master &gt; block_cor &lt;- registration_block_cor(sce_pseudo, registration_mod)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:25:55 run duplicateCorrelation()</span>
 <span class="r-in"><span><span class="va">results_anova</span> <span class="op">&lt;-</span> <span class="fu">registration_stats_anova</span><span class="op">(</span><span class="va">sce_pseudo</span>,</span></span>
 <span class="r-in"><span>    <span class="va">block_cor</span>, <span class="st">"age"</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span>, prefix <span class="op">=</span> <span class="st">"example"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in registration_stats_anova(sce_pseudo, block_cor, "age", gene_ensembl = "ensembl",     gene_name = "gene_name", prefix = "example"):</span> could not find function "registration_stats_anova"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 10:25:56 computing F-statistics</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_anova</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'head': object 'results_anova' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   example_f_stat example_p_value example_fdr example_AveExpr ensembl  gene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      0.1814036      0.83707093   0.9894421        5.603911   ENSG1 gene1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      0.2308187      0.79843629   0.9894421        3.965248   ENSG2 gene2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      0.6073113      0.56568413   0.9894421       10.744697   ENSG3 gene3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      0.6422112      0.54860918   0.9894421        5.794754   ENSG4 gene4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      7.3540538      0.01277300   0.8562882        3.336278   ENSG5 gene5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      4.2767610      0.04943749   0.9654248        5.431549   ENSG6 gene6</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Note that you can merge multiple of these data.frames if you run this</span></span></span>
 <span class="r-in"><span><span class="co">## function for different sets. For example, maybe you drop one group</span></span></span>
