@@ -18,7 +18,7 @@
 #' @importFrom scuttle aggregateAcrossCells
 #' @importFrom edgeR filterByExpr calcNormFactors
 #' @export
-#' @family spatial registration and statistical modeling functions.
+#' @family spatial registration and statistical modeling functions
 #'
 #' @examples
 #' ## Ensure reproducibility of example data

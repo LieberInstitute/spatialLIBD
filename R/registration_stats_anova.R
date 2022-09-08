@@ -14,7 +14,7 @@
 #' similar to `fetch_data("modeling_results")$anova`.
 #' @export
 #' @importFrom limma lmFit eBayes topTable
-#' @family spatial registration and statistical modeling functions.
+#' @family spatial registration and statistical modeling functions
 #'
 #' @examples
 #' example("registration_block_cor", package = "spatialLIBD")

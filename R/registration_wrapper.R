@@ -14,7 +14,7 @@
 #' @return A `list()` of `data.frame()` with the statistical results. This is
 #' similar to `fetch_data("modeling_results")`.
 #' @export
-#' @family spatial registration and statistical modeling functions.
+#' @family spatial registration and statistical modeling functions
 #'
 #' @examples
 #' ## Ensure reproducibility of example data

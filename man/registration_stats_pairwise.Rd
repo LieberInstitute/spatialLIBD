@@ -48,7 +48,7 @@ results_pairwise <- registration_stats_pairwise(sce_pseudo,
 head(results_pairwise)
 }
 \seealso{
-Other spatial registration and statistical modeling functions.: 
+Other spatial registration and statistical modeling functions: 
 \code{\link{registration_block_cor}()},
 \code{\link{registration_model}()},
 \code{\link{registration_pseudobulk}()},
@@ -56,4 +56,4 @@ Other spatial registration and statistical modeling functions.:
 \code{\link{registration_stats_enrichment}()},
 \code{\link{registration_wrapper}()}
 }
-\concept{spatial registration and statistical modeling functions.}
+\concept{spatial registration and statistical modeling functions}

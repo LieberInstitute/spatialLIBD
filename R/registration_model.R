@@ -16,7 +16,7 @@
 #' your sample-level covariates are being properly modeled.
 #' @export
 #' @importFrom stats model.matrix
-#' @family spatial registration and statistical modeling functions.
+#' @family spatial registration and statistical modeling functions
 #'
 #' @examples
 #' example("registration_pseudobulk", package = "spatialLIBD")

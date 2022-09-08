@@ -11,7 +11,7 @@
 #' @return A `data.frame()` with the pairwise statistical results. This is
 #' similar to `fetch_data("modeling_results")$pairwise`.
 #' @export
-#' @family spatial registration and statistical modeling functions.
+#' @family spatial registration and statistical modeling functions
 #' @importFrom limma lmFit eBayes makeContrasts contrasts.fit
 #' @importFrom utils combn
 #' @importFrom stats p.adjust

@@ -64,7 +64,7 @@ head(results_anova)
 ## prior to computing ANOVA F-statistics.
 }
 \seealso{
-Other spatial registration and statistical modeling functions.: 
+Other spatial registration and statistical modeling functions: 
 \code{\link{registration_block_cor}()},
 \code{\link{registration_model}()},
 \code{\link{registration_pseudobulk}()},
@@ -72,4 +72,4 @@ Other spatial registration and statistical modeling functions.:
 \code{\link{registration_stats_pairwise}()},
 \code{\link{registration_wrapper}()}
 }
-\concept{spatial registration and statistical modeling functions.}
+\concept{spatial registration and statistical modeling functions}

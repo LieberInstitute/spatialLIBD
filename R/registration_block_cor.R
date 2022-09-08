@@ -14,7 +14,7 @@
 #' @export
 #' @importFrom limma duplicateCorrelation
 #' @importFrom statmod mixedModel2Fit
-#' @family spatial registration and statistical modeling functions.
+#' @family spatial registration and statistical modeling functions
 #'
 #' @examples
 #' example("registration_model", package = "spatialLIBD")

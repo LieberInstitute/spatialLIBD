@@ -51,7 +51,7 @@ sce_pseudo <- registration_pseudobulk(sce, "Treatment", "sample_id", c("age"))
 colData(sce_pseudo)
 }
 \seealso{
-Other spatial registration and statistical modeling functions.: 
+Other spatial registration and statistical modeling functions: 
 \code{\link{registration_block_cor}()},
 \code{\link{registration_model}()},
 \code{\link{registration_stats_anova}()},
@@ -59,4 +59,4 @@ Other spatial registration and statistical modeling functions.:
 \code{\link{registration_stats_pairwise}()},
 \code{\link{registration_wrapper}()}
 }
-\concept{spatial registration and statistical modeling functions.}
+\concept{spatial registration and statistical modeling functions}
