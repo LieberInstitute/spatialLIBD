@@ -7,6 +7,15 @@
 #' used for performing spatial registration through `layer_stat_cor()` and
 #' related functions of sc/snRNA-seq datasets.
 #'
+#' We chose a default of `min_ncells = 10` based on OSCA from section 4.3
+#' at
+#' <http://bioconductor.org/books/3.15/OSCA.multisample/multi-sample-comparisons.html>.
+#' They cite <https://doi.org/10.1038/s41467-020-19894-4> as the paper where
+#' they came up with the definition of "very low" being 10. You might want
+#' to use `registration_pseudobulk()` and manually explore `sce_pseudo$ncells`
+#' to choose the best cutoff.
+#'
+#'
 #' @inheritParams registration_pseudobulk
 #' @inheritParams registration_stats_enrichment
 #' @inheritParams registration_stats_anova
@@ -52,7 +61,7 @@ registration_wrapper <-
     gene_ensembl = NULL,
     gene_name = NULL,
     prefix = "",
-    min_ncells = NULL) {
+    min_ncells = 10) {
         sce_pseudo <-
             registration_pseudobulk(sce,
                 var_registration = var_registration,

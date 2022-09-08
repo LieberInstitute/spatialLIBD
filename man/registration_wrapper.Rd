@@ -12,7 +12,7 @@ registration_wrapper(
   gene_ensembl = NULL,
   gene_name = NULL,
   prefix = "",
-  min_ncells = NULL
+  min_ncells = 10
 )
 }
 \arguments{
@@ -55,6 +55,15 @@ finding marker genes on a new spatially-resolved transcriptomics dataset
 and thus using it for \code{run_app()}. The results from this function can also be
 used for performing spatial registration through \code{layer_stat_cor()} and
 related functions of sc/snRNA-seq datasets.
+}
+\details{
+We chose a default of \code{min_ncells = 10} based on OSCA from section 4.3
+at
+\url{http://bioconductor.org/books/3.15/OSCA.multisample/multi-sample-comparisons.html}.
+They cite \url{https://doi.org/10.1038/s41467-020-19894-4} as the paper where
+they came up with the definition of "very low" being 10. You might want
+to use \code{registration_pseudobulk()} and manually explore \code{sce_pseudo$ncells}
+to choose the best cutoff.
 }
 \examples{
 ## Ensure reproducibility of example data
