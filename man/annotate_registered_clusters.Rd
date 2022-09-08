@@ -44,7 +44,17 @@ your own spatially-resolved transcriptomics data that doesn't have to be
 about DLPFC layers.
 }
 \examples{
-example("layer_stat_cor", package = "spatialLIBD")
+## Obtain the necessary data
+if (!exists("modeling_results")) {
+    modeling_results <- fetch_data(type = "modeling_results")
+}
+
+## Compute the correlations
+cor_stats_layer <- layer_stat_cor(
+    tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
+    modeling_results,
+    model_type = "enrichment"
+)
 
 ## Obtain labels
 annotate_registered_clusters(cor_stats_layer)

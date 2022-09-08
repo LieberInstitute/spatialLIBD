@@ -30,70 +30,102 @@
 #' @family Layer correlation functions
 #'
 #' @examples
-#' example("layer_stat_cor", package = "spatialLIBD")
+#' ## Obtain the necessary data
+#' if (!exists("modeling_results")) {
+#'     modeling_results <- fetch_data(type = "modeling_results")
+#' }
+#'
+#' ## Compute the correlations
+#' cor_stats_layer <- layer_stat_cor(
+#'     tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer,
+#'     modeling_results,
+#'     model_type = "enrichment"
+#' )
 #'
 #' ## Obtain labels
 #' annotate_registered_clusters(cor_stats_layer)
 #'
 #' ## More relaxed merging threshold
 #' annotate_registered_clusters(cor_stats_layer, cutoff_merge_ratio = 1)
-annotate_registered_clusters <- function(cor_stats_layer, confidence_threshold = 0.25, cutoff_merge_ratio = 0.25) {
-    annotated <- apply(cor_stats_layer, 1, annotate_registered_cluster, cutoff_merge_ratio = cutoff_merge_ratio)
+annotate_registered_clusters <-
+    function(cor_stats_layer,
+    confidence_threshold = 0.25,
+    cutoff_merge_ratio = 0.25) {
+        annotated <-
+            apply(cor_stats_layer,
+                1,
+                annotate_registered_cluster,
+                cutoff_merge_ratio = cutoff_merge_ratio
+            )
 
-    if (all(colnames(cor_stats_layer) %in% c("WM", paste0("Layer", seq_len(6))))) {
-        ## Simplify names when working with the default data
-        annotated <- gsub("ayer", "", annotated)
-        annotated <- gsub("\\/L", "\\/", annotated)
-        annotated <- gsub("^WM\\/", "WM\\/L", annotated)
-    }
+        if (all(colnames(cor_stats_layer) %in% c("WM", paste0("Layer", seq_len(6))))) {
+            ## Simplify names when working with the default data
+            annotated <- gsub("ayer", "", annotated)
+            annotated <- gsub("\\/L", "\\/", annotated)
+            annotated <- gsub("^WM\\/", "WM\\/L", annotated)
+        }
 
-    result <- data.frame(
-        cluster = names(annotated),
-        layer_confidence = ifelse(apply(cor_stats_layer, 1, max) > confidence_threshold, "good", "poor"),
-        layer_label = annotated,
-        row.names = NULL
-    )
-    result$layer_label <- paste0(result$layer_label, ifelse(result$layer_confidence == "good", "", "*"))
-    return(result)
-}
+        confidence <- apply(cor_stats_layer, 1, max) > confidence_threshold
 
-annotate_registered_cluster <- function(remaining, label = "", current = NULL, cutoff_merge_ratio = 0.25) {
-    ## Filter negative correlations
-    remaining <- remaining[remaining > 0]
-
-    ## There's nothing else to continue with
-    if (length(remaining) == 0) {
-        return(label)
-    }
-
-    ## Find the next highest correlation
-    next_i <- which.max(remaining)
-    next_cor <- remaining[next_i]
-
-    if (label == "") {
-        ## Initial case when we didn't have a label
-        annotate_registered_cluster(
-            remaining = remaining[-next_i],
-            label = names(next_cor),
-            current = next_cor,
-            cutoff_merge_ratio = cutoff_merge_ratio
+        result <- data.frame(
+            cluster = names(annotated),
+            layer_confidence = ifelse(
+                confidence,
+                "good",
+                "poor"
+            ),
+            layer_label = annotated,
+            row.names = NULL
         )
-    } else {
-        ## Find the difference, then divide by the next correlation
-        next_diff_ratio <- (current - next_cor) / next_cor
+        result$layer_label <-
+            paste0(
+                result$layer_label,
+                ifelse(result$layer_confidence == "good", "", "*")
+            )
+        return(result)
+    }
 
-        if (next_diff_ratio > cutoff_merge_ratio) {
-            ## It's above the cutoff, so we don't decide to merge
-            ## and are done =)
+annotate_registered_cluster <-
+    function(remaining,
+    label = "",
+    current = NULL,
+    cutoff_merge_ratio = 0.25) {
+        ## Filter negative correlations
+        remaining <- remaining[remaining > 0]
+
+        ## There's nothing else to continue with
+        if (length(remaining) == 0) {
             return(label)
-        } else {
-            ## It's below the cutoff, so we need to look at the next one
+        }
+
+        ## Find the next highest correlation
+        next_i <- which.max(remaining)
+        next_cor <- remaining[next_i]
+
+        if (label == "") {
+            ## Initial case when we didn't have a label
             annotate_registered_cluster(
                 remaining = remaining[-next_i],
-                label = paste0(label, "/", names(next_cor)),
+                label = names(next_cor),
                 current = next_cor,
                 cutoff_merge_ratio = cutoff_merge_ratio
             )
+        } else {
+            ## Find the difference, then divide by the next correlation
+            next_diff_ratio <- (current - next_cor) / next_cor
+
+            if (next_diff_ratio > cutoff_merge_ratio) {
+                ## It's above the cutoff, so we don't decide to merge
+                ## and are done =)
+                return(label)
+            } else {
+                ## It's below the cutoff, so we need to look at the next one
+                annotate_registered_cluster(
+                    remaining = remaining[-next_i],
+                    label = paste0(label, "/", names(next_cor)),
+                    current = next_cor,
+                    cutoff_merge_ratio = cutoff_merge_ratio
+                )
+            }
         }
     }
-}

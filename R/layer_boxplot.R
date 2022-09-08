@@ -32,7 +32,7 @@
 #' @references Adapted from
 #' https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/layer_specificity.R
 #' @export
-#' @importFrom SummarizedExperiment assays
+#' @importFrom SummarizedExperiment assays assay
 #' @importFrom graphics par boxplot points
 #' @family Layer modeling functions
 #'
