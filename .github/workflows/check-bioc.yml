@@ -237,7 +237,7 @@ jobs:
           rcmdcheck::rcmdcheck(
               args = c("--no-manual", "--no-vignettes", "--timings"),
               build_args = c("--no-manual", "--keep-empty-dirs", "--no-resave-data"),
-              error_on = "warning",
+              error_on = "error",
               check_dir = "check"
           )
         shell: Rscript {0}
