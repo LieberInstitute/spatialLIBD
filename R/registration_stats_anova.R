@@ -6,6 +6,9 @@
 #' are more typically used for identifying ANOVA-marker genes.
 #'
 #' @inheritParams registration_stats_enrichment
+#' @param prefix A `character(1)` specifying the prefix to use for the
+#' F-statistics column. This is particularly useful if you will run this
+#' function more than once and want to be able to merge the results.
 #'
 #' @return A `data.frame()` with the ANOVA statistical results. This is
 #' similar to `fetch_data("modeling_results")$anova`.

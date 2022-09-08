@@ -71,7 +71,8 @@ Imports:
     paletteer,
     scuttle,
     edgeR,
-    limma
+    limma,
+    statmod
 RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/LieberInstitute/spatialLIBD

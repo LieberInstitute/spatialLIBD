@@ -15,6 +15,7 @@
 #' @return The output of `model.matrix()` which you can inspect to verify that
 #' your sample-level covariates are being properly modeled.
 #' @export
+#' @importFrom stats model.matrix
 #' @family spatial registration and statistical modeling functions.
 #'
 #' @examples

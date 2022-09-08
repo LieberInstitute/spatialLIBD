@@ -74,12 +74,13 @@ bib <- c(
     sessioninfo = citation("sessioninfo")[1],
     SingleCellExperiment = citation("SingleCellExperiment")[1],
     shiny = citation("shiny")[1],
-    SummarizedExperiment = citation("SummarizedExperiment")[1],
-    testthat = citation("testthat")[1],
-    viridisLite = citation("viridisLite")[1],
     SpatialExperiment = citation("SpatialExperiment")[1],
     spatialLIBD = citation("spatialLIBD")[1],
-    spatialLIBDpaper = citation("spatialLIBD")[2]
+    spatialLIBDpaper = citation("spatialLIBD")[2],
+    statmod = citation("statmod")[1],
+    SummarizedExperiment = citation("SummarizedExperiment")[1],
+    testthat = citation("testthat")[1],
+    viridisLite = citation("viridisLite")[1]
 )
 ```
 # Welcome
@@ -607,6 +608,7 @@ The `r Biocpkg('spatialLIBD')` package `r Citep(bib[['spatialLIBD']])` was made 
 * `r Biocpkg('SingleCellExperiment')` `r Citep(bib[['SingleCellExperiment']])`
 * `r CRANpkg('shiny')` `r Citep(bib[['shiny']])`
 * `r Biocpkg('SpatialExperiment')` `r Citep(bib[['SpatialExperiment']])`
+* `r CRANpkg('statmod')` `r Citep(bib[['statmod']])`
 * `r Biocpkg('SummarizedExperiment')` `r Citep(bib[['SummarizedExperiment']])`
 * `r CRANpkg('testthat')` `r Citep(bib[['testthat']])`
 * `r CRANpkg('viridisLite')` `r Citep(bib[['viridisLite']])`

@@ -6,13 +6,15 @@
 #' are more typically used for identifying pairwise-marker genes.
 #'
 #' @inheritParams registration_stats_enrichment
-#' @inheritParams registration_model
+#' @inheritParams registration_block_cor
 #'
 #' @return A `data.frame()` with the pairwise statistical results. This is
 #' similar to `fetch_data("modeling_results")$pairwise`.
 #' @export
 #' @family spatial registration and statistical modeling functions.
 #' @importFrom limma lmFit eBayes makeContrasts contrasts.fit
+#' @importFrom utils combn
+#' @importFrom stats p.adjust
 #'
 #' @examples
 #' example("registration_block_cor", package = "spatialLIBD")

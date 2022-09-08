@@ -33,6 +33,10 @@ column with the ENSEMBL gene IDs. This will be used by \code{layer_stat_cor()}.}
 
 \item{gene_name}{A \code{character(1)} specifying the \code{rowData(sce_pseudo)}
 column with the gene names (symbols).}
+
+\item{prefix}{A \code{character(1)} specifying the prefix to use for the
+F-statistics column. This is particularly useful if you will run this
+function more than once and want to be able to merge the results.}
 }
 \value{
 A \code{list()} of \code{data.frame()} with the statistical results. This is

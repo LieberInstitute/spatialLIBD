@@ -16,6 +16,7 @@
 #' similar to `fetch_data("modeling_results")$enrichment`.
 #' @export
 #' @importFrom limma lmFit eBayes
+#' @importFrom stats model.matrix p.adjust
 #' @family spatial registration and statistical modeling functions.
 #'
 #' @examples

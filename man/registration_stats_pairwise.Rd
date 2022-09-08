@@ -16,6 +16,8 @@ registration_stats_pairwise(
 \arguments{
 \item{sce_pseudo}{The output of \code{registration_pseudobulk()}.}
 
+\item{registration_model}{The output from \code{registration_model()}.}
+
 \item{block_cor}{A \code{numeric(1)} computed with \code{registration_block_cor()}.}
 
 \item{var_sample_id}{A \code{character(1)} specifying the \code{colData(sce_pseudo)}

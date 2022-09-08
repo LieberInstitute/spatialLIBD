@@ -13,6 +13,7 @@
 #' @return A `numeric(1)` with the block correlation at the sample ID level.
 #' @export
 #' @importFrom limma duplicateCorrelation
+#' @importFrom statmod mixedModel2Fit
 #' @family spatial registration and statistical modeling functions.
 #'
 #' @examples
