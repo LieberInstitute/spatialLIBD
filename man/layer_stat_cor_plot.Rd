@@ -59,8 +59,16 @@ cor_stats_layer <- layer_stat_cor(
 ## Visualize the correlation matrix
 layer_stat_cor_plot(cor_stats_layer, max = max(cor_stats_layer))
 
+## Annotate then re-plot
+rownames(cor_stats_layer) <- paste0(
+    rownames(cor_stats_layer),
+    " - ",
+    annotate_registered_clusters(cor_stats_layer)$layer_label
+)
+layer_stat_cor_plot(cor_stats_layer, max = max(cor_stats_layer))
+
 ## Restrict the range of colors further
-layer_stat_cor_plot(cor_stats_layer, max = 0.3)
+layer_stat_cor_plot(cor_stats_layer, max = 0.25)
 
 ## Repeat with just the top 10 layer marker genes
 layer_stat_cor_plot(layer_stat_cor(
@@ -68,7 +76,7 @@ layer_stat_cor_plot(layer_stat_cor(
     modeling_results,
     model_type = "enrichment",
     top_n = 10
-), max = 0.3)
+), max = 0.25)
 
 ## Now with the "pairwise" modeling results and also top_n = 10
 layer_stat_cor_plot(layer_stat_cor(
@@ -76,10 +84,10 @@ layer_stat_cor_plot(layer_stat_cor(
     modeling_results,
     model_type = "pairwise",
     top_n = 10
-), max = 0.3)
+), max = 0.25)
 }
 \seealso{
-layer_matrix_plot
+layer_matrix_plot annotate_registered_clusters
 
 Other Layer correlation functions: 
 \code{\link{annotate_registered_clusters}()},

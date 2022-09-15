@@ -62,6 +62,19 @@ head(results_anova)
 ## before pseudo-bulking if you know that there are many differences between
 ## that group and others. For example, we have dropped the white matter (WM)
 ## prior to computing ANOVA F-statistics.
+
+## no covariates
+results_anova_nocovar <- registration_stats_anova(sce_pseudo,
+    block_cor,
+    covars = NULL,
+    gene_ensembl = "ensembl", gene_name = "gene_name", prefix = "nocovar"
+)
+head(results_anova_nocovar)
+
+## Merge both results into a single data.frame, thanks to having different
+## 'prefix' values.
+results_anova_merged <- merge(results_anova, results_anova_nocovar)
+head(results_anova_merged)
 }
 \seealso{
 Other spatial registration and statistical modeling functions: 
