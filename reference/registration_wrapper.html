@@ -187,17 +187,7 @@ to choose the best cutoff.</p>
 <span class="r-in"><span>    <span class="va">sce</span>,</span></span>
 <span class="r-in"><span>    <span class="st">"Cell_Cycle"</span>, <span class="st">"sample_id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>, <span class="st">"ensembl"</span>, <span class="st">"gene_name"</span>, <span class="st">"wrapper"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:05 make pseudobulk object</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'use.altexps=' is deprecated.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'applySCE(x, aggregateAcrossCells)' instead.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:05 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:05 normalize expression</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:05 dropping 9 pseudo-bulked samples that are below 'min_ncells'.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:05 create model matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:05 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:06 computing enrichment statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:06 extract and reformat enrichment results</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in paste0("^", var_registration):</span> object 'var_registration' not found</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in registration_wrapper(sce, "Cell_Cycle", "sample_id", c("age"),     "ensembl", "gene_name", "wrapper"):</span> could not find function "registration_wrapper"</span>
 </code></pre></div>
     </div>
   </div>
