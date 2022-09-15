@@ -1,3 +1,15 @@
+# spatialLIBD 1.9.15
+
+BUG FIXES
+
+* Fixed some bugs in `registration_stats_anova()` in cases where we only had
+two different unique values to compute F-statistics with, when we need at least
+3.
+* Made some parts of `registration_stats_anova()` and
+`registration_stats_pairwise()` more flexible.
+* `registration_model()` now provides a more informative error message when you
+have an empty factor level, thus leading to a non-full rank model matrix.
+
 # spatialLIBD 1.9.12
 
 NEW FEATURES

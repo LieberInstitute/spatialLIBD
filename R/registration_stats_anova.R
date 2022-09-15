@@ -29,6 +29,19 @@
 #' ## before pseudo-bulking if you know that there are many differences between
 #' ## that group and others. For example, we have dropped the white matter (WM)
 #' ## prior to computing ANOVA F-statistics.
+#'
+#' ## no covariates
+#' results_anova_nocovar <- registration_stats_anova(sce_pseudo,
+#'     block_cor,
+#'     covars = NULL,
+#'     gene_ensembl = "ensembl", gene_name = "gene_name", prefix = "nocovar"
+#' )
+#' head(results_anova_nocovar)
+#'
+#' ## Merge both results into a single data.frame, thanks to having different
+#' ## 'prefix' values.
+#' results_anova_merged <- merge(results_anova, results_anova_nocovar)
+#' head(results_anova_merged)
 registration_stats_anova <-
     function(sce_pseudo,
     block_cor,
@@ -44,7 +57,11 @@ registration_stats_anova <-
             mat_formula <- eval(str2expression(paste("~", var_registration, "+", paste(covars, collapse = " + "))))
         }
         mod <- model.matrix(mat_formula, data = colData(sce_pseudo))
-        colnames(mod) <- gsub("^registration_variable", "", colnames(mod))
+        coef_registration <- grep(paste0("^", var_registration), colnames(mod))
+        if (length(coef_registration) <= 1) {
+            stop("You need 'var_registration' to have at least 3 different values to compute an F-statistic.", call. = FALSE)
+        }
+        colnames(mod) <- gsub(paste0("^", var_registration), "", colnames(mod))
 
         message(Sys.time(), " computing F-statistics")
         x <- limma::eBayes(limma::lmFit(
@@ -57,7 +74,7 @@ registration_stats_anova <-
         ## Compute F-statistics
         top <- limma::topTable(
             x,
-            coef = seq(2, ncol(x$coefficients), by = 1),
+            coef = coef_registration,
             sort.by = "none",
             number = length(x$F)
         )

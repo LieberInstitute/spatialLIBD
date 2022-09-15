@@ -51,7 +51,7 @@
 #' ## Compute all modeling results
 #' example_modeling_results <- registration_wrapper(
 #'     sce,
-#'     "Treatment", "sample_id", c("age"), "ensembl", "gene_name", "wrapper"
+#'     "Cell_Cycle", "sample_id", c("age"), "ensembl", "gene_name", "wrapper"
 #' )
 registration_wrapper <-
     function(sce,

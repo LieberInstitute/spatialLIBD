@@ -34,8 +34,8 @@ registration_stats_pairwise <-
         ## Identify which are the pairwise columns of interest (aka, don't use
         ## the sample-level covariates we are adjusting for) and then
         ## shorten the names
-        regis_cols <- grep("^registration_variable", colnames(registration_model))
-        colnames(registration_model) <- gsub("^registration_variable", "", colnames(registration_model))
+        regis_cols <- grep(paste0("^", var_registration), colnames(registration_model))
+        colnames(registration_model) <- gsub(paste0("^", var_registration), "", colnames(registration_model))
         regis_combs <- combn(colnames(registration_model)[regis_cols], 2)
 
         message(Sys.time(), " running the baseline pairwise model")

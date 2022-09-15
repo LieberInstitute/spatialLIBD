@@ -6,4 +6,8 @@ test_that("NA check works", {
         registration_pseudobulk(sce, "Treatment", "sample_id", c("age", "batches")),
         "has all NAs after pseudo-bulking"
     )
+    expect_error(
+        registration_pseudobulk(sce, "CellCyle", "sample_id", c("age", "Treatment")),
+        "var_registration"
+    )
 })
