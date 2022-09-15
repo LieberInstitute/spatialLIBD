@@ -64,6 +64,14 @@ registration_model <-
             data = colData(sce_pseudo)
         )
 
+
+        if (qr(mod)$rank != ncol(mod)) {
+            stop(
+                "The resulting model is not full rank. You might have some 'var_registration' levels that are empty which you can drop with 'droplevels()'. Check the output of 'table(sce_pseudo[[var_registration]])'.",
+                call. = FALSE
+            )
+        }
+
         ## Done!
         return(mod)
     }
