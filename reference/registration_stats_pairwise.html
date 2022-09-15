@@ -20,7 +20,7 @@ are more typically used for identifying pairwise-marker genes."><meta property="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.15</span>
       </span>
     </div>
 
@@ -159,75 +159,70 @@ similar to <code>fetch_data("modeling_results")$pairwise</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; rowData(sce)$gene_name &lt;- paste0("gene", seq_len(nrow(sce)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; ## Pseudo-bulk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; sce_pseudo &lt;- registration_pseudobulk(sce, "Treatment", "sample_id", c("age"))</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:15 make pseudobulk object</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; sce_pseudo &lt;- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"))</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:04 make pseudobulk object</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'use.altexps=' is deprecated.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'applySCE(x, aggregateAcrossCells)' instead.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:15 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:15 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:04 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:04 normalize expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; colData(sce_pseudo)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 10 rows and 8 columns</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Mutation_Status  Cell_Cycle   Treatment   sample_id       age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat1              NA          NA      treat1           A   19.1872</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat1              NA          NA      treat1           B   25.3496</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat1              NA          NA      treat1           C   24.1802</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat1              NA          NA      treat1           D   15.5211</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat1              NA          NA      treat1           E   20.9701</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat2              NA          NA      treat2           A   19.1872</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat2              NA          NA      treat2           B   25.3496</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat2              NA          NA      treat2           C   24.1802</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat2              NA          NA      treat2           D   15.5211</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat2              NA          NA      treat2           E   20.9701</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          registration_variable registration_sample_id    ncells</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    &lt;character&gt;            &lt;character&gt; &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat1                treat1                      A        18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat1                treat1                      B        19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat1                treat1                      C        18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat1                treat1                      D        24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat1                treat1                      E        22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat2                treat2                      A        18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat2                treat2                      B        23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat2                treat2                      C        20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat2                treat2                      D        20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat2                treat2                      E        18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 8 columns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Mutation_Status  Cell_Cycle   Treatment   sample_id       age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0              NA          G0          NA           A   19.1872</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0              NA          G0          NA           B   25.3496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0              NA          G0          NA           C   24.1802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0              NA          G0          NA           D   15.5211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0              NA          G0          NA           E   20.9701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...              ...         ...         ...         ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_S               NA           S          NA           A   19.1872</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_S               NA           S          NA           B   25.3496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_S               NA           S          NA           C   24.1802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_S               NA           S          NA           D   15.5211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_S               NA           S          NA           E   20.9701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variable registration_sample_id    ncells</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;character&gt;            &lt;character&gt; &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0                    G0                      A         8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0                    G0                      B        13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0                    G0                      C         9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0                    G0                      D         7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0                    G0                      E        10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                    ...                    ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_S                      S                      A        12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_S                      S                      B         8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_S                      S                      C         7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_S                      S                      D        14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_S                      S                      E        11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; registration_mod &lt;- registration_model(sce_pseudo, "age")</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:15 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:04 create model matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; head(registration_mod)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          registration_variabletreat1 registration_variabletreat2      age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat1                           1                           0 19.18719</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat1                           1                           0 25.34965</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat1                           1                           0 24.18019</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat1                           1                           0 15.52107</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat1                           1                           0 20.97006</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat2                           0                           1 19.18719</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variableG0 registration_variableG1 registration_variableG2M</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0                       1                       0                        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0                       1                       0                        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0                       1                       0                        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0                       1                       0                        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0                       1                       0                        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_G1                       0                       1                        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variableS      age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0                      0 19.18719</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0                      0 25.34965</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0                      0 24.18019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0                      0 15.52107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0                      0 20.97006</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_G1                      0 19.18719</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgst__master &gt; block_cor &lt;- registration_block_cor(sce_pseudo, registration_mod)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:15 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:04 run duplicateCorrelation()</span>
 <span class="r-in"><span><span class="va">results_pairwise</span> <span class="op">&lt;-</span> <span class="fu">registration_stats_pairwise</span><span class="op">(</span><span class="va">sce_pseudo</span>,</span></span>
 <span class="r-in"><span>    <span class="va">registration_mod</span>, <span class="va">block_cor</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:15 running the baseline pairwise model</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:15 computing pairwise statistics</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in paste0("^", var_registration):</span> object 'var_registration' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_pairwise</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           t_stat_treat1-treat2 p_value_treat1-treat2 fdr_treat1-treat2 ensembl</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001           -0.2205134             0.8303870         0.9953065   ENSG1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002           -0.4494184             0.6637458         0.9953065   ENSG2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003            0.8502559             0.4172040         0.9953065   ENSG3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004           -0.6572388             0.5274577         0.9953065   ENSG4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005            1.2724543             0.2350665         0.9953065   ENSG5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006            1.6141908             0.1409056         0.9953065   ENSG6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            gene</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001 gene1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002 gene2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003 gene3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004 gene4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005 gene5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006 gene6</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'head': object 'results_pairwise' not found</span>
 </code></pre></div>
     </div>
   </div>

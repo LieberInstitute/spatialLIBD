@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.15</span>
       </span>
     </div>
 
@@ -60,6 +60,15 @@
       <small>Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.9.15" id="spatiallibd-1915">spatialLIBD 1.9.15<a class="anchor" aria-label="anchor" href="#spatiallibd-1915"></a></h2>
+<p>BUG FIXES</p>
+<ul><li>Fixed some bugs in <code><a href="../reference/registration_stats_anova.html">registration_stats_anova()</a></code> in cases where we only had two different unique values to compute F-statistics with, when we need at least</li>
+</ul><ol start="3" style="list-style-type: decimal"><li>
+</li></ol><ul><li>Made some parts of <code><a href="../reference/registration_stats_anova.html">registration_stats_anova()</a></code> and <code><a href="../reference/registration_stats_pairwise.html">registration_stats_pairwise()</a></code> more flexible.</li>
+<li>
+<code><a href="../reference/registration_model.html">registration_model()</a></code> now provides a more informative error message when you have an empty factor level, thus leading to a non-full rank model matrix.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.9.12" id="spatiallibd-1912">spatialLIBD 1.9.12<a class="anchor" aria-label="anchor" href="#spatiallibd-1912"></a></h2>
 <p>NEW FEATURES</p>

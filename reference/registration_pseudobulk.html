@@ -18,7 +18,7 @@ This is the first step for spatial registration and for statistical modeling."><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.15</span>
       </span>
     </div>
 
@@ -132,38 +132,40 @@ with the sample ID.</p></dd>
 <span class="r-in"><span><span class="fu">rowData</span><span class="op">(</span><span class="va">sce</span><span class="op">)</span><span class="op">$</span><span class="va">gene_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"gene"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Pseudo-bulk</span></span></span>
-<span class="r-in"><span><span class="va">sce_pseudo</span> <span class="op">&lt;-</span> <span class="fu">registration_pseudobulk</span><span class="op">(</span><span class="va">sce</span>, <span class="st">"Treatment"</span>, <span class="st">"sample_id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:12 make pseudobulk object</span>
+<span class="r-in"><span><span class="va">sce_pseudo</span> <span class="op">&lt;-</span> <span class="fu">registration_pseudobulk</span><span class="op">(</span><span class="va">sce</span>, <span class="st">"Cell_Cycle"</span>, <span class="st">"sample_id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:01 make pseudobulk object</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'use.altexps=' is deprecated.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'applySCE(x, aggregateAcrossCells)' instead.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:12 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:12 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:01 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:57:01 normalize expression</span>
 <span class="r-in"><span><span class="fu">colData</span><span class="op">(</span><span class="va">sce_pseudo</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 10 rows and 8 columns</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Mutation_Status  Cell_Cycle   Treatment   sample_id       age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat1              NA          NA      treat1           A   19.1872</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat1              NA          NA      treat1           B   25.3496</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat1              NA          NA      treat1           C   24.1802</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat1              NA          NA      treat1           D   15.5211</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat1              NA          NA      treat1           E   20.9701</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat2              NA          NA      treat2           A   19.1872</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat2              NA          NA      treat2           B   25.3496</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat2              NA          NA      treat2           C   24.1802</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat2              NA          NA      treat2           D   15.5211</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat2              NA          NA      treat2           E   20.9701</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          registration_variable registration_sample_id    ncells</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    &lt;character&gt;            &lt;character&gt; &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat1                treat1                      A        18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat1                treat1                      B        19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat1                treat1                      C        18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat1                treat1                      D        24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat1                treat1                      E        22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_treat2                treat2                      A        18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_treat2                treat2                      B        23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_treat2                treat2                      C        20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_treat2                treat2                      D        20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_treat2                treat2                      E        18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 8 columns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Mutation_Status  Cell_Cycle   Treatment   sample_id       age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0              NA          G0          NA           A   19.1872</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0              NA          G0          NA           B   25.3496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0              NA          G0          NA           C   24.1802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0              NA          G0          NA           D   15.5211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0              NA          G0          NA           E   20.9701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...              ...         ...         ...         ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_S               NA           S          NA           A   19.1872</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_S               NA           S          NA           B   25.3496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_S               NA           S          NA           C   24.1802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_S               NA           S          NA           D   15.5211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_S               NA           S          NA           E   20.9701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variable registration_sample_id    ncells</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;character&gt;            &lt;character&gt; &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0                    G0                      A         8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0                    G0                      B        13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0                    G0                      C         9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0                    G0                      D         7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0                    G0                      E        10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                    ...                    ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_S                      S                      A        12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_S                      S                      B         8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_S                      S                      C         7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_S                      S                      D        14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_S                      S                      E        11</span>
 </code></pre></div>
     </div>
   </div>

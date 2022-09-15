@@ -20,7 +20,7 @@ Human DLPFC Visium data (when using the default arguments)."><meta property="og:
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.15</span>
       </span>
     </div>
 
@@ -122,7 +122,7 @@ for a full analysis from which this family of functions is derived from.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p>layer_matrix_plot</p>
+    <div class="dont-index"><p>layer_matrix_plot annotate_registered_clusters</p>
 <p>Other Layer correlation functions: 
 <code><a href="annotate_registered_clusters.html">annotate_registered_clusters</a>()</code>,
 <code><a href="layer_stat_cor.html">layer_stat_cor</a>()</code></p></div>
@@ -140,7 +140,7 @@ for a full analysis from which this family of functions is derived from.</p>
 <span class="r-in"><span>    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-08 16:33:08 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/425b2b3c4015_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 15:56:57 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/425b2b3c4015_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Compute the correlations</span></span></span>
 <span class="r-in"><span><span class="va">cor_stats_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="layer_stat_cor.html">layer_stat_cor</a></span><span class="op">(</span></span></span>
@@ -153,9 +153,18 @@ for a full analysis from which this family of functions is derived from.</p>
 <span class="r-in"><span><span class="fu">layer_stat_cor_plot</span><span class="op">(</span><span class="va">cor_stats_layer</span>, max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">cor_stats_layer</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="layer_stat_cor_plot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## Restrict the range of colors further</span></span></span>
-<span class="r-in"><span><span class="fu">layer_stat_cor_plot</span><span class="op">(</span><span class="va">cor_stats_layer</span>, max <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Annotate then re-plot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">cor_stats_layer</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">cor_stats_layer</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="st">" - "</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="annotate_registered_clusters.html">annotate_registered_clusters</a></span><span class="op">(</span><span class="va">cor_stats_layer</span><span class="op">)</span><span class="op">$</span><span class="va">layer_label</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">layer_stat_cor_plot</span><span class="op">(</span><span class="va">cor_stats_layer</span>, max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">cor_stats_layer</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="layer_stat_cor_plot-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Restrict the range of colors further</span></span></span>
+<span class="r-in"><span><span class="fu">layer_stat_cor_plot</span><span class="op">(</span><span class="va">cor_stats_layer</span>, max <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="layer_stat_cor_plot-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Repeat with just the top 10 layer marker genes</span></span></span>
 <span class="r-in"><span><span class="fu">layer_stat_cor_plot</span><span class="op">(</span><span class="fu"><a href="layer_stat_cor.html">layer_stat_cor</a></span><span class="op">(</span></span></span>
@@ -163,8 +172,8 @@ for a full analysis from which this family of functions is derived from.</p>
 <span class="r-in"><span>    <span class="va">modeling_results</span>,</span></span>
 <span class="r-in"><span>    model_type <span class="op">=</span> <span class="st">"enrichment"</span>,</span></span>
 <span class="r-in"><span>    top_n <span class="op">=</span> <span class="fl">10</span></span></span>
-<span class="r-in"><span><span class="op">)</span>, max <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="layer_stat_cor_plot-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="op">)</span>, max <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="layer_stat_cor_plot-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Now with the "pairwise" modeling results and also top_n = 10</span></span></span>
 <span class="r-in"><span><span class="fu">layer_stat_cor_plot</span><span class="op">(</span><span class="fu"><a href="layer_stat_cor.html">layer_stat_cor</a></span><span class="op">(</span></span></span>
@@ -172,8 +181,8 @@ for a full analysis from which this family of functions is derived from.</p>
 <span class="r-in"><span>    <span class="va">modeling_results</span>,</span></span>
 <span class="r-in"><span>    model_type <span class="op">=</span> <span class="st">"pairwise"</span>,</span></span>
 <span class="r-in"><span>    top_n <span class="op">=</span> <span class="fl">10</span></span></span>
-<span class="r-in"><span><span class="op">)</span>, max <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="layer_stat_cor_plot-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="op">)</span>, max <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="layer_stat_cor_plot-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
