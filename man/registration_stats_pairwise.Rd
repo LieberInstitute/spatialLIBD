@@ -8,6 +8,7 @@ registration_stats_pairwise(
   sce_pseudo,
   registration_model,
   block_cor,
+  var_registration = "registration_variable",
   var_sample_id = "registration_sample_id",
   gene_ensembl = NULL,
   gene_name = NULL
@@ -19,6 +20,10 @@ registration_stats_pairwise(
 \item{registration_model}{The output from \code{registration_model()}.}
 
 \item{block_cor}{A \code{numeric(1)} computed with \code{registration_block_cor()}.}
+
+\item{var_registration}{A \code{character(1)} specifying the \code{colData(sce_pseudo)}
+variable of interest against which will be used for computing the relevant
+statistics.}
 
 \item{var_sample_id}{A \code{character(1)} specifying the \code{colData(sce_pseudo)}
 variable with the sample ID.}
