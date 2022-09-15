@@ -134,7 +134,7 @@ about DLPFC layers.</p>
 <span class="r-in"><span>    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 16:28:52 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/425b2b3c4015_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 16:40:23 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/425b2b3c4015_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Compute the correlations</span></span></span>
 <span class="r-in"><span><span class="va">cor_stats_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="layer_stat_cor.html">layer_stat_cor</a></span><span class="op">(</span></span></span>
@@ -145,11 +145,73 @@ about DLPFC layers.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Obtain labels</span></span></span>
 <span class="r-in"><span><span class="fu">annotate_registered_clusters</span><span class="op">(</span><span class="va">cor_stats_layer</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in annotate_registered_clusters(cor_stats_layer):</span> could not find function "annotate_registered_clusters"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    cluster layer_confidence layer_label</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   22 (3)             good          WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    3 (3)             good          WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   23 (3)             good          WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   17 (3)             good          WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   21 (3)             good          WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    7 (4)             good          L1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    5 (4)             good          L1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    9 (5)             poor      L1/WM*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   26 (5)             poor         L1*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   1 (4)             poor      L1/WM*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  24 (6)             poor         L6*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  13 (1)             good          L6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  10 (1)             good          L6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  27 (1)             good          L6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  29 (2)             poor         L4*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  14 (2)             good          L4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  15 (2)             poor       L5/4*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  18 (2)             poor         L4*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19   2 (1)             poor         L5*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  31 (1)             good          L5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21   8 (1)             poor         L2*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22  16 (2)             poor         L2*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23  28 (2)             poor         L2*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24  30 (2)             poor         L2*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25  20 (2)             poor     L3/5/4*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26  11 (2)             poor       L4/3*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27  25 (2)             poor     L2/4/3*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28   4 (1)             good        L3/4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29  12 (1)             good          L4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30   6 (1)             good          L2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31  19 (1)             good          L3</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## More relaxed merging threshold</span></span></span>
 <span class="r-in"><span><span class="fu">annotate_registered_clusters</span><span class="op">(</span><span class="va">cor_stats_layer</span>, cutoff_merge_ratio <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in annotate_registered_clusters(cor_stats_layer, cutoff_merge_ratio = 1):</span> could not find function "annotate_registered_clusters"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    cluster layer_confidence layer_label</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   22 (3)             good          WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    3 (3)             good          WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   23 (3)             good          WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   17 (3)             good          WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   21 (3)             good          WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    7 (4)             good          L1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    5 (4)             good          L1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    9 (5)             poor      L1/WM*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   26 (5)             poor      L1/WM*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   1 (4)             poor      L1/WM*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  24 (6)             poor    L6/WM/1*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  13 (1)             good          L6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  10 (1)             good          L6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  27 (1)             good          L6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  29 (2)             poor       L4/3*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  14 (2)             good      L4/5/3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  15 (2)             poor       L5/4*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  18 (2)             poor     L4/5/3*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19   2 (1)             poor         L5*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  31 (1)             good          L5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21   8 (1)             poor       L2/3*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22  16 (2)             poor       L2/3*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23  28 (2)             poor       L2/3*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24  30 (2)             poor L2/3/4/5/1*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25  20 (2)             poor     L3/5/4*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26  11 (2)             poor   L4/3/2/5*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27  25 (2)             poor   L2/4/3/5*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28   4 (1)             good        L3/4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29  12 (1)             good      L4/5/3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30   6 (1)             good        L2/3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31  19 (1)             good      L3/2/4</span>
 </code></pre></div>
     </div>
   </div>
