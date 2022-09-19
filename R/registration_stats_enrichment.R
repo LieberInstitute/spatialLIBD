@@ -51,7 +51,7 @@ registration_stats_enrichment <-
             }
             m <- model.matrix(res_formula, data = colData(sce_pseudo))
 
-            if (is.finite(correlation)) {
+            if (is.finite(block_cor)) {
                 res <- limma::eBayes(limma::lmFit(
                     logcounts(sce_pseudo),
                     design = m,

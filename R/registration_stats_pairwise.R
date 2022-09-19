@@ -40,7 +40,7 @@ registration_stats_pairwise <-
         regis_combs <- combn(colnames(registration_model)[regis_cols], 2)
 
         message(Sys.time(), " running the baseline pairwise model")
-        if (is.finite(correlation)) {
+        if (is.finite(block_cor)) {
             fit <-
                 limma::lmFit(
                     logcounts(sce_pseudo),

@@ -65,7 +65,7 @@ registration_stats_anova <-
 
         message(Sys.time(), " computing F-statistics")
 
-        if (is.finite(correlation)) {
+        if (is.finite(block_cor)) {
             x <- limma::eBayes(
                 limma::lmFit(
                     logcounts(sce_pseudo),

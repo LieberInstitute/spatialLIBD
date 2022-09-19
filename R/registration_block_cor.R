@@ -27,15 +27,15 @@ registration_block_cor <- function(sce_pseudo, registration_model, var_sample_id
     corfit <- limma::duplicateCorrelation(logcounts(sce_pseudo), registration_model,
         block = sce_pseudo[[var_sample_id]]
     )
-    correlation <- corfit$consensus.correlation
-    if (!is.finite(correlation)) {
+    block_cor <- corfit$consensus.correlation
+    if (!is.finite(block_cor)) {
         warning(
             "The resulting correlation is not finite! So it won't be used by downstream functions. The value is: ",
-            correlation,
+            block_cor,
             ".",
             call. = FALSE
         )
     }
-    message("The estimated corrrelation is: ", correlation)
-    return(correlation)
+    message("The estimated corrrelation is: ", block_cor)
+    return(block_cor)
 }
