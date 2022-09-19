@@ -40,13 +40,20 @@ registration_stats_pairwise <-
         regis_combs <- combn(colnames(registration_model)[regis_cols], 2)
 
         message(Sys.time(), " running the baseline pairwise model")
-        fit <-
-            limma::lmFit(
-                logcounts(sce_pseudo),
-                design = registration_model,
-                block = sce_pseudo[[var_sample_id]],
-                correlation = block_cor
-            )
+        if (is.finite(correlation)) {
+            fit <-
+                limma::lmFit(
+                    logcounts(sce_pseudo),
+                    design = registration_model,
+                    block = sce_pseudo[[var_sample_id]],
+                    correlation = block_cor
+                )
+        } else {
+            fit <-
+                limma::lmFit(logcounts(sce_pseudo),
+                    design = registration_model
+                )
+        }
         eb <- limma::eBayes(fit)
 
         ## Define the contrasts for each group vs another one

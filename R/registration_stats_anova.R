@@ -64,12 +64,22 @@ registration_stats_anova <-
         colnames(mod) <- gsub(paste0("^", var_registration), "", colnames(mod))
 
         message(Sys.time(), " computing F-statistics")
-        x <- limma::eBayes(limma::lmFit(
-            logcounts(sce_pseudo),
-            design = mod,
-            block = sce_pseudo[[var_sample_id]],
-            correlation = block_cor
-        ))
+
+        if (is.finite(correlation)) {
+            x <- limma::eBayes(
+                limma::lmFit(
+                    logcounts(sce_pseudo),
+                    design = mod,
+                    block = sce_pseudo[[var_sample_id]],
+                    correlation = block_cor
+                )
+            )
+        } else {
+            x <- limma::eBayes(limma::lmFit(logcounts(sce_pseudo),
+                design = mod
+            ))
+        }
+
 
         ## Compute F-statistics
         top <- limma::topTable(

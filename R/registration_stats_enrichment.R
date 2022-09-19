@@ -50,14 +50,20 @@ registration_stats_enrichment <-
                 res_formula <- eval(str2expression(paste("~", "res")))
             }
             m <- model.matrix(res_formula, data = colData(sce_pseudo))
-            limma::eBayes(
-                limma::lmFit(
+
+            if (is.finite(correlation)) {
+                res <- limma::eBayes(limma::lmFit(
                     logcounts(sce_pseudo),
                     design = m,
                     block = sce_pseudo[[var_sample_id]],
                     correlation = block_cor
-                )
-            )
+                ))
+            } else {
+                res <- limma::eBayes(limma::lmFit(logcounts(sce_pseudo),
+                    design = m
+                ))
+            }
+            return(res)
         })
 
 
