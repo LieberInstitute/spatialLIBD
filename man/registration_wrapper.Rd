@@ -12,7 +12,8 @@ registration_wrapper(
   gene_ensembl = NULL,
   gene_name = NULL,
   prefix = "",
-  min_ncells = 10
+  min_ncells = 10,
+  pseudobulk_rds_file = NULL
 )
 }
 \arguments{
@@ -43,6 +44,10 @@ function more than once and want to be able to merge the results.}
 number of cells (for scRNA-seq) or spots (for spatial) that are combined
 when pseudo-bulking. Pseudo-bulked samples with less than \code{min_ncells} on
 \code{sce_pseudo$ncells} will be dropped.}
+
+\item{pseudobulk_rds_file}{A \code{character(1)} specifying the path for saving
+an RDS file with the pseudo-bulked object. It's useful to specify this since
+pseudo-bulking can take hours to run on large datasets.}
 }
 \value{
 A \code{list()} of \code{data.frame()} with the statistical results. This is

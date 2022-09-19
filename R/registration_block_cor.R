@@ -36,6 +36,6 @@ registration_block_cor <- function(sce_pseudo, registration_model, var_sample_id
             call. = FALSE
         )
     }
-    message("The estimated correlation is: ", block_cor)
+    message(Sys.time(), " The estimated correlation is: ", block_cor)
     return(block_cor)
 }

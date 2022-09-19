@@ -12,6 +12,9 @@
 #' @param var_sample_id A `character(1)` specifying the `colData(sce)` variable
 #' with the sample ID.
 #' @param covars A `character()` with names of sample-level covariates.
+#' @param pseudobulk_rds_file A `character(1)` specifying the path for saving
+#' an RDS file with the pseudo-bulked object. It's useful to specify this since
+#' pseudo-bulking can take hours to run on large datasets.
 #'
 #' @return A pseudo-bulked [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class] object.
 #' @importFrom SingleCellExperiment logcounts
@@ -46,7 +49,8 @@ registration_pseudobulk <-
     function(sce,
     var_registration,
     var_sample_id,
-    covars = NULL) {
+    covars = NULL,
+    pseudobulk_rds_file = NULL) {
 
         ## Check that inputs are correct
         stopifnot(is(sce, "SingleCellExperiment"))
@@ -116,6 +120,16 @@ registration_pseudobulk <-
                 log = TRUE,
                 prior.count = 1
             )
+
+        if (is(sce_pseudo, "SpatialExperiment")) {
+            ## Drop things we don't need
+            spatialCoords(sce_pseudo) <- NULL
+            imgData(sce_pseudo) <- NULL
+        }
+        if (!is.null(pseudobulk_rds_file)) {
+            message(Sys.time(), " saving sce_pseudo to ", pseudobulk_rds_file)
+            saveRDS(sce_pseudo, file = pseudobulk_rds_file)
+        }
 
         ## Done!
         return(sce_pseudo)

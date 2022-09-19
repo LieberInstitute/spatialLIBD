@@ -61,11 +61,13 @@ registration_wrapper <-
     gene_ensembl = NULL,
     gene_name = NULL,
     prefix = "",
-    min_ncells = 10) {
+    min_ncells = 10,
+    pseudobulk_rds_file = NULL) {
         sce_pseudo <-
             registration_pseudobulk(sce,
                 var_registration = var_registration,
-                var_sample_id = var_sample_id
+                var_sample_id = var_sample_id,
+                pseudobulk_rds_file = pseudobulk_rds_file
             )
 
         if (!is.null(min_ncells)) {

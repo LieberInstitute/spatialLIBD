@@ -4,7 +4,13 @@
 \alias{registration_pseudobulk}
 \title{Spatial registration: pseudobulk}
 \usage{
-registration_pseudobulk(sce, var_registration, var_sample_id, covars = NULL)
+registration_pseudobulk(
+  sce,
+  var_registration,
+  var_sample_id,
+  covars = NULL,
+  pseudobulk_rds_file = NULL
+)
 }
 \arguments{
 \item{sce}{A
@@ -19,6 +25,10 @@ statistics.}
 with the sample ID.}
 
 \item{covars}{A \code{character()} with names of sample-level covariates.}
+
+\item{pseudobulk_rds_file}{A \code{character(1)} specifying the path for saving
+an RDS file with the pseudo-bulked object. It's useful to specify this since
+pseudo-bulking can take hours to run on large datasets.}
 }
 \value{
 A pseudo-bulked \link[SingleCellExperiment:SingleCellExperiment]{SingleCellExperiment-class} object.
