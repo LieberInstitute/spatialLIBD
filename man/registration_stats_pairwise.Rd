@@ -51,6 +51,14 @@ results_pairwise <- registration_stats_pairwise(sce_pseudo,
     gene_ensembl = "ensembl", gene_name = "gene_name"
 )
 head(results_pairwise)
+
+## Specifying `block_cor = NaN` then ignores the correlation structure
+results_pairwise_nan <- registration_stats_pairwise(sce_pseudo,
+    registration_mod,
+    block_cor = NaN,
+    gene_ensembl = "ensembl", gene_name = "gene_name"
+)
+head(results_pairwise_nan)
 }
 \seealso{
 Other spatial registration and statistical modeling functions: 

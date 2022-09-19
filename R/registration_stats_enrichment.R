@@ -26,6 +26,13 @@
 #'     gene_ensembl = "ensembl", gene_name = "gene_name"
 #' )
 #' head(results_enrichment)
+#'
+#' ## Specifying `block_cor = NaN` then ignores the correlation structure
+#' results_enrichment_nan <- registration_stats_enrichment(sce_pseudo,
+#'     block_cor = NaN, "age",
+#'     gene_ensembl = "ensembl", gene_name = "gene_name"
+#' )
+#' head(results_enrichment_nan)
 registration_stats_enrichment <-
     function(sce_pseudo,
     block_cor,

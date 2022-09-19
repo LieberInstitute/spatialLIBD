@@ -57,6 +57,13 @@ results_anova <- registration_stats_anova(sce_pseudo,
 )
 head(results_anova)
 
+## Specifying `block_cor = NaN` then ignores the correlation structure
+results_anova_nan <- registration_stats_anova(sce_pseudo,
+    block_cor = NaN, "age",
+    gene_ensembl = "ensembl", gene_name = "gene_name", prefix = "example"
+)
+head(results_anova_nan)
+
 ## Note that you can merge multiple of these data.frames if you run this
 ## function for different sets. For example, maybe you drop one group
 ## before pseudo-bulking if you know that there are many differences between
