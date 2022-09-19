@@ -22,7 +22,7 @@ related functions of sc/snRNA-seq datasets."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.17</span>
       </span>
     </div>
 
@@ -84,7 +84,8 @@ related functions of sc/snRNA-seq datasets.</p>
 <span>  gene_ensembl <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  gene_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  prefix <span class="op">=</span> <span class="st">""</span>,</span>
-<span>  min_ncells <span class="op">=</span> <span class="fl">10</span></span>
+<span>  min_ncells <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  pseudobulk_rds_file <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -132,6 +133,12 @@ function more than once and want to be able to merge the results.</p></dd>
 number of cells (for scRNA-seq) or spots (for spatial) that are combined
 when pseudo-bulking. Pseudo-bulked samples with less than <code>min_ncells</code> on
 <code>sce_pseudo$ncells</code> will be dropped.</p></dd>
+
+
+<dt>pseudobulk_rds_file</dt>
+<dd><p>A <code>character(1)</code> specifying the path for saving
+an RDS file with the pseudo-bulked object. It's useful to specify this since
+pseudo-bulking can take hours to run on large datasets.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -187,19 +194,20 @@ to choose the best cutoff.</p>
 <span class="r-in"><span>    <span class="va">sce</span>,</span></span>
 <span class="r-in"><span>    <span class="st">"Cell_Cycle"</span>, <span class="st">"sample_id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>, <span class="st">"ensembl"</span>, <span class="st">"gene_name"</span>, <span class="st">"wrapper"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 16:42:19 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:56 make pseudobulk object</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'use.altexps=' is deprecated.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'applySCE(x, aggregateAcrossCells)' instead.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 16:42:20 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 16:42:20 normalize expression</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 16:42:20 dropping 9 pseudo-bulked samples that are below 'min_ncells'.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 16:42:20 create model matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 16:42:20 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 16:42:21 computing enrichment statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 16:42:21 extract and reformat enrichment results</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 16:42:21 running the baseline pairwise model</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 16:42:21 computing pairwise statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-15 16:42:21 computing F-statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:56 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:56 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:56 dropping 9 pseudo-bulked samples that are below 'min_ncells'.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:56 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:56 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:57 The estimated correlation is: -0.0767902934561376</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:57 computing enrichment statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:57 extract and reformat enrichment results</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:57 running the baseline pairwise model</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:57 computing pairwise statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:57 computing F-statistics</span>
 </code></pre></div>
     </div>
   </div>
