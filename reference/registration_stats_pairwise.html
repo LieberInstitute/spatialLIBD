@@ -167,11 +167,11 @@ similar to <code>fetch_data("modeling_results")$pairwise</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; ## Pseudo-bulk</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; sce_pseudo &lt;- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"))</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:55 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 17:16:51 make pseudobulk object</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'use.altexps=' is deprecated.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'applySCE(x, aggregateAcrossCells)' instead.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:55 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:55 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 17:16:52 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 17:16:52 normalize expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; colData(sce_pseudo)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 8 columns</span>
@@ -203,7 +203,7 @@ similar to <code>fetch_data("modeling_results")$pairwise</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> E_S                      S                      E        11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; registration_mod &lt;- registration_model(sce_pseudo, "age")</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:55 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 17:16:52 create model matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; head(registration_mod)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variableG0 registration_variableG1 registration_variableG2M</span>
@@ -222,14 +222,14 @@ similar to <code>fetch_data("modeling_results")$pairwise</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_G1                      0 19.18719</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgst__master &gt; block_cor &lt;- registration_block_cor(sce_pseudo, registration_mod)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:55 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:55 The estimated correlation is: -0.0187869166526901</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 17:16:52 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 17:16:52 The estimated correlation is: -0.0187869166526901</span>
 <span class="r-in"><span><span class="va">results_pairwise</span> <span class="op">&lt;-</span> <span class="fu">registration_stats_pairwise</span><span class="op">(</span><span class="va">sce_pseudo</span>,</span></span>
 <span class="r-in"><span>    <span class="va">registration_mod</span>, <span class="va">block_cor</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:55 running the baseline pairwise model</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 16:47:55 computing pairwise statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 17:16:52 running the baseline pairwise model</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 17:16:52 computing pairwise statistics</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_pairwise</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           t_stat_G0-G1 t_stat_G0-G2M t_stat_G0-S t_stat_G1-G2M t_stat_G1-S</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001   -0.2393683    0.29771391  0.28880637     0.5370822   0.5281747</span>
@@ -259,6 +259,44 @@ similar to <code>fetch_data("modeling_results")$pairwise</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004 0.995513 0.9987686   ENSG4 gene4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005 0.995513 0.9882374   ENSG5 gene5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006 0.995513 0.9374452   ENSG6 gene6</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Specifying `block_cor = NaN` then ignores the correlation structure</span></span></span>
+<span class="r-in"><span><span class="va">results_pairwise_nan</span> <span class="op">&lt;-</span> <span class="fu">registration_stats_pairwise</span><span class="op">(</span><span class="va">sce_pseudo</span>,</span></span>
+<span class="r-in"><span>    <span class="va">registration_mod</span>,</span></span>
+<span class="r-in"><span>    block_cor <span class="op">=</span> <span class="cn">NaN</span>,</span></span>
+<span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 17:16:52 running the baseline pairwise model</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 17:16:52 computing pairwise statistics</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_pairwise_nan</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           t_stat_G0-G1 t_stat_G0-G2M t_stat_G0-S t_stat_G1-G2M t_stat_G1-S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001   -0.2419770    0.30095840  0.29195379     0.5429354   0.5339308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002    0.9655460    0.59274792  1.27049707    -0.3727981   0.3049511</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003    0.3424456    0.90611560 -0.29690010     0.5636700  -0.6393457</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004   -0.5922676    0.06857927 -0.01766777     0.6608469   0.5745998</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005   -1.7497882   -2.61215029 -2.42030683    -0.8623621  -0.6705186</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006    1.7620062   -0.78244810  0.82480493    -2.5444543  -0.9372012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           t_stat_G2M-S p_value_G0-G1 p_value_G0-G2M p_value_G0-S p_value_G1-G2M</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001 -0.009004609    0.81169124     0.76709393   0.77385274     0.59421797</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002  0.677749150    0.34779939     0.56114829   0.22101069     0.71390337</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003 -1.203015701    0.73621058     0.37753160   0.77013771     0.58033474</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004 -0.086247043    0.56146250     0.94612425   0.98610948     0.51756162</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005  0.191843463    0.09817164     0.01821015   0.02698596     0.40048330</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006  1.607253036    0.09602824     0.44470810   0.42089899     0.02094098</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           p_value_G1-S p_value_G2M-S fdr_G0-G1 fdr_G0-G2M  fdr_G0-S fdr_G1-G2M</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001    0.6002984     0.9929202 0.9971067  0.9806277 0.9782050  0.9932537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002    0.7641032     0.5070458 0.9971067  0.9557062 0.9058626  0.9932537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003    0.5311147     0.2454479 0.9971067  0.9380457 0.9754753  0.9932537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004    0.5730837     0.9322771 0.9971067  0.9957322 0.9955379  0.9932537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005    0.5115293     0.8501363 0.9971067  0.6854563 0.8734187  0.9932537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006    0.3617722     0.1264013 0.9971067  0.9508593 0.9618345  0.9932537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            fdr_G1-S fdr_G2M-S ensembl  gene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001 0.9942711 0.9998953   ENSG1 gene1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002 0.9942711 0.9658549   ENSG2 gene2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003 0.9942711 0.9234394   ENSG3 gene3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004 0.9942711 0.9978377   ENSG4 gene4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005 0.9942711 0.9864989   ENSG5 gene5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006 0.9942711 0.9218958   ENSG6 gene6</span>
 </code></pre></div>
     </div>
   </div>
