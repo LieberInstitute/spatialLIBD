@@ -18,7 +18,7 @@ This is the first step for spatial registration and for statistical modeling."><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.18</span>
       </span>
     </div>
 
@@ -73,6 +73,7 @@ This is the first step for spatial registration and for statistical modeling.</p
 <span>  <span class="va">var_registration</span>,</span>
 <span>  <span class="va">var_sample_id</span>,</span>
 <span>  covars <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  min_ncells <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  pseudobulk_rds_file <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -98,6 +99,13 @@ with the sample ID.</p></dd>
 
 <dt>covars</dt>
 <dd><p>A <code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code> with names of sample-level covariates.</p></dd>
+
+
+<dt>min_ncells</dt>
+<dd><p>An <code>integer(1)</code> greater than 0 specifying the minimum
+number of cells (for scRNA-seq) or spots (for spatial) that are combined
+when pseudo-bulking. Pseudo-bulked samples with less than <code>min_ncells</code> on
+<code>sce_pseudo$ncells</code> will be dropped.</p></dd>
 
 
 <dt>pseudobulk_rds_file</dt>
@@ -144,12 +152,12 @@ pseudo-bulking can take hours to run on large datasets.</p></dd>
 <span class="r-in"><span><span class="fu">rowData</span><span class="op">(</span><span class="va">sce</span><span class="op">)</span><span class="op">$</span><span class="va">gene_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"gene"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Pseudo-bulk</span></span></span>
-<span class="r-in"><span><span class="va">sce_pseudo</span> <span class="op">&lt;-</span> <span class="fu">registration_pseudobulk</span><span class="op">(</span><span class="va">sce</span>, <span class="st">"Cell_Cycle"</span>, <span class="st">"sample_id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 17:16:48 make pseudobulk object</span>
+<span class="r-in"><span><span class="va">sce_pseudo</span> <span class="op">&lt;-</span> <span class="fu">registration_pseudobulk</span><span class="op">(</span><span class="va">sce</span>, <span class="st">"Cell_Cycle"</span>, <span class="st">"sample_id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>, min_ncells <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:33 make pseudobulk object</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'use.altexps=' is deprecated.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'applySCE(x, aggregateAcrossCells)' instead.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 17:16:49 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-09-19 17:16:49 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:33 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:33 normalize expression</span>
 <span class="r-in"><span><span class="fu">colData</span><span class="op">(</span><span class="va">sce_pseudo</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 8 columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Mutation_Status  Cell_Cycle   Treatment   sample_id       age</span>

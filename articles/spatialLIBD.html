@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.18</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@ Jaffe</h4>
 Campus<br><a class="author_email" href="mailto:#"></a><a href="mailto:andrew.jaffe@libd.org" class="email">andrew.jaffe@libd.org</a>
       </address>
                   
-            <h4 data-toc-skip class="date">19 September 2022</h4>
+            <h4 data-toc-skip class="date">7 October 2022</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/vignettes/spatialLIBD.Rmd" class="external-link"><code>vignettes/spatialLIBD.Rmd</code></a></small>
       <div class="hidden name"><code>spatialLIBD.Rmd</code></div>
@@ -288,7 +288,7 @@ Thank you!</p>
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p>The <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
-(Pardo, Spangler, Weber, et al., 2022) package was developed for
+(Pardo, Spangler, Weber et al., 2022) package was developed for
 analyzing the human dorsolateral prefrontal cortex (DLPFC) spatial
 transcriptomics data generated with the 10x Genomics Visium technology
 by researchers at the Lieber Institute for Brain Development (LIBD)
@@ -307,12 +307,12 @@ visualization functions and/or the shiny app itself.</li>
 <li>want to explore our data in more detail. This can range from
 launching the <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em>
 application locally to diving into the specifics of the data from our
-project (Maynard, Collado-Torres, Weber, et al., 2021).</li>
+project (Maynard, Collado-Torres, Weber et al., 2021).</li>
 </ul>
 <p>In this vignette we’ll showcase how you can access the Human DLPFC
-LIBD Visium dataset (Maynard, Collado-Torres, Weber, et al., 2021), the
-R functions provided by <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
-(Pardo, Spangler, Weber, et al., 2022), and an overview of how you can
+LIBD Visium dataset (Maynard, Collado-Torres, Weber et al., 2021), the R
+functions provided by <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
+(Pardo, Spangler, Weber et al., 2022), and an overview of how you can
 re-shape your own Visium dataset to match the structure we used.</p>
 <p>To get started, please load the <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
 package.</p>
@@ -324,7 +324,7 @@ package.</p>
 </h2>
 <p>The human DLPFC 10x Genomics Visium dataset analyzed by LIBD
 researchers and colleagues is described in detail by Maynard,
-Collado-Torres et al (Maynard, Collado-Torres, Weber, et al., 2021).
+Collado-Torres et al (Maynard, Collado-Torres, Weber et al., 2021).
 However, briefly, this dataset is composed of:</p>
 <ul>
 <li>Three brain subjects (all controls; two males, one female; ages
@@ -344,7 +344,7 @@ and Risso, 2022) object that we typically refer to as
 <strong><code>spe</code></strong> <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. It has 33,538 genes (rows) and 47,681
 spots (columns). This is the initial point for most of our analyses (<a href="https://github.com/LieberInstitute/HumanPilot" class="external-link">code available on
 GitHub</a>). Using <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
-(Pardo, Spangler, Weber, et al., 2022) we manually assigned each spot
+(Pardo, Spangler, Weber et al., 2022) we manually assigned each spot
 across all 12 images to a layer (L1 through L6 or WM). We then
 compressed the spot-level data at the layer-level using a pseudo-bulking
 approach resulting in the <em><a href="https://bioconductor.org/packages/3.15/SingleCellExperiment" class="external-link">SingleCellExperiment</a></em>
@@ -376,7 +376,7 @@ statistics.</li>
 <h3 id="downloading-the-data-with-spatiallibd">Downloading the data with <code>spatialLIBD</code><a class="anchor" aria-label="anchor" href="#downloading-the-data-with-spatiallibd"></a>
 </h3>
 <p>Using <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
-(Pardo, Spangler, Weber, et al., 2022) you can download all of these R
+(Pardo, Spangler, Weber et al., 2022) you can download all of these R
 objects. They are hosted by <a href="http://bioconductor.org/" class="external-link">Bioconductor</a>’s <em><a href="https://bioconductor.org/packages/3.15/ExperimentHub" class="external-link">ExperimentHub</a></em>
 (Morgan and Shepherd, 2022) resource and you can download them using
 <code><a href="../reference/fetch_data.html">spatialLIBD::fetch_data()</a></code>. <code><a href="../reference/fetch_data.html">fetch_data()</a></code> will
@@ -392,7 +392,7 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Download the small example sce data</span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_example"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2022-09-19 17:20:09 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/4aa21b4d4942_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2022-10-07 16:35:00 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/4aa21b4d4942_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span>
 <span></span>
 <span><span class="co">## Convert to a SpatialExperiment object</span></span>
 <span><span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sce_to_spe.html">sce_to_spe</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
@@ -404,9 +404,9 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <span></span>
 <span><span class="co">## Query ExperimentHub and download the data</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2022-09-19 17:20:13 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/1752a2a7d59e5_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2022-10-07 16:35:05 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/1752a2a7d59e5_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
 <span><span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"modeling_results"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2022-09-19 17:20:14 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/425b2b3c4015_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
+<span><span class="co">#&gt; 2022-10-07 16:35:05 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/425b2b3c4015_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
 <p>Once you have downloaded the objects, we can explore them a little
 bit</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -479,7 +479,7 @@ long format and add some useful information. Let’s do so below.</p>
 <span>        <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;   4.839   0.199   5.039</span></span>
+<span><span class="co">#&gt;   5.280   0.227   5.508</span></span>
 <span></span>
 <span><span class="co">## Explore the result</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span></span>
@@ -497,7 +497,7 @@ long format and add some useful information. Let’s do so below.</p>
 the data using a <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em> (Chang,
 Cheng, Allaire, Sievert, Schloerke, Xie, Allen, McPherson, Dipert, and
 Borges, 2022) web application contained within <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
-(Pardo, Spangler, Weber, et al., 2022). To do so, use the
+(Pardo, Spangler, Weber et al., 2022). To do so, use the
 <code><a href="../reference/run_app.html">run_app()</a></code> function as shown below:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -527,7 +527,7 @@ the version you can access without any R use from your side at <a href="http://s
 </h2>
 <p>We already covered <code><a href="../reference/fetch_data.html">fetch_data()</a></code> which allows you to
 download the Human DLPFC Visium data from LIBD researchers and
-colleagues (Maynard, Collado-Torres, Weber, et al., 2021).</p>
+colleagues (Maynard, Collado-Torres, Weber et al., 2021).</p>
 <div class="section level3">
 <h3 id="spot-level-clusters-and-discrete-variables">Spot-level clusters and discrete variables<a class="anchor" aria-label="anchor" href="#spot-level-clusters-and-discrete-variables"></a>
 </h3>
@@ -584,7 +584,7 @@ resulting <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" cl
 <p>Some helper functions include <code><a href="../reference/get_colors.html">get_colors()</a></code> and
 <code><a href="../reference/sort_clusters.html">sort_clusters()</a></code> as well as the
 <code>libd_layer_colors</code> object included in <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
-(Pardo, Spangler, Weber, et al., 2022).</p>
+(Pardo, Spangler, Weber et al., 2022).</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Color palette designed by Lukas M. Weber with feedback from the team.</span></span>
 <span><span class="va">libd_layer_colors</span></span>
@@ -776,7 +776,7 @@ very similar output.</p>
 of the model types and tests we performed. Below we explore the first
 one (by default). We also show the color palettes used in the <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em>
 application provided by <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
-(Pardo, Spangler, Weber, et al., 2022). The last example has the long
+(Pardo, Spangler, Weber et al., 2022). The last example has the long
 title version that uses more information from the <code>sig_genes</code>
 object we created earlier.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
@@ -828,10 +828,10 @@ object we created earlier.</p>
 for other single nucleus or single cell RNA sequencing datasets
 (snRNA-seq, scRNA-seq) and then compute enrichment t-statistics (one
 group vs the rest; could be one cell type vs the rest or one cluster of
-cells vs the rest). In our analysis (Maynard, Collado-Torres, Weber, et
+cells vs the rest). In our analysis (Maynard, Collado-Torres, Weber et
 al., 2021), we did this for several datasets including one of our LIBD
 Human DLPFC snRNA-seq data generated by Matthew N Tran et al <a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>. In <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
-(Pardo, Spangler, Weber, et al., 2022) we include a small set of these
+(Pardo, Spangler, Weber et al., 2022) we include a small set of these
 statistics for the 31 cell clusters identified by Matthew N Tran et
 al.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
@@ -899,7 +899,7 @@ should be dropped.</li>
 if you are interested in it.</p>
 <p>The <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em>
 application provided by <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
-(Pardo, Spangler, Weber, et al., 2022) allows users to upload CSV file
+(Pardo, Spangler, Weber et al., 2022) allows users to upload CSV file
 with these t-statistics, view the correlation heatmaps, download them,
 and download the correlation matrix. An example CSV file is provided <a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv" class="external-link">here</a>.</p>
 </div>
@@ -913,9 +913,9 @@ research papers, among other collections. We can ask for any of our
 modeling results whether a list of genes is enriched among our
 significant results.</p>
 <p>For illustration purposes, we included in <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
-(Pardo, Spangler, Weber, et al., 2022) a set of genes from the Simons
+(Pardo, Spangler, Weber et al., 2022) a set of genes from the Simons
 Foundation Autism Research Initiative <a href="https://www.sfari.org/" class="external-link">SFARI</a>. In our analysis (Maynard,
-Collado-Torres, Weber, et al., 2021) we used more gene lists. Below, we
+Collado-Torres, Weber et al., 2021) we used more gene lists. Below, we
 read in the data and create a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> object with the
 Ensembl gene IDs that SFARI has provided that are related to autism.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
@@ -970,7 +970,7 @@ default.</p>
 <p><img src="spatialLIBD_files/figure-html/sfari_enrichment_plot-1.png" width="700"></p>
 <p>The <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em>
 application provided by <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
-(Pardo, Spangler, Weber, et al., 2022) allows users to upload CSV file
+(Pardo, Spangler, Weber et al., 2022) allows users to upload CSV file
 their gene lists, compute the enrichment statistics, visualize them,
 download the PDF, and download the enrichment table. An example CSV file
 is provided <a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/asd_sfari_geneList.csv" class="external-link">here</a>.</p>
@@ -980,9 +980,9 @@ is provided <a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/
 <h2 id="re-shaping-your-data-to-our-structure">Re-shaping your data to our structure<a class="anchor" aria-label="anchor" href="#re-shaping-your-data-to-our-structure"></a>
 </h2>
 <p>This section gets into the details of how we generated the data
-(Maynard, Collado-Torres, Weber, et al., 2021) behind <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
-(Pardo, Spangler, Weber, et al., 2022). This could be useful if you are
-a Bioconductor developer or a user very familiar with packages such as
+(Maynard, Collado-Torres, Weber et al., 2021) behind <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
+(Pardo, Spangler, Weber et al., 2022). This could be useful if you are a
+Bioconductor developer or a user very familiar with packages such as
 <em><a href="https://bioconductor.org/packages/3.15/SingleCellExperiment" class="external-link">SingleCellExperiment</a></em>.</p>
 <div class="section level3">
 <h3 id="spatialexperiment-support">SpatialExperiment support<a class="anchor" aria-label="anchor" href="#spatialexperiment-support"></a>
@@ -1061,7 +1061,7 @@ active development by the Bioconductor community for determining the
 best way to deal with spatial transcriptomics data in general and the
 10x Visium data in particular. Having said that, we do have all the
 steps and reproducibility information documented across several of our
-analysis (Maynard, Collado-Torres, Weber, et al., 2021) scripts.</p>
+analysis (Maynard, Collado-Torres, Weber et al., 2021) scripts.</p>
 <ul>
 <li>
 <code>reorganize_folder.R</code> available <a href="https://github.com/LieberInstitute/HumanPilot/blob/master/reorganize_folder.R" class="external-link">here</a>
@@ -1094,7 +1094,7 @@ reduction (PCA, TSNE, UMAP) and identify clusters using the data from
 all images. The resulting data is then stored as
 <code>Human_DLPFC_Visium_processedData_sce_scran.Rdata</code> and is the
 main object used throughout our analysis code (Maynard, Collado-Torres,
-Weber, et al., 2021).</li>
+Weber et al., 2021).</li>
 <li>
 <code>make-data_spatialLIBD.R</code> available in the source version
 of <code>spatialLIBD</code> and <a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-data_spatialLIBD.R" class="external-link">online
@@ -1102,7 +1102,7 @@ here</a> is the script that reads in
 <code>Human_DLPFC_Visium_processedData_sce_scran.Rdata</code> as well as
 some other outputs from our analysis and combines them into the final
 <code>sce</code> and <code>sce_layer</code> objects provided by <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
-(Pardo, Spangler, Weber, et al., 2022). This script simplifies some
+(Pardo, Spangler, Weber et al., 2022). This script simplifies some
 operations in order to simplify the code behind the <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em>
 application provided by <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>.</li>
 </ul>
@@ -1120,7 +1120,7 @@ work.</p>
 <h2 id="reproducibility">Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility"></a>
 </h2>
 <p>The <em><a href="https://bioconductor.org/packages/3.15/spatialLIBD" class="external-link">spatialLIBD</a></em>
-package (Pardo, Spangler, Weber, et al., 2022) was made possible thanks
+package (Pardo, Spangler, Weber et al., 2022) was made possible thanks
 to:</p>
 <ul>
 <li>R (R Core Team, 2022)</li>
@@ -1171,7 +1171,7 @@ K., Tenenbaum, D., Waldron, L., Morgan, and M., 2015)</li>
 Guyader, Rochette, and Girard, 2022)</li>
 <li>
 <em><a href="https://bioconductor.org/packages/3.15/IRanges" class="external-link">IRanges</a></em>
-(Lawrence, Huber, Pagès, et al., 2013)</li>
+(Lawrence, Huber, Pagès et al., 2013)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie,
 2014)</li>
@@ -1211,7 +1211,7 @@ Chang, and Iannone, 2022)</li>
 (McCarthy, Campbell, Lun, and Willis, 2017)</li>
 <li>
 <em><a href="https://bioconductor.org/packages/3.15/scuttle" class="external-link">scuttle</a></em>
-(McCarthy, Campbell, Lun, et al., 2017)</li>
+(McCarthy, Campbell, Lun et al., 2017)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=sessioninfo" class="external-link">sessioninfo</a></em>
 (Wickham, Chang, Flight, Müller, and Hester, 2021)</li>
@@ -1222,10 +1222,10 @@ Risso, Soneson, Waldron, Pages, Smith, Huber, Morgan, Gottardo, and
 Hicks, 2020)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em> (Chang,
-Cheng, Allaire, et al., 2022)</li>
+Cheng, Allaire et al., 2022)</li>
 <li>
 <em><a href="https://bioconductor.org/packages/3.15/SpatialExperiment" class="external-link">SpatialExperiment</a></em>
-(Righelli, Weber, Crowell, et al., 2022)</li>
+(Righelli, Weber, Crowell et al., 2022)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=statmod" class="external-link">statmod</a></em>
 (Giner and Smyth, 2016)</li>
@@ -1250,9 +1250,9 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"spatialLIBD.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2022-09-19 17:20:23 EDT"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2022-10-07 16:35:16 EDT"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 21.829 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 23.303 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -1264,7 +1264,7 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       America/New_York</span></span>
-<span><span class="co">#&gt;  date     2022-09-19</span></span>
+<span><span class="co">#&gt;  date     2022-10-07</span></span>
 <span><span class="co">#&gt;  pandoc   2.17.1.1 @ /opt/homebrew/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -1273,10 +1273,12 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="co">#&gt;  AnnotationHub            3.4.0     <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  assertthat               0.2.1     <span style="color: #555555;">2019-03-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  attempt                  0.3.1     <span style="color: #555555;">2020-05-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  backports                1.4.1     <span style="color: #555555;">2021-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  beachmat                 2.12.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  beeswarm                 0.4.0     <span style="color: #555555;">2021-06-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  benchmarkme              1.0.8     <span style="color: #555555;">2022-06-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  benchmarkmeData          1.0.4     <span style="color: #555555;">2020-04-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  bibtex                   0.5.0     <span style="color: #555555;">2022-09-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  Biobase                * 2.56.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  BiocFileCache            2.4.0     <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  BiocGenerics           * 0.42.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
@@ -1292,32 +1294,32 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="co">#&gt;  bit64                    4.0.5     <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  bitops                   1.0-7     <span style="color: #555555;">2021-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  blob                     1.2.3     <span style="color: #555555;">2022-04-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  bookdown                 0.28      <span style="color: #555555;">2022-08-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  bookdown                 0.29      <span style="color: #555555;">2022-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  bslib                    0.4.0     <span style="color: #555555;">2022-07-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  cachem                   1.0.6     <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  cli                      3.4.0     <span style="color: #555555;">2022-09-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  cli                      3.4.1     <span style="color: #555555;">2022-09-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  codetools                0.2-18    <span style="color: #555555;">2020-11-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
 <span><span class="co">#&gt;  colorspace               2.0-3     <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  config                   0.3.1     <span style="color: #555555;">2020-12-17</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  cowplot                  1.1.1     <span style="color: #555555;">2020-12-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  crayon                   1.5.1     <span style="color: #555555;">2022-03-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  curl                     4.3.2     <span style="color: #555555;">2021-06-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  crayon                   1.5.2     <span style="color: #555555;">2022-09-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  curl                     4.3.3     <span style="color: #555555;">2022-10-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
 <span><span class="co">#&gt;  data.table               1.14.2    <span style="color: #555555;">2021-09-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  DBI                      1.1.3     <span style="color: #555555;">2022-06-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  dbplyr                   2.2.1     <span style="color: #555555;">2022-06-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  DelayedArray             0.22.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  DelayedMatrixStats       1.18.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  DelayedMatrixStats       1.18.1    <span style="color: #555555;">2022-09-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  desc                     1.4.2     <span style="color: #555555;">2022-09-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  digest                   0.6.29    <span style="color: #555555;">2021-12-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  doParallel               1.0.17    <span style="color: #555555;">2022-02-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  dotCall64                1.0-1     <span style="color: #555555;">2021-02-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  dotCall64                1.0-2     <span style="color: #555555;">2022-10-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
 <span><span class="co">#&gt;  dplyr                    1.0.10    <span style="color: #555555;">2022-09-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
 <span><span class="co">#&gt;  dqrng                    0.3.0     <span style="color: #555555;">2021-05-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  DropletUtils             1.16.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  DT                       0.25      <span style="color: #555555;">2022-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  edgeR                    3.38.4    <span style="color: #555555;">2022-08-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  ellipsis                 0.3.2     <span style="color: #555555;">2021-04-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  evaluate                 0.16      <span style="color: #555555;">2022-08-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  evaluate                 0.17      <span style="color: #555555;">2022-10-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
 <span><span class="co">#&gt;  ExperimentHub            2.4.0     <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  fansi                    1.0.3     <span style="color: #555555;">2022-03-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  farver                   2.1.1     <span style="color: #555555;">2022-07-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
@@ -1335,7 +1337,7 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="co">#&gt;  ggplot2                  3.3.6     <span style="color: #555555;">2022-05-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  ggrepel                  0.9.1     <span style="color: #555555;">2021-01-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  glue                     1.6.2     <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  golem                    0.3.3     <span style="color: #555555;">2022-07-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
+<span><span class="co">#&gt;  golem                    0.3.4     <span style="color: #555555;">2022-09-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  gridExtra                2.3       <span style="color: #555555;">2017-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  gtable                   0.3.1     <span style="color: #555555;">2022-09-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
 <span><span class="co">#&gt;  HDF5Array                1.24.2    <span style="color: #555555;">2022-08-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
@@ -1346,24 +1348,24 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="co">#&gt;  httr                     1.4.4     <span style="color: #555555;">2022-08-17</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  interactiveDisplayBase   1.34.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  IRanges                * 2.30.1    <span style="color: #555555;">2022-08-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  irlba                    2.3.5     <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  irlba                    2.3.5.1   <span style="color: #555555;">2022-10-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
 <span><span class="co">#&gt;  iterators                1.0.14    <span style="color: #555555;">2022-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  jquerylib                0.1.4     <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  jsonlite                 1.8.0     <span style="color: #555555;">2022-02-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  jsonlite                 1.8.2     <span style="color: #555555;">2022-10-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
 <span><span class="co">#&gt;  KEGGREST                 1.36.3    <span style="color: #555555;">2022-07-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  knitr                    1.40      <span style="color: #555555;">2022-08-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  labeling                 0.4.2     <span style="color: #555555;">2020-10-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  later                    1.3.0     <span style="color: #555555;">2021-08-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  lattice                  0.20-45   <span style="color: #555555;">2021-09-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
 <span><span class="co">#&gt;  lazyeval                 0.2.2     <span style="color: #555555;">2019-03-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  lifecycle                1.0.2     <span style="color: #555555;">2022-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  limma                    3.52.3    <span style="color: #555555;">2022-09-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  lifecycle                1.0.3     <span style="color: #555555;">2022-10-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
+<span><span class="co">#&gt;  limma                    3.52.4    <span style="color: #555555;">2022-09-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  locfit                   1.5-9.6   <span style="color: #555555;">2022-07-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
 <span><span class="co">#&gt;  lubridate                1.8.0     <span style="color: #555555;">2021-10-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  magick                   2.7.3     <span style="color: #555555;">2021-08-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  magrittr                 2.0.3     <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  maps                     3.4.0     <span style="color: #555555;">2021-09-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  Matrix                   1.4-1     <span style="color: #555555;">2022-03-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
+<span><span class="co">#&gt;  Matrix                   1.5-1     <span style="color: #555555;">2022-09-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  MatrixGenerics         * 1.8.1     <span style="color: #555555;">2022-06-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  matrixStats            * 0.62.0    <span style="color: #555555;">2022-04-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  memoise                  2.0.1     <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
@@ -1378,29 +1380,29 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="co">#&gt;  plyr                     1.8.7     <span style="color: #555555;">2022-03-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  png                      0.1-7     <span style="color: #555555;">2013-12-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  promises                 1.2.0.1   <span style="color: #555555;">2021-02-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  purrr                    0.3.4     <span style="color: #555555;">2020-04-17</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  purrr                    0.3.5     <span style="color: #555555;">2022-10-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
 <span><span class="co">#&gt;  R.methodsS3              1.8.2     <span style="color: #555555;">2022-06-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  R.oo                     1.25.0    <span style="color: #555555;">2022-06-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  R.utils                  2.12.0    <span style="color: #555555;">2022-06-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  R6                       2.5.1     <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  ragg                     1.2.2     <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  ragg                     1.2.3     <span style="color: #555555;">2022-09-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  rappdirs                 0.3.3     <span style="color: #555555;">2021-01-31</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  RColorBrewer             1.1-3     <span style="color: #555555;">2022-04-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  Rcpp                     1.0.9     <span style="color: #555555;">2022-07-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
-<span><span class="co">#&gt;  RCurl                    1.98-1.8  <span style="color: #555555;">2022-07-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  RefManageR             * 1.3.0     <span style="color: #555555;">2020-11-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  RCurl                    1.98-1.9  <span style="color: #555555;">2022-10-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
+<span><span class="co">#&gt;  RefManageR             * 1.4.0     <span style="color: #555555;">2022-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  rematch2                 2.1.2     <span style="color: #555555;">2020-05-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  restfulr                 0.0.15    <span style="color: #555555;">2022-06-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  rhdf5                    2.40.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  rhdf5filters             1.8.0     <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  Rhdf5lib                 1.18.2    <span style="color: #555555;">2022-05-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  rjson                    0.2.21    <span style="color: #555555;">2022-01-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  rlang                    1.0.5     <span style="color: #555555;">2022-08-31</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  rlang                    1.0.6     <span style="color: #555555;">2022-09-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  rmarkdown                2.16      <span style="color: #555555;">2022-08-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  roxygen2                 7.2.1     <span style="color: #555555;">2022-07-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  rprojroot                2.0.3     <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  Rsamtools                2.12.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  RSQLite                  2.2.17    <span style="color: #555555;">2022-09-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  RSQLite                  2.2.18    <span style="color: #555555;">2022-10-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
 <span><span class="co">#&gt;  rstudioapi               0.14      <span style="color: #555555;">2022-08-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  rsvd                     1.0.5     <span style="color: #555555;">2021-04-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  rtracklayer              1.56.1    <span style="color: #555555;">2022-06-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
@@ -1412,12 +1414,12 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="co">#&gt;  scuttle                  1.6.3     <span style="color: #555555;">2022-08-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  sessioninfo            * 1.2.2     <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  shiny                    1.7.2     <span style="color: #555555;">2022-07-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  shinyWidgets             0.7.3     <span style="color: #555555;">2022-08-31</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  SingleCellExperiment   * 1.18.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  shinyWidgets             0.7.4     <span style="color: #555555;">2022-10-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
+<span><span class="co">#&gt;  SingleCellExperiment   * 1.18.1    <span style="color: #555555;">2022-10-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  spam                     2.9-1     <span style="color: #555555;">2022-08-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  sparseMatrixStats        1.8.0     <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  SpatialExperiment      * 1.6.1     <span style="color: #555555;">2022-08-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  spatialLIBD            * 1.9.17    <span style="color: #555555;">2022-09-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  spatialLIBD            * 1.9.18    <span style="color: #555555;">2022-10-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  statmod                  1.4.37    <span style="color: #555555;">2022-08-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  stringi                  1.7.8     <span style="color: #555555;">2022-07-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
 <span><span class="co">#&gt;  stringr                  1.4.1     <span style="color: #555555;">2022-08-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
@@ -1429,12 +1431,12 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="co">#&gt;  tidyselect               1.1.2     <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  usethis                  2.1.6     <span style="color: #555555;">2022-05-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  utf8                     1.2.2     <span style="color: #555555;">2021-07-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  vctrs                    0.4.1     <span style="color: #555555;">2022-04-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  vctrs                    0.4.2     <span style="color: #555555;">2022-09-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  vipor                    0.4.5     <span style="color: #555555;">2017-03-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  viridis                  0.6.2     <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  viridisLite              0.4.1     <span style="color: #555555;">2022-08-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  xfun                     0.33      <span style="color: #555555;">2022-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  XML                      3.99-0.10 <span style="color: #555555;">2022-06-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  XML                      3.99-0.11 <span style="color: #555555;">2022-10-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
 <span><span class="co">#&gt;  xml2                     1.3.3     <span style="color: #555555;">2021-11-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  xtable                   1.8-4     <span style="color: #555555;">2019-04-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  XVector                  0.36.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
@@ -1451,7 +1453,7 @@ Marco, Scherer, and Cédric, 2022)</li>
 <p>This vignette was generated using <em><a href="https://bioconductor.org/packages/3.15/BiocStyle" class="external-link">BiocStyle</a></em>
 (Oleś, 2022), <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie,
 2014) and <em><a href="https://CRAN.R-project.org/package=rmarkdown" class="external-link">rmarkdown</a></em>
-(Allaire, Xie, McPherson, et al., 2022) running behind the scenes.</p>
+(Allaire, Xie, McPherson et al., 2022) running behind the scenes.</p>
 <p>Citations made with <em><a href="https://CRAN.R-project.org/package=RefManageR" class="external-link">RefManageR</a></em>
 (McLean, 2017).</p>
 <p>
@@ -1470,7 +1472,7 @@ pp. 137–145. URL:
 <p>
 <a id="bib-bates2022matrix"></a><a href="#cite-bates2022matrix">[3]</a><cite>
 D. Bates, M. Maechler, and M. Jagan. <em>Matrix: Sparse and Dense Matrix
-Classes and Methods</em>. R package version 1.4-1. 2022. URL:
+Classes and Methods</em>. R package version 1.5-1. 2022. URL:
 <a href="https://CRAN.R-project.org/package=Matrix" class="external-link">https://CRAN.R-project.org/package=Matrix</a>.</cite>
 </p>
 <p>
@@ -1489,7 +1491,7 @@ University Corporation for Atmospheric Research, 2021. URL:
 <p>
 <a id="bib-fay2022golem"></a><a href="#cite-fay2022golem">[6]</a><cite>
 C. Fay, V. Guyader, S. Rochette, et al. <em>golem: A Framework for
-Robust Shiny Applications</em>. R package version 0.3.3. 2022. URL:
+Robust Shiny Applications</em>. R package version 0.3.4. 2022. URL:
 <a href="https://CRAN.R-project.org/package=golem" class="external-link">https://CRAN.R-project.org/package=golem</a>.</cite>
 </p>
 <p>
