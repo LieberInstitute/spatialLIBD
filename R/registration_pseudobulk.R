@@ -15,6 +15,10 @@
 #' @param pseudobulk_rds_file A `character(1)` specifying the path for saving
 #' an RDS file with the pseudo-bulked object. It's useful to specify this since
 #' pseudo-bulking can take hours to run on large datasets.
+#' @param min_ncells An `integer(1)` greater than 0 specifying the minimum
+#' number of cells (for scRNA-seq) or spots (for spatial) that are combined
+#' when pseudo-bulking. Pseudo-bulked samples with less than `min_ncells` on
+#' `sce_pseudo$ncells` will be dropped.
 #'
 #' @return A pseudo-bulked [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class] object.
 #' @importFrom SingleCellExperiment logcounts
@@ -43,13 +47,14 @@
 #' rowData(sce)$gene_name <- paste0("gene", seq_len(nrow(sce)))
 #'
 #' ## Pseudo-bulk
-#' sce_pseudo <- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"))
+#' sce_pseudo <- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)
 #' colData(sce_pseudo)
 registration_pseudobulk <-
     function(sce,
     var_registration,
     var_sample_id,
     covars = NULL,
+    min_ncells = 10,
     pseudobulk_rds_file = NULL) {
 
         ## Check that inputs are correct
@@ -105,6 +110,19 @@ registration_pseudobulk <-
                     )
                 }
             }
+        }
+
+        ## Drop pseudo-bulked samples that had low initial contribution
+        ## of raw-samples. That is, pseudo-bulked samples that are not
+        ## benefiting from the pseudo-bulking process to obtain higher counts.
+        if (!is.null(min_ncells)) {
+            message(
+                Sys.time(),
+                " dropping ",
+                sum(sce_pseudo$ncells < min_ncells),
+                " pseudo-bulked samples that are below 'min_ncells'."
+            )
+            sce_pseudo <- sce_pseudo[, sce_pseudo$ncells >= min_ncells]
         }
 
         ## Drop lowly-expressed genes
