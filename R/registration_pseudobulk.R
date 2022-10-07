@@ -110,7 +110,7 @@ registration_pseudobulk <-
         ## Drop lowly-expressed genes
         message(Sys.time(), " drop lowly expressed genes")
         keep_expr <-
-            edgeR::filterByExpr(sce_pseudo, group = "registration_variable")
+            edgeR::filterByExpr(sce_pseudo, group = sce_pseudo$registration_variable)
         sce_pseudo <- sce_pseudo[which(keep_expr), ]
 
         ## Compute the logcounts
