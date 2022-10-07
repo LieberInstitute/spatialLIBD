@@ -9,6 +9,7 @@ registration_pseudobulk(
   var_registration,
   var_sample_id,
   covars = NULL,
+  min_ncells = 10,
   pseudobulk_rds_file = NULL
 )
 }
@@ -25,6 +26,11 @@ statistics.}
 with the sample ID.}
 
 \item{covars}{A \code{character()} with names of sample-level covariates.}
+
+\item{min_ncells}{An \code{integer(1)} greater than 0 specifying the minimum
+number of cells (for scRNA-seq) or spots (for spatial) that are combined
+when pseudo-bulking. Pseudo-bulked samples with less than \code{min_ncells} on
+\code{sce_pseudo$ncells} will be dropped.}
 
 \item{pseudobulk_rds_file}{A \code{character(1)} specifying the path for saving
 an RDS file with the pseudo-bulked object. It's useful to specify this since
@@ -57,7 +63,7 @@ rowData(sce)$ensembl <- paste0("ENSG", seq_len(nrow(sce)))
 rowData(sce)$gene_name <- paste0("gene", seq_len(nrow(sce)))
 
 ## Pseudo-bulk
-sce_pseudo <- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"))
+sce_pseudo <- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)
 colData(sce_pseudo)
 }
 \seealso{
