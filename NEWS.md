@@ -1,3 +1,13 @@
+# spatialLIBD 1.9.18
+
+BUG FIXES
+
+* Fixed a bug related to `edgeR::filterByExpr()` inside of
+`registration_pseudobulk()`.
+* Moved the `min_ncells` filtering step to `registration_pseudobulk()` rather
+than `registration_wrapper()` since you should drop low `ncells` before
+using `edgeR::filterByExpr()`.
+
 # spatialLIBD 1.9.15
 
 BUG FIXES
