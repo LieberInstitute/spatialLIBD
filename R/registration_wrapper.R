@@ -56,7 +56,7 @@ registration_wrapper <-
     covars = NULL,
     gene_ensembl = NULL,
     gene_name = NULL,
-    prefix = "",
+    suffix = "",
     min_ncells = 10,
     pseudobulk_rds_file = NULL) {
         sce_pseudo <-
@@ -96,7 +96,7 @@ registration_wrapper <-
                 covars = covars,
                 gene_ensembl = gene_ensembl,
                 gene_name = gene_name,
-                prefix = prefix
+                suffix = suffix
             )
 
         modeling_results <- list(

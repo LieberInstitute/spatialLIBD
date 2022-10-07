@@ -6,7 +6,7 @@
 #' are more typically used for identifying ANOVA-marker genes.
 #'
 #' @inheritParams registration_stats_enrichment
-#' @param prefix A `character(1)` specifying the prefix to use for the
+#' @param suffix A `character(1)` specifying the suffix to use for the
 #' F-statistics column. This is particularly useful if you will run this
 #' function more than once and want to be able to merge the results.
 #'
@@ -20,14 +20,14 @@
 #' example("registration_block_cor", package = "spatialLIBD")
 #' results_anova <- registration_stats_anova(sce_pseudo,
 #'     block_cor, "age",
-#'     gene_ensembl = "ensembl", gene_name = "gene_name", prefix = "example"
+#'     gene_ensembl = "ensembl", gene_name = "gene_name", suffix = "example"
 #' )
 #' head(results_anova)
 #'
 #' ## Specifying `block_cor = NaN` then ignores the correlation structure
 #' results_anova_nan <- registration_stats_anova(sce_pseudo,
 #'     block_cor = NaN, "age",
-#'     gene_ensembl = "ensembl", gene_name = "gene_name", prefix = "example"
+#'     gene_ensembl = "ensembl", gene_name = "gene_name", suffix = "example"
 #' )
 #' head(results_anova_nan)
 #'
@@ -41,12 +41,12 @@
 #' results_anova_nocovar <- registration_stats_anova(sce_pseudo,
 #'     block_cor,
 #'     covars = NULL,
-#'     gene_ensembl = "ensembl", gene_name = "gene_name", prefix = "nocovar"
+#'     gene_ensembl = "ensembl", gene_name = "gene_name", suffix = "nocovar"
 #' )
 #' head(results_anova_nocovar)
 #'
 #' ## Merge both results into a single data.frame, thanks to having different
-#' ## 'prefix' values.
+#' ## 'suffix' values.
 #' results_anova_merged <- merge(results_anova, results_anova_nocovar)
 #' head(results_anova_merged)
 registration_stats_anova <-
@@ -57,7 +57,7 @@ registration_stats_anova <-
     var_sample_id = "registration_sample_id",
     gene_ensembl = NULL,
     gene_name = NULL,
-    prefix = "") {
+    suffix = "") {
         if (is.null(covars)) {
             mat_formula <- eval(str2expression(paste("~", var_registration)))
         } else {
@@ -103,7 +103,7 @@ registration_stats_anova <-
             "fdr" = top$adj.P.Val,
             "AveExpr" = top$AveExpr
         )
-        colnames(results_anova) <- paste0(prefix, "_", colnames(results_anova))
+        colnames(results_anova) <- paste0(colnames(results_anova), "_", suffix)
 
         ## Add gene info
         results_anova$ensembl <-

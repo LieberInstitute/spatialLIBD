@@ -31,7 +31,7 @@ test_that("Check that we have F-statistics", {
             "age",
             gene_ensembl = "ensembl",
             gene_name = "gene_name",
-            prefix = "example"
+            suffix = "example"
         ),
         "at least 3 different values"
     )
