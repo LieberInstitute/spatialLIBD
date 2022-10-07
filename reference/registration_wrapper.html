@@ -22,7 +22,7 @@ related functions of sc/snRNA-seq datasets."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.18</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.19</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@ related functions of sc/snRNA-seq datasets.</p>
 <span>  covars <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  gene_ensembl <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  gene_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  prefix <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  suffix <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  min_ncells <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  pseudobulk_rds_file <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -122,8 +122,8 @@ column with the ENSEMBL gene IDs. This will be used by <code><a href="layer_stat
 column with the gene names (symbols).</p></dd>
 
 
-<dt>prefix</dt>
-<dd><p>A <code>character(1)</code> specifying the prefix to use for the
+<dt>suffix</dt>
+<dd><p>A <code>character(1)</code> specifying the suffix to use for the
 F-statistics column. This is particularly useful if you will run this
 function more than once and want to be able to merge the results.</p></dd>
 
@@ -194,20 +194,20 @@ to choose the best cutoff.</p>
 <span class="r-in"><span>    <span class="va">sce</span>,</span></span>
 <span class="r-in"><span>    <span class="st">"Cell_Cycle"</span>, <span class="st">"sample_id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>, <span class="st">"ensembl"</span>, <span class="st">"gene_name"</span>, <span class="st">"wrapper"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:37 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:51:58 make pseudobulk object</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'use.altexps=' is deprecated.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'applySCE(x, aggregateAcrossCells)' instead.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:37 dropping 9 pseudo-bulked samples that are below 'min_ncells'.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:37 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:37 normalize expression</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:37 create model matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:37 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:38 The estimated correlation is: -0.0783081238514534</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:38 computing enrichment statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:38 extract and reformat enrichment results</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:38 running the baseline pairwise model</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:38 computing pairwise statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:38 computing F-statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:51:59 dropping 9 pseudo-bulked samples that are below 'min_ncells'.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:51:59 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:51:59 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:51:59 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:51:59 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:52:00 The estimated correlation is: -0.0783081238514534</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:52:00 computing enrichment statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:52:00 extract and reformat enrichment results</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:52:00 running the baseline pairwise model</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:52:00 computing pairwise statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:52:00 computing F-statistics</span>
 </code></pre></div>
     </div>
   </div>

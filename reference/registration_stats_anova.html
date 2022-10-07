@@ -20,7 +20,7 @@ are more typically used for identifying ANOVA-marker genes."><meta property="og:
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.18</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.19</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@ are more typically used for identifying ANOVA-marker genes.</p>
 <span>  var_sample_id <span class="op">=</span> <span class="st">"registration_sample_id"</span>,</span>
 <span>  gene_ensembl <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  gene_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  prefix <span class="op">=</span> <span class="st">""</span></span>
+<span>  suffix <span class="op">=</span> <span class="st">""</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -119,8 +119,8 @@ column with the ENSEMBL gene IDs. This will be used by <code><a href="layer_stat
 column with the gene names (symbols).</p></dd>
 
 
-<dt>prefix</dt>
-<dd><p>A <code>character(1)</code> specifying the prefix to use for the
+<dt>suffix</dt>
+<dd><p>A <code>character(1)</code> specifying the suffix to use for the
 F-statistics column. This is particularly useful if you will run this
 function more than once and want to be able to merge the results.</p></dd>
 
@@ -174,11 +174,11 @@ similar to <code>fetch_data("modeling_results")$anova</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; ## Pseudo-bulk</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; sce_pseudo &lt;- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:33 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:51:54 make pseudobulk object</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'use.altexps=' is deprecated.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'applySCE(x, aggregateAcrossCells)' instead.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:33 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:33 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:51:54 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:51:54 normalize expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; colData(sce_pseudo)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 8 columns</span>
@@ -210,7 +210,7 @@ similar to <code>fetch_data("modeling_results")$anova</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> E_S                      S                      E        11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; registration_mod &lt;- registration_model(sce_pseudo, "age")</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:33 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:51:54 create model matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_master &gt; head(registration_mod)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variableG0 registration_variableG1 registration_variableG2M</span>
@@ -229,15 +229,15 @@ similar to <code>fetch_data("modeling_results")$anova</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_G1                      0 19.18719</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgst__master &gt; block_cor &lt;- registration_block_cor(sce_pseudo, registration_mod)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:33 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:34 The estimated correlation is: -0.0187869166526901</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:51:54 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:51:55 The estimated correlation is: -0.0187869166526901</span>
 <span class="r-in"><span><span class="va">results_anova</span> <span class="op">&lt;-</span> <span class="fu">registration_stats_anova</span><span class="op">(</span><span class="va">sce_pseudo</span>,</span></span>
 <span class="r-in"><span>    <span class="va">block_cor</span>, <span class="st">"age"</span>,</span></span>
-<span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span>, prefix <span class="op">=</span> <span class="st">"example"</span></span></span>
+<span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span>, suffix <span class="op">=</span> <span class="st">"example"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:34 computing F-statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:51:55 computing F-statistics</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_anova</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   example_f_stat example_p_value example_fdr example_AveExpr ensembl  gene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   f_stat_example p_value_example fdr_example AveExpr_example ensembl  gene</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      0.1328075      0.93918553   0.9951876        5.499488   ENSG1 gene1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2      0.5848283      0.63309609   0.9945781        3.727026   ENSG2 gene2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3      0.5225232      0.67256636   0.9945781       10.723772   ENSG3 gene3</span>
@@ -248,11 +248,11 @@ similar to <code>fetch_data("modeling_results")$anova</code>.</p>
 <span class="r-in"><span><span class="co">## Specifying `block_cor = NaN` then ignores the correlation structure</span></span></span>
 <span class="r-in"><span><span class="va">results_anova_nan</span> <span class="op">&lt;-</span> <span class="fu">registration_stats_anova</span><span class="op">(</span><span class="va">sce_pseudo</span>,</span></span>
 <span class="r-in"><span>    block_cor <span class="op">=</span> <span class="cn">NaN</span>, <span class="st">"age"</span>,</span></span>
-<span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span>, prefix <span class="op">=</span> <span class="st">"example"</span></span></span>
+<span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span>, suffix <span class="op">=</span> <span class="st">"example"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:34 computing F-statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:51:55 computing F-statistics</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_anova_nan</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   example_f_stat example_p_value example_fdr example_AveExpr ensembl  gene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   f_stat_example p_value_example fdr_example AveExpr_example ensembl  gene</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      0.1357180      0.93736053   0.9943765        5.499488   ENSG1 gene1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2      0.5981849      0.62486365   0.9929266        3.727026   ENSG2 gene2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3      0.5333663      0.66557385   0.9929266       10.723772   ENSG3 gene3</span>
@@ -270,11 +270,11 @@ similar to <code>fetch_data("modeling_results")$anova</code>.</p>
 <span class="r-in"><span><span class="va">results_anova_nocovar</span> <span class="op">&lt;-</span> <span class="fu">registration_stats_anova</span><span class="op">(</span><span class="va">sce_pseudo</span>,</span></span>
 <span class="r-in"><span>    <span class="va">block_cor</span>,</span></span>
 <span class="r-in"><span>    covars <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
-<span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span>, prefix <span class="op">=</span> <span class="st">"nocovar"</span></span></span>
+<span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span>, suffix <span class="op">=</span> <span class="st">"nocovar"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 16:31:34 computing F-statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:51:55 computing F-statistics</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_anova_nocovar</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   nocovar_f_stat nocovar_p_value nocovar_fdr nocovar_AveExpr ensembl  gene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   f_stat_nocovar p_value_nocovar fdr_nocovar AveExpr_nocovar ensembl  gene</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      0.1393641       0.9351345   0.9962097        5.499488   ENSG1 gene1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2      0.5831947       0.6336729   0.9940431        3.727026   ENSG2 gene2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3      0.5291261       0.6679753   0.9940431       10.723772   ENSG3 gene3</span>
@@ -283,17 +283,17 @@ similar to <code>fetch_data("modeling_results")$anova</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6      2.1109373       0.1345061   0.9940431        5.258797   ENSG6 gene6</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Merge both results into a single data.frame, thanks to having different</span></span></span>
-<span class="r-in"><span><span class="co">## 'prefix' values.</span></span></span>
+<span class="r-in"><span><span class="co">## 'suffix' values.</span></span></span>
 <span class="r-in"><span><span class="va">results_anova_merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">results_anova</span>, <span class="va">results_anova_nocovar</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_anova_merged</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ensembl     gene example_f_stat example_p_value example_fdr example_AveExpr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ensembl     gene f_stat_example p_value_example fdr_example AveExpr_example</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    ENSG1    gene1      0.1328075      0.93918553   0.9951876        5.499488</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   ENSG10   gene10      1.4570886      0.26147730   0.9945781        2.627385</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  ENSG100  gene100      3.2217706      0.04889378   0.9945781        2.232185</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 ENSG1000 gene1000      0.6758112      0.57868578   0.9945781       10.308443</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 ENSG1001 gene1001      0.7945746      0.51364699   0.9945781        6.472580</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 ENSG1002 gene1002      0.3648583      0.77922852   0.9945781       10.207492</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   nocovar_f_stat nocovar_p_value nocovar_fdr nocovar_AveExpr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   f_stat_nocovar p_value_nocovar fdr_nocovar AveExpr_nocovar</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      0.1393641      0.93513454   0.9962097        5.499488</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2      1.4062441      0.27343407   0.9940431        2.627385</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3      3.3026378      0.04397329   0.9940431        2.232185</span>
