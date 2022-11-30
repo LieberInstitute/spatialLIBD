@@ -93,18 +93,21 @@ gene_set_enrichment <-
         enrichTab <-
             do.call(rbind, lapply(seq(along.with = tstats), function(i) {
                 layer <- tstats[, i] > 0 & fdrs[, i] < fdr_cut
-                enrichList <- lapply(geneList_present, function(g) {
-                    tt <-
-                        table(
-                            Set = factor(model_results$ensembl %in% g, c(FALSE, TRUE)),
-                            Layer = factor(layer, c(FALSE, TRUE))
-                        )
-                    fisher.test(tt)
+                tabList <- lapply(geneList_present, function(g) {
+                    table(
+                        Set = factor(model_results$ensembl %in% g, c(FALSE, TRUE)),
+                        Layer = factor(layer, c(FALSE, TRUE))
+                    )
                 })
+                enrichList <- lapply(tabList, fisher.test)
                 o <- data.frame(
                     OR = vapply(enrichList, "[[", numeric(1), "estimate"),
                     Pval = vapply(enrichList, "[[", numeric(1), "p.value"),
                     test = colnames(tstats)[i],
+                    NumSig = vapply(tabList, function(x) {
+                        x[2, 2]
+                    }, integer(1)),
+                    SetSize = vapply(geneList_present, length, integer(1)),
                     stringsAsFactors = FALSE
                 )
                 o$ID <- gsub(".odds ratio", "", rownames(o))
