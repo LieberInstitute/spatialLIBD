@@ -137,6 +137,16 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/s/5ra9o8ku9iyyf70/sce_sub_for_vignette.Rdata?dl=1"
         } else if (type == "spatialDLPFC_Visium") {
+            if (!enough_ram(7e+09)) {
+                warning(
+                    paste(
+                        "Your system might not have enough memory available.",
+                        "Try with a machine that has more memory",
+                        "or use the 'sce_example'."
+                    )
+                )
+            }
+
             hub_title <- "spatialDLPFC_Visium_spe.rds"
 
             ## While EH is not set-up
@@ -171,7 +181,7 @@ fetch_data <-
 
         ## Now load the data
         message(Sys.time(), " loading file ", file_path)
-        if (grep(".Rdata$", file_path)) {
+        if (grepl(".Rdata$", file_path)) {
             load(file_path, verbose = FALSE)
             if (type == "sce") {
                 return(.update_sce(sce))
