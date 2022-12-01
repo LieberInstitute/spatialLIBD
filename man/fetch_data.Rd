@@ -5,7 +5,8 @@
 \title{Download the Human DLPFC Visium data from LIBD}
 \usage{
 fetch_data(
-  type = c("sce", "sce_layer", "modeling_results", "sce_example", "spe"),
+  type = c("sce", "sce_layer", "modeling_results", "sce_example", "spe",
+    "spatialDLPFC_Visium"),
   destdir = tempdir(),
   eh = ExperimentHub::ExperimentHub(),
   bfc = BiocFileCache::BiocFileCache()

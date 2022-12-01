@@ -53,21 +53,36 @@
 #' ## Explore the data
 #' sce_layer
 fetch_data <-
-    function(type = c("sce", "sce_layer", "modeling_results", "sce_example", "spe"),
+    function(type = c(
+        "sce",
+        "sce_layer",
+        "modeling_results",
+        "sce_example",
+        "spe",
+        "spatialDLPFC_Visium"
+    ),
     destdir = tempdir(),
     eh = ExperimentHub::ExperimentHub(),
     bfc = BiocFileCache::BiocFileCache()) {
         ## Some variables
-        sce <- sce_layer <- modeling_results <- sce_sub <- spe <- NULL
+        sce <-
+            sce_layer <- modeling_results <- sce_sub <- spe <- NULL
 
         ## Check inputs
         stopifnot(methods::is(eh, "ExperimentHub"))
-        if (!type %in% c("sce", "sce_layer", "modeling_results", "sce_example", "spe")) {
+        if (!type %in% c(
+            "sce",
+            "sce_layer",
+            "modeling_results",
+            "sce_example",
+            "spe",
+            "spatialDLPFC_Visium"
+        )) {
             stop(
                 paste(
                     "Other 'type' values are not supported.",
                     "Please use either 'sce', 'sce_layer',",
-                    "'modeling_results', 'sce_example' or 'spe'."
+                    "'modeling_results', 'sce_example', 'spe', 'spatialDLPFC_Visium'"
                 ),
                 call. = FALSE
             )
@@ -82,14 +97,17 @@ fetch_data <-
         ## Other pre-BioC 3.12 regular files
         if (type == "sce") {
             if (!enough_ram()) {
-                warning(paste(
-                    "Your system might not have enough memory available.",
-                    "Try with a machine that has more memory",
-                    "or use the 'sce_example'."
-                ))
+                warning(
+                    paste(
+                        "Your system might not have enough memory available.",
+                        "Try with a machine that has more memory",
+                        "or use the 'sce_example'."
+                    )
+                )
             }
 
-            hub_title <- "Human_Pilot_DLPFC_Visium_spatialLIBD_spot_level_SCE"
+            hub_title <-
+                "Human_Pilot_DLPFC_Visium_spatialLIBD_spot_level_SCE"
 
             ## While EH is not set-up
             file_name <-
@@ -118,6 +136,14 @@ fetch_data <-
             file_name <- "sce_sub_for_vignette.Rdata"
             url <-
                 "https://www.dropbox.com/s/5ra9o8ku9iyyf70/sce_sub_for_vignette.Rdata?dl=1"
+        } else if (type == "spatialDLPFC_Visium") {
+            hub_title <- "spatialDLPFC_Visium_spe.rds"
+
+            ## While EH is not set-up
+            file_name <-
+                "spe_filtered_final_with_clusters_and_deconvolution_results.rds"
+            url <-
+                "https://www.dropbox.com/s/y2ifv5v8g68papf/spe_filtered_final_with_clusters_and_deconvolution_results.rds?dl=1"
         }
 
         file_path <- file.path(destdir, file_name)
@@ -145,16 +171,19 @@ fetch_data <-
 
         ## Now load the data
         message(Sys.time(), " loading file ", file_path)
-        load(file_path, verbose = FALSE)
-        if (type == "sce") {
-            return(.update_sce(sce))
-        } else if (type == "sce_layer") {
-            return(.update_sce_layer(sce_layer))
-        } else if (type == "modeling_results") {
-            return(modeling_results)
-        } else if (type == "sce_example") {
-            return(.update_sce(sce_sub))
+        if (grep(".Rdata$", file_path)) {
+            load(file_path, verbose = FALSE)
+            if (type == "sce") {
+                return(.update_sce(sce))
+            } else if (type == "sce_layer") {
+                return(.update_sce_layer(sce_layer))
+            } else if (type == "modeling_results") {
+                return(modeling_results)
+            } else if (type == "sce_example") {
+                return(.update_sce(sce_sub))
+            }
         }
+        readRDS(file_path)
     }
 
 
