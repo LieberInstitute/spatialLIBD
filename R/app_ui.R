@@ -166,6 +166,12 @@ app_ui <- function() {
                         ),
                         helpText("We recommend that you use values between 1.25 and 2 (default)."),
                         hr(),
+                        checkboxInput(
+                            "auto_crop",
+                            "Should the image be automatically cropped?",
+                            value = TRUE
+                        ),
+                        hr(),
                         selectInput(
                             inputId = "reduced_name",
                             label = "Reduced dimensions",

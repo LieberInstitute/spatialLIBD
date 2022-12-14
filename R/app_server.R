@@ -164,6 +164,7 @@ app_server <- function(input, output, session) {
             image_id = input$imageid,
             alpha = input$alphalevel,
             point_size = input$pointsize,
+            auto_crop = input$auto_crop,
             ... = paste(" with", input$cluster)
         )
         if (!input$side_by_side_histology) {
@@ -201,6 +202,7 @@ app_server <- function(input, output, session) {
                 alpha = isolate(input$alphalevel),
                 sample_order = isolate(input$grid_samples),
                 point_size = isolate(input$pointsize),
+                auto_crop = isolate(input$auto_crop),
                 ... = paste(" with", isolate(input$cluster))
             )
         cowplot::plot_grid(
@@ -220,7 +222,8 @@ app_server <- function(input, output, session) {
             cont_colors = cont_colors(),
             image_id = input$imageid,
             alpha = input$alphalevel,
-            point_size = input$pointsize
+            point_size = input$pointsize,
+            auto_crop = input$auto_crop
         )
         if (!input$side_by_side_gene) {
             return(p)
@@ -254,7 +257,8 @@ app_server <- function(input, output, session) {
                 image_id = isolate(input$imageid),
                 alpha = isolate(input$alphalevel),
                 point_size = isolate(input$pointsize),
-                sample_order = isolate(input$gene_grid_samples)
+                sample_order = isolate(input$gene_grid_samples),
+                auto_crop = isolate(input$auto_crop)
             )
         cowplot::plot_grid(
             plotlist = plots,
@@ -572,6 +576,10 @@ app_server <- function(input, output, session) {
 
         ## Read in the histology image
         img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = input$imageid)
+        if (input$auto_crop) {
+            frame_lims <- frame_limits(spe, sampleid = sampleid, image_id = input$imageid)
+            img <- img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
+        }
 
         ## From vis_gene() in global.R
         d <- as.data.frame(cbind(colData(spe), SpatialExperiment::spatialCoords(spe))[spe$sample_id == sampleid, ], optional = TRUE)
@@ -619,7 +627,8 @@ app_server <- function(input, output, session) {
             ),
             image_id = input$imageid,
             alpha = input$alphalevel,
-            point_size = input$pointsize
+            point_size = input$pointsize,
+            auto_crop = input$auto_crop
         )
 
         ## Next the gene plot
@@ -632,7 +641,8 @@ app_server <- function(input, output, session) {
             cont_colors = cont_colors(),
             image_id = input$imageid,
             alpha = input$alphalevel,
-            point_size = input$pointsize
+            point_size = input$pointsize,
+            auto_crop = input$auto_crop
         )
 
         ## Make the reduced dimensions ggplot
@@ -865,11 +875,16 @@ app_server <- function(input, output, session) {
                 cont_colors = cont_colors(),
                 image_id = input$imageid,
                 alpha = input$alphalevel,
-                point_size = input$pointsize
+                point_size = input$pointsize,
+                auto_crop = input$auto_crop
             )
 
         ## Read in the histology image
         img <- SpatialExperiment::imgRaster(spe, sample_id = input$sample, image_id = input$imageid)
+        if (input$auto_crop) {
+            frame_lims <- frame_limits(spe, sampleid = sampleid, image_id = input$imageid)
+            img <- img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
+        }
 
         suppressMessages(suppressWarnings(toWebGL(layout(
             ggplotly(
