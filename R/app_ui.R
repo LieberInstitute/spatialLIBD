@@ -287,7 +287,7 @@ app_ui <- function() {
                                     "grid_samples",
                                     label = "Select samples to show in the grid",
                                     choices = unique(spe$sample_id),
-                                    selected = unique(spe$sample_id)[seq(1, 11, by = 4)],
+                                    selected = unique(spe$sample_id)[seq(1, length(unique(spe$sample_id)), by = 4)],
                                     inline = TRUE
                                 ),
                                 numericInput(
