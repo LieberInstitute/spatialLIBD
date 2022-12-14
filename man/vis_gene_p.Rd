@@ -15,7 +15,8 @@ vis_gene_p(
   alpha = 1,
   cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4",
     "springgreen", "goldenrod", "red"),
-  point_size = 2
+  point_size = 2,
+  auto_crop = TRUE
 )
 }
 \arguments{
@@ -57,6 +58,10 @@ transparency level of the data on the spots.}
 
 \item{point_size}{A \code{numeric(1)} specifying the size of the points. Defaults
 to \code{1.25}. Some colors look better if you use \code{2} for instance.}
+
+\item{auto_crop}{A \code{logical(1)} indicating whether to automatically crop
+the image / plotting area, which is useful if the Visium capture area is
+not centered on the image and if the image is not a square.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2} object.

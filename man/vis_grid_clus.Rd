@@ -18,6 +18,7 @@ vis_grid_clus(
   alpha = 1,
   sample_order = unique(spe$sample_id),
   point_size = 2,
+  auto_crop = TRUE,
   ...
 )
 }
@@ -64,6 +65,10 @@ and their order.}
 \item{point_size}{A \code{numeric(1)} specifying the size of the points. Defaults
 to \code{1.25}. Some colors look better if you use \code{2} for instance.}
 
+\item{auto_crop}{A \code{logical(1)} indicating whether to automatically crop
+the image / plotting area, which is useful if the Visium capture area is
+not centered on the image and if the image is not a square.}
+
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}
 }
@@ -104,6 +109,7 @@ if (enough_ram()) {
 }
 \seealso{
 Other Spatial cluster visualization functions: 
+\code{\link{frame_limits}()},
 \code{\link{vis_clus_p}()},
 \code{\link{vis_clus}()}
 }
