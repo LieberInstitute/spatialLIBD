@@ -181,7 +181,7 @@ fetch_data <-
 
         ## Now load the data
         message(Sys.time(), " loading file ", file_path)
-        if (grepl(".Rdata$", file_path)) {
+        if (grepl(".Rdata", file_path)) {
             load(file_path, verbose = FALSE)
             if (type == "sce") {
                 return(.update_sce(sce))
