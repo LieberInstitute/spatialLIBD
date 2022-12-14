@@ -23,7 +23,7 @@ You might also be interested in this video demonstration of `spatialLIBD` for th
 
 ## Raw summary
 
-Before the documetation, his tab displays the [SingleCellExperiment](https://bioconductor.org/packages/SingleCellExperiment) object that contains the layer-level data. It's basically useful to know that the data has been loaded and that you can start navigating the app. If you wish to download this data, use the following command.
+Before the documentation, this tab displays the [SingleCellExperiment](https://bioconductor.org/packages/SingleCellExperiment) object that contains the layer-level data. It's basically useful to know that the data has been loaded and that you can start navigating the app. If you wish to download this data, use the following command.
 
 ```{r}
 ## Download sce data
@@ -50,7 +50,7 @@ sig_genes <-
 * `Model results`: the statistical modeling results to use. We computed three different types of models:
   1. `enrichment`: one layer against all the the other layers. Results in t-statistics.
   2. `pairwise`: one layer against another one. Results in t-statistics with two-sided p-values.
-  3. `anova`: changes among the layers (adjusting more the mean expression) using the data from either all layers (`full`) or after dropping the white matter layer (`noWM`) since the rest of the layers have a richer concentration of neurons.
+  3. `anova`: changes among the layers (adjusting for the mean expression) using the data from either all layers (`full`) or after dropping the white matter layer (`noWM`) since the rest of the layers have a richer concentration of neurons.
 
 ## Reduced dim
 
