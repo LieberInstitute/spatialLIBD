@@ -695,11 +695,11 @@ app_server <- function(input, output, session) {
 
         p_dim_gene <- p_dim_gene + scale_fill_gradientn(
             colors = cont_colors(),
-            na.value = c("black" = "#0000002D"),
+            na.value = "grey90",
             guide = "none"
         ) + scale_color_gradientn(
             colors = cont_colors(),
-            na.value = c("black" = "#0000002D"),
+            na.value = "grey90",
             guide = "none"
         )
 

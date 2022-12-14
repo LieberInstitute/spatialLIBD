@@ -95,11 +95,6 @@ vis_gene_p <-
                 )
         }
 
-        ## From https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/layer_marker_genes_plots.R
-        # add.alpha('black', 0.175)
-        # black
-        # "#0000002D"
-
         p <- p +
             geom_point(
                 shape = 21,
@@ -111,11 +106,11 @@ vis_gene_p <-
 
         p <- p + scale_fill_gradientn(
             colors = cont_colors,
-            na.value = c("black" = "#0000002D")
+            na.value = "grey90"
         ) +
             scale_color_gradientn(
                 colors = cont_colors,
-                na.value = c("black" = "#0000002D")
+                na.value = "grey90"
             )
 
         p <- p +
