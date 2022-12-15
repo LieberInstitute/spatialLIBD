@@ -75,7 +75,7 @@ if (enough_ram()) {
 
     ## Use the manual color palette by Lukas M Weber
     ## Don't plot the histology information
-    vis_clus_p(
+    p <- vis_clus_p(
         spe = spe_sub,
         d = as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE),
         clustervar = "layer_guess_reordered",
@@ -84,6 +84,7 @@ if (enough_ram()) {
         title = "151673 LIBD Layers",
         spatial = FALSE
     )
+    print(p)
 
     ## Clean up
     rm(spe_sub)

@@ -86,13 +86,14 @@ if (enough_ram()) {
 
     ## Use the manual color palette by Lukas M Weber
     ## Don't plot the histology information
-    vis_gene_p(
+    p <- vis_gene_p(
         spe = spe_sub,
         d = df,
         sampleid = "151673",
         title = "151673 chrM expr ratio",
         spatial = FALSE
     )
+    print(p)
 
     ## Clean up
     rm(spe_sub)

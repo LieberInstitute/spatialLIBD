@@ -51,7 +51,7 @@ if (enough_ram()) {
     if (!exists("spe")) spe <- fetch_data("spe")
 
     ## Obtain the frame limits for one sample
-    frame_limits(spe, sample_id = "151673", image_id = "lowres")
+    frame_limits(spe, sampleid = "151673", image_id = "lowres")
 }
 
 }

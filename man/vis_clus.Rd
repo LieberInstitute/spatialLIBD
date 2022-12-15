@@ -77,16 +77,17 @@ if (enough_ram()) {
     libd_layer_colors
 
     ## Use the manual color palette by Lukas M Weber
-    vis_clus(
+    p1 <- vis_clus(
         spe = spe,
         clustervar = "layer_guess_reordered",
         sampleid = "151673",
         colors = libd_layer_colors,
         ... = " LIBD Layers"
     )
+    print(p1)
 
     ## Without auto-cropping the image
-    vis_clus(
+    p2 <- vis_clus(
         spe = spe,
         clustervar = "layer_guess_reordered",
         sampleid = "151673",
@@ -94,9 +95,10 @@ if (enough_ram()) {
         auto_crop = FALSE,
         ... = " LIBD Layers"
     )
+    print(p2)
 
     ## Without histology
-    vis_clus(
+    p3 <- vis_clus(
         spe = spe,
         clustervar = "layer_guess_reordered",
         sampleid = "151673",
@@ -104,6 +106,7 @@ if (enough_ram()) {
         ... = " LIBD Layers",
         spatial = FALSE
     )
+    print(p3)
 }
 }
 \seealso{

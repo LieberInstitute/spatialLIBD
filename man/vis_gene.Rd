@@ -98,41 +98,46 @@ if (enough_ram()) {
     ## or rownames(spe)
 
     ## Visualize a default gene on the non-viridis scale
-    vis_gene(
+    p1 <- vis_gene(
         spe = spe,
         sampleid = "151507",
         viridis = FALSE
     )
+    print(p1)
 
     ## Use a custom set of colors in the reverse order than usual
-    vis_gene(
+    p2 <- vis_gene(
         spe = spe,
         sampleid = "151507",
         cont_colors = rev(viridisLite::viridis(21, option = "magma"))
     )
+    print(p2)
 
     ## Visualize a continuous variable, in this case, the ratio of chrM
     ## gene expression compared to the total expression at the spot-level
-    vis_gene(
+    p3 <- vis_gene(
         spe = spe,
         sampleid = "151507",
         geneid = "expr_chrM_ratio"
     )
+    print(p3)
 
     ## Visualize a gene using the rownames(spe)
-    vis_gene(
+    p4 <- vis_gene(
         spe = spe,
         sampleid = "151507",
         geneid = rownames(spe)[which(rowData(spe)$gene_name == "MOBP")]
     )
+    print(p4)
 
     ## Repeat without auto-cropping the image
-    vis_gene(
+    p5 <- vis_gene(
         spe = spe,
         sampleid = "151507",
         geneid = rownames(spe)[which(rowData(spe)$gene_name == "MOBP")],
         auto_crop = FALSE
     )
+    print(p5)
 }
 }
 \seealso{
