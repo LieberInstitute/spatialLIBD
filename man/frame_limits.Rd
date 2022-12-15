@@ -7,7 +7,7 @@
 frame_limits(
   spe,
   sampleid,
-  image_id,
+  image_id = "lowres",
   visium_grid = list(row_min = 0, row_max = 77, col_min = 0, col_max = 127,
     fiducial_vs_capture_edge = (8 - 6.5) * 1000/2/100)
 )
@@ -51,7 +51,7 @@ if (enough_ram()) {
     if (!exists("spe")) spe <- fetch_data("spe")
 
     ## Obtain the frame limits for one sample
-    frame_limits(spe, sampleid = "151673", image_id = "lowres")
+    frame_limits(spe, sampleid = "151673")
 }
 
 }

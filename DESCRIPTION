@@ -73,7 +73,7 @@ Imports:
     edgeR,
     limma,
     statmod
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/LieberInstitute/spatialLIBD
 BugReports: https://support.bioconductor.org/t/spatialLIBD
