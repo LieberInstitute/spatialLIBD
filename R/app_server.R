@@ -882,7 +882,7 @@ app_server <- function(input, output, session) {
         ## Read in the histology image
         img <- SpatialExperiment::imgRaster(spe, sample_id = input$sample, image_id = input$imageid)
         if (input$auto_crop) {
-            frame_lims <- frame_limits(spe, sampleid = sampleid, image_id = input$imageid)
+            frame_lims <- frame_limits(spe, sampleid = input$sample, image_id = input$imageid)
             img <- img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
         }
 
