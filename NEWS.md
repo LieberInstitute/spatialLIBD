@@ -1,3 +1,17 @@
+# spatialLIBD 1.11.3
+
+NEW FEATURES
+
+* Added the function `frame_limits()` and introduced the `auto_crop` argument
+to `vis_clus()`, `vis_gene()` and all related functions. This new function
+enables automatically cropping the image and thus adjusting the plotting area
+which is useful in cases where the image is not centered and is not a square.
+This was based on work by @lahuuki at 
+https://github.com/LieberInstitute/spatialDLPFC/blob/2dfb58db728c86875a86cc7b4999680ba1f34c38/code/analysis/99_spatial_plotting/01_get_frame_limits.R
+and 
+https://github.com/LieberInstitute/spatialDLPFC/blob/ef2952a5a0098a36b09488ebd5e36a902bb11b48/code/analysis/99_spatial_plotting/vis_gene_crop.R.
+
+
 # spatialLIBD 1.9.18
 
 BUG FIXES
