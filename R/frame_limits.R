@@ -121,10 +121,12 @@ frame_limits <- function(spe, sampleid, image_id = "lowres", visium_grid = list(
     # ymax: max pxl_col, max array_row
 
 
+    ## Find the full res pixel limits
     xlims <- range(d$pxl_col_in_fullres)
     ylims <- range(d$pxl_row_in_fullres)
     c(xlims, ylims)
 
+    ## Find the array edge limit distance
     xlims_edge <- sapply(xlims, function(x) {
         min(d$array_min_edge[d$pxl_col_in_fullres == x])
     })
@@ -136,7 +138,7 @@ frame_limits <- function(spe, sampleid, image_id = "lowres", visium_grid = list(
     ## Obtain the dimensions of the image
     img <- SpatialExperiment::getImg(spe, sample_id = sampleid, image_id = image_id)
 
-    ## Compute frame limits in pxls
+    ## Compute frame limits in full res pixels
     frame_lims_pxl <- list(
         y_min = ylims[1] + ylims_edge[1] * pxl_100um - visium_grid$fiducial_vs_capture_edge * pxl_100um, # * nrow(img) / ncol(img),
         y_max = ylims[2] + ylims_edge[2] * pxl_100um + visium_grid$fiducial_vs_capture_edge * pxl_100um, # * nrow(img) / ncol(img),
