@@ -20,7 +20,7 @@ to check depleted genes, change reverse to TRUE."><meta property="og:image" cont
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.19</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.11.3</span>
       </span>
     </div>
 
@@ -166,8 +166,8 @@ to see a full script from where this family of functions is derived from.</p>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:50:44 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/425b2b3c4015_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-10-31</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-14 19:12:21 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/425b2b3c4015_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Compute the gene set enrichment results</span></span></span>
 <span class="r-in"><span><span class="va">asd_sfari_enrichment</span> <span class="op">&lt;-</span> <span class="fu">gene_set_enrichment</span><span class="op">(</span></span></span>
@@ -178,28 +178,50 @@ to see a full script from where this family of functions is derived from.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Explore the results</span></span></span>
 <span class="r-in"><span><span class="va">asd_sfari_enrichment</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           OR         Pval   test                   ID model_type fdr_cut</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.2659915 3.187330e-03     WM       Gene_SFARI_all enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.1819109 1.775383e-01     WM      Gene_SFARI_high enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.2333378 3.197106e-01     WM Gene_SFARI_syndromic enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.9702022 8.516414e-01 Layer1       Gene_SFARI_all enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.7192630 1.473598e-01 Layer1      Gene_SFARI_high enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.1216176 7.379007e-01 Layer1 Gene_SFARI_syndromic enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2.7377140 5.965310e-21 Layer2       Gene_SFARI_all enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2.7066379 1.252575e-09 Layer2      Gene_SFARI_high enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2.6632367 3.564638e-04 Layer2 Gene_SFARI_syndromic enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.3579958 2.647572e-01 Layer3       Gene_SFARI_all enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 1.1738012 6.222717e-01 Layer3      Gene_SFARI_high enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 2.8947133 5.518757e-02 Layer3 Gene_SFARI_syndromic enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 1.2423009 2.434061e-01 Layer4       Gene_SFARI_all enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 1.1445522 6.204613e-01 Layer4      Gene_SFARI_high enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2.6106289 1.575232e-02 Layer4 Gene_SFARI_syndromic enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2.0969125 8.658687e-07 Layer5       Gene_SFARI_all enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2.0956628 1.194573e-03 Layer5      Gene_SFARI_high enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 0.7064982 8.016960e-01 Layer5 Gene_SFARI_syndromic enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2.6716353 1.779962e-07 Layer6       Gene_SFARI_all enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2.6206690 5.845493e-04 Layer6      Gene_SFARI_high enrichment     0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2.2573853 7.927915e-02 Layer6 Gene_SFARI_syndromic enrichment     0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           OR         Pval   test NumSig SetSize                   ID model_type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.2659915 3.187330e-03     WM    231     869       Gene_SFARI_all enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.1819109 1.775383e-01     WM     90     355      Gene_SFARI_high enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.2333378 3.197106e-01     WM     31     118 Gene_SFARI_syndromic enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.9702022 8.516414e-01 Layer1     71     869       Gene_SFARI_all enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.7192630 1.473598e-01 Layer1     22     355      Gene_SFARI_high enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.1216176 7.379007e-01 Layer1     11     118 Gene_SFARI_syndromic enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2.7377140 5.965310e-21 Layer2    137     869       Gene_SFARI_all enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2.7066379 1.252575e-09 Layer2     57     355      Gene_SFARI_high enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2.6632367 3.564638e-04 Layer2     19     118 Gene_SFARI_syndromic enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.3579958 2.647572e-01 Layer3     14     869       Gene_SFARI_all enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 1.1738012 6.222717e-01 Layer3      5     355      Gene_SFARI_high enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 2.8947133 5.518757e-02 Layer3      4     118 Gene_SFARI_syndromic enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 1.2423009 2.434061e-01 Layer4     29     869       Gene_SFARI_all enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 1.1445522 6.204613e-01 Layer4     11     355      Gene_SFARI_high enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2.6106289 1.575232e-02 Layer4      8     118 Gene_SFARI_syndromic enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2.0969125 8.658687e-07 Layer5     60     869       Gene_SFARI_all enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2.0956628 1.194573e-03 Layer5     25     355      Gene_SFARI_high enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 0.7064982 8.016960e-01 Layer5      3     118 Gene_SFARI_syndromic enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2.6716353 1.779962e-07 Layer6     41     869       Gene_SFARI_all enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2.6206690 5.845493e-04 Layer6     17     355      Gene_SFARI_high enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2.2573853 7.927915e-02 Layer6      5     118 Gene_SFARI_syndromic enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    fdr_cut</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7      0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9      0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11     0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12     0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13     0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14     0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15     0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16     0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17     0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18     0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19     0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20     0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21     0.1</span>
 </code></pre></div>
     </div>
   </div>

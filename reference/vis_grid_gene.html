@@ -20,7 +20,7 @@ To visualize clusters (or any discrete variable) use vis_grid_clus()."><meta pro
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.19</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.11.3</span>
       </span>
     </div>
 
@@ -89,6 +89,7 @@ To visualize clusters (or any discrete variable) use <code><a href="vis_grid_clu
 <span>    <span class="st">"springgreen"</span>, <span class="st">"goldenrod"</span>, <span class="st">"red"</span><span class="op">)</span>,</span>
 <span>  sample_order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">spe</span><span class="op">$</span><span class="va">sample_id</span><span class="op">)</span>,</span>
 <span>  point_size <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  auto_crop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -179,6 +180,12 @@ and their order.</p></dd>
 to <code>1.25</code>. Some colors look better if you use <code>2</code> for instance.</p></dd>
 
 
+<dt>auto_crop</dt>
+<dd><p>A <code>logical(1)</code> indicating whether to automatically crop
+the image / plotting area, which is useful if the Visium capture area is
+not centered on the image and if the image is not a square.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Passed to <a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0()</a> for making the title of the
 plot following the <code>sampleid</code>.</p></dd>
@@ -222,8 +229,8 @@ objects.</p>
 <span class="r-in"><span>    <span class="co">## for subject 3</span></span></span>
 <span class="r-in"><span>    <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html" class="external-link">plot_grid</a></span><span class="op">(</span>plotlist <span class="op">=</span> <span class="va">p_list</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:53:34 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/3ae9464272d_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-10-31</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-14 19:15:19 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/3ae9464272d_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-plt img"><img src="vis_grid_gene-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>

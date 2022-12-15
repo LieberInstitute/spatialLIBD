@@ -21,7 +21,7 @@ To visualize clusters (or any discrete variable) use vis_clus_p()."><meta proper
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.19</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.11.3</span>
       </span>
     </div>
 
@@ -85,7 +85,8 @@ To visualize clusters (or any discrete variable) use <code><a href="vis_clus_p.h
 <span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  cont_colors <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">viridis</span><span class="op">)</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span> <span class="kw">else</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aquamarine4"</span>,</span>
 <span>    <span class="st">"springgreen"</span>, <span class="st">"goldenrod"</span>, <span class="st">"red"</span><span class="op">)</span>,</span>
-<span>  point_size <span class="op">=</span> <span class="fl">2</span></span>
+<span>  point_size <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  auto_crop <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -149,6 +150,12 @@ transparency level of the data on the spots.</p></dd>
 <dd><p>A <code>numeric(1)</code> specifying the size of the points. Defaults
 to <code>1.25</code>. Some colors look better if you use <code>2</code> for instance.</p></dd>
 
+
+<dt>auto_crop</dt>
+<dd><p>A <code>logical(1)</code> indicating whether to automatically crop
+the image / plotting area, which is useful if the Visium capture area is
+not centered on the image and if the image is not a square.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -188,8 +195,8 @@ to <code>1.25</code>. Some colors look better if you use <code>2</code> for inst
 <span class="r-in"><span>    <span class="co">## Clean up</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">spe_sub</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-04-26</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-10-07 17:53:05 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/3ae9464272d_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-10-31</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-14 19:14:49 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/3ae9464272d_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 </code></pre></div>
     </div>
   </div>
