@@ -29,8 +29,7 @@ shiny::HTML('<h1>{{title}}</h1>
 {{/if}}
 {{#if console}}
 <p id="console"><code>{{console}}</code></p>
-{{/if}}'
-)
+{{/if}}')
 ```
 
 

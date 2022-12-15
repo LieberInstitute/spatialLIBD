@@ -19,7 +19,6 @@
 #' ## Check the object
 #' xx <- check_modeling_results(modeling_results)
 check_modeling_results <- function(modeling_results) {
-
     ## Should be a list
     stopifnot(is(modeling_results, "list"))
 

@@ -52,7 +52,6 @@ vis_clus_p <-
     alpha = 1,
     point_size = 2,
     auto_crop = TRUE) {
-
         ## Some variables
         pxl_row_in_fullres <- pxl_col_in_fullres <- key <- NULL
         # stopifnot(all(c("pxl_col_in_fullres", "pxl_row_in_fullres", "key") %in% colnames(d)))
@@ -68,7 +67,7 @@ vis_clus_p <-
         img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = image_id)
 
         ## Crop the image if needed
-        if(auto_crop) {
+        if (auto_crop) {
             frame_lims <- frame_limits(spe, sampleid = sampleid, image_id = image_id)
             img <- img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
             adjust <- list(x = frame_lims$x_min, y = frame_lims$y_min)

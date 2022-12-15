@@ -56,7 +56,6 @@ registration_pseudobulk <-
     covars = NULL,
     min_ncells = 10,
     pseudobulk_rds_file = NULL) {
-
         ## Check that inputs are correct
         stopifnot(is(sce, "SingleCellExperiment"))
         stopifnot(var_registration %in% colnames(colData(sce)))

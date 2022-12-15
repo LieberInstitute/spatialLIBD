@@ -27,7 +27,6 @@ registration_model <-
     function(sce_pseudo,
     covars = NULL,
     var_registration = "registration_variable") {
-
         ## Specify a formula without an intercept
         if (is.null(covars)) {
             mat_formula <-

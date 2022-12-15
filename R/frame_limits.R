@@ -34,8 +34,7 @@
 #'     ## Obtain the frame limits for one sample
 #'     frame_limits(spe, sample_id = "151673", image_id = "lowres")
 #' }
-
-
+#'
 frame_limits <- function(spe, sampleid, image_id, visium_grid = list(row_min = 0, row_max = 77, col_min = 0, col_max = 127, fiducial_vs_capture_edge = (8 - 6.5) * 1000 / 2 / 100)) {
     ## Subset the info we need for the particular sample
     d <- as.data.frame(cbind(colData(spe), SpatialExperiment::spatialCoords(spe))[spe$sample_id == sampleid, ], optional = TRUE)

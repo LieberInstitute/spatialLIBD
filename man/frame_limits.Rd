@@ -53,6 +53,7 @@ if (enough_ram()) {
     ## Obtain the frame limits for one sample
     frame_limits(spe, sample_id = "151673", image_id = "lowres")
 }
+
 }
 \seealso{
 Other Spatial cluster visualization functions: 

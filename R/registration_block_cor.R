@@ -20,7 +20,6 @@
 #' example("registration_model", package = "spatialLIBD")
 #' block_cor <- registration_block_cor(sce_pseudo, registration_mod)
 registration_block_cor <- function(sce_pseudo, registration_model, var_sample_id = "registration_sample_id") {
-
     ## Compute the duplicate correlation so we don't have to compute it
     ## multiple times
     message(Sys.time(), " run duplicateCorrelation()")
