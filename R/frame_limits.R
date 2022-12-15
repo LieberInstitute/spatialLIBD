@@ -140,9 +140,9 @@ frame_limits <- function(spe, sampleid, image_id = "lowres", visium_grid = list(
 
     ## Compute frame limits in full res pixels
     frame_lims_pxl <- list(
-        y_min = ylims[1] + ylims_edge[1] * pxl_100um - visium_grid$fiducial_vs_capture_edge * pxl_100um, # * nrow(img) / ncol(img),
+        y_min = ylims[1] - ylims_edge[1] * pxl_100um - visium_grid$fiducial_vs_capture_edge * pxl_100um, # * nrow(img) / ncol(img),
         y_max = ylims[2] + ylims_edge[2] * pxl_100um + visium_grid$fiducial_vs_capture_edge * pxl_100um, # * nrow(img) / ncol(img),
-        x_min = xlims[1] + xlims_edge[1] * pxl_100um - visium_grid$fiducial_vs_capture_edge * pxl_100um,
+        x_min = xlims[1] - xlims_edge[1] * pxl_100um - visium_grid$fiducial_vs_capture_edge * pxl_100um,
         x_max = xlims[2] + xlims_edge[2] * pxl_100um + visium_grid$fiducial_vs_capture_edge * pxl_100um
     )
     frame_lims_pxl
