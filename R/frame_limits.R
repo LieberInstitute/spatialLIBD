@@ -47,9 +47,13 @@ frame_limits <- function(spe, sampleid, image_id, visium_grid = list(row_min = 0
     d <- d[order(d$array_row, d$array_col), ]
 
     ## Compute the difference by array_col and pxl_col_in_fullres
-    diffs_array <- diff(d$array_col)
-    diffs_pxl <- diff(d$pxl_col_in_fullres)
-    pxl_100um <- median(diffs_pxl[abs(diffs_array) == 2])
+    diffs_array <- abs(diff(d$array_col))
+    diffs_pxl <- abs(diff(d$pxl_col_in_fullres))
+    diffs_pxl_row <- abs(diff(d$pxl_row_in_fullres))
+    if (median(diffs_pxl_row[diffs_array == 2] - diffs_pxl[diffs_array == 2]) > 0) {
+        warning("frame_limits() doesn't seem to be working as expected. Maybe you have swapped pxl_col_in_fullres and pxl_row_in_fullres. Could be the case if your SpatialExperiment object was created prior to https://github.com/drighelli/SpatialExperiment/commit/6710fe8b0a7919191ecce989bb6831647385ef5f. Consider using: 'colnames(spatialCoords(spe)) <- rev(colnames(spatialCoords(spe)))'.", call. = FALSE)
+    }
+    pxl_100um <- median(diffs_pxl[diffs_array == 2])
 
     ## Locate edges on the array coordinates
     row_min <- min(d$array_row)
@@ -57,13 +61,25 @@ frame_limits <- function(spe, sampleid, image_id, visium_grid = list(row_min = 0
     col_min <- min(d$array_col)
     col_max <- max(d$array_col)
 
+    ## This is required to deal with some weird SPE objects, potentially due
+    ## to them being created prior to
+    ## https://github.com/drighelli/SpatialExperiment/commit/6710fe8b0a7919191ecce989bb6831647385ef5f
+    ylims <- c(
+        min(d$pxl_row_in_fullres[which(d$array_row == row_min)]),
+        max(d$pxl_row_in_fullres[which(d$array_row == row_max)])
+    )
+    xlims <- c(
+        min(d$pxl_col_in_fullres[which(d$array_col == col_min)]),
+        max(d$pxl_col_in_fullres[which(d$array_col == col_max)])
+    )
+
     ## Compute the frame limits in pixels in the full resolution image,
     ## then adjust for the pixels in the current image
     frame_lims <- lapply(list(
-        y_min = min(d$pxl_row_in_fullres[which(d$array_row == row_min)]) + (visium_grid$row_min - row_min) * pxl_100um - visium_grid$fiducial_vs_capture_edge * pxl_100um,
-        y_max = max(d$pxl_row_in_fullres[which(d$array_row == row_max)]) + (visium_grid$row_max - row_max) * pxl_100um + visium_grid$fiducial_vs_capture_edge * pxl_100um,
-        x_min = min(d$pxl_col_in_fullres[which(d$array_col == col_min)]) + (visium_grid$col_min - col_min) * pxl_100um - visium_grid$fiducial_vs_capture_edge * pxl_100um,
-        x_max = max(d$pxl_col_in_fullres[which(d$array_col == col_max)]) + (visium_grid$col_max - col_max) * pxl_100um + visium_grid$fiducial_vs_capture_edge * pxl_100um
+        y_min = min(ylims) + (visium_grid$row_min - row_min) * pxl_100um - visium_grid$fiducial_vs_capture_edge * pxl_100um,
+        y_max = max(ylims) + (visium_grid$row_max - row_max) * pxl_100um + visium_grid$fiducial_vs_capture_edge * pxl_100um,
+        x_min = min(xlims) + (visium_grid$col_min - col_min) * pxl_100um - visium_grid$fiducial_vs_capture_edge * pxl_100um,
+        x_max = max(xlims) + (visium_grid$col_max - col_max) * pxl_100um + visium_grid$fiducial_vs_capture_edge * pxl_100um
     ), function(x) {
         ceiling(
             x * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id)
