@@ -85,6 +85,16 @@ if (enough_ram()) {
         ... = " LIBD Layers"
     )
 
+    ## Without auto-cropping the image
+    vis_clus(
+        spe = spe,
+        clustervar = "layer_guess_reordered",
+        sampleid = "151673",
+        colors = libd_layer_colors,
+        auto_crop = FALSE,
+        ... = " LIBD Layers"
+    )
+
     ## Without histology
     vis_clus(
         spe = spe,

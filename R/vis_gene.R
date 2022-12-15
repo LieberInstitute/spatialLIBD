@@ -71,6 +71,14 @@
 #'         sampleid = "151507",
 #'         geneid = rownames(spe)[which(rowData(spe)$gene_name == "MOBP")]
 #'     )
+#'
+#'     ## Repeat without auto-cropping the image
+#'     vis_gene(
+#'         spe = spe,
+#'         sampleid = "151507",
+#'         geneid = rownames(spe)[which(rowData(spe)$gene_name == "MOBP")],
+#'         auto_crop = FALSE
+#'     )
 #' }
 vis_gene <-
     function(spe,

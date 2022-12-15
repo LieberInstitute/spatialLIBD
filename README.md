@@ -26,23 +26,23 @@ issues](https://img.shields.io/github/issues/LieberInstitute/spatialLIBD)](https
 
 Welcome to the `spatialLIBD` project! It is composed of:
 
--   a [shiny](https://shiny.rstudio.com/) web application that we are
-    hosting at
-    [spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/)
-    that can handle a
-    [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2)
-    set of concurrent users,
--   a Bioconductor package at
-    [bioconductor.org/packages/spatialLIBD](http://bioconductor.org/packages/spatialLIBD)
-    (or from [here](http://research.libd.org/spatialLIBD/)) that lets
-    you analyze the data and run a local version of our web application
-    (with our data or yours),
--   and a [research article](https://doi.org/10.1038/s41593-020-00787-0)
-    with the scientific knowledge we drew from this dataset. The
-    analysis code for our project is available
-    [here](https://github.com/LieberInstitute/HumanPilot/) and the high
-    quality figures for the manuscript are available through
-    [Figshare](https://doi.org/10.6084/m9.figshare.13623902.v1).
+- a [shiny](https://shiny.rstudio.com/) web application that we are
+  hosting at
+  [spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/)
+  that can handle a
+  [limited](https://github.com/LieberInstitute/spatialLIBD/issues/2) set
+  of concurrent users,
+- a Bioconductor package at
+  [bioconductor.org/packages/spatialLIBD](http://bioconductor.org/packages/spatialLIBD)
+  (or from [here](http://research.libd.org/spatialLIBD/)) that lets you
+  analyze the data and run a local version of our web application (with
+  our data or yours),
+- and a [research article](https://doi.org/10.1038/s41593-020-00787-0)
+  with the scientific knowledge we drew from this dataset. The analysis
+  code for our project is available
+  [here](https://github.com/LieberInstitute/HumanPilot/) and the high
+  quality figures for the manuscript are available through
+  [Figshare](https://doi.org/10.6084/m9.figshare.13623902.v1).
 
 The web application allows you to browse the LIBD human dorsolateral
 pre-frontal cortex (DLPFC) spatial transcriptomics data generated with
@@ -55,12 +55,12 @@ pre-print](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1)
 for more details about this project.
 
 If you tweet about this website, the data or the R package please use
-the <code>#spatialLIBD</code> hashtag. You can find previous tweets that
-way as shown
+the <code>\#spatialLIBD</code> hashtag. You can find previous tweets
+that way as shown
 <a href="https://twitter.com/search?q=%23spatialLIBD&src=typed_query">here</a>.
 Thank you!
 <a href="https://twitter.com/intent/tweet?button_hashtag=spatialLIBD&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet
-#spatialLIBD</a>
+\#spatialLIBD</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ## Study design
@@ -104,23 +104,21 @@ spatialLIBD::run_app()
 
 ## Shiny website mirrors
 
--   [Main shiny application
-    website](http://spatial.libd.org/spatialLIBD)
--   [Shinyapps](https://libd.shinyapps.io/spatialLIBD/)
+- [Main shiny application website](http://spatial.libd.org/spatialLIBD)
+- [Shinyapps](https://libd.shinyapps.io/spatialLIBD/)
 
 ## R/Bioconductor package
 
 The `spatialLIBD` package contains functions for:
 
--   Accessing the spatial transcriptomics data from the LIBD Human Pilot
-    project ([code on
-    GitHub](https://github.com/LieberInstitute/HumanPilot)) generated
-    with the Visium platform from 10x Genomics. The data is retrieved
-    from [Bioconductor](http://bioconductor.org/)’s `ExperimentHub`.
--   Visualizing the spot-level spatial gene expression data and
-    clusters.
--   Inspecting the data interactively either on your computer or through
-    [spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/).
+- Accessing the spatial transcriptomics data from the LIBD Human Pilot
+  project ([code on
+  GitHub](https://github.com/LieberInstitute/HumanPilot)) generated with
+  the Visium platform from 10x Genomics. The data is retrieved from
+  [Bioconductor](http://bioconductor.org/)’s `ExperimentHub`.
+- Visualizing the spot-level spatial gene expression data and clusters.
+- Inspecting the data interactively either on your computer or through
+  [spatial.libd.org/spatialLIBD/](http://spatial.libd.org/spatialLIBD/).
 
 For more details, please check the [documentation
 website](http://lieberinstitute.github.io/spatialLIBD) or the
@@ -192,7 +190,7 @@ spe
 #> imgData names(4): sample_id image_id data scaleFactor
 
 ## Note the memory size
-lobstr::obj_size(spe) 
+lobstr::obj_size(spe)
 #> 2.04 GB
 
 ## Remake the logo image with histology information
@@ -238,12 +236,14 @@ Please run this yourself to check for any updates on how to cite
 ``` r
 print(citation("spatialLIBD"), bibtex = TRUE)
 #> 
-#> Pardo B, Spangler A, Weber LM, Hicks SC, Jaffe AE, Martinowich K,
-#> Maynard KR, Collado-Torres L (2022). "spatialLIBD: an R/Bioconductor
-#> package to visualize spatially-resolved transcriptomics data."
-#> _BMC Genomics_. doi: 10.1186/s12864-022-08601-w (URL:
-#> https://doi.org/10.1186/s12864-022-08601-w), <URL:
-#> https://doi.org/10.1186/s12864-022-08601-w>.
+#> To cite package 'spatialLIBD' in publications use:
+#> 
+#>   Pardo B, Spangler A, Weber LM, Hicks SC, Jaffe AE, Martinowich K,
+#>   Maynard KR, Collado-Torres L (2022). "spatialLIBD: an R/Bioconductor
+#>   package to visualize spatially-resolved transcriptomics data." _BMC
+#>   Genomics_. doi:10.1186/s12864-022-08601-w
+#>   <https://doi.org/10.1186/s12864-022-08601-w>,
+#>   <https://doi.org/10.1186/s12864-022-08601-w>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -256,14 +256,14 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #>     url = {https://doi.org/10.1186/s12864-022-08601-w},
 #>   }
 #> 
-#> Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK, Williams
-#> SR, II JLC, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Kleinman JE,
-#> Hyde TM, Rao N, Hicks SC, Martinowich K, Jaffe AE (2021).
-#> "Transcriptome-scale spatial gene expression in the human dorsolateral
-#> prefrontal cortex." _Nature Neuroscience_. doi:
-#> 10.1038/s41593-020-00787-0 (URL:
-#> https://doi.org/10.1038/s41593-020-00787-0), <URL:
-#> https://www.nature.com/articles/s41593-020-00787-0>.
+#>   Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK,
+#>   Williams SR, II JLC, Tran MN, Besich Z, Tippani M, Chew J, Yin Y,
+#>   Kleinman JE, Hyde TM, Rao N, Hicks SC, Martinowich K, Jaffe AE
+#>   (2021). "Transcriptome-scale spatial gene expression in the human
+#>   dorsolateral prefrontal cortex." _Nature Neuroscience_.
+#>   doi:10.1038/s41593-020-00787-0
+#>   <https://doi.org/10.1038/s41593-020-00787-0>,
+#>   <https://www.nature.com/articles/s41593-020-00787-0>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -290,32 +290,32 @@ By contributing to this project, you agree to abide by its terms.
 
 ## Development tools
 
--   Continuous code testing is possible thanks to [GitHub
-    actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)
-    through *[usethis](https://CRAN.R-project.org/package=usethis)*,
-    *[remotes](https://CRAN.R-project.org/package=remotes)*,
-    *[sysreqs](https://github.com/r-hub/sysreqs)* and
-    *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)*
-    customized to use [Bioconductor’s docker
-    containers](https://www.bioconductor.org/help/docker/) and
-    *[BiocCheck](https://bioconductor.org/packages/3.15/BiocCheck)*.
--   Code coverage assessment is possible thanks to
-    [codecov](https://codecov.io/gh) and
-    *[covr](https://CRAN.R-project.org/package=covr)*.
--   The [documentation
-    website](http://lieberinstitute.github.io/spatialLIBD) is
-    automatically updated thanks to
-    *[pkgdown](https://CRAN.R-project.org/package=pkgdown)*.
--   The code is styled automatically thanks to
-    *[styler](https://CRAN.R-project.org/package=styler)*.
--   The documentation is formatted thanks to
-    *[devtools](https://CRAN.R-project.org/package=devtools)* and
-    *[roxygen2](https://CRAN.R-project.org/package=roxygen2)*.
+- Continuous code testing is possible thanks to [GitHub
+  actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)
+  through *[usethis](https://CRAN.R-project.org/package=usethis)*,
+  *[remotes](https://CRAN.R-project.org/package=remotes)*,
+  *[sysreqs](https://github.com/r-hub/sysreqs)* and
+  *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized
+  to use [Bioconductor’s docker
+  containers](https://www.bioconductor.org/help/docker/) and
+  *[BiocCheck](https://bioconductor.org/packages/3.16/BiocCheck)*.
+- Code coverage assessment is possible thanks to
+  [codecov](https://codecov.io/gh) and
+  *[covr](https://CRAN.R-project.org/package=covr)*.
+- The [documentation
+  website](http://lieberinstitute.github.io/spatialLIBD) is
+  automatically updated thanks to
+  *[pkgdown](https://CRAN.R-project.org/package=pkgdown)*.
+- The code is styled automatically thanks to
+  *[styler](https://CRAN.R-project.org/package=styler)*.
+- The documentation is formatted thanks to
+  *[devtools](https://CRAN.R-project.org/package=devtools)* and
+  *[roxygen2](https://CRAN.R-project.org/package=roxygen2)*.
 
 For more details, check the `dev` directory.
 
 This package was developed using
-*[biocthis](https://bioconductor.org/packages/3.15/biocthis)*.
+*[biocthis](https://bioconductor.org/packages/3.16/biocthis)*.
 
 <a href="https://www.libd.org/"><img src="http://lcolladotor.github.io/img/LIBD_logo.jpg" width="250px"></a>
 
