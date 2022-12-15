@@ -153,9 +153,9 @@ pseudo-bulking can take hours to run on large datasets.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Pseudo-bulk</span></span></span>
 <span class="r-in"><span><span class="va">sce_pseudo</span> <span class="op">&lt;-</span> <span class="fu">registration_pseudobulk</span><span class="op">(</span><span class="va">sce</span>, <span class="st">"Cell_Cycle"</span>, <span class="st">"sample_id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>, min_ncells <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-14 19:13:33 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-14 19:13:33 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-14 19:13:33 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-14 19:42:11 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-14 19:42:11 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-14 19:42:11 normalize expression</span>
 <span class="r-in"><span><span class="fu">colData</span><span class="op">(</span><span class="va">sce_pseudo</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 8 columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Mutation_Status  Cell_Cycle   Treatment   sample_id       age</span>
@@ -198,7 +198,7 @@ pseudo-bulking can take hours to run on large datasets.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -200,45 +200,54 @@ data and title for <code><a href="vis_gene_p.html">vis_gene_p()</a></code>. It a
 <span class="r-in"><span>    <span class="co">## or rownames(spe)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>    <span class="co">## Visualize a default gene on the non-viridis scale</span></span></span>
-<span class="r-in"><span>    <span class="fu">vis_gene</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">vis_gene</span><span class="op">(</span></span></span>
 <span class="r-in"><span>        spe <span class="op">=</span> <span class="va">spe</span>,</span></span>
 <span class="r-in"><span>        sampleid <span class="op">=</span> <span class="st">"151507"</span>,</span></span>
 <span class="r-in"><span>        viridis <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>    <span class="co">## Use a custom set of colors in the reverse order than usual</span></span></span>
-<span class="r-in"><span>    <span class="fu">vis_gene</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">vis_gene</span><span class="op">(</span></span></span>
 <span class="r-in"><span>        spe <span class="op">=</span> <span class="va">spe</span>,</span></span>
 <span class="r-in"><span>        sampleid <span class="op">=</span> <span class="st">"151507"</span>,</span></span>
 <span class="r-in"><span>        cont_colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">21</span>, option <span class="op">=</span> <span class="st">"magma"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>    <span class="co">## Visualize a continuous variable, in this case, the ratio of chrM</span></span></span>
 <span class="r-in"><span>    <span class="co">## gene expression compared to the total expression at the spot-level</span></span></span>
-<span class="r-in"><span>    <span class="fu">vis_gene</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu">vis_gene</span><span class="op">(</span></span></span>
 <span class="r-in"><span>        spe <span class="op">=</span> <span class="va">spe</span>,</span></span>
 <span class="r-in"><span>        sampleid <span class="op">=</span> <span class="st">"151507"</span>,</span></span>
 <span class="r-in"><span>        geneid <span class="op">=</span> <span class="st">"expr_chrM_ratio"</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>    <span class="co">## Visualize a gene using the rownames(spe)</span></span></span>
-<span class="r-in"><span>    <span class="fu">vis_gene</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu">vis_gene</span><span class="op">(</span></span></span>
 <span class="r-in"><span>        spe <span class="op">=</span> <span class="va">spe</span>,</span></span>
 <span class="r-in"><span>        sampleid <span class="op">=</span> <span class="st">"151507"</span>,</span></span>
 <span class="r-in"><span>        geneid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu">rowData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_name</span> <span class="op">==</span> <span class="st">"MOBP"</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>    <span class="co">## Repeat without auto-cropping the image</span></span></span>
-<span class="r-in"><span>    <span class="fu">vis_gene</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu">vis_gene</span><span class="op">(</span></span></span>
 <span class="r-in"><span>        spe <span class="op">=</span> <span class="va">spe</span>,</span></span>
 <span class="r-in"><span>        sampleid <span class="op">=</span> <span class="st">"151507"</span>,</span></span>
 <span class="r-in"><span>        geneid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu">rowData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_name</span> <span class="op">==</span> <span class="st">"MOBP"</span><span class="op">)</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>        auto_crop <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-10-31</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-14 19:14:32 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/3ae9464272d_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-14 19:43:07 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/3ae9464272d_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-plt img"><img src="vis_gene-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vis_gene-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vis_gene-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vis_gene-4.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vis_gene-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
@@ -253,7 +262,7 @@ data and title for <code><a href="vis_gene_p.html">vis_gene_p()</a></code>. It a
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
