@@ -1,56 +1,73 @@
 ---
-name: Bug report or feature request
-about: Describe a bug you've seen or make a case for a new feature
-title: "[BUG] Your bug or feature request"
+name: Bug Report
+about: Describe the bug in detail
+title: "[BUG] A short description of the bug"
 labels: ''
 assignees: ''
 ---
 
-Please briefly describe your problem and what output you expect. If you have a question, please don't use this form. Instead, ask on <https://support.bioconductor.org/> using the appropriate tag(s) including one for this package.
+Please ask questions about how to use `spatialLIBD` on the
+[Bioconductor Support Site](https://support.bioconductor.org) using the
+appropriate tag(s) including the one for this package.
 
-## Context
+**Note**. Update the issue title to concisely describe the bug.
 
-Provide some context for your bug report or feature request. This could be the:
+## Describe the bug
 
-* link to raw code, example: https://github.com/lcolladotor/osca_LIIGH_UNAM_2020/blob/master/00-template.Rmd#L24-L28
-* link to a commit, example: https://github.com/lcolladotor/osca_LIIGH_UNAM_2020/commit/6aa30b22eda614d932c12997ba611ba582c435d7
-* link to a line of code inside a commit, example: https://github.com/lcolladotor/osca_LIIGH_UNAM_2020/commit/6aa30b22eda614d932c12997ba611ba582c435d7#diff-e265269fe4f17929940e81341b92b116R17
-* link to code from an R package, example: https://github.com/LieberInstitute/spatialLIBD/blob/master/R/run_app.R#L51-L55
+Please provide a clear and concise description of what the bug is.
 
-## Code
+### Provide a minimally reproducible example (reprex)
 
-Include the code you ran and comments
+Provide a clear and concise description of the bug. It can be easily (but not
+necessarily) illustrated with a minimally reproducible example using the
+[`reprex` package](https://reprex.tidyverse.org/articles/learn-reprex.html).
 
-```R
-## prompt an error
-stop('hola')
+For tips on creating a reprex, see this
+[StackOverflow link](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example).
 
-## check the error trace
-traceback()
-```
+## Expected behavior
 
-## Small reproducible example
+A clear and concise description of what you expected to happen.
 
-If you copy the lines of code that lead to your error, you can then run [`reprex::reprex()`](https://reprex.tidyverse.org/reference/reprex.html) which will create a small website with code you can then easily copy-paste here in a way that will be easy to work with later on.
+## R Session Information
 
-```R
-## prompt an error
-stop('hola')
-#> Error in eval(expr, envir, enclos): hola
+Please report the output of either `sessionInfo()` or
+`sessioninfo::session_info()` here.
 
-## check the error trace
-traceback()
-#> No traceback available
-```
-
-
-## R session information
-
-Remember to include your full R session information.
+<details>
 
 ```R
 options(width = 120)
-sessioninfo::session_info()
+## insert session info here
+# sessioninfo::session_info() ## provides GitHub, pandoc, and other details
+# sessionInfo() ## base R function in case you don't want to install sessioninfo
 ```
 
-The output of `sessioninfo::session_info()` includes relevant GitHub installation information and other details that are missed by `sessionInfo()`.
+</details>
+
+Indicate whether `BiocManager::valid()` returns `TRUE`. 
+
+- [ ] `BiocManager::valid()` is `TRUE`
+
+**Note**. To avoid potential issues with version mixing and reproducibility, do
+not install packages from `GitHub`.
+
+## Additional Context
+
+Provide some additional context for the bug report. You may include web links
+(e.g., from GitHub) to:
+
+* raw code
+* a commit
+* code inside a commit
+* code from an R package
+
+## Is the package installed via bioconda? 
+
+We find that [bioconda](https://bioconda.github.io/) installations can often be
+problematic due to the nature of the setup environment and potential for version
+mixing.
+
+The preferred method for installing Bioconductor software through `BiocManager`
+and we do not support issues related to `bioconda` installations at this time.
+

@@ -7,21 +7,28 @@
 
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
-[![BioC
-status](http://bioconductor.org/shields/build/release/data-experiment/spatialLIBD.svg)](http://bioconductor.org/checkResults/release/data-experiment-LATEST/spatialLIBD/)
-[![BioC dev
-status](http://bioconductor.org/shields/build/devel/data-experiment/spatialLIBD.svg)](http://bioconductor.org/checkResults/devel/data-experiment-LATEST/spatialLIBD/)
+[![Bioc release
+status](http://www.bioconductor.org/shields/build/release/data-experiment/spatialLIBD.svg)](https://bioconductor.org/checkResults/release/data-experiment-LATEST/spatialLIBD)
+[![Bioc devel
+status](http://www.bioconductor.org/shields/build/devel/data-experiment/spatialLIBD.svg)](https://bioconductor.org/checkResults/devel/data-experiment-LATEST/spatialLIBD)
+[![Bioc downloads
+rank](https://bioconductor.org/shields/downloads/release/spatialLIBD.svg)](http://bioconductor.org/packages/stats/bioc/spatialLIBD/)
+[![Bioc
+support](https://bioconductor.org/shields/posts/spatialLIBD.svg)](https://support.bioconductor.org/tag/spatialLIBD)
+[![Bioc
+history](https://bioconductor.org/shields/years-in-bioc/spatialLIBD.svg)](https://bioconductor.org/packages/release/data-experiment/html/spatialLIBD.html#since)
+[![Bioc last
+commit](https://bioconductor.org/shields/lastcommit/devel/data-experiment/spatialLIBD.svg)](http://bioconductor.org/checkResults/devel/data-experiment-LATEST/spatialLIBD/)
+[![Bioc
+dependencies](https://bioconductor.org/shields/dependencies/release/spatialLIBD.svg)](https://bioconductor.org/packages/release/data-experiment/html/spatialLIBD.html#since)
 [![Codecov test
 coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?branch=master)
 [![R build
 status](https://github.com/LieberInstitute/spatialLIBD/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/LieberInstitute/spatialLIBD/actions)
-[![Support site activity, last 6 months: tagged questions/avg. answers
-per question/avg. comments per question/accepted answers, or 0 if no
-tagged
-posts.](http://www.bioconductor.org/shields/posts/spatialLIBD.svg)](https://support.bioconductor.org/t/spatialLIBD/)
 [![GitHub
 issues](https://img.shields.io/github/issues/LieberInstitute/spatialLIBD)](https://github.com/LieberInstitute/spatialLIBD/issues)
 [![DOI](https://zenodo.org/badge/225913568.svg)](https://zenodo.org/badge/latestdoi/225913568)
+
 <!-- badges: end -->
 
 Welcome to the `spatialLIBD` project! It is composed of:
