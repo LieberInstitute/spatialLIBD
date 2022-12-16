@@ -1,8 +1,8 @@
 Package: spatialLIBD
 Title: spatialLIBD: an R/Bioconductor package to visualize spatially-resolved
     transcriptomics data
-Version: 1.11.3
-Date: 2022-12-14
+Version: 1.11.4
+Date: 2022-12-15
 Authors@R:
     c(
     person("Leonardo", "Collado-Torres", role = c("aut", "cre"), 
@@ -76,7 +76,7 @@ Imports:
 RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/LieberInstitute/spatialLIBD
-BugReports: https://support.bioconductor.org/t/spatialLIBD
+BugReports: https://support.bioconductor.org/tag/spatialLIBD
 Suggests: 
     knitr,
     RefManageR,

@@ -1,3 +1,15 @@
+# spatialLIBD 1.11.4
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* Several changes were made to the default plotting aspect of `vis_gene()`, 
+`vis_clus()` and related plotting functions. This was done with input from
+@lahuuki and @nick-eagles and is described in more detail at 
+https://github.com/LieberInstitute/spatialLIBD/commit/8fa8459d8fa881d254824d43e52193bf2c3021c0.
+Most noticeably, the aspect ratio is no longer stretched to fill the plotting
+area, the NA values will be shown with a light grey that has alpha blending,
+and the position of the legends has been made consistent between the plots.
+
 # spatialLIBD 1.11.3
 
 NEW FEATURES
