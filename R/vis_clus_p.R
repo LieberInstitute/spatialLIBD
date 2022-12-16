@@ -65,13 +65,17 @@ vis_clus_p <-
         )) {
             title <- gsub(clustervar, "LIBD Layers", title)
         }
-        img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = image_id)
+        img <-
+            SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = image_id)
 
         ## Crop the image if needed
         if (auto_crop) {
-            frame_lims <- frame_limits(spe, sampleid = sampleid, image_id = image_id)
-            img <- img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
-            adjust <- list(x = frame_lims$x_min, y = frame_lims$y_min)
+            frame_lims <-
+                frame_limits(spe, sampleid = sampleid, image_id = image_id)
+            img <-
+                img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
+            adjust <-
+                list(x = frame_lims$x_min, y = frame_lims$y_min)
         } else {
             adjust <- list(x = 0, y = 0)
         }
@@ -86,7 +90,11 @@ vis_clus_p <-
             )
         )
         if (spatial) {
-            grob <- grid::rasterGrob(img, width = grid::unit(1, "npc"), height = grid::unit(1, "npc"))
+            grob <-
+                grid::rasterGrob(img,
+                    width = grid::unit(1, "npc"),
+                    height = grid::unit(1, "npc")
+                )
             p <-
                 p + geom_spatial(
                     data = tibble::tibble(grob = list(grob)),

@@ -56,21 +56,30 @@ vis_gene_p <-
     viridis = TRUE,
     image_id = "lowres",
     alpha = NA,
-    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
+    cont_colors = if (viridis) {
+        viridisLite::viridis(21)
+    } else {
+        c("aquamarine4", "springgreen", "goldenrod", "red")
+    },
     point_size = 2,
     auto_crop = TRUE,
     na_color = "#CCCCCC40",
     legend_title = "") {
         ## Some variables
-        pxl_row_in_fullres <- pxl_col_in_fullres <- key <- COUNT <- NULL
+        pxl_row_in_fullres <-
+            pxl_col_in_fullres <- key <- COUNT <- NULL
         # stopifnot(all(c("pxl_col_in_fullres", "pxl_row_in_fullres", "COUNT", "key") %in% colnames(d)))
-        img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = image_id)
+        img <-
+            SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = image_id)
 
         ## Crop the image if needed
         if (auto_crop) {
-            frame_lims <- frame_limits(spe, sampleid = sampleid, image_id = image_id)
-            img <- img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
-            adjust <- list(x = frame_lims$x_min, y = frame_lims$y_min)
+            frame_lims <-
+                frame_limits(spe, sampleid = sampleid, image_id = image_id)
+            img <-
+                img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
+            adjust <-
+                list(x = frame_lims$x_min, y = frame_lims$y_min)
         } else {
             adjust <- list(x = 0, y = 0)
         }
@@ -88,7 +97,11 @@ vis_gene_p <-
             )
 
         if (spatial) {
-            grob <- grid::rasterGrob(img, width = grid::unit(1, "npc"), height = grid::unit(1, "npc"))
+            grob <-
+                grid::rasterGrob(img,
+                    width = grid::unit(1, "npc"),
+                    height = grid::unit(1, "npc")
+                )
             p <-
                 p + geom_spatial(
                     data = tibble::tibble(grob = list(grob)),

@@ -16,7 +16,8 @@
 
 app_server <- function(input, output, session) {
     ## Some variables
-    COUNT <- model_type <- ensembl <- key <- ManualAnnotation <- test <- NULL
+    COUNT <-
+        model_type <- ensembl <- key <- ManualAnnotation <- test <- NULL
 
     ## Get options
     spe <- golem::get_golem_options("spe")
@@ -65,9 +66,7 @@ app_server <- function(input, output, session) {
             current_n <- length(unique(colData(spe)[[isolate(input$cluster)]]))
         }
 
-        preferred_choice <- colnames(colData(spe))[grep(
-            paste0(isolate(input$cluster), "_colors$"), colnames(colData(spe))
-        )]
+        preferred_choice <- colnames(colData(spe))[grep(paste0(isolate(input$cluster), "_colors$"), colnames(colData(spe)))]
 
         choices <- c(
             preferred_choice,
@@ -110,11 +109,14 @@ app_server <- function(input, output, session) {
             colors <- cols_layers_paper()
         } else if (input$cluster %in% c("layer_guess_reordered_short", "spatialLIBD")) {
             colors <- cols_layers_paper_short()
-        } else if (input$clustercolor %in% colnames(colData(spe)) && is.factor(colData(spe)[[input$cluster]])) {
-            colors <- colData(spe)[[input$clustercolor]][unique(names(colData(spe)[[input$clustercolor]]))]
+        } else if (input$clustercolor %in% colnames(colData(spe)) &&
+            is.factor(colData(spe)[[input$cluster]])) {
+            colors <-
+                colData(spe)[[input$clustercolor]][unique(names(colData(spe)[[input$clustercolor]]))]
             colors <- colors[levels(colData(spe)[[input$cluster]])]
         } else if (input$clustercolor %in% colnames(colData(spe))) {
-            colors <- colData(spe)[[input$clustercolor]][unique(names(colData(spe)[[input$clustercolor]]))]
+            colors <-
+                colData(spe)[[input$clustercolor]][unique(names(colData(spe)[[input$clustercolor]]))]
         } else {
             colors <- paletteer::paletteer_d(
                 palette = input$clustercolor,
@@ -135,7 +137,11 @@ app_server <- function(input, output, session) {
                 rev(paper_cols)
             }
         } else {
-            viridis(21, option = input$genecolor, direction = ifelse(input$genecolor_direction, 1, -1))
+            viridis(
+                21,
+                option = input$genecolor,
+                direction = ifelse(input$genecolor_direction, 1, -1)
+            )
         }
     })
 
@@ -179,7 +185,9 @@ app_server <- function(input, output, session) {
                 plotlist = list(
                     p_no_spots,
                     p_no_spatial + ggplot2::theme(legend.position = "none")
-                ), nrow = 1, ncol = 2
+                ),
+                nrow = 1,
+                ncol = 2
             )
         }
     })
@@ -237,7 +245,9 @@ app_server <- function(input, output, session) {
                 plotlist = list(
                     p_no_spots,
                     p_no_spatial + ggplot2::theme(legend.position = "none")
-                ), nrow = 1, ncol = 2
+                ),
+                nrow = 1,
+                ncol = 2
             )
         }
     })
@@ -488,7 +498,9 @@ app_server <- function(input, output, session) {
         {
             static_histology()
         },
-        width = function() 600 * ifelse(input$side_by_side_histology, 2, 1),
+        width = function() {
+            600 * ifelse(input$side_by_side_histology, 2, 1)
+        },
         height = 600
     )
 
@@ -516,7 +528,9 @@ app_server <- function(input, output, session) {
         {
             static_gene()
         },
-        width = function() 600 * ifelse(input$side_by_side_gene, 2, 1),
+        width = function() {
+            600 * ifelse(input$side_by_side_gene, 2, 1)
+        },
         height = 600
     )
 
@@ -575,14 +589,26 @@ app_server <- function(input, output, session) {
         # genecolor <- "viridis"
 
         ## Read in the histology image
-        img <- SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = input$imageid)
+        img <-
+            SpatialExperiment::imgRaster(spe,
+                sample_id = sampleid,
+                image_id = input$imageid
+            )
         if (input$auto_crop) {
-            frame_lims <- frame_limits(spe, sampleid = sampleid, image_id = input$imageid)
-            img <- img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
+            frame_lims <-
+                frame_limits(spe,
+                    sampleid = sampleid,
+                    image_id = input$imageid
+                )
+            img <-
+                img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
         }
 
         ## From vis_gene() in global.R
-        d <- as.data.frame(cbind(colData(spe), SpatialExperiment::spatialCoords(spe))[spe$sample_id == sampleid, ], optional = TRUE)
+        d <-
+            as.data.frame(cbind(colData(spe), SpatialExperiment::spatialCoords(spe))[spe$sample_id == sampleid, ],
+                optional = TRUE
+            )
         if (geneid %in% colnames(d)) {
             d$COUNT <- d[[geneid]]
         } else {
@@ -593,7 +619,8 @@ app_server <- function(input, output, session) {
 
         ## Add the reduced dims
         if (reduced_name != "") {
-            red_dims <- reducedDim(spe, reduced_name)[spe$sample_id == sampleid, ]
+            red_dims <-
+                reducedDim(spe, reduced_name)[spe$sample_id == sampleid, ]
             colnames(red_dims) <-
                 paste(reduced_name, "dim", seq_len(ncol(red_dims)))
             d <- cbind(d, red_dims)
@@ -751,7 +778,8 @@ app_server <- function(input, output, session) {
         )
 
         plotly_gene <- layout(
-            ggplotly(p_gene,
+            ggplotly(
+                p_gene,
                 source = "plotly_histology",
                 tooltip = c("fill", "key")
             ),
@@ -774,12 +802,15 @@ app_server <- function(input, output, session) {
             dragmode = "select"
         )
 
-        plotly_dim <- layout(ggplotly(p_dim + theme(legend.position = "none"),
-            source = "plotly_histology",
-            tooltip = c("fill", "key")
-        ))
+        plotly_dim <-
+            layout(ggplotly(
+                p_dim + theme(legend.position = "none"),
+                source = "plotly_histology",
+                tooltip = c("fill", "key")
+            ))
 
-        plotly_dim_gene <- layout(ggplotly(p_dim_gene,
+        plotly_dim_gene <- layout(ggplotly(
+            p_dim_gene,
             source = "plotly_histology",
             tooltip = c("fill", "key")
         ))
@@ -799,14 +830,17 @@ app_server <- function(input, output, session) {
                     shareY = TRUE,
                     which_layout = 2
                 ),
-                style(subplot(
-                    plotly_dim_gene,
-                    plotly_dim,
-                    nrows = 1,
-                    shareX = TRUE,
-                    shareY = TRUE,
-                    which_layout = 2
-                ), showlegend = FALSE),
+                style(
+                    subplot(
+                        plotly_dim_gene,
+                        plotly_dim,
+                        nrows = 1,
+                        shareX = TRUE,
+                        shareY = TRUE,
+                        which_layout = 2
+                    ),
+                    showlegend = FALSE
+                ),
                 nrows = 2,
                 shareX = FALSE,
                 shareY = FALSE,
@@ -823,10 +857,12 @@ app_server <- function(input, output, session) {
             plotly_dim$x$layout$yaxis$title
 
         ## Make the linked (client-side) plot
-        suppressMessages(suppressWarnings(toWebGL(highlight(plotly_merged,
-            on = "plotly_selected",
-            off = "plotly_deselect"
-        ))))
+        suppressMessages(suppressWarnings(toWebGL(
+            highlight(plotly_merged,
+                on = "plotly_selected",
+                off = "plotly_deselect"
+            )
+        )))
     })
 
     ## Set the cluster subset options
@@ -853,7 +889,8 @@ app_server <- function(input, output, session) {
         }
 
         if (input$cluster == "ManualAnnotation") {
-            cluster_opts <- rv$ManualAnnotation %in% input$gene_plotly_cluster_subset
+            cluster_opts <-
+                rv$ManualAnnotation %in% input$gene_plotly_cluster_subset
         } else {
             cluster_opts <-
                 as.character(colData(spe)[[input$cluster]]) %in% input$gene_plotly_cluster_subset
@@ -891,38 +928,49 @@ app_server <- function(input, output, session) {
             )
 
         ## Read in the histology image
-        img <- SpatialExperiment::imgRaster(spe, sample_id = input$sample, image_id = input$imageid)
+        img <-
+            SpatialExperiment::imgRaster(spe,
+                sample_id = input$sample,
+                image_id = input$imageid
+            )
         if (input$auto_crop) {
-            frame_lims <- frame_limits(spe, sampleid = input$sample, image_id = input$imageid)
-            img <- img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
+            frame_lims <-
+                frame_limits(spe,
+                    sampleid = input$sample,
+                    image_id = input$imageid
+                )
+            img <-
+                img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
         }
 
-        suppressMessages(suppressWarnings(toWebGL(layout(
-            ggplotly(
-                p,
-                width = 600,
-                height = 600,
-                source = "plotly_gene",
-                tooltip = c("fill", "key")
-            ),
-            images = list(
-                list(
-                    source = raster2uri(img),
-                    layer = "below",
-                    xanchor = "left",
-                    yanchor = "bottom",
-                    xref = "x",
-                    yref = "y",
-                    sizing = "stretch",
-                    x = 0,
-                    y = -nrow(img),
-                    sizex = ncol(img),
-                    sizey = nrow(img),
-                    opacity = 0.8
-                )
-            ),
-            dragmode = "select"
-        ))))
+        suppressMessages(suppressWarnings(toWebGL(
+            layout(
+                ggplotly(
+                    p,
+                    width = 600,
+                    height = 600,
+                    source = "plotly_gene",
+                    tooltip = c("fill", "key")
+                ),
+                images = list(
+                    list(
+                        source = raster2uri(img),
+                        layer = "below",
+                        xanchor = "left",
+                        yanchor = "bottom",
+                        xref = "x",
+                        yref = "y",
+                        sizing = "stretch",
+                        x = 0,
+                        y = -nrow(img),
+                        sizex = ncol(img),
+                        sizey = nrow(img),
+                        opacity = 0.8
+                    )
+                ),
+                dragmode = "select"
+            )
+        )))
     })
 
 
@@ -969,7 +1017,14 @@ app_server <- function(input, output, session) {
         }
         if (!is.null(event.data)) {
             ## Prepare the data
-            d <- as.data.frame(cbind(colData(spe), SpatialExperiment::spatialCoords(spe))[spe$key %in% event.data$key, ], optional = TRUE)
+            d <-
+                as.data.frame(
+                    cbind(
+                        colData(spe),
+                        SpatialExperiment::spatialCoords(spe)
+                    )[spe$key %in% event.data$key, ],
+                    optional = TRUE
+                )
             if (input$geneid %in% colnames(d)) {
                 d$COUNT <- d[[input$geneid]]
             } else {
@@ -998,7 +1053,14 @@ app_server <- function(input, output, session) {
             )
         } else {
             ## Prepare the data
-            d <- as.data.frame(cbind(colData(spe), SpatialExperiment::spatialCoords(spe))[spe$key %in% event.data$key, ], optional = TRUE)
+            d <-
+                as.data.frame(
+                    cbind(
+                        colData(spe),
+                        SpatialExperiment::spatialCoords(spe)
+                    )[spe$key %in% event.data$key, ],
+                    optional = TRUE
+                )
             if (input$geneid %in% colnames(d)) {
                 d$COUNT <- d[[input$geneid]]
             } else {
@@ -1058,7 +1120,8 @@ app_server <- function(input, output, session) {
                     na.strings = ""
                 )
             ## Update the non-NA
-            previous_work <- subset(previous_work, ManualAnnotation != "NA")
+            previous_work <-
+                subset(previous_work, ManualAnnotation != "NA")
             previous_work$key <-
                 paste0(
                     previous_work$spot_name,
@@ -1076,10 +1139,13 @@ app_server <- function(input, output, session) {
                     )
                 m <- match(previous_work$key, spe$key)
                 if (all(is.na(m))) {
-                    stop("Cannot use previous manual annotations.", call. = FALSE)
+                    stop("Cannot use previous manual annotations.",
+                        call. = FALSE
+                    )
                 }
             }
-            rv$ManualAnnotation[m[!is.na(m)]] <- previous_work$ManualAnnotation[!is.na(m)]
+            rv$ManualAnnotation[m[!is.na(m)]] <-
+                previous_work$ManualAnnotation[!is.na(m)]
         }
     })
 
@@ -1108,11 +1174,19 @@ app_server <- function(input, output, session) {
     })
 
     # Set the genes based on the model test
-    observeEvent(!is.null(input$layer_model) && !is.null(input$layer_model_test), {
-        if (!is.null(input$layer_model) && !is.null(input$layer_model_test)) {
-            model_test_i <- which(sig_genes$model_type == input$layer_model & sig_genes$test == input$layer_model_test)
+    observeEvent(!is.null(input$layer_model) &&
+        !is.null(input$layer_model_test), {
+        if (!is.null(input$layer_model) &&
+            !is.null(input$layer_model_test)) {
+            model_test_i <-
+                which(
+                    sig_genes$model_type == input$layer_model &
+                        sig_genes$test == input$layer_model_test
+                )
             current <- input$layer_geneid
-            if (is.null(current)) current <- sort(rowData(sce_layer)$gene_search)[1]
+            if (is.null(current)) {
+                current <- sort(rowData(sce_layer)$gene_search)[1]
+            }
             new_gene <- ifelse(
                 current %in% rowData(sce_layer)$gene_search[sig_genes$gene_index[model_test_i]],
                 current,
@@ -1134,7 +1208,9 @@ app_server <- function(input, output, session) {
         updateNumericInput(
             inputId = "layer_reduced_dim_ncomponents",
             value = 2,
-            max = ncol(reducedDim(sce_layer, input$layer_which_dim))
+            max = ncol(reducedDim(
+                sce_layer, input$layer_which_dim
+            ))
         )
     })
 
@@ -1282,7 +1358,11 @@ app_server <- function(input, output, session) {
             input$layer_gene_fdrcut,
             modeling_results,
             input$layer_model,
-            reverse = ifelse(input$layer_model != "anova", input$enrichment_reverse, FALSE)
+            reverse = ifelse(
+                input$layer_model != "anova",
+                input$enrichment_reverse,
+                FALSE
+            )
         )
     })
 
@@ -1539,11 +1619,13 @@ app_server <- function(input, output, session) {
     })
 
     layer_model_table_full_reactive <- reactive({
-        as.data.frame(subset(
-            sig_genes[, seq_len(which(colnames(sig_genes) == "ensembl"))],
-            model_type == input$layer_model &
-                test == input$layer_model_test
-        ))
+        as.data.frame(
+            subset(
+                sig_genes[, seq_len(which(colnames(sig_genes) == "ensembl"))],
+                model_type == input$layer_model &
+                    test == input$layer_model_test
+            )
+        )
     })
 
     output$layer_model_table <- DT::renderDT(

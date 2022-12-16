@@ -158,12 +158,14 @@ vis_gene <-
             point_size = point_size,
             auto_crop = auto_crop,
             na_color = na_color,
-            legend_title = paste0(if (!geneid %in% colnames(colData(spe_sub))) {
-                paste0(assayname, "\n")
-            } else {
-                NULL
-            },
-                " min > ", minCount)
+            legend_title = paste0(
+                if (!geneid %in% colnames(colData(spe_sub))) {
+                    paste0(assayname, "\n")
+                } else {
+                    NULL
+                },
+                " min > ", minCount
+            )
         )
         return(p)
     }

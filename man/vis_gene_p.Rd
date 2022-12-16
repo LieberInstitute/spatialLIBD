@@ -13,8 +13,12 @@ vis_gene_p(
   viridis = TRUE,
   image_id = "lowres",
   alpha = NA,
-  cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4",
-    "springgreen", "goldenrod", "red"),
+  cont_colors = if (viridis) {
+     viridisLite::viridis(21)
+ } else {
+    
+    c("aquamarine4", "springgreen", "goldenrod", "red")
+ },
   point_size = 2,
   auto_crop = TRUE,
   na_color = "#CCCCCC40",
