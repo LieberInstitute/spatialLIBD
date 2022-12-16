@@ -152,7 +152,7 @@ frame_limits <-
         frame_lims$y_min <-
             ifelse(frame_lims$y_min < 1, 1, frame_lims$y_min)
         frame_lims$y_max <-
-            ifelse(frame_lims$y_max > nrow(img), nrpw(img), frame_lims$y_max)
+            ifelse(frame_lims$y_max > nrow(img), nrow(img), frame_lims$y_max)
         frame_lims$x_min <-
             ifelse(frame_lims$x_min < 1, 1, frame_lims$x_min)
         frame_lims$x_max <-
