@@ -63,7 +63,7 @@ vis_clus_p <-
             "layer_guess_reordered_short",
             "spatialLIBD"
         )) {
-            title <- gsub(clustervar, "LIBD Layers", title)
+            title <- gsub(paste0(clustervar, "$"), "LIBD Layers", title)
         }
         img <-
             SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = image_id)

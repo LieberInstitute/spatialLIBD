@@ -126,7 +126,7 @@ vis_clus(
     clustervar = "spatialLIBD",
     sampleid = "151673",
     colors = libd_layer_colors,
-    ... = " DLPFC Human Brain Layers\nMade with github.com/LieberInstitute/spatialLIBD"
+    ... = " DLPFC Human Brain Layers\nMade with bioconductor.org/packages/spatialLIBD "
 )
 ```
 
