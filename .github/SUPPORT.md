@@ -1,35 +1,64 @@
-# Getting help with spatialLIBD
+# Getting help with `spatialLIBD`
 
-Thanks for using spatialLIBD!
-Before filing an issue, there are a few places to explore and pieces to put together to make the process as smooth as possible.
+Thank you for using `spatialLIBD`!
+Before filing an issue, there are few things you should know to make the process
+as smooth as possible for both parties.
 
 ## Make a reprex
 
-Start by making a minimal **repr**oducible **ex**ample using the  [reprex](https://reprex.tidyverse.org/) package. 
-If you haven't heard of or used reprex before, you're in for a treat! 
-Seriously, reprex will make all of your R-question-asking endeavors easier (which is a pretty insane ROI for the five to ten minutes it'll take you to learn what it's all about). 
-For additional reprex pointers, check out the [Get help!](https://www.tidyverse.org/help/) section of the tidyverse site.
+Start by making a minimally **repr**oducible **ex**ample, also known as a
+'reprex'. You may use the [`reprex`](https://reprex.tidyverse.org/) R package to
+create one, though it is not necessary but it does help. It will make all of
+your R-question-asking endeavors easier. Learning
+[how to use it](https://reprex.tidyverse.org/articles/learn-reprex.html) takes
+about 5 to 10 minutes.
 
-## Where to ask?
+For more tips on how to make a minimally **repr**oducible **ex**ample, see this
+[StackOverflow link](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example).
 
-Armed with your reprex, the next step is to figure out [where to ask](https://www.tidyverse.org/help/#where-to-ask). 
+## Where to post it?
 
-*   If it's a question: start with the [Bioconductor Support Website](https://support.bioconductor.org/) using the appropriate package tag. There are more people there to answer questions.  
+The [Bioconductor help](http://bioconductor.org/help/) web page gives an
+overview of places that may help answer your question.
 
-*   If it's a bug: you're in the right place, [file an issue](https://github.com/LieberInstitute/spatialLIBD/issues/new).  
+* Bioconductor software related questions, such as bug reports and feature
+  requests, should be addressed in the appropriate `Bioconductor/spatialLIBD`
+  GitHub repository. Follow our bug report and feature request templates on
+  GitHub. If the package does not have a GitHub repository, see the next bullet
+  point.
+
+* Bioconductor software usage questions should be addressed in the
+  [Bioconductor Support Website](https://support.bioconductor.org/). Make sure
+  to use the
+  [appropriate package tag](https://support.bioconductor.org/tag/spatialLIBD),
+  otherwise the package authors will not get a notification.
   
-*   If you're not sure: let the community help you figure it out! 
-    If your problem _is_ a bug or a feature request, you can easily return here and report it. 
+* General R questions can be posed at StackOverflow or at the
+  [RStudio Community](https://community.rstudio.com/) website especially if they
+  pertain to the `tidyverse` or the RStudio GUI or related products.
 
-Before opening a new issue, be sure to [search issues and pull requests](https://github.com/LieberInstitute/spatialLIBD/issues) to make sure the bug hasn't been reported and/or already fixed in the development version. 
-By default, the search will be pre-populated with `is:issue is:open`. 
-You can [edit the qualifiers](https://help.github.com/articles/searching-issues-and-pull-requests/)  (e.g. `is:pr`, `is:closed`) as needed. 
-For example, you'd simply remove `is:open` to search _all_ issues in the repo, open or closed.
+## Issues or Feature Requests
+
+Before opening a new issue or feature request, be sure to
+[search issues and pull requests](https://github.com/LieberInstitute/spatialLIBD/issues)
+to ensure that one does not already exist or has been implemented in the
+development version.
+
+**Note**. You can remove the `is:open` search term in the issues page to search
+through open and closed issues. See
+[this link to learn more](https://help.github.com/articles/searching-issues-and-pull-requests/)
+about modifying the search.
 
 ## What happens next?
 
-To be as efficient as possible, development of tidyverse packages tends to be very bursty, so you shouldn't worry if you don't get an immediate response.
-Typically we don't look at a repo until a sufficient quantity of issues accumulates, then there’s a burst of intense activity as we focus our efforts. 
-That makes development more efficient because it avoids expensive context switching between problems, at the cost of taking longer to get back to you. 
-This process makes a good reprex particularly important because it might be multiple months between your initial report and when we start working on it. 
-If we can’t reproduce the bug, we can’t fix it!
+Our Bioconductor maintainers are limited in resources but they do strive to be
+as responsive as possible.
+
+Please do not forget to tag the appropriate maintainer in the issue with their
+GitHub username (e.g., @username).
+
+In order to make it easy as possible for Bioconductor core developers to
+remediate the issue. Provide an accurate, brief, and reproducible report
+as outlined in the issue templates.
+
+Thank you for trusting Bioconductor.
