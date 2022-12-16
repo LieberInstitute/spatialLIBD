@@ -110,7 +110,9 @@ spatialLIBD::run_app()
 ## Shiny website mirrors
 
 - [Main shiny application website](http://spatial.libd.org/spatialLIBD)
-- [Shinyapps](https://libd.shinyapps.io/spatialLIBD/)
+- [Shinyapps](https://libd.shinyapps.io/spatialLIBD/) This version has
+  less RAM memory but is typically deployed using the latest version of
+  `spatialLIBD`.
 
 ## R/Bioconductor package
 
@@ -204,7 +206,7 @@ vis_clus(
     clustervar = "spatialLIBD",
     sampleid = "151673",
     colors = libd_layer_colors,
-    ... = " DLPFC Human Brain Layers\nMade with bioconductor.org/packages/spatialLIBD "
+    ... = " DLPFC Human Brain Layers\nMade with research.libd.org/spatialLIBD/"
 )
 ```
 
