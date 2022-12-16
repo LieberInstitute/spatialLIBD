@@ -24,7 +24,11 @@ Authors@R:
     comment = c(ORCID = "0000-0001-5128-3838")),
     person("Lukas M.", "Weber",
     role = "ctb", email = "lukas.weber.edu@gmail.com", 
-    comment = c(ORCID = "0000-0002-3282-1730"))
+    comment = c(ORCID = "0000-0002-3282-1730")),
+    person("Louise", "Huuki-Myers", role = "ctb", email = "lahuuki@gmail.com",
+    comment = c(ORCID = "0000-0001-5148-3602")),
+    person("Nicholas", "Eagles", role = "ctb", email = "nickeagles77@gmail.com",
+    comment = c(ORCID = "0000-0002-9808-5254"))
     )
 Description: Inspect interactively the spatially-resolved transcriptomics data
     from the 10x Genomics Visium platform as well as data from the 
