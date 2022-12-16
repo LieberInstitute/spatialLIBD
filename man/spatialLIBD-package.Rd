@@ -14,7 +14,7 @@ Inspect interactively the spatially-resolved transcriptomics data from the 10x G
 Useful links:
 \itemize{
   \item \url{https://github.com/LieberInstitute/spatialLIBD}
-  \item Report bugs at \url{https://support.bioconductor.org/t/spatialLIBD}
+  \item Report bugs at \url{https://support.bioconductor.org/tag/spatialLIBD}
 }
 
 }

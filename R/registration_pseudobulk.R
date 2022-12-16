@@ -24,6 +24,7 @@
 #' @importFrom SingleCellExperiment logcounts
 #' @importFrom scuttle aggregateAcrossCells
 #' @importFrom edgeR filterByExpr calcNormFactors
+#' @importFrom SpatialExperiment "spatialCoords<-"
 #' @export
 #' @family spatial registration and statistical modeling functions
 #'

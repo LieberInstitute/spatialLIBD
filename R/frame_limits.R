@@ -26,6 +26,7 @@
 #' @family Spatial cluster visualization functions
 #'
 #' @export
+#' @importFrom stats median
 #' @examples
 #' if (enough_ram()) {
 #'     ## Obtain the necessary data
