@@ -165,9 +165,9 @@ similar to <code>fetch_data("modeling_results")$enrichment</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Pseudo-bulk</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce_pseudo &lt;- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 17:59:06 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 17:59:06 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 17:59:06 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 18:04:37 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 18:04:37 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 18:04:37 normalize expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; colData(sce_pseudo)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 8 columns</span>
@@ -199,7 +199,7 @@ similar to <code>fetch_data("modeling_results")$enrichment</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> E_S                      S                      E        11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; registration_mod &lt;- registration_model(sce_pseudo, "age")</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 17:59:06 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 18:04:37 create model matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; head(registration_mod)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variableG0 registration_variableG1 registration_variableG2M</span>
@@ -218,14 +218,14 @@ similar to <code>fetch_data("modeling_results")$enrichment</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_G1                      0 19.18719</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgst__&gt; block_cor &lt;- registration_block_cor(sce_pseudo, registration_mod)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 17:59:06 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 17:59:08 The estimated correlation is: -0.0187869166526901</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 18:04:37 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 18:04:39 The estimated correlation is: -0.0187869166526901</span>
 <span class="r-in"><span><span class="va">results_enrichment</span> <span class="op">&lt;-</span> <span class="fu">registration_stats_enrichment</span><span class="op">(</span><span class="va">sce_pseudo</span>,</span></span>
 <span class="r-in"><span>    <span class="va">block_cor</span>, <span class="st">"age"</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 17:59:08 computing enrichment statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 17:59:08 extract and reformat enrichment results</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 18:04:39 computing enrichment statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 18:04:39 extract and reformat enrichment results</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_enrichment</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            t_stat_G0  t_stat_G1 t_stat_G2M   t_stat_S p_value_G0 p_value_G1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001  0.1482017  0.5610669 -0.3612235 -0.3458508 0.88374480 0.58130631</span>
@@ -254,8 +254,8 @@ similar to <code>fetch_data("modeling_results")$enrichment</code>.</p>
 <span class="r-in"><span>    block_cor <span class="op">=</span> <span class="cn">NaN</span>, <span class="st">"age"</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 17:59:09 computing enrichment statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 17:59:09 extract and reformat enrichment results</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 18:04:39 computing enrichment statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 18:04:40 extract and reformat enrichment results</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_enrichment_nan</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            t_stat_G0   t_stat_G1 t_stat_G2M   t_stat_S p_value_G0 p_value_G1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001  0.1497747  0.56711100 -0.3650801 -0.3495404 0.88252049 0.57727506</span>
