@@ -15,8 +15,6 @@ status](http://www.bioconductor.org/shields/build/devel/data-experiment/spatialL
 rank](https://bioconductor.org/shields/downloads/release/spatialLIBD.svg)](http://bioconductor.org/packages/stats/bioc/spatialLIBD/)
 [![Bioc
 support](https://bioconductor.org/shields/posts/spatialLIBD.svg)](https://support.bioconductor.org/tag/spatialLIBD)
-[![Bioc
-history](https://bioconductor.org/shields/years-in-bioc/spatialLIBD.svg)](https://bioconductor.org/packages/release/data-experiment/html/spatialLIBD.html#since)
 [![Bioc last
 commit](https://bioconductor.org/shields/lastcommit/devel/data-experiment/spatialLIBD.svg)](http://bioconductor.org/checkResults/devel/data-experiment-LATEST/spatialLIBD/)
 [![Bioc
