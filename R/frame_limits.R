@@ -108,95 +108,18 @@ frame_limits <-
             diffs_pxl_row <- abs(diff(d$pxl_row_in_fullres))
             c(median(diffs_pxl_col[diffs_array == 2]), median(diffs_pxl_row[diffs_array == 2]))
         }
-        pxl_100um_compute(c("array_col", "array_row"))
-        pxl_100um_compute(c("array_row", "array_col"))
-
-        # [1]   2 240
-        # [1] 138   1
-
-        # [1] 482   1
-        # [1]   0 277
-
 
         pxl_100um_col_then_row <-
             max(pxl_100um_compute(c("array_col", "array_row")))
         pxl_100um_row_then_col <-
             max(pxl_100um_compute(c("array_row", "array_col")))
 
-        print(c(pxl_100um_row_then_col, pxl_100um_col_then_row))
-
-
         ## It should normally be pxl_100um_row_then_col but just in case
         pxl_100um <- min(pxl_100um_row_then_col, pxl_100um_col_then_row)
-        pxl_100um
-
-        options(width = 160)
-        do.call(rbind, list(
-            d[d$pxl_row_in_fullres == min(d$pxl_row_in_fullres), c(
-                "array_col",
-                "array_row",
-                "pxl_col_in_fullres",
-                "pxl_row_in_fullres",
-                "array_row_edge",
-                "array_col_edge",
-                "array_min_edge"
-            )],
-            d[d$pxl_row_in_fullres == max(d$pxl_row_in_fullres), c(
-                "array_col",
-                "array_row",
-                "pxl_col_in_fullres",
-                "pxl_row_in_fullres",
-                "array_row_edge",
-                "array_col_edge",
-                "array_min_edge"
-            )],
-            d[d$pxl_col_in_fullres == min(d$pxl_col_in_fullres), c(
-                "array_col",
-                "array_row",
-                "pxl_col_in_fullres",
-                "pxl_row_in_fullres",
-                "array_row_edge",
-                "array_col_edge",
-                "array_min_edge"
-            )],
-            d[d$pxl_col_in_fullres == max(d$pxl_col_in_fullres), c(
-                "array_col",
-                "array_row",
-                "pxl_col_in_fullres",
-                "pxl_row_in_fullres",
-                "array_row_edge",
-                "array_col_edge",
-                "array_min_edge"
-            )]
-        ))
-        #                    array_col array_row pxl_col_in_fullres pxl_row_in_fullres array_row_edge array_col_edge array_min_edge
-        # GAGCGCTATGTCAGGC-1        20         0               4188               2437              0             20              0
-        # CCCGGCACGTGTCAGG-1       104        76               9906              11584              1             23              1
-        # GCAAACGTAAGCGACC-1         5        69               3096              10696              8              5              5
-        # GGTCATTGTAGTCATA-1       120        14              11062               4164             14              7              7
-        #
-        # xmin: min pxl_row, min array_row
-        # xmax: max pxl_row, max array_row
-        # ymin: min pxl_col, min array_col
-        # ymax: max pxl_col, max array_col
-
-        #                    array_col array_row pxl_col_in_fullres pxl_row_in_fullres array_row_edge array_col_edge array_min_edge
-        # TGTTCTCATACTATAG-1       127        71              20140               6824              6              0              0
-        # TCGCACTAACGTTTGT-1         0        14               6432              24421             14              0              0
-        # GCGAGGGACTGCTAGA-1         7         1               3299              23455              1              7              1
-        # GCCCAGCGACACAAAG-1         1        77              21606              24265              0              1              0
-        # AAGCTATGGATTGACC-1         3        77              21606              23988              0              3              0
-        #
-        # xmin: min pxl_row, max array_col
-        # xmax: max pxl_row, min array_col
-        # ymin: min pxl_col, min array_row
-        # ymax: max pxl_col, max array_row
-
 
         ## Find the full res pixel limits
         xlims <- range(d$pxl_col_in_fullres)
         ylims <- range(d$pxl_row_in_fullres)
-        c(xlims, ylims)
 
         ## Find the array edge limit distance
         xlims_edge <- sapply(xlims, function(x) {
@@ -205,7 +128,6 @@ frame_limits <-
         ylims_edge <- sapply(ylims, function(x) {
             min(d$array_min_edge[d$pxl_row_in_fullres == x])
         })
-        c(xlims_edge, ylims_edge)
 
         ## Obtain the dimensions of the image
         img <-
@@ -214,13 +136,10 @@ frame_limits <-
         ## Compute frame limits in full res pixels
         frame_lims_pxl <- list(
             y_min = ylims[1] - ylims_edge[1] * pxl_100um - visium_grid$fiducial_vs_capture_edge * pxl_100um,
-            # * nrow(img) / ncol(img),
             y_max = ylims[2] + ylims_edge[2] * pxl_100um + visium_grid$fiducial_vs_capture_edge * pxl_100um,
-            # * nrow(img) / ncol(img),
             x_min = xlims[1] - xlims_edge[1] * pxl_100um - visium_grid$fiducial_vs_capture_edge * pxl_100um,
             x_max = xlims[2] + xlims_edge[2] * pxl_100um + visium_grid$fiducial_vs_capture_edge * pxl_100um
         )
-        frame_lims_pxl
 
         ## Adjust for the pixels in the current image
         frame_lims <- lapply(frame_lims_pxl, function(x) {
@@ -228,7 +147,6 @@ frame_limits <-
                 x * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id)
             )
         })
-        frame_lims
 
         ## Adjust frame limits to keep them within the expected limits
         frame_lims$y_min <-
@@ -239,7 +157,6 @@ frame_limits <-
             ifelse(frame_lims$x_min < 1, 1, frame_lims$x_min)
         frame_lims$x_max <-
             ifelse(frame_lims$x_max > ncol(img), ncol(img), frame_lims$x_max)
-        frame_lims
 
         ## Done!
         return(frame_lims)
