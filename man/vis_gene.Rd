@@ -13,11 +13,12 @@ vis_gene(
   minCount = 0,
   viridis = TRUE,
   image_id = "lowres",
-  alpha = 1,
+  alpha = NA,
   cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4",
     "springgreen", "goldenrod", "red"),
   point_size = 2,
   auto_crop = TRUE,
+  na_color = "#CCCCCC40",
   ...
 )
 }
@@ -70,6 +71,12 @@ to \code{1.25}. Some colors look better if you use \code{2} for instance.}
 the image / plotting area, which is useful if the Visium capture area is
 not centered on the image and if the image is not a square.}
 
+\item{na_color}{A \code{character(1)} specifying a color for the NA values.
+If you set \code{alpha = NA} then it's best to set \code{na_color} to a color that has
+alpha blending already, which will make non-NA values pop up more and the NA
+values will show with a lighter color. This behavior is lost when \code{alpha} is
+set to a non-\code{NA} value.}
+
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}
 }
@@ -112,6 +119,28 @@ if (enough_ram()) {
         cont_colors = rev(viridisLite::viridis(21, option = "magma"))
     )
     print(p2)
+
+    ## Turn the alpha to 1, which makes the NA values have a full alpha
+    p2b <- vis_gene(
+        spe = spe,
+        sampleid = "151507",
+        cont_colors = rev(viridisLite::viridis(21, option = "magma")),
+        alpha = 1
+    )
+    print(p2b)
+
+    ## Turn the alpha to NA, and use an alpha-blended "forestgreen" for
+    ## the NA values
+    # https://gist.githubusercontent.com/mages/5339689/raw/2aaa482dfbbecbfcb726525a3d81661f9d802a8e/add.alpha.R
+    # add.alpha("forestgreen", 0.5)
+    p2c <- vis_gene(
+        spe = spe,
+        sampleid = "151507",
+        cont_colors = rev(viridisLite::viridis(21, option = "magma")),
+        alpha = NA,
+        na_color = "#228B2280"
+    )
+    print(p2c)
 
     ## Visualize a continuous variable, in this case, the ratio of chrM
     ## gene expression compared to the total expression at the spot-level

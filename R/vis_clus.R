@@ -94,7 +94,7 @@ vis_clus <- function(spe,
     ),
     spatial = TRUE,
     image_id = "lowres",
-    alpha = 1,
+    alpha = NA,
     point_size = 2,
     auto_crop = TRUE,
     ...) {

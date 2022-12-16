@@ -46,11 +46,12 @@ vis_grid_gene <-
     height = 24,
     width = 36,
     image_id = "lowres",
-    alpha = 1,
+    alpha = NA,
     cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
     sample_order = unique(spe$sample_id),
     point_size = 2,
     auto_crop = TRUE,
+    na_color = "#CCCCCC40",
     ...) {
         stopifnot(all(sample_order %in% unique(spe$sample_id)))
 
@@ -68,6 +69,7 @@ vis_grid_gene <-
                 cont_colors = cont_colors,
                 point_size = point_size,
                 auto_crop = auto_crop,
+                na_color = na_color,
                 ...
             )
         })

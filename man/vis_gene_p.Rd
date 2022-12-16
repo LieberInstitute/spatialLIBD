@@ -12,11 +12,13 @@ vis_gene_p(
   title,
   viridis = TRUE,
   image_id = "lowres",
-  alpha = 1,
+  alpha = NA,
   cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4",
     "springgreen", "goldenrod", "red"),
   point_size = 2,
-  auto_crop = TRUE
+  auto_crop = TRUE,
+  na_color = "#CCCCCC40",
+  legend_title = ""
 )
 }
 \arguments{
@@ -62,6 +64,14 @@ to \code{1.25}. Some colors look better if you use \code{2} for instance.}
 \item{auto_crop}{A \code{logical(1)} indicating whether to automatically crop
 the image / plotting area, which is useful if the Visium capture area is
 not centered on the image and if the image is not a square.}
+
+\item{na_color}{A \code{character(1)} specifying a color for the NA values.
+If you set \code{alpha = NA} then it's best to set \code{na_color} to a color that has
+alpha blending already, which will make non-NA values pop up more and the NA
+values will show with a lighter color. This behavior is lost when \code{alpha} is
+set to a non-\code{NA} value.}
+
+\item{legend_title}{A \code{character(1)} specifying the legend title.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2} object.

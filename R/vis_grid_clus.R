@@ -57,7 +57,7 @@ vis_grid_clus <-
     height = 24,
     width = 36,
     image_id = "lowres",
-    alpha = 1,
+    alpha = NA,
     sample_order = unique(spe$sample_id),
     point_size = 2,
     auto_crop = TRUE,

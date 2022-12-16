@@ -149,12 +149,12 @@ app_ui <- function() {
                         numericInput(
                             "alphalevel",
                             "Spot transparency level",
-                            value = 1,
-                            min = 0,
+                            value = NA,
+                            min = NA,
                             max = 1,
                             step = 0.1
                         ),
-                        helpText("Use values between 0 (transparent) to 1 (full color)."),
+                        helpText("Use values between 0 (transparent) to 1 (full color). Leave empty to show spots below the minimum value threshold in a transparent color."),
                         hr(),
                         numericInput(
                             "pointsize",

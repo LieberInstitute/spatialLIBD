@@ -50,7 +50,7 @@ vis_clus_p <-
     spatial,
     title,
     image_id = "lowres",
-    alpha = 1,
+    alpha = NA,
     point_size = 2,
     auto_crop = TRUE) {
         ## Some variables
@@ -103,13 +103,12 @@ vis_clus_p <-
                 colour = "transparent",
                 alpha = alpha
             ) +
-            coord_cartesian(expand = FALSE) +
+            coord_fixed(expand = FALSE) +
             scale_fill_manual(values = colors) +
             xlim(0, ncol(img)) +
             ylim(nrow(img), 0) +
             xlab("") + ylab("") +
             labs(fill = NULL) +
-            guides(fill = guide_legend(override.aes = list(size = 3))) +
             ggtitle(title) +
             theme_set(theme_bw(base_size = 20)) +
             theme(
@@ -118,7 +117,8 @@ vis_clus_p <-
                 panel.background = element_blank(),
                 axis.line = element_blank(),
                 axis.text = element_blank(),
-                axis.ticks = element_blank()
+                axis.ticks = element_blank(),
+                legend.box.spacing = unit(0, "pt")
             )
         return(p)
     }

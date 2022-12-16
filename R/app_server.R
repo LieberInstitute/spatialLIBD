@@ -177,7 +177,7 @@ app_server <- function(input, output, session) {
             p_no_spatial$layers[[1]] <- NULL
             cowplot::plot_grid(
                 plotlist = list(
-                    p_no_spots, #+ ggplot2::geom_point(colour = "black", fill = NA, shape = 21),
+                    p_no_spots,
                     p_no_spatial + ggplot2::theme(legend.position = "none")
                 ), nrow = 1, ncol = 2
             )
@@ -235,7 +235,7 @@ app_server <- function(input, output, session) {
             p_no_spatial$layers[[1]] <- NULL
             cowplot::plot_grid(
                 plotlist = list(
-                    p_no_spots, #+ ggplot2::geom_point(colour = "black", fill = NA, shape = 21),
+                    p_no_spots,
                     p_no_spatial + ggplot2::theme(legend.position = "none")
                 ), nrow = 1, ncol = 2
             )
@@ -643,6 +643,11 @@ app_server <- function(input, output, session) {
             alpha = input$alphalevel,
             point_size = input$pointsize,
             auto_crop = input$auto_crop
+        ) + geom_point(
+            shape = 21,
+            size = input$pointsize,
+            stroke = 0,
+            alpha = input$alphalevel
         )
 
         ## Make the reduced dimensions ggplot
@@ -695,11 +700,11 @@ app_server <- function(input, output, session) {
 
         p_dim_gene <- p_dim_gene + scale_fill_gradientn(
             colors = cont_colors(),
-            na.value = "grey90",
+            na.value = "#CCCCCC40",
             guide = "none"
         ) + scale_color_gradientn(
             colors = cont_colors(),
-            na.value = "grey90",
+            na.value = "#CCCCCC40",
             guide = "none"
         )
 
@@ -877,6 +882,12 @@ app_server <- function(input, output, session) {
                 alpha = input$alphalevel,
                 point_size = input$pointsize,
                 auto_crop = input$auto_crop
+            ) +
+            geom_point(
+                shape = 21,
+                size = input$pointsize,
+                stroke = 0,
+                alpha = input$alphalevel
             )
 
         ## Read in the histology image

@@ -12,7 +12,7 @@ vis_clus(
     "#999999", "black", "grey", "white", "purple"),
   spatial = TRUE,
   image_id = "lowres",
-  alpha = 1,
+  alpha = NA,
   point_size = 2,
   auto_crop = TRUE,
   ...

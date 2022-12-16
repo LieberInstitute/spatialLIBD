@@ -13,7 +13,7 @@ vis_clus_p(
   spatial,
   title,
   image_id = "lowres",
-  alpha = 1,
+  alpha = NA,
   point_size = 2,
   auto_crop = TRUE
 )

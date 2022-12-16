@@ -23,6 +23,11 @@
 #' dependent on cell density.
 #' @param cont_colors A `character()` vector of colors that supersedes the
 #' `viridis` argument.
+#' @param na_color A `character(1)` specifying a color for the NA values.
+#' If you set `alpha = NA` then it's best to set `na_color` to a color that has
+#' alpha blending already, which will make non-NA values pop up more and the NA
+#' values will show with a lighter color. This behavior is lost when `alpha` is
+#' set to a non-`NA` value.
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
@@ -59,6 +64,28 @@
 #'     )
 #'     print(p2)
 #'
+#'     ## Turn the alpha to 1, which makes the NA values have a full alpha
+#'     p2b <- vis_gene(
+#'         spe = spe,
+#'         sampleid = "151507",
+#'         cont_colors = rev(viridisLite::viridis(21, option = "magma")),
+#'         alpha = 1
+#'     )
+#'     print(p2b)
+#'
+#'     ## Turn the alpha to NA, and use an alpha-blended "forestgreen" for
+#'     ## the NA values
+#'     # https://gist.githubusercontent.com/mages/5339689/raw/2aaa482dfbbecbfcb726525a3d81661f9d802a8e/add.alpha.R
+#'     # add.alpha("forestgreen", 0.5)
+#'     p2c <- vis_gene(
+#'         spe = spe,
+#'         sampleid = "151507",
+#'         cont_colors = rev(viridisLite::viridis(21, option = "magma")),
+#'         alpha = NA,
+#'         na_color = "#228B2280"
+#'     )
+#'     print(p2c)
+#'
 #'     ## Visualize a continuous variable, in this case, the ratio of chrM
 #'     ## gene expression compared to the total expression at the spot-level
 #'     p3 <- vis_gene(
@@ -94,10 +121,11 @@ vis_gene <-
     minCount = 0,
     viridis = TRUE,
     image_id = "lowres",
-    alpha = 1,
+    alpha = NA,
     cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
     point_size = 2,
     auto_crop = TRUE,
+    na_color = "#CCCCCC40",
     ...) {
         spe_sub <- spe[, spe$sample_id == sampleid]
         d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
@@ -128,14 +156,14 @@ vis_gene <-
             alpha = alpha,
             cont_colors = cont_colors,
             point_size = point_size,
-            auto_crop = auto_crop
-        )
-        p + labs(caption = paste(
-            if (!geneid %in% colnames(colData(spe_sub))) {
-                assayname
+            auto_crop = auto_crop,
+            na_color = na_color,
+            legend_title = paste0(if (!geneid %in% colnames(colData(spe_sub))) {
+                paste0(assayname, "\n")
             } else {
                 NULL
             },
-            "min >", minCount
-        ))
+                " min > ", minCount)
+        )
+        return(p)
     }
