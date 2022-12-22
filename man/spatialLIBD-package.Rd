@@ -29,6 +29,8 @@ Other contributors:
   \item Abby Spangler \email{aspangle@gmail.com} (\href{https://orcid.org/0000-0002-0028-9348}{ORCID}) [contributor]
   \item Jesús Vélez Santiago \email{jvelezmagic@gmail.com} (\href{https://orcid.org/0000-0001-5128-3838}{ORCID}) [contributor]
   \item Lukas M. Weber \email{lukas.weber.edu@gmail.com} (\href{https://orcid.org/0000-0002-3282-1730}{ORCID}) [contributor]
+  \item Louise Huuki-Myers \email{lahuuki@gmail.com} (\href{https://orcid.org/0000-0001-5148-3602}{ORCID}) [contributor]
+  \item Nicholas Eagles \email{nickeagles77@gmail.com} (\href{https://orcid.org/0000-0002-9808-5254}{ORCID}) [contributor]
 }
 
 }
