@@ -6,7 +6,7 @@
 \usage{
 vis_grid_gene(
   spe,
-  geneid = rowData(spe_sub)$gene_search[1],
+  geneid = rowData(spe)$gene_search[1],
   pdf_file,
   assayname = "logcounts",
   minCount = 0,

@@ -7,7 +7,7 @@
 vis_gene(
   spe,
   sampleid = unique(spe$sample_id)[1],
-  geneid = rowData(spe_sub)$gene_search[1],
+  geneid = rowData(spe)$gene_search[1],
   spatial = TRUE,
   assayname = "logcounts",
   minCount = 0,
