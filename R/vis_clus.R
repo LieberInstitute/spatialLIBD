@@ -6,7 +6,7 @@
 #'
 #' @inheritParams run_app
 #' @param sampleid A `character(1)` specifying which sample to plot from
-#' `colData(spe)$sample_name`.
+#' `colData(spe)$sample_id` (formerly `colData(spe)$sample_name`).
 #' @param clustervar A `character(1)` with the name of the `colData(spe)`
 #' column that has the cluster values.
 #' @param colors A vector of colors to use for visualizing the clusters

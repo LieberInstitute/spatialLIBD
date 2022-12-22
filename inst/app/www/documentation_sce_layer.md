@@ -59,7 +59,7 @@ In this panel you can visualize the layer-level data (`sce_layer`) across reduce
 * `c_k20_k7`, `c_k7_k7` and `c_k5_k7` which are shared nearest neighbors with either 20, 7 or 5 neighbors cut at 7 clusters.
 * `kmeans_k7`: k-means clustering results using k = 7 clusters
 * `layer_guess`, `layer_guess_reordered`, `layer_guess_reordered_short` and `spatialLIBD` are all based on our manual annotations which were used for pseudo-bulking the data.
-* sample information such as the `subject` (donor brain), `replicate` (whether it's the first or second slide in a pair of spatial replicates), `position` (spatial replicate distance), `subject_position` (the six unique spatial replicate pairs), or `sample_name` which is the sample ID.
+* sample information such as the `subject` (donor brain), `replicate` (whether it's the first or second slide in a pair of spatial replicates), `position` (spatial replicate distance), `subject_position` (the six unique spatial replicate pairs), or `sample_id` (formerly `sample_name`) which is the sample ID.
 
 ```{r}
 ## Reproduce locally with

@@ -32,7 +32,7 @@ obtained using \code{cbind(colData(spe), spatialCoords(spe))}.}
 column that has the cluster values.}
 
 \item{sampleid}{A \code{character(1)} specifying which sample to plot from
-\code{colData(spe)$sample_name}.}
+\code{colData(spe)$sample_id} (formerly \code{colData(spe)$sample_name}).}
 
 \item{colors}{A vector of colors to use for visualizing the clusters
 from \code{clustervar}. If the vector has names, then those should match the

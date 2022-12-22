@@ -30,7 +30,7 @@ object with the spot-level Visium data and information required for
 visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
 \item{sampleid}{A \code{character(1)} specifying which sample to plot from
-\code{colData(spe)$sample_name}.}
+\code{colData(spe)$sample_id} (formerly \code{colData(spe)$sample_name}).}
 
 \item{geneid}{A \code{character(1)} specifying the gene ID stored in
 \code{rowData(spe)$gene_search} or a continuous variable stored in \code{colData(spe)}

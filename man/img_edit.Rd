@@ -33,7 +33,7 @@ object with the spot-level Visium data and information required for
 visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
 \item{sampleid}{A \code{character(1)} specifying which sample to plot from
-\code{colData(spe)$sample_name}.}
+\code{colData(spe)$sample_id} (formerly \code{colData(spe)$sample_name}).}
 
 \item{image_id}{A \code{character(1)} with the name of the image ID you want to
 use in the background.}

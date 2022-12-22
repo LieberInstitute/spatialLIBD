@@ -38,7 +38,7 @@ The data.frame has to contain
 a column with the continuous variable data to plot stored under \code{d$COUNT}.}
 
 \item{sampleid}{A \code{character(1)} specifying which sample to plot from
-\code{colData(spe)$sample_name}.}
+\code{colData(spe)$sample_id} (formerly \code{colData(spe)$sample_name}).}
 
 \item{spatial}{A \code{logical(1)} indicating whether to include the histology
 layer from \code{\link[=geom_spatial]{geom_spatial()}}. If you plan to use
