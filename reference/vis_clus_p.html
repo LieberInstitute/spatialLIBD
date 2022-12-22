@@ -20,7 +20,7 @@ gene-level (or any continuous variable) use vis_gene_p()."><meta property="og:im
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.11.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.11.5</span>
       </span>
     </div>
 
@@ -76,7 +76,7 @@ gene-level (or any continuous variable) use <code><a href="vis_gene_p.html">vis_
 <span>  <span class="va">spe</span>,</span>
 <span>  <span class="va">d</span>,</span>
 <span>  <span class="va">clustervar</span>,</span>
-<span>  <span class="va">sampleid</span>,</span>
+<span>  sampleid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">spe</span><span class="op">$</span><span class="va">sample_id</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  <span class="va">colors</span>,</span>
 <span>  <span class="va">spatial</span>,</span>
 <span>  <span class="va">title</span>,</span>
@@ -109,7 +109,7 @@ column that has the cluster values.</p></dd>
 
 <dt>sampleid</dt>
 <dd><p>A <code>character(1)</code> specifying which sample to plot from
-<code>colData(spe)$sample_name</code>.</p></dd>
+<code>colData(spe)$sample_id</code> (formerly <code>colData(spe)$sample_name</code>).</p></dd>
 
 
 <dt>colors</dt>
@@ -188,7 +188,7 @@ not centered on the image and if the image is not a square.</p></dd>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">spe_sub</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2022-10-31</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-16 22:37:19 loading file /github/home/.cache/R/BiocFileCache/8af6e044fe3_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2022-12-22 17:40:40 loading file /github/home/.cache/R/BiocFileCache/9c01e01e28f_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-plt img"><img src="vis_clus_p-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
