@@ -7,7 +7,7 @@
 vis_gene_p(
   spe,
   d,
-  sampleid,
+  sampleid = unique(spe$sample_id)[1],
   spatial,
   title,
   viridis = TRUE,

@@ -6,7 +6,7 @@
 \usage{
 vis_grid_gene(
   spe,
-  geneid = "SCGB2A2; ENSG00000110484",
+  geneid = rowData(spe_sub)$gene_search[1],
   pdf_file,
   assayname = "logcounts",
   minCount = 0,

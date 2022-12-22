@@ -8,7 +8,7 @@ vis_clus_p(
   spe,
   d,
   clustervar,
-  sampleid,
+  sampleid = unique(spe$sample_id)[1],
   colors,
   spatial,
   title,

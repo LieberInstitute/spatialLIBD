@@ -6,8 +6,8 @@
 \usage{
 vis_gene(
   spe,
-  sampleid,
-  geneid = "SCGB2A2; ENSG00000110484",
+  sampleid = unique(spe$sample_id)[1],
+  geneid = rowData(spe_sub)$gene_search[1],
   spatial = TRUE,
   assayname = "logcounts",
   minCount = 0,

@@ -580,7 +580,7 @@ app_server <- function(input, output, session) {
         #
         # ## Testing:
         # sampleid <- '151507'
-        # geneid <- "SCGB2A2; ENSG00000110484"
+        # geneid <- rowData(spe_sub)$gene_search[1]
         # assayname <- 'logcounts'
         # minCount <- 0
         # clustervar <- 'GraphBased'

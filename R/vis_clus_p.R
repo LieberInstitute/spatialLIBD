@@ -45,7 +45,7 @@ vis_clus_p <-
     function(spe,
     d,
     clustervar,
-    sampleid,
+    sampleid = unique(spe$sample_id)[1],
     colors,
     spatial,
     title,

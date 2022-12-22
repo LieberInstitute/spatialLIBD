@@ -76,7 +76,7 @@
 #'     print(p3)
 #' }
 vis_clus <- function(spe,
-    sampleid,
+    sampleid = unique(spe$sample_id)[1],
     clustervar,
     colors = c(
         "#b2df8a",

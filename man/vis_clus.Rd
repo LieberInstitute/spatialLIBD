@@ -6,7 +6,7 @@
 \usage{
 vis_clus(
   spe,
-  sampleid,
+  sampleid = unique(spe$sample_id)[1],
   clustervar,
   colors = c("#b2df8a", "#e41a1c", "#377eb8", "#4daf4a", "#ff7f00", "gold", "#a65628",
     "#999999", "black", "grey", "white", "purple"),

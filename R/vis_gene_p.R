@@ -50,7 +50,7 @@
 vis_gene_p <-
     function(spe,
     d,
-    sampleid,
+    sampleid = unique(spe$sample_id)[1],
     spatial,
     title,
     viridis = TRUE,
