@@ -158,6 +158,8 @@
 #'             "graph_based_PCA_within",
 #'             "PCA_SNN_k10_k7",
 #'             "Harmony_SNN_k10_k7",
+#'             "manual_layer_label",
+#'             "wrinkle_type",
 #'             "BayesSpace_colors"
 #'         ),
 #'         spe_continuous_vars = c(
