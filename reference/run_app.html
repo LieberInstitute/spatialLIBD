@@ -19,7 +19,7 @@ any other data that you have shaped according to our object structure."><meta pr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.11.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.11.6</span>
       </span>
     </div>
 
@@ -208,6 +208,112 @@ That vignette is available at
 <span class="r-in"><span>    <span class="co">## run at shinyapps.io, so subsetting on that script to reduce the</span></span></span>
 <span class="r-in"><span>    <span class="co">## memory load is pointless. You have to do it outside of app.R.</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## How to run locally the spatialDLPFC Sp09 spatialLIBD app. That is,</span></span></span>
+<span class="r-in"><span><span class="co">## from http://research.libd.org/spatialDLPFC/#interactive-websites</span></span></span>
+<span class="r-in"><span><span class="co">## how to run https://libd.shinyapps.io/spatialDLPFC_Visium_Sp09 locally.</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="enough_ram.html">enough_ram</a></span><span class="op">(</span><span class="fl">9e9</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co">## Download the 3 main objects needed</span></span></span>
+<span class="r-in"><span>    <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spatialDLPFC_Visium"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">sce_pseudo</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spatialDLPFC_Visium_pseudobulk"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spatialDLPFC_Visium_modeling_results"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## These are optional commands to further reduce the memory required.</span></span></span>
+<span class="r-in"><span>    <span class="co">#</span></span></span>
+<span class="r-in"><span>    <span class="co">## Keep only the "lowres" images. Reduces the object from 6.97 GB to 4.59 GB</span></span></span>
+<span class="r-in"><span>    <span class="co"># imgData(spe) &lt;- imgData(spe)[imgData(spe)$image_id == "lowres", ]</span></span></span>
+<span class="r-in"><span>    <span class="co">## Drop the regular counts (keep only the logcounts). Reduces the object</span></span></span>
+<span class="r-in"><span>    <span class="co">## from 4.59 GB to 2.45 GB.</span></span></span>
+<span class="r-in"><span>    <span class="co"># counts(spe) &lt;- NULL</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## For sig_genes_extract_all() to work</span></span></span>
+<span class="r-in"><span>    <span class="va">sce_pseudo</span><span class="op">$</span><span class="va">spatialLIBD</span> <span class="op">&lt;-</span> <span class="va">sce_pseudo</span><span class="op">$</span><span class="va">BayesSpace</span></span></span>
+<span class="r-in"><span>    <span class="co">## Compute the significant genes</span></span></span>
+<span class="r-in"><span>    <span class="va">sig_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="sig_genes_extract_all.html">sig_genes_extract_all</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sce_pseudo</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        modeling_results <span class="op">=</span> <span class="va">modeling_results</span>,</span></span>
+<span class="r-in"><span>        sce_layer <span class="op">=</span> <span class="va">sce_pseudo</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="co">## Reduce the memory from 423.73 MB to 78.88 MB</span></span></span>
+<span class="r-in"><span>    <span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/obj_size.html" class="external-link">obj_size</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">sig_genes</span><span class="op">$</span><span class="va">in_rows</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span></span>
+<span class="r-in"><span>    <span class="va">sig_genes</span><span class="op">$</span><span class="va">in_rows_top20</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span></span>
+<span class="r-in"><span>    <span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/obj_size.html" class="external-link">obj_size</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Specify the default variable</span></span></span>
+<span class="r-in"><span>    <span class="va">spe</span><span class="op">$</span><span class="va">BayesSpace</span> <span class="op">&lt;-</span> <span class="va">spe</span><span class="op">$</span><span class="va">BayesSpace_harmony_09</span></span></span>
+<span class="r-in"><span>    <span class="co">## Get all variables</span></span></span>
+<span class="r-in"><span>    <span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="fu">colData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Set default cluster colors</span></span></span>
+<span class="r-in"><span>    <span class="va">colors_BayesSpace</span> <span class="op">&lt;-</span> <span class="fu">Polychrome</span><span class="fu">::</span><span class="fu">palette36.colors</span><span class="op">(</span><span class="fl">28</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">colors_BayesSpace</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">28</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">spe</span><span class="op">$</span><span class="va">BayesSpace_harmony_09</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">colors_BayesSpace</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">spe</span><span class="op">$</span><span class="va">BayesSpace_colors</span> <span class="op">&lt;-</span> <span class="va">spe</span><span class="op">$</span><span class="va">BayesSpace_harmony_09_colors</span> <span class="op">&lt;-</span> <span class="va">colors_BayesSpace</span><span class="op">[</span><span class="va">m</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Download documentation files we use</span></span></span>
+<span class="r-in"><span>    <span class="va">temp_www</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"www"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">temp_www</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"https://raw.githubusercontent.com/LieberInstitute/spatialDLPFC/main/README.md"</span>,</span></span>
+<span class="r-in"><span>        <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">temp_www</span>, <span class="st">"README.md"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"https://raw.githubusercontent.com/LieberInstitute/spatialDLPFC/main/code/deploy_app_k09/www/documentation_sce_layer.md"</span>,</span></span>
+<span class="r-in"><span>        <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">temp_www</span>, <span class="st">"documentation_sce_layer.md"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"https://raw.githubusercontent.com/LieberInstitute/spatialDLPFC/main/code/deploy_app_k09/www/documentation_spe.md"</span>,</span></span>
+<span class="r-in"><span>        <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">temp_www</span>, <span class="st">"documentation_spe.md"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"https://raw.githubusercontent.com/LieberInstitute/spatialDLPFC/main/img/favicon.ico"</span>,</span></span>
+<span class="r-in"><span>        <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">temp_www</span>, <span class="st">"favicon.ico"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"https://raw.githubusercontent.com/LieberInstitute/spatialDLPFC/main/code/deploy_app_k09/www/footer.html"</span>,</span></span>
+<span class="r-in"><span>        <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">temp_www</span>, <span class="st">"footer.html"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">temp_www</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Run the app locally</span></span></span>
+<span class="r-in"><span>    <span class="fu">run_app</span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="va">spe</span>,</span></span>
+<span class="r-in"><span>        sce_layer <span class="op">=</span> <span class="va">sce_pseudo</span>,</span></span>
+<span class="r-in"><span>        modeling_results <span class="op">=</span> <span class="va">modeling_results</span>,</span></span>
+<span class="r-in"><span>        sig_genes <span class="op">=</span> <span class="va">sig_genes</span>,</span></span>
+<span class="r-in"><span>        title <span class="op">=</span> <span class="st">"spatialDLPFC, Visium, Sp09"</span>,</span></span>
+<span class="r-in"><span>        spe_discrete_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="co"># this is the variables for the spe object not the sce_pseudo object</span></span></span>
+<span class="r-in"><span>            <span class="st">"BayesSpace"</span>,</span></span>
+<span class="r-in"><span>            <span class="st">"ManualAnnotation"</span>,</span></span>
+<span class="r-in"><span>            <span class="va">vars</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"^SpaceRanger_|^scran_"</span>, <span class="va">vars</span><span class="op">)</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>            <span class="va">vars</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"^BayesSpace_harmony"</span>, <span class="va">vars</span><span class="op">)</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>            <span class="va">vars</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"^BayesSpace_pca"</span>, <span class="va">vars</span><span class="op">)</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>            <span class="st">"graph_based_PCA_within"</span>,</span></span>
+<span class="r-in"><span>            <span class="st">"PCA_SNN_k10_k7"</span>,</span></span>
+<span class="r-in"><span>            <span class="st">"Harmony_SNN_k10_k7"</span>,</span></span>
+<span class="r-in"><span>            <span class="st">"BayesSpace_colors"</span></span></span>
+<span class="r-in"><span>        <span class="op">)</span>,</span></span>
+<span class="r-in"><span>        spe_continuous_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>            <span class="st">"sum_umi"</span>,</span></span>
+<span class="r-in"><span>            <span class="st">"sum_gene"</span>,</span></span>
+<span class="r-in"><span>            <span class="st">"expr_chrM"</span>,</span></span>
+<span class="r-in"><span>            <span class="st">"expr_chrM_ratio"</span>,</span></span>
+<span class="r-in"><span>            <span class="va">vars</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"^VistoSeg_"</span>, <span class="va">vars</span><span class="op">)</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>            <span class="va">vars</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"^layer_"</span>, <span class="va">vars</span><span class="op">)</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>            <span class="va">vars</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"^broad_"</span>, <span class="va">vars</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span>        <span class="op">)</span>,</span></span>
+<span class="r-in"><span>        default_cluster <span class="op">=</span> <span class="st">"BayesSpace"</span>,</span></span>
+<span class="r-in"><span>        docs_path <span class="op">=</span> <span class="va">temp_www</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="co">## See also:</span></span></span>
+<span class="r-in"><span><span class="co">## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/deploy_app_k09</span></span></span>
+<span class="r-in"><span><span class="co">## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/deploy_app_k09_position</span></span></span>
+<span class="r-in"><span><span class="co">## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/deploy_app_k09_position_noWM</span></span></span>
+<span class="r-in"><span><span class="co">## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/deploy_app_k16</span></span></span>
+<span class="r-in"><span><span class="co">## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/analysis_IF/03_spatialLIBD_app</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
