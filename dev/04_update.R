@@ -14,6 +14,7 @@ rstudioapi::navigateToFile(usethis::proj_path("dev", "03_core_files.R"))
 ## Windows: shift + control + A
 styler::style_pkg(transformers = biocthis::bioc_style())
 styler::style_dir(usethis::proj_path("dev"), transformers = biocthis::bioc_style())
+styler::style_dir(usethis::proj_path("inst"), transformers = biocthis::bioc_style())
 styler::style_dir(
     usethis::proj_path("vignettes"),
     transformers = biocthis::bioc_style(),

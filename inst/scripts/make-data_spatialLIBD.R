@@ -1,42 +1,54 @@
 ## Run this on JHPCE at
 ## /dcs04/lieber/lcolladotor/with10x_LIBD001/HumanPilot/Analysis/spatialLIBD_files
 
-library('SingleCellExperiment')
-library('here')
-library('sessioninfo')
+library("SingleCellExperiment")
+library("here")
+library("sessioninfo")
 
 ## Output directory
-dir.create(here('Analysis',
-    'spatialLIBD_files'), showWarnings = FALSE)
+dir.create(here(
+    "Analysis",
+    "spatialLIBD_files"
+), showWarnings = FALSE)
 
 ## Load data
-load(here(
-    'Analysis',
-    'Human_DLPFC_Visium_processedData_sce_scran.Rdata'
-),
-    verbose = TRUE)
-
-load(here('Analysis',
-    'rda_scran',
-    'clust_k5_list.Rdata'),
-    verbose = TRUE)
 load(
     here(
-        'Analysis',
-        'rda_scran',
-        'clust_10x_layer_maynard_martinowich.Rdata'
+        "Analysis",
+        "Human_DLPFC_Visium_processedData_sce_scran.Rdata"
     ),
     verbose = TRUE
 )
 
-load(here('Analysis', 'Layer_Guesses', 'rda',
-    'layer_guess_tab.Rdata'),
-    verbose = TRUE)
+load(
+    here(
+        "Analysis",
+        "rda_scran",
+        "clust_k5_list.Rdata"
+    ),
+    verbose = TRUE
+)
+load(
+    here(
+        "Analysis",
+        "rda_scran",
+        "clust_10x_layer_maynard_martinowich.Rdata"
+    ),
+    verbose = TRUE
+)
+
+load(
+    here(
+        "Analysis", "Layer_Guesses", "rda",
+        "layer_guess_tab.Rdata"
+    ),
+    verbose = TRUE
+)
 
 
 ## From the original spatialLIBD code
 clust_k5 <- do.call(cbind, clust_k5_list)
-colnames(clust_k5) <- paste0('SNN_k50_', colnames(clust_k5))
+colnames(clust_k5) <- paste0("SNN_k50_", colnames(clust_k5))
 rownames(clust_k5) <- NULL
 colData(sce) <- cbind(colData(sce), clust_k5)
 
@@ -51,18 +63,18 @@ sce$Layer <- "NA"
 sce$layer_guess <- NA
 m <- match(sce$key, layer_guess_tab$key)
 sce$layer_guess[!is.na(m)] <- layer_guess_tab$layer[m[!is.na(m)]]
-sce$layer_guess[which(sce$layer_guess == 'Layer 2/3')] <- 'Layer 3'
+sce$layer_guess[which(sce$layer_guess == "Layer 2/3")] <- "Layer 3"
 sce$layer_guess <-
-    factor(gsub(' ', '', sce$layer_guess), levels = c('WM', paste0('Layer', seq_len(6))))
+    factor(gsub(" ", "", sce$layer_guess), levels = c("WM", paste0("Layer", seq_len(6))))
 sce$layer_guess_reordered <-
-    factor(sce$layer_guess, levels = c(paste0('Layer', seq_len(6)), 'WM'))
+    factor(sce$layer_guess, levels = c(paste0("Layer", seq_len(6)), "WM"))
 sce$layer_guess_reordered_short <- sce$layer_guess_reordered
 levels(sce$layer_guess_reordered_short) <-
-    gsub('ayer', '', levels(sce$layer_guess_reordered))
+    gsub("ayer", "", levels(sce$layer_guess_reordered))
 
 ## From https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/misc_numbers.R
 ix_mito <- grep("^MT-", rowData(sce)$gene_name)
-sce$expr_chrM <- colSums(assays(sce)$counts[ix_mito,])
+sce$expr_chrM <- colSums(assays(sce)$counts[ix_mito, ])
 sce$expr_chrM_ratio <- sce$expr_chrM / sce$sum_umi
 ## Manually compare vs the info from the other script
 summary(sce$expr_chrM_ratio)
@@ -71,7 +83,7 @@ summary(sce$expr_chrM_ratio)
 
 ## Fix the rowRanges
 ## From https://github.com/LieberInstitute/HumanPilot/blob/c8a3a31b991081d656ededee59da45aa0494b334/Analysis/Layer_Notebook.R#L78-L87
-map = read.delim(
+map <- read.delim(
     here(
         "/10X/151675/151675_raw_feature_bc_matrix__features.tsv.gz"
     ),
@@ -80,18 +92,20 @@ map = read.delim(
     col.names = c("EnsemblID", "Symbol", "Type")
 )
 ## get GTF, this seems like what they used
-gtf = rtracklayer::import(
+gtf <- rtracklayer::import(
     "/dcl01/ajaffe/data/lab/singleCell/refdata-cellranger-GRCh38-3.0.0/genes/genes.gtf"
 )
-gtf = gtf[gtf$type	== "gene"]
-names(gtf) = gtf$gene_id
-gtf = gtf[map$EnsemblID]
-seqlevels(gtf)[seq_len(25)] = paste0("chr", seqlevels(gtf)[seq_len(25)])
+gtf <- gtf[gtf$type == "gene"]
+names(gtf) <- gtf$gene_id
+gtf <- gtf[map$EnsemblID]
+seqlevels(gtf)[seq_len(25)] <-
+    paste0("chr", seqlevels(gtf)[seq_len(25)])
 # mcols(gtf) = mcols(gtf)[,c(5:9)]
 
 ## Keep the non-empty mcols()
-mcols_empty_n <- sapply(mcols(gtf), function(x)
-    sum(is.na(x)))
+mcols_empty_n <- sapply(mcols(gtf), function(x) {
+    sum(is.na(x))
+})
 names(mcols_empty_n[mcols_empty_n == 0])
 # [1] "source"       "type"         "gene_id"      "gene_version" "gene_name"
 # [6] "gene_source"  "gene_biotype"
@@ -105,11 +119,11 @@ rowRanges(sce) <- gtf
 
 ## To simplify other code later
 rowData(sce)$gene_search <-
-    paste0(rowData(sce)$gene_name, '; ', rowData(sce)$gene_id)
+    paste0(rowData(sce)$gene_name, "; ", rowData(sce)$gene_id)
 
 ## Double check our selection of chrM genes now that we have the
 ## correct rowRanges data
-stopifnot(identical(which(seqnames(sce) == 'chrMT'), ix_mito))
+stopifnot(identical(which(seqnames(sce) == "chrMT"), ix_mito))
 
 ## Add whether the gene is a top highly variable gene (HVG) or not
 rowData(sce)$is_top_hvg <- rownames(sce) %in% top.hvgs
@@ -122,9 +136,9 @@ rowData(sce)$is_top_hvg <- rownames(sce) %in% top.hvgs
 save(
     sce,
     file = here(
-        'Analysis',
-        'spatialLIBD_files',
-        'Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata'
+        "Analysis",
+        "spatialLIBD_files",
+        "Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata"
     )
 )
 
@@ -136,8 +150,9 @@ save(
 
 ## Now for the sce_layer object
 ## note that this re-loads the top.hvgs object
-load(here('Analysis', 'Layer_Guesses', 'rda', 'sce_layer.Rdata'),
-    verbose = TRUE)
+load(here("Analysis", "Layer_Guesses", "rda", "sce_layer.Rdata"),
+    verbose = TRUE
+)
 
 ## Fix the rowRanges info
 rowRanges(sce_layer) <-
@@ -149,46 +164,54 @@ rowData(sce_layer)$is_top_hvg_sce_layer <-
 
 ## For the different plots
 sce_layer$layer_guess_reordered <-
-    factor(sce_layer$layer_guess, levels = c(paste0('Layer', seq_len(6)), 'WM'))
+    factor(sce_layer$layer_guess, levels = c(paste0("Layer", seq_len(6)), "WM"))
 sce_layer$layer_guess_reordered_short <-
     sce_layer$layer_guess_reordered
 levels(sce_layer$layer_guess_reordered_short) <-
-    gsub('ayer', '', levels(sce_layer$layer_guess_reordered))
+    gsub("ayer", "", levels(sce_layer$layer_guess_reordered))
 
 
 save(
     sce_layer,
     file = here(
-        'Analysis',
-        'spatialLIBD_files',
-        'Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata'
+        "Analysis",
+        "spatialLIBD_files",
+        "Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata"
     )
 )
 
 
 ## Also the modeling results
-load(here('Analysis',
-    'Layer_Guesses',
-    'rda',
-    'modeling_results.Rdata'),
-    verbose = TRUE)
+load(
+    here(
+        "Analysis",
+        "Layer_Guesses",
+        "rda",
+        "modeling_results.Rdata"
+    ),
+    verbose = TRUE
+)
 
-modeling_results <- list('anova' = results_anova,
-    'enrichment' = results_specificity,
-    'pairwise' = results_pairwise)
+modeling_results <- list(
+    "anova" = results_anova,
+    "enrichment" = results_specificity,
+    "pairwise" = results_pairwise
+)
 
 save(
     modeling_results,
     file = here(
-        'Analysis',
-        'spatialLIBD_files',
-        'Human_DLPFC_Visium_modeling_results.Rdata'
+        "Analysis",
+        "spatialLIBD_files",
+        "Human_DLPFC_Visium_modeling_results.Rdata"
     )
 )
 
 ## List all files
-dir(here('Analysis',
-    'spatialLIBD_files'))
+dir(here(
+    "Analysis",
+    "spatialLIBD_files"
+))
 # [1] "Human_DLPFC_Visium_modeling_results.Rdata"
 # [2] "Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata"
 # [3] "Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata"
@@ -198,11 +221,12 @@ dir(here('Analysis',
 ######################################
 
 usethis::use_directory("data-raw/spatialLIBD_files", ignore = TRUE)
-system2('scp',
+system2(
+    "scp",
     paste0(
-        'e:/dcs04/lieber/lcolladotor/with10x_LIBD001/HumanPilot/Analysis/spatialLIBD_files/* ',
-        here::here('data-raw/spatialLIBD_files'),
-        '/'
+        "e:/dcs04/lieber/lcolladotor/with10x_LIBD001/HumanPilot/Analysis/spatialLIBD_files/* ",
+        here::here("data-raw/spatialLIBD_files"),
+        "/"
     )
 )
 
@@ -215,32 +239,34 @@ system2('scp',
 #     )
 # )
 
-system2('echo', paste(
-    'data-raw/spatialLIBD_files >>',
-    here::here('.gitignore')
+system2("echo", paste(
+    "data-raw/spatialLIBD_files >>",
+    here::here(".gitignore")
 ))
 
 ## Add the clusters from Lukas M Weber and Stephanie Hicks
-library('SingleCellExperiment')
+library("SingleCellExperiment")
 load(
     here::here(
-        'data-raw',
-        'spatialLIBD_files',
-        'Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata'
+        "data-raw",
+        "spatialLIBD_files",
+        "Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata"
     ),
     verbose = TRUE
 )
 
 local_cluster_csvs <-
     dir(
-        '~/Dropbox/code/HumanPilot/outputs/SpatialDE_clustering/',
-        pattern = '^cluster_labels_.*.csv',
+        "~/Dropbox/code/HumanPilot/outputs/SpatialDE_clustering/",
+        pattern = "^cluster_labels_.*.csv",
         full.names = TRUE
     )
 csv_file <- local_cluster_csvs[1]
 spatial_clus <-
-    do.call(rbind,
-        lapply(local_cluster_csvs, read.csv, stringsAsFactors = FALSE))
+    do.call(
+        rbind,
+        lapply(local_cluster_csvs, read.csv, stringsAsFactors = FALSE)
+    )
 
 ## It's too big to include as data in the pkg
 lobstr::obj_size(spatial_clus) / 1024^2 ## Convert to MB
@@ -251,14 +277,14 @@ stopifnot(identical(spatial_clus$key, sce$key))
 
 ## Drop the 'key' and 'ground_truth' since we don't need it
 spatial_clus <-
-    spatial_clus[, -which(colnames(spatial_clus) %in% c('key', 'ground_truth'))]
+    spatial_clus[, -which(colnames(spatial_clus) %in% c("key", "ground_truth"))]
 
 ## Append
 colData(sce) <- cbind(colData(sce), spatial_clus)
 
 ## Rename Cluster10X to something else
-colnames(colData(sce))[colnames(colData(sce)) == 'Cluster10X'] <-
-    'GraphBased'
+colnames(colData(sce))[colnames(colData(sce)) == "Cluster10X"] <-
+    "GraphBased"
 
 ## Double check that it all works!
 # sce_layer <-
@@ -293,14 +319,14 @@ paste0("c('", paste(colnames(spatial_clus), collapse = "', '"), "')")
 save(
     sce,
     file = here::here(
-        'data-raw',
-        'spatialLIBD_files',
-        'Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata'
+        "data-raw",
+        "spatialLIBD_files",
+        "Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata"
     )
 )
 
 ## Reproducibility information
-print('Reproducibility information:')
+print("Reproducibility information:")
 Sys.time()
 proc.time()
 options(width = 120)
