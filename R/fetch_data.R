@@ -123,7 +123,7 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/s/se6rrgb9yhm5gfh/Human_DLPFC_Visium_modeling_results.Rdata?dl=1"
         } else if (type == "sce_example") {
-            hub_title <- "Human_DLPFC_Visium_sce_example.Rdata"
+            hub_title <- "Human_DLPFC_Visium_sce_example"
 
             ## While EH is not set-up
             file_name <- "sce_sub_for_vignette.Rdata"
@@ -139,7 +139,7 @@ fetch_data <-
                 )
             }
 
-            hub_title <- "spatialDLPFC_Visium_spe.rds"
+            hub_title <- "spatialDLPFC_Visium_spe"
 
             ## While EH is not set-up
             file_name <-
@@ -147,7 +147,7 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/s/y2ifv5v8g68papf/spe_filtered_final_with_clusters_and_deconvolution_results.rds?dl=1"
         } else if (type == "spatialDLPFC_Visium_pseudobulk") {
-            hub_title <- "spatialDLPFC_Visium_pseudobulk_spe.rds"
+            hub_title <- "spatialDLPFC_Visium_pseudobulk_spe"
 
             ## While EH is not set-up
             file_name <-
@@ -155,7 +155,7 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/s/pbti4strsfk1m55/sce_pseudo_BayesSpace_k09.rds?dl=1"
         } else if (type == "spatialDLPFC_Visium_modeling_results") {
-            hub_title <- "spatialDLPFC_Visium_modeling_results.Rdata"
+            hub_title <- "spatialDLPFC_Visium_modeling_results"
 
             ## While EH is not set-up
             file_name <-
@@ -163,7 +163,7 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/s/srkb2ife75px2yz/modeling_results_BayesSpace_k09.Rdata?dl=1"
         } else if (type == "spatialDLPFC_Visium_SPG") {
-            hub_title <- "spatialDLPFC_Visium_SPG_spe.rds"
+            hub_title <- "spatialDLPFC_Visium_SPG_spe"
 
             ## While EH is not set-up
             file_name <-
@@ -180,7 +180,7 @@ fetch_data <-
                 )
             }
 
-            hub_title <- "spatialDLPFC_snRNAseq.rds"
+            hub_title <- "spatialDLPFC_snRNAseq"
 
             ## While EH is not set-up
             file_name <-
