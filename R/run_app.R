@@ -73,54 +73,161 @@
 #'     ## run at shinyapps.io, so subsetting on that script to reduce the
 #'     ## memory load is pointless. You have to do it outside of app.R.
 #' }
+#'
+#' ## How to run locally the spatialDLPFC Sp09 spatialLIBD app. That is,
+#' ## from http://research.libd.org/spatialDLPFC/#interactive-websites
+#' ## how to run https://libd.shinyapps.io/spatialDLPFC_Visium_Sp09 locally.
+#' if (enough_ram(9e9)) {
+#'     ## Download the 3 main objects needed
+#'     spe <- fetch_data("spatialDLPFC_Visium")
+#'     sce_pseudo <- fetch_data("spatialDLPFC_Visium_pseudobulk")
+#'     modeling_results <- fetch_data("spatialDLPFC_Visium_modeling_results")
+#'
+#'     ## These are optional commands to further reduce the memory required.
+#'     #
+#'     ## Keep only the "lowres" images. Reduces the object from 6.97 GB to 4.59 GB
+#'     # imgData(spe) <- imgData(spe)[imgData(spe)$image_id == "lowres", ]
+#'     ## Drop the regular counts (keep only the logcounts). Reduces the object
+#'     ## from 4.59 GB to 2.45 GB.
+#'     # counts(spe) <- NULL
+#'
+#'     ## For sig_genes_extract_all() to work
+#'     sce_pseudo$spatialLIBD <- sce_pseudo$BayesSpace
+#'     ## Compute the significant genes
+#'     sig_genes <- sig_genes_extract_all(
+#'         n = nrow(sce_pseudo),
+#'         modeling_results = modeling_results,
+#'         sce_layer = sce_pseudo
+#'     )
+#'     ## Reduce the memory from 423.73 MB to 78.88 MB
+#'     lobstr::obj_size(sig_genes)
+#'     sig_genes$in_rows <- NULL
+#'     sig_genes$in_rows_top20 <- NULL
+#'     lobstr::obj_size(sig_genes)
+#'
+#'     ## Specify the default variable
+#'     spe$BayesSpace <- spe$BayesSpace_harmony_09
+#'     ## Get all variables
+#'     vars <- colnames(colData(spe))
+#'
+#'     ## Set default cluster colors
+#'     colors_BayesSpace <- Polychrome::palette36.colors(28)
+#'     names(colors_BayesSpace) <- c(1:28)
+#'     m <- match(as.character(spe$BayesSpace_harmony_09), names(colors_BayesSpace))
+#'     stopifnot(all(!is.na(m)))
+#'     spe$BayesSpace_colors <- spe$BayesSpace_harmony_09_colors <- colors_BayesSpace[m]
+#'
+#'     ## Download documentation files we use
+#'     temp_www <- file.path(tempdir(), "www")
+#'     dir.create(temp_www)
+#'     download.file(
+#'         "https://raw.githubusercontent.com/LieberInstitute/spatialDLPFC/main/README.md",
+#'         file.path(temp_www, "README.md")
+#'     )
+#'     download.file(
+#'         "https://raw.githubusercontent.com/LieberInstitute/spatialDLPFC/main/code/deploy_app_k09/www/documentation_sce_layer.md",
+#'         file.path(temp_www, "documentation_sce_layer.md")
+#'     )
+#'     download.file(
+#'         "https://raw.githubusercontent.com/LieberInstitute/spatialDLPFC/main/code/deploy_app_k09/www/documentation_spe.md",
+#'         file.path(temp_www, "documentation_spe.md")
+#'     )
+#'     download.file(
+#'         "https://raw.githubusercontent.com/LieberInstitute/spatialDLPFC/main/img/favicon.ico",
+#'         file.path(temp_www, "favicon.ico")
+#'     )
+#'     download.file(
+#'         "https://raw.githubusercontent.com/LieberInstitute/spatialDLPFC/main/code/deploy_app_k09/www/footer.html",
+#'         file.path(temp_www, "footer.html")
+#'     )
+#'     list.files(temp_www)
+#'
+#'     ## Run the app locally
+#'     run_app(
+#'         spe,
+#'         sce_layer = sce_pseudo,
+#'         modeling_results = modeling_results,
+#'         sig_genes = sig_genes,
+#'         title = "spatialDLPFC, Visium, Sp09",
+#'         spe_discrete_vars = c( # this is the variables for the spe object not the sce_pseudo object
+#'             "BayesSpace",
+#'             "ManualAnnotation",
+#'             vars[grep("^SpaceRanger_|^scran_", vars)],
+#'             vars[grep("^BayesSpace_harmony", vars)],
+#'             vars[grep("^BayesSpace_pca", vars)],
+#'             "graph_based_PCA_within",
+#'             "PCA_SNN_k10_k7",
+#'             "Harmony_SNN_k10_k7",
+#'             "BayesSpace_colors"
+#'         ),
+#'         spe_continuous_vars = c(
+#'             "sum_umi",
+#'             "sum_gene",
+#'             "expr_chrM",
+#'             "expr_chrM_ratio",
+#'             vars[grep("^VistoSeg_", vars)],
+#'             vars[grep("^layer_", vars)],
+#'             vars[grep("^broad_", vars)]
+#'         ),
+#'         default_cluster = "BayesSpace",
+#'         docs_path = temp_www
+#'     )
 #' }
-run_app <- function(spe = fetch_data(type = "spe"),
-    sce_layer = fetch_data(type = "sce_layer"),
-    modeling_results = fetch_data(type = "modeling_results"),
-    sig_genes = sig_genes_extract_all(
-        n = nrow(sce_layer),
-        modeling_results = modeling_results,
-        sce_layer = sce_layer
-    ),
-    docs_path = system.file("app", "www", package = "spatialLIBD"),
-    title = "spatialLIBD",
-    spe_discrete_vars = c(
-        "spatialLIBD",
-        "GraphBased",
-        "ManualAnnotation",
-        "Maynard",
-        "Martinowich",
-        paste0("SNN_k50_k", 4:28),
-        "SpatialDE_PCA",
-        "SpatialDE_pool_PCA",
-        "HVG_PCA",
-        "pseudobulk_PCA",
-        "markers_PCA",
-        "SpatialDE_UMAP",
-        "SpatialDE_pool_UMAP",
-        "HVG_UMAP",
-        "pseudobulk_UMAP",
-        "markers_UMAP",
-        "SpatialDE_PCA_spatial",
-        "SpatialDE_pool_PCA_spatial",
-        "HVG_PCA_spatial",
-        "pseudobulk_PCA_spatial",
-        "markers_PCA_spatial",
-        "SpatialDE_UMAP_spatial",
-        "SpatialDE_pool_UMAP_spatial",
-        "HVG_UMAP_spatial",
-        "pseudobulk_UMAP_spatial",
-        "markers_UMAP_spatial"
-    ),
-    spe_continuous_vars = c(
-        "cell_count",
-        "sum_umi",
-        "sum_gene",
-        "expr_chrM",
-        "expr_chrM_ratio"
-    ),
-    default_cluster = "spatialLIBD",
-    ...) {
+#' ## See also:
+#' ## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/deploy_app_k09
+#' ## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/deploy_app_k09_position
+#' ## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/deploy_app_k09_position_noWM
+#' ## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/deploy_app_k16
+#' ## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/analysis_IF/03_spatialLIBD_app
+#' }
+run_app <- function(
+        spe = fetch_data(type = "spe"),
+        sce_layer = fetch_data(type = "sce_layer"),
+        modeling_results = fetch_data(type = "modeling_results"),
+        sig_genes = sig_genes_extract_all(
+            n = nrow(sce_layer),
+            modeling_results = modeling_results,
+            sce_layer = sce_layer
+        ),
+        docs_path = system.file("app", "www", package = "spatialLIBD"),
+        title = "spatialLIBD",
+        spe_discrete_vars = c(
+            "spatialLIBD",
+            "GraphBased",
+            "ManualAnnotation",
+            "Maynard",
+            "Martinowich",
+            paste0("SNN_k50_k", 4:28),
+            "SpatialDE_PCA",
+            "SpatialDE_pool_PCA",
+            "HVG_PCA",
+            "pseudobulk_PCA",
+            "markers_PCA",
+            "SpatialDE_UMAP",
+            "SpatialDE_pool_UMAP",
+            "HVG_UMAP",
+            "pseudobulk_UMAP",
+            "markers_UMAP",
+            "SpatialDE_PCA_spatial",
+            "SpatialDE_pool_PCA_spatial",
+            "HVG_PCA_spatial",
+            "pseudobulk_PCA_spatial",
+            "markers_PCA_spatial",
+            "SpatialDE_UMAP_spatial",
+            "SpatialDE_pool_UMAP_spatial",
+            "HVG_UMAP_spatial",
+            "pseudobulk_UMAP_spatial",
+            "markers_UMAP_spatial"
+        ),
+        spe_continuous_vars = c(
+            "cell_count",
+            "sum_umi",
+            "sum_gene",
+            "expr_chrM",
+            "expr_chrM_ratio"
+        ),
+        default_cluster = "spatialLIBD",
+        ...) {
     ## Run the checks in the relevant order
     stopifnot(length(default_cluster) == 1)
     stopifnot(default_cluster %in% spe_discrete_vars)

@@ -6,7 +6,9 @@
 \usage{
 fetch_data(
   type = c("sce", "sce_layer", "modeling_results", "sce_example", "spe",
-    "spatialDLPFC_Visium"),
+    "spatialDLPFC_Visium", "spatialDLPFC_Visium_pseudobulk",
+    "spatialDLPFC_Visium_modeling_results", "spatialDLPFC_Visium_SPG",
+    "spatialDLPFC_snRNAseq"),
   destdir = tempdir(),
   eh = ExperimentHub::ExperimentHub(),
   bfc = BiocFileCache::BiocFileCache()
@@ -25,7 +27,9 @@ or \code{modeling_results} for the list of tables with the \code{enrichment},
 \code{pairwise}, and \code{anova} model results from the layer-level data. It can also
 be \code{sce_example} which is a reduced version of \code{sce} just for example
 purposes. As of BioC version 3.13 \code{spe} downloads a
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}  object.}
+\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}  object.
+As of version 1.11.6 this function also allows downloading data from the
+\url{http://research.libd.org/spatialDLPFC/} project.}
 
 \item{destdir}{The destination directory to where files will be downloaded
 to in case the \code{ExperimentHub} resource is not available. If you already

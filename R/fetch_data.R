@@ -21,6 +21,8 @@
 #' be `sce_example` which is a reduced version of `sce` just for example
 #' purposes. As of BioC version 3.13 `spe` downloads a
 #' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]  object.
+#' As of version 1.11.6 this function also allows downloading data from the
+#' <http://research.libd.org/spatialDLPFC/> project.
 #'
 #' @param destdir The destination directory to where files will be downloaded
 #' to in case the `ExperimentHub` resource is not available. If you already
@@ -53,40 +55,31 @@
 #' ## Explore the data
 #' sce_layer
 fetch_data <-
-    function(type = c(
-        "sce",
-        "sce_layer",
-        "modeling_results",
-        "sce_example",
-        "spe",
-        "spatialDLPFC_Visium"
-    ),
-    destdir = tempdir(),
-    eh = ExperimentHub::ExperimentHub(),
-    bfc = BiocFileCache::BiocFileCache()) {
-        ## Some variables
-        sce <-
-            sce_layer <- modeling_results <- sce_sub <- spe <- NULL
-
-        ## Check inputs
-        stopifnot(methods::is(eh, "ExperimentHub"))
-        if (!type %in% c(
+    function(
+        type = c(
             "sce",
             "sce_layer",
             "modeling_results",
             "sce_example",
             "spe",
-            "spatialDLPFC_Visium"
-        )) {
-            stop(
-                paste(
-                    "Other 'type' values are not supported.",
-                    "Please use either 'sce', 'sce_layer',",
-                    "'modeling_results', 'sce_example', 'spe', 'spatialDLPFC_Visium'"
-                ),
-                call. = FALSE
-            )
-        }
+            "spatialDLPFC_Visium",
+            "spatialDLPFC_Visium_pseudobulk",
+            "spatialDLPFC_Visium_modeling_results",
+            "spatialDLPFC_Visium_SPG",
+            "spatialDLPFC_snRNAseq"
+        ),
+        destdir = tempdir(),
+        eh = ExperimentHub::ExperimentHub(),
+        bfc = BiocFileCache::BiocFileCache()) {
+        ## Some variables
+        sce <-
+            sce_layer <- modeling_results <- sce_sub <- spe <- NULL
+
+        ## Choose a type among the valid options
+        type <- match.arg(type)
+
+        ## Check inputs
+        stopifnot(methods::is(eh, "ExperimentHub"))
 
         ## Deal with the special case of VisiumExperiment first
         if (type == "spe") {
@@ -140,9 +133,8 @@ fetch_data <-
             if (!enough_ram(7e+09)) {
                 warning(
                     paste(
-                        "Your system might not have enough memory available.",
-                        "Try with a machine that has more memory",
-                        "or use the 'sce_example'."
+                        "Your system might not have enough memory available (7GB).",
+                        "Try with a machine that has more memory."
                     )
                 )
             }
@@ -154,6 +146,47 @@ fetch_data <-
                 "spe_filtered_final_with_clusters_and_deconvolution_results.rds"
             url <-
                 "https://www.dropbox.com/s/y2ifv5v8g68papf/spe_filtered_final_with_clusters_and_deconvolution_results.rds?dl=1"
+        } else if (type == "spatialDLPFC_Visium_pseudobulk") {
+            hub_title <- "spatialDLPFC_Visium_pseudobulk_spe.rds"
+
+            ## While EH is not set-up
+            file_name <-
+                "sce_pseudo_BayesSpace_k09.rds"
+            url <-
+                "https://www.dropbox.com/s/pbti4strsfk1m55/sce_pseudo_BayesSpace_k09.rds?dl=1"
+        } else if (type == "spatialDLPFC_Visium_modeling_results") {
+            hub_title <- "spatialDLPFC_Visium_modeling_results.Rdata"
+
+            ## While EH is not set-up
+            file_name <-
+                "modeling_results_BayesSpace_k09.Rdata"
+            url <-
+                "https://www.dropbox.com/s/srkb2ife75px2yz/modeling_results_BayesSpace_k09.Rdata?dl=1"
+        } else if (type == "spatialDLPFC_Visium_SPG") {
+            hub_title <- "spatialDLPFC_Visium_SPG_spe.rds"
+
+            ## While EH is not set-up
+            file_name <-
+                "spe.rds"
+            url <-
+                "https://www.dropbox.com/s/nbf13dna9ibqfaa/spe.rds?dl=1"
+        } else if (type == "spatialDLPFC_snRNAseq") {
+            if (!enough_ram(10e+09)) {
+                warning(
+                    paste(
+                        "Your system might not have enough memory available (10GB).",
+                        "Try with a machine that has more memory."
+                    )
+                )
+            }
+
+            hub_title <- "spatialDLPFC_snRNAseq.rds"
+
+            ## While EH is not set-up
+            file_name <-
+                "TBD"
+            url <-
+                "TBD?dl=1"
         }
 
         file_path <- file.path(destdir, file_name)
@@ -187,7 +220,7 @@ fetch_data <-
                 return(.update_sce(sce))
             } else if (type == "sce_layer") {
                 return(.update_sce_layer(sce_layer))
-            } else if (type == "modeling_results") {
+            } else if (type == "modeling_results" || type == "spatialDLPFC_Visium_modeling_results") {
                 return(modeling_results)
             } else if (type == "sce_example") {
                 return(.update_sce(sce_sub))
