@@ -55,22 +55,21 @@
 #' ## Explore the data
 #' sce_layer
 fetch_data <-
-    function(
-        type = c(
-            "sce",
-            "sce_layer",
-            "modeling_results",
-            "sce_example",
-            "spe",
-            "spatialDLPFC_Visium",
-            "spatialDLPFC_Visium_pseudobulk",
-            "spatialDLPFC_Visium_modeling_results",
-            "spatialDLPFC_Visium_SPG",
-            "spatialDLPFC_snRNAseq"
-        ),
-        destdir = tempdir(),
-        eh = ExperimentHub::ExperimentHub(),
-        bfc = BiocFileCache::BiocFileCache()) {
+    function(type = c(
+        "sce",
+        "sce_layer",
+        "modeling_results",
+        "sce_example",
+        "spe",
+        "spatialDLPFC_Visium",
+        "spatialDLPFC_Visium_pseudobulk",
+        "spatialDLPFC_Visium_modeling_results",
+        "spatialDLPFC_Visium_SPG",
+        "spatialDLPFC_snRNAseq"
+    ),
+    destdir = tempdir(),
+    eh = ExperimentHub::ExperimentHub(),
+    bfc = BiocFileCache::BiocFileCache()) {
         ## Some variables
         sce <-
             sce_layer <- modeling_results <- sce_sub <- spe <- NULL

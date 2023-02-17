@@ -59,12 +59,11 @@
 #'     sce_layer = sce_layer,
 #'     n = nrow(sce_layer)
 #' )
-sig_genes_extract <- function(
-        n = 10,
-        modeling_results = fetch_data(type = "modeling_results"),
-        model_type = names(modeling_results)[1],
-        reverse = FALSE,
-        sce_layer = fetch_data(type = "sce_layer")) {
+sig_genes_extract <- function(n = 10,
+    modeling_results = fetch_data(type = "modeling_results"),
+    model_type = names(modeling_results)[1],
+    reverse = FALSE,
+    sce_layer = fetch_data(type = "sce_layer")) {
     model_results <- modeling_results[[model_type]]
 
     tstats <-
@@ -95,11 +94,11 @@ sig_genes_extract <- function(
         vapply(seq_len(ncol(sig_i)), function(i) {
             tstats[sig_i[, i], i]
         }, numeric(n))
-    if(ncol(logFC) > 0) {
+    if (ncol(logFC) > 0) {
         sig_genes_logFC <-
-        vapply(seq_len(ncol(sig_i)), function(i) {
-            logFC[sig_i[, i], i]
-        }, numeric(n))
+            vapply(seq_len(ncol(sig_i)), function(i) {
+                logFC[sig_i[, i], i]
+            }, numeric(n))
         dimnames(sig_genes_logFC) <- dimnames(sig_genes)
     } else {
         sig_genes_logFC <- NULL
@@ -127,7 +126,7 @@ sig_genes_extract <- function(
         gene_index = as.integer(sig_i),
         stringsAsFactors = FALSE
     )
-    if(!is.null(sig_genes_logFC)) {
+    if (!is.null(sig_genes_logFC)) {
         sig_genes_tab$logFC <- as.numeric(sig_genes_logFC)
     }
     sig_genes_tab$ensembl <-
