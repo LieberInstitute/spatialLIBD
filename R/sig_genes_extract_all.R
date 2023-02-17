@@ -65,6 +65,9 @@ sig_genes_extract_all <- function(
             model_type = "anova",
             sce_layer = sce_layer
         )
+    if ("logFC" %in% colnames(sig_genes_enrichment)) {
+        sig_genes_anova$logFC <- NA
+    }
 
     sig_genes <- DataFrame(
         rbind(
