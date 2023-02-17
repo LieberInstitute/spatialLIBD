@@ -90,13 +90,19 @@ registration_stats_enrichment <-
         })
         rownames(t0_contrasts_cluster) <- rownames(sce_pseudo)
 
+        ## Extract logFC
+        logFC_contrasts_cluster <- sapply(eb0_list_cluster, function(x) {
+            x$coefficients[, 2, drop = FALSE]
+        })
+        rownames(logFC_contrasts_cluster) <- rownames(sce_pseudo)
+
         ## Compute FDRs
         fdrs0_contrasts_cluster <-
             apply(pvals0_contrasts_cluster, 2, p.adjust, "fdr")
 
         ## Merge into one data.frame
         results_specificity <-
-            f_merge(p = pvals0_contrasts_cluster, fdr = fdrs0_contrasts_cluster, t = t0_contrasts_cluster)
+            f_merge(p = pvals0_contrasts_cluster, fdr = fdrs0_contrasts_cluster, t = t0_contrasts_cluster, logFC = logFC_contrasts_cluster)
 
         ## Add gene info
         results_specificity$ensembl <-
@@ -108,14 +114,15 @@ registration_stats_enrichment <-
     }
 
 ## Helper function
-f_merge <- function(p, fdr, t) {
+f_merge <- function(p, fdr, t, logFC) {
     ## Add some prefixes to the columns that will be recognized by
     ## other spatialLIBD functions
     colnames(p) <- paste0("p_value_", colnames(p))
     colnames(fdr) <- paste0("fdr_", colnames(fdr))
     colnames(t) <- paste0("t_stat_", colnames(t))
+    colnames(logFC) <- paste0("logFC_", colnames(logFC))
 
     ## Merge into a data.frame
-    res <- as.data.frame(cbind(t, p, fdr))
+    res <- as.data.frame(cbind(t, p, fdr, logFC))
     return(res)
 }

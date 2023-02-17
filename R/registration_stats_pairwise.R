@@ -80,7 +80,7 @@ registration_stats_pairwise <-
         fdrs_contrasts <- apply(pvals_contrasts, 2, p.adjust, "fdr")
 
         results_pairwise <-
-            f_merge(p = pvals_contrasts, fdr = fdrs_contrasts, t = eb_contrasts$t)
+            f_merge(p = pvals_contrasts, fdr = fdrs_contrasts, t = eb_contrasts$t, logFC = eb_contrasts$coefficients)
 
         ## Add gene info
         results_pairwise$ensembl <-

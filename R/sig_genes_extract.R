@@ -82,6 +82,7 @@ sig_genes_extract <- function(
     pvals <-
         model_results[, grep("p_value_", colnames(model_results)), drop = FALSE]
     fdrs <- model_results[, grep("fdr_", colnames(model_results)), drop = FALSE]
+    logFC <- model_results[, grep("logFC_", colnames(model_results)), drop = FALSE]
 
     sig_genes <- apply(tstats, 2, function(x) {
         rowData(sce_layer)$gene_name[order(x, decreasing = TRUE)[seq_len(n)]]
@@ -94,6 +95,16 @@ sig_genes_extract <- function(
         vapply(seq_len(ncol(sig_i)), function(i) {
             tstats[sig_i[, i], i]
         }, numeric(n))
+    if(ncol(logFC) > 0) {
+        sig_genes_logFC <-
+        vapply(seq_len(ncol(sig_i)), function(i) {
+            logFC[sig_i[, i], i]
+        }, numeric(n))
+        dimnames(sig_genes_logFC) <- dimnames(sig_genes)
+    } else {
+        sig_genes_logFC <- NULL
+    }
+
     sig_genes_pvals <-
         vapply(seq_len(ncol(sig_i)), function(i) {
             pvals[sig_i[, i], i]
@@ -116,6 +127,9 @@ sig_genes_extract <- function(
         gene_index = as.integer(sig_i),
         stringsAsFactors = FALSE
     )
+    if(!is.null(sig_genes_logFC)) {
+        sig_genes_tab$logFC <- as.numeric(sig_genes_logFC)
+    }
     sig_genes_tab$ensembl <-
         rownames(sce_layer)[sig_genes_tab$gene_index]
 
