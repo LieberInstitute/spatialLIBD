@@ -109,7 +109,8 @@ spatialLIBD::run_app()
 
 ## Shiny website mirrors
 
-- [Main shiny application website](http://spatial.libd.org/spatialLIBD)
+- [Main shiny application website](http://spatial.libd.org/spatialLIBD/)
+  (note that the link must have a trailing slash `/` for it to work)
 - [Shinyapps](https://libd.shinyapps.io/spatialLIBD/) This version has
   less RAM memory but is typically deployed using the latest version of
   `spatialLIBD`.
