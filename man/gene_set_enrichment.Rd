@@ -46,8 +46,10 @@ A table in long format with the enrichment results using
 \description{
 Using the layer-level (group-level) data, this function evaluates whether
 list of gene sets (Ensembl gene IDs) are enriched among the significant
-genes (FDR < 0.1 by default) genes for a given model type result. If you want
-to check depleted genes, change \code{reverse} to \code{TRUE}.
+genes (FDR < 0.1 by default) genes for a given model type result. Test the
+alternative hypothesis that OR > 1, i.e. that gene set is over-represented in the
+set of enriched genes. If you want to check depleted genes, change \code{reverse}
+to \code{TRUE}.
 }
 \details{
 Check
