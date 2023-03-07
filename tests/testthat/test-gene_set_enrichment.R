@@ -49,7 +49,7 @@ edge_safari_enrichment <- gene_set_enrichment(
   model_type = "enrichment"
 )
 
-## with Ha 
+## with alternative = "two.sided"
 # OR         Pval   test NumSig SetSize           ID model_type fdr_cut
 # 1 0.0000000 5.752600e-72     WM      0     638 no_WM_enrich enrichment     0.1
 
@@ -61,8 +61,8 @@ test_that("warn for small gene list", {
   )
 })
 
-test_that("Not signficant for OR",{
-  
+test_that("Not signficant for OR==0",{
+  expect_true(all(edge_safari_enrichment$Pval[edge_safari_enrichment$OR == 0] > 0.05))
 })
 
 
