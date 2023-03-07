@@ -100,7 +100,8 @@ gene_set_enrichment <-
                         Layer = factor(layer, c(FALSE, TRUE))
                     )
                 })
-                enrichList <- lapply(tabList, fisher.test)
+                
+                enrichList <- lapply(tabList, fisher.test, alternative = "greater")
                 o <- data.frame(
                     OR = vapply(enrichList, "[[", numeric(1), "estimate"),
                     Pval = vapply(enrichList, "[[", numeric(1), "p.value"),
