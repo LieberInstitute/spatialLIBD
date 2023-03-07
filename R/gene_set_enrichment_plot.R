@@ -4,7 +4,6 @@
 #' heatmap visualization of the results.
 #'
 #' @param enrichment The output of [gene_set_enrichment()].
-#' @param xlabs A vector of names in the same order and length as
 #' `unique(enrichment$ID)`. Gets passed to [layer_matrix_plot()].
 #' @param PThresh A `numeric(1)` specifying the P-value threshold for the
 #' maximum value in the `-log10(p)` scale.
@@ -75,82 +74,152 @@
 #'         )(50)
 #'     )
 #' )
+#' layer_gene_count <- get_gene_enrichment_count(model_results = modeling_results)
 #'
-#' ## Specify the layer heights so it resembles more the length of each
-#' ## layer in the brain
 #' gene_set_enrichment_plot(
 #'     asd_sfari_enrichment,
-#'     xlabs = gsub(".*_", "", unique(asd_sfari_enrichment$ID)),
-#'     layerHeights = c(0, 40, 55, 75, 85, 110, 120, 135),
+#'     gene_count_col = sfari_gene_count,
+#'     gene_count_row = layer_gene_count
 #' )
 gene_set_enrichment_plot <-
-    function(
-        enrichment,
-        xlabs = unique(enrichment$ID),
-        PThresh = 12,
-        ORcut = 3,
-        enrichOnly = FALSE,
-        layerHeights = c(0, seq_len(length(unique(enrichment$test)))) * 15,
-        mypal = c(
-            "white",
-            grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "YlOrRd"))(50)
-        ),
-        cex = 1.2) {
-        ## Re-order and shorten names if they match our data
-        if (all(unique(enrichment$test) %in% c("WM", paste0("Layer", seq_len(6))))) {
-            enrichment$test <-
-                factor(gsub("ayer", "", enrichment$test), levels = rev(c(paste0(
-                    "L", seq_len(6)
-                ), "WM")))
-        }
+  function(enrichment,
+           PThresh = 12,
+           ORcut = 3,
+           enrichOnly = FALSE,
+           gene_count_col = NULL,
+           gene_count_row = NULL,
+           anno_title_col = NULL,
+           anno_title_row = NULL,
+           column_order = NULL,
+           anno_add = NULL,
+           mypal = c(
+             "white",
+                    grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "YlOrRd"))(50)
+           )) {
+    ## Re-order and shorten names if they match our data
+    # if (all(unique(enrichment$test) %in% c("WM", paste0("Layer", seq_len(6))))) {
+    #     enrichment$test <-
+    #         factor(gsub("ayer", "", enrichment$test), levels = rev(c(paste0(
+    #             "L", seq_len(6)
+    #         ), "WM")))
+    # }
 
-        ## Check inputs
-        stopifnot(is(enrichment, "data.frame"))
-        stopifnot(all(c("ID", "test", "OR", "Pval") %in% colnames(enrichment)))
-        stopifnot(length(layerHeights) == length(unique(enrichment$test)) + 1)
-        stopifnot(ORcut <= PThresh)
-        stopifnot(length(xlabs) == length(unique(enrichment$ID)))
+    ## Check inputs
+    stopifnot(is(enrichment, "data.frame"))
+    stopifnot(all(c("ID", "test", "OR", "Pval", "SetSize") %in% colnames(enrichment)))
+    stopifnot(ORcut <= PThresh)
+    # stopifnot(length(xlabs) == length(unique(enrichment$ID)))
 
-        ## Convert to -log10 scale and threshold the pvalues
-        enrichment$log10_P_thresh <-
-            round(-log10(enrichment$Pval), 2)
-        enrichment$log10_P_thresh[which(enrichment$log10_P_thresh > PThresh)] <-
-            PThresh
+    ## Convert to -log10 scale and threshold the pvalues
+    enrichment$log10_P_thresh <-
+      round(-log10(enrichment$Pval), 2)
+    enrichment$log10_P_thresh[which(enrichment$log10_P_thresh > PThresh)] <-
+      PThresh
 
-        ## Change some values for the plot
-        if (enrichOnly) {
-            enrichment$log10_P_thresh[enrichment$OR < 1] <- 0
-        }
-        enrichment$OR_char <- as.character(round(enrichment$OR, 2))
-        enrichment$OR_char[enrichment$log10_P_thresh < ORcut] <- ""
-
-        ## Make into wide matrices
-        make_wide <- function(var = "OR_char") {
-            res <-
-                reshape(
-                    enrichment,
-                    idvar = "ID",
-                    timevar = "test",
-                    direction = "wide",
-                    drop = colnames(enrichment)[!colnames(enrichment) %in% c("ID", "test", var)],
-                    sep = "_mypattern_"
-                )[, -1, drop = FALSE]
-            colnames(res) <-
-                gsub(".*_mypattern_", "", colnames(res))
-            rownames(res) <- unique(enrichment$ID)
-            res <- res[, levels(as.factor(enrichment$test))]
-            t(res)
-        }
-        wide_or <- make_wide("OR_char")
-        wide_p <- make_wide("log10_P_thresh")
-
-        layer_matrix_plot(
-            matrix_values = wide_p,
-            matrix_labels = wide_or,
-            xlabs = xlabs,
-            layerHeights = layerHeights,
-            mypal = mypal,
-            cex = cex,
-            mar = c(12, 4 + (max(nchar(rownames(wide_p))) %/% 3) * 0.5, 4, 2) + 0.1
-        )
+    ## Change some values for the plot
+    if (enrichOnly) {
+      enrichment$log10_P_thresh[enrichment$OR < 1] <- 0
     }
+    enrichment$OR_char <- as.character(round(enrichment$OR, 2))
+    enrichment$OR_char[enrichment$log10_P_thresh < ORcut] <- ""
+
+    ## Make into wide matrices
+    make_wide <- function(var = "OR_char") {
+      res <-
+        reshape(
+          enrichment,
+          idvar = "ID",
+          timevar = "test",
+          direction = "wide",
+          drop = colnames(enrichment)[!colnames(enrichment) %in% c("ID", "test", var)],
+          sep = "_mypattern_"
+        )[, -1, drop = FALSE]
+      colnames(res) <-
+        gsub(".*_mypattern_", "", colnames(res))
+      rownames(res) <- unique(enrichment$ID)
+      res <- res[, levels(as.factor(enrichment$test))]
+      t(res)
+    }
+
+    ## Define matrix
+    wide_or <- make_wide("OR_char")
+    wide_p <- make_wide("log10_P_thresh")
+
+    ## Reorder
+    if (!is.null(column_order)) {
+      stopifnot(setequal(column_order, colnames(wide_or)))
+      wide_or <- wide_or[, column_order]
+      wide_p <- wide_p[, column_order]
+    }
+
+    if (!is.null(anno_add)) {
+      stopifnot(setequal(colnames(anno_add), colnames(wide_or)))
+      stopifnot(setequal(rownames(anno_add), rownames(wide_or)))
+
+      wide_or[] <- paste0(anno_add[rownames(wide_or), colnames(wide_or)], "\n", wide_or)
+    }
+
+    ## define annotations
+    stopifnot(setequal(rownames(gene_count_col), colnames(wide_p)))
+    stopifnot(setequal(rownames(gene_count_row), rownames(wide_p)))
+
+    ## get column gene counts from SetSize recorded in enrichment
+    gene_count_col <- unique(enrichment[,c("ID", "SetSize")])
+    rownames(gene_count_col) <- gene_count_col$ID
+    gene_count_col$ID <- NULL
+
+    col_gene_anno <- ComplexHeatmap::columnAnnotation(
+      `n genes` = ComplexHeatmap::anno_barplot(gene_count_col[colnames(wide_p), ]),
+      annotation_label = anno_title_col
+    )
+    # row_gene_anno <- ComplexHeatmap::rowAnnotation(
+    #   `n genes` = ComplexHeatmap::anno_barplot(gene_count_row[rownames(wide_p), ]),
+    #   annotation_label = anno_title_row
+    # )
+
+    ComplexHeatmap::Heatmap(wide_p,
+                            col = mypal,
+                            name = "-log10(p-val)",
+                            rect_gp = grid::gpar(col = "black", lwd = 1),
+                            cluster_rows = FALSE,
+                            cluster_columns = FALSE,
+                            # right_annotation = row_gene_anno,
+                            top_annotation = col_gene_anno,
+                            cell_fun = function(j, i, x, y, width, height, fill) {
+                              grid::grid.text(wide_or[i, j], x, y, gp = grid::gpar(fontsize = 10))
+                            }
+    )
+  }
+
+
+get_gene_list_count <- function(gene_list) {
+  data.frame(
+    row.names = names(gene_list),
+    n = purrr::map_int(gene_list, ~ sum(!is.na(.x)))
+  )
+}
+
+
+get_gene_enrichment_count <- function(
+    model_results = fetch_data(type = "modeling_results"),
+    model_type = "enrichment",
+    fdr_cut = 0.1,
+    bayes_anno = bayes_anno) {
+  model_results <- model_results[[model_type]]
+
+  tstats <-
+    model_results[, grep("[f|t]_stat_", colnames(model_results))]
+  colnames(tstats) <-
+    gsub("[f|t]_stat_", "", colnames(tstats))
+
+  fdrs <-
+    model_results[, grep("fdr_", colnames(model_results))]
+
+  enrich_count <- sapply(seq(along.with = tstats), function(i) {
+    layer <- sum(tstats[, i] > 0 & fdrs[, i] < fdr_cut)
+  })
+  data.frame(
+    row.names = colnames(tstats),
+    n = enrich_count
+  )
+}
