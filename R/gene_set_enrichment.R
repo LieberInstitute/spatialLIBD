@@ -71,6 +71,16 @@ gene_set_enrichment <-
             x <- x[!is.na(x)]
             x[x %in% model_results$ensembl]
         })
+        
+        ## warn about low power for small geneLists
+        geneList_length <- sapply(geneList_present, length)
+        min_genes <- 25
+        if(any(geneList_length < min_genes)){
+          warning(
+            "Gene list with n < ",min_genes," may have insufficent power for enrichment analysis: ", 
+               paste(names(geneList_length)[geneList_length < 200], collapse = " ,")
+          )
+        } 
 
         tstats <-
             model_results[, grep("[f|t]_stat_", colnames(model_results))]
