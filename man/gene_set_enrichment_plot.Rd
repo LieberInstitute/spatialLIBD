@@ -6,20 +6,21 @@
 \usage{
 gene_set_enrichment_plot(
   enrichment,
-  xlabs = unique(enrichment$ID),
   PThresh = 12,
   ORcut = 3,
   enrichOnly = FALSE,
-  layerHeights = c(0, seq_len(length(unique(enrichment$test)))) * 15,
+  gene_count_col = NULL,
+  gene_count_row = NULL,
+  anno_title_col = NULL,
+  anno_title_row = NULL,
+  column_order = NULL,
+  anno_add = NULL,
   mypal = c("white", (grDevices::colorRampPalette(RColorBrewer::brewer.pal(9,
-    "YlOrRd")))(50)),
-  cex = 1.2
+    "YlOrRd")))(50))
 )
 }
 \arguments{
-\item{enrichment}{The output of \code{\link[=gene_set_enrichment]{gene_set_enrichment()}}.}
-
-\item{xlabs}{A vector of names in the same order and length as
+\item{enrichment}{The output of \code{\link[=gene_set_enrichment]{gene_set_enrichment()}}.
 \code{unique(enrichment$ID)}. Gets passed to \code{\link[=layer_matrix_plot]{layer_matrix_plot()}}.}
 
 \item{PThresh}{A \code{numeric(1)} specifying the P-value threshold for the
@@ -32,13 +33,13 @@ in the cells of the resulting plot.}
 \item{enrichOnly}{A \code{logical(1)} indicating whether to show only odds ratio
 values greater than 1.}
 
+\item{mypal}{A vector with the color palette to use. Gets passed to
+\code{\link[=layer_matrix_plot]{layer_matrix_plot()}}.}
+
 \item{layerHeights}{A \code{numeric()} vector of length equal to
 \code{length(unique(enrichment$test)) + 1} that starts at 0 specifying where
 to plot the y-axis breaks which can be used for re-creating the length of
 each brain layer. Gets passed to \code{\link[=layer_matrix_plot]{layer_matrix_plot()}}.}
-
-\item{mypal}{A vector with the color palette to use. Gets passed to
-\code{\link[=layer_matrix_plot]{layer_matrix_plot()}}.}
 
 \item{cex}{Passed to \code{\link[=layer_matrix_plot]{layer_matrix_plot()}}.}
 }
@@ -98,13 +99,12 @@ gene_set_enrichment_plot(
         )(50)
     )
 )
+layer_gene_count <- get_gene_enrichment_count(model_results = modeling_results)
 
-## Specify the layer heights so it resembles more the length of each
-## layer in the brain
 gene_set_enrichment_plot(
     asd_sfari_enrichment,
-    xlabs = gsub(".*_", "", unique(asd_sfari_enrichment$ID)),
-    layerHeights = c(0, 40, 55, 75, 85, 110, 120, 135),
+    gene_count_col = sfari_gene_count,
+    gene_count_row = layer_gene_count
 )
 }
 \seealso{
