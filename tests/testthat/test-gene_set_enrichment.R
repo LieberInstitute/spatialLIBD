@@ -20,23 +20,22 @@ asd_sfari <- utils::read.csv(
       modeling_results <- fetch_data(type = "modeling_results")
   }
 
-  
+
   ## Compute the gene set enrichment results
   asd_sfari_enrichment <- gene_set_enrichment(
       gene_list = asd_sfari_geneList,
       modeling_results = modeling_results,
       model_type = "enrichment"
   )
-  
+
 
 test_that("result for each gene list & model test", {
-  expect_equal(nrow(asd_sfari_enrichment), 
+  expect_equal(nrow(asd_sfari_enrichment),
                length(asd_sfari_geneList)*length(grep("fdr",colnames(modeling_results$enrichment))))
 })
 
 ## check behavior for  OR < 1 results
 WM_enriched <- modeling_results$enrichment$fdr_WM < 0.1 & modeling_results$enrichment$t_stat_WM > 0
-gene_in_set <- experiment_genes %in% asd_sfari_geneList$Gene_SFARI_all
 
 safari_no_wm_enrich <- asd_sfari_geneList$Gene_SFARI_all[asd_sfari_geneList$Gene_SFARI_all %in% modeling_results$enrichment$ensembl[!WM_enriched]]
 
