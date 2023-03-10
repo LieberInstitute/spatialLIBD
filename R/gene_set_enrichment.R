@@ -2,8 +2,10 @@
 #'
 #' Using the layer-level (group-level) data, this function evaluates whether
 #' list of gene sets (Ensembl gene IDs) are enriched among the significant
-#' genes (FDR < 0.1 by default) genes for a given model type result. If you want
-#' to check depleted genes, change `reverse` to `TRUE`.
+#' genes (FDR < 0.1 by default) genes for a given model type result. Test the
+#' alternative hypothesis that OR > 1, i.e. that gene set is over-represented in the 
+#' set of enriched genes. If you want to check depleted genes, change `reverse`
+#' to `TRUE`.
 #'
 #' @param gene_list A named `list` object (could be a `data.frame`) where each
 #' element of the list is a character vector of Ensembl gene IDs.
@@ -69,6 +71,16 @@ gene_set_enrichment <-
             x <- x[!is.na(x)]
             x[x %in% model_results$ensembl]
         })
+        
+        ## warn about low power for small geneLists
+        geneList_length <- sapply(geneList_present, length)
+        min_genes <- 25
+        if(any(geneList_length < min_genes)){
+          warning(
+            "Gene list with n < ",min_genes," may have insufficent power for enrichment analysis: ", 
+               paste(names(geneList_length)[geneList_length < 200], collapse = " ,")
+          )
+        } 
 
         tstats <-
             model_results[, grep("[f|t]_stat_", colnames(model_results))]
@@ -100,7 +112,8 @@ gene_set_enrichment <-
                         Layer = factor(layer, c(FALSE, TRUE))
                     )
                 })
-                enrichList <- lapply(tabList, fisher.test)
+                
+                enrichList <- lapply(tabList, fisher.test, alternative = "greater")
                 o <- data.frame(
                     OR = vapply(enrichList, "[[", numeric(1), "estimate"),
                     Pval = vapply(enrichList, "[[", numeric(1), "p.value"),
