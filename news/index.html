@@ -61,6 +61,12 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.11.9" id="spatiallibd-1119">spatialLIBD 1.11.9<a class="anchor" aria-label="anchor" href="#spatiallibd-1119"></a></h2>
+<p>SIGNIFICANT USER-VISIBLE CHANGES</p>
+<ul><li>
+<code><a href="../reference/gene_set_enrichment.html">gene_set_enrichment()</a></code> now internally uses <code>fisher.test(alternative = "greater")</code> to test for odds ratios greater than 1. Otherwise odds ratios of 0 could be significant.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.11.4" id="spatiallibd-1114">spatialLIBD 1.11.4<a class="anchor" aria-label="anchor" href="#spatiallibd-1114"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
 <ul><li>Several changes were made to the default plotting aspect of <code><a href="../reference/vis_gene.html">vis_gene()</a></code>, <code><a href="../reference/vis_clus.html">vis_clus()</a></code> and related plotting functions. This was done with input from <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a> and <a href="https://github.com/nick-eagles" class="external-link">@nick-eagles</a> and is described in more detail at <a href="https://github.com/LieberInstitute/spatialLIBD/commit/8fa8459d8fa881d254824d43e52193bf2c3021c0" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/commit/8fa8459d8fa881d254824d43e52193bf2c3021c0</a>. Most noticeably, the aspect ratio is no longer stretched to fill the plotting area, the NA values will be shown with a light grey that has alpha blending, and the position of the legends has been made consistent between the plots.</li>

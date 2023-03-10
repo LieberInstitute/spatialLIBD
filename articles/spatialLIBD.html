@@ -393,7 +393,7 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Download the small example sce data</span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_example"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2023-03-10 15:58:02 loading file /github/home/.cache/R/BiocFileCache/157a36da23a5_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2023-03-10 22:33:57 loading file /github/home/.cache/R/BiocFileCache/6cd558279e9_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span>
 <span></span>
 <span><span class="co">## Convert to a SpatialExperiment object</span></span>
 <span><span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sce_to_spe.html">sce_to_spe</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
@@ -405,9 +405,9 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <span></span>
 <span><span class="co">## Query ExperimentHub and download the data</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2023-03-10 15:58:10 loading file /github/home/.cache/R/BiocFileCache/157a30d2ca3a_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2023-03-10 22:34:02 loading file /github/home/.cache/R/BiocFileCache/6cd324749dc_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
 <span><span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"modeling_results"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2023-03-10 15:58:11 loading file /github/home/.cache/R/BiocFileCache/157ad3d3417_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
+<span><span class="co">#&gt; 2023-03-10 22:34:04 loading file /github/home/.cache/R/BiocFileCache/6cd5032d6ea_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
 <p>Once you have downloaded the objects, we can explore them a little
 bit</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -480,7 +480,7 @@ long format and add some useful information. Let’s do so below.</p>
 <span>        <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;  10.366   0.476  10.842</span></span>
+<span><span class="co">#&gt;  10.104   0.416  10.521</span></span>
 <span></span>
 <span><span class="co">## Explore the result</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span></span>
@@ -1188,7 +1188,7 @@ Guyader, Rochette, and Girard, 2022)</li>
 (Ritchie, Phipson, Wu, Hu, Law, Shi, and Smyth, 2015)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=magick" class="external-link">magick</a></em> (Ooms,
-2021)</li>
+2023)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=Matrix" class="external-link">Matrix</a></em> (Bates,
 Maechler, and Jagan, 2022)</li>
@@ -1258,9 +1258,9 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"spatialLIBD.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2023-03-10 15:58:31 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2023-03-10 22:34:22 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 44.395 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 40.407 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -1338,7 +1338,7 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="co">#&gt;  generics                 0.1.3     <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.2)</span></span></span>
 <span><span class="co">#&gt;  GenomeInfoDb           * 1.34.9    <span style="color: #555555;">2023-02-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  GenomeInfoDbData         1.2.9     <span style="color: #555555;">2022-12-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  GenomicAlignments        1.34.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  GenomicAlignments        1.34.1    <span style="color: #555555;">2023-03-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  GenomicRanges          * 1.50.2    <span style="color: #555555;">2022-12-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  ggbeeswarm               0.7.1     <span style="color: #555555;">2022-12-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  ggplot2                  3.4.1     <span style="color: #555555;">2023-02-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
@@ -1369,7 +1369,7 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="co">#&gt;  limma                    3.54.2    <span style="color: #555555;">2023-02-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  locfit                   1.5-9.7   <span style="color: #555555;">2023-01-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  lubridate                1.9.2     <span style="color: #555555;">2023-02-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  magick                   2.7.3     <span style="color: #555555;">2021-08-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.2)</span></span></span>
+<span><span class="co">#&gt;  magick                   2.7.4     <span style="color: #555555;">2023-03-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  magrittr                 2.0.3     <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  maps                     3.4.1     <span style="color: #555555;">2022-10-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.2)</span></span></span>
 <span><span class="co">#&gt;  Matrix                   1.5-3     <span style="color: #555555;">2022-11-11</span> <span style="color: #555555;">[3]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
@@ -1612,10 +1612,9 @@ Bioconductor documents</em>. R package version 2.26.0. 2022. URL:
 <a href="https://github.com/Bioconductor/BiocStyle" class="external-link">https://github.com/Bioconductor/BiocStyle</a>.</cite>
 </p>
 <p>
-<a id="bib-ooms2021magick"></a><a href="#cite-ooms2021magick">[22]</a><cite>
-J. Ooms. <em>magick: Advanced Graphics and Image-Processing in R</em>. R
-package version 2.7.3. 2021. URL:
-<a href="https://CRAN.R-project.org/package=magick" class="external-link">https://CRAN.R-project.org/package=magick</a>.</cite>
+<a id="bib-ooms2023magick"></a><a href="#cite-ooms2023magick">[22]</a><cite>
+J. Ooms. <em>magick: Advanced Graphics and Image-Processing in R</em>.
+<a href="https://docs.ropensci.org/magick/" class="external-link uri">https://docs.ropensci.org/magick/</a> (website) <a href="https://github.com/ropensci/magick" class="external-link uri">https://github.com/ropensci/magick</a> (devel). 2023.</cite>
 </p>
 <p>
 <a id="bib-pags2023s4vectors"></a><a href="#cite-pags2023s4vectors">[23]</a><cite>
