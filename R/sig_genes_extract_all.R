@@ -27,9 +27,10 @@
 #'     modeling_results = modeling_results,
 #'     sce_layer = sce_layer
 #' )
-sig_genes_extract_all <- function(n = 10,
-    modeling_results = fetch_data(type = "modeling_results"),
-    sce_layer = fetch_data(type = "sce_layer")) {
+sig_genes_extract_all <- function(
+        n = 10,
+        modeling_results = fetch_data(type = "modeling_results"),
+        sce_layer = fetch_data(type = "sce_layer")) {
     ## Run checks since this function is run by default by run_app()
     ## before the checks have been run elsewhere
     sce_layer <- check_sce_layer(sce_layer)

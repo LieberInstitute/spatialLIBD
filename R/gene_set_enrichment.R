@@ -3,7 +3,7 @@
 #' Using the layer-level (group-level) data, this function evaluates whether
 #' list of gene sets (Ensembl gene IDs) are enriched among the significant
 #' genes (FDR < 0.1 by default) genes for a given model type result. Test the
-#' alternative hypothesis that OR > 1, i.e. that gene set is over-represented in the 
+#' alternative hypothesis that OR > 1, i.e. that gene set is over-represented in the
 #' set of enriched genes. If you want to check depleted genes, change `reverse`
 #' to `TRUE`.
 #'
@@ -58,12 +58,11 @@
 #' ## Explore the results
 #' asd_sfari_enrichment
 gene_set_enrichment <-
-    function(
-        gene_list,
-        fdr_cut = 0.1,
-        modeling_results = fetch_data(type = "modeling_results"),
-        model_type = names(modeling_results)[1],
-        reverse = FALSE) {
+    function(gene_list,
+    fdr_cut = 0.1,
+    modeling_results = fetch_data(type = "modeling_results"),
+    model_type = names(modeling_results)[1],
+    reverse = FALSE) {
         model_results <- modeling_results[[model_type]]
 
         ## Keep only the genes present
@@ -71,16 +70,18 @@ gene_set_enrichment <-
             x <- x[!is.na(x)]
             x[x %in% model_results$ensembl]
         })
-        
+
         ## warn about low power for small geneLists
         geneList_length <- sapply(geneList_present, length)
         min_genes <- 25
-        if(any(geneList_length < min_genes)){
-          warning(
-            "Gene list with n < ",min_genes," may have insufficent power for enrichment analysis: ", 
-               paste(names(geneList_length)[geneList_length < 200], collapse = " ,")
-          )
-        } 
+        if (any(geneList_length < min_genes)) {
+            warning(
+                "Gene list with n < ",
+                min_genes,
+                " may have insufficent power for enrichment analysis: ",
+                paste(names(geneList_length)[geneList_length < 200], collapse = " ,")
+            )
+        }
 
         tstats <-
             model_results[, grep("[f|t]_stat_", colnames(model_results))]
@@ -95,7 +96,10 @@ gene_set_enrichment <-
                         paste(rev(x), collapse = "-")
                     }, character(1))
             } else if (model_type == "anova") {
-                stop("reverse = TRUE does not work with model_type = anova since F-statistics cannot have negative values.", call. = FALSE)
+                stop(
+                    "reverse = TRUE does not work with model_type = anova since F-statistics cannot have negative values.",
+                    call. = FALSE
+                )
             }
         }
 
@@ -112,8 +116,9 @@ gene_set_enrichment <-
                         Layer = factor(layer, c(FALSE, TRUE))
                     )
                 })
-                
-                enrichList <- lapply(tabList, fisher.test, alternative = "greater")
+
+                enrichList <-
+                    lapply(tabList, fisher.test, alternative = "greater")
                 o <- data.frame(
                     OR = vapply(enrichList, "[[", numeric(1), "estimate"),
                     Pval = vapply(enrichList, "[[", numeric(1), "p.value"),
