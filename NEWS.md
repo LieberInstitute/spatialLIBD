@@ -1,3 +1,11 @@
+# spatialLIBD 1.11.9
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* `gene_set_enrichment()` now internally uses
+`fisher.test(alternative = "greater")` to test for odds ratios greater than 1.
+Otherwise odds ratios of 0 could be significant.
+
 # spatialLIBD 1.11.4
 
 SIGNIFICANT USER-VISIBLE CHANGES
