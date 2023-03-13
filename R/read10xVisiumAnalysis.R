@@ -39,10 +39,13 @@ read10xVisiumAnalysis <- function(samples = "",
     }
     names(samples) <- sids
 
-    dir <- file.path(samples, "analysis")
+    analysis_options <- c("analysis", "analysis_csv")
+    dir <- file.path(rep(samples, each = length(analysis_options)), analysis_options)
+    dir <- dir[file.exists(dir)]
+    stopifnot(length(dir) == length(samples))
 
-    current_dir <- dir[1]
-    current_sample <- sids[1]
+    # current_dir <- dir[1]
+    # current_sample <- sids[1]
 
     clusters_all <- do.call(rbind, mapply(function(current_dir, current_sample) {
         clustering_files <-
@@ -101,7 +104,7 @@ read_barcoded_csv <- function(x) {
     colnames(df) <- tolower(colnames(df))
 
     if (colnames(df)[2] == "cluster") {
-        colnames(df)[2] <- basename(dirname(x))
+        colnames(df)[2] <- gsub("gene_expression_", "", basename(dirname(x)))
     }
     return(df)
 }
