@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.11.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.11.10</span>
       </span>
     </div>
 
@@ -60,6 +60,12 @@
       <small>Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.11.10" id="spatiallibd-11110">spatialLIBD 1.11.10<a class="anchor" aria-label="anchor" href="#spatiallibd-11110"></a></h2>
+<p>BUG FIXES</p>
+<ul><li>
+<code><a href="../reference/read10xVisiumAnalysis.html">read10xVisiumAnalysis()</a></code> now supports <code>spaceranger</code> version 2023.0208.0 (internal 10x Genomics version) output files that store analysis CSVs under the <code>outs/analysis_csv</code> directory instead of <code>outs/analysis</code> and also use the <code>gene_expression_</code> prefix for each of the analysis directories. This was tested with <a href="https://github.com/heenadivecha" class="external-link">@heenadivecha</a> on files from <a href="https://github.com/LieberInstitute/spatial_DG_lifespan/blob/main/code/02_build_spe/01_build_spe.R" class="external-link uri">https://github.com/LieberInstitute/spatial_DG_lifespan/blob/main/code/02_build_spe/01_build_spe.R</a>.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.11.9" id="spatiallibd-1119">spatialLIBD 1.11.9<a class="anchor" aria-label="anchor" href="#spatiallibd-1119"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
