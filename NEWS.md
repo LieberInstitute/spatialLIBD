@@ -1,3 +1,14 @@
+# spatialLIBD 1.11.10
+
+BUG FIXES
+
+* `read10xVisiumAnalysis()` now supports `spaceranger` version 2023.0208.0
+(internal 10x Genomics version) output files that store analysis CSVs under the
+`outs/analysis_csv` directory instead of `outs/analysis` and also use the
+`gene_expression_` prefix for each of the analysis directories. This was
+tested with @heenadivecha on files from
+<https://github.com/LieberInstitute/spatial_DG_lifespan/blob/main/code/02_build_spe/01_build_spe.R>.
+
 # spatialLIBD 1.11.9
 
 SIGNIFICANT USER-VISIBLE CHANGES
