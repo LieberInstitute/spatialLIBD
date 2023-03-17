@@ -283,10 +283,12 @@ fetch_data <-
                 return(.update_sce(sce))
             } else if (type == "sce_layer") {
                 return(.update_sce_layer(sce_layer))
-            } else if (type == "modeling_results" || type == "spatialDLPFC_Visium_modeling_results") {
+            } else if (type == "modeling_results" || type == "spatialDLPFC_Visium_modeling_results" || type == "Visium_SPG_AD_Visium_wholegenome_modeling_results") {
                 return(modeling_results)
             } else if (type == "sce_example") {
                 return(.update_sce(sce_sub))
+            } else if (type == "Visium_SPG_AD_Visium_wholegenome_spe" || type == "Visium_SPG_AD_Visium_targeted_spe") {
+                return(spe)
             }
         } else if (grepl(".rds", file_path)) {
             return(readRDS(file_path))
