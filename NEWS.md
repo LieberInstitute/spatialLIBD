@@ -1,3 +1,10 @@
+# spatialLIBD 1.11.11
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* `fetch_data("spatialDLPFC_snRNAseq")` now works if you want to download
+the snRNA-seq data used in <http://research.libd.org/spatialDLPFC/>.
+
 # spatialLIBD 1.11.10
 
 BUG FIXES
