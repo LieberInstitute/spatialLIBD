@@ -25,7 +25,7 @@ meta <- data.frame(
     Genome = "GRCh38",
     SourceType = "GTF",
     SourceUrl = "https://bioconductor.org/packages/spatialLIBD",
-    SourceVersion = "Feb 13 2022",
+    SourceVersion = "Mar 17 2023",
     Species = "Homo sapiens",
     TaxonomyId = 9606,
     Coordinate_1_based = TRUE,
