@@ -1,3 +1,14 @@
+# spatialLIBD 1.11.12
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* `fetch_data("Visium_SPG_AD_Visium_wholegenome_spe"")`,
+`fetch_data("Visium_SPG_AD_Visium_targeted_spe")`,
+`fetch_data("Visium_SPG_AD_Visium_wholegenome_pseudobulk_spe")`, and
+ `fetch_data("Visium_SPG_AD_Visium_wholegenome_modeling_results")` have been
+ added. Use this to access data from the
+ <https://github.com/LieberInstitute/Visium_SPG_AD> project.
+
 # spatialLIBD 1.11.11
 
 SIGNIFICANT USER-VISIBLE CHANGES
