@@ -54,6 +54,29 @@
 #'
 #' ## Explore the data
 #' sce_layer
+#'
+#' ## How to download and load "spatialDLPFC_snRNAseq"
+#' \dontrun{
+#' sce_path_zip <- fetch_data("spatialDLPFC_snRNAseq")
+#' sce_path <- unzip(sce_path_zip, exdir = tempdir())
+#' sce <- HDF5Array::loadHDF5SummarizedExperiment(
+#'     file.path(tempdir(), "sce_DLPFC_annotated")
+#' )
+#' sce
+#' #> class: SingleCellExperiment
+#' #> dim: 36601 77604
+#' #> metadata(3): Samples cell_type_colors cell_type_colors_broad
+#' #> assays(2): counts logcounts
+#' #> rownames(36601): MIR1302-2HG FAM138A ... AC007325.4 AC007325.2
+#' #> rowData names(7): source type ... gene_type binomial_deviance
+#' #> colnames(77604): 1_AAACCCAAGTTCTCTT-1 1_AAACCCACAAGGTCTT-1 ... 19_TTTGTTGTCTCATTGT-1 19_TTTGTTGTCTTAAGGC-1
+#' #> colData names(32): Sample Barcode ... cellType_layer layer_annotation
+#' #> reducedDimNames(4): GLMPCA_approx TSNE UMAP HARMONY
+#' #> mainExpName: NULL
+#' #> altExpNames(0):
+#' lobstr::obj_size(sce)
+#' #> 172.28 MB
+#' }
 fetch_data <-
     function(
         type = c(
@@ -98,7 +121,7 @@ fetch_data <-
                     )
                 )
             }
-
+            tag <- "Human_Pilot_DLPFC_Visium_spatialLIBD"
             hub_title <-
                 "Human_Pilot_DLPFC_Visium_spatialLIBD_spot_level_SCE"
 
@@ -108,6 +131,7 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/s/f4wcvtdq428y73p/Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata?dl=1"
         } else if (type == "sce_layer") {
+            tag <- "Human_Pilot_DLPFC_Visium_spatialLIBD"
             hub_title <- "Human_Pilot_DLPFC_Visium_spatialLIBD_layer_level_SCE"
 
             ## While EH is not set-up
@@ -116,6 +140,7 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/s/bg8xwysh2vnjwvg/Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata?dl=1"
         } else if (type == "modeling_results") {
+            tag <- "Human_Pilot_DLPFC_Visium_spatialLIBD"
             hub_title <- "Human_Pilot_DLPFC_Visium_spatialLIBD_modeling_results"
 
             ## While EH is not set-up
@@ -123,6 +148,7 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/s/se6rrgb9yhm5gfh/Human_DLPFC_Visium_modeling_results.Rdata?dl=1"
         } else if (type == "sce_example") {
+            tag <- "Human_Pilot_DLPFC_Visium_spatialLIBD"
             hub_title <- "Human_DLPFC_Visium_sce_example"
 
             ## While EH is not set-up
@@ -138,7 +164,7 @@ fetch_data <-
                     )
                 )
             }
-
+            tag <- "spatialDLPFC_Visium_VisiumSPG_snRNAseq_spatialLIBD"
             hub_title <- "spatialDLPFC_Visium_spe"
 
             ## While EH is not set-up
@@ -147,6 +173,7 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/s/y2ifv5v8g68papf/spe_filtered_final_with_clusters_and_deconvolution_results.rds?dl=1"
         } else if (type == "spatialDLPFC_Visium_pseudobulk") {
+            tag <- "spatialDLPFC_Visium_VisiumSPG_snRNAseq_spatialLIBD"
             hub_title <- "spatialDLPFC_Visium_pseudobulk_spe"
 
             ## While EH is not set-up
@@ -155,6 +182,7 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/s/pbti4strsfk1m55/sce_pseudo_BayesSpace_k09.rds?dl=1"
         } else if (type == "spatialDLPFC_Visium_modeling_results") {
+            tag <- "spatialDLPFC_Visium_VisiumSPG_snRNAseq_spatialLIBD"
             hub_title <- "spatialDLPFC_Visium_modeling_results"
 
             ## While EH is not set-up
@@ -163,6 +191,7 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/s/srkb2ife75px2yz/modeling_results_BayesSpace_k09.Rdata?dl=1"
         } else if (type == "spatialDLPFC_Visium_SPG") {
+            tag <- "spatialDLPFC_Visium_VisiumSPG_snRNAseq_spatialLIBD"
             hub_title <- "spatialDLPFC_Visium_SPG_spe"
 
             ## While EH is not set-up
@@ -171,22 +200,14 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/s/nbf13dna9ibqfaa/spe.rds?dl=1"
         } else if (type == "spatialDLPFC_snRNAseq") {
-            if (!enough_ram(10e+09)) {
-                warning(
-                    paste(
-                        "Your system might not have enough memory available (10GB).",
-                        "Try with a machine that has more memory."
-                    )
-                )
-            }
-
+            tag <- "spatialDLPFC_Visium_VisiumSPG_snRNAseq_spatialLIBD"
             hub_title <- "spatialDLPFC_snRNAseq"
 
             ## While EH is not set-up
             file_name <-
-                "TBD"
+                "sce_DLPFC_annotated.zip"
             url <-
-                "TBD?dl=1"
+                "https://www.dropbox.com/s/5919zt00vm1ht8e/sce_DLPFC_annotated.zip?dl=1"
         }
 
         file_path <- file.path(destdir, file_name)
@@ -194,7 +215,7 @@ fetch_data <-
         if (!file.exists(file_path)) {
             q <-
                 AnnotationHub::query(eh,
-                    pattern = c("Human_Pilot_DLPFC_Visium_spatialLIBD", hub_title)
+                    pattern = c(tag, hub_title)
                 )
 
             if (length(q) == 1) {
@@ -212,7 +233,7 @@ fetch_data <-
             }
         }
 
-        ## Now load the data
+        ## Now load the data if possible
         message(Sys.time(), " loading file ", file_path)
         if (grepl(".Rdata", file_path)) {
             load(file_path, verbose = FALSE)
@@ -225,8 +246,12 @@ fetch_data <-
             } else if (type == "sce_example") {
                 return(.update_sce(sce_sub))
             }
+        } else if (grepl(".rds", file_path)) {
+            return(readRDS(file_path))
+        } else {
+            file_path
         }
-        readRDS(file_path)
+
     }
 
 

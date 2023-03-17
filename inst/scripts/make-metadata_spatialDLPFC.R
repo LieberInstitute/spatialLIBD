@@ -38,7 +38,7 @@ meta <- data.frame(
         "SpatialExperiment",
         "SingleCellExperiment"
     ),
-    DispatchClass = c("Rds", "Rds", "Rda", "Rds", "Rds"),
+    DispatchClass = c("Rds", "Rds", "Rda", "Rds", "FilePath"),
     RDataPath = file.path(
         pkgname,
         outdir,
@@ -47,7 +47,7 @@ meta <- data.frame(
             "sce_pseudo_BayesSpace_k09.rds",
             "modeling_results_BayesSpace_k09.Rdata",
             "spe.rds",
-            "TBD.rds"
+            "sce_DLPFC_annotated.zip"
         )
     ),
     Tags = "spatialDLPFC_Visium_VisiumSPG_snRNAseq_spatialLIBD",
