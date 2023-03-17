@@ -1,12 +1,14 @@
 #' Download the Human DLPFC Visium data from LIBD
 #'
-#' This function downloads from `ExperimentHub` the dorsolateral prefrontal
-#' cortex (DLPFC) human Visium data and results analyzed by LIBD. If
-#' `ExperimentHub` is not available, it will download the files from Dropbox
-#' using [utils::download.file()] unless the files are present already at
-#' `destdir`. Note that `ExperimentHub` will cache the data and automatically
-#' detect if you have previously downloaded it, thus making it the preferred
-#' way to interact with the data.
+#' This function downloads from `ExperimentHub` Visium, Visium Spatial
+#' Proteogenomics (Visium-SPG), or single nucleus RNA-seq (snRNA-seq) data
+#' and results analyzed by LIBD from multiple projects.
+#' If `ExperimentHub` is not available, this function will
+#' download the files from Dropbox using [BiocFileCache::bfcrpath()] unless the
+#' files are present already at `destdir`. Note that `ExperimentHub` and
+#' `BiocFileCache` will cache the data and automatically detect if you have
+#' previously downloaded it, thus making it the preferred way to interact with
+#' the data.
 #'
 #' @param type A `character(1)` specifying which file you want to download. It
 #' can either be: `sce` for the
@@ -19,10 +21,14 @@
 #' or `modeling_results` for the list of tables with the `enrichment`,
 #' `pairwise`, and `anova` model results from the layer-level data. It can also
 #' be `sce_example` which is a reduced version of `sce` just for example
-#' purposes. As of BioC version 3.13 `spe` downloads a
+#' purposes. The initial version of `spatialLIBD` downloaded data only from
+#' <https://github.com/LieberInstitute/HumanPilot>. As of BioC version 3.13
+#' `spe` downloads a
 #' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]  object.
-#' As of version 1.11.6 this function also allows downloading data from the
-#' <http://research.libd.org/spatialDLPFC/> project.
+#' As of version 1.11.6, this function also allows downloading data from the
+#' <http://research.libd.org/spatialDLPFC/> project. As of version 1.11.12,
+#' data from <https://github.com/LieberInstitute/Visium_SPG_AD> can be
+#' downloaded.
 #'
 #' @param destdir The destination directory to where files will be downloaded
 #' to in case the `ExperimentHub` resource is not available. If you already
@@ -89,7 +95,11 @@ fetch_data <-
             "spatialDLPFC_Visium_pseudobulk",
             "spatialDLPFC_Visium_modeling_results",
             "spatialDLPFC_Visium_SPG",
-            "spatialDLPFC_snRNAseq"
+            "spatialDLPFC_snRNAseq",
+            "Visium_SPG_AD_Visium_wholegenome_spe",
+            "Visium_SPG_AD_Visium_targeted_spe",
+            "Visium_SPG_AD_Visium_wholegenome_pseudobulk_spe",
+            "Visium_SPG_AD_Visium_wholegenome_modeling_results"
         ),
         destdir = tempdir(),
         eh = ExperimentHub::ExperimentHub(),
@@ -183,7 +193,7 @@ fetch_data <-
                 "https://www.dropbox.com/s/pbti4strsfk1m55/sce_pseudo_BayesSpace_k09.rds?dl=1"
         } else if (type == "spatialDLPFC_Visium_modeling_results") {
             tag <- "spatialDLPFC_Visium_VisiumSPG_snRNAseq_spatialLIBD"
-            hub_title <- "spatialDLPFC_Visium_modeling_results"
+            hub_title <- type
 
             ## While EH is not set-up
             file_name <-
@@ -201,13 +211,45 @@ fetch_data <-
                 "https://www.dropbox.com/s/nbf13dna9ibqfaa/spe.rds?dl=1"
         } else if (type == "spatialDLPFC_snRNAseq") {
             tag <- "spatialDLPFC_Visium_VisiumSPG_snRNAseq_spatialLIBD"
-            hub_title <- "spatialDLPFC_snRNAseq"
+            hub_title <- type
 
             ## While EH is not set-up
             file_name <-
                 "sce_DLPFC_annotated.zip"
             url <-
                 "https://www.dropbox.com/s/5919zt00vm1ht8e/sce_DLPFC_annotated.zip?dl=1"
+        } else if (type == "Visium_SPG_AD_Visium_wholegenome_spe") {
+            tag <- "Visium_SPG_AD_Alzheimer_Disease_ITC_spatialLIBD"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "Visium_SPG_AD_spe_wholegenome.Rdata"
+            url <-
+                "https://www.dropbox.com/s/ng036m63grykdm6/Visium_SPG_AD_spe_wholegenome.Rdata?dl=1"
+        } else if (type == "Visium_SPG_AD_Visium_targeted_spe") {
+            tag <- "Visium_SPG_AD_Alzheimer_Disease_ITC_spatialLIBD"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "Visium_SPG_AD_spe_targeted.Rdata"
+            url <-
+                "https://www.dropbox.com/s/kda9160awc2h8jq/Visium_SPG_AD_spe_targeted.Rdata?dl=1"
+        } else if (type == "Visium_SPG_AD_Visium_wholegenome_pseudobulk_spe") {
+            tag <- "Visium_SPG_AD_Alzheimer_Disease_ITC_spatialLIBD"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "sce_pseudo_pathology_wholegenome.rds"
+            url <-
+                "https://www.dropbox.com/s/p8foxj6t6inb8uf/sce_pseudo_pathology_wholegenome.rds?dl=1"
+        } else if (type == "Visium_SPG_AD_Visium_wholegenome_modeling_results") {
+            tag <- "Visium_SPG_AD_Alzheimer_Disease_ITC_spatialLIBD"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "Visium_IF_AD_modeling_results.Rdata"
+            url <-
+                "https://www.dropbox.com/s/5plupu8bj5m0kfh/Visium_IF_AD_modeling_results.Rdata?dl=1"
         }
 
         file_path <- file.path(destdir, file_name)
