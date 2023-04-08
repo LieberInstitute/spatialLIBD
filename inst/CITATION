@@ -96,7 +96,7 @@ c(
             as.person("Stephanie C. Page"),
             as.person("Stephanie C. Hicks"),
             as.person("Keri Martinowich"),
-            as.person("Kristen R. Maynard")
+            as.person("Kristen R. Maynard"),
             as.person("Leonardo Collado-Torres")
         ),
         year = 2023,
