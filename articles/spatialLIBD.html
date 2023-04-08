@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.11.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.11.13</span>
       </span>
     </div>
 
@@ -280,6 +280,26 @@ Thank you!</p>
 <span><span class="co">#&gt;   &lt;https://doi.org/10.1038/s41593-020-00787-0&gt;,</span></span>
 <span><span class="co">#&gt;   &lt;https://www.nature.com/articles/s41593-020-00787-0&gt;.</span></span>
 <span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Huuki-Myers LA, Spangler A, Eagles NJ, Montgomergy KD, Kwon SH, Guo</span></span>
+<span><span class="co">#&gt;   B, Grant-Peters M, Divecha HR, Tippani M, Sriworarat C, Nguyen AB,</span></span>
+<span><span class="co">#&gt;   Ravichandran P, Tran MN, Seyedian A, Consortium P, Hyde TM, Kleinman</span></span>
+<span><span class="co">#&gt;   JE, Battle A, Page SC, Ryten M, Hicks SC, Martinowich K,</span></span>
+<span><span class="co">#&gt;   Collado-Torres L, Maynard KR (2023). "Integrated single cell and</span></span>
+<span><span class="co">#&gt;   unsupervised spatial transcriptomic analysis defines molecular</span></span>
+<span><span class="co">#&gt;   anatomy of the human dorsolateral prefrontal cortex." _bioRxiv_.</span></span>
+<span><span class="co">#&gt;   doi:10.1101/2023.02.15.528722</span></span>
+<span><span class="co">#&gt;   &lt;https://doi.org/10.1101/2023.02.15.528722&gt;,</span></span>
+<span><span class="co">#&gt;   &lt;https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1&gt;.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Kwon SH, Parthiban S, Tippani M, Divecha HR, Eagles NJ, Lobana JS,</span></span>
+<span><span class="co">#&gt;   Williams S, Mak M, Yu G, Avalos-Gracia J, Bharadwaj RA, Kleinman JE,</span></span>
+<span><span class="co">#&gt;   Hyde TM, Page SC, Hicks SC, Martinowich K, Maynard KR, Collado-Torres</span></span>
+<span><span class="co">#&gt;   L (2023). "Influence of Alzheimer’s disease related neuropathology on</span></span>
+<span><span class="co">#&gt;   local microenvironment gene expression in the human inferior temporal</span></span>
+<span><span class="co">#&gt;   cortex." _bioRxiv_. doi:10.1101/2023.04.TODO</span></span>
+<span><span class="co">#&gt;   &lt;https://doi.org/10.1101/2023.04.TODO&gt;,</span></span>
+<span><span class="co">#&gt;   &lt;https://www.biorxiv.org/content/10.1101/2023.04.TODO&gt;.</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span></span>
 <span><span class="co">#&gt; bibtex=TRUE)', 'toBibtex(.)', or set</span></span>
 <span><span class="co">#&gt; 'options(citation.bibtex.max=999)'.</span></span></code></pre></div>
@@ -393,7 +413,7 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Download the small example sce data</span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_example"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2023-04-08 04:01:05 loading file /github/home/.cache/R/BiocFileCache/172eca7831b_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2023-04-08 18:10:29 loading file /github/home/.cache/R/BiocFileCache/3695ed6d8ad_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span>
 <span></span>
 <span><span class="co">## Convert to a SpatialExperiment object</span></span>
 <span><span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sce_to_spe.html">sce_to_spe</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
@@ -405,9 +425,9 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <span></span>
 <span><span class="co">## Query ExperimentHub and download the data</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2023-04-08 04:01:15 loading file /github/home/.cache/R/BiocFileCache/172e77b1b03e_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2023-04-08 18:10:36 loading file /github/home/.cache/R/BiocFileCache/36922ed3184_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
 <span><span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"modeling_results"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2023-04-08 04:01:15 loading file /github/home/.cache/R/BiocFileCache/172e119b1293_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
+<span><span class="co">#&gt; 2023-04-08 18:10:37 loading file /github/home/.cache/R/BiocFileCache/36946a50881_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
 <p>Once you have downloaded the objects, we can explore them a little
 bit</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -480,7 +500,7 @@ long format and add some useful information. Let’s do so below.</p>
 <span>        <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;  16.013   0.755  16.771</span></span>
+<span><span class="co">#&gt;  10.934   0.348  11.283</span></span>
 <span></span>
 <span><span class="co">## Explore the result</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span></span>
@@ -1125,6 +1145,105 @@ work.</p>
 </div>
 </div>
 <div class="section level2">
+<h2 id="more-spatially-resolved-libd-datasets">More spatially-resolved LIBD datasets<a class="anchor" aria-label="anchor" href="#more-spatially-resolved-libd-datasets"></a>
+</h2>
+<p>Over time <code><a href="../reference/fetch_data.html">spatialLIBD::fetch_data()</a></code> has been expanded to
+provide access to other datasets generated by our teams at the Lieber
+Institute for Brain Development (<a href="libd.org">LIBD</a>) that have
+also been analyzed with <code>spatialLIBD</code>.</p>
+<div class="section level3">
+<h3 id="spatialdlpfc">spatialDLPFC<a class="anchor" aria-label="anchor" href="#spatialdlpfc"></a>
+</h3>
+<p>Through <code><a href="../reference/fetch_data.html">spatialLIBD::fetch_data()</a></code> you can also download
+the data from the <a href="https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1" class="external-link"><em>Integrated
+single cell and unsupervised spatial transcriptomic analysis defines
+molecular anatomy of the human dorsolateral prefrontal cortex</em></a>
+project, also known as <code>spatialDLPFC</code> (Huuki-Myers, Spangler,
+Eagles, Montgomergy, Kwon, Guo, Grant-Peters, Divecha, Tippani,
+Sriworarat, Nguyen, Ravichandran, Tran, Seyedian, Consortium, Hyde,
+Kleinman, Battle, Page, Ryten, Hicks, Martinowich, Collado-Torres, and
+Maynard, 2023). See <a href="http://research.libd.org/spatialDLPFC/" class="external-link uri">http://research.libd.org/spatialDLPFC/</a> for more
+information about this project.</p>
+<p>See the Twitter thread 🧵 below for a brief overview of the <a href="https://twitter.com/search?q=%23spatialDLPFC&amp;src=typed_query" class="external-link"><code>#spatialDLPFC</code></a>
+project.</p>
+<blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">
+Hot of the pre-print press! 🔥 Our latest work
+<a href="https://twitter.com/hashtag/spatialDLPFC?src=hash&amp;ref_src=twsrc%5Etfw" class="external-link">#spatialDLPFC</a>
+pairs
+<a href="https://twitter.com/hashtag/snRNAseq?src=hash&amp;ref_src=twsrc%5Etfw" class="external-link">#snRNAseq</a>
+and
+<a href="https://twitter.com/hashtag/Visium?src=hash&amp;ref_src=twsrc%5Etfw" class="external-link">#Visium</a>
+spatial transcriptomic data in the human
+<a href="https://twitter.com/hashtag/DLPFC?src=hash&amp;ref_src=twsrc%5Etfw" class="external-link">#DLPFC</a>
+building a neuroanatomical atlas of this critical brain region
+🧠<a href="https://twitter.com/LieberInstitute?ref_src=twsrc%5Etfw" class="external-link"><span class="citation">@LieberInstitute</span></a>
+<a href="https://twitter.com/10xGenomics?ref_src=twsrc%5Etfw" class="external-link"><span class="citation">@10xGenomics</span></a>
+<a href="https://twitter.com/hashtag/scitwitter?src=hash&amp;ref_src=twsrc%5Etfw" class="external-link">#scitwitter</a><br>📰
+<a href="https://t.co/NJWJ1mwB9J" class="external-link">https://t.co/NJWJ1mwB9J</a>
+<a href="https://t.co/l8W154XZ50" class="external-link">pic.twitter.com/l8W154XZ50</a>
+</p>
+— Louise Huuki-Myers (<span class="citation">@lahuuki</span>)
+<a href="https://twitter.com/lahuuki/status/1626686409313763328?ref_src=twsrc%5Etfw" class="external-link">February
+17, 2023</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<div class="section level3">
+<h3 id="visium_spg_ad">Visium_SPG_AD<a class="anchor" aria-label="anchor" href="#visium_spg_ad"></a>
+</h3>
+<p>Through <code><a href="../reference/fetch_data.html">spatialLIBD::fetch_data()</a></code> you can also download
+the data from the <a href="https://www.biorxiv.org/content/10.1101/2023.04.TODO" class="external-link"><em>Influence
+of Alzheimer’s disease related neuropathology on local microenvironment
+gene expression in the human inferior temporal cortex </em></a> project,
+also known as <code>Visium_SPG_AD</code> (Kwon, Parthiban, Tippani,
+Divecha, Eagles, Lobana, Williams, Mak, Yu, Avalos-Gracia, Bharadwaj,
+Kleinman, Hyde, Page, Hicks, Martinowich, Maynard, and Collado-Torres,
+2023). See <a href="http://research.libd.org/Visium_SPG_AD/" class="external-link uri">http://research.libd.org/Visium_SPG_AD/</a> for more
+information about this project.</p>
+<p>See the Twitter thread 🧵 below for a brief overview of the <a href="https://twitter.com/search?q=%23Visium_SPG_AD&amp;src=typed_query" class="external-link"><code>#Visium_SPG_AD</code></a>
+project.</p>
+<p>TODO</p>
+</div>
+<div class="section level3">
+<h3 id="libd-data-outside-spatiallibd">LIBD data outside <code>spatialLIBD</code><a class="anchor" aria-label="anchor" href="#libd-data-outside-spatiallibd"></a>
+</h3>
+<p>Sometimes our collaborators have shared data through other venues. So
+not all LIBD spatially-resolved transcriptomics data from the <a href="https://www.libd.org/team/keri-martinowich-phd/" class="external-link">Keri
+Martinowich</a>, <a href="https://www.libd.org/team/kristen-maynard-phd/" class="external-link">Kristen
+Maynard</a>, and <a href="http://lcolladotor.github.io/" class="external-link">Leonardo
+Collado-Torres</a> teams has been released through
+<code>spatialLIBD</code>. However, it is very much compatible with
+<code>spatialLIBD</code> and can be analyzed or visualized with
+<code>spatialLIBD</code> functions.</p>
+<div class="section level4">
+<h4 id="locus-c">locus-c<a class="anchor" aria-label="anchor" href="#locus-c"></a>
+</h4>
+<p><a href="https://www.biorxiv.org/content/10.1101/2022.10.28.514241v1" class="external-link"><em>The
+gene expression landscape of the human locus coeruleus revealed by
+single-nucleus and spatially-resolved transcriptomics</em></a>, also
+known as <code>locus-c</code>, is not available through
+<code>spatialLIBD</code>, but you might be interested in checking out
+the excellent <em><a href="https://bioconductor.org/packages/3.16/WeberDivechaLCdata" class="external-link">WeberDivechaLCdata</a></em>
+package for more details. See <a href="https://github.com/lmweber/locus-c" class="external-link uri">https://github.com/lmweber/locus-c</a> for more details
+about the <code>locus-c</code> project.</p>
+<p>See the Twitter thread 🧵 below for a brief overview of the
+<code>locus-c</code> project.</p>
+<blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">
+Very happy to share our preprint on spatially-resolved transcriptomics
+and single-nucleus RNA-sequencing in the human locus coeruleus! 🎉🧠🔵
+<a href="https://t.co/L69G2P9PO6" class="external-link">https://t.co/L69G2P9PO6</a>
+</p>
+— Lukas Weber ☀️ (<span class="citation">@lmwebr</span>)
+<a href="https://twitter.com/lmwebr/status/1587123044660699141?ref_src=twsrc%5Etfw" class="external-link">October
+31, 2022</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+</div>
+</div>
+<div class="section level2">
 <h2 id="reproducibility">Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility"></a>
 </h2>
 <p>The <em><a href="https://bioconductor.org/packages/3.16/spatialLIBD" class="external-link">spatialLIBD</a></em>
@@ -1258,9 +1377,9 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"spatialLIBD.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2023-04-08 04:01:43 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2023-04-08 18:10:58 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 59.712 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 44.41 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -1423,7 +1542,7 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="co">#&gt;  spam                     2.9-1     <span style="color: #555555;">2022-08-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.2)</span></span></span>
 <span><span class="co">#&gt;  sparseMatrixStats        1.10.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  SpatialExperiment      * 1.8.1     <span style="color: #555555;">2023-03-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  spatialLIBD            * 1.11.12   <span style="color: #555555;">2023-04-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  spatialLIBD            * 1.11.13   <span style="color: #555555;">2023-04-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  statmod                  1.5.0     <span style="color: #555555;">2023-01-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  stringi                  1.7.12    <span style="color: #555555;">2023-01-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  stringr                  1.5.0     <span style="color: #555555;">2022-12-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
@@ -1529,13 +1648,33 @@ pp. 115–121. URL:
 <a href="http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html" class="external-link">http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html</a>.</cite>
 </p>
 <p>
-<a id="bib-hvitfeldt2021paletteer"></a><a href="#cite-hvitfeldt2021paletteer">[11]</a><cite>
+<a id="bib-huukimyers2023integrated"></a><a href="#cite-huukimyers2023integrated">[11]</a><cite>
+L. A. Huuki-Myers, A. Spangler, N. J. Eagles, et al. “Integrated single
+cell and unsupervised spatial transcriptomic analysis defines molecular
+anatomy of the human dorsolateral prefrontal cortex”. In:
+<em>bioRxiv</em> (2023). DOI:
+<a href="https://doi.org/10.1101/2023.02.15.528722" class="external-link">10.1101/2023.02.15.528722</a>.
+URL:
+<a href="https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1" class="external-link">https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1</a>.</cite>
+</p>
+<p>
+<a id="bib-hvitfeldt2021paletteer"></a><a href="#cite-hvitfeldt2021paletteer">[12]</a><cite>
 E. Hvitfeldt. <em>paletteer: Comprehensive Collection of Color
 Palettes</em>. R package version 1.3.0. 2021. URL:
 <a href="https://github.com/EmilHvitfeldt/paletteer" class="external-link">https://github.com/EmilHvitfeldt/paletteer</a>.</cite>
 </p>
 <p>
-<a id="bib-lawrence2009rtracklayer"></a><a href="#cite-lawrence2009rtracklayer">[12]</a><cite>
+<a id="bib-kwon2023influence"></a><a href="#cite-kwon2023influence">[13]</a><cite>
+S. H. Kwon, S. Parthiban, M. Tippani, et al. “Influence of Alzheimer’s
+disease related neuropathology on local microenvironment gene expression
+in the human inferior temporal cortex”. In: <em>bioRxiv</em> (2023).
+DOI:
+<a href="https://doi.org/10.1101/2023.04.TODO" class="external-link">10.1101/2023.04.TODO</a>.
+URL:
+<a href="https://www.biorxiv.org/content/10.1101/2023.04.TODO" class="external-link">https://www.biorxiv.org/content/10.1101/2023.04.TODO</a>.</cite>
+</p>
+<p>
+<a id="bib-lawrence2009rtracklayer"></a><a href="#cite-lawrence2009rtracklayer">[14]</a><cite>
 M. Lawrence, R. Gentleman, and V. Carey. “rtracklayer: an R package for
 interfacing with genome browsers”. In: <em>Bioinformatics</em> 25
 (2009), pp. 1841-1842. DOI:
@@ -1544,7 +1683,7 @@ URL:
 <a href="http://bioinformatics.oxfordjournals.org/content/25/14/1841.abstract" class="external-link">http://bioinformatics.oxfordjournals.org/content/25/14/1841.abstract</a>.</cite>
 </p>
 <p>
-<a id="bib-lawrence2013software"></a><a href="#cite-lawrence2013software">[13]</a><cite>
+<a id="bib-lawrence2013software"></a><a href="#cite-lawrence2013software">[15]</a><cite>
 M. Lawrence, W. Huber, H. Pagès, et al. “Software for Computing and
 Annotating Genomic Ranges”. In: <em>PLoS Computational Biology</em> 9 (8
 2013). DOI:
@@ -1555,7 +1694,7 @@ URL:
 
 
 <p>
-<a id="bib-maynard2021transcriptome"></a><a href="#cite-maynard2021transcriptome">[14]</a><cite>
+<a id="bib-maynard2021transcriptome"></a><a href="#cite-maynard2021transcriptome">[16]</a><cite>
 K. R. Maynard, L. Collado-Torres, L. M. Weber, et al.
 “Transcriptome-scale spatial gene expression in the human dorsolateral
 prefrontal cortex”. In: <em>Nature Neuroscience</em> (2021). DOI:
@@ -1564,7 +1703,7 @@ URL:
 <a href="https://www.nature.com/articles/s41593-020-00787-0" class="external-link">https://www.nature.com/articles/s41593-020-00787-0</a>.</cite>
 </p>
 <p>
-<a id="bib-mccarthy2017scater"></a><a href="#cite-mccarthy2017scater">[15]</a><cite>
+<a id="bib-mccarthy2017scater"></a><a href="#cite-mccarthy2017scater">[17]</a><cite>
 D. J. McCarthy, K. R. Campbell, A. T. L. Lun, et al. “Scater:
 pre-processing, quality control, normalisation and visualisation of
 single-cell RNA-seq data in R”. In: <em>Bioinformatics</em> 33 (8 2017),
@@ -1572,55 +1711,55 @@ pp. 1179-1186. DOI:
 <a href="https://doi.org/10.1093/bioinformatics/btw777" class="external-link">10.1093/bioinformatics/btw777</a>.</cite>
 </p>
 <p>
-<a id="bib-mclean2017refmanager"></a><a href="#cite-mclean2017refmanager">[16]</a><cite>
+<a id="bib-mclean2017refmanager"></a><a href="#cite-mclean2017refmanager">[18]</a><cite>
 M. W. McLean. “RefManageR: Import and Manage BibTeX and BibLaTeX
 References in R”. In: <em>The Journal of Open Source Software</em>
 (2017). DOI:
 <a href="https://doi.org/10.21105/joss.00338" class="external-link">10.21105/joss.00338</a>.</cite>
 </p>
 <p>
-<a id="bib-morgan2022summarizedexperiment"></a><a href="#cite-morgan2022summarizedexperiment">[17]</a><cite>
+<a id="bib-morgan2022summarizedexperiment"></a><a href="#cite-morgan2022summarizedexperiment">[19]</a><cite>
 M. Morgan, V. Obenchain, J. Hester, et al. <em>SummarizedExperiment:
 SummarizedExperiment container</em>. R package version 1.28.0. 2022.
 URL:
 <a href="https://bioconductor.org/packages/SummarizedExperiment" class="external-link">https://bioconductor.org/packages/SummarizedExperiment</a>.</cite>
 </p>
 <p>
-<a id="bib-morgan2022annotationhub"></a><a href="#cite-morgan2022annotationhub">[18]</a><cite>
+<a id="bib-morgan2022annotationhub"></a><a href="#cite-morgan2022annotationhub">[20]</a><cite>
 M. Morgan and L. Shepherd. <em>AnnotationHub: Client to access
 AnnotationHub resources</em>. R package version 3.6.0. 2022.</cite>
 </p>
 <p>
-<a id="bib-morgan2022experimenthub"></a><a href="#cite-morgan2022experimenthub">[19]</a><cite>
+<a id="bib-morgan2022experimenthub"></a><a href="#cite-morgan2022experimenthub">[21]</a><cite>
 M. Morgan and L. Shepherd. <em>ExperimentHub: Client to access
 ExperimentHub resources</em>. R package version 2.6.0. 2022.</cite>
 </p>
 <p>
-<a id="bib-neuwirth2022rcolorbrewer"></a><a href="#cite-neuwirth2022rcolorbrewer">[20]</a><cite>
+<a id="bib-neuwirth2022rcolorbrewer"></a><a href="#cite-neuwirth2022rcolorbrewer">[22]</a><cite>
 E. Neuwirth. <em>RColorBrewer: ColorBrewer Palettes</em>. R package
 version 1.1-3. 2022. URL:
 <a href="https://CRAN.R-project.org/package=RColorBrewer" class="external-link">https://CRAN.R-project.org/package=RColorBrewer</a>.</cite>
 </p>
 <p>
-<a id="bib-ole2022biocstyle"></a><a href="#cite-ole2022biocstyle">[21]</a><cite>
+<a id="bib-ole2022biocstyle"></a><a href="#cite-ole2022biocstyle">[23]</a><cite>
 A. Oleś. <em>BiocStyle: Standard styles for vignettes and other
 Bioconductor documents</em>. R package version 2.26.0. 2022. URL:
 <a href="https://github.com/Bioconductor/BiocStyle" class="external-link">https://github.com/Bioconductor/BiocStyle</a>.</cite>
 </p>
 <p>
-<a id="bib-ooms2023magick"></a><a href="#cite-ooms2023magick">[22]</a><cite>
+<a id="bib-ooms2023magick"></a><a href="#cite-ooms2023magick">[24]</a><cite>
 J. Ooms. <em>magick: Advanced Graphics and Image-Processing in R</em>.
 <a href="https://docs.ropensci.org/magick/" class="external-link uri">https://docs.ropensci.org/magick/</a> (website) <a href="https://github.com/ropensci/magick" class="external-link uri">https://github.com/ropensci/magick</a> (devel). 2023.</cite>
 </p>
 <p>
-<a id="bib-pags2023s4vectors"></a><a href="#cite-pags2023s4vectors">[23]</a><cite>
+<a id="bib-pags2023s4vectors"></a><a href="#cite-pags2023s4vectors">[25]</a><cite>
 H. Pagès, M. Lawrence, and P. Aboyoun. <em>S4Vectors: Foundation of
 vector-like and list-like containers in Bioconductor</em>. R package
 version 0.36.2. 2023. URL:
 <a href="https://bioconductor.org/packages/S4Vectors" class="external-link">https://bioconductor.org/packages/S4Vectors</a>.</cite>
 </p>
 <p>
-<a id="bib-pardo2022spatiallibd"></a><a href="#cite-pardo2022spatiallibd">[24]</a><cite>
+<a id="bib-pardo2022spatiallibd"></a><a href="#cite-pardo2022spatiallibd">[26]</a><cite>
 B. Pardo, A. Spangler, L. M. Weber, et al. “spatialLIBD: an
 R/Bioconductor package to visualize spatially-resolved transcriptomics
 data”. In: <em>BMC Genomics</em> (2022). DOI:
@@ -1629,76 +1768,76 @@ URL:
 <a href="https://doi.org/10.1186/s12864-022-08601-w" class="external-link">https://doi.org/10.1186/s12864-022-08601-w</a>.</cite>
 </p>
 <p>
-<a id="bib-2023language"></a><a href="#cite-2023language">[25]</a><cite>
+<a id="bib-2023language"></a><a href="#cite-2023language">[27]</a><cite>
 R Core Team. <em>R: A Language and Environment for Statistical
 Computing</em>. R Foundation for Statistical Computing. Vienna, Austria,
 2023. URL:
 <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>.</cite>
 </p>
 <p>
-<a id="bib-righelli2022spatialexperiment"></a><a href="#cite-righelli2022spatialexperiment">[26]</a><cite>
+<a id="bib-righelli2022spatialexperiment"></a><a href="#cite-righelli2022spatialexperiment">[28]</a><cite>
 D. Righelli, L. M. Weber, H. L. Crowell, et al. “SpatialExperiment:
 infrastructure for spatially-resolved transcriptomics data in R using
 Bioconductor”. In: <em>Bioinformatics</em> 38.11 (2022), pp. -3. DOI:
 <a href="https://doi.org/https://doi.org/10.1093/bioinformatics/btac299" class="external-link">https://doi.org/10.1093/bioinformatics/btac299</a>.</cite>
 </p>
 <p>
-<a id="bib-ritchie2015limma"></a><a href="#cite-ritchie2015limma">[27]</a><cite>
+<a id="bib-ritchie2015limma"></a><a href="#cite-ritchie2015limma">[29]</a><cite>
 M. E. Ritchie, B. Phipson, D. Wu, et al. “limma powers differential
 expression analyses for RNA-sequencing and microarray studies”. In:
 <em>Nucleic Acids Research</em> 43.7 (2015), p. e47. DOI:
 <a href="https://doi.org/10.1093/nar/gkv007" class="external-link">10.1093/nar/gkv007</a>.</cite>
 </p>
 <p>
-<a id="bib-robinson2010edger"></a><a href="#cite-robinson2010edger">[28]</a><cite>
+<a id="bib-robinson2010edger"></a><a href="#cite-robinson2010edger">[30]</a><cite>
 M. D. Robinson, D. J. McCarthy, and G. K. Smyth. “edgeR: a Bioconductor
 package for differential expression analysis of digital gene expression
 data”. In: <em>Bioinformatics</em> 26.1 (2010), pp. 139-140. DOI:
 <a href="https://doi.org/10.1093/bioinformatics/btp616" class="external-link">10.1093/bioinformatics/btp616</a>.</cite>
 </p>
 <p>
-<a id="bib-shepherd2023biocfilecache"></a><a href="#cite-shepherd2023biocfilecache">[29]</a><cite>
+<a id="bib-shepherd2023biocfilecache"></a><a href="#cite-shepherd2023biocfilecache">[31]</a><cite>
 L. Shepherd and M. Morgan. <em>BiocFileCache: Manage Files Across
 Sessions</em>. R package version 2.6.1. 2023.</cite>
 </p>
 <p>
-<a id="bib-sievert2020interactive"></a><a href="#cite-sievert2020interactive">[30]</a><cite>
+<a id="bib-sievert2020interactive"></a><a href="#cite-sievert2020interactive">[32]</a><cite>
 C. Sievert. <em>Interactive Web-Based Data Visualization with R, plotly,
 and shiny</em>. Chapman and Hall/CRC, 2020. ISBN: 9781138331457. URL:
 <a href="https://plotly-r.com" class="external-link">https://plotly-r.com</a>.</cite>
 </p>
 <p>
-<a id="bib-wickham2016ggplot2"></a><a href="#cite-wickham2016ggplot2">[31]</a><cite>
+<a id="bib-wickham2016ggplot2"></a><a href="#cite-wickham2016ggplot2">[33]</a><cite>
 H. Wickham. <em>ggplot2: Elegant Graphics for Data Analysis</em>.
 Springer-Verlag New York, 2016. ISBN: 978-3-319-24277-4. URL:
 <a href="https://ggplot2.tidyverse.org" class="external-link">https://ggplot2.tidyverse.org</a>.</cite>
 </p>
 <p>
-<a id="bib-wickham2011testthat"></a><a href="#cite-wickham2011testthat">[32]</a><cite>
+<a id="bib-wickham2011testthat"></a><a href="#cite-wickham2011testthat">[34]</a><cite>
 H. Wickham. “testthat: Get Started with Testing”. In: <em>The R
 Journal</em> 3 (2011), pp. 5–10. URL:
 <a href="https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf" class="external-link">https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf</a>.</cite>
 </p>
 <p>
-<a id="bib-wickham2021sessioninfo"></a><a href="#cite-wickham2021sessioninfo">[33]</a><cite>
+<a id="bib-wickham2021sessioninfo"></a><a href="#cite-wickham2021sessioninfo">[35]</a><cite>
 H. Wickham, W. Chang, R. Flight, et al. <em>sessioninfo: R Session
 Information</em>. <a href="https://github.com/r-lib/sessioninfo#readme" class="external-link uri">https://github.com/r-lib/sessioninfo#readme</a>, <a href="https://r-lib.github.io/sessioninfo/" class="external-link uri">https://r-lib.github.io/sessioninfo/</a>. 2021.</cite>
 </p>
 <p>
-<a id="bib-wilke2020cowplot"></a><a href="#cite-wilke2020cowplot">[34]</a><cite>
+<a id="bib-wilke2020cowplot"></a><a href="#cite-wilke2020cowplot">[36]</a><cite>
 C. Wilke. <em>cowplot: Streamlined Plot Theme and Plot Annotations for
 ‘ggplot2’</em>. R package version 1.1.1. 2020. URL:
 <a href="https://CRAN.R-project.org/package=cowplot" class="external-link">https://CRAN.R-project.org/package=cowplot</a>.</cite>
 </p>
 <p>
-<a id="bib-xie2014knitr"></a><a href="#cite-xie2014knitr">[35]</a><cite>
+<a id="bib-xie2014knitr"></a><a href="#cite-xie2014knitr">[37]</a><cite>
 Y. Xie. “knitr: A Comprehensive Tool for Reproducible Research in R”.
 In: <em>Implementing Reproducible Computational Research</em>. Ed. by V.
 Stodden, F. Leisch and R. D. Peng. ISBN 978-1466561595. Chapman and
 Hall/CRC, 2014.</cite>
 </p>
 <p>
-<a id="bib-xie2023wrapper"></a><a href="#cite-xie2023wrapper">[36]</a><cite>
+<a id="bib-xie2023wrapper"></a><a href="#cite-xie2023wrapper">[38]</a><cite>
 Y. Xie, J. Cheng, and X. Tan. <em>DT: A Wrapper of the JavaScript
 Library ‘DataTables’</em>. R package version 0.27. 2023. URL:
 <a href="https://github.com/rstudio/DT" class="external-link">https://github.com/rstudio/DT</a>.</cite>
