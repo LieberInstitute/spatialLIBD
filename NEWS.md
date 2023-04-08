@@ -1,3 +1,12 @@
+# spatialLIBD 1.11.13
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* The vignette now has a section describing the data from the `spatialDLFPC`,
+`Visium_SPG_AD`, and `locus-c` projects that were done by members of the
+Keri Martinowich, Kristen R. Maynard, and Leonardo Collado-Torres LIBD teams as
+well as our collaborators.
+
 # spatialLIBD 1.11.12
 
 SIGNIFICANT USER-VISIBLE CHANGES
