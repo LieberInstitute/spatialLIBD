@@ -86,10 +86,8 @@ c(
             as.person("Heena R. Divecha"),
             as.person("Nicholas J. Eagles"),
             as.person("Jashandeep S. Lobana"),
-            as.person("Stephen Williams"),
-            as.person("Michelle Mak"),
-            as.person("Guixia Yu"),
-            as.person("Julianna Avalos-Gracia"),
+            as.person("Stephen R. Williams"),
+            as.person("Michelle Mark"),
             as.person("Rahul A. Bharadwaj"),
             as.person("Joel E. Kleinman"),
             as.person("Thomas M. Hyde"),
@@ -101,7 +99,7 @@ c(
         ),
         year = 2023,
         journal = "bioRxiv",
-        doi = "10.1101/2023.04.TODO",
-        url = "https://www.biorxiv.org/content/10.1101/2023.04.TODO"
+        doi = "10.1101/2023.04.20.537710",
+        url = "https://www.biorxiv.org/content/10.1101/2023.04.20.537710v1"
     )
 )
