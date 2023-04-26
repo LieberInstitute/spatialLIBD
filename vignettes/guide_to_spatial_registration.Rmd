@@ -1,10 +1,10 @@
 ---
 title: "Guide to Spatial Registration"
 author: 
-  - name: Your name
+  - name: Louise Huuki-Myers
     affiliation:
-    - Your institution
-    email: your.email@somewhere.com
+    - Lieber Institute for Brain Development
+    email: lahuuki@gmail.com
 output: 
   BiocStyle::html_document:
     self_contained: yes
@@ -49,7 +49,10 @@ bib <- c(
 )
 ```
 
-# Basics
+
+# What is Spatial Registration?
+
+# How to run Spatial Registration with `spatialLIBD` tools
 
 ## Install `spatialLIBD`
 
@@ -66,17 +69,14 @@ BiocManager::install("spatialLIBD")
 BiocManager::valid()
 ```
 
-## Required knowledge
+## Important Notes 
 
-`r Biocpkg("spatialLIBD")` is based on many other packages and in particular in those that have implemented the infrastructure needed for dealing with RNA-seq data (EDIT!). That is, packages like `r Biocpkg("SummarizedExperiment")` (EDIT!).
+### Required knowledge
 
-If you are asking yourself the question "Where do I start using Bioconductor?" you might be interested in [this blog post](http://lcolladotor.github.io/2014/10/16/startbioc/#.VkOKbq6rRuU).
+It may be helpful to review _Introduction to spatialLIBD_ vignette available through [GitHub](http://research.libd.org/spatialLIBD/articles/spatialLIBD.html) or [Bioconductor](https://bioconductor.org/packages/spatialLIBD).
 
-## Asking for help
 
-As package developers, we try to explain clearly how to use our packages and in which order to use the functions. But `R` and `Bioconductor` have a steep learning curve so it is critical to learn where to ask for help. The blog post quoted above mentions some but we would like to highlight the [Bioconductor support site](https://support.bioconductor.org/) as the main resource for getting help: remember to use the `spatialLIBD` tag and check [the older posts](https://support.bioconductor.org/tag/spatialLIBD/). Other alternatives are available such as creating GitHub issues and tweeting. However, please note that if you want to receive help you should adhere to the [posting guidelines](http://www.bioconductor.org/help/support/posting-guide/). It is particularly critical that you provide a small reproducible example and your session information so package developers can track down the source of the error.
-
-## Citing `spatialLIBD`
+### Citing `spatialLIBD`
 
 We hope that `r Biocpkg("spatialLIBD")` will be useful for your research. Please use the following information to cite the package and the overall approach. Thank you!
 
@@ -85,17 +85,11 @@ We hope that `r Biocpkg("spatialLIBD")` will be useful for your research. Please
 citation("spatialLIBD")
 ```
 
-# Quick start to using `spatialLIBD`
 
 ```{r "start", message=FALSE}
 library("spatialLIBD")
 ```
 
-Edit this as you see fit =)
-
-Here is an example of you can cite your package inside the vignette:
-
-* `r Biocpkg("spatialLIBD")` `r Citep(bib[["spatialLIBD"]])`
 
 
 
