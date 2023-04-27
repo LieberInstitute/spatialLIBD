@@ -18,7 +18,7 @@ This is the first step for spatial registration and for statistical modeling."><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.11.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.13.1</span>
       </span>
     </div>
 
@@ -153,9 +153,9 @@ pseudo-bulking can take hours to run on large datasets.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Pseudo-bulk</span></span></span>
 <span class="r-in"><span><span class="va">sce_pseudo</span> <span class="op">&lt;-</span> <span class="fu">registration_pseudobulk</span><span class="op">(</span><span class="va">sce</span>, <span class="st">"Cell_Cycle"</span>, <span class="st">"sample_id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>, min_ncells <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2023-04-27 19:02:07 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2023-04-27 19:02:08 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2023-04-27 19:02:08 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2023-04-27 19:05:38 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2023-04-27 19:05:38 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2023-04-27 19:05:38 normalize expression</span>
 <span class="r-in"><span><span class="fu">colData</span><span class="op">(</span><span class="va">sce_pseudo</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 8 columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Mutation_Status  Cell_Cycle   Treatment   sample_id       age</span>
