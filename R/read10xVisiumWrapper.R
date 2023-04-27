@@ -62,8 +62,12 @@ read10xVisiumWrapper <- function(samples = "",
         reference_path <- gsub('.*"', "", regmatches(web, regexpr('\\["Reference Path", *"[/|A-z|0-9|-]+', web)))
         reference_gtf <- file.path(reference_path, "genes", "genes.gtf")
     }
-    stopifnot(length(reference_gtf) == 1)
-    stopifnot(file.exists(reference_gtf))
+    reference_gtf <- reference_gtf[file.exists(reference_gtf)]
+    if (length(reference_gtf) > 1) {
+        stop("More than one 'reference_gtf' was provided or detected. Manually specify the path to just one 'reference_gtf'. If different GTF files were used, then different genes will have been quantified and thus cannot be merged naively into a single SpatialExperiment object. If that's the case, we recommend you build separate SPE objects based on the different 'reference_gtf' files used.", call. = FALSE)
+    } else if (length(reference_gtf) == 0) {
+        stop("No 'reference_gtf' files were detected. Please check that the files are available.", call. = FALSE)
+    }
 
     if (verbose) message(Sys.time(), " SpatialExperiment::read10xVisium: reading basic data from SpaceRanger")
     spe <- SpatialExperiment::read10xVisium(
