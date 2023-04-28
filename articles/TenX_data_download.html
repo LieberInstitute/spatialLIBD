@@ -536,7 +536,7 @@ add it back into the <code>spe</code> object.</p>
 <span><span class="co">## Show the GTF cache location</span></span>
 <span><span class="va">gtf_cache</span></span>
 <span><span class="co">#&gt;                                                                            BFC4 </span></span>
-<span><span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/37d779534ea_gencode.v32.annotation.gtf.gz"</span></span>
+<span><span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/37d389a91a4_gencode.v32.annotation.gtf.gz"</span></span>
 <span></span>
 <span><span class="co">## Import into R (takes ~1 min)</span></span>
 <span><span class="va">gtf</span> <span class="op">&lt;-</span> <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span><span class="va">gtf_cache</span><span class="op">)</span></span>
@@ -822,11 +822,11 @@ we can toggle between them on the web application.</p>
 <span>    images <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lowres"</span>, <span class="st">"hires"</span>, <span class="st">"detected"</span>, <span class="st">"aligned"</span><span class="op">)</span>, load <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    reference_gtf <span class="op">=</span> <span class="va">gtf_cache</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2023-04-28 14:43:29 SpatialExperiment::read10xVisium: reading basic data from SpaceRanger</span></span>
-<span><span class="co">#&gt; 2023-04-28 14:43:44 read10xVisiumAnalysis: reading analysis output from SpaceRanger</span></span>
-<span><span class="co">#&gt; 2023-04-28 14:43:44 add10xVisiumAnalysis: adding analysis output from SpaceRanger</span></span>
-<span><span class="co">#&gt; 2023-04-28 14:43:45 rtracklayer::import: reading the reference GTF file</span></span>
-<span><span class="co">#&gt; 2023-04-28 14:44:21 adding gene information to the SPE object</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:49:45 SpatialExperiment::read10xVisium: reading basic data from SpaceRanger</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:50:03 read10xVisiumAnalysis: reading analysis output from SpaceRanger</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:50:03 add10xVisiumAnalysis: adding analysis output from SpaceRanger</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:50:03 rtracklayer::import: reading the reference GTF file</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:50:47 adding gene information to the SPE object</span></span>
 <span><span class="co">#&gt; Warning: Gene IDs did not match. This typically happens when you are not using</span></span>
 <span><span class="co">#&gt; the same GTF file as the one that was used by SpaceRanger. For example, one</span></span>
 <span><span class="co">#&gt; file uses GENCODE IDs and the other one ENSEMBL IDs. read10xVisiumWrapper()</span></span>
@@ -834,7 +834,7 @@ we can toggle between them on the web application.</p>
 <span><span class="co">#&gt; Warning: Dropping 29 out of 36601 genes for which we don't have information on</span></span>
 <span><span class="co">#&gt; the reference GTF file. This typically happens when you are not using the same</span></span>
 <span><span class="co">#&gt; GTF file as the one that was used by SpaceRanger.</span></span>
-<span><span class="co">#&gt; 2023-04-28 14:44:22 adding information used by spatialLIBD</span></span></code></pre></div>
+<span><span class="co">#&gt; 2023-04-28 14:50:47 adding information used by spatialLIBD</span></span></code></pre></div>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Run our shiny app</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1118,9 +1118,9 @@ and Risso, 2022)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2023-04-28 14:44:23 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2023-04-28 14:50:50 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 2.34 mins</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 2.788 mins</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
