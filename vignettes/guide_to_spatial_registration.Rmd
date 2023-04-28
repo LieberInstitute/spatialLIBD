@@ -269,7 +269,7 @@ cor_layer
 
 Now we can use these correlation values to learn about the cell types. 
 
-## Create Heatmap of Corelations
+## Create Heatmap of Correlations
 
 We can see from this heatmap what layers the different cell types are associated with.
 
