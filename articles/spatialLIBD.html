@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.13.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.13.2</span>
       </span>
     </div>
 
@@ -62,6 +62,9 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="../articles/TenX_data_download.html">Using spatialLIBD with 10x Genomics public datasets</a>
+    </li>
+    <li>
+      <a href="../articles/guide_to_spatial_registration.html">Guide to Spatial Registration</a>
     </li>
   </ul>
 </li>
@@ -110,7 +113,7 @@ Jaffe</h4>
 Campus<br><a class="author_email" href="mailto:#"></a><a href="mailto:andrew.jaffe@libd.org" class="email">andrew.jaffe@libd.org</a>
       </address>
                   
-            <h4 data-toc-skip class="date">27 April 2023</h4>
+            <h4 data-toc-skip class="date">28 April 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/vignettes/spatialLIBD.Rmd" class="external-link"><code>vignettes/spatialLIBD.Rmd</code></a></small>
       <div class="hidden name"><code>spatialLIBD.Rmd</code></div>
@@ -413,7 +416,7 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Download the small example sce data</span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_example"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2023-04-27 19:12:47 loading file /github/home/.cache/R/BiocFileCache/37e27c52e0b_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2023-04-28 13:48:17 loading file /github/home/.cache/R/BiocFileCache/37b1af4c467_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span>
 <span></span>
 <span><span class="co">## Convert to a SpatialExperiment object</span></span>
 <span><span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sce_to_spe.html">sce_to_spe</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
@@ -425,9 +428,9 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <span></span>
 <span><span class="co">## Query ExperimentHub and download the data</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2023-04-27 19:12:55 loading file /github/home/.cache/R/BiocFileCache/37e5247d1e7_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2023-04-28 13:48:25 loading file /github/home/.cache/R/BiocFileCache/37b2433ee5c_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
 <span><span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"modeling_results"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2023-04-27 19:12:57 loading file /github/home/.cache/R/BiocFileCache/37e7e177d8f_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
+<span><span class="co">#&gt; 2023-04-28 13:48:26 loading file /github/home/.cache/R/BiocFileCache/37b6de2c08f_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
 <p>Once you have downloaded the objects, we can explore them a little
 bit</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -500,7 +503,7 @@ long format and add some useful information. Let’s do so below.</p>
 <span>        <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;  14.151   0.536  14.694</span></span>
+<span><span class="co">#&gt;  10.644   0.368  11.013</span></span>
 <span></span>
 <span><span class="co">## Explore the result</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span></span>
@@ -573,13 +576,13 @@ than one sample respectively.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## This is not fully precise, but gives you a rough idea</span></span>
 <span><span class="co">## Some integer columns are actually continuous variables</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu">colData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>, <span class="va">class</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"factor"</span>, <span class="st">"integer"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>, <span class="va">class</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"factor"</span>, <span class="st">"integer"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; FALSE  TRUE </span></span>
 <span><span class="co">#&gt;    12    57</span></span>
 <span></span>
 <span><span class="co">## This is more precise (one cluster has 28 unique values)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu">colData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">29</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">29</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; FALSE  TRUE </span></span>
 <span><span class="co">#&gt;     7    62</span></span></code></pre></div>
@@ -630,12 +633,12 @@ the custom spatial <code><a href="https://ggplot2.tidyverse.org/reference/layer.
 <code><a href="../reference/geom_spatial.html">geom_spatial()</a></code>.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Available gene expression assays</span></span>
-<span><span class="fu">assayNames</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assayNames</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "counts"    "logcounts"</span></span>
 <span></span>
 <span><span class="co">## Not all of these make sense to visualize</span></span>
 <span><span class="co">## In particular, the key is not useful to visualize.</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="fu">colData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "sample_id"                   "Cluster"                    </span></span>
 <span><span class="co">#&gt;  [3] "sum_umi"                     "sum_gene"                   </span></span>
 <span><span class="co">#&gt;  [5] "subject"                     "position"                   </span></span>
@@ -1376,9 +1379,9 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"spatialLIBD.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2023-04-27 19:13:22 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2023-04-28 13:48:46 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 53.001 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 43.294 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -1390,7 +1393,7 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2023-04-27</span></span>
+<span><span class="co">#&gt;  date     2023-04-28</span></span>
 <span><span class="co">#&gt;  pandoc   2.19.2 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -1541,7 +1544,7 @@ Marco, Scherer, and Cédric, 2022)</li>
 <span><span class="co">#&gt;  spam                     2.9-1     <span style="color: #555555;">2022-08-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.2)</span></span></span>
 <span><span class="co">#&gt;  sparseMatrixStats        1.10.0    <span style="color: #555555;">2022-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  SpatialExperiment      * 1.8.1     <span style="color: #555555;">2023-03-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  spatialLIBD            * 1.13.1    <span style="color: #555555;">2023-04-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  spatialLIBD            * 1.13.2    <span style="color: #555555;">2023-04-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  statmod                  1.5.0     <span style="color: #555555;">2023-01-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  stringi                  1.7.12    <span style="color: #555555;">2023-01-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  stringr                  1.5.0     <span style="color: #555555;">2022-12-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
