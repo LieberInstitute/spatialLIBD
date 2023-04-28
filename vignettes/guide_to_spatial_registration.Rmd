@@ -279,7 +279,7 @@ We can see from this heatmap what layers the different cell types are associated
 
 * Excitatory neurons to different layers of the cotrex
 
-* Weak associate with Inbihitory Neurons
+* Weak associate with Inhibitory Neurons
 
 
 ```{r layer_cor_plot}
