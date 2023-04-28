@@ -58,14 +58,15 @@
 #'     ## Clean up
 #'     rm(spe_sub)
 #' }
-geom_spatial <- function(mapping = NULL,
-    data = NULL,
-    stat = "identity",
-    position = "identity",
-    na.rm = FALSE,
-    show.legend = NA,
-    inherit.aes = FALSE,
-    ...) {
+geom_spatial <- function(
+        mapping = NULL,
+        data = NULL,
+        stat = "identity",
+        position = "identity",
+        na.rm = FALSE,
+        show.legend = NA,
+        inherit.aes = FALSE,
+        ...) {
     ## To avoid a NOTE on R CMD check
     ggname <- function(prefix, grob) {
         grob$name <- grid::grobName(grob, prefix)

@@ -48,9 +48,10 @@
 #' ## More relaxed merging threshold
 #' annotate_registered_clusters(cor_stats_layer, cutoff_merge_ratio = 1)
 annotate_registered_clusters <-
-    function(cor_stats_layer,
-    confidence_threshold = 0.25,
-    cutoff_merge_ratio = 0.25) {
+    function(
+        cor_stats_layer,
+        confidence_threshold = 0.25,
+        cutoff_merge_ratio = 0.25) {
         annotated <-
             apply(cor_stats_layer,
                 1,
@@ -86,10 +87,11 @@ annotate_registered_clusters <-
     }
 
 annotate_registered_cluster <-
-    function(remaining,
-    label = "",
-    current = NULL,
-    cutoff_merge_ratio = 0.25) {
+    function(
+        remaining,
+        label = "",
+        current = NULL,
+        cutoff_merge_ratio = 0.25) {
         ## Filter negative correlations
         remaining <- remaining[remaining > 0]
 

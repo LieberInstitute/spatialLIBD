@@ -140,8 +140,8 @@ citation("spatialLIBD")
 
 ```{r "install", eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
-      install.packages("BiocManager")
-  }
+    install.packages("BiocManager")
+}
 
 BiocManager::install("spatialLIBD")
 
@@ -168,12 +168,10 @@ we will use the **enrichment** results for spatial registration. The tables cont
 t-statistics, p-values, and gene ensembl ID and symbol. 
 
 ```{r "fetch_refrence"}
-
-## get reference layer enrichment statistics 
+## get reference layer enrichment statistics
 layer_modeling_results <- fetch_data(type = "modeling_results")
 
-layer_modeling_results$enrichment[1:5,1:5]
-
+layer_modeling_results$enrichment[1:5, 1:5]
 ```
 
 
@@ -212,9 +210,7 @@ The data will be pseudo-bulked over `donor` x `cellType`, it is recommended to d
 groups with < 10 nuclei (this is done automatically in the pseudobulk step).
 
 ```{r "donor_x_cellType"}
-
 table(sce.dlpfc.tran$donor, sce.dlpfc.tran$cellType)
-
 ```
 
 
@@ -232,20 +228,20 @@ table(sce.dlpfc.tran$donor, sce.dlpfc.tran$cellType)
 The function `registration_wrapper()` makes life easy by wrapping these functions together in to one step!
 
 ```{r "run_registration_wrapper"}
-## cellType is a factor - use character vector to avoid empty level bug 
+## cellType is a factor - use character vector to avoid empty level bug
 sce.dlpfc.tran$cellType2 <- as.character(sce.dlpfc.tran$cellType)
 
 ## need ensemblID as rownames
 rownames(sce.dlpfc.tran) <- rowData(sce.dlpfc.tran)$gene_id
 
 ## if empty levels after min_ncells
-sce_modeling_results <- registration_wrapper(sce = sce.dlpfc.tran,
-                                         var_registration = "cellType2",
-                                         var_sample_id = "donor",
-                                         gene_ensembl = "gene_id",
-                                         gene_name = "gene_name"
-                                         )
-
+sce_modeling_results <- registration_wrapper(
+    sce = sce.dlpfc.tran,
+    var_registration = "cellType2",
+    var_sample_id = "donor",
+    gene_ensembl = "gene_id",
+    gene_name = "gene_name"
+)
 ```
 
 ## Extract Enrichment t-statistics
@@ -258,13 +254,12 @@ colnames(registration_t_stats) <- gsub("^t_stat_", "", colnames(registration_t_s
 dim(registration_t_stats)
 
 ## check out table
-registration_t_stats[1:5,1:5]
+registration_t_stats[1:5, 1:5]
 ```
 
 
 ## Correlate statsics with Layer Reference
 ```{r "layer_stat_cor"}
-
 cor_layer <- layer_stat_cor(
     stats = registration_t_stats,
     modeling_results = layer_modeling_results,
@@ -294,9 +289,7 @@ We can see from this heatmap what layers the different cell types are associated
 
 
 ```{r layer_cor_plot}
-
 layer_stat_cor_plot(cor_layer, max = max(cor_layer))
-
 ```
 
 ## Annotate Cell Types by Top Correlation
@@ -306,9 +299,9 @@ cell types based on the correlation values.
 
 ```{r "annotate"}
 anno <- annotate_registered_clusters(
-  cor_stats_layer = cor_layer,
-  confidence_threshold = 0.25,
-  cutoff_merge_ratio = 0.25
+    cor_stats_layer = cor_layer,
+    confidence_threshold = 0.25,
+    cutoff_merge_ratio = 0.25
 )
 
 anno

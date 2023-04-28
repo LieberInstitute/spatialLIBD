@@ -32,14 +32,13 @@
 #' )
 #' head(results_pairwise_nan)
 registration_stats_pairwise <-
-    function(
-        sce_pseudo,
-        registration_model,
-        block_cor,
-        var_registration = "registration_variable",
-        var_sample_id = "registration_sample_id",
-        gene_ensembl = NULL,
-        gene_name = NULL) {
+    function(sce_pseudo,
+    registration_model,
+    block_cor,
+    var_registration = "registration_variable",
+    var_sample_id = "registration_sample_id",
+    gene_ensembl = NULL,
+    gene_name = NULL) {
         ## Identify which are the pairwise columns of interest (aka, don't use
         ## the sample-level covariates we are adjusting for) and then
         ## shorten the names
