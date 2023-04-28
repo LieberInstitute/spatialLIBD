@@ -1,3 +1,12 @@
+# spatialLIBD 1.13.2
+
+NEW FEATURES
+
+* Louise A. Huuki-Myers @lahuuki added a vignette explaining the spatial
+registration process and all related functions. See
+<https://github.com/LieberInstitute/spatialLIBD/pull/46> for the full pull
+request.
+
 # spatialLIBD 1.11.13
 
 SIGNIFICANT USER-VISIBLE CHANGES
