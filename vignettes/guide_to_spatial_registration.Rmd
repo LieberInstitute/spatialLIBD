@@ -277,7 +277,7 @@ We can see from this heatmap what layers the different cell types are associated
 
 * Astro with Layer 1 
 
-* Excitatory neurons to different layers of the cotrex
+* Excitatory neurons to different layers of the cortex
 
 * Weak associate with Inhibitory Neurons
 
