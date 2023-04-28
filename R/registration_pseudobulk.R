@@ -51,13 +51,12 @@
 #' sce_pseudo <- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)
 #' colData(sce_pseudo)
 registration_pseudobulk <-
-    function(
-        sce,
-        var_registration,
-        var_sample_id,
-        covars = NULL,
-        min_ncells = 10,
-        pseudobulk_rds_file = NULL) {
+    function(sce,
+    var_registration,
+    var_sample_id,
+    covars = NULL,
+    min_ncells = 10,
+    pseudobulk_rds_file = NULL) {
         ## Check that inputs are correct
         stopifnot(is(sce, "SingleCellExperiment"))
         stopifnot(var_registration %in% colnames(colData(sce)))
@@ -124,6 +123,12 @@ registration_pseudobulk <-
                 " pseudo-bulked samples that are below 'min_ncells'."
             )
             sce_pseudo <- sce_pseudo[, sce_pseudo$ncells >= min_ncells]
+        }
+
+        if (is.factor(sce_pseudo$registration_variable)) {
+            ## Drop unused var_registration levels if we had to drop some due
+            ## to min_ncells
+            sce_pseudo$registration_variable <- droplevels(sce_pseudo$registration_variable)
         }
 
         ## Drop lowly-expressed genes

@@ -228,17 +228,10 @@ table(sce.dlpfc.tran$donor, sce.dlpfc.tran$cellType)
 The function `registration_wrapper()` makes life easy by wrapping these functions together in to one step!
 
 ```{r "run_registration_wrapper"}
-## cellType is a factor - use character vector to avoid empty level bug
-## or use droplevels()
-sce.dlpfc.tran$cellType2 <- as.character(sce.dlpfc.tran$cellType)
-
-## need ensemblID as rownames
-rownames(sce.dlpfc.tran) <- rowData(sce.dlpfc.tran)$gene_id
-
-## if empty levels after min_ncells
+## Perform the spatial registration
 sce_modeling_results <- registration_wrapper(
     sce = sce.dlpfc.tran,
-    var_registration = "cellType2",
+    var_registration = "cellType",
     var_sample_id = "donor",
     gene_ensembl = "gene_id",
     gene_name = "gene_name"

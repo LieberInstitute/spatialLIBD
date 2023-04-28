@@ -50,16 +50,19 @@
 #'     "Cell_Cycle", "sample_id", c("age"), "ensembl", "gene_name", "wrapper"
 #' )
 registration_wrapper <-
-    function(
-        sce,
-        var_registration,
-        var_sample_id,
-        covars = NULL,
-        gene_ensembl = NULL,
-        gene_name = NULL,
-        suffix = "",
-        min_ncells = 10,
-        pseudobulk_rds_file = NULL) {
+    function(sce,
+    var_registration,
+    var_sample_id,
+    covars = NULL,
+    gene_ensembl = NULL,
+    gene_name = NULL,
+    suffix = "",
+    min_ncells = 10,
+    pseudobulk_rds_file = NULL) {
+        ## Change the rownames to ENSEMBL IDs
+        rownames(sce) <- rowData(sce)[, gene_ensembl]
+
+        ## Pseudobulk
         sce_pseudo <-
             registration_pseudobulk(sce,
                 var_registration = var_registration,
