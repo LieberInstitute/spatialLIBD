@@ -120,12 +120,13 @@ resolved RNA-seq data set (such annotated anatomical features).</p>
 or annotating clusters. For scRNA-seq data it can check if a cell type
 might be more concentrated in one area or anatomical feature of the
 tissue.</p>
-<p>The spatial annotation process correlates the t-statistics from the
-gene enrichment analysis between spatial features from the reference
-data set, with the t-statistics from the gene enrichment of features in
-the query data set. Pairs with high positive correlation show where
-similar patterns of gene expression are occurring and what anatomical
-feature the new spatial feature or cell population may map to.</p>
+<p>The spatial annotation process correlates the <span class="math inline">\(t\)</span>-statistics from the gene enrichment
+analysis between spatial features from the reference data set, with the
+<span class="math inline">\(t\)</span>-statistics from the gene
+enrichment of features in the query data set. Pairs with high positive
+correlation show where similar patterns of gene expression are occurring
+and what anatomical feature the new spatial feature or cell population
+may map to.</p>
 <div class="section level3">
 <h3 id="overview-of-the-spatial-registration-method">Overview of the Spatial Registration method<a class="anchor" aria-label="anchor" href="#overview-of-the-spatial-registration-method"></a>
 </h3>
@@ -135,8 +136,8 @@ feature the new spatial feature or cell population may map to.</p>
 set. Or access existing statistics.</p></li>
 <li><p>Perform gene set enrichment analysis between features (ex. new
 annotations, data-driven clusters) on new query data set.</p></li>
-<li><p>Correlate the t-statistics between the reference and query
-features.</p></li>
+<li><p>Correlate the <span class="math inline">\(t\)</span>-statistics
+between the reference and query features.</p></li>
 <li><p>Annotate new spatial features with the most strongly associated
 reference feature.</p></li>
 <li><p>Plot correlation heat map to observe patterns between the two
@@ -172,12 +173,12 @@ statistics for the layers, which are available from <em><a href="https://biocond
 by annotated layers</p>
 </div>
 
-<p>The <strong>querey</strong> dataset will be the DLPFC single nucleus
+<p>The <strong>query</strong> dataset will be the DLPFC single nucleus
 RNA-seq (snRNA-seq) data from (Tran, Maynard, Spangler, Huuki,
 Montgomery, Sadashivaiah, Tippani, Barry, Hancock, Hicks, Kleinman,
 Hyde, Collado-Torres, Jaffe, and Martinowich, 2021).</p>
 <p>We will compare the gene expression in the cell type populations of
-the <strong>querey</strong> dataset to the annotated
+the <strong>query</strong> dataset to the annotated
 <strong>layers</strong> in the <strong>reference</strong>.</p>
 </div>
 <div class="section level3">
@@ -252,8 +253,8 @@ to cite the package and the overall approach. Thank you!</p>
 </h4>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"spatialLIBD"</span><span class="op">)</span></span>
 <span></span>
@@ -279,16 +280,15 @@ The modeling results for the annotated layers is already calculated and
 can be accessed with the <code><a href="../reference/fetch_data.html">fetch_data()</a></code> function.</p>
 <p>This data contains the results form three models (anova, enrichment,
 and pairwise), we will use the <strong>enrichment</strong> results for
-spatial registration. The tables contain the t-statistics, p-values, and
-gene ensembl ID and symbol.</p>
+spatial registration. The tables contain the <span class="math inline">\(t\)</span>-statistics, p-values, and gene ensembl
+ID and symbol.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co">## get reference layer enrichment statistics </span></span>
+<code class="sourceCode R"><span><span class="co">## get reference layer enrichment statistics</span></span>
 <span><span class="va">layer_modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; snapshotDate(): 2022-10-31</span></span>
-<span><span class="co">#&gt; 2023-04-28 13:47:18 loading file /github/home/.cache/R/BiocFileCache/37b6de2c08f_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:10:59 loading file /github/home/.cache/R/BiocFileCache/37efe12a0b_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span>
 <span></span>
-<span><span class="va">layer_modeling_results</span><span class="op">$</span><span class="va">enrichment</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<span><span class="va">layer_modeling_results</span><span class="op">$</span><span class="va">enrichment</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
 <span><span class="co">#&gt;    t_stat_WM t_stat_Layer1 t_stat_Layer2 t_stat_Layer3 t_stat_Layer4</span></span>
 <span><span class="co">#&gt; 1 -0.6344143    -1.0321320     0.1781501   -0.72835965    1.56703859</span></span>
 <span><span class="co">#&gt; 2 -2.4758891     1.2232062    -0.8733745    1.93793650    1.33150141</span></span>
@@ -297,7 +297,7 @@ gene ensembl ID and symbol.</p>
 <span><span class="co">#&gt; 5  2.3175897     0.6156900     0.1127478   -0.09907566   -0.03376771</span></span></code></pre></div>
 </div>
 <div class="section level4">
-<h4 id="querery-data-snrna-seq">Querery Data: snRNA-seq<a class="anchor" aria-label="anchor" href="#querery-data-snrna-seq"></a>
+<h4 id="query-data-snrna-seq">Query Data: snRNA-seq<a class="anchor" aria-label="anchor" href="#query-data-snrna-seq"></a>
 </h4>
 <p>For the query data set, we will use the public single nucleus RNA-seq
 (snRNA-seq) data from (Tran, Maynard, Spangler et al., 2021) can be
@@ -336,8 +336,7 @@ will not have enough data to complete the analysis</p>
 <code>cellType</code>, it is recommended to drop groups with &lt; 10
 nuclei (this is done automatically in the pseudobulk step).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">sce.dlpfc.tran</span><span class="op">$</span><span class="va">donor</span>, <span class="va">sce.dlpfc.tran</span><span class="op">$</span><span class="va">cellType</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">sce.dlpfc.tran</span><span class="op">$</span><span class="va">donor</span>, <span class="va">sce.dlpfc.tran</span><span class="op">$</span><span class="va">cellType</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         </span></span>
 <span><span class="co">#&gt;          Astro Excit_A Excit_B Excit_C Excit_D Excit_E Excit_F Inhib_A Inhib_B</span></span>
 <span><span class="co">#&gt;   donor1   371     111      75      44      22      77     102      39      98</span></span>
@@ -359,7 +358,7 @@ nuclei (this is done automatically in the pseudobulk step).</p>
 <h3 id="get-enrichment-statistics-for-snrna-seq-data">Get Enrichment statistics for snRNA-seq data<a class="anchor" aria-label="anchor" href="#get-enrichment-statistics-for-snrna-seq-data"></a>
 </h3>
 <p><code>spatialLIBD</code> contains many functions to compute
-<code>modeling_results</code> for the query sc/snRAN-seq or spatial
+<code>modeling_results</code> for the query sc/snRNA-seq or spatial
 data.</p>
 <p><strong>The process includes the following steps</strong></p>
 <ol style="list-style-type: decimal">
@@ -375,36 +374,39 @@ correlation using the sample ID as the blocking factor, used as
 correlation in eBayes call</li>
 <li>
 <code><a href="../reference/registration_stats_enrichment.html">registration_stats_enrichment()</a></code> : Computes the gene
-enrichment t-statistics (one group vs. All other groups)</li>
+enrichment <span class="math inline">\(t\)</span>-statistics (one group
+vs. All other groups)</li>
 </ol>
 <p>The function <code><a href="../reference/registration_wrapper.html">registration_wrapper()</a></code> makes life easy by
 wrapping these functions together in to one step!</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## cellType is a factor - use character vector to avoid empty level bug </span></span>
+<code class="sourceCode R"><span><span class="co">## cellType is a factor - use character vector to avoid empty level bug</span></span>
+<span><span class="co">## or use droplevels()</span></span>
 <span><span class="va">sce.dlpfc.tran</span><span class="op">$</span><span class="va">cellType2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">sce.dlpfc.tran</span><span class="op">$</span><span class="va">cellType</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## need ensemblID as rownames</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">sce.dlpfc.tran</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">sce.dlpfc.tran</span><span class="op">)</span><span class="op">$</span><span class="va">gene_id</span></span>
 <span></span>
 <span><span class="co">## if empty levels after min_ncells</span></span>
-<span><span class="va">sce_modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/registration_wrapper.html">registration_wrapper</a></span><span class="op">(</span>sce <span class="op">=</span> <span class="va">sce.dlpfc.tran</span>,</span>
-<span>                                         var_registration <span class="op">=</span> <span class="st">"cellType2"</span>,</span>
-<span>                                         var_sample_id <span class="op">=</span> <span class="st">"donor"</span>,</span>
-<span>                                         gene_ensembl <span class="op">=</span> <span class="st">"gene_id"</span>,</span>
-<span>                                         gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span>
-<span>                                         <span class="op">)</span></span>
-<span><span class="co">#&gt; 2023-04-28 13:47:28 make pseudobulk object</span></span>
-<span><span class="co">#&gt; 2023-04-28 13:47:34 dropping 13 pseudo-bulked samples that are below 'min_ncells'.</span></span>
-<span><span class="co">#&gt; 2023-04-28 13:47:34 drop lowly expressed genes</span></span>
-<span><span class="co">#&gt; 2023-04-28 13:47:34 normalize expression</span></span>
-<span><span class="co">#&gt; 2023-04-28 13:47:35 create model matrix</span></span>
-<span><span class="co">#&gt; 2023-04-28 13:47:35 run duplicateCorrelation()</span></span>
-<span><span class="co">#&gt; 2023-04-28 13:47:52 The estimated correlation is: 0.138734774807096</span></span>
-<span><span class="co">#&gt; 2023-04-28 13:47:52 computing enrichment statistics</span></span>
-<span><span class="co">#&gt; 2023-04-28 13:47:54 extract and reformat enrichment results</span></span>
-<span><span class="co">#&gt; 2023-04-28 13:47:54 running the baseline pairwise model</span></span>
-<span><span class="co">#&gt; 2023-04-28 13:47:54 computing pairwise statistics</span></span>
-<span><span class="co">#&gt; 2023-04-28 13:47:56 computing F-statistics</span></span></code></pre></div>
+<span><span class="va">sce_modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/registration_wrapper.html">registration_wrapper</a></span><span class="op">(</span></span>
+<span>    sce <span class="op">=</span> <span class="va">sce.dlpfc.tran</span>,</span>
+<span>    var_registration <span class="op">=</span> <span class="st">"cellType2"</span>,</span>
+<span>    var_sample_id <span class="op">=</span> <span class="st">"donor"</span>,</span>
+<span>    gene_ensembl <span class="op">=</span> <span class="st">"gene_id"</span>,</span>
+<span>    gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:11:10 make pseudobulk object</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:11:18 dropping 13 pseudo-bulked samples that are below 'min_ncells'.</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:11:18 drop lowly expressed genes</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:11:18 normalize expression</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:11:19 create model matrix</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:11:19 run duplicateCorrelation()</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:11:46 The estimated correlation is: 0.138734774807097</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:11:46 computing enrichment statistics</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:11:48 extract and reformat enrichment results</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:11:48 running the baseline pairwise model</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:11:48 computing pairwise statistics</span></span>
+<span><span class="co">#&gt; 2023-04-28 14:11:51 computing F-statistics</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="extract-enrichment-t-statistics">Extract Enrichment t-statistics<a class="anchor" aria-label="anchor" href="#extract-enrichment-t-statistics"></a>
@@ -419,7 +421,7 @@ wrapping these functions together in to one step!</p>
 <span><span class="co">#&gt; [1] 18620    15</span></span>
 <span></span>
 <span><span class="co">## check out table</span></span>
-<span><span class="va">registration_t_stats</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<span><span class="va">registration_t_stats</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
 <span><span class="co">#&gt;                       Astro    Excit_A    Excit_B    Excit_C    Excit_D</span></span>
 <span><span class="co">#&gt; ENSG00000238009 -0.71009456  0.7957792  0.0497619  0.6825793  0.5526941</span></span>
 <span><span class="co">#&gt; ENSG00000237491 -4.24672326  1.7724150  1.6819367  0.9047336  2.8222782</span></span>
@@ -431,14 +433,12 @@ wrapping these functions together in to one step!</p>
 <h3 id="correlate-statsics-with-layer-reference">Correlate statsics with Layer Reference<a class="anchor" aria-label="anchor" href="#correlate-statsics-with-layer-reference"></a>
 </h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">cor_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/layer_stat_cor.html">layer_stat_cor</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">cor_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/layer_stat_cor.html">layer_stat_cor</a></span><span class="op">(</span></span>
 <span>    stats <span class="op">=</span> <span class="va">registration_t_stats</span>,</span>
 <span>    modeling_results <span class="op">=</span> <span class="va">layer_modeling_results</span>,</span>
 <span>    model_type <span class="op">=</span> <span class="st">"enrichment"</span>,</span>
 <span>    top_n <span class="op">=</span> <span class="fl">100</span></span>
 <span><span class="op">)</span></span>
-<span></span>
 <span></span>
 <span><span class="va">cor_layer</span></span>
 <span><span class="co">#&gt;                 WM       Layer6      Layer5       Layer4      Layer3</span></span>
@@ -492,8 +492,7 @@ associated with.</p>
 <li><p>Weak associate with Inbihitory Neurons</p></li>
 </ul>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot</a></span><span class="op">(</span><span class="va">cor_layer</span>, max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">cor_layer</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot</a></span><span class="op">(</span><span class="va">cor_layer</span>, max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">cor_layer</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="guide_to_spatial_registration_files/figure-html/layer_cor_plot-1.png" width="700"></p>
 </div>
 <div class="section level3">
@@ -504,9 +503,9 @@ annotation labels for the cell types based on the correlation
 values.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">anno</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/annotate_registered_clusters.html">annotate_registered_clusters</a></span><span class="op">(</span></span>
-<span>  cor_stats_layer <span class="op">=</span> <span class="va">cor_layer</span>,</span>
-<span>  confidence_threshold <span class="op">=</span> <span class="fl">0.25</span>,</span>
-<span>  cutoff_merge_ratio <span class="op">=</span> <span class="fl">0.25</span></span>
+<span>    cor_stats_layer <span class="op">=</span> <span class="va">cor_layer</span>,</span>
+<span>    confidence_threshold <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>    cutoff_merge_ratio <span class="op">=</span> <span class="fl">0.25</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">anno</span></span>
@@ -567,9 +566,9 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"guide_to_spatial_registration.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2023-04-28 13:47:57 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2023-04-28 14:11:52 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 53.416 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 1.247 mins</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
