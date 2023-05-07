@@ -414,7 +414,7 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Download the small example sce data</span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_example"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2023-05-07 02:00:44.806139 loading file /github/home/.cache/R/BiocFileCache/6efe1be6dd04_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2023-05-07 06:46:01.193521 loading file /github/home/.cache/R/BiocFileCache/41676cd1ddf_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span>
 <span></span>
 <span><span class="co">## Convert to a SpatialExperiment object</span></span>
 <span><span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sce_to_spe.html">sce_to_spe</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
@@ -426,9 +426,9 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <span></span>
 <span><span class="co">## Query ExperimentHub and download the data</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2023-05-07 02:00:51.435337 loading file /github/home/.cache/R/BiocFileCache/6efe343e09ab_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2023-05-07 06:46:08.75565 loading file /github/home/.cache/R/BiocFileCache/4169f530e8_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
 <span><span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"modeling_results"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2023-05-07 02:00:52.865797 loading file /github/home/.cache/R/BiocFileCache/6efe4b68d0b9_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
+<span><span class="co">#&gt; 2023-05-07 06:46:10.014981 loading file /github/home/.cache/R/BiocFileCache/41627c88e84_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
 <p>Once you have downloaded the objects, we can explore them a little
 bit</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -501,7 +501,7 @@ long format and add some useful information. Let’s do so below.</p>
 <span>        <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;  12.437   0.472  12.913</span></span>
+<span><span class="co">#&gt;  10.943   0.388  11.333</span></span>
 <span></span>
 <span><span class="co">## Explore the result</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span></span>
@@ -923,7 +923,7 @@ if you are interested in it.</p>
 application provided by <em><a href="https://bioconductor.org/packages/3.17/spatialLIBD" class="external-link">spatialLIBD</a></em>
 (Pardo, Spangler, Weber et al., 2022) allows users to upload CSV file
 with these t-statistics, view the correlation heatmaps, download them,
-and download the correlation matrix. An example CSV file is provided <a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv" class="external-link">here</a>.</p>
+and download the correlation matrix. An example CSV file is provided <a href="https://github.com/LieberInstitute/spatialLIBD/blob/devel/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv" class="external-link">here</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="gene-set-enrichment">Gene set enrichment<a class="anchor" aria-label="anchor" href="#gene-set-enrichment"></a>
@@ -1002,7 +1002,7 @@ application provided by <em><a href="https://bioconductor.org/packages/3.17/spat
 (Pardo, Spangler, Weber et al., 2022) allows users to upload CSV file
 their gene lists, compute the enrichment statistics, visualize them,
 download the PDF, and download the enrichment table. An example CSV file
-is provided <a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/asd_sfari_geneList.csv" class="external-link">here</a>.</p>
+is provided <a href="https://github.com/LieberInstitute/spatialLIBD/blob/devel/data-raw/asd_sfari_geneList.csv" class="external-link">here</a>.</p>
 </div>
 </div>
 <div class="section level2">
@@ -1126,7 +1126,7 @@ main object used throughout our analysis code (Maynard, Collado-Torres,
 Weber et al., 2021).</li>
 <li>
 <code>make-data_spatialLIBD.R</code> available in the source version
-of <code>spatialLIBD</code> and <a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-data_spatialLIBD.R" class="external-link">online
+of <code>spatialLIBD</code> and <a href="https://github.com/LieberInstitute/spatialLIBD/blob/devel/inst/scripts/make-data_spatialLIBD.R" class="external-link">online
 here</a> is the script that reads in
 <code>Human_DLPFC_Visium_processedData_sce_scran.Rdata</code> as well as
 some other outputs from our analysis and combines them into the final
@@ -1140,7 +1140,7 @@ provided by <em><a href="https://bioconductor.org/packages/3.17/spatialLIBD" cla
 Note that external to the R objects, for the <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em>
 application provided by <em><a href="https://bioconductor.org/packages/3.17/spatialLIBD" class="external-link">spatialLIBD</a></em>
 you will need to have the <code>tissue_lowres_image.png</code> image
-files in a directory structure by sample as shown <a href="https://github.com/LieberInstitute/spatialLIBD/tree/master/inst/app/www/data" class="external-link">here</a>
+files in a directory structure by sample as shown <a href="https://github.com/LieberInstitute/spatialLIBD/tree/devel/inst/app/www/data" class="external-link">here</a>
 in order for the interactive visualizations made with <em><a href="https://CRAN.R-project.org/package=plotly" class="external-link">plotly</a></em> to
 work.</p>
 </div>
@@ -1377,9 +1377,9 @@ Marco, Scherer, and Cédric, 2023)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"spatialLIBD.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2023-05-07 02:01:14 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2023-05-07 06:46:29 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 46.272 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 43.613 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
