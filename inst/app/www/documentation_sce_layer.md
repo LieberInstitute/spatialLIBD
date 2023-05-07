@@ -79,7 +79,7 @@ spatialLIBD::layer_boxplot()
 
 ## Gene Set Enrichment
 
-This tab allows you to upload a CSV file that has a particular format as illustrated [in this example file](https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/asd_sfari_geneList.csv). This CSV file should contain:
+This tab allows you to upload a CSV file that has a particular format as illustrated [in this example file](https://github.com/LieberInstitute/spatialLIBD/blob/devel/data-raw/asd_sfari_geneList.csv). This CSV file should contain:
 
 * one column per gene set of interest labeled as column names on the first row,
 * no row names, 
@@ -97,7 +97,7 @@ spatialLIBD::gene_set_enrichment_plot()
 
 ## Spatial registration
 
-If you have a single nucleus or single cell RNA-sequencing (snRNA-seq)  (scRNA-seq) dataset, you might group your cells into clusters. Once you do, you could compress the data by pseudo-bulking (like we did to go from `spe` to `sce_layer`). You could then compute `enrichment` (`pairwise`, `anova`) statistics for your cell clusters. If you do so, you can then upload a specially formatted CSV file just like the one in [this example file](https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv). This file has:
+If you have a single nucleus or single cell RNA-sequencing (snRNA-seq)  (scRNA-seq) dataset, you might group your cells into clusters. Once you do, you could compress the data by pseudo-bulking (like we did to go from `spe` to `sce_layer`). You could then compute `enrichment` (`pairwise`, `anova`) statistics for your cell clusters. If you do so, you can then upload a specially formatted CSV file just like the one in [this example file](https://github.com/LieberInstitute/spatialLIBD/blob/devel/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv). This file has:
 
 * column names,
 * human Ensembl gene IDs as the row names (first column, no name for the column),

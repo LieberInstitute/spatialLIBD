@@ -114,20 +114,19 @@
 #'     col_high_point = "firebrick4",
 #'     cex = 3
 #' )
-layer_boxplot <- function(
-        i = 1,
-        sig_genes = sig_genes_extract(),
-        short_title = TRUE,
-        sce_layer = fetch_data(type = "sce_layer"),
-        col_bkg_box = "grey80",
-        col_bkg_point = "grey40",
-        col_low_box = "violet",
-        col_low_point = "darkviolet",
-        col_high_box = "skyblue",
-        col_high_point = "dodgerblue4",
-        cex = 2,
-        group_var = "layer_guess_reordered_short",
-        assayname = "logcounts") {
+layer_boxplot <- function(i = 1,
+    sig_genes = sig_genes_extract(),
+    short_title = TRUE,
+    sce_layer = fetch_data(type = "sce_layer"),
+    col_bkg_box = "grey80",
+    col_bkg_point = "grey40",
+    col_low_box = "violet",
+    col_low_point = "darkviolet",
+    col_high_box = "skyblue",
+    col_high_point = "dodgerblue4",
+    cex = 2,
+    group_var = "layer_guess_reordered_short",
+    assayname = "logcounts") {
     ## Extract the logcounts (default)
     mat <- assay(sce_layer, assayname)
 

@@ -20,11 +20,13 @@ commit](https://bioconductor.org/shields/lastcommit/devel/data-experiment/spatia
 [![Bioc
 dependencies](https://bioconductor.org/shields/dependencies/release/spatialLIBD.svg)](https://bioconductor.org/packages/release/data-experiment/html/spatialLIBD.html#since)
 [![Codecov test
-coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?branch=master)
+coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/devel/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?branch=devel)
 [![R build
 status](https://github.com/LieberInstitute/spatialLIBD/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/LieberInstitute/spatialLIBD/actions)
 [![GitHub
 issues](https://img.shields.io/github/issues/LieberInstitute/spatialLIBD)](https://github.com/LieberInstitute/spatialLIBD/issues)
+[![GitHub
+pulls](https://img.shields.io/github/issues-pr/LieberInstitute/spatialLIBD)](https://github.com/LieberInstitute/spatialLIBD/pulls)
 [![DOI](https://zenodo.org/badge/225913568.svg)](https://zenodo.org/badge/latestdoi/225913568)
 
 <!-- badges: end -->
@@ -243,7 +245,6 @@ Please run this yourself to check for any updates on how to cite
 
 ``` r
 print(citation("spatialLIBD"), bibtex = TRUE)
-#> 
 #> To cite package 'spatialLIBD' in publications use:
 #> 
 #>   Pardo B, Spangler A, Weber LM, Hicks SC, Jaffe AE, Martinowich K,
@@ -283,6 +284,48 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #>     doi = {10.1038/s41593-020-00787-0},
 #>     url = {https://www.nature.com/articles/s41593-020-00787-0},
 #>   }
+#> 
+#>   Huuki-Myers LA, Spangler A, Eagles NJ, Montgomergy KD, Kwon SH, Guo
+#>   B, Grant-Peters M, Divecha HR, Tippani M, Sriworarat C, Nguyen AB,
+#>   Ravichandran P, Tran MN, Seyedian A, Consortium P, Hyde TM, Kleinman
+#>   JE, Battle A, Page SC, Ryten M, Hicks SC, Martinowich K,
+#>   Collado-Torres L, Maynard KR (2023). "Integrated single cell and
+#>   unsupervised spatial transcriptomic analysis defines molecular
+#>   anatomy of the human dorsolateral prefrontal cortex." _bioRxiv_.
+#>   doi:10.1101/2023.02.15.528722
+#>   <https://doi.org/10.1101/2023.02.15.528722>,
+#>   <https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1>.
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Article{,
+#>     title = {Integrated single cell and unsupervised spatial transcriptomic analysis defines molecular anatomy of the human dorsolateral prefrontal cortex},
+#>     author = {Louise A. Huuki-Myers and Abby Spangler and Nicholas J. Eagles and Kelsey D. Montgomergy and Sang Ho Kwon and Boyi Guo and Melissa Grant-Peters and Heena R. Divecha and Madhavi Tippani and Chaichontat Sriworarat and Annie B. Nguyen and Prashanthi Ravichandran and Matthew N. Tran and Arta Seyedian and PsychENCODE Consortium and Thomas M. Hyde and Joel E. Kleinman and Alexis Battle and Stephanie C. Page and Mina Ryten and Stephanie C. Hicks and Keri Martinowich and Leonardo Collado-Torres and Kristen R. Maynard},
+#>     year = {2023},
+#>     journal = {bioRxiv},
+#>     doi = {10.1101/2023.02.15.528722},
+#>     url = {https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1},
+#>   }
+#> 
+#>   Kwon SH, Parthiban S, Tippani M, Divecha HR, Eagles NJ, Lobana JS,
+#>   Williams SR, Mark M, Bharadwaj RA, Kleinman JE, Hyde TM, Page SC,
+#>   Hicks SC, Martinowich K, Maynard KR, Collado-Torres L (2023).
+#>   "Influence of Alzheimer’s disease related neuropathology on local
+#>   microenvironment gene expression in the human inferior temporal
+#>   cortex." _bioRxiv_. doi:10.1101/2023.04.20.537710
+#>   <https://doi.org/10.1101/2023.04.20.537710>,
+#>   <https://www.biorxiv.org/content/10.1101/2023.04.20.537710v1>.
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Article{,
+#>     title = {Influence of Alzheimer’s disease related neuropathology on local microenvironment gene expression in the human inferior temporal cortex},
+#>     author = {Sang Ho Kwon and Sowmya Parthiban and Madhavi Tippani and Heena R. Divecha and Nicholas J. Eagles and Jashandeep S. Lobana and Stephen R. Williams and Michelle Mark and Rahul A. Bharadwaj and Joel E. Kleinman and Thomas M. Hyde and Stephanie C. Page and Stephanie C. Hicks and Keri Martinowich and Kristen R. Maynard and Leonardo Collado-Torres},
+#>     year = {2023},
+#>     journal = {bioRxiv},
+#>     doi = {10.1101/2023.04.20.537710},
+#>     url = {https://www.biorxiv.org/content/10.1101/2023.04.20.537710v1},
+#>   }
 ```
 
 Please note that the `spatialLIBD` was only made possible thanks to many
@@ -306,7 +349,7 @@ By contributing to this project, you agree to abide by its terms.
   *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized
   to use [Bioconductor’s docker
   containers](https://www.bioconductor.org/help/docker/) and
-  *[BiocCheck](https://bioconductor.org/packages/3.16/BiocCheck)*.
+  *[BiocCheck](https://bioconductor.org/packages/3.17/BiocCheck)*.
 - Code coverage assessment is possible thanks to
   [codecov](https://codecov.io/gh) and
   *[covr](https://CRAN.R-project.org/package=covr)*.
@@ -323,7 +366,7 @@ By contributing to this project, you agree to abide by its terms.
 For more details, check the `dev` directory.
 
 This package was developed using
-*[biocthis](https://bioconductor.org/packages/3.16/biocthis)*.
+*[biocthis](https://bioconductor.org/packages/3.17/biocthis)*.
 
 <a href="https://www.libd.org/"><img src="http://lcolladotor.github.io/img/LIBD_logo.jpg" width="250px"></a>
 

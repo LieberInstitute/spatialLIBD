@@ -23,9 +23,10 @@ knitr::opts_chunk$set(
 [![Bioc support](https://bioconductor.org/shields/posts/spatialLIBD.svg)](https://support.bioconductor.org/tag/spatialLIBD)
 [![Bioc last commit](https://bioconductor.org/shields/lastcommit/devel/data-experiment/spatialLIBD.svg)](http://bioconductor.org/checkResults/devel/data-experiment-LATEST/spatialLIBD/)
 [![Bioc dependencies](https://bioconductor.org/shields/dependencies/release/spatialLIBD.svg)](https://bioconductor.org/packages/release/data-experiment/html/spatialLIBD.html#since)
-[![Codecov test coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/master/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/devel/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?branch=devel)
 [![R build status](https://github.com/LieberInstitute/spatialLIBD/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/LieberInstitute/spatialLIBD/actions)
 [![GitHub issues](https://img.shields.io/github/issues/LieberInstitute/spatialLIBD)](https://github.com/LieberInstitute/spatialLIBD/issues)
+[![GitHub pulls](https://img.shields.io/github/issues-pr/LieberInstitute/spatialLIBD)](https://github.com/LieberInstitute/spatialLIBD/pulls)
 [![DOI](https://zenodo.org/badge/225913568.svg)](https://zenodo.org/badge/latestdoi/225913568)
 
 

@@ -113,21 +113,20 @@
 #'     print(p5)
 #' }
 vis_gene <-
-    function(
-        spe,
-        sampleid = unique(spe$sample_id)[1],
-        geneid = rowData(spe)$gene_search[1],
-        spatial = TRUE,
-        assayname = "logcounts",
-        minCount = 0,
-        viridis = TRUE,
-        image_id = "lowres",
-        alpha = NA,
-        cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
-        point_size = 2,
-        auto_crop = TRUE,
-        na_color = "#CCCCCC40",
-        ...) {
+    function(spe,
+    sampleid = unique(spe$sample_id)[1],
+    geneid = rowData(spe)$gene_search[1],
+    spatial = TRUE,
+    assayname = "logcounts",
+    minCount = 0,
+    viridis = TRUE,
+    image_id = "lowres",
+    alpha = NA,
+    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
+    point_size = 2,
+    auto_crop = TRUE,
+    na_color = "#CCCCCC40",
+    ...) {
         spe_sub <- spe[, spe$sample_id == sampleid]
         d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
 

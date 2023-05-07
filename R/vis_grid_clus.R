@@ -47,22 +47,21 @@
 #'     cowplot::plot_grid(plotlist = p_list, ncol = 2)
 #' }
 vis_grid_clus <-
-    function(
-        spe,
-        clustervar,
-        pdf_file,
-        sort_clust = TRUE,
-        colors = NULL,
-        return_plots = FALSE,
-        spatial = TRUE,
-        height = 24,
-        width = 36,
-        image_id = "lowres",
-        alpha = NA,
-        sample_order = unique(spe$sample_id),
-        point_size = 2,
-        auto_crop = TRUE,
-        ...) {
+    function(spe,
+    clustervar,
+    pdf_file,
+    sort_clust = TRUE,
+    colors = NULL,
+    return_plots = FALSE,
+    spatial = TRUE,
+    height = 24,
+    width = 36,
+    image_id = "lowres",
+    alpha = NA,
+    sample_order = unique(spe$sample_id),
+    point_size = 2,
+    auto_crop = TRUE,
+    ...) {
         stopifnot(all(sample_order %in% unique(spe$sample_id)))
 
         if (sort_clust) {

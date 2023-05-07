@@ -55,20 +55,19 @@
 #'     cex = 2
 #' )
 layer_matrix_plot <-
-    function(
-        matrix_values,
-        matrix_labels = NULL,
-        xlabs = NULL,
-        layerHeights = NULL,
-        mypal = c(
-            "white",
-            grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "YlOrRd"))(50)
-        ),
-        breaks = NULL,
-        axis.args = NULL,
-        srt = 45,
-        mar = c(8, 4 + (max(nchar(rownames(matrix_values))) %/% 3) * 0.5, 4, 2) + 0.1,
-        cex = 1.2) {
+    function(matrix_values,
+    matrix_labels = NULL,
+    xlabs = NULL,
+    layerHeights = NULL,
+    mypal = c(
+        "white",
+        grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "YlOrRd"))(50)
+    ),
+    breaks = NULL,
+    axis.args = NULL,
+    srt = 45,
+    mar = c(8, 4 + (max(nchar(rownames(matrix_values))) %/% 3) * 0.5, 4, 2) + 0.1,
+    cex = 1.2) {
         ## Create some default values in case the user didn't specify them
         if (is.null(xlabs)) {
             if (is.null(colnames(matrix_values))) {
