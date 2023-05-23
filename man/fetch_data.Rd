@@ -6,10 +6,10 @@
 \usage{
 fetch_data(
   type = c("sce", "sce_layer", "modeling_results", "sce_example", "spe",
-    "spatialDLPFC_Visium", "spatialDLPFC_Visium_pseudobulk",
-    "spatialDLPFC_Visium_modeling_results", "spatialDLPFC_Visium_SPG",
-    "spatialDLPFC_snRNAseq", "Visium_SPG_AD_Visium_wholegenome_spe",
-    "Visium_SPG_AD_Visium_targeted_spe",
+    "spatialDLPFC_Visium", "spatialDLPFC_Visium_example_subset",
+    "spatialDLPFC_Visium_pseudobulk", "spatialDLPFC_Visium_modeling_results",
+    "spatialDLPFC_Visium_SPG", "spatialDLPFC_snRNAseq",
+    "Visium_SPG_AD_Visium_wholegenome_spe", "Visium_SPG_AD_Visium_targeted_spe",
     "Visium_SPG_AD_Visium_wholegenome_pseudobulk_spe",
     "Visium_SPG_AD_Visium_wholegenome_modeling_results"),
   destdir = tempdir(),

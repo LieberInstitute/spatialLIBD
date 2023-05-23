@@ -92,6 +92,7 @@ fetch_data <-
             "sce_example",
             "spe",
             "spatialDLPFC_Visium",
+            "spatialDLPFC_Visium_example_subset",
             "spatialDLPFC_Visium_pseudobulk",
             "spatialDLPFC_Visium_modeling_results",
             "spatialDLPFC_Visium_SPG",
@@ -182,6 +183,14 @@ fetch_data <-
                 "spe_filtered_final_with_clusters_and_deconvolution_results.rds"
             url <-
                 "https://www.dropbox.com/s/y2ifv5v8g68papf/spe_filtered_final_with_clusters_and_deconvolution_results.rds?dl=1"
+        } else if (type == "spatialDLPFC_Visium_example_subset") {
+            tag <- "spatialDLPFC_Visium_VisiumSPG_snRNAseq_spatialLIBD_example_subset"
+            hub_title <- "spatialDLPFC_Visium_spe_example_subset"
+
+            ## While EH is not set-up
+            file_name <- "spatialDLPFC_spe_subset_example.rds"
+            url <-
+                "https://www.dropbox.com/s/3jm3kjab9lzaemo/spatialDLPFC_spe_subset_example.rds?dl=1"
         } else if (type == "spatialDLPFC_Visium_pseudobulk") {
             tag <- "spatialDLPFC_Visium_VisiumSPG_snRNAseq_spatialLIBD"
             hub_title <- "spatialDLPFC_Visium_pseudobulk_spe"

@@ -1,3 +1,11 @@
+# spatialLIBD 1.13.4
+
+NEW FEATURES
+
+* Added `fetch_data("spatialDLPFC_Visium_example_subset")` which is a subset
+of 3 samples with only the `lowres` images that can be used for example /
+tutorial purposes.
+
 # spatialLIBD 1.13.2
 
 NEW FEATURES
