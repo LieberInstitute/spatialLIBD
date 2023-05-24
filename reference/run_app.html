@@ -19,7 +19,7 @@ any other data that you have shaped according to our object structure."><meta pr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.13.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.13.4</span>
       </span>
     </div>
 
@@ -167,7 +167,7 @@ the application.</p></dd>
     <h2>Value</h2>
     
 
-<p>A <a href="https://shiny.rstudio.com/reference/shiny/latest/shiny.appobj.html" class="external-link">shiny.appobj</a> that contains the input data.</p>
+<p>A <a href="https://rdrr.io/pkg/shiny/man/shiny.appobj.html" class="external-link">shiny.appobj</a> that contains the input data.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -249,7 +249,7 @@ That vignette is available at
 <span class="r-in"><span>    <span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="fu">colData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>    <span class="co">## Set default cluster colors</span></span></span>
-<span class="r-in"><span>    <span class="va">colors_BayesSpace</span> <span class="op">&lt;-</span> <span class="fu">Polychrome</span><span class="fu">::</span><span class="fu">palette36.colors</span><span class="op">(</span><span class="fl">28</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">colors_BayesSpace</span> <span class="op">&lt;-</span> <span class="fu">Polychrome</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Polychrome/man/palettes.html" class="external-link">palette36.colors</a></span><span class="op">(</span><span class="fl">28</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">colors_BayesSpace</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">28</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">spe</span><span class="op">$</span><span class="va">BayesSpace_harmony_09</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">colors_BayesSpace</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
