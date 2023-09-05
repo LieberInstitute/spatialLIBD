@@ -36,6 +36,10 @@
 #' @param default_cluster A `character(1)` with the name of the main cluster
 #' (discrete) variable to use. It will have to be present in both `colData(spe)`
 #' and `colData(sce_layer)`.
+#' @param auto_crop_default A `logical(1)` specifying the default value for
+#' automatically cropping the images. Set this to `FALSE` if your images do not
+#' follow the Visium grid size expectations, which are key for enabling
+#' auto-cropping.
 #' @param ... Other arguments passed to the list of golem options for running
 #' the application.
 #'
@@ -228,6 +232,7 @@ run_app <- function(spe = fetch_data(type = "spe"),
         "expr_chrM_ratio"
     ),
     default_cluster = "spatialLIBD",
+    auto_crop_default = TRUE,
     ...) {
     ## Run the checks in the relevant order
     stopifnot(length(default_cluster) == 1)
@@ -275,6 +280,7 @@ run_app <- function(spe = fetch_data(type = "spe"),
             spe_discrete_vars = spe_discrete_vars,
             spe_continuous_vars = spe_continuous_vars,
             default_cluster = default_cluster,
+            auto_crop_default = auto_crop_default,
             ...
         )
     )

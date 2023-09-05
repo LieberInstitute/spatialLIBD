@@ -1,3 +1,12 @@
+# spatialLIBD 1.13.5
+
+NEW FEATURES
+
+* `run_app()` now has a `auto_crop_default` argument set to `TRUE` by default.
+It can be turned off in cases where you are displaying images that do not
+follow the expected Visium grid dimensions, such as manually stitched images
+that you don't want to automatically crop.
+
 # spatialLIBD 1.13.4
 
 NEW FEATURES
