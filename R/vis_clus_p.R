@@ -52,7 +52,8 @@ vis_clus_p <-
     image_id = "lowres",
     alpha = NA,
     point_size = 2,
-    auto_crop = TRUE) {
+    auto_crop = TRUE,
+    na_color = "#CCCCCC40") {
         ## Some variables
         pxl_row_in_fullres <- pxl_col_in_fullres <- key <- NULL
         # stopifnot(all(c("pxl_col_in_fullres", "pxl_row_in_fullres", "key") %in% colnames(d)))
@@ -112,7 +113,7 @@ vis_clus_p <-
                 alpha = alpha
             ) +
             coord_fixed(expand = FALSE) +
-            scale_fill_manual(values = colors) +
+            scale_fill_manual(values = colors, na.value = na_color) +
             xlim(0, ncol(img)) +
             ylim(nrow(img), 0) +
             xlab("") + ylab("") +

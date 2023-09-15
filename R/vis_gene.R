@@ -23,11 +23,6 @@
 #' dependent on cell density.
 #' @param cont_colors A `character()` vector of colors that supersedes the
 #' `viridis` argument.
-#' @param na_color A `character(1)` specifying a color for the NA values.
-#' If you set `alpha = NA` then it's best to set `na_color` to a color that has
-#' alpha blending already, which will make non-NA values pop up more and the NA
-#' values will show with a lighter color. This behavior is lost when `alpha` is
-#' set to a non-`NA` value.
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export

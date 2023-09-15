@@ -1,3 +1,11 @@
+# spatialLIBD 1.13.6
+
+NEW FEATURES
+
+* `vis_clus_p()`, `vis_clus()`, and `vis_grid_clus()` now all use implement the
+`na_color` argument that was present in the `vis_gene()` functions. This
+resolves https://github.com/LieberInstitute/spatialLIBD/issues/43 by @boyiguo1.
+
 # spatialLIBD 1.13.5
 
 NEW FEATURES

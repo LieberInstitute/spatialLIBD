@@ -24,6 +24,11 @@
 #' @param auto_crop A `logical(1)` indicating whether to automatically crop
 #' the image / plotting area, which is useful if the Visium capture area is
 #' not centered on the image and if the image is not a square.
+#' @param na_color A `character(1)` specifying a color for the NA values.
+#' If you set `alpha = NA` then it's best to set `na_color` to a color that has
+#' alpha blending already, which will make non-NA values pop up more and the NA
+#' values will show with a lighter color. This behavior is lost when `alpha` is
+#' set to a non-`NA` value.
 #' @param ... Passed to [paste0()][base::paste] for making the title of the
 #' plot following the `sampleid`.
 #'
@@ -74,6 +79,20 @@
 #'         spatial = FALSE
 #'     )
 #'     print(p3)
+#'
+#'     ## With some NA values
+#'     spe$tmp <- spe$layer_guess_reordered
+#'     spe$tmp[spe$sample_id == "151673"][seq_len(500)] <- NA
+#'     p4 <- vis_clus(
+#'         spe = spe,
+#'         clustervar = "tmp",
+#'         sampleid = "151673",
+#'         colors = libd_layer_colors,
+#'         na_color = "white",
+#'         ... = " LIBD Layers"
+#'     )
+#'     print(p4)
+#'
 #' }
 vis_clus <- function(spe,
     sampleid = unique(spe$sample_id)[1],
@@ -97,6 +116,7 @@ vis_clus <- function(spe,
     alpha = NA,
     point_size = 2,
     auto_crop = TRUE,
+    na_color = "#CCCCCC40",
     ...) {
     spe_sub <- spe[, spe$sample_id == sampleid]
     d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
@@ -112,6 +132,7 @@ vis_clus <- function(spe,
         image_id = image_id,
         alpha = alpha,
         point_size = point_size,
-        auto_crop = auto_crop
+        auto_crop = auto_crop,
+        na_color = na_color
     )
 }

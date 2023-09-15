@@ -19,6 +19,7 @@ vis_grid_clus(
   sample_order = unique(spe$sample_id),
   point_size = 2,
   auto_crop = TRUE,
+  na_color = "#CCCCCC40",
   ...
 )
 }
@@ -68,6 +69,12 @@ to \code{1.25}. Some colors look better if you use \code{2} for instance.}
 \item{auto_crop}{A \code{logical(1)} indicating whether to automatically crop
 the image / plotting area, which is useful if the Visium capture area is
 not centered on the image and if the image is not a square.}
+
+\item{na_color}{A \code{character(1)} specifying a color for the NA values.
+If you set \code{alpha = NA} then it's best to set \code{na_color} to a color that has
+alpha blending already, which will make non-NA values pop up more and the NA
+values will show with a lighter color. This behavior is lost when \code{alpha} is
+set to a non-\code{NA} value.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}

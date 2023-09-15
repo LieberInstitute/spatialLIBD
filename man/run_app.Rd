@@ -23,6 +23,7 @@ run_app(
   spe_continuous_vars = c("cell_count", "sum_umi", "sum_gene", "expr_chrM",
     "expr_chrM_ratio"),
   default_cluster = "spatialLIBD",
+  auto_crop_default = TRUE,
   ...
 )
 }
@@ -68,6 +69,11 @@ as genes. They will have to be present in \code{colData(sce)}.}
 \item{default_cluster}{A \code{character(1)} with the name of the main cluster
 (discrete) variable to use. It will have to be present in both \code{colData(spe)}
 and \code{colData(sce_layer)}.}
+
+\item{auto_crop_default}{A \code{logical(1)} specifying the default value for
+automatically cropping the images. Set this to \code{FALSE} if your images do not
+follow the Visium grid size expectations, which are key for enabling
+auto-cropping.}
 
 \item{...}{Other arguments passed to the list of golem options for running
 the application.}
