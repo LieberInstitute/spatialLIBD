@@ -91,7 +91,7 @@ Suggests:
     here,
     BiocManager,
     lobstr,
-	DropletUtils
+    DropletUtils
 VignetteBuilder: knitr
 biocViews: Homo_sapiens_Data, ExperimentHub, SequencingData, SingleCellData,
     ExpressionData, Tissue, PackageTypeData, SpatialData
