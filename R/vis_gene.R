@@ -178,6 +178,8 @@ vis_gene <-
         } else {
             if (multi_gene_method == 'z_score') {
                 d$COUNT = multi_gene_z_score(cont_matrix)
+            } else if (multi_gene_method == 'sparsity') {
+                d$COUNT = multi_gene_sparsity(cont_matrix)
             }
         }
         d$COUNT[d$COUNT <= minCount] <- NA
