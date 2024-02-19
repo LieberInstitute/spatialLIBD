@@ -174,6 +174,17 @@ if (enough_ram()) {
         auto_crop = FALSE
     )
     print(p5)
+
+    ## Plot two genes at once using the Z-score combination method
+    p6 <- vis_gene(
+        spe = spe,
+        sampleid = "151507",
+        geneid = rownames(spe)[
+            which(rowData(spe)$gene_name \%in\% c("MBP", "GFAP"))
+        ],
+        multi_gene_method = "z_score"
+    )
+    print(p6)
 }
 }
 \seealso{
