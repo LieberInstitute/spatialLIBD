@@ -14,8 +14,8 @@
 #' @family functions for summarizing expression of multiple continuous variables simultaneously
 multi_gene_z_score <- function(cont_mat) {
     #   For each spot, average Z-scores across all features
-    cont_z <- (cont_mat - rowMeans(cont_mat)) / rowSds(cont_mat)
-    z_vec <- colMeans(cont_z, na.rm = TRUE)
+    cont_z <- (cont_mat - colMeans(cont_mat)) / colSds(cont_mat)
+    z_vec <- rowMeans(cont_z, na.rm = TRUE)
 
     return(z_vec)
 }
