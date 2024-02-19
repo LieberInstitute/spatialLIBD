@@ -174,8 +174,10 @@ vis_gene <-
         cont_matrix = cbind(cont_cols, gene_cols)
 
         if (ncol(cont_matrix) == 1) {
+            plot_title = paste(sampleid, geneid, ...)
             d$COUNT = cont_matrix[,1]
         } else {
+            plot_title = paste(sampleid, ...)
             if (multi_gene_method == 'z_score') {
                 d$COUNT = multi_gene_z_score(cont_matrix)
             } else if (multi_gene_method == 'sparsity') {
@@ -185,16 +187,13 @@ vis_gene <-
             }
         }
         d$COUNT[d$COUNT <= minCount] <- NA
+
         p <- vis_gene_p(
             spe = spe_sub,
             d = d,
             sampleid = sampleid,
             spatial = spatial,
-            title = paste(
-                sampleid,
-                geneid,
-                ...
-            ),
+            title = plot_title,
             viridis = viridis,
             image_id = image_id,
             alpha = alpha,
@@ -203,7 +202,7 @@ vis_gene <-
             auto_crop = auto_crop,
             na_color = na_color,
             legend_title = paste0(
-                if (!geneid %in% colnames(colData(spe_sub))) {
+                if (!any(geneid %in% colnames(colData(spe_sub)))) {
                     paste0(assayname, "\n")
                 } else {
                     NULL
