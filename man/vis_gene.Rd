@@ -19,6 +19,7 @@ vis_gene(
   point_size = 2,
   auto_crop = TRUE,
   na_color = "#CCCCCC40",
+  multi_gene_method = c("z_score", "pca", "sparsity"),
   ...
 )
 }
@@ -79,12 +80,12 @@ alpha blending already, which will make non-NA values pop up more and the NA
 values will show with a lighter color. This behavior is lost when \code{alpha} is
 set to a non-\code{NA} value.}
 
-\item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
-plot following the \code{sampleid}.}
-
 \item{multi_gene_method}{A \code{character(1)}: either "pca", "sparsity", or
 "z_score". This parameter controls how multiple continuous variables are
 combined for visualization, and only applies when \code{geneid} has length > 1.}
+
+\item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
+plot following the \code{sampleid}.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2} object.

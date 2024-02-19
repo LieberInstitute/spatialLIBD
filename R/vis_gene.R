@@ -33,6 +33,7 @@
 #' @export
 #' @importFrom SummarizedExperiment assays
 #' @importFrom SpatialExperiment spatialCoords
+#' @importFrom rlang arg_match
 #' @family Spatial gene visualization functions
 #' @details This function subsets `spe` to the given sample and prepares the
 #' data and title for [vis_gene_p()]. It also adds a caption to the plot.
@@ -126,9 +127,12 @@ vis_gene <-
     point_size = 2,
     auto_crop = TRUE,
     na_color = "#CCCCCC40",
+    multi_gene_method = c("z_score", "pca", "sparsity"),
     ...) {
         spe_sub <- spe[, spe$sample_id == sampleid]
         d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
+
+        multi_gene_method = rlang::arg_match(multi_gene_method)
 
         #   Verify legitimacy of names in geneid
         geneid_is_valid = (geneid %in% rowData(spe_sub)$gene_search) |
@@ -171,6 +175,10 @@ vis_gene <-
 
         if (ncol(cont_matrix) == 1) {
             d$COUNT = cont_matrix[,1]
+        } else {
+            if (multi_gene_method == 'z_score') {
+                d$COUNT = multi_gene_z_score(cont_matrix)
+            }
         }
         d$COUNT[d$COUNT <= minCount] <- NA
         p <- vis_gene_p(
