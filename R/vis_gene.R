@@ -125,15 +125,47 @@ vis_gene <-
         spe_sub <- spe[, spe$sample_id == sampleid]
         d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
 
-        if (geneid %in% colnames(colData(spe_sub))) {
-            d$COUNT <- colData(spe_sub)[[geneid]]
-        } else if (geneid %in% rowData(spe_sub)$gene_search) {
-            d$COUNT <-
-                assays(spe_sub)[[assayname]][which(rowData(spe_sub)$gene_search == geneid), ]
-        } else if (geneid %in% rownames(spe_sub)) {
-            d$COUNT <- assays(spe_sub)[[assayname]][which(rownames(spe_sub) == geneid), ]
-        } else {
-            stop("Could not find the 'geneid' ", geneid, call. = FALSE)
+        #   Verify legitimacy of names in geneid
+        geneid_is_valid = (geneid %in% rowData(spe_sub)$gene_search) |
+            (geneid %in% rownames(spe_sub)) |
+            (geneid %in% colnames(colData(spe_sub)))
+        if (any(!geneid_is_valid)) {
+            stop(
+                "Could not find the 'geneid'(s) ",
+                paste(geneid[!geneid_is_valid], collapse = ', '),
+                call. = FALSE
+            )
+        }
+
+        #   Grab any continuous colData columns
+        cont_cols = as.matrix(
+            colData(spe_sub)[
+                , geneid[geneid %in% colnames(colData(spe_sub))], drop = FALSE
+            ]
+        )
+
+        #   Get the integer indices of each gene in the SpatialExperiment, since we
+        #   aren't guaranteed that rownames are gene names
+        remaining_geneid = geneid[!(geneid %in% colnames(colData(spe_sub)))]
+        valid_gene_indices = unique(
+            c(
+                match(remaining_geneid, rowData(spe_sub)$gene_search),
+                match(remaining_geneid, rownames(spe_sub))
+            )
+        )
+        valid_gene_indices = valid_gene_indices[!is.na(valid_gene_indices)]
+
+        #   Grab any genes
+        gene_cols = t(
+            as.matrix(assays(spe_sub[valid_gene_indices, ])[[assayname]])
+        )
+
+        #   Combine into one matrix where rows are genes and columns are continuous
+        #   features
+        cont_matrix = cbind(cont_cols, gene_cols)
+
+        if (ncol(cont_matrix) == 1) {
+            d$COUNT = cont_matrix[,1]
         }
         d$COUNT[d$COUNT <= minCount] <- NA
         p <- vis_gene_p(
