@@ -33,10 +33,12 @@ vis_grid_gene(
 object with the spot-level Visium data and information required for
 visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
-\item{geneid}{A \code{character(1)} specifying the gene ID stored in
-\code{rowData(spe)$gene_search} or a continuous variable stored in \code{colData(spe)}
-to visualize. If \code{rowData(spe)$gene_search} is missing, then \code{rownames(spe)}
-is used to search for the gene ID.}
+\item{geneid}{A \code{character()} specifying the gene ID(s) stored in
+\code{rowData(spe)$gene_search} or a continuous variable(s) stored in \code{colData(spe)}
+to visualize. For each ID, if \code{rowData(spe)$gene_search} is missing, then
+\code{rownames(spe)} is used to search for the gene ID. When a vector of length > 1
+is supplied, the continuous variables are combined according to \code{multi_gene_method},
+producing a single value for each spot.}
 
 \item{pdf_file}{A \code{character(1)} specifying the path for the resulting PDF.}
 
@@ -129,7 +131,7 @@ if (enough_ram()) {
 }
 \seealso{
 Other Spatial gene visualization functions: 
-\code{\link{vis_gene_p}()},
-\code{\link{vis_gene}()}
+\code{\link{vis_gene}()},
+\code{\link{vis_gene_p}()}
 }
 \concept{Spatial gene visualization functions}

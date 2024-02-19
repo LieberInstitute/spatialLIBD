@@ -39,8 +39,8 @@ if (enough_ram()) {
 \seealso{
 Other Check input functions: 
 \code{\link{check_modeling_results}()},
-\code{\link{check_sce_layer}()},
-\code{\link{check_sce}()}
+\code{\link{check_sce}()},
+\code{\link{check_sce_layer}()}
 }
 \author{
 Brenda Pardo, Leonardo Collado-Torres

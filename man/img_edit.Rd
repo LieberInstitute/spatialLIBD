@@ -108,7 +108,7 @@ if (enough_ram()) {
 }
 \seealso{
 Other Image editing functions: 
-\code{\link{img_update_all}()},
-\code{\link{img_update}()}
+\code{\link{img_update}()},
+\code{\link{img_update_all}()}
 }
 \concept{Image editing functions}

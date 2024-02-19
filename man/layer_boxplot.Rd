@@ -153,7 +153,7 @@ https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses
 }
 \seealso{
 Other Layer modeling functions: 
-\code{\link{sig_genes_extract_all}()},
-\code{\link{sig_genes_extract}()}
+\code{\link{sig_genes_extract}()},
+\code{\link{sig_genes_extract_all}()}
 }
 \concept{Layer modeling functions}

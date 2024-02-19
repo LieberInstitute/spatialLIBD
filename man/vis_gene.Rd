@@ -32,10 +32,12 @@ visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more 
 \item{sampleid}{A \code{character(1)} specifying which sample to plot from
 \code{colData(spe)$sample_id} (formerly \code{colData(spe)$sample_name}).}
 
-\item{geneid}{A \code{character(1)} specifying the gene ID stored in
-\code{rowData(spe)$gene_search} or a continuous variable stored in \code{colData(spe)}
-to visualize. If \code{rowData(spe)$gene_search} is missing, then \code{rownames(spe)}
-is used to search for the gene ID.}
+\item{geneid}{A \code{character()} specifying the gene ID(s) stored in
+\code{rowData(spe)$gene_search} or a continuous variable(s) stored in \code{colData(spe)}
+to visualize. For each ID, if \code{rowData(spe)$gene_search} is missing, then
+\code{rownames(spe)} is used to search for the gene ID. When a vector of length > 1
+is supplied, the continuous variables are combined according to \code{multi_gene_method},
+producing a single value for each spot.}
 
 \item{spatial}{A \code{logical(1)} indicating whether to include the histology
 layer from \code{\link[=geom_spatial]{geom_spatial()}}. If you plan to use
@@ -79,6 +81,10 @@ set to a non-\code{NA} value.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}
+
+\item{multi_gene_method}{A \code{character(1)}: either "pca", "sparsity", or
+"z_score". This parameter controls how multiple continuous variables are
+combined for visualization, and only applies when \code{geneid} has length > 1.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2} object.
