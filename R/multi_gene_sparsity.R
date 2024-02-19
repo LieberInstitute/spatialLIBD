@@ -12,6 +12,6 @@
 #' @author Nicholas J. Eagles
 #' @import MatrixGenerics
 #' @family functions for summarizing expression of multiple continuous variables simultaneously
-multi_gene_z_score <- function(cont_mat) {
+multi_gene_sparsity <- function(cont_mat) {
     return(rowMeans(cont_mat > 0))
 }

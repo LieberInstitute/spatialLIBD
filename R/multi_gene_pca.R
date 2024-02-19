@@ -16,7 +16,7 @@
 #' @author Nicholas J. Eagles
 #' @importFrom stats prcomp
 #' @family functions for summarizing expression of multiple continuous variables simultaneously
-multi_gene_z_score <- function(cont_mat) {
+multi_gene_pca <- function(cont_mat) {
     pc_exp <- stats::prcomp(cont_mat, center = TRUE, scale = TRUE)
     pc_vec <- pc_exp$x[, "PC1"]
 
