@@ -125,26 +125,42 @@
 #'     print(p6)
 #' }
 vis_gene <-
-    function(
-        spe,
-        sampleid = unique(spe$sample_id)[1],
-        geneid = rowData(spe)$gene_search[1],
-        spatial = TRUE,
-        assayname = "logcounts",
-        minCount = 0,
-        viridis = TRUE,
-        image_id = "lowres",
-        alpha = NA,
-        cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
-        point_size = 2,
-        auto_crop = TRUE,
-        na_color = "#CCCCCC40",
-        multi_gene_method = c("z_score", "pca", "sparsity"),
-        ...) {
+    function(spe,
+    sampleid = unique(spe$sample_id)[1],
+    geneid = rowData(spe)$gene_search[1],
+    spatial = TRUE,
+    assayname = "logcounts",
+    minCount = 0,
+    viridis = TRUE,
+    image_id = "lowres",
+    alpha = NA,
+    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
+    point_size = 2,
+    auto_crop = TRUE,
+    na_color = "#CCCCCC40",
+    multi_gene_method = c("z_score", "pca", "sparsity"),
+    ...) {
+        multi_gene_method <- rlang::arg_match(multi_gene_method)
+        #   Verify existence and legitimacy of 'sampleid'
+        if (
+            !("sample_id" %in% colnames(colData(spe))) ||
+                !(sampleid %in% spe$sample_id)
+        ) {
+            stop(
+                paste(
+                    "'spe$sample_id' must exist and contain the ID", sampleid
+                ),
+                call. = FALSE
+            )
+        }
+
+        #   Verify 'assayname'
+        if (!(assayname %in% names(assays(spe)))) {
+            stop(sprintf("'%s' is not an assay in 'spe'", assayname), call. = FALSE)
+        }
+
         spe_sub <- spe[, spe$sample_id == sampleid]
         d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
-
-        multi_gene_method <- rlang::arg_match(multi_gene_method)
 
         #   Verify legitimacy of names in geneid
         geneid_is_valid <- (geneid %in% rowData(spe_sub)$gene_search) |
