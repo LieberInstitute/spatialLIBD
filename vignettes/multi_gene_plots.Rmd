@@ -89,7 +89,7 @@ and instead focuses on how each gene varies spatially, weighting each gene equal
 
 Let's plot all four white matter genes using this method.
 
-```{r "single_gene"}
+```{r "multi_gene_z"}
 vis_gene(spe, geneid = white_matter_genes, multi_gene_method = "z_score")
 ```
 
@@ -105,7 +105,7 @@ higher values in the plot to represent areas of higher expression of the feature
 this leads to the intuitive result that "expression" is higher in white matter for white-matter
 genes, which is not otherwise guaranteed (the "sign" of PCs is arbitary)!
 
-```{r "single_gene"}
+```{r "multi_gene_pca"}
 vis_gene(spe, geneid = white_matter_genes, multi_gene_method = "pca")
 ```
 
@@ -120,7 +120,7 @@ and 1, which is not visually informative.
 
 The white-matter example is thus poor due to lack of sparsity and low number of genes:
 
-```{r "single_gene"}
+```{r "multi_gene_sparsity"}
 vis_gene(spe, geneid = white_matter_genes, multi_gene_method = "sparsity")
 ```
 
