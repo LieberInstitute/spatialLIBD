@@ -112,7 +112,7 @@
 #'         auto_crop = FALSE
 #'     )
 #'     print(p5)
-#' 
+#'
 #'     ## Plot two genes at once using the Z-score combination method
 #'     p6 <- vis_gene(
 #'         spe = spe,
@@ -125,76 +125,78 @@
 #'     print(p6)
 #' }
 vis_gene <-
-    function(spe,
-    sampleid = unique(spe$sample_id)[1],
-    geneid = rowData(spe)$gene_search[1],
-    spatial = TRUE,
-    assayname = "logcounts",
-    minCount = 0,
-    viridis = TRUE,
-    image_id = "lowres",
-    alpha = NA,
-    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
-    point_size = 2,
-    auto_crop = TRUE,
-    na_color = "#CCCCCC40",
-    multi_gene_method = c("z_score", "pca", "sparsity"),
-    ...) {
+    function(
+        spe,
+        sampleid = unique(spe$sample_id)[1],
+        geneid = rowData(spe)$gene_search[1],
+        spatial = TRUE,
+        assayname = "logcounts",
+        minCount = 0,
+        viridis = TRUE,
+        image_id = "lowres",
+        alpha = NA,
+        cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
+        point_size = 2,
+        auto_crop = TRUE,
+        na_color = "#CCCCCC40",
+        multi_gene_method = c("z_score", "pca", "sparsity"),
+        ...) {
         spe_sub <- spe[, spe$sample_id == sampleid]
         d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
 
-        multi_gene_method = rlang::arg_match(multi_gene_method)
+        multi_gene_method <- rlang::arg_match(multi_gene_method)
 
         #   Verify legitimacy of names in geneid
-        geneid_is_valid = (geneid %in% rowData(spe_sub)$gene_search) |
+        geneid_is_valid <- (geneid %in% rowData(spe_sub)$gene_search) |
             (geneid %in% rownames(spe_sub)) |
             (geneid %in% colnames(colData(spe_sub)))
         if (any(!geneid_is_valid)) {
             stop(
                 "Could not find the 'geneid'(s) ",
-                paste(geneid[!geneid_is_valid], collapse = ', '),
+                paste(geneid[!geneid_is_valid], collapse = ", "),
                 call. = FALSE
             )
         }
 
         #   Grab any continuous colData columns
-        cont_cols = as.matrix(
+        cont_cols <- as.matrix(
             colData(spe_sub)[
-                , geneid[geneid %in% colnames(colData(spe_sub))], drop = FALSE
+                , geneid[geneid %in% colnames(colData(spe_sub))],
+                drop = FALSE
             ]
         )
 
         #   Get the integer indices of each gene in the SpatialExperiment, since we
         #   aren't guaranteed that rownames are gene names
-        remaining_geneid = geneid[!(geneid %in% colnames(colData(spe_sub)))]
-        valid_gene_indices = unique(
+        remaining_geneid <- geneid[!(geneid %in% colnames(colData(spe_sub)))]
+        valid_gene_indices <- unique(
             c(
                 match(remaining_geneid, rowData(spe_sub)$gene_search),
                 match(remaining_geneid, rownames(spe_sub))
             )
         )
-        valid_gene_indices = valid_gene_indices[!is.na(valid_gene_indices)]
+        valid_gene_indices <- valid_gene_indices[!is.na(valid_gene_indices)]
 
         #   Grab any genes
-        gene_cols = t(
+        gene_cols <- t(
             as.matrix(assays(spe_sub[valid_gene_indices, ])[[assayname]])
         )
 
         #   Combine into one matrix where rows are genes and columns are continuous
         #   features
-        cont_matrix = cbind(cont_cols, gene_cols)
+        cont_matrix <- cbind(cont_cols, gene_cols)
 
         if (ncol(cont_matrix) == 1) {
-            plot_title = paste(sampleid, geneid, ...)
-            d$COUNT = cont_matrix[,1]
+            plot_title <- paste(sampleid, geneid, ...)
+            d$COUNT <- cont_matrix[, 1]
         } else {
-            plot_title = paste(sampleid, ...)
-            if (multi_gene_method == 'z_score') {
-                d$COUNT = multi_gene_z_score(cont_matrix)
-            } else if (multi_gene_method == 'sparsity') {
-                d$COUNT = multi_gene_sparsity(cont_matrix)
+            plot_title <- paste(sampleid, ...)
+            if (multi_gene_method == "z_score") {
+                d$COUNT <- multi_gene_z_score(cont_matrix)
+            } else if (multi_gene_method == "sparsity") {
+                d$COUNT <- multi_gene_sparsity(cont_matrix)
             } else { # must be 'pca'
-                d$COUNT = multi_gene_pca(cont_matrix)
+                d$COUNT <- multi_gene_pca(cont_matrix)
             }
         }
         d$COUNT[d$COUNT <= minCount] <- NA

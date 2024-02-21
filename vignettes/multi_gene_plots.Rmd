@@ -57,10 +57,10 @@ plotting the spatial distribution of a single gene or continuous variable of int
 
 ```{r "setup", message = FALSE, warning = FALSE}
 library("spatialLIBD")
-spe = fetch_data(type = "spatialDLPFC_Visium_example_subset")
+spe <- fetch_data(type = "spatialDLPFC_Visium_example_subset")
 
-white_matter_genes = c("GFAP", "AQP4", "MBP", "PLP1")
-white_matter_genes = rowData(spe)$gene_search[
+white_matter_genes <- c("GFAP", "AQP4", "MBP", "PLP1")
+white_matter_genes <- rowData(spe)$gene_search[
     rowData(spe)$gene_name %in% white_matter_genes
 ]
 ```

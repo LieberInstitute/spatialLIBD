@@ -72,11 +72,12 @@
 #'     top_n = 10
 #' ), max = 0.25)
 layer_stat_cor_plot <-
-    function(cor_stats_layer,
-    max = 0.81,
-    min = -max,
-    layerHeights = NULL,
-    cex = 1.2) {
+    function(
+        cor_stats_layer,
+        max = 0.81,
+        min = -max,
+        layerHeights = NULL,
+        cex = 1.2) {
         ## From https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/dlpfc_snRNAseq_annotation.R
         theSeq <- seq(min, max, by = 0.01)
         my.col <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(7, "PRGn"))(length(theSeq))
