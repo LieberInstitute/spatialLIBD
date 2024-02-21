@@ -20,7 +20,7 @@ gene-level (or any continuous variable) use vis_gene_p()."><meta property="og:im
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.13.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.1</span>
       </span>
     </div>
 
@@ -42,6 +42,9 @@ gene-level (or any continuous variable) use vis_gene_p()."><meta property="og:im
     </li>
     <li>
       <a href="../articles/guide_to_spatial_registration.html">Guide to Spatial Registration</a>
+    </li>
+    <li>
+      <a href="../articles/multi_gene_plots.html">Guide to Multi-Gene Plots</a>
     </li>
   </ul></li>
 <li>
@@ -86,7 +89,8 @@ gene-level (or any continuous variable) use <code><a href="vis_gene_p.html">vis_
 <span>  image_id <span class="op">=</span> <span class="st">"lowres"</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  point_size <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  auto_crop <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  auto_crop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  na_color <span class="op">=</span> <span class="st">"#CCCCCC40"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -151,6 +155,14 @@ to <code>1.25</code>. Some colors look better if you use <code>2</code> for inst
 the image / plotting area, which is useful if the Visium capture area is
 not centered on the image and if the image is not a square.</p></dd>
 
+
+<dt>na_color</dt>
+<dd><p>A <code>character(1)</code> specifying a color for the NA values.
+If you set <code>alpha = NA</code> then it's best to set <code>na_color</code> to a color that has
+alpha blending already, which will make non-NA values pop up more and the NA
+values will show with a lighter color. This behavior is lost when <code>alpha</code> is
+set to a non-<code>NA</code> value.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -190,7 +202,7 @@ not centered on the image and if the image is not a square.</p></dd>
 <span class="r-in"><span>    <span class="co">## Clean up</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">spe_sub</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2023-09-05 20:35:27.388284 loading file /github/home/.cache/R/BiocFileCache/152d33414640_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-02-21 18:02:48.876409 loading file /github/home/.cache/R/BiocFileCache/148d53e3e2f2_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-plt img"><img src="vis_clus_p-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>

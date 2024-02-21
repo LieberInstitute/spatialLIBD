@@ -18,7 +18,7 @@ names. It can be used to automatically assign colors."><meta property="og:image"
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.13.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.1</span>
       </span>
     </div>
 
@@ -40,6 +40,9 @@ names. It can be used to automatically assign colors."><meta property="og:image"
     </li>
     <li>
       <a href="../articles/guide_to_spatial_registration.html">Guide to Spatial Registration</a>
+    </li>
+    <li>
+      <a href="../articles/multi_gene_plots.html">Guide to Multi-Gene Plots</a>
     </li>
   </ul></li>
 <li>
@@ -102,7 +105,7 @@ either change the names or use <a href="https://rdrr.io/r/base/unname.html" clas
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Obtain the necessary data</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2023-09-05 20:31:46.131382 loading file /github/home/.cache/R/BiocFileCache/11446d56ea68_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-02-21 18:00:50.101918 loading file /github/home/.cache/R/BiocFileCache/108e7c23f8e5_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Example layer colors with the corresponding names</span></span></span>
 <span class="r-in"><span><span class="fu">get_colors</span><span class="op">(</span><span class="va">libd_layer_colors</span>, <span class="va">sce_layer</span><span class="op">$</span><span class="va">layer_guess</span><span class="op">)</span></span></span>

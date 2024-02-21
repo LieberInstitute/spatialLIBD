@@ -22,6 +22,9 @@
     <loc>/articles/index.html</loc>
   </url>
   <url>
+    <loc>/articles/multi_gene_plots.html</loc>
+  </url>
+  <url>
     <loc>/articles/spatialLIBD.html</loc>
   </url>
   <url>
@@ -113,6 +116,15 @@
   </url>
   <url>
     <loc>/reference/locate_images.html</loc>
+  </url>
+  <url>
+    <loc>/reference/multi_gene_pca.html</loc>
+  </url>
+  <url>
+    <loc>/reference/multi_gene_sparsity.html</loc>
+  </url>
+  <url>
+    <loc>/reference/multi_gene_z_score.html</loc>
   </url>
   <url>
     <loc>/reference/read10xVisiumAnalysis.html</loc>

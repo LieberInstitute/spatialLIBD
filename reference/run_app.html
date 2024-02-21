@@ -19,7 +19,7 @@ any other data that you have shaped according to our object structure."><meta pr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.13.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.1</span>
       </span>
     </div>
 
@@ -41,6 +41,9 @@ any other data that you have shaped according to our object structure."><meta pr
     </li>
     <li>
       <a href="../articles/guide_to_spatial_registration.html">Guide to Spatial Registration</a>
+    </li>
+    <li>
+      <a href="../articles/multi_gene_plots.html">Guide to Multi-Gene Plots</a>
     </li>
   </ul></li>
 <li>
@@ -92,6 +95,7 @@ any other data that you have shaped according to our object structure.</p>
 <span>  spe_continuous_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cell_count"</span>, <span class="st">"sum_umi"</span>, <span class="st">"sum_gene"</span>, <span class="st">"expr_chrM"</span>,</span>
 <span>    <span class="st">"expr_chrM_ratio"</span><span class="op">)</span>,</span>
 <span>  default_cluster <span class="op">=</span> <span class="st">"spatialLIBD"</span>,</span>
+<span>  auto_crop_default <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -156,6 +160,13 @@ as genes. They will have to be present in <code>colData(sce)</code>.</p></dd>
 <dd><p>A <code>character(1)</code> with the name of the main cluster
 (discrete) variable to use. It will have to be present in both <code>colData(spe)</code>
 and <code>colData(sce_layer)</code>.</p></dd>
+
+
+<dt>auto_crop_default</dt>
+<dd><p>A <code>logical(1)</code> specifying the default value for
+automatically cropping the images. Set this to <code>FALSE</code> if your images do not
+follow the Visium grid size expectations, which are key for enabling
+auto-cropping.</p></dd>
 
 
 <dt>...</dt>

@@ -19,7 +19,7 @@ gene-level (or any continuous variable) use vis_gene()."><meta property="og:imag
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.13.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.1</span>
       </span>
     </div>
 
@@ -41,6 +41,9 @@ gene-level (or any continuous variable) use vis_gene()."><meta property="og:imag
     </li>
     <li>
       <a href="../articles/guide_to_spatial_registration.html">Guide to Spatial Registration</a>
+    </li>
+    <li>
+      <a href="../articles/multi_gene_plots.html">Guide to Multi-Gene Plots</a>
     </li>
   </ul></li>
 <li>
@@ -84,6 +87,7 @@ gene-level (or any continuous variable) use <code><a href="vis_gene.html">vis_ge
 <span>  alpha <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  point_size <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  auto_crop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  na_color <span class="op">=</span> <span class="st">"#CCCCCC40"</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -139,6 +143,14 @@ to <code>1.25</code>. Some colors look better if you use <code>2</code> for inst
 <dd><p>A <code>logical(1)</code> indicating whether to automatically crop
 the image / plotting area, which is useful if the Visium capture area is
 not centered on the image and if the image is not a square.</p></dd>
+
+
+<dt>na_color</dt>
+<dd><p>A <code>character(1)</code> specifying a color for the NA values.
+If you set <code>alpha = NA</code> then it's best to set <code>na_color</code> to a color that has
+alpha blending already, which will make non-NA values pop up more and the NA
+values will show with a lighter color. This behavior is lost when <code>alpha</code> is
+set to a non-<code>NA</code> value.</p></dd>
 
 
 <dt>...</dt>
@@ -206,11 +218,26 @@ data and title for <code><a href="vis_clus_p.html">vis_clus_p()</a></code>.</p>
 <span class="r-in"><span>        spatial <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## With some NA values</span></span></span>
+<span class="r-in"><span>    <span class="va">spe</span><span class="op">$</span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="va">spe</span><span class="op">$</span><span class="va">layer_guess_reordered</span></span></span>
+<span class="r-in"><span>    <span class="va">spe</span><span class="op">$</span><span class="va">tmp</span><span class="op">[</span><span class="va">spe</span><span class="op">$</span><span class="va">sample_id</span> <span class="op">==</span> <span class="st">"151673"</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
+<span class="r-in"><span>    <span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu">vis_clus</span><span class="op">(</span></span></span>
+<span class="r-in"><span>        spe <span class="op">=</span> <span class="va">spe</span>,</span></span>
+<span class="r-in"><span>        clustervar <span class="op">=</span> <span class="st">"tmp"</span>,</span></span>
+<span class="r-in"><span>        sampleid <span class="op">=</span> <span class="st">"151673"</span>,</span></span>
+<span class="r-in"><span>        colors <span class="op">=</span> <span class="va">libd_layer_colors</span>,</span></span>
+<span class="r-in"><span>        na_color <span class="op">=</span> <span class="st">"white"</span>,</span></span>
+<span class="r-in"><span>        ... <span class="op">=</span> <span class="st">" LIBD Layers"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2023-09-05 20:34:57.709554 loading file /github/home/.cache/R/BiocFileCache/152d33414640_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-02-21 18:02:28.039974 loading file /github/home/.cache/R/BiocFileCache/148d53e3e2f2_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-plt img"><img src="vis_clus-1.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_clus-2.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_clus-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vis_clus-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
