@@ -118,7 +118,7 @@
 #'         "ENSG00000197971", "ENSG00000131095", "ENSG00000123560",
 #'         "ENSG00000171885"
 #'     )
-#' 
+#'
 #'     ## Plot all white matter markers at once using the Z-score combination
 #'     ## method
 #'     p6 <- vis_gene(
@@ -128,7 +128,7 @@
 #'         multi_gene_method = "z_score"
 #'     )
 #'     print(p6)
-#' 
+#'
 #'     ## Plot all white matter markers at once using the sparsity combination
 #'     ## method
 #'     p7 <- vis_gene(
@@ -138,7 +138,7 @@
 #'         multi_gene_method = "sparsity"
 #'     )
 #'     print(p7)
-#' 
+#'
 #'     ## Plot all white matter markers at once using the PCA combination
 #'     ## method
 #'     p8 <- vis_gene(
@@ -150,21 +150,22 @@
 #'     print(p8)
 #' }
 vis_gene <-
-    function(spe,
-    sampleid = unique(spe$sample_id)[1],
-    geneid = rowData(spe)$gene_search[1],
-    spatial = TRUE,
-    assayname = "logcounts",
-    minCount = 0,
-    viridis = TRUE,
-    image_id = "lowres",
-    alpha = NA,
-    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
-    point_size = 2,
-    auto_crop = TRUE,
-    na_color = "#CCCCCC40",
-    multi_gene_method = c("z_score", "pca", "sparsity"),
-    ...) {
+    function(
+        spe,
+        sampleid = unique(spe$sample_id)[1],
+        geneid = rowData(spe)$gene_search[1],
+        spatial = TRUE,
+        assayname = "logcounts",
+        minCount = 0,
+        viridis = TRUE,
+        image_id = "lowres",
+        alpha = NA,
+        cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
+        point_size = 2,
+        auto_crop = TRUE,
+        na_color = "#CCCCCC40",
+        multi_gene_method = c("z_score", "pca", "sparsity"),
+        ...) {
         multi_gene_method <- rlang::arg_match(multi_gene_method)
         #   Verify existence and legitimacy of 'sampleid'
         if (
@@ -227,17 +228,26 @@ vis_gene <-
         #   features
         cont_matrix <- cbind(cont_cols, gene_cols)
 
+        #   Determine plot and legend titles
         if (ncol(cont_matrix) == 1) {
             plot_title <- paste(sampleid, geneid, ...)
             d$COUNT <- cont_matrix[, 1]
+            if (!(geneid %in% colnames(colData(spe_sub)))) {
+                legend_title <- sprintf("%s\n min > %s", assayname, minCount)
+            } else {
+                legend_title <- sprintf("min > %s", minCount)
+            }
         } else {
             plot_title <- paste(sampleid, ...)
             if (multi_gene_method == "z_score") {
                 d$COUNT <- multi_gene_z_score(cont_matrix)
+                legend_title <- paste("Z score\n min > ", minCount)
             } else if (multi_gene_method == "sparsity") {
                 d$COUNT <- multi_gene_sparsity(cont_matrix)
+                legend_title <- paste("Prop. nonzero\n min > ", minCount)
             } else { # must be 'pca'
                 d$COUNT <- multi_gene_pca(cont_matrix)
+                legend_title <- paste("PC1\n min > ", minCount)
             }
         }
         d$COUNT[d$COUNT <= minCount] <- NA
@@ -255,14 +265,7 @@ vis_gene <-
             point_size = point_size,
             auto_crop = auto_crop,
             na_color = na_color,
-            legend_title = paste0(
-                if (!any(geneid %in% colnames(colData(spe_sub)))) {
-                    paste0(assayname, "\n")
-                } else {
-                    NULL
-                },
-                " min > ", minCount
-            )
+            legend_title = legend_title
         )
         return(p)
     }
