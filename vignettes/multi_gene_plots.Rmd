@@ -40,6 +40,7 @@ library("RefManageR")
 ## Write bibliography information
 bib <- c(
     R = citation(),
+    MatrixGenerics = citation("MatrixGenerics")[1],
     knitr = citation("knitr")[3],
     RColorBrewer = citation("RColorBrewer")[1],
     RefManageR = citation("RefManageR")[1],
