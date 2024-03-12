@@ -175,16 +175,41 @@ if (enough_ram()) {
     )
     print(p5)
 
-    ## Plot two genes at once using the Z-score combination method
+    #    Define several markers for white matter
+    white_matter_genes <- c(
+        "ENSG00000197971", "ENSG00000131095", "ENSG00000123560",
+        "ENSG00000171885"
+    )
+
+    ## Plot all white matter markers at once using the Z-score combination
+    ## method
     p6 <- vis_gene(
         spe = spe,
         sampleid = "151507",
-        geneid = rownames(spe)[
-            which(rowData(spe)$gene_name \%in\% c("MBP", "GFAP"))
-        ],
+        geneid = white_matter_genes,
         multi_gene_method = "z_score"
     )
     print(p6)
+
+    ## Plot all white matter markers at once using the sparsity combination
+    ## method
+    p7 <- vis_gene(
+        spe = spe,
+        sampleid = "151507",
+        geneid = white_matter_genes,
+        multi_gene_method = "sparsity"
+    )
+    print(p7)
+
+    ## Plot all white matter markers at once using the PCA combination
+    ## method
+    p8 <- vis_gene(
+        spe = spe,
+        sampleid = "151507",
+        geneid = white_matter_genes,
+        multi_gene_method = "pca"
+    )
+    print(p8)
 }
 }
 \seealso{
