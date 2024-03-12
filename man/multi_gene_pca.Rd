@@ -31,3 +31,4 @@ Other functions for summarizing expression of multiple continuous variables simu
 Nicholas J. Eagles
 }
 \concept{functions for summarizing expression of multiple continuous variables simultaneously}
+\keyword{internal}

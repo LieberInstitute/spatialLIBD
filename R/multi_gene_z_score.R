@@ -12,6 +12,7 @@
 #' @author Nicholas J. Eagles
 #' @import MatrixGenerics
 #' @family functions for summarizing expression of multiple continuous variables simultaneously
+#' @keywords internal
 multi_gene_z_score <- function(cont_mat) {
     #   For each spot, average Z-scores across all features
     cont_z <- (cont_mat - colMeans(cont_mat)) / colSds(cont_mat)

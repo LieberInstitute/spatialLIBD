@@ -127,7 +127,6 @@ if (enough_ram()) {
         ... = " LIBD Layers"
     )
     print(p4)
-
 }
 }
 \seealso{
