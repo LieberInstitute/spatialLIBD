@@ -134,6 +134,8 @@ The white-matter example is thus poor due to lack of sparsity and low number of 
 vis_gene(spe, geneid = white_matter_genes, multi_gene_method = "sparsity")
 ```
 
+# Reproducibility
+
 Code for creating the vignette
 
 ```{r createVignette, eval=FALSE}
