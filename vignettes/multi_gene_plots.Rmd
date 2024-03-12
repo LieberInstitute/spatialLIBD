@@ -47,7 +47,15 @@ bib <- c(
     rmarkdown = citation("rmarkdown")[1],
     sessioninfo = citation("sessioninfo")[1],
     SpatialExperiment = citation("SpatialExperiment")[1],
-    spatialLIBD = citation("spatialLIBD")[1]
+    spatialLIBD = citation("spatialLIBD")[1],
+    tran2021 = RefManageR::BibEntry(
+        bibtype = "Article",
+        key = "tran2021",
+        author = "Tran, Matthew N. and Maynard, Kristen R. and Spangler, Abby and Huuki, Louise A. and Montgomery, Kelsey D. and Sadashivaiah, Vijay and Tippani, Madhavi and Barry, Brianna K. and Hancock, Dana B. and Hicks, Stephanie C. and Kleinman, Joel E. and Hyde, Thomas M. and Collado-Torres, Leonardo and Jaffe, Andrew E. and Martinowich, Keri",
+        title = "Single-nucleus transcriptome analysis reveals cell-type-specific molecular signatures across reward circuitry in the human brain",
+        year = 2021, doi = "10.1016/j.neuron.2021.09.001",
+        journal = "Neuron"
+    )
 )
 ```
 
@@ -63,7 +71,8 @@ use case for `vis_gene()` before moving to more advanced cases.
 # Plotting One Gene
 
 A typical use of [`vis_gene`](http://research.libd.org/spatialLIBD/reference/vis_gene.html) involves
-plotting the spatial distribution of a single gene or continuous variable of interest.
+plotting the spatial distribution of a single gene or continuous variable of interest. We'll
+first define several genes known to be markers for white matter `r Citep(bib[['tran2021']])`.
 
 ```{r "setup", message = FALSE, warning = FALSE}
 library("spatialLIBD")
@@ -74,6 +83,8 @@ white_matter_genes <- rowData(spe)$gene_search[
     rowData(spe)$gene_name %in% white_matter_genes
 ]
 ```
+
+Next, we'll plot just the expression of *GFAP*.
 
 ```{r "single_gene"}
 vis_gene(spe, geneid = white_matter_genes[1])
