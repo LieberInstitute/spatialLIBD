@@ -51,6 +51,15 @@ bib <- c(
 )
 ```
 
+One of the goals of `spatialLIBD` is to provide options for visualizing Visium data. In
+particular, `vis_gene()` and `vis_clus()` allow plotting of individual continuous or
+discrete quantities belonging to each Visium spot, in a spatially accurate manner and
+optionally atop histology images.
+
+This vignette explores a more complex capability of `vis_gene()`: to visualize a summary
+metric of several continuous variables simultaneously. We'll start with a basic one-gene
+use case for `vis_gene()` before moving to more advanced cases.
+
 # Plotting One Gene
 
 A typical use of [`vis_gene`](http://research.libd.org/spatialLIBD/reference/vis_gene.html) involves
