@@ -605,15 +605,50 @@ app_server <- function(input, output, session) {
         }
 
         ## From vis_gene() in global.R
+        spe_sub <- spe[, spe$sample_id == sampleid]
         d <-
             as.data.frame(cbind(colData(spe), SpatialExperiment::spatialCoords(spe))[spe$sample_id == sampleid, ],
                 optional = TRUE
             )
-        if (geneid %in% colnames(d)) {
-            d$COUNT <- d[[geneid]]
+        #   Grab any continuous colData columns
+        cont_cols <- as.matrix(
+            colData(spe_sub)[
+                , geneid[geneid %in% colnames(colData(spe_sub))],
+                drop = FALSE
+            ]
+        )
+
+        #   Get the integer indices of each gene in the SpatialExperiment, since we
+        #   aren't guaranteed that rownames are gene names
+        remaining_geneid <- geneid[!(geneid %in% colnames(colData(spe_sub)))]
+        valid_gene_indices <- unique(
+            c(
+                match(remaining_geneid, rowData(spe_sub)$gene_search),
+                match(remaining_geneid, rownames(spe_sub))
+            )
+        )
+        valid_gene_indices <- valid_gene_indices[!is.na(valid_gene_indices)]
+
+        #   Grab any genes
+        gene_cols <- t(
+            as.matrix(assays(spe_sub[valid_gene_indices, ])[[assayname]])
+        )
+
+        #   Combine into one matrix where rows are genes and columns are continuous
+        #   features
+        cont_matrix <- cbind(cont_cols, gene_cols)
+
+        #   Determine plot and legend titles
+        if (ncol(cont_matrix) == 1) {
+            d$COUNT <- cont_matrix[, 1]
         } else {
-            d$COUNT <-
-                assays(spe)[[assayname]][which(rowData(spe)$gene_search == geneid), spe$sample_id == sampleid]
+            if (multi_gene_method == "z_score") {
+                d$COUNT <- multi_gene_z_score(cont_matrix)
+            } else if (multi_gene_method == "sparsity") {
+                d$COUNT <- multi_gene_sparsity(cont_matrix)
+            } else { # must be 'pca'
+                d$COUNT <- multi_gene_pca(cont_matrix)
+            }
         }
         d$COUNT[d$COUNT <= minCount] <- NA
 
