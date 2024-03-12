@@ -287,18 +287,43 @@ data and title for <code><a href="vis_gene_p.html">vis_gene_p()</a></code>. It a
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>    <span class="co">## Plot two genes at once using the Z-score combination method</span></span></span>
+<span class="r-in"><span>    <span class="co">#    Define several markers for white matter</span></span></span>
+<span class="r-in"><span>    <span class="va">white_matter_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"ENSG00000197971"</span>, <span class="st">"ENSG00000131095"</span>, <span class="st">"ENSG00000123560"</span>,</span></span>
+<span class="r-in"><span>        <span class="st">"ENSG00000171885"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Plot all white matter markers at once using the Z-score combination</span></span></span>
+<span class="r-in"><span>    <span class="co">## method</span></span></span>
 <span class="r-in"><span>    <span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu">vis_gene</span><span class="op">(</span></span></span>
 <span class="r-in"><span>        spe <span class="op">=</span> <span class="va">spe</span>,</span></span>
 <span class="r-in"><span>        sampleid <span class="op">=</span> <span class="st">"151507"</span>,</span></span>
-<span class="r-in"><span>        geneid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">[</span></span></span>
-<span class="r-in"><span>            <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu">rowData</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"MBP"</span>, <span class="st">"GFAP"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span>        <span class="op">]</span>,</span></span>
+<span class="r-in"><span>        geneid <span class="op">=</span> <span class="va">white_matter_genes</span>,</span></span>
 <span class="r-in"><span>        multi_gene_method <span class="op">=</span> <span class="st">"z_score"</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Plot all white matter markers at once using the sparsity combination</span></span></span>
+<span class="r-in"><span>    <span class="co">## method</span></span></span>
+<span class="r-in"><span>    <span class="va">p7</span> <span class="op">&lt;-</span> <span class="fu">vis_gene</span><span class="op">(</span></span></span>
+<span class="r-in"><span>        spe <span class="op">=</span> <span class="va">spe</span>,</span></span>
+<span class="r-in"><span>        sampleid <span class="op">=</span> <span class="st">"151507"</span>,</span></span>
+<span class="r-in"><span>        geneid <span class="op">=</span> <span class="va">white_matter_genes</span>,</span></span>
+<span class="r-in"><span>        multi_gene_method <span class="op">=</span> <span class="st">"sparsity"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Plot all white matter markers at once using the PCA combination</span></span></span>
+<span class="r-in"><span>    <span class="co">## method</span></span></span>
+<span class="r-in"><span>    <span class="va">p8</span> <span class="op">&lt;-</span> <span class="fu">vis_gene</span><span class="op">(</span></span></span>
+<span class="r-in"><span>        spe <span class="op">=</span> <span class="va">spe</span>,</span></span>
+<span class="r-in"><span>        sampleid <span class="op">=</span> <span class="st">"151507"</span>,</span></span>
+<span class="r-in"><span>        geneid <span class="op">=</span> <span class="va">white_matter_genes</span>,</span></span>
+<span class="r-in"><span>        multi_gene_method <span class="op">=</span> <span class="st">"pca"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p8</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-02-21 18:03:04.37159 loading file /github/home/.cache/R/BiocFileCache/148d53e3e2f2_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-12 19:06:19.026162 loading file /github/home/.cache/R/BiocFileCache/14f735568706_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-plt img"><img src="vis_gene-1.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_gene-2.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_gene-3.png" alt="" width="700" height="433"></span>
@@ -307,6 +332,8 @@ data and title for <code><a href="vis_gene_p.html">vis_gene_p()</a></code>. It a
 <span class="r-plt img"><img src="vis_gene-6.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_gene-7.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_gene-8.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vis_gene-9.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vis_gene-10.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
