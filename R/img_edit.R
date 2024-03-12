@@ -58,25 +58,24 @@
 #'     plot(x)
 #' }
 img_edit <-
-    function(
-        spe,
-        sampleid,
-        image_id = "lowres",
-        channel = NA,
-        brightness = 100,
-        saturation = 100,
-        hue = 100,
-        enhance = FALSE,
-        contrast_sharpen = NA,
-        quantize_max = NA,
-        quantize_dither = TRUE,
-        equalize = FALSE,
-        normalize = FALSE,
-        transparent_color = NA,
-        transparent_fuzz = 0,
-        background_color = NA,
-        median_radius = NA,
-        negate = FALSE) {
+    function(spe,
+    sampleid,
+    image_id = "lowres",
+    channel = NA,
+    brightness = 100,
+    saturation = 100,
+    hue = 100,
+    enhance = FALSE,
+    contrast_sharpen = NA,
+    quantize_max = NA,
+    quantize_dither = TRUE,
+    equalize = FALSE,
+    normalize = FALSE,
+    transparent_color = NA,
+    transparent_fuzz = 0,
+    background_color = NA,
+    median_radius = NA,
+    negate = FALSE) {
         img <-
             magick::image_read(SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = image_id))
 

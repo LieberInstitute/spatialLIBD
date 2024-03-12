@@ -42,19 +42,18 @@
 #'     rm(spe_sub)
 #' }
 vis_clus_p <-
-    function(
-        spe,
-        d,
-        clustervar,
-        sampleid = unique(spe$sample_id)[1],
-        colors,
-        spatial,
-        title,
-        image_id = "lowres",
-        alpha = NA,
-        point_size = 2,
-        auto_crop = TRUE,
-        na_color = "#CCCCCC40") {
+    function(spe,
+    d,
+    clustervar,
+    sampleid = unique(spe$sample_id)[1],
+    colors,
+    spatial,
+    title,
+    image_id = "lowres",
+    alpha = NA,
+    point_size = 2,
+    auto_crop = TRUE,
+    na_color = "#CCCCCC40") {
         ## Some variables
         pxl_row_in_fullres <- pxl_col_in_fullres <- key <- NULL
         # stopifnot(all(c("pxl_col_in_fullres", "pxl_row_in_fullres", "key") %in% colnames(d)))

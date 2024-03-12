@@ -24,8 +24,9 @@
 #'
 #' ## Note that ?SpatialExperiment::read10xVisium doesn't include all the files
 #' ## we need to illustrate read10xVisiumWrapper().
-read10xVisiumAnalysis <- function(samples = "",
-    sample_id = paste0("sample", sprintf("%02d", seq_along(samples)))) {
+read10xVisiumAnalysis <- function(
+        samples = "",
+        sample_id = paste0("sample", sprintf("%02d", seq_along(samples)))) {
     # check sample identifiers
     if (is.null(sids <- names(samples))) {
         if (is.null(sids <- sample_id)) {
