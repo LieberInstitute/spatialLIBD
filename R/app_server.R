@@ -1088,19 +1088,48 @@ app_server <- function(input, output, session) {
             )
         } else {
             ## Prepare the data
-            d <-
-                as.data.frame(
-                    cbind(
-                        colData(spe),
-                        SpatialExperiment::spatialCoords(spe)
-                    )[spe$key %in% event.data$key, ],
-                    optional = TRUE
+            spe_sub <- spe[, spe$key %in% event.data$key]
+            d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
+            
+            #   Grab any continuous colData columns
+            cont_cols <- as.matrix(
+                colData(spe_sub)[
+                    , input$geneid[input$geneid %in% colnames(colData(spe_sub))],
+                    drop = FALSE
+                ]
+            )
+            
+            #   Get the integer indices of each gene in the SpatialExperiment, since we
+            #   aren't guaranteed that rownames are gene names
+            remaining_geneid <- input$geneid[!(input$geneid %in% colnames(colData(spe_sub)))]
+            valid_gene_indices <- unique(
+                c(
+                    match(remaining_geneid, rowData(spe_sub)$gene_search),
+                    match(remaining_geneid, rownames(spe_sub))
                 )
-            if (input$geneid %in% colnames(d)) {
-                d$COUNT <- d[[input$geneid]]
+            )
+            valid_gene_indices <- valid_gene_indices[!is.na(valid_gene_indices)]
+            
+            #   Grab any genes
+            gene_cols <- t(
+                as.matrix(assays(spe_sub[valid_gene_indices, ])[[input$assayname]])
+            )
+            
+            #   Combine into one matrix where rows are genes and columns are continuous
+            #   features
+            cont_matrix <- cbind(cont_cols, gene_cols)
+            
+            #   Determine plot and legend titles
+            if (ncol(cont_matrix) == 1) {
+                d$COUNT <- cont_matrix[, 1]
             } else {
-                d$COUNT <-
-                    assays(spe)[[input$assayname]][which(rowData(spe)$gene_search == input$geneid), spe$key %in% event.data$key]
+                if (multi_gene_method == "z_score") {
+                    d$COUNT <- multi_gene_z_score(cont_matrix)
+                } else if (multi_gene_method == "sparsity") {
+                    d$COUNT <- multi_gene_sparsity(cont_matrix)
+                } else { # must be 'pca'
+                    d$COUNT <- multi_gene_pca(cont_matrix)
+                }
             }
             d$COUNT[d$COUNT <= input$minCount] <- NA
 
