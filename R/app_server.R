@@ -942,6 +942,7 @@ app_server <- function(input, output, session) {
                 spe[, cluster_opts],
                 sampleid = input$sample,
                 geneid = input$geneid,
+                multi_gene_method = input$multi_gene_method,
                 assayname = input$assayname,
                 minCount = input$minCount,
                 spatial = FALSE,
