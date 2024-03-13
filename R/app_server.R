@@ -418,7 +418,7 @@ app_server <- function(input, output, session) {
                 "_",
                 paste0(
                     "spatialLIBD_static_gene_",
-                    input$geneid,
+                    paste0(input$geneid, collapse = "_"),
                     "_",
                     input$sample,
                     "_",
@@ -446,7 +446,7 @@ app_server <- function(input, output, session) {
                 "_",
                 paste0(
                     "spatialLIBD_static_gene_grid_",
-                    input$geneid,
+                    paste0(input$geneid, collapse = "_"),
                     "_",
                     paste0(input$grid_samples, collapse = "_"),
                     "_",
