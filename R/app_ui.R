@@ -113,7 +113,15 @@ app_ui <- function() {
                             options = pickerOptions(liveSearch = TRUE),
                             multiple = TRUE
                         ),
-                        helpText("Typically a gene or any other continuous variable."),
+                        helpText("Typically gene(s) or any other continuous variable(s)."),
+                        hr(),
+                        selectInput(
+                            inputId = "multi_gene_method",
+                            label = "Multi-gene method",
+                            choices = c("z_score", "pca", "sparsity"),
+                            selected = "z_score"
+                        ),
+                        helpText("When applicable, the method used to combine multiple continuous variables."),
                         hr(),
                         selectInput(
                             inputId = "assayname",

@@ -1123,9 +1123,9 @@ app_server <- function(input, output, session) {
             if (ncol(cont_matrix) == 1) {
                 d$COUNT <- cont_matrix[, 1]
             } else {
-                if (multi_gene_method == "z_score") {
+                if (input$multi_gene_method == "z_score") {
                     d$COUNT <- multi_gene_z_score(cont_matrix)
-                } else if (multi_gene_method == "sparsity") {
+                } else if (input$multi_gene_method == "sparsity") {
                     d$COUNT <- multi_gene_sparsity(cont_matrix)
                 } else { # must be 'pca'
                     d$COUNT <- multi_gene_pca(cont_matrix)
