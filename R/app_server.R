@@ -225,6 +225,7 @@ app_server <- function(input, output, session) {
             spe,
             sampleid = input$sample,
             geneid = input$geneid,
+            multi_gene_method = input$multi_gene_method,
             assayname = input$assayname,
             minCount = input$minCount,
             cont_colors = cont_colors(),
@@ -259,6 +260,7 @@ app_server <- function(input, output, session) {
             vis_grid_gene(
                 spe,
                 geneid = isolate(input$geneid),
+                multi_gene_method = input$multi_gene_method,
                 assayname = isolate(input$assayname),
                 minCount = isolate(input$minCount),
                 return_plots = TRUE,
