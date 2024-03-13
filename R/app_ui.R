@@ -110,7 +110,8 @@ app_ui <- function() {
                                 golem::get_golem_options("spe_continuous_vars"),
                                 sort(rowData(spe)$gene_search)
                             ),
-                            options = pickerOptions(liveSearch = TRUE)
+                            options = pickerOptions(liveSearch = TRUE),
+                            multiple = TRUE
                         ),
                         helpText("Typically a gene or any other continuous variable."),
                         hr(),
