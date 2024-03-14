@@ -105,7 +105,7 @@ app_ui <- function() {
                         hr(),
                         pickerInput(
                             inputId = "geneid",
-                            label = "Continuous variable to plot",
+                            label = "Continuous variable(s) to plot",
                             choices = c(
                                 golem::get_golem_options("spe_continuous_vars"),
                                 sort(rowData(spe)$gene_search)
