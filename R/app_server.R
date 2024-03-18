@@ -642,14 +642,26 @@ app_server <- function(input, output, session) {
 
         #   Determine plot and legend titles
         if (ncol(cont_matrix) == 1) {
+            if (!(geneid %in% colnames(colData(spe_sub)))) {
+                plot_title <- sprintf(
+                    "%s %s %s min > %s", sampleid, geneid, assayname, minCount
+                )
+            } else {
+                plot_title <- sprintf(
+                    "%s %s min > %s", sampleid, geneid, minCount
+                )
+            }
             d$COUNT <- cont_matrix[, 1]
         } else {
             if (input$multi_gene_method == "z_score") {
                 d$COUNT <- multi_gene_z_score(cont_matrix)
+                plot_title <- paste(sampleid, "Z-score min > ", minCount)
             } else if (input$multi_gene_method == "sparsity") {
                 d$COUNT <- multi_gene_sparsity(cont_matrix)
+                plot_title <- paste(sampleid, "Prop. nonzero min > ", minCount)
             } else { # must be 'pca'
                 d$COUNT <- multi_gene_pca(cont_matrix)
+                plot_title <- paste(sampleid, "PC1 min >", minCount)
             }
         }
         d$COUNT[d$COUNT <= minCount] <- NA
@@ -677,18 +689,7 @@ app_server <- function(input, output, session) {
             sampleid = sampleid,
             colors = get_colors(colors, d[, clustervar]),
             spatial = FALSE,
-            title = paste(
-                sampleid,
-                clustervar,
-                geneid,
-                if (!geneid %in% colnames(colData(spe))) {
-                    assayname
-                } else {
-                    NULL
-                },
-                "min >",
-                minCount
-            ),
+            title = plot_title,
             image_id = input$imageid,
             alpha = input$alphalevel,
             point_size = input$pointsize,
@@ -1051,7 +1052,7 @@ app_server <- function(input, output, session) {
             ## Prepare the data
             spe_sub <- spe[, spe$key %in% event.data$key]
             d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
-            
+
             #   Grab any continuous colData columns
             cont_cols <- as.matrix(
                 colData(spe_sub)[
@@ -1059,7 +1060,7 @@ app_server <- function(input, output, session) {
                     drop = FALSE
                 ]
             )
-            
+
             #   Get the integer indices of each gene in the SpatialExperiment, since we
             #   aren't guaranteed that rownames are gene names
             remaining_geneid <- input$geneid[!(input$geneid %in% colnames(colData(spe_sub)))]
@@ -1070,16 +1071,16 @@ app_server <- function(input, output, session) {
                 )
             )
             valid_gene_indices <- valid_gene_indices[!is.na(valid_gene_indices)]
-            
+
             #   Grab any genes
             gene_cols <- t(
                 as.matrix(assays(spe_sub[valid_gene_indices, ])[[input$assayname]])
             )
-            
+
             #   Combine into one matrix where rows are genes and columns are continuous
             #   features
             cont_matrix <- cbind(cont_cols, gene_cols)
-            
+
             #   Determine plot and legend titles
             if (ncol(cont_matrix) == 1) {
                 d$COUNT <- cont_matrix[, 1]
@@ -1116,7 +1117,7 @@ app_server <- function(input, output, session) {
             ## Prepare the data
             spe_sub <- spe[, spe$key %in% event.data$key]
             d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
-            
+
             #   Grab any continuous colData columns
             cont_cols <- as.matrix(
                 colData(spe_sub)[
@@ -1124,7 +1125,7 @@ app_server <- function(input, output, session) {
                     drop = FALSE
                 ]
             )
-            
+
             #   Get the integer indices of each gene in the SpatialExperiment, since we
             #   aren't guaranteed that rownames are gene names
             remaining_geneid <- input$geneid[!(input$geneid %in% colnames(colData(spe_sub)))]
@@ -1135,16 +1136,16 @@ app_server <- function(input, output, session) {
                 )
             )
             valid_gene_indices <- valid_gene_indices[!is.na(valid_gene_indices)]
-            
+
             #   Grab any genes
             gene_cols <- t(
                 as.matrix(assays(spe_sub[valid_gene_indices, ])[[input$assayname]])
             )
-            
+
             #   Combine into one matrix where rows are genes and columns are continuous
             #   features
             cont_matrix <- cbind(cont_cols, gene_cols)
-            
+
             #   Determine plot and legend titles
             if (ncol(cont_matrix) == 1) {
                 d$COUNT <- cont_matrix[, 1]
