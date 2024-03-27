@@ -126,7 +126,7 @@ sig_genes <- sig_genes_extract_all(
     sce_layer = sce_layer
 )
 i_gfap <- subset(sig_genes, gene == "GFAP" &
-            test == "WM")$top
+    test == "WM")$top
 i_gfap
 set.seed(20200206)
 layer_boxplot(

@@ -59,12 +59,11 @@
 #'     sce_layer = sce_layer,
 #'     n = nrow(sce_layer)
 #' )
-sig_genes_extract <- function(
-        n = 10,
-        modeling_results = fetch_data(type = "modeling_results"),
-        model_type = names(modeling_results)[1],
-        reverse = FALSE,
-        sce_layer = fetch_data(type = "sce_layer")) {
+sig_genes_extract <- function(n = 10,
+    modeling_results = fetch_data(type = "modeling_results"),
+    model_type = names(modeling_results)[1],
+    reverse = FALSE,
+    sce_layer = fetch_data(type = "sce_layer")) {
     model_results <- modeling_results[[model_type]]
 
     tstats <-

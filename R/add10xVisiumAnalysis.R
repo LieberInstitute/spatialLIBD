@@ -29,8 +29,9 @@
 #'
 #' ## Note that ?SpatialExperiment::read10xVisium doesn't include all the files
 #' ## we need to illustrate read10xVisiumWrapper().
-add10xVisiumAnalysis <- function(spe,
-    visium_analysis) {
+add10xVisiumAnalysis <- function(
+        spe,
+        visium_analysis) {
     col_info <- colData(spe)
     barcode_present <- "barcode" %in% colnames(col_info)
     if (!barcode_present) {
