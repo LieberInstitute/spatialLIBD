@@ -1104,6 +1104,7 @@ app_server <- function(input, output, session) {
     })
 
     output$click_gene <- renderPrint({
+
         if (!is.null(input$gene_plotly_cluster_subset)) {
             event.data <- event_data("plotly_click", source = "plotly_gene", priority = "event")
             warning("hm... ", event.data$key[1])
@@ -1114,28 +1115,46 @@ app_server <- function(input, output, session) {
             return(
                 "Single points clicked and updated with a manual annotation appear here (double-click to clear)"
             )
-        } else {
+        } else if (input$label_click_gene) {
+            ## Only run this code if we are actually going to annotate anything
+
+            ## Define arguments for debugging
+            event_keys <- event.data$key
+            geneid <- input$geneid
+            assayname <- input$assayname
+            minCount <- input$minCount
+            multi_gene_method <- input$multi_gene_method
+
+            # ## Testing:
+            # set.seed(20240327)
+            # event_keys <- sample(spe$key, 1)
+            # geneid <- "SCGB2A2; ENSG00000110484"
+            # geneid <- c("cell_count", "sum_umi")
+            # assayname <- 'logcounts'
+            # multi_gene_method <- "z_score"
+            # minCount <- 0
+
             ## Prepare the data
             d <-
                 as.data.frame(
                     cbind(
                         colData(spe),
                         SpatialExperiment::spatialCoords(spe)
-                    )[spe$key %in% event.data$key, ],
+                    )[spe$key %in% event_keys, ],
                     optional = TRUE
                 )
 
             #   Grab any continuous colData columns
             cont_cols <- as.matrix(
                 d[
-                    , input$geneid[input$geneid %in% colnames(d)],
+                    , geneid[geneid %in% colnames(d)],
                     drop = FALSE
                 ]
             )
 
             #   Get the integer indices of each gene in the SpatialExperiment, since we
             #   aren't guaranteed that rownames are gene names
-            remaining_geneid <- input$geneid[!(input$geneid %in% colnames(d))]
+            remaining_geneid <- geneid[!(geneid %in% colnames(d))]
             valid_gene_indices <- unique(
                 c(
                     match(remaining_geneid, rowData(spe)$gene_search),
@@ -1146,7 +1165,7 @@ app_server <- function(input, output, session) {
 
             #   Grab any genes
             gene_cols <- t(
-                as.matrix(assays(spe[valid_gene_indices, spe$key %in% event.data$key])[[input$assayname]])
+                as.matrix(assays(spe[valid_gene_indices, spe$key %in% event_keys])[[assayname]])
             )
 
             #   Combine into one matrix where rows are genes and columns are continuous
@@ -1157,26 +1176,27 @@ app_server <- function(input, output, session) {
             if (ncol(cont_matrix) == 1) {
                 d$COUNT <- as.vector(cont_matrix)
             } else {
-                if (input$multi_gene_method == "z_score") {
+                if (multi_gene_method == "z_score") {
                     d$COUNT <- multi_gene_z_score(cont_matrix)
-                } else if (input$multi_gene_method == "sparsity") {
+                } else if (multi_gene_method == "sparsity") {
                     d$COUNT <- multi_gene_sparsity(cont_matrix)
                 } else { # must be 'pca'
                     d$COUNT <- multi_gene_pca(cont_matrix)
                 }
             }
-            d$COUNT[d$COUNT <= input$minCount] <- NA
+            d$COUNT[d$COUNT <= minCount] <- NA
 
             isolate({
                 ## Now update with the ManualAnnotation input
-                if (input$label_click_gene) {
-                    warning("attempting to save the label result")
-                    warning(d$key[!is.na(d$COUNT)][1])
-                    rv$ManualAnnotation[spe$key %in% d$key[!is.na(d$COUNT)]] <-
-                        input$label_manual_ann_gene
-                }
+                warning("attempting to save the label result")
+                warning(length(unique(d$key)))
+                warning(sum(!is.na(d$COUNT)))
+                warning(d$key[!is.na(d$COUNT)][1])
+                rv$ManualAnnotation[spe$key %in% d$key[!is.na(d$COUNT)]] <-
+                    input$label_manual_ann_gene
+
+                return(event.data$key)
             })
-            return(event.data$key)
         }
     })
 
