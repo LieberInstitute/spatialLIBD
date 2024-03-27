@@ -1052,60 +1052,9 @@ app_server <- function(input, output, session) {
             event.data <- NULL
         }
         if (!is.null(event.data)) {
-            ## Prepare the data
-            d <-
-                as.data.frame(
-                    cbind(
-                        colData(spe),
-                        SpatialExperiment::spatialCoords(spe)
-                    )[spe$key %in% event.data$key, ],
-                    optional = TRUE
-                )
-
-            #   Grab any continuous colData columns
-            cont_cols <- as.matrix(
-                d[
-                    , input$geneid[input$geneid %in% colnames(d)],
-                    drop = FALSE
-                ]
-            )
-
-            #   Get the integer indices of each gene in the SpatialExperiment, since we
-            #   aren't guaranteed that rownames are gene names
-            remaining_geneid <- input$geneid[!(input$geneid %in% colnames(d))]
-            valid_gene_indices <- unique(
-                c(
-                    match(remaining_geneid, rowData(spe)$gene_search),
-                    match(remaining_geneid, rownames(spe))
-                )
-            )
-            valid_gene_indices <- valid_gene_indices[!is.na(valid_gene_indices)]
-
-            #   Grab any genes
-            gene_cols <- t(
-                as.matrix(assays(spe[valid_gene_indices, spe$key %in% event.data$key])[[input$assayname]])
-            )
-
-            #   Combine into one matrix where rows are genes and columns are continuous
-            #   features
-            cont_matrix <- cbind(cont_cols, gene_cols)
-
-            #   Determine plot and legend titles
-            if (ncol(cont_matrix) == 1) {
-                d$COUNT <- as.vector(cont_matrix)
-            } else {
-                if (input$multi_gene_method == "z_score") {
-                    d$COUNT <- multi_gene_z_score(cont_matrix)
-                } else if (input$multi_gene_method == "sparsity") {
-                    d$COUNT <- multi_gene_sparsity(cont_matrix)
-                } else { # must be 'pca'
-                    d$COUNT <- multi_gene_pca(cont_matrix)
-                }
-            }
-            d$COUNT[d$COUNT <= input$minCount] <- NA
-
             isolate({
                 ## Now update with the ManualAnnotation input
+                d <- subset(rv$ContCount, key %in% event.data$key)
                 rv$ManualAnnotation[spe$key %in% d$key[!is.na(d$COUNT)]] <-
                     input$label_manual_ann_gene
             })
