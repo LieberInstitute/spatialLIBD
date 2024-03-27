@@ -82,7 +82,14 @@ set to a non-\code{NA} value.}
 
 \item{multi_gene_method}{A \code{character(1)}: either "pca", "sparsity", or
 "z_score". This parameter controls how multiple continuous variables are
-combined for visualization, and only applies when \code{geneid} has length > 1.}
+combined for visualization, and only applies when \code{geneid} has length
+great than 1. \code{z_score}: to summarize multiple continuous variables, each is
+normalized to represent a Z-score. The multiple scores are then averaged.
+\code{pca}: PCA dimension reduction is conducted on the matrix formed by the
+continuous variables, and the first PC is then used and multiplied by -1 if
+needed to have the majority of the values for PC1 to be positive. \code{sparsity}:
+the proportion of continuous variables with positive values for each spot is
+computed.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}
