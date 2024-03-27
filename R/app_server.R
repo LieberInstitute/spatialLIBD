@@ -812,7 +812,7 @@ app_server <- function(input, output, session) {
                     opacity = 0.8
                 )
             ),
-            dragmode = "select"
+            dragmode = "lasso"
         )
 
         plotly_gene <- layout(
@@ -837,7 +837,7 @@ app_server <- function(input, output, session) {
                     opacity = 0.8
                 )
             ),
-            dragmode = "select"
+            dragmode = "lasso"
         )
 
         plotly_dim <-
@@ -1001,7 +1001,7 @@ app_server <- function(input, output, session) {
                         opacity = 0.8
                     )
                 ),
-                dragmode = "select"
+                dragmode = "lasso"
             )
         )))
     })
