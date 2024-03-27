@@ -1113,10 +1113,8 @@ app_server <- function(input, output, session) {
     })
 
     output$click_gene <- renderPrint({
-
         if (!is.null(input$gene_plotly_cluster_subset)) {
             event.data <- event_data("plotly_click", source = "plotly_gene", priority = "event")
-            warning("hm... ", event.data$key[1])
         } else {
             event.data <- NULL
         }
@@ -1127,11 +1125,7 @@ app_server <- function(input, output, session) {
         } else if (input$label_click_gene) {
             isolate({
                 ## Now update with the ManualAnnotation input
-                warning("attempting to save the label result")
                 d <- subset(rv$ContCount, key %in% event.data$key)
-                warning(length(unique(d$key)))
-                warning(sum(!is.na(d$COUNT)))
-                warning(d$key[!is.na(d$COUNT)][1])
                 rv$ManualAnnotation[spe$key %in% d$key[!is.na(d$COUNT)]] <-
                     input$label_manual_ann_gene
 
