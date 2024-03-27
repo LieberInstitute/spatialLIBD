@@ -34,7 +34,8 @@
 #' continuous variables, and the first PC is then used and multiplied by -1 if
 #' needed to have the majority of the values for PC1 to be positive. `sparsity`:
 #' the proportion of continuous variables with positive values for each spot is
-#' computed.
+#' computed. For more details, check the multi gene vignette at
+#' <https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html>.
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
