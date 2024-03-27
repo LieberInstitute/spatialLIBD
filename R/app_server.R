@@ -30,7 +30,7 @@ app_server <- function(input, output, session) {
     # List the first level callModules here
 
     ## Global variables needed throughout the app
-    rv <- reactiveValues(ManualAnnotation = rep("NA", ncol(spe)))
+    rv <- reactiveValues(ManualAnnotation = rep("NA", ncol(spe)), ContCount = data.frame(key = spe$key, COUNT = NA))
 
     ## From /dcs04/lieber/lcolladotor/with10x_LIBD001/HumanPilot/Analysis/rda_scran/clust_10x_layer_maynard_martinowich.Rdata
     # cat(paste0("'", names(cols_layers_martinowich), "' = '", cols_layers_martinowich, "',\n"))
@@ -960,6 +960,9 @@ app_server <- function(input, output, session) {
                 alpha = input$alphalevel
             )
 
+        ## Update the reactiveValues data
+        rv$ContCount <- p$data[, c("key", "COUNT")]
+
         ## Read in the histology image
         img <-
             SpatialExperiment::imgRaster(spe,
@@ -1122,79 +1125,10 @@ app_server <- function(input, output, session) {
                 "Single points clicked and updated with a manual annotation appear here (double-click to clear)"
             )
         } else if (input$label_click_gene) {
-            ## Only run this code if we are actually going to annotate anything
-
-            ## Define arguments for debugging
-            event_keys <- event.data$key
-            geneid <- input$geneid
-            assayname <- input$assayname
-            minCount <- input$minCount
-            multi_gene_method <- input$multi_gene_method
-
-            # ## Testing:
-            # set.seed(20240327)
-            # event_keys <- sample(spe$key, 1)
-            # geneid <- "SCGB2A2; ENSG00000110484"
-            # geneid <- c("cell_count", "sum_umi")
-            # assayname <- 'logcounts'
-            # multi_gene_method <- "z_score"
-            # minCount <- 0
-
-            ## Prepare the data
-            d <-
-                as.data.frame(
-                    cbind(
-                        colData(spe),
-                        SpatialExperiment::spatialCoords(spe)
-                    )[spe$key %in% event_keys, ],
-                    optional = TRUE
-                )
-
-            #   Grab any continuous colData columns
-            cont_cols <- as.matrix(
-                d[
-                    , geneid[geneid %in% colnames(d)],
-                    drop = FALSE
-                ]
-            )
-
-            #   Get the integer indices of each gene in the SpatialExperiment, since we
-            #   aren't guaranteed that rownames are gene names
-            remaining_geneid <- geneid[!(geneid %in% colnames(d))]
-            valid_gene_indices <- unique(
-                c(
-                    match(remaining_geneid, rowData(spe)$gene_search),
-                    match(remaining_geneid, rownames(spe))
-                )
-            )
-            valid_gene_indices <- valid_gene_indices[!is.na(valid_gene_indices)]
-
-            #   Grab any genes
-            gene_cols <- t(
-                as.matrix(assays(spe[valid_gene_indices, spe$key %in% event_keys])[[assayname]])
-            )
-
-            #   Combine into one matrix where rows are genes and columns are continuous
-            #   features
-            cont_matrix <- cbind(cont_cols, gene_cols)
-
-            #   Determine plot and legend titles
-            if (ncol(cont_matrix) == 1) {
-                d$COUNT <- as.vector(cont_matrix)
-            } else {
-                if (multi_gene_method == "z_score") {
-                    d$COUNT <- multi_gene_z_score(cont_matrix)
-                } else if (multi_gene_method == "sparsity") {
-                    d$COUNT <- multi_gene_sparsity(cont_matrix)
-                } else { # must be 'pca'
-                    d$COUNT <- multi_gene_pca(cont_matrix)
-                }
-            }
-            d$COUNT[d$COUNT <= minCount] <- NA
-
             isolate({
                 ## Now update with the ManualAnnotation input
                 warning("attempting to save the label result")
+                d <- subset(rv$ContCount, key %in% event.data$key)
                 warning(length(unique(d$key)))
                 warning(sum(!is.na(d$COUNT)))
                 warning(d$key[!is.na(d$COUNT)][1])
