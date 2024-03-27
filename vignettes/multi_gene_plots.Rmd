@@ -83,6 +83,18 @@ spe <- fetch_data(type = "spatialDLPFC_Visium_example_subset")
 spe
 ```
 
+Next, let's define several genes known to be markers for white matter `r Citep(bib[['tran2021']])`.
+
+```{r "white_matter_genes"}
+white_matter_genes <- c("GFAP", "AQP4", "MBP", "PLP1")
+white_matter_genes <- rowData(spe)$gene_search[
+    rowData(spe)$gene_name %in% white_matter_genes
+]
+
+## Our list of white matter genes
+white_matter_genes
+```
+
 # Plotting One Gene
 
 A typical use of `vis_gene()` involves
@@ -90,7 +102,11 @@ plotting the spatial distribution of a single gene or continuous variable of int
 For example, let's plot just the expression of *GFAP*.
 
 ```{r "single_gene"}
-vis_gene(spe, geneid = white_matter_genes[1])
+vis_gene(
+    spe,
+    geneid = white_matter_genes[1],
+    point_size = 1.5
+)
 ```
 
 We can see a little **V** shaped section with higher expression of this gene. This seems to mark the location of layer 1. The bottom right corner seems to mark the location of white matter.
@@ -122,18 +138,6 @@ layer_boxplot(
 
 # Plotting Multiple Genes
 
-Next, let's define several genes known to be markers for white matter `r Citep(bib[['tran2021']])`.
-
-```{r "white_matter_genes"}
-white_matter_genes <- c("GFAP", "AQP4", "MBP", "PLP1")
-white_matter_genes <- rowData(spe)$gene_search[
-    rowData(spe)$gene_name %in% white_matter_genes
-]
-
-## Our list of white matter genes
-white_matter_genes
-```
-
 As of version 1.15.2, the `geneid` parameter to `vis_gene()` may also take a vector of genes or continuous
 variables in `colData(spe)`. In this way, the expression of multiple continuous variables can be summarized
 into a single value for each spot, displayed just as a single input for `geneid` would be.
@@ -153,7 +157,12 @@ and instead focuses on how each gene varies spatially, weighting each gene equal
 Let's plot all four white matter genes using this method.
 
 ```{r "multi_gene_z"}
-vis_gene(spe, geneid = white_matter_genes, multi_gene_method = "z_score")
+vis_gene(
+    spe,
+    geneid = white_matter_genes,
+    multi_gene_method = "z_score",
+    point_size = 1.5
+)
 ```
 
 Now the bottom right corner where the white matter is located starts to pop up more, though the mixed layer 1 and white matter signal provided by *GFAP* is still noticeable (the **V** shape).
@@ -171,7 +180,12 @@ this leads to the intuitive result that "expression" is higher in white matter f
 genes, which is not otherwise guaranteed (the "sign" of PCs is arbitrary)!
 
 ```{r "multi_gene_pca"}
-vis_gene(spe, geneid = white_matter_genes, multi_gene_method = "pca")
+vis_gene(
+    spe,
+    geneid = white_matter_genes,
+    multi_gene_method = "pca",
+    point_size = 1.5
+)
 ```
 
 ## Plotting Sparsity of Expression
@@ -186,7 +200,12 @@ and 1, which is not visually informative.
 The white-matter example is thus poor due to lack of sparsity and low number of genes as you can see below.
 
 ```{r "multi_gene_sparsity"}
-vis_gene(spe, geneid = white_matter_genes, multi_gene_method = "sparsity")
+vis_gene(
+    spe,
+    geneid = white_matter_genes,
+    multi_gene_method = "sparsity",
+    point_size = 1.5
+)
 ```
 
 # With more marker genes
@@ -247,6 +266,36 @@ vis_gene(
 
 In this case, it seems that for both the top 25 or top 50 marker genes, `z_score` and `pca` provided cleaner visualizations than `sparsity`. Give them a try on your own datasets!
 
+# Visualizing non-gene continuous variables
+
+So far, we have only visualized multiple genes. But these methods can be applied to several continuous variables stored in `colData(spe)` as shown below.
+
+```{r "colData_example"}
+vis_gene(
+    spe,
+    geneid = c("sum_gene", "sum_umi"),
+    multi_gene_method = "z_score",
+    point_size = 1.5
+)
+```
+
+We can also combine continuous variables from `colData(spe)` along with actual genes. We can combine for example the expression of *GFAP*, which is a known astrocyte marker gene, with the spot deconvolution results for astrocytes computed using Tangram `r Citep(bib[['spatialDLPFC']])`.
+
+```{r "colData_plus_gene"}
+vis_gene(
+    spe,
+    geneid = c("broad_tangram_astro"),
+    point_size = 1.5
+)
+vis_gene(
+    spe,
+    geneid = c("broad_tangram_astro", white_matter_genes[1]),
+    multi_gene_method = "pca",
+    point_size = 1.5
+)
+```
+
+These tools enable you to further explore your data in new ways. Have fun using them!
 
 
 # Reproducibility
