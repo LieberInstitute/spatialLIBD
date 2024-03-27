@@ -1115,31 +1115,37 @@ app_server <- function(input, output, session) {
             )
         } else {
             ## Prepare the data
-            spe_sub <- spe[, spe$key %in% event.data$key]
-            d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
+            d <-
+                as.data.frame(
+                    cbind(
+                        colData(spe),
+                        SpatialExperiment::spatialCoords(spe)
+                    )[spe$key %in% event.data$key, ],
+                    optional = TRUE
+                )
 
             #   Grab any continuous colData columns
             cont_cols <- as.matrix(
-                colData(spe_sub)[
-                    , input$geneid[input$geneid %in% colnames(colData(spe_sub))],
+                d[
+                    , input$geneid[input$geneid %in% colnames(d)],
                     drop = FALSE
                 ]
             )
 
             #   Get the integer indices of each gene in the SpatialExperiment, since we
             #   aren't guaranteed that rownames are gene names
-            remaining_geneid <- input$geneid[!(input$geneid %in% colnames(colData(spe_sub)))]
+            remaining_geneid <- input$geneid[!(input$geneid %in% colnames(d))]
             valid_gene_indices <- unique(
                 c(
-                    match(remaining_geneid, rowData(spe_sub)$gene_search),
-                    match(remaining_geneid, rownames(spe_sub))
+                    match(remaining_geneid, rowData(spe)$gene_search),
+                    match(remaining_geneid, rownames(spe))
                 )
             )
             valid_gene_indices <- valid_gene_indices[!is.na(valid_gene_indices)]
 
             #   Grab any genes
             gene_cols <- t(
-                as.matrix(assays(spe_sub[valid_gene_indices, ])[[input$assayname]])
+                as.matrix(assays(spe[valid_gene_indices, spe$key %in% event.data$key])[[input$assayname]])
             )
 
             #   Combine into one matrix where rows are genes and columns are continuous
@@ -1148,7 +1154,7 @@ app_server <- function(input, output, session) {
 
             #   Determine plot and legend titles
             if (ncol(cont_matrix) == 1) {
-                d$COUNT <- cont_matrix[, 1]
+                d$COUNT <- as.vector(cont_matrix)
             } else {
                 if (input$multi_gene_method == "z_score") {
                     d$COUNT <- multi_gene_z_score(cont_matrix)
