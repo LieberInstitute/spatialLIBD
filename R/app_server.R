@@ -1106,6 +1106,7 @@ app_server <- function(input, output, session) {
     output$click_gene <- renderPrint({
         if (!is.null(input$gene_plotly_cluster_subset)) {
             event.data <- event_data("plotly_click", source = "plotly_gene")
+            warning("hm... ", event.data$key[1])
         } else {
             event.data <- NULL
         }
