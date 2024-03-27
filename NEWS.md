@@ -1,3 +1,14 @@
+# spatialLIBD 1.15.2
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* `vis_gene()` now has a `multi_gene_method` argument which provides 3 methods
+for combining multiple continuous variables: `z_score`, `pca`, and `sparsity`.
+These options can now be used with `run_app()` (the interactive websites). These
+methods are further illustrated and documented in a new vignette available at
+<https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html>. This
+work was contributed by @Nick-Eagles.
+
 # spatialLIBD 1.13.6
 
 NEW FEATURES
