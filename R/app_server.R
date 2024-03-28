@@ -30,7 +30,7 @@ app_server <- function(input, output, session) {
     # List the first level callModules here
 
     ## Global variables needed throughout the app
-    rv <- reactiveValues(ManualAnnotation = rep("NA", ncol(spe)))
+    rv <- reactiveValues(ManualAnnotation = rep("NA", ncol(spe)), ContCount = data.frame(key = spe$key, COUNT = NA))
 
     ## From /dcs04/lieber/lcolladotor/with10x_LIBD001/HumanPilot/Analysis/rda_scran/clust_10x_layer_maynard_martinowich.Rdata
     # cat(paste0("'", names(cols_layers_martinowich), "' = '", cols_layers_martinowich, "',\n"))
@@ -225,6 +225,7 @@ app_server <- function(input, output, session) {
             spe,
             sampleid = input$sample,
             geneid = input$geneid,
+            multi_gene_method = input$multi_gene_method,
             assayname = input$assayname,
             minCount = input$minCount,
             cont_colors = cont_colors(),
@@ -259,6 +260,7 @@ app_server <- function(input, output, session) {
             vis_grid_gene(
                 spe,
                 geneid = isolate(input$geneid),
+                multi_gene_method = input$multi_gene_method,
                 assayname = isolate(input$assayname),
                 minCount = isolate(input$minCount),
                 return_plots = TRUE,
@@ -416,7 +418,7 @@ app_server <- function(input, output, session) {
                 "_",
                 paste0(
                     "spatialLIBD_static_gene_",
-                    input$geneid,
+                    paste0(input$geneid, collapse = "_"),
                     "_",
                     input$sample,
                     "_",
@@ -444,7 +446,7 @@ app_server <- function(input, output, session) {
                 "_",
                 paste0(
                     "spatialLIBD_static_gene_grid_",
-                    input$geneid,
+                    paste0(input$geneid, collapse = "_"),
                     "_",
                     paste0(input$grid_samples, collapse = "_"),
                     "_",
@@ -605,15 +607,62 @@ app_server <- function(input, output, session) {
         }
 
         ## From vis_gene() in global.R
+        spe_sub <- spe[, spe$sample_id == sampleid]
         d <-
             as.data.frame(cbind(colData(spe), SpatialExperiment::spatialCoords(spe))[spe$sample_id == sampleid, ],
                 optional = TRUE
             )
-        if (geneid %in% colnames(d)) {
-            d$COUNT <- d[[geneid]]
+        #   Grab any continuous colData columns
+        cont_cols <- as.matrix(
+            colData(spe_sub)[
+                , geneid[geneid %in% colnames(colData(spe_sub))],
+                drop = FALSE
+            ]
+        )
+
+        #   Get the integer indices of each gene in the SpatialExperiment, since we
+        #   aren't guaranteed that rownames are gene names
+        remaining_geneid <- geneid[!(geneid %in% colnames(colData(spe_sub)))]
+        valid_gene_indices <- unique(
+            c(
+                match(remaining_geneid, rowData(spe_sub)$gene_search),
+                match(remaining_geneid, rownames(spe_sub))
+            )
+        )
+        valid_gene_indices <- valid_gene_indices[!is.na(valid_gene_indices)]
+
+        #   Grab any genes
+        gene_cols <- t(
+            as.matrix(assays(spe_sub[valid_gene_indices, ])[[assayname]])
+        )
+
+        #   Combine into one matrix where rows are genes and columns are continuous
+        #   features
+        cont_matrix <- cbind(cont_cols, gene_cols)
+
+        #   Determine plot and legend titles
+        if (ncol(cont_matrix) == 1) {
+            if (!(geneid %in% colnames(colData(spe_sub)))) {
+                plot_title <- sprintf(
+                    "%s %s %s min > %s", sampleid, geneid, assayname, minCount
+                )
+            } else {
+                plot_title <- sprintf(
+                    "%s %s min > %s", sampleid, geneid, minCount
+                )
+            }
+            d$COUNT <- cont_matrix[, 1]
         } else {
-            d$COUNT <-
-                assays(spe)[[assayname]][which(rowData(spe)$gene_search == geneid), spe$sample_id == sampleid]
+            if (input$multi_gene_method == "z_score") {
+                d$COUNT <- multi_gene_z_score(cont_matrix)
+                plot_title <- paste(sampleid, "Z-score min > ", minCount)
+            } else if (input$multi_gene_method == "sparsity") {
+                d$COUNT <- multi_gene_sparsity(cont_matrix)
+                plot_title <- paste(sampleid, "Prop. nonzero min > ", minCount)
+            } else { # must be 'pca'
+                d$COUNT <- multi_gene_pca(cont_matrix)
+                plot_title <- paste(sampleid, "PC1 min >", minCount)
+            }
         }
         d$COUNT[d$COUNT <= minCount] <- NA
 
@@ -640,18 +689,7 @@ app_server <- function(input, output, session) {
             sampleid = sampleid,
             colors = get_colors(colors, d[, clustervar]),
             spatial = FALSE,
-            title = paste(
-                sampleid,
-                clustervar,
-                geneid,
-                if (!geneid %in% colnames(colData(spe))) {
-                    assayname
-                } else {
-                    NULL
-                },
-                "min >",
-                minCount
-            ),
+            title = plot_title,
             image_id = input$imageid,
             alpha = input$alphalevel,
             point_size = input$pointsize,
@@ -774,7 +812,7 @@ app_server <- function(input, output, session) {
                     opacity = 0.8
                 )
             ),
-            dragmode = "select"
+            dragmode = "lasso"
         )
 
         plotly_gene <- layout(
@@ -799,7 +837,7 @@ app_server <- function(input, output, session) {
                     opacity = 0.8
                 )
             ),
-            dragmode = "select"
+            dragmode = "lasso"
         )
 
         plotly_dim <-
@@ -900,17 +938,12 @@ app_server <- function(input, output, session) {
             return(NULL)
         }
 
-        gene_selected <- ifelse(
-            input$geneid %in% rowData(spe)$gene_search,
-            which(rowData(spe)$gene_search == input$geneid),
-            1
-        )
-
         p <-
             vis_gene(
-                spe[gene_selected, cluster_opts],
+                spe[, cluster_opts],
                 sampleid = input$sample,
                 geneid = input$geneid,
+                multi_gene_method = input$multi_gene_method,
                 assayname = input$assayname,
                 minCount = input$minCount,
                 spatial = FALSE,
@@ -926,6 +959,9 @@ app_server <- function(input, output, session) {
                 stroke = 0,
                 alpha = input$alphalevel
             )
+
+        ## Update the reactiveValues data
+        rv$ContCount <- p$data[, c("key", "COUNT")]
 
         ## Read in the histology image
         img <-
@@ -968,7 +1004,7 @@ app_server <- function(input, output, session) {
                         opacity = 0.8
                     )
                 ),
-                dragmode = "select"
+                dragmode = "lasso"
             )
         )))
     })
@@ -1016,25 +1052,9 @@ app_server <- function(input, output, session) {
             event.data <- NULL
         }
         if (!is.null(event.data)) {
-            ## Prepare the data
-            d <-
-                as.data.frame(
-                    cbind(
-                        colData(spe),
-                        SpatialExperiment::spatialCoords(spe)
-                    )[spe$key %in% event.data$key, ],
-                    optional = TRUE
-                )
-            if (input$geneid %in% colnames(d)) {
-                d$COUNT <- d[[input$geneid]]
-            } else {
-                d$COUNT <-
-                    assays(spe)[[input$assayname]][which(rowData(spe)$gene_search == input$geneid), spe$key %in% event.data$key]
-            }
-            d$COUNT[d$COUNT <= input$minCount] <- NA
-
             isolate({
                 ## Now update with the ManualAnnotation input
+                d <- subset(rv$ContCount, key %in% event.data$key)
                 rv$ManualAnnotation[spe$key %in% d$key[!is.na(d$COUNT)]] <-
                     input$label_manual_ann_gene
             })
@@ -1043,7 +1063,7 @@ app_server <- function(input, output, session) {
 
     output$click_gene <- renderPrint({
         if (!is.null(input$gene_plotly_cluster_subset)) {
-            event.data <- event_data("plotly_click", source = "plotly_gene")
+            event.data <- event_data("plotly_click", source = "plotly_gene", priority = "event")
         } else {
             event.data <- NULL
         }
@@ -1051,32 +1071,15 @@ app_server <- function(input, output, session) {
             return(
                 "Single points clicked and updated with a manual annotation appear here (double-click to clear)"
             )
-        } else {
-            ## Prepare the data
-            d <-
-                as.data.frame(
-                    cbind(
-                        colData(spe),
-                        SpatialExperiment::spatialCoords(spe)
-                    )[spe$key %in% event.data$key, ],
-                    optional = TRUE
-                )
-            if (input$geneid %in% colnames(d)) {
-                d$COUNT <- d[[input$geneid]]
-            } else {
-                d$COUNT <-
-                    assays(spe)[[input$assayname]][which(rowData(spe)$gene_search == input$geneid), spe$key %in% event.data$key]
-            }
-            d$COUNT[d$COUNT <= input$minCount] <- NA
-
+        } else if (input$label_click_gene) {
             isolate({
                 ## Now update with the ManualAnnotation input
-                if (input$label_click_gene) {
-                    rv$ManualAnnotation[spe$key %in% d$key[!is.na(d$COUNT)]] <-
-                        input$label_manual_ann_gene
-                }
+                d <- subset(rv$ContCount, key %in% event.data$key)
+                rv$ManualAnnotation[spe$key %in% d$key[!is.na(d$COUNT)]] <-
+                    input$label_manual_ann_gene
+
+                return(event.data$key)
             })
-            return(event.data$key)
         }
     })
 

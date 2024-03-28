@@ -44,16 +44,17 @@
 #'
 #' ## Note that ?SpatialExperiment::read10xVisium doesn't include all the files
 #' ## we need to illustrate read10xVisiumWrapper().
-read10xVisiumWrapper <- function(samples = "",
-    sample_id = paste0("sample", sprintf("%02d", seq_along(samples))),
-    type = c("HDF5", "sparse"),
-    data = c("filtered", "raw"),
-    images = c("lowres", "hires", "detected", "aligned"),
-    load = TRUE,
-    reference_gtf = NULL,
-    chrM = "chrM",
-    gtf_cols = c("source", "type", "gene_id", "gene_version", "gene_name", "gene_type"),
-    verbose = TRUE) {
+read10xVisiumWrapper <- function(
+        samples = "",
+        sample_id = paste0("sample", sprintf("%02d", seq_along(samples))),
+        type = c("HDF5", "sparse"),
+        data = c("filtered", "raw"),
+        images = c("lowres", "hires", "detected", "aligned"),
+        load = TRUE,
+        reference_gtf = NULL,
+        chrM = "chrM",
+        gtf_cols = c("source", "type", "gene_id", "gene_version", "gene_name", "gene_type"),
+        verbose = TRUE) {
     stopifnot(all(c("gene_name", "gene_id") %in% gtf_cols))
 
     if (missing(reference_gtf)) {

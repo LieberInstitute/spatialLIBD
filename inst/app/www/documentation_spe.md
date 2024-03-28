@@ -43,7 +43,11 @@ Throughout the rest of this document, we'll refer to this object by the name `sp
   - resulting from using a shared nearest neighbors approach with 50 neighbors cut at 4 up to 28 clusters. These are `SNN_k50_k4` up to `SNN_k50_k28`.
   - described in Figure 7 from our paper (DOI: [10.1038/s41593-020-00787-0](https://doi.org/10.1038/s41593-020-00787-0)) such as `SpatialDE_PCA`, `SpatialDE_pool_PCA` and others.
 * `Reduced dimensions`: which reduced dimension to visualize on the `clusters (interactive)` tab. Only the first two dimensions will be shown.
-* `Continuous variable to plot`: which gene or continuous variable (such as the cell count, the ratio of the mitochondrial chromosome expression) to visualize in the gene tabs as well as on the `clusters (interactive)` tab.
+* `Continuous variable(s) to plot`: which gene(s) or continuous variable(s) (such as the cell count, the ratio of the mitochondrial chromosome expression) to visualize in the gene tabs as well as on the `clusters (interactive)` tab. Multiple choices may be selected, in which case "Multi-gene method" controls the method used to combine information from all selected variables.
+* `Multi-gene method`: when selecting more than one continuous variable, the method used to combine information from all selected variables. See [the multi gene plots vignette](https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html) for more information about these methods for combining multiple continuous variables.
+  * `z_score`: to summarize multiple continuous variables, each is normalized to represent a Z-score. The multiple scores are then averaged.
+  * `pca`: PCA dimension reduction is conducted on the matrix formed by the continuous variables, and the first PC is then used and multiplied by -1 if needed to have the majority of the values for PC1 to be positive. 
+  * `sparsity`: the proportion of continuous variables with positive values for each spot is computed.
 * `Gene scale`: whether to use the raw expression values (`counts`) or the scaled and log transformed values (`logcounts`).
 * `Image name`: the name of the background image to use. You can edit this image on the `Edit image` tab.
 * `Spot transparency level`: the transparency of the spots in the visualizations. It can be useful if the spot colors are blocking the background image.

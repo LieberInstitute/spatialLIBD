@@ -105,14 +105,27 @@ app_ui <- function() {
                         hr(),
                         pickerInput(
                             inputId = "geneid",
-                            label = "Continuous variable to plot",
+                            label = "Continuous variable(s) to plot",
                             choices = c(
                                 golem::get_golem_options("spe_continuous_vars"),
                                 sort(rowData(spe)$gene_search)
                             ),
-                            options = pickerOptions(liveSearch = TRUE)
+                            options = pickerOptions(liveSearch = TRUE),
+                            multiple = TRUE,
+                            selected = c(
+                                golem::get_golem_options("spe_continuous_vars"),
+                                sort(rowData(spe)$gene_search)
+                            )[1]
                         ),
-                        helpText("Typically a gene or any other continuous variable."),
+                        helpText("Typically gene(s) or any other continuous variable(s)."),
+                        hr(),
+                        selectInput(
+                            inputId = "multi_gene_method",
+                            label = "Multi-gene method",
+                            choices = c("z_score", "pca", "sparsity"),
+                            selected = "z_score"
+                        ),
+                        helpText("When applicable, the method used to combine multiple continuous variables."),
                         hr(),
                         selectInput(
                             inputId = "assayname",

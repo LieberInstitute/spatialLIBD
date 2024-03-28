@@ -27,7 +27,15 @@
 #' `viridis` argument.
 #' @param multi_gene_method A \code{character(1)}: either "pca", "sparsity", or
 #' "z_score". This parameter controls how multiple continuous variables are
-#' combined for visualization, and only applies when \code{geneid} has length > 1.
+#' combined for visualization, and only applies when \code{geneid} has length
+#' great than 1. `z_score`: to summarize multiple continuous variables, each is
+#' normalized to represent a Z-score. The multiple scores are then averaged.
+#' `pca`: PCA dimension reduction is conducted on the matrix formed by the
+#' continuous variables, and the first PC is then used and multiplied by -1 if
+#' needed to have the majority of the values for PC1 to be positive. `sparsity`:
+#' the proportion of continuous variables with positive values for each spot is
+#' computed. For more details, check the multi gene vignette at
+#' <https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html>.
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
@@ -150,22 +158,21 @@
 #'     print(p8)
 #' }
 vis_gene <-
-    function(
-        spe,
-        sampleid = unique(spe$sample_id)[1],
-        geneid = rowData(spe)$gene_search[1],
-        spatial = TRUE,
-        assayname = "logcounts",
-        minCount = 0,
-        viridis = TRUE,
-        image_id = "lowres",
-        alpha = NA,
-        cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
-        point_size = 2,
-        auto_crop = TRUE,
-        na_color = "#CCCCCC40",
-        multi_gene_method = c("z_score", "pca", "sparsity"),
-        ...) {
+    function(spe,
+    sampleid = unique(spe$sample_id)[1],
+    geneid = rowData(spe)$gene_search[1],
+    spatial = TRUE,
+    assayname = "logcounts",
+    minCount = 0,
+    viridis = TRUE,
+    image_id = "lowres",
+    alpha = NA,
+    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
+    point_size = 2,
+    auto_crop = TRUE,
+    na_color = "#CCCCCC40",
+    multi_gene_method = c("z_score", "pca", "sparsity"),
+    ...) {
         multi_gene_method <- rlang::arg_match(multi_gene_method)
         #   Verify existence and legitimacy of 'sampleid'
         if (
