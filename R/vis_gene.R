@@ -246,25 +246,6 @@ vis_gene <-
             }
         } else {
             plot_title <- paste(sampleid, ...)
-
-            #   PCA and Z-score calculation requires at least 2 features with
-            #   nonzero variance. Verify this and drop any zero-variance features
-            if (multi_gene_method %in% c("z_score", "pca")) {
-                good_indices <- which(colSds(cont_matrix) != 0)
-                if (length(good_indices) < 2) {
-                    stop("After dropping features with no expression variation, less than 2 features were left")
-                }
-                if (ncol(cont_matrix) - length(good_indices) > 0) {
-                    warning(
-                        sprintf(
-                            "Dropping features(s) '%s' which have no expression variation",
-                            paste(colnames(cont_matrix)[-good_indices], collapse = "', '")
-                        )
-                    )
-                }
-                cont_matrix = cont_matrix[, good_indices]
-            }
-
             if (multi_gene_method == "z_score") {
                 d$COUNT <- multi_gene_z_score(cont_matrix)
                 legend_title <- paste("Z score\n min > ", minCount)

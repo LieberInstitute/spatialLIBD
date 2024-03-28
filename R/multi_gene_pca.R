@@ -18,6 +18,25 @@
 #' @family functions for summarizing expression of multiple continuous variables simultaneously
 #' @keywords internal
 multi_gene_pca <- function(cont_mat) {
+    #   PCA calculation requires at least 2 features with no NAs and nonzero
+    #   variance. Verify this and drop any bad features
+    good_indices <- which(
+        (colSums(is.na(cont_mat)) == 0) &
+        (colSds(cont_mat) != 0)
+    )
+    if (length(good_indices) < 2) {
+        stop("After dropping features with NAs or no expression variation, less than 2 features were left")
+    }
+    if (ncol(cont_mat) - length(good_indices) > 0) {
+        warning(
+            sprintf(
+                "Dropping features(s) '%s' which have NAs or no expression variation",
+                paste(colnames(cont_mat)[-good_indices], collapse = "', '")
+            )
+        )
+    }
+    cont_mat = cont_mat[, good_indices]
+
     pc_exp <- stats::prcomp(cont_mat, center = TRUE, scale = TRUE)
     pc_vec <- pc_exp$x[, "PC1"]
 
