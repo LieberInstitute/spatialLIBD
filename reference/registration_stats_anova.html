@@ -180,9 +180,9 @@ similar to <code>fetch_data("modeling_results")$anova</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Pseudo-bulk</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce_pseudo &lt;- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 14:37:08.267562 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 14:37:08.42305 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 14:37:08.477013 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 18:05:49.32449 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 18:05:49.484694 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 18:05:49.539838 normalize expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; colData(sce_pseudo)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 8 columns</span>
@@ -214,7 +214,7 @@ similar to <code>fetch_data("modeling_results")$anova</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> E_S                      S                      E        11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; registration_mod &lt;- registration_model(sce_pseudo, "age")</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 14:37:08.551488 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 18:05:49.615443 create model matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; head(registration_mod)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variableG0 registration_variableG1 registration_variableG2M</span>
@@ -233,13 +233,13 @@ similar to <code>fetch_data("modeling_results")$anova</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_G1                      0 19.18719</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgst__&gt; block_cor &lt;- registration_block_cor(sce_pseudo, registration_mod)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 14:37:08.562432 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 14:37:09.86522 The estimated correlation is: -0.0187869166526901</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 18:05:49.626538 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 18:05:50.956394 The estimated correlation is: -0.0187869166526901</span>
 <span class="r-in"><span><span class="va">results_anova</span> <span class="op">&lt;-</span> <span class="fu">registration_stats_anova</span><span class="op">(</span><span class="va">sce_pseudo</span>,</span></span>
 <span class="r-in"><span>    <span class="va">block_cor</span>, <span class="st">"age"</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span>, suffix <span class="op">=</span> <span class="st">"example"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 14:37:09.877329 computing F-statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 18:05:50.968704 computing F-statistics</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_anova</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   f_stat_example p_value_example fdr_example AveExpr_example ensembl  gene</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      0.1328075      0.93918553   0.9951876        5.499488   ENSG1 gene1</span>
@@ -254,7 +254,7 @@ similar to <code>fetch_data("modeling_results")$anova</code>.</p>
 <span class="r-in"><span>    block_cor <span class="op">=</span> <span class="cn">NaN</span>, <span class="st">"age"</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span>, suffix <span class="op">=</span> <span class="st">"example"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 14:37:09.940461 computing F-statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 18:05:51.032693 computing F-statistics</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_anova_nan</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   f_stat_example p_value_example fdr_example AveExpr_example ensembl  gene</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      0.1357180      0.93736053   0.9943765        5.499488   ENSG1 gene1</span>
@@ -276,7 +276,7 @@ similar to <code>fetch_data("modeling_results")$anova</code>.</p>
 <span class="r-in"><span>    covars <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span>, suffix <span class="op">=</span> <span class="st">"nocovar"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 14:37:09.990436 computing F-statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-03-28 18:05:51.085347 computing F-statistics</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_anova_nocovar</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   f_stat_nocovar p_value_nocovar fdr_nocovar AveExpr_nocovar ensembl  gene</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      0.1393641       0.9351345   0.9962097        5.499488   ENSG1 gene1</span>
