@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.15.2</span>
       </span>
     </div>
 
@@ -99,11 +99,18 @@
                         <h4 data-toc-skip class="author">Nicholas J.
 Eagles</h4>
             <address class="author_afil">
-      Lieber Institute for Brain
-Development<br><a class="author_email" href="mailto:#"></a><a href="mailto:nickeagles77@gmail.com" class="email">nickeagles77@gmail.com</a>
+      Lieber Institute for Brain Development, Johns Hopkins Medical
+Campus<br><a class="author_email" href="mailto:#"></a><a href="mailto:nickeagles77@gmail.com" class="email">nickeagles77@gmail.com</a>
+      </address>
+                              <h4 data-toc-skip class="author">Leonardo
+Collado-Torres</h4>
+            <address class="author_afil">
+      Lieber Institute for Brain Development, Johns Hopkins Medical
+CampusDepartment of Biostatistics, Johns Hopkins Bloomberg School of
+Public Health<br><a class="author_email" href="mailto:#"></a><a href="mailto:lcolladotor@gmail.com" class="email">lcolladotor@gmail.com</a>
       </address>
                   
-            <h4 data-toc-skip class="date">12 March 2024</h4>
+            <h4 data-toc-skip class="date">28 March 2024</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/vignettes/multi_gene_plots.Rmd" class="external-link"><code>vignettes/multi_gene_plots.Rmd</code></a></small>
       <div class="hidden name"><code>multi_gene_plots.Rmd</code></div>
@@ -113,66 +120,143 @@ Development<br><a class="author_email" href="mailto:#"></a><a href="mailto:nicke
     
     
 <p>One of the goals of <code>spatialLIBD</code> is to provide options
-for visualizing Visium data. In particular, <code><a href="../reference/vis_gene.html">vis_gene()</a></code> and
-<code><a href="../reference/vis_clus.html">vis_clus()</a></code> allow plotting of individual continuous or
-discrete quantities belonging to each Visium spot, in a spatially
-accurate manner and optionally atop histology images.</p>
+for visualizing Visium data by 10x Genomics. In particular,
+<code><a href="../reference/vis_gene.html">vis_gene()</a></code> and <code><a href="../reference/vis_clus.html">vis_clus()</a></code> allow plotting of
+individual continuous or discrete quantities belonging to each Visium
+spot, in a spatially accurate manner and optionally atop histology
+images.</p>
 <p>This vignette explores a more complex capability of
 <code><a href="../reference/vis_gene.html">vis_gene()</a></code>: to visualize a summary metric of several
 continuous variables simultaneously. We’ll start with a basic one-gene
 use case for <code><a href="../reference/vis_gene.html">vis_gene()</a></code> before moving to more advanced
 cases.</p>
-<div class="section level2">
-<h2 id="plotting-one-gene">Plotting One Gene<a class="anchor" aria-label="anchor" href="#plotting-one-gene"></a>
-</h2>
-<p>A typical use of <a href="http://research.libd.org/spatialLIBD/reference/vis_gene.html" class="external-link"><code>vis_gene</code></a>
-involves plotting the spatial distribution of a single gene or
-continuous variable of interest. We’ll first define several genes known
-to be markers for white matter (Tran, Maynard, Spangler, Huuki,
-Montgomery, Sadashivaiah, Tippani, Barry, Hancock, Hicks, Kleinman,
-Hyde, Collado-Torres, Jaffe, and Martinowich, 2021).</p>
+<p>First, let’s load some example data for us to work on. This data is a
+subset from a recent publication with Visium data from the dorsolateral
+prefrontal cortex (DLPFC) (Huuki-Myers, Spangler, Eagles, Montgomergy,
+Kwon, Guo, Grant-Peters, Divecha, Tippani, Sriworarat, Nguyen,
+Ravichandran, Tran, Seyedian, Consortium, Hyde, Kleinman, Battle, Page,
+Ryten, Hicks, Martinowich, Collado-Torres, and Maynard, 2023).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/LieberInstitute/spatialLIBD" class="external-link">"spatialLIBD"</a></span><span class="op">)</span></span>
 <span><span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"spatialDLPFC_Visium_example_subset"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">white_matter_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GFAP"</span>, <span class="st">"AQP4"</span>, <span class="st">"MBP"</span>, <span class="st">"PLP1"</span><span class="op">)</span></span>
+<span><span class="va">spe</span></span>
+<span><span class="co">#&gt; class: SpatialExperiment </span></span>
+<span><span class="co">#&gt; dim: 28916 12107 </span></span>
+<span><span class="co">#&gt; metadata(1): BayesSpace.data</span></span>
+<span><span class="co">#&gt; assays(2): counts logcounts</span></span>
+<span><span class="co">#&gt; rownames(28916): ENSG00000243485 ENSG00000238009 ... ENSG00000278817</span></span>
+<span><span class="co">#&gt;   ENSG00000277196</span></span>
+<span><span class="co">#&gt; rowData names(7): source type ... gene_type gene_search</span></span>
+<span><span class="co">#&gt; colnames(12107): AAACAAGTATCTCCCA-1 AAACACCAATAACTGC-1 ...</span></span>
+<span><span class="co">#&gt;   TTGTTTGTATTACACG-1 TTGTTTGTGTAAATTC-1</span></span>
+<span><span class="co">#&gt; colData names(155): age array_col ... VistoSeg_proportion wrinkle_type</span></span>
+<span><span class="co">#&gt; reducedDimNames(8): 10x_pca 10x_tsne ... HARMONY UMAP.HARMONY</span></span>
+<span><span class="co">#&gt; mainExpName: NULL</span></span>
+<span><span class="co">#&gt; altExpNames(0):</span></span>
+<span><span class="co">#&gt; spatialCoords names(2) : pxl_col_in_fullres pxl_row_in_fullres</span></span>
+<span><span class="co">#&gt; imgData names(4): sample_id image_id data scaleFactor</span></span></code></pre></div>
+<p>Next, let’s define several genes known to be markers for white matter
+(Tran, Maynard, Spangler, Huuki, Montgomery, Sadashivaiah, Tippani,
+Barry, Hancock, Hicks, Kleinman, Hyde, Collado-Torres, Jaffe, and
+Martinowich, 2021).</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">white_matter_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GFAP"</span>, <span class="st">"AQP4"</span>, <span class="st">"MBP"</span>, <span class="st">"PLP1"</span><span class="op">)</span></span>
 <span><span class="va">white_matter_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_search</span><span class="op">[</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">white_matter_genes</span></span>
-<span><span class="op">]</span></span></code></pre></div>
-<p>Next, we’ll plot just the expression of <em>GFAP</em>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span><span class="va">spe</span>, geneid <span class="op">=</span> <span class="va">white_matter_genes</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">]</span></span>
+<span></span>
+<span><span class="co">## Our list of white matter genes</span></span>
+<span><span class="va">white_matter_genes</span></span>
+<span><span class="co">#&gt; [1] "GFAP; ENSG00000131095" "AQP4; ENSG00000171885" "MBP; ENSG00000197971" </span></span>
+<span><span class="co">#&gt; [4] "PLP1; ENSG00000123560"</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="plotting-one-gene">Plotting One Gene<a class="anchor" aria-label="anchor" href="#plotting-one-gene"></a>
+</h2>
+<p>A typical use of <code><a href="../reference/vis_gene.html">vis_gene()</a></code> involves plotting the
+spatial distribution of a single gene or continuous variable of
+interest. For example, let’s plot just the expression of
+<em>GFAP</em>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span></span>
+<span>    <span class="va">spe</span>,</span>
+<span>    geneid <span class="op">=</span> <span class="va">white_matter_genes</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    point_size <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="multi_gene_plots_files/figure-html/single_gene-1.png" width="700"></p>
+<p>We can see a little <strong>V</strong> shaped section with higher
+expression of this gene. This seems to mark the location of layer 1. The
+bottom right corner seems to mark the location of white matter.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialImage-class.html" class="external-link">imgRaster</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="multi_gene_plots_files/figure-html/histology_only-1.png" width="700"></p>
+<p>This particular gene is known to have high expression in both Layer 1
+and white matter in the dorsolateral prefrontal cortex as can be seen
+below (Maynard, Collado-Torres, Weber, Uytingco, Barry, Williams, II,
+Tran, Besich, Tippani, Chew, Yin, Kleinman, Hyde, Rao, Hicks,
+Martinowich, and Jaffe, 2021). It’s the 386th highest ranked white
+matter marker gene based on the enrichment test.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 2024-03-28 00:28:41.342552 loading file /github/home/.cache/R/BiocFileCache/113450dea944_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span>
+<span><span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 2024-03-28 00:28:42.239622 loading file /github/home/.cache/R/BiocFileCache/113472314a4f_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
+<span><span class="va">sig_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sig_genes_extract_all.html">sig_genes_extract_all</a></span><span class="op">(</span></span>
+<span>    n <span class="op">=</span> <span class="fl">400</span>,</span>
+<span>    modeling_results <span class="op">=</span> <span class="va">modeling_results</span>,</span>
+<span>    sce_layer <span class="op">=</span> <span class="va">sce_layer</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">i_gfap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">sig_genes</span>, <span class="va">gene</span> <span class="op">==</span> <span class="st">"GFAP"</span> <span class="op">&amp;</span></span>
+<span>    <span class="va">test</span> <span class="op">==</span> <span class="st">"WM"</span><span class="op">)</span><span class="op">$</span><span class="va">top</span></span>
+<span><span class="va">i_gfap</span></span>
+<span><span class="co">#&gt; [1] 386</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/layer_boxplot.html">layer_boxplot</a></span><span class="op">(</span></span>
+<span>    i <span class="op">=</span> <span class="va">i_gfap</span>,</span>
+<span>    sig_genes <span class="op">=</span> <span class="va">sig_genes</span>,</span>
+<span>    sce_layer <span class="op">=</span> <span class="va">sce_layer</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="multi_gene_plots_files/figure-html/GFAP_boxplot-1.png" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="plotting-multiple-genes">Plotting Multiple Genes<a class="anchor" aria-label="anchor" href="#plotting-multiple-genes"></a>
 </h2>
-<p>However, the <code>geneid</code> parameter to <code>vis_gene</code>
-may also take a vector of genes or continuous variables in
-<code>colData(spe)</code>. In this way, the expression of multiple genes
-can be summarized into a single value for each spot, displayed just as a
-single gene for <code>geneid</code> would be. <code>spatialLIBD</code>
-provides three methods for merging the information from multiple
-continuous variables, which may be specified through the
-<code>multi_gene_method</code> parameter to <code>vis_gene</code>.</p>
+<p>As of version 1.15.2, the <code>geneid</code> parameter to
+<code><a href="../reference/vis_gene.html">vis_gene()</a></code> may also take a vector of genes or continuous
+variables in <code>colData(spe)</code>. In this way, the expression of
+multiple continuous variables can be summarized into a single value for
+each spot, displayed just as a single input for <code>geneid</code>
+would be. <code>spatialLIBD</code> provides three methods for merging
+the information from multiple continuous variables, which may be
+specified through the <code>multi_gene_method</code> parameter to
+<code><a href="../reference/vis_gene.html">vis_gene()</a></code>.</p>
 <div class="section level3">
 <h3 id="averaging-z-scores">Averaging Z-scores<a class="anchor" aria-label="anchor" href="#averaging-z-scores"></a>
 </h3>
 <p>The default is <code>multi_gene_method = "z_score"</code>.
-Essentially, the expression for each gene is normalized to be a Z-score.
-If a particular spot has a value of <code>1</code> for a particular
-gene, this would indicate that spot has expression one standard
-deviation above the mean expression across all spots for that gene.
-Next, for each spot, Z-scores are averaged across genes. Compared to
-simply averaging raw gene expression across genes, the
-<code>"z_score"</code> method is insensitive to absolute expression
-levels (highly expressed genes don’t dominate plots), and instead
-focuses on how each gene varies spatially, weighting each gene
-equally.</p>
+Essentially, each continuous variable (could be a mix of genes with
+spot-level covariates) is normalized to be a Z-score by centering and
+scaling. If a particular spot has a value of <code>1</code> for a
+particular continuous variable, this would indicate that spot has
+expression one standard deviation above the mean expression across all
+spots for that continuous variable. Next, for each spot, Z-scores are
+averaged across continuous variables. Compared to simply averaging raw
+gene expression across genes, the <code>"z_score"</code> method is
+insensitive to absolute expression levels (highly expressed genes don’t
+dominate plots), and instead focuses on how each gene varies spatially,
+weighting each gene equally.</p>
 <p>Let’s plot all four white matter genes using this method.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span><span class="va">spe</span>, geneid <span class="op">=</span> <span class="va">white_matter_genes</span>, multi_gene_method <span class="op">=</span> <span class="st">"z_score"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span></span>
+<span>    <span class="va">spe</span>,</span>
+<span>    geneid <span class="op">=</span> <span class="va">white_matter_genes</span>,</span>
+<span>    multi_gene_method <span class="op">=</span> <span class="st">"z_score"</span>,</span>
+<span>    point_size <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="multi_gene_plots_files/figure-html/multi_gene_z-1.png" width="700"></p>
+<p>Now the bottom right corner where the white matter is located starts
+to pop up more, though the mixed layer 1 and white matter signal
+provided by <em>GFAP</em> is still noticeable (the <strong>V</strong>
+shape).</p>
 </div>
 <div class="section level3">
 <h3 id="summarizing-with-pca">Summarizing with PCA<a class="anchor" aria-label="anchor" href="#summarizing-with-pca"></a>
@@ -189,9 +273,14 @@ encourages higher values in the plot to represent areas of higher
 expression of the features. For our case, this leads to the intuitive
 result that “expression” is higher in white matter for white-matter
 genes, which is not otherwise guaranteed (the “sign” of PCs is
-arbitary)!</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span><span class="va">spe</span>, geneid <span class="op">=</span> <span class="va">white_matter_genes</span>, multi_gene_method <span class="op">=</span> <span class="st">"pca"</span><span class="op">)</span></span></code></pre></div>
+arbitrary)!</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span></span>
+<span>    <span class="va">spe</span>,</span>
+<span>    geneid <span class="op">=</span> <span class="va">white_matter_genes</span>,</span>
+<span>    multi_gene_method <span class="op">=</span> <span class="st">"pca"</span>,</span>
+<span>    point_size <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="multi_gene_plots_files/figure-html/multi_gene_pca-1.png" width="700"></p>
 </div>
 <div class="section level3">
@@ -206,17 +295,126 @@ with a larger number of genes; with our example of four white-matter
 genes, the proportion may only hold values of 0, 0.25, 0.5, 0.75, and 1,
 which is not visually informative.</p>
 <p>The white-matter example is thus poor due to lack of sparsity and low
-number of genes:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span><span class="va">spe</span>, geneid <span class="op">=</span> <span class="va">white_matter_genes</span>, multi_gene_method <span class="op">=</span> <span class="st">"sparsity"</span><span class="op">)</span></span></code></pre></div>
+number of genes as you can see below.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span></span>
+<span>    <span class="va">spe</span>,</span>
+<span>    geneid <span class="op">=</span> <span class="va">white_matter_genes</span>,</span>
+<span>    multi_gene_method <span class="op">=</span> <span class="st">"sparsity"</span>,</span>
+<span>    point_size <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="multi_gene_plots_files/figure-html/multi_gene_sparsity-1.png" width="700"></p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="with-more-marker-genes">With more marker genes<a class="anchor" aria-label="anchor" href="#with-more-marker-genes"></a>
+</h2>
+<p>Below we can plot via <code>multi_gene_method = "z_score"</code> the
+top 25 or top 50 white matter marker genes identified via the enrichment
+test in a previous dataset (Maynard, Collado-Torres, Weber et al.,
+2021).</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span></span>
+<span>    <span class="va">spe</span>,</span>
+<span>    geneid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">sig_genes</span>, <span class="va">test</span> <span class="op">==</span> <span class="st">"WM"</span><span class="op">)</span><span class="op">$</span><span class="va">ensembl</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>    multi_gene_method <span class="op">=</span> <span class="st">"z_score"</span>,</span>
+<span>    point_size <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="multi_gene_plots_files/figure-html/multi_gene_z_score_top_enriched-1.png" width="700"></p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span></span>
+<span>    <span class="va">spe</span>,</span>
+<span>    geneid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">sig_genes</span>, <span class="va">test</span> <span class="op">==</span> <span class="st">"WM"</span><span class="op">)</span><span class="op">$</span><span class="va">ensembl</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>    multi_gene_method <span class="op">=</span> <span class="st">"z_score"</span>,</span>
+<span>    point_size <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="multi_gene_plots_files/figure-html/multi_gene_z_score_top_enriched-2.png" width="700"></p>
+<p>We can repeat this process for
+<code>multi_gene_method = "pca"</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span></span>
+<span>    <span class="va">spe</span>,</span>
+<span>    geneid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">sig_genes</span>, <span class="va">test</span> <span class="op">==</span> <span class="st">"WM"</span><span class="op">)</span><span class="op">$</span><span class="va">ensembl</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>    multi_gene_method <span class="op">=</span> <span class="st">"pca"</span>,</span>
+<span>    point_size <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="multi_gene_plots_files/figure-html/multi_gene_pca_top_enriched-1.png" width="700"></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span></span>
+<span>    <span class="va">spe</span>,</span>
+<span>    geneid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">sig_genes</span>, <span class="va">test</span> <span class="op">==</span> <span class="st">"WM"</span><span class="op">)</span><span class="op">$</span><span class="va">ensembl</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>    multi_gene_method <span class="op">=</span> <span class="st">"pca"</span>,</span>
+<span>    point_size <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="multi_gene_plots_files/figure-html/multi_gene_pca_top_enriched-2.png" width="700"></p>
+<p>And finally, lets look at the results of
+<code>multi_gene_method = "sparsity"</code>.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span></span>
+<span>    <span class="va">spe</span>,</span>
+<span>    geneid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">sig_genes</span>, <span class="va">test</span> <span class="op">==</span> <span class="st">"WM"</span><span class="op">)</span><span class="op">$</span><span class="va">ensembl</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>    multi_gene_method <span class="op">=</span> <span class="st">"sparsity"</span>,</span>
+<span>    point_size <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="multi_gene_plots_files/figure-html/multi_gene_sparsity_top_enriched-1.png" width="700"></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span></span>
+<span>    <span class="va">spe</span>,</span>
+<span>    geneid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">sig_genes</span>, <span class="va">test</span> <span class="op">==</span> <span class="st">"WM"</span><span class="op">)</span><span class="op">$</span><span class="va">ensembl</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>    multi_gene_method <span class="op">=</span> <span class="st">"sparsity"</span>,</span>
+<span>    point_size <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="multi_gene_plots_files/figure-html/multi_gene_sparsity_top_enriched-2.png" width="700"></p>
+<p>In this case, it seems that for both the top 25 or top 50 marker
+genes, <code>z_score</code> and <code>pca</code> provided cleaner
+visualizations than <code>sparsity</code>. Give them a try on your own
+datasets!</p>
+</div>
+<div class="section level2">
+<h2 id="visualizing-non-gene-continuous-variables">Visualizing non-gene continuous variables<a class="anchor" aria-label="anchor" href="#visualizing-non-gene-continuous-variables"></a>
+</h2>
+<p>So far, we have only visualized multiple genes. But these methods can
+be applied to several continuous variables stored in
+<code>colData(spe)</code> as shown below.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span></span>
+<span>    <span class="va">spe</span>,</span>
+<span>    geneid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sum_gene"</span>, <span class="st">"sum_umi"</span><span class="op">)</span>,</span>
+<span>    multi_gene_method <span class="op">=</span> <span class="st">"z_score"</span>,</span>
+<span>    point_size <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="multi_gene_plots_files/figure-html/colData_example-1.png" width="700"></p>
+<p>We can also combine continuous variables from
+<code>colData(spe)</code> along with actual genes. We can combine for
+example the expression of <em>GFAP</em>, which is a known astrocyte
+marker gene, with the spot deconvolution results for astrocytes computed
+using Tangram (Huuki-Myers, Spangler, Eagles et al., 2023).</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span></span>
+<span>    <span class="va">spe</span>,</span>
+<span>    geneid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"broad_tangram_astro"</span><span class="op">)</span>,</span>
+<span>    point_size <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="multi_gene_plots_files/figure-html/colData_plus_gene-1.png" width="700"></p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span></span>
+<span>    <span class="va">spe</span>,</span>
+<span>    geneid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"broad_tangram_astro"</span>, <span class="va">white_matter_genes</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    multi_gene_method <span class="op">=</span> <span class="st">"pca"</span>,</span>
+<span>    point_size <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="multi_gene_plots_files/figure-html/colData_plus_gene-2.png" width="700"></p>
+<p>These tools enable you to further explore your data in new ways. Have
+fun using them!</p>
 </div>
 <div class="section level2">
 <h2 id="reproducibility">Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility"></a>
 </h2>
 <p>Code for creating the vignette</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create the vignette</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/rmarkdown" class="external-link">"rmarkdown"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"multi_gene_plots.Rmd"</span><span class="op">)</span><span class="op">)</span></span>
@@ -225,9 +423,9 @@ number of genes:</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"multi_gene_plots.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2024-03-12 19:10:39 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2024-03-28 00:28:58 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 23.975 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 37.094 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -239,7 +437,7 @@ number of genes:</p>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2024-03-12</span></span>
+<span><span class="co">#&gt;  date     2024-03-28</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -264,13 +462,13 @@ number of genes:</p>
 <span><span class="co">#&gt;  BiocSingular             1.18.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  BiocStyle              * 2.30.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  BiocVersion              3.18.1      <span style="color: #555555;">2023-11-15</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  Biostrings               2.70.2      <span style="color: #555555;">2024-01-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
+<span><span class="co">#&gt;  Biostrings               2.70.3      <span style="color: #555555;">2024-03-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
 <span><span class="co">#&gt;  bit                      4.0.5       <span style="color: #555555;">2022-11-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  bit64                    4.0.5       <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  bitops                   1.0-7       <span style="color: #555555;">2021-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  blob                     1.2.4       <span style="color: #555555;">2023-03-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  bookdown                 0.38        <span style="color: #555555;">2024-03-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  bslib                    0.6.1       <span style="color: #555555;">2023-11-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  bslib                    0.6.2       <span style="color: #555555;">2024-03-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  cachem                   1.0.8       <span style="color: #555555;">2023-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  cli                      3.6.2       <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  codetools                0.2-19      <span style="color: #555555;">2023-02-01</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.3.2)</span></span></span>
@@ -281,7 +479,7 @@ number of genes:</p>
 <span><span class="co">#&gt;  curl                     5.2.1       <span style="color: #555555;">2024-03-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  data.table               1.15.2      <span style="color: #555555;">2024-02-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  DBI                      1.2.2       <span style="color: #555555;">2024-02-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  dbplyr                   2.4.0       <span style="color: #555555;">2023-10-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  dbplyr                   2.5.0       <span style="color: #555555;">2024-03-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  DelayedArray             0.28.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  DelayedMatrixStats       1.24.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  desc                     1.4.3       <span style="color: #555555;">2023-12-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
@@ -291,7 +489,6 @@ number of genes:</p>
 <span><span class="co">#&gt;  dplyr                    1.1.4       <span style="color: #555555;">2023-11-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  DT                       0.32        <span style="color: #555555;">2024-02-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  edgeR                    4.0.16      <span style="color: #555555;">2024-02-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  ellipsis                 0.3.2       <span style="color: #555555;">2021-04-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  evaluate                 0.23        <span style="color: #555555;">2023-11-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  ExperimentHub            2.10.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  fansi                    1.0.6       <span style="color: #555555;">2023-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
@@ -302,8 +499,8 @@ number of genes:</p>
 <span><span class="co">#&gt;  foreach                  1.5.2       <span style="color: #555555;">2022-02-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  fs                       1.6.3       <span style="color: #555555;">2023-07-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  generics                 0.1.3       <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  GenomeInfoDb           * 1.38.7      <span style="color: #555555;">2024-03-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  GenomeInfoDbData         1.2.11      <span style="color: #555555;">2024-03-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  GenomeInfoDb           * 1.38.8      <span style="color: #555555;">2024-03-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
+<span><span class="co">#&gt;  GenomeInfoDbData         1.2.11      <span style="color: #555555;">2024-03-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  GenomicAlignments        1.38.2      <span style="color: #555555;">2024-01-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
 <span><span class="co">#&gt;  GenomicRanges          * 1.54.1      <span style="color: #555555;">2023-10-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  ggbeeswarm               0.7.2       <span style="color: #555555;">2023-04-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
@@ -314,9 +511,9 @@ number of genes:</p>
 <span><span class="co">#&gt;  gridExtra                2.3         <span style="color: #555555;">2017-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  gtable                   0.3.4       <span style="color: #555555;">2023-08-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  highr                    0.10        <span style="color: #555555;">2022-12-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  htmltools                0.5.7       <span style="color: #555555;">2023-11-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  htmltools                0.5.8       <span style="color: #555555;">2024-03-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  htmlwidgets              1.6.4       <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  httpuv                   1.6.14      <span style="color: #555555;">2024-01-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  httpuv                   1.6.15      <span style="color: #555555;">2024-03-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  httr                     1.4.7       <span style="color: #555555;">2023-08-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  interactiveDisplayBase   1.40.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  IRanges                * 2.36.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
@@ -328,7 +525,7 @@ number of genes:</p>
 <span><span class="co">#&gt;  knitr                    1.45        <span style="color: #555555;">2023-10-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  labeling                 0.4.3       <span style="color: #555555;">2023-08-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  later                    1.3.2       <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  lattice                  0.22-5      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[3]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  lattice                  0.22-6      <span style="color: #555555;">2024-03-20</span> <span style="color: #555555;">[3]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  lazyeval                 0.2.2       <span style="color: #555555;">2019-03-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  lifecycle                1.0.4       <span style="color: #555555;">2023-11-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  limma                    3.58.1      <span style="color: #555555;">2023-10-31</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
@@ -353,7 +550,7 @@ number of genes:</p>
 <span><span class="co">#&gt;  promises                 1.2.1       <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  purrr                    1.0.2       <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  R6                       2.5.1       <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  ragg                     1.2.7       <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  ragg                     1.3.0       <span style="color: #555555;">2024-03-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  rappdirs                 0.3.3       <span style="color: #555555;">2021-01-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  RColorBrewer             1.1-3       <span style="color: #555555;">2022-04-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  Rcpp                     1.0.12      <span style="color: #555555;">2024-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
@@ -370,20 +567,20 @@ number of genes:</p>
 <span><span class="co">#&gt;  rtracklayer              1.62.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  S4Arrays                 1.2.1       <span style="color: #555555;">2024-03-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
 <span><span class="co">#&gt;  S4Vectors              * 0.40.2      <span style="color: #555555;">2023-11-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  sass                     0.4.8       <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  sass                     0.4.9       <span style="color: #555555;">2024-03-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  ScaledMatrix             1.10.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  scales                   1.3.0       <span style="color: #555555;">2023-11-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  scater                   1.30.1      <span style="color: #555555;">2023-11-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  scuttle                  1.12.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  sessioninfo            * 1.2.2       <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  shiny                    1.8.0       <span style="color: #555555;">2023-11-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  shinyWidgets             0.8.2       <span style="color: #555555;">2024-03-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  shiny                    1.8.1       <span style="color: #555555;">2024-03-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  shinyWidgets             0.8.3       <span style="color: #555555;">2024-03-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  SingleCellExperiment   * 1.24.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  spam                     2.10-0      <span style="color: #555555;">2023-10-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  SparseArray              1.2.4       <span style="color: #555555;">2024-02-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
 <span><span class="co">#&gt;  sparseMatrixStats        1.14.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  SpatialExperiment      * 1.12.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  spatialLIBD            * 1.15.1      <span style="color: #555555;">2024-03-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  spatialLIBD            * 1.15.2      <span style="color: #555555;">2024-03-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  statmod                  1.5.0       <span style="color: #555555;">2023-01-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  stringi                  1.8.3       <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  stringr                  1.5.1       <span style="color: #555555;">2023-11-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
@@ -400,13 +597,13 @@ number of genes:</p>
 <span><span class="co">#&gt;  viridis                  0.6.5       <span style="color: #555555;">2024-01-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  viridisLite              0.4.2       <span style="color: #555555;">2023-05-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  withr                    3.0.0       <span style="color: #555555;">2024-01-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  xfun                     0.42        <span style="color: #555555;">2024-02-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  xfun                     0.43        <span style="color: #555555;">2024-03-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  XML                      3.99-0.16.1 <span style="color: #555555;">2024-01-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  xml2                     1.3.6       <span style="color: #555555;">2023-12-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  xtable                   1.8-4       <span style="color: #555555;">2019-04-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  XVector                  0.42.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  yaml                     2.3.8       <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  zlibbioc                 1.48.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  zlibbioc                 1.48.2      <span style="color: #555555;">2024-03-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [1] /__w/_temp/Library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /usr/local/lib/R/site-library</span></span></span>
@@ -431,21 +628,40 @@ for R</em>. R package version 2.26. 2024. URL:
 <a href="https://github.com/rstudio/rmarkdown" class="external-link">https://github.com/rstudio/rmarkdown</a>.</cite>
 </p>
 <p>
-<a id="bib-mclean2017refmanager"></a><a href="#cite-mclean2017refmanager">[2]</a><cite>
+<a id="bib-huukimyers2023integrated"></a><a href="#cite-huukimyers2023integrated">[2]</a><cite>
+L. A. Huuki-Myers, A. Spangler, N. J. Eagles, et al. “Integrated single
+cell and unsupervised spatial transcriptomic analysis defines molecular
+anatomy of the human dorsolateral prefrontal cortex”. In:
+<em>bioRxiv</em> (2023). DOI:
+<a href="https://doi.org/10.1101/2023.02.15.528722" class="external-link">10.1101/2023.02.15.528722</a>.
+URL:
+<a href="https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1" class="external-link">https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1</a>.</cite>
+</p>
+<p>
+<a id="bib-maynard2021transcriptome"></a><a href="#cite-maynard2021transcriptome">[3]</a><cite>
+K. R. Maynard, L. Collado-Torres, L. M. Weber, et al.
+“Transcriptome-scale spatial gene expression in the human dorsolateral
+prefrontal cortex”. In: <em>Nature Neuroscience</em> (2021). DOI:
+<a href="https://doi.org/10.1038/s41593-020-00787-0" class="external-link">10.1038/s41593-020-00787-0</a>.
+URL:
+<a href="https://www.nature.com/articles/s41593-020-00787-0" class="external-link">https://www.nature.com/articles/s41593-020-00787-0</a>.</cite>
+</p>
+<p>
+<a id="bib-mclean2017refmanager"></a><a href="#cite-mclean2017refmanager">[4]</a><cite>
 M. W. McLean. “RefManageR: Import and Manage BibTeX and BibLaTeX
 References in R”. In: <em>The Journal of Open Source Software</em>
 (2017). DOI:
 <a href="https://doi.org/10.21105/joss.00338" class="external-link">10.21105/joss.00338</a>.</cite>
 </p>
 <p>
-<a id="bib-tran2021"></a><a href="#cite-tran2021">[3]</a><cite> M. N.
+<a id="bib-tran2021"></a><a href="#cite-tran2021">[5]</a><cite> M. N.
 Tran, K. R. Maynard, A. Spangler, et al. “Single-nucleus transcriptome
 analysis reveals cell-type-specific molecular signatures across reward
 circuitry in the human brain”. In: <em>Neuron</em> (2021). DOI:
 <a href="https://doi.org/10.1016/j.neuron.2021.09.001" class="external-link">10.1016/j.neuron.2021.09.001</a>.</cite>
 </p>
 <p>
-<a id="bib-xie2014knitr"></a><a href="#cite-xie2014knitr">[4]</a><cite>
+<a id="bib-xie2014knitr"></a><a href="#cite-xie2014knitr">[6]</a><cite>
 Y. Xie. “knitr: A Comprehensive Tool for Reproducible Research in R”.
 In: <em>Implementing Reproducible Computational Research</em>. Ed. by V.
 Stodden, F. Leisch and R. D. Peng. ISBN 978-1466561595. Chapman and
