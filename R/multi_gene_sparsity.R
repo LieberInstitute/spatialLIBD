@@ -14,5 +14,5 @@
 #' @family functions for summarizing expression of multiple continuous variables simultaneously
 #' @keywords internal
 multi_gene_sparsity <- function(cont_mat) {
-    return(rowMeans(cont_mat > 0))
+    return(rowMeans(cont_mat > 0, na.rm = TRUE))
 }
