@@ -25,14 +25,15 @@ multi_gene_pca <- function(cont_mat) {
         (colSds(cont_mat) != 0)
     )
     if (length(good_indices) < 2) {
-        stop("After dropping features with NAs or no expression variation, less than 2 features were left")
+        stop("After dropping features with NAs or no expression variation, less than 2 features were left. This error can occur when using data from only 1 spot.", call. = FALSE)
     }
     if (ncol(cont_mat) - length(good_indices) > 0) {
         warning(
             sprintf(
                 "Dropping features(s) '%s' which have NAs or no expression variation",
                 paste(colnames(cont_mat)[-good_indices], collapse = "', '")
-            )
+            ),
+            call. = FALSE
         )
     }
     cont_mat = cont_mat[, good_indices]

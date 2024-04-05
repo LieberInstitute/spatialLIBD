@@ -18,17 +18,18 @@ multi_gene_z_score <- function(cont_mat) {
     #   Verify this and drop any zero-variance features
     good_indices <- which(colSds(cont_mat, na.rm = TRUE) != 0)
     if (length(good_indices) < 2) {
-        stop("After dropping features with no expression variation, less than 2 features were left")
+        stop("After dropping features with no expression variation, less than 2 features were left. This error can occur when using data from only 1 spot.", call. = FALSE)
     }
     if (ncol(cont_mat) - length(good_indices) > 0) {
         warning(
             sprintf(
                 "Dropping features(s) '%s' which have no expression variation",
                 paste(colnames(cont_mat)[-good_indices], collapse = "', '")
-            )
+            ),
+            call. = FALSE
         )
     }
-    cont_mat = cont_mat[, good_indices]
+    cont_mat = cont_mat[, good_indices, drop = FALSE]
 
     #   For each spot, average Z-scores across all features
     cont_z <- (cont_mat - colMeans(cont_mat, na.rm = TRUE)) /
