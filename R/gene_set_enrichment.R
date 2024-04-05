@@ -58,12 +58,11 @@
 #' ## Explore the results
 #' asd_sfari_enrichment
 gene_set_enrichment <-
-    function(
-        gene_list,
-        fdr_cut = 0.1,
-        modeling_results = fetch_data(type = "modeling_results"),
-        model_type = names(modeling_results)[1],
-        reverse = FALSE) {
+    function(gene_list,
+    fdr_cut = 0.1,
+    modeling_results = fetch_data(type = "modeling_results"),
+    model_type = names(modeling_results)[1],
+    reverse = FALSE) {
         model_results <- modeling_results[[model_type]]
 
         ## Keep only the genes present

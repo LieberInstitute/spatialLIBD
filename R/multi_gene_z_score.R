@@ -29,7 +29,7 @@ multi_gene_z_score <- function(cont_mat) {
             call. = FALSE
         )
     }
-    cont_mat = cont_mat[, good_indices, drop = FALSE]
+    cont_mat <- cont_mat[, good_indices, drop = FALSE]
 
     #   For each spot, average Z-scores across all features
     cont_z <- (cont_mat - colMeans(cont_mat, na.rm = TRUE)) /

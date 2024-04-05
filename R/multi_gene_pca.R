@@ -22,7 +22,7 @@ multi_gene_pca <- function(cont_mat) {
     #   variance. Verify this and drop any bad features
     good_indices <- which(
         (colSums(is.na(cont_mat)) == 0) &
-        (colSds(cont_mat) != 0)
+            (colSds(cont_mat) != 0)
     )
     if (length(good_indices) < 2) {
         stop("After dropping features with NAs or no expression variation, less than 2 features were left. This error can occur when using data from only 1 spot.", call. = FALSE)
@@ -36,7 +36,7 @@ multi_gene_pca <- function(cont_mat) {
             call. = FALSE
         )
     }
-    cont_mat = cont_mat[, good_indices]
+    cont_mat <- cont_mat[, good_indices]
 
     pc_exp <- stats::prcomp(cont_mat, center = TRUE, scale = TRUE)
     pc_vec <- pc_exp$x[, "PC1"]
