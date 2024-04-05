@@ -22,7 +22,7 @@ dependencies](https://bioconductor.org/shields/dependencies/release/spatialLIBD.
 [![Codecov test
 coverage](https://codecov.io/gh/LieberInstitute/spatialLIBD/branch/devel/graph/badge.svg)](https://codecov.io/gh/LieberInstitute/spatialLIBD?branch=devel)
 [![R build
-status](https://github.com/LieberInstitute/spatialLIBD/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/LieberInstitute/spatialLIBD/actions)
+status](https://github.com/LieberInstitute/spatialLIBD/workflows/check-bioc/badge.svg)](https://github.com/LieberInstitute/spatialLIBD/actions)
 [![GitHub
 issues](https://img.shields.io/github/issues/LieberInstitute/spatialLIBD)](https://github.com/LieberInstitute/spatialLIBD/issues)
 [![GitHub
