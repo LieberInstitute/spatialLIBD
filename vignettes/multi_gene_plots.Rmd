@@ -115,7 +115,7 @@ We can see a little **V** shaped section with higher expression of this gene. Th
 plot(imgRaster(spe))
 ```
 
-This particular gene is known to have high expression in both Layer 1 and white matter in the dorsolateral prefrontal cortex as can be seen below `r Citep(bib[['HumanPilot']])`. It's the 386th highest ranked white matter marker gene based on the enrichment test.
+This particular gene is known to have high expression in both layer 1 and white matter in the dorsolateral prefrontal cortex as can be seen below `r Citep(bib[['HumanPilot']])`. It's the 386th highest ranked white matter marker gene based on the enrichment test.
 
 ```{r "GFAP_boxplot"}
 modeling_results <- fetch_data(type = "modeling_results")
