@@ -110,7 +110,7 @@ CampusDepartment of Biostatistics, Johns Hopkins Bloomberg School of
 Public Health<br><a class="author_email" href="mailto:#"></a><a href="mailto:lcolladotor@gmail.com" class="email">lcolladotor@gmail.com</a>
       </address>
                   
-            <h4 data-toc-skip class="date">8 April 2024</h4>
+            <h4 data-toc-skip class="date">9 April 2024</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/vignettes/multi_gene_plots.Rmd" class="external-link"><code>vignettes/multi_gene_plots.Rmd</code></a></small>
       <div class="hidden name"><code>multi_gene_plots.Rmd</code></div>
@@ -197,9 +197,9 @@ Martinowich, and Jaffe, 2021). It’s the 386th highest ranked white
 matter marker gene based on the enrichment test.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2024-04-08 15:27:31.222499 loading file /github/home/.cache/R/BiocFileCache/6aa30bb7326_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2024-04-09 14:26:27.331205 loading file /github/home/.cache/R/BiocFileCache/6e91e8fde1a_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span>
 <span><span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2024-04-08 15:27:32.043454 loading file /github/home/.cache/R/BiocFileCache/6aa1490a588_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2024-04-09 14:26:28.113777 loading file /github/home/.cache/R/BiocFileCache/6e94909d5fd_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
 <span><span class="va">sig_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sig_genes_extract_all.html">sig_genes_extract_all</a></span><span class="op">(</span></span>
 <span>    n <span class="op">=</span> <span class="fl">400</span>,</span>
 <span>    modeling_results <span class="op">=</span> <span class="va">modeling_results</span>,</span>
@@ -423,9 +423,9 @@ fun using them!</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"multi_gene_plots.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2024-04-08 15:27:48 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2024-04-09 14:26:44 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 37.676 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 36.589 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -437,14 +437,14 @@ fun using them!</p>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2024-04-08</span></span>
+<span><span class="co">#&gt;  date     2024-04-09</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package               </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version    </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
 <span><span class="co">#&gt;  abind                    1.4-5       <span style="color: #555555;">2016-07-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  AnnotationDbi            1.64.1      <span style="color: #555555;">2023-11-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  AnnotationHub            3.10.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  AnnotationHub            3.10.1      <span style="color: #555555;">2024-04-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
 <span><span class="co">#&gt;  attempt                  0.3.1       <span style="color: #555555;">2020-05-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  backports                1.4.1       <span style="color: #555555;">2021-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  beachmat                 2.18.1      <span style="color: #555555;">2024-02-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
@@ -580,7 +580,7 @@ fun using them!</p>
 <span><span class="co">#&gt;  SparseArray              1.2.4       <span style="color: #555555;">2024-02-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
 <span><span class="co">#&gt;  sparseMatrixStats        1.14.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  SpatialExperiment      * 1.12.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  spatialLIBD            * 1.15.2      <span style="color: #555555;">2024-04-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  spatialLIBD            * 1.15.2      <span style="color: #555555;">2024-04-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  statmod                  1.5.0       <span style="color: #555555;">2023-01-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  stringi                  1.8.3       <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  stringr                  1.5.1       <span style="color: #555555;">2023-11-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
