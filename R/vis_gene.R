@@ -208,13 +208,18 @@ vis_gene <-
             )
         }
 
-        #   Grab any continuous colData columns
-        cont_cols <- as.matrix(
-            colData(spe_sub)[
-                , geneid[geneid %in% colnames(colData(spe_sub))],
-                drop = FALSE
-            ]
-        )
+        #   Grab any continuous colData columns and verify they're all numeric
+        cont_cols = colData(spe_sub)[
+            , geneid[geneid %in% colnames(colData(spe_sub))],
+            drop = FALSE
+        ]
+        if (!all(sapply(cont_cols, class) %in% c("numeric", "integer"))) {
+            stop(
+                "'geneid' can not contain non-numeric colData columns.",
+                call. = FALSE
+            )
+        }
+        cont_cols <- as.matrix(cont_cols)
 
         #   Get the integer indices of each gene in the SpatialExperiment, since we
         #   aren't guaranteed that rownames are gene names
