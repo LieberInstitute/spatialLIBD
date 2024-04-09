@@ -22,11 +22,12 @@
 #'     imgData(img_update_all(spe, brightness = 25))
 #' }
 img_update_all <-
-    function(spe,
-    image_id = "lowres",
-    new_image_id = paste0("edited_", image_id),
-    overwrite = FALSE,
-    ...) {
+    function(
+        spe,
+        image_id = "lowres",
+        new_image_id = paste0("edited_", image_id),
+        overwrite = FALSE,
+        ...) {
         for (sampleid in unique(spe$sample_id)) {
             spe <-
                 img_update(

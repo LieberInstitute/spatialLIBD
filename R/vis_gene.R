@@ -158,22 +158,21 @@
 #'     print(p8)
 #' }
 vis_gene <-
-    function(
-        spe,
-        sampleid = unique(spe$sample_id)[1],
-        geneid = rowData(spe)$gene_search[1],
-        spatial = TRUE,
-        assayname = "logcounts",
-        minCount = 0,
-        viridis = TRUE,
-        image_id = "lowres",
-        alpha = NA,
-        cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
-        point_size = 2,
-        auto_crop = TRUE,
-        na_color = "#CCCCCC40",
-        multi_gene_method = c("z_score", "pca", "sparsity"),
-        ...) {
+    function(spe,
+    sampleid = unique(spe$sample_id)[1],
+    geneid = rowData(spe)$gene_search[1],
+    spatial = TRUE,
+    assayname = "logcounts",
+    minCount = 0,
+    viridis = TRUE,
+    image_id = "lowres",
+    alpha = NA,
+    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
+    point_size = 2,
+    auto_crop = TRUE,
+    na_color = "#CCCCCC40",
+    multi_gene_method = c("z_score", "pca", "sparsity"),
+    ...) {
         multi_gene_method <- rlang::arg_match(multi_gene_method)
         #   Verify existence and legitimacy of 'sampleid'
         if (
@@ -209,7 +208,7 @@ vis_gene <-
         }
 
         #   Grab any continuous colData columns and verify they're all numeric
-        cont_cols = colData(spe_sub)[
+        cont_cols <- colData(spe_sub)[
             , geneid[geneid %in% colnames(colData(spe_sub))],
             drop = FALSE
         ]

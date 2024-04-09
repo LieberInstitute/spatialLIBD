@@ -48,23 +48,24 @@
 #'     rm(spe_sub)
 #' }
 vis_gene_p <-
-    function(spe,
-    d,
-    sampleid = unique(spe$sample_id)[1],
-    spatial,
-    title,
-    viridis = TRUE,
-    image_id = "lowres",
-    alpha = NA,
-    cont_colors = if (viridis) {
-        viridisLite::viridis(21)
-    } else {
-        c("aquamarine4", "springgreen", "goldenrod", "red")
-    },
-    point_size = 2,
-    auto_crop = TRUE,
-    na_color = "#CCCCCC40",
-    legend_title = "") {
+    function(
+        spe,
+        d,
+        sampleid = unique(spe$sample_id)[1],
+        spatial,
+        title,
+        viridis = TRUE,
+        image_id = "lowres",
+        alpha = NA,
+        cont_colors = if (viridis) {
+            viridisLite::viridis(21)
+        } else {
+            c("aquamarine4", "springgreen", "goldenrod", "red")
+        },
+        point_size = 2,
+        auto_crop = TRUE,
+        na_color = "#CCCCCC40",
+        legend_title = "") {
         ## Some variables
         pxl_row_in_fullres <-
             pxl_col_in_fullres <- key <- COUNT <- NULL

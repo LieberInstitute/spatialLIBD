@@ -6,8 +6,9 @@ test_that(
         #   Non-numeric column to plot
         expect_error(
             {
-                p = vis_gene(
-                    spe, geneid = c('sum_umi', rownames(spe)[1], 'layer_guess')
+                p <- vis_gene(
+                    spe,
+                    geneid = c("sum_umi", rownames(spe)[1], "layer_guess")
                 )
             },
             "'geneid' can not contain non-numeric colData columns\\."
@@ -16,8 +17,9 @@ test_that(
         #   Bad sample ID
         expect_error(
             {
-                p = vis_gene(
-                    spe, geneid = c('sum_umi', rownames(spe)[1]),
+                p <- vis_gene(
+                    spe,
+                    geneid = c("sum_umi", rownames(spe)[1]),
                     sampleid = "aaa"
                 )
             },
@@ -27,8 +29,9 @@ test_that(
         #   Bad assayname
         expect_error(
             {
-                p = vis_gene(
-                    spe, geneid = c('sum_umi', rownames(spe)[1]),
+                p <- vis_gene(
+                    spe,
+                    geneid = c("sum_umi", rownames(spe)[1]),
                     assayname = "aaa"
                 )
             },
@@ -37,13 +40,15 @@ test_that(
 
         #   Bad geneid
         expect_error(
-            { p = vis_gene(spe, geneid = 'aaa') },
+            {
+                p <- vis_gene(spe, geneid = "aaa")
+            },
             "Could not find the 'geneid'\\(s\\) aaa"
         )
 
         #   Trivially check success with legitimate input
         expect_equal(
-            class(vis_gene(spe, geneid = c('sum_umi', rownames(spe)[1]))),
+            class(vis_gene(spe, geneid = c("sum_umi", rownames(spe)[1]))),
             c("gg", "ggplot")
         )
     }
