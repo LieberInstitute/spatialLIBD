@@ -89,7 +89,7 @@ vis_grid_clus <-
 
 
         if (!return_plots) {
-            pdf(pdf_file, height = 24, width = 36)
+            pdf(pdf_file, height = height, width = width)
             print(cowplot::plot_grid(plotlist = plots))
             dev.off()
             return(pdf_file)
