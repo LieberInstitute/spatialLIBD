@@ -1,7 +1,7 @@
 Package: spatialLIBD
 Title: spatialLIBD: an R/Bioconductor package to visualize spatially-resolved
     transcriptomics data
-Version: 1.15.4
+Version: 1.16.0
 Date: 2024-04-19
 Authors@R:
     c(
