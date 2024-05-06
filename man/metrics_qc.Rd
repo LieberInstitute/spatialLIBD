@@ -21,34 +21,33 @@ with outlier quality control values: low \code{sum_umi} or \code{sum_gene}, or h
 edge spots and distance to the edge for each spot.
 }
 \examples{
- if (enough_ram()) {
+if (enough_ram()) {
     ## Obtain the necessary data
     if (!exists("spe")) spe <- fetch_data("spe")
-    
+
     ## fake out tissue spots in example data (TODO add pre-qc data)
     spe_qc <- spe
     spe_qc$in_tissue[spe_qc$array_col < 10] <- FALSE
-    
+
     ## adds QC metrics to colData of the spe
     spe_qc <- metrics_qc(spe_qc)
     colData(spe_qc)
-         
+
     ## visualize edge spots
     vis_clus(spe_qc, sampleid = "151507", clustervar = "edge_spot")
     vis_gene(spe_qc, sampleid = "151507", geneid = "edge_distance", minCount = -1)
-    
+
     ## visualize scran QC flags
-    
+
     vis_clus(spe_qc, sample_id = "151507", clustervar = "scran_low_lib_size")
-    
-    scater::plotColData(spe_qc[,spe_qc$in_tissue], x = "sample_id", y = "sum_umi", colour_by = "scran_low_lib_size")
-    
+
+    scater::plotColData(spe_qc[, spe_qc$in_tissue], x = "sample_id", y = "sum_umi", colour_by = "scran_low_lib_size")
+
     vis_clus(spe_qc, sampleid = "151507", clustervar = "scran_discard")
     vis_clus(spe_qc, sampleid = "151507", clustervar = "scran_low_lib_size_edge")
-    
-    }
-    #'     
+}
+#'
  @importFrom dplyr group_by summarize left_join select mutate
  @importFrom SummarizedExperiment colData
- @importFrom scater isOutlier 
+ @importFrom scater isOutlier
 }
