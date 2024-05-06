@@ -47,7 +47,11 @@
 #'  @importFrom scater isOutlier 
 metrics_qc <- function(spe) {
   
-  # spe_out <- spe[, !spe$in_tissue]
+  stopifnot("in_tissue" %in% colnames(colData(spe)))
+  stopifnot("sum_umi" %in% colnames(colData(spe)))
+  stopifnot("sum_gene" %in% colnames(colData(spe)))
+  stopifnot("expr_chrM_ratio" %in% colnames(colData(spe)))
+
   spe_in <- spe[, spe$in_tissue]
   
   ## QC in-tissue spots
