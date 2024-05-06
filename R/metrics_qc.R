@@ -1,9 +1,17 @@
 
 #' Quality Control for Spatial Data
 #'
+#' This function identify spots in a
+#' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class] (SPE)
+#'  with outlier quality control values: low `sum_umi` or `sum_gene`, or high
+#'  `expr_chrM_ratio`, utilizing `scran::isOutlier()`. Also identifies in-tissue
+#'  edge spots and distance to the edge for each spot.   
+#'
 #' @param spe a [SpatialExperiment][SpatialExperiment::SpatialExperiment-class]
 #'
-#' @return
+#' @return A [SpatialExperiment][SpatialExperiment::SpatialExperiment-class]
+#' with added quiality control information added to the colData.
+#' 
 #' @export
 #'
 #' @examples
@@ -11,16 +19,18 @@
 #'     ## Obtain the necessary data
 #'     if (!exists("spe")) spe <- fetch_data("spe")
 #'     
+#'     ## fake out tissue spots in example data (TODO add pre-qc data)
+#'     spe_qc <- spe
+#'     spe_qc$in_tissue[spe_qc$array_col < 10] <- FALSE
 #'     
 #'     ## adds QC metrics to colData of the spe
 #'     spe_qc <- metrics_qc(spe)
 #'     colData(spe_qc)
-#'     
-#'     table(spe_qc$edge_spot, spe_qc$scran_low_lib_size_edge)
-#'     
+#'          
 #'     ## visualize edge spots
-#'     vis_clus(spe_qc, sample_id = "151507", clustervar = "edge_spot")
-#'     vis_gene(spe_qc, sample_id = "151507", geneid = "edge_distance", minCount = -1)
+#'     vis_clus(spe_qc, sampleid = "151509", clustervar = "edge_spot")
+#'     vis_clus(spe_qc, sampleid = "151509", clustervar = "in_tissue")
+#'     vis_gene(spe_qc, sampleid = "151509", geneid = "edge_distance", minCount = -1)
 #'     
 #'     ## visualize scran QC flags
 #'     
@@ -28,15 +38,17 @@
 #'     
 #'     scater::plotColData(spe_qc, x = "sample_id", y = "sum_umi", colour_by = "scran_low_lib_size")
 #'     
-#'     vis_clus(spe_qc, sample_id = "151507", clustervar = "scran_low_n_features")
-#'     vis_clus(spe_qc, sample_id = "151507", clustervar = "scran_discard")
-#'     vis_clus(spe_qc, sample_id = "151507", clustervar = "scran_low_lib_size_edge")
+#'     vis_clus(spe_qc, sampleid = "151507", clustervar = "scran_low_n_features")
+#'     vis_clus(spe_qc, sampleid = "151507", clustervar = "scran_discard")
+#'     vis_clus(spe_qc, sampleid = "151507", clustervar = "scran_low_lib_size_edge")
 #'     
 #'     }
 #'     #'     
-#'  @importFrom dplyr group_by summarize left_join
+#'  @importFrom dplyr group_by summarize left_join select mutate
+#'  @importFrom SummarizedExperiment colData
+#'  @importFrom scater isOutlier 
 metrics_qc <- function(spe) {
-  
+
   qc_df <- data.frame(
     log2sum = log2(spe$sum_umi),
     log2detected = log2(spe$sum_gene),
