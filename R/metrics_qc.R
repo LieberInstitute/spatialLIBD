@@ -7,19 +7,39 @@
 #' @export
 #'
 #' @examples
+#'  if (enough_ram()) {
+#'     ## Obtain the necessary data
+#'     if (!exists("spe")) spe <- fetch_data("spe")
+#'     
+#'     
+#'     vis_gene(
+#'         spe = spe,
+#'         gene= "sum_umi",
+#'         sampleid = "151507",
+#'         cont_colors = rev(viridisLite::viridis(21, option = "magma"))
+#'     )
+#'     
+#'     spe_qc <- metrics_qc(spe)
+#'     
+#'     ## visulize edge spots
+#'     vis_clus(spe_qc, sample_id = "151507", clustervar = "edge_spots")
+#'     
+#'     }
+#'     #'     
+#'  @importFrom dplyr group_by summarize left_join
 metrics_qc <- function(spe) {
   
   qc_df <- data.frame(
     log2sum = log2(spe$sum_umi),
     log2detected = log2(spe$sum_gene),
     subsets_Mito_percent = spe$expr_chrM_ratio*100,
-    sample_id = spe$sample_id_original
+    sample_id = spe$sample_id
   )
   
   qcfilter <- DataFrame(
-    low_lib_size = isOutlier(qc_df$log2sum, type = "lower", log = TRUE, batch = qc_df$sample_id),
-    low_n_features = isOutlier(qc_df$log2detected, type = "lower", log = TRUE, batch = qc_df$sample_id),
-    high_subsets_Mito_percent = isOutlier(qc_df$subsets_Mito_percent, type = "higher", batch = qc_df$sample_id)
+    low_lib_size = scater::isOutlier(qc_df$log2sum, type = "lower", log = TRUE, batch = qc_df$sample_id),
+    low_n_features = scater::isOutlier(qc_df$log2detected, type = "lower", log = TRUE, batch = qc_df$sample_id),
+    high_subsets_Mito_percent = scater::isOutlier(qc_df$subsets_Mito_percent, type = "higher", batch = qc_df$sample_id)
   )
   qcfilter$discard <- (qcfilter$low_lib_size | qcfilter$low_n_features) | qcfilter$high_subsets_Mito_percent
   
@@ -29,10 +49,13 @@ metrics_qc <- function(spe) {
   
   spe$scran_discard <-
     factor(qcfilter$discard, levels = c("TRUE", "FALSE"))
+  
   spe$scran_low_lib_size <-
     factor(qcfilter$low_lib_size, levels = c("TRUE", "FALSE"))
+  
   spe$scran_low_n_features <-
     factor(qcfilter$low_n_features, levels = c("TRUE", "FALSE"))
+  
   spe$scran_high_subsets_Mito_percent <-
     factor(qcfilter$high_subsets_Mito_percent, levels = c("TRUE", "FALSE"))
   
@@ -40,13 +63,13 @@ metrics_qc <- function(spe) {
   spots <- data.frame(
     row = spe$array_row,
     col = spe$array_col,
-    sample_id = spe$sample_id_original
+    sample_id = spe$sample_id
   )
   
-  edge_spots_row <- group_by(spots, sample_id, row) %>% summarize(min_col = min(col), max_col = max(col))
-  edge_spots_col <- group_by(spots, sample_id, col) %>% summarize(min_row = min(row), max_row = max(row))
+  edge_spots_row <- group_by(spots, sample_id, row) |> dplyr::summarize(min_col = min(col), max_col = max(col))
+  edge_spots_col <- group_by(spots, sample_id, col) |> dplyr::summarize(min_row = min(row), max_row = max(row))
   
-  spots <- left_join(spots, edge_spots_row) %>% left_join(edge_spots_col)
+  spots <- dplyr::left_join(spots, edge_spots_row) |> dplyr::left_join(edge_spots_col)
   spots$edge_spots <- with(spots, row == min_row | row == max_row | col == min_col | col == max_col)
   
   spots$row_distance <- with(spots, pmin(abs(row - min_row), abs(row - max_row)))
