@@ -69,8 +69,6 @@ metrics_qc <- function(spe) {
              qc_df$subsets_Mito_percent < 0.5, levels = c("TRUE", "FALSE"))
   
   ## Find edge spots
-  
-  ## Find edge spots
   spot_coords <- colData(spe) |>
     as.data.frame() |>
     select(sample_id, array_row, array_col) |>
@@ -88,28 +86,8 @@ metrics_qc <- function(spe) {
     mutate(edge_spot = edge_row | edge_col,
            edge_distance = pmin(row_distance, col_distance))
   
-  # spots <- data.frame(
-  #   row = spe$array_row,
-  #   col = spe$array_col,
-  #   sample_id = spe$sample_id
-  # )
   
-  # edge_spots_row <- group_by(spots, sample_id, row) |> dplyr::summarize(min_col = min(col), max_col = max(col))
-  # edge_spots_col <- group_by(spots, sample_id, col) |> dplyr::summarize(min_row = min(row), max_row = max(row))
-  # 
-  # spots <- dplyr::left_join(spots, edge_spots_row) |> dplyr::left_join(edge_spots_col)
-  # spots$edge_spots <- with(spots, row == min_row | row == max_row | col == min_col | col == max_col)
-  # 
-  # spots$row_distance <- with(spots, pmin(abs(row - min_row), abs(row - max_row)))
-  # spots$col_distance <- with(spots, pmin(abs(col - min_col), abs(col - max_col)))
-  ## spots$edge_distance <- with(spots, sqrt(row_distance^2 + col_distance^2))
-  ## The above is from:
-  ## sqrt((x_1 - x_2)^2 + (y_1 - y_2)^2)
-  ## but it was wrong, here's a case the the smallest distance is on the column:
-  ## sqrt(0^2 + col_distance^2) = col_distance
-  # spots$edge_distance <- with(spots, pmin(row_distance, col_distance))
-  
-  
+  ## Add Edge info to spe
   spe$edge_spot <- factor(spot_coords$edge_spot,levels = c("TRUE", "FALSE"))
   spe$edge_distance <- spot_coords$edge_distance
   
