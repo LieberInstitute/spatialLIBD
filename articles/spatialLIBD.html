@@ -116,7 +116,7 @@ Jaffe</h4>
 Campus<br><a class="author_email" href="mailto:#"></a><a href="mailto:andrew.jaffe@libd.org" class="email">andrew.jaffe@libd.org</a>
       </address>
                   
-            <h4 data-toc-skip class="date">3 May 2024</h4>
+            <h4 data-toc-skip class="date">9 May 2024</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/vignettes/spatialLIBD.Rmd" class="external-link"><code>vignettes/spatialLIBD.Rmd</code></a></small>
       <div class="hidden name"><code>spatialLIBD.Rmd</code></div>
@@ -289,12 +289,11 @@ Thank you!</p>
 <span><span class="co">#&gt;   B, Grant-Peters M, Divecha HR, Tippani M, Sriworarat C, Nguyen AB,</span></span>
 <span><span class="co">#&gt;   Ravichandran P, Tran MN, Seyedian A, Consortium P, Hyde TM, Kleinman</span></span>
 <span><span class="co">#&gt;   JE, Battle A, Page SC, Ryten M, Hicks SC, Martinowich K,</span></span>
-<span><span class="co">#&gt;   Collado-Torres L, Maynard KR (2023). "Integrated single cell and</span></span>
-<span><span class="co">#&gt;   unsupervised spatial transcriptomic analysis defines molecular</span></span>
-<span><span class="co">#&gt;   anatomy of the human dorsolateral prefrontal cortex." _bioRxiv_.</span></span>
-<span><span class="co">#&gt;   doi:10.1101/2023.02.15.528722</span></span>
-<span><span class="co">#&gt;   &lt;https://doi.org/10.1101/2023.02.15.528722&gt;,</span></span>
-<span><span class="co">#&gt;   &lt;https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1&gt;.</span></span>
+<span><span class="co">#&gt;   Collado-Torres L, Maynard KR (2024). "A data-driven single-cell and</span></span>
+<span><span class="co">#&gt;   spatial transcriptomic map of the human prefrontal cortex."</span></span>
+<span><span class="co">#&gt;   _Science_. doi:10.1126/science.adh1938</span></span>
+<span><span class="co">#&gt;   &lt;https://doi.org/10.1126/science.adh1938&gt;,</span></span>
+<span><span class="co">#&gt;   &lt;https://doi.org/10.1126/science.adh1938&gt;.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   Kwon SH, Parthiban S, Tippani M, Divecha HR, Eagles NJ, Lobana JS,</span></span>
 <span><span class="co">#&gt;   Williams SR, Mark M, Bharadwaj RA, Kleinman JE, Hyde TM, Page SC,</span></span>
@@ -417,7 +416,7 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Download the small example sce data</span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_example"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2024-05-03 14:29:27.182347 loading file /github/home/.cache/R/BiocFileCache/d0b62d21a29_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2024-05-09 15:15:14.927314 loading file /github/home/.cache/R/BiocFileCache/1bc41643124_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span>
 <span></span>
 <span><span class="co">## Convert to a SpatialExperiment object</span></span>
 <span><span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sce_to_spe.html">sce_to_spe</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
@@ -429,9 +428,9 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <span></span>
 <span><span class="co">## Query ExperimentHub and download the data</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2024-05-03 14:29:31.774464 loading file /github/home/.cache/R/BiocFileCache/d0b5d104e05_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2024-05-09 15:15:19.972899 loading file /github/home/.cache/R/BiocFileCache/1bc556ec2b2_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
 <span><span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"modeling_results"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2024-05-03 14:29:32.284214 loading file /github/home/.cache/R/BiocFileCache/d0b17ec1af6_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
+<span><span class="co">#&gt; 2024-05-09 15:15:20.417555 loading file /github/home/.cache/R/BiocFileCache/1bc2678f16e_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
 <p>Once you have downloaded the objects, we can explore them a little
 bit</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -504,7 +503,7 @@ long format and add some useful information. Let’s do so below.</p>
 <span>        <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;  10.160   0.433  10.603</span></span>
+<span><span class="co">#&gt;  10.354   0.416  10.787</span></span>
 <span></span>
 <span><span class="co">## Explore the result</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span></span>
@@ -1166,7 +1165,7 @@ project, also known as <code>spatialDLPFC</code> (Huuki-Myers, Spangler,
 Eagles, Montgomergy, Kwon, Guo, Grant-Peters, Divecha, Tippani,
 Sriworarat, Nguyen, Ravichandran, Tran, Seyedian, Consortium, Hyde,
 Kleinman, Battle, Page, Ryten, Hicks, Martinowich, Collado-Torres, and
-Maynard, 2023). See <a href="http://research.libd.org/spatialDLPFC/" class="external-link uri">http://research.libd.org/spatialDLPFC/</a> for more
+Maynard, 2024). See <a href="http://research.libd.org/spatialDLPFC/" class="external-link uri">http://research.libd.org/spatialDLPFC/</a> for more
 information about this project.</p>
 <p>See the Twitter thread 🧵 below for a brief overview of the <a href="https://twitter.com/search?q=%23spatialDLPFC&amp;src=typed_query" class="external-link"><code>#spatialDLPFC</code></a>
 project.</p>
@@ -1380,9 +1379,9 @@ Marco, Scherer, and Cédric, 2023)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"spatialLIBD.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2024-05-03 14:29:50 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2024-05-09 15:15:38 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 36.281 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 36.857 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -1394,7 +1393,7 @@ Marco, Scherer, and Cédric, 2023)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2024-05-03</span></span>
+<span><span class="co">#&gt;  date     2024-05-09</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -1413,7 +1412,7 @@ Marco, Scherer, and Cédric, 2023)</li>
 <span><span class="co">#&gt;  BiocFileCache            2.10.2      <span style="color: #555555;">2024-03-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
 <span><span class="co">#&gt;  BiocGenerics           * 0.48.1      <span style="color: #555555;">2023-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  BiocIO                   1.12.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  BiocManager              1.30.22     <span style="color: #555555;">2023-08-08</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.3)</span></span></span>
+<span><span class="co">#&gt;  BiocManager              1.30.22     <span style="color: #555555;">2023-08-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  BiocNeighbors            1.20.2      <span style="color: #555555;">2024-01-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
 <span><span class="co">#&gt;  BiocParallel             1.36.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  BiocSingular             1.18.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
@@ -1454,7 +1453,7 @@ Marco, Scherer, and Cédric, 2023)</li>
 <span><span class="co">#&gt;  fields                   15.2        <span style="color: #555555;">2023-08-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  filelock                 1.0.3       <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  foreach                  1.5.2       <span style="color: #555555;">2022-02-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  fs                       1.6.4       <span style="color: #555555;">2024-04-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  fs                       1.6.3       <span style="color: #555555;">2023-07-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  generics                 0.1.3       <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  GenomeInfoDb           * 1.38.8      <span style="color: #555555;">2024-03-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
 <span><span class="co">#&gt;  GenomeInfoDbData         1.2.11      <span style="color: #555555;">2024-04-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
@@ -1537,7 +1536,7 @@ Marco, Scherer, and Cédric, 2023)</li>
 <span><span class="co">#&gt;  SparseArray              1.2.4       <span style="color: #555555;">2024-02-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
 <span><span class="co">#&gt;  sparseMatrixStats        1.14.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  SpatialExperiment      * 1.12.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  spatialLIBD            * 1.17.0      <span style="color: #555555;">2024-05-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  spatialLIBD            * 1.17.0      <span style="color: #555555;">2024-05-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  statmod                  1.5.0       <span style="color: #555555;">2023-01-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  stringi                  1.8.3       <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  stringr                  1.5.1       <span style="color: #555555;">2023-11-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
@@ -1643,14 +1642,13 @@ pp. 115–121. URL:
 <a href="http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html" class="external-link">http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html</a>.</cite>
 </p>
 <p>
-<a id="bib-huukimyers2023integrated"></a><a href="#cite-huukimyers2023integrated">[11]</a><cite>
-L. A. Huuki-Myers, A. Spangler, N. J. Eagles, et al. “Integrated single
-cell and unsupervised spatial transcriptomic analysis defines molecular
-anatomy of the human dorsolateral prefrontal cortex”. In:
-<em>bioRxiv</em> (2023). DOI:
-<a href="https://doi.org/10.1101/2023.02.15.528722" class="external-link">10.1101/2023.02.15.528722</a>.
+<a id="bib-huukimyers2024data"></a><a href="#cite-huukimyers2024data">[11]</a><cite>
+L. A. Huuki-Myers, A. Spangler, N. J. Eagles, et al. “A data-driven
+single-cell and spatial transcriptomic map of the human prefrontal
+cortex”. In: <em>Science</em> (2024). DOI:
+<a href="https://doi.org/10.1126/science.adh1938" class="external-link">10.1126/science.adh1938</a>.
 URL:
-<a href="https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1" class="external-link">https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1</a>.</cite>
+<a href="https://doi.org/10.1126/science.adh1938" class="external-link">https://doi.org/10.1126/science.adh1938</a>.</cite>
 </p>
 <p>
 <a id="bib-hvitfeldt2021paletteer"></a><a href="#cite-hvitfeldt2021paletteer">[12]</a><cite>
