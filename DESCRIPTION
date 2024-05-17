@@ -78,7 +78,8 @@ Imports:
     limma,
     statmod,
     MatrixGenerics,
-    rlang
+    rlang,
+    dplyr
 RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/LieberInstitute/spatialLIBD
