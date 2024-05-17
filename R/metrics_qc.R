@@ -49,6 +49,7 @@ metrics_qc <- function(spe) {
     stopifnot("sum_gene" %in% colnames(colData(spe)))
     stopifnot("expr_chrM_ratio" %in% colnames(colData(spe)))
 
+    spe$in_tissue <- as.logical(spe$in_tissue)
     spe_in <- spe[, spe$in_tissue]
 
     ## QC in-tissue spots
@@ -98,8 +99,8 @@ metrics_qc <- function(spe) {
 
     ## Find edge spots
     # define variables 
-    arrary_row <- array_col <- edge_row <- edge_col <- row_distance <- NULL
-    col_distance <- NULL
+    array_row <- array_col <- edge_row <- edge_col <- row_distance <- NULL
+    col_distance <- high_subsets_Mito_percent <- NULL
     
     spot_coords <- colData(spe_in) |>
         as.data.frame() |>
