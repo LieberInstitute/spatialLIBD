@@ -26,7 +26,7 @@
 #'     spe_qc$in_tissue[spe_qc$array_col < 10] <- FALSE
 #'
 #'     ## adds QC metrics to colData of the spe
-#'     spe_qc <- metrics_qc(spe_qc)
+#'     spe_qc <- add_qc_metrics()(spe_qc)
 #'     colData(spe_qc)
 #'
 #'     ## visualize edge spots
@@ -43,7 +43,7 @@
 #'     vis_clus(spe_qc, sampleid = "151507", clustervar = "scran_low_lib_size_edge")
 #' }
 #' 
-metrics_qc <- function(spe) {
+add_qc_metrics() <- function(spe) {
     stopifnot("in_tissue" %in% colnames(colData(spe)))
     stopifnot("sum_umi" %in% colnames(colData(spe)))
     stopifnot("sum_gene" %in% colnames(colData(spe)))
