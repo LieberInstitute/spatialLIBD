@@ -52,6 +52,10 @@ metrics_qc <- function(spe) {
     spe_in <- spe[, spe$in_tissue]
 
     ## QC in-tissue spots
+    
+    # define variables
+    low_lib_size <- low_n_features <- in_tissue <- sample_id <- NULL
+    
     qc_df <- data.frame(
         log2sum = log2(spe_in$sum_umi),
         log2detected = log2(spe_in$sum_gene),
@@ -93,6 +97,10 @@ metrics_qc <- function(spe) {
         factor(spe$scran_high_subsets_Mito_percent, levels = c("TRUE", "FALSE"))
 
     ## Find edge spots
+    # define variables 
+    arrary_row <- array_col <- edge_row <- edge_col <- row_distance <- NULL
+    col_distance <- NULL
+    
     spot_coords <- colData(spe_in) |>
         as.data.frame() |>
         select(in_tissue, sample_id, array_row, array_col) |>
