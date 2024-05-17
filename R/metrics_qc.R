@@ -34,7 +34,7 @@
 #'
 #'     vis_clus(spe_qc, sample_id = "151507", clustervar = "scran_low_lib_size")
 #'
-#'     scater::plotColData(spe_qc[, spe_qc$in_tissue], x = "sample_id", y = "sum_umi", colour_by = "scran_low_lib_size")
+#'     # scater::plotColData(spe_qc[, spe_qc$in_tissue], x = "sample_id", y = "sum_umi", colour_by = "scran_low_lib_size")
 #'
 #'     vis_clus(spe_qc, sampleid = "151507", clustervar = "scran_discard")
 #'     vis_clus(spe_qc, sampleid = "151507", clustervar = "scran_low_lib_size_edge")
