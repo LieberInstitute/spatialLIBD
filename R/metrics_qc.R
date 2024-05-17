@@ -12,6 +12,9 @@
 #' with added quiality control information added to the colData.
 #'
 #' @export
+#' @importFrom dplyr group_by summarize left_join select mutate
+#' @importFrom SummarizedExperiment colData
+#' @importFrom scater isOutlier
 #'
 #' @examples
 #' if (enough_ram()) {
@@ -39,10 +42,7 @@
 #'     vis_clus(spe_qc, sampleid = "151507", clustervar = "scran_discard")
 #'     vis_clus(spe_qc, sampleid = "151507", clustervar = "scran_low_lib_size_edge")
 #' }
-#' #'
-#'  @importFrom dplyr group_by summarize left_join select mutate
-#'  @importFrom SummarizedExperiment colData
-#'  @importFrom scater isOutlier
+#' 
 metrics_qc <- function(spe) {
     stopifnot("in_tissue" %in% colnames(colData(spe)))
     stopifnot("sum_umi" %in% colnames(colData(spe)))
