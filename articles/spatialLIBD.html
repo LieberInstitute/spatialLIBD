@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.2</span>
       </span>
     </div>
 
@@ -300,9 +300,9 @@ Thank you!</p>
 <span><span class="co">#&gt;   Hicks SC, Martinowich K, Maynard KR, Collado-Torres L (2023).</span></span>
 <span><span class="co">#&gt;   "Influence of Alzheimer’s disease related neuropathology on local</span></span>
 <span><span class="co">#&gt;   microenvironment gene expression in the human inferior temporal</span></span>
-<span><span class="co">#&gt;   cortex." _bioRxiv_. doi:10.1101/2023.04.20.537710</span></span>
-<span><span class="co">#&gt;   &lt;https://doi.org/10.1101/2023.04.20.537710&gt;,</span></span>
-<span><span class="co">#&gt;   &lt;https://www.biorxiv.org/content/10.1101/2023.04.20.537710v1&gt;.</span></span>
+<span><span class="co">#&gt;   cortex." _GEN Biotechnology_. doi:10.1089/genbio.2023.0019</span></span>
+<span><span class="co">#&gt;   &lt;https://doi.org/10.1089/genbio.2023.0019&gt;,</span></span>
+<span><span class="co">#&gt;   &lt;https://doi.org/10.1089/genbio.2023.0019&gt;.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span></span>
 <span><span class="co">#&gt; bibtex=TRUE)', 'toBibtex(.)', or set</span></span>
@@ -416,7 +416,7 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Download the small example sce data</span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_example"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2024-05-24 06:37:10.851743 loading file /github/home/.cache/R/BiocFileCache/2724577c975_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span></code></pre></div>
+<span><span class="co">#&gt; 2024-05-24 18:16:14.374847 loading file /github/home/.cache/R/BiocFileCache/2e733fba06f_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## Convert to a SpatialExperiment object</span></span>
@@ -429,10 +429,10 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <span></span>
 <span><span class="co">## Query ExperimentHub and download the data</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2024-05-24 06:37:15.078541 loading file /github/home/.cache/R/BiocFileCache/272335c9fe4_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span></code></pre></div>
+<span><span class="co">#&gt; 2024-05-24 18:16:18.900597 loading file /github/home/.cache/R/BiocFileCache/2e71f430d0f_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"modeling_results"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2024-05-24 06:37:15.54428 loading file /github/home/.cache/R/BiocFileCache/2723d218943_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
+<span><span class="co">#&gt; 2024-05-24 18:16:19.367097 loading file /github/home/.cache/R/BiocFileCache/2e74a1d6212_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
 <p>Once you have downloaded the objects, we can explore them a little
 bit</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -509,7 +509,7 @@ long format and add some useful information. Let’s do so below.</p>
 <span>        <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;   9.311   0.272   9.616</span></span></code></pre></div>
+<span><span class="co">#&gt;   9.071   0.404   9.498</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## Explore the result</span></span>
@@ -1393,9 +1393,9 @@ Marco, Scherer, and Cédric, 2023)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"spatialLIBD.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2024-05-24 06:37:33 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2024-05-24 18:16:36 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 34.326 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 35.144 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -1416,7 +1416,7 @@ Marco, Scherer, and Cédric, 2023)</li>
 <span><span class="co">#&gt;  AnnotationDbi          1.66.0      <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  AnnotationHub          3.12.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  attempt                0.3.1       <span style="color: #555555;">2020-05-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
-<span><span class="co">#&gt;  backports              1.4.1       <span style="color: #555555;">2021-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  backports              1.5.0       <span style="color: #555555;">2024-05-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  beachmat               2.20.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  beeswarm               0.4.0       <span style="color: #555555;">2021-06-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  benchmarkme            1.0.8       <span style="color: #555555;">2022-06-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
@@ -1549,7 +1549,7 @@ Marco, Scherer, and Cédric, 2023)</li>
 <span><span class="co">#&gt;  SparseArray            1.4.5       <span style="color: #555555;">2024-05-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  sparseMatrixStats      1.16.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  SpatialExperiment    * 1.14.0      <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
-<span><span class="co">#&gt;  spatialLIBD          * 1.17.1      <span style="color: #555555;">2024-05-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  spatialLIBD          * 1.17.2      <span style="color: #555555;">2024-05-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  statmod                1.5.0       <span style="color: #555555;">2023-01-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  stringi                1.8.4       <span style="color: #555555;">2024-05-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  stringr                1.5.1       <span style="color: #555555;">2023-11-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
@@ -1682,11 +1682,11 @@ Palettes</em>. R package version 1.3.0. 2021. URL:
 <a id="bib-kwon2023influence"></a><a href="#cite-kwon2023influence">[14]</a><cite>
 S. H. Kwon, S. Parthiban, M. Tippani, et al. “Influence of Alzheimer’s
 disease related neuropathology on local microenvironment gene expression
-in the human inferior temporal cortex”. In: <em>bioRxiv</em> (2023).
-DOI:
-<a href="https://doi.org/10.1101/2023.04.20.537710" class="external-link">10.1101/2023.04.20.537710</a>.
+in the human inferior temporal cortex”. In: <em>GEN Biotechnology</em>
+(2023). DOI:
+<a href="https://doi.org/10.1089/genbio.2023.0019" class="external-link">10.1089/genbio.2023.0019</a>.
 URL:
-<a href="https://www.biorxiv.org/content/10.1101/2023.04.20.537710v1" class="external-link">https://www.biorxiv.org/content/10.1101/2023.04.20.537710v1</a>.</cite>
+<a href="https://doi.org/10.1089/genbio.2023.0019" class="external-link">https://doi.org/10.1089/genbio.2023.0019</a>.</cite>
 </p>
 <p>
 <a id="bib-lawrence2009rtracklayer"></a><a href="#cite-lawrence2009rtracklayer">[15]</a><cite>
