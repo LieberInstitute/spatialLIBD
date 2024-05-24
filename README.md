@@ -334,9 +334,9 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #>   Hicks SC, Martinowich K, Maynard KR, Collado-Torres L (2023).
 #>   "Influence of Alzheimer’s disease related neuropathology on local
 #>   microenvironment gene expression in the human inferior temporal
-#>   cortex." _bioRxiv_. doi:10.1101/2023.04.20.537710
-#>   <https://doi.org/10.1101/2023.04.20.537710>,
-#>   <https://www.biorxiv.org/content/10.1101/2023.04.20.537710v1>.
+#>   cortex." _GEN Biotechnology_. doi:10.1089/genbio.2023.0019
+#>   <https://doi.org/10.1089/genbio.2023.0019>,
+#>   <https://doi.org/10.1089/genbio.2023.0019>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -344,9 +344,9 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #>     title = {Influence of Alzheimer’s disease related neuropathology on local microenvironment gene expression in the human inferior temporal cortex},
 #>     author = {Sang Ho Kwon and Sowmya Parthiban and Madhavi Tippani and Heena R. Divecha and Nicholas J. Eagles and Jashandeep S. Lobana and Stephen R. Williams and Michelle Mark and Rahul A. Bharadwaj and Joel E. Kleinman and Thomas M. Hyde and Stephanie C. Page and Stephanie C. Hicks and Keri Martinowich and Kristen R. Maynard and Leonardo Collado-Torres},
 #>     year = {2023},
-#>     journal = {bioRxiv},
-#>     doi = {10.1101/2023.04.20.537710},
-#>     url = {https://www.biorxiv.org/content/10.1101/2023.04.20.537710v1},
+#>     journal = {GEN Biotechnology},
+#>     doi = {10.1089/genbio.2023.0019},
+#>     url = {https://doi.org/10.1089/genbio.2023.0019},
 #>   }
 ```
 
