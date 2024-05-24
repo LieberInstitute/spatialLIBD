@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.1</span>
       </span>
     </div>
 
@@ -138,6 +138,16 @@ If you tweet about this website, the data or the R package please use the <code>
 </ul>
 </div>
 <div class="section level2">
+<h2 id="introductory-material">Introductory material<a class="anchor" aria-label="anchor" href="#introductory-material"></a>
+</h2>
+<p>If you prefer to watch a video overview of the <code>HumanPilot</code> project, check the following journal club presentation of the main results.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qloLbG5-IPM?si=1gO1fujrgSXPfa6F" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen data-external="1">
+</iframe>
+<p>You might also be interested in the explainer video and <a href="https://lcolladotor.github.io/2024/05/23/humanpilot-first-spatially-resolved-transcriptomics-study-using-visium/" class="external-link">companion blog post</a> as well as <a href="https://lcolladotor.github.io/2020/02/29/diving-together-into-the-unknown-world-of-spatial-transcriptomics/" class="external-link">the original Feb 29, 2020 blog post</a> from when we first made this project public.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HGioWKuI3ek?si=X-tqtZtcPSV-3uMt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen data-external="1">
+</iframe>
+</div>
+<div class="section level2">
 <h2 id="rbioconductor-package">R/Bioconductor package<a class="anchor" aria-label="anchor" href="#rbioconductor-package"></a>
 </h2>
 <p>The <code>spatialLIBD</code> package contains functions for:</p>
@@ -194,12 +204,14 @@ If you tweet about this website, the data or the R package please use the <code>
 <span><span class="co">#&gt; mainExpName: NULL</span></span>
 <span><span class="co">#&gt; altExpNames(0):</span></span>
 <span><span class="co">#&gt; spatialCoords names(2) : pxl_col_in_fullres pxl_row_in_fullres</span></span>
-<span><span class="co">#&gt; imgData names(4): sample_id image_id data scaleFactor</span></span>
-<span></span>
+<span><span class="co">#&gt; imgData names(4): sample_id image_id data scaleFactor</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="co">## Note the memory size</span></span>
 <span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/obj_size.html" class="external-link">obj_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2.04 GB</span></span>
-<span></span>
+<span><span class="co">#&gt; 2.04 GB</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="co">## Remake the logo image with histology information</span></span>
 <span><span class="fu"><a href="reference/vis_clus.html">vis_clus</a></span><span class="op">(</span></span>
 <span>    spe <span class="op">=</span> <span class="va">spe</span>,</span>
@@ -216,14 +228,14 @@ If you tweet about this website, the data or the R package please use the <code>
 <p>You can access all the raw data through <a href="http://research.libd.org/globus/" class="external-link">Globus</a> (<code>jhpce#HumanPilot10x</code>). Furthermore, below you can find the links to the raw data we received from 10x Genomics.</p>
 <table class="table">
 <colgroup>
-<col width="1%">
-<col width="14%">
-<col width="14%">
-<col width="13%">
-<col width="14%">
-<col width="14%">
-<col width="11%">
-<col width="15%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
 </colgroup>
 <thead><tr class="header">
 <th align="right">SampleID</th>
@@ -364,7 +376,7 @@ If you tweet about this website, the data or the R package please use the <code>
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>Below is the citation output from using <code>citation('spatialLIBD')</code> in R. Please run this yourself to check for any updates on how to cite <strong>spatialLIBD</strong>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"spatialLIBD"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; To cite package 'spatialLIBD' in publications use:</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -410,22 +422,21 @@ If you tweet about this website, the data or the R package please use the <code>
 <span><span class="co">#&gt;   B, Grant-Peters M, Divecha HR, Tippani M, Sriworarat C, Nguyen AB,</span></span>
 <span><span class="co">#&gt;   Ravichandran P, Tran MN, Seyedian A, Consortium P, Hyde TM, Kleinman</span></span>
 <span><span class="co">#&gt;   JE, Battle A, Page SC, Ryten M, Hicks SC, Martinowich K,</span></span>
-<span><span class="co">#&gt;   Collado-Torres L, Maynard KR (2023). "Integrated single cell and</span></span>
-<span><span class="co">#&gt;   unsupervised spatial transcriptomic analysis defines molecular</span></span>
-<span><span class="co">#&gt;   anatomy of the human dorsolateral prefrontal cortex." _bioRxiv_.</span></span>
-<span><span class="co">#&gt;   doi:10.1101/2023.02.15.528722</span></span>
-<span><span class="co">#&gt;   &lt;https://doi.org/10.1101/2023.02.15.528722&gt;,</span></span>
-<span><span class="co">#&gt;   &lt;https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1&gt;.</span></span>
+<span><span class="co">#&gt;   Collado-Torres L, Maynard KR (2024). "A data-driven single-cell and</span></span>
+<span><span class="co">#&gt;   spatial transcriptomic map of the human prefrontal cortex."</span></span>
+<span><span class="co">#&gt;   _Science_. doi:10.1126/science.adh1938</span></span>
+<span><span class="co">#&gt;   &lt;https://doi.org/10.1126/science.adh1938&gt;,</span></span>
+<span><span class="co">#&gt;   &lt;https://doi.org/10.1126/science.adh1938&gt;.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   @Article{,</span></span>
-<span><span class="co">#&gt;     title = {Integrated single cell and unsupervised spatial transcriptomic analysis defines molecular anatomy of the human dorsolateral prefrontal cortex},</span></span>
+<span><span class="co">#&gt;     title = {A data-driven single-cell and spatial transcriptomic map of the human prefrontal cortex},</span></span>
 <span><span class="co">#&gt;     author = {Louise A. Huuki-Myers and Abby Spangler and Nicholas J. Eagles and Kelsey D. Montgomergy and Sang Ho Kwon and Boyi Guo and Melissa Grant-Peters and Heena R. Divecha and Madhavi Tippani and Chaichontat Sriworarat and Annie B. Nguyen and Prashanthi Ravichandran and Matthew N. Tran and Arta Seyedian and PsychENCODE Consortium and Thomas M. Hyde and Joel E. Kleinman and Alexis Battle and Stephanie C. Page and Mina Ryten and Stephanie C. Hicks and Keri Martinowich and Leonardo Collado-Torres and Kristen R. Maynard},</span></span>
-<span><span class="co">#&gt;     year = {2023},</span></span>
-<span><span class="co">#&gt;     journal = {bioRxiv},</span></span>
-<span><span class="co">#&gt;     doi = {10.1101/2023.02.15.528722},</span></span>
-<span><span class="co">#&gt;     url = {https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1},</span></span>
+<span><span class="co">#&gt;     year = {2024},</span></span>
+<span><span class="co">#&gt;     journal = {Science},</span></span>
+<span><span class="co">#&gt;     doi = {10.1126/science.adh1938},</span></span>
+<span><span class="co">#&gt;     url = {https://doi.org/10.1126/science.adh1938},</span></span>
 <span><span class="co">#&gt;   }</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   Kwon SH, Parthiban S, Tippani M, Divecha HR, Eagles NJ, Lobana JS,</span></span>
@@ -458,14 +469,14 @@ If you tweet about this website, the data or the R package please use the <code>
 <h2 id="development-tools">Development tools<a class="anchor" aria-label="anchor" href="#development-tools"></a>
 </h2>
 <ul>
-<li>Continuous code testing is possible thanks to <a href="https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/" class="external-link">GitHub actions</a> through <em><a href="https://CRAN.R-project.org/package=usethis" class="external-link">usethis</a></em>, <em><a href="https://CRAN.R-project.org/package=remotes" class="external-link">remotes</a></em>, <em><a href="https://github.com/r-hub/sysreqs" class="external-link">sysreqs</a></em> and <em><a href="https://CRAN.R-project.org/package=rcmdcheck" class="external-link">rcmdcheck</a></em> customized to use <a href="https://www.bioconductor.org/help/docker/" class="external-link">Bioconductor’s docker containers</a> and <em><a href="https://bioconductor.org/packages/3.17/BiocCheck" class="external-link">BiocCheck</a></em>.</li>
+<li>Continuous code testing is possible thanks to <a href="https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/" class="external-link">GitHub actions</a> through <em><a href="https://CRAN.R-project.org/package=usethis" class="external-link">usethis</a></em>, <em><a href="https://CRAN.R-project.org/package=remotes" class="external-link">remotes</a></em>, <em><a href="https://github.com/r-hub/sysreqs" class="external-link">sysreqs</a></em> and <em><a href="https://CRAN.R-project.org/package=rcmdcheck" class="external-link">rcmdcheck</a></em> customized to use <a href="https://www.bioconductor.org/help/docker/" class="external-link">Bioconductor’s docker containers</a> and <em><a href="https://bioconductor.org/packages/3.19/BiocCheck" class="external-link">BiocCheck</a></em>.</li>
 <li>Code coverage assessment is possible thanks to <a href="https://codecov.io/gh" class="external-link">codecov</a> and <em><a href="https://CRAN.R-project.org/package=covr" class="external-link">covr</a></em>.</li>
 <li>The <a href="http://lieberinstitute.github.io/spatialLIBD" class="external-link">documentation website</a> is automatically updated thanks to <em><a href="https://CRAN.R-project.org/package=pkgdown" class="external-link">pkgdown</a></em>.</li>
 <li>The code is styled automatically thanks to <em><a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a></em>.</li>
 <li>The documentation is formatted thanks to <em><a href="https://CRAN.R-project.org/package=devtools" class="external-link">devtools</a></em> and <em><a href="https://CRAN.R-project.org/package=roxygen2" class="external-link">roxygen2</a></em>.</li>
 </ul>
 <p>For more details, check the <code>dev</code> directory.</p>
-<p>This package was developed using <em><a href="https://bioconductor.org/packages/3.17/biocthis" class="external-link">biocthis</a></em>.</p>
+<p>This package was developed using <em><a href="https://bioconductor.org/packages/3.19/biocthis" class="external-link">biocthis</a></em>.</p>
 <p><a href="https://www.libd.org/" class="external-link"><img src="http://lcolladotor.github.io/img/LIBD_logo.jpg" width="250px"></a></p>
 <center>
 <script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?cl=ffffff&amp;w=300&amp;t=n&amp;d=FRs8oQ9HVpMg6QLJJKAExpF8seGfPVlH-YOnwqUE8Hg"></script>
@@ -475,7 +486,6 @@ If you tweet about this website, the data or the R package please use the <code>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-QKT3SV9EFL');
 </script>
 </div>
