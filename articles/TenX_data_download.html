@@ -135,11 +135,11 @@ University<br><a class="author_email" href="mailto:#"></a><a href="mailto:lcolla
 <h3 id="install-spatiallibd">Install <code>spatialLIBD</code><a class="anchor" aria-label="anchor" href="#install-spatiallibd"></a>
 </h3>
 <p><code>R</code> is an open-source statistical environment which can be
-easily modified to enhance its functionality via packages. <em><a href="https://bioconductor.org/packages/3.18/spatialLIBD" class="external-link">spatialLIBD</a></em>
+easily modified to enhance its functionality via packages. <em><a href="https://bioconductor.org/packages/3.19/spatialLIBD" class="external-link">spatialLIBD</a></em>
 (Pardo, Spangler, Weber, Hicks, Jaffe, Martinowich, Maynard, and
 Collado-Torres, 2022) is an <code>R</code> package available via the <a href="http://bioconductor.org" class="external-link">Bioconductor</a> repository for packages.
 <code>R</code> can be installed on any operating system from <a href="https://cran.r-project.org/" class="external-link">CRAN</a> after which you can install
-<em><a href="https://bioconductor.org/packages/3.18/spatialLIBD" class="external-link">spatialLIBD</a></em>
+<em><a href="https://bioconductor.org/packages/3.19/spatialLIBD" class="external-link">spatialLIBD</a></em>
 by using the following commands in your <code>R</code> session:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -173,7 +173,7 @@ or <a href="https://bioconductor.org/packages/spatialLIBD" class="external-link"
 <div class="section level3">
 <h3 id="citing-spatiallibd">Citing <code>spatialLIBD</code><a class="anchor" aria-label="anchor" href="#citing-spatiallibd"></a>
 </h3>
-<p>We hope that <em><a href="https://bioconductor.org/packages/3.18/spatialLIBD" class="external-link">spatialLIBD</a></em>
+<p>We hope that <em><a href="https://bioconductor.org/packages/3.19/spatialLIBD" class="external-link">spatialLIBD</a></em>
 will be useful for your research. Please use the following information
 to cite the package and the overall approach. Thank you!</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -224,10 +224,10 @@ to cite the package and the overall approach. Thank you!</p>
 <div class="section level2">
 <h2 id="download-data-from-10x-genomics">Download data from 10x Genomics<a class="anchor" aria-label="anchor" href="#download-data-from-10x-genomics"></a>
 </h2>
-<p>In this vignette we’ll show you how you can use <em><a href="https://bioconductor.org/packages/3.18/spatialLIBD" class="external-link">spatialLIBD</a></em>
+<p>In this vignette we’ll show you how you can use <em><a href="https://bioconductor.org/packages/3.19/spatialLIBD" class="external-link">spatialLIBD</a></em>
 (Pardo, Spangler, Weber et al., 2022) for exploring spatially resolved
 transcriptomics data from the <a href="https://www.10xgenomics.com/products/spatial-gene-expression" class="external-link">Visium
-platform by 10x Genomics</a>. That is, you will learn how to use <em><a href="https://bioconductor.org/packages/3.18/spatialLIBD" class="external-link">spatialLIBD</a></em>
+platform by 10x Genomics</a>. That is, you will learn how to use <em><a href="https://bioconductor.org/packages/3.19/spatialLIBD" class="external-link">spatialLIBD</a></em>
 for data beyond the one it was initially developed for (Maynard,
 Collado-Torres, Weber, Uytingco, Barry, Williams, II, Tran, Besich,
 Tippani, Chew, Yin, Kleinman, Hyde, Rao, Hicks, Martinowich, and Jaffe,
@@ -242,20 +242,20 @@ at <a href="https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1
 vignette. Here’s a brief summary of why we need these packages:</p>
 <ul>
 <li>
-<em><a href="https://bioconductor.org/packages/3.18/BiocFileCache" class="external-link">BiocFileCache</a></em>:
+<em><a href="https://bioconductor.org/packages/3.19/BiocFileCache" class="external-link">BiocFileCache</a></em>:
 for downloading and saving a local cache of the data</li>
 <li>
-<em><a href="https://bioconductor.org/packages/3.18/SpatialExperiment" class="external-link">SpatialExperiment</a></em>:
+<em><a href="https://bioconductor.org/packages/3.19/SpatialExperiment" class="external-link">SpatialExperiment</a></em>:
 for reading the <code>spaceranger</code> files provided by 10x
 Genomics</li>
 <li>
-<em><a href="https://bioconductor.org/packages/3.18/rtracklayer" class="external-link">rtracklayer</a></em>:
+<em><a href="https://bioconductor.org/packages/3.19/rtracklayer" class="external-link">rtracklayer</a></em>:
 for importing a gene annotation GTF file</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=lobstr" class="external-link">lobstr</a></em>: for
 checking how much memory our object is using</li>
 <li>
-<em><a href="https://bioconductor.org/packages/3.18/spatialLIBD" class="external-link">spatialLIBD</a></em>:
+<em><a href="https://bioconductor.org/packages/3.19/spatialLIBD" class="external-link">spatialLIBD</a></em>:
 for launching an interactive website to explore the data</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -271,11 +271,11 @@ for launching an interactive website to explore the data</li>
 </h3>
 <p>Next we download data from 10x Genomics available from the human
 lymph node example, available at <a href="https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node" class="external-link uri">https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Human_Lymph_Node</a>.
-We don’t need to download all the files listed there since <em><a href="https://bioconductor.org/packages/3.18/SpatialExperiment" class="external-link">SpatialExperiment</a></em>
+We don’t need to download all the files listed there since <em><a href="https://bioconductor.org/packages/3.19/SpatialExperiment" class="external-link">SpatialExperiment</a></em>
 doesn’t need all of them for importing the data into R. These files are
 part of the output that gets generated by <code>spaceranger</code> which
 is the processing pipeline provided by 10x Genomics for Visium data.</p>
-<p>We’ll use <em><a href="https://bioconductor.org/packages/3.18/BiocFileCache" class="external-link">BiocFileCache</a></em>
+<p>We’ll use <em><a href="https://bioconductor.org/packages/3.19/BiocFileCache" class="external-link">BiocFileCache</a></em>
 to keep the data in a local cache in case we want to run this example
 again and don’t want to re-download the data from the web.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -311,8 +311,9 @@ files these directories contain.</p>
 <span><span class="co">#&gt;                    V1_Human_Lymph_Node_spatial.tar.gz.BFC2 </span></span>
 <span><span class="co">#&gt;                                                          0 </span></span>
 <span><span class="co">#&gt;                   V1_Human_Lymph_Node_analysis.tar.gz.BFC3 </span></span>
-<span><span class="co">#&gt;                                                          0</span></span>
-<span></span>
+<span><span class="co">#&gt;                                                          0</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="co">## List the files we downloaded and extracted</span></span>
 <span><span class="co">## These files are typically SpaceRanger outputs</span></span>
 <span><span class="va">lymph.dirs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span></span>
@@ -328,7 +329,7 @@ files these directories contain.</p>
 <span><span class="co">#&gt; [11] "tissue_lowres_image.png"   "tissue_positions_list.csv"</span></span>
 <span><span class="co">#&gt; [13] "tsne"                      "umap"</span></span></code></pre></div>
 <p>Now that we have the files that we need, we can import the data into
-R using <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">read10xVisium()</a></code> from <em><a href="https://bioconductor.org/packages/3.18/SpatialExperiment" class="external-link">SpatialExperiment</a></em>.
+R using <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">read10xVisium()</a></code> from <em><a href="https://bioconductor.org/packages/3.19/SpatialExperiment" class="external-link">SpatialExperiment</a></em>.
 We’ll import the low resolution histology images produced by
 <code>spaceranger</code> using the <code>images = "lowres"</code> and
 <code>load = TRUE</code> arguments. We’ll also load the filtered gene
@@ -336,7 +337,7 @@ expression data using the <code>data = "filtered"</code> argument. The
 count matrix can still be quite large, which is why we’ll use the
 <code>type = "sparse"</code> argument to load the data into an R object
 that is memory-efficient for sparse data.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Import the data as a SpatialExperiment object</span></span>
 <span><span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu">SpatialExperiment</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">read10xVisium</a></span><span class="op">(</span></span>
 <span>    samples <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -349,10 +350,12 @@ that is memory-efficient for sparse data.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "SpatialExperiment"</span></span>
 <span><span class="co">#&gt; attr(,"package")</span></span>
-<span><span class="co">#&gt; [1] "SpatialExperiment"</span></span>
-<span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/obj_size.html" class="external-link">obj_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1024</span><span class="op">^</span><span class="fl">2</span> <span class="co">## Convert to MB</span></span>
-<span><span class="co">#&gt; 281.90 B</span></span>
-<span><span class="va">spe</span></span>
+<span><span class="co">#&gt; [1] "SpatialExperiment"</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/obj_size.html" class="external-link">obj_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1024</span><span class="op">^</span><span class="fl">2</span> <span class="co">## Convert to MB</span></span>
+<span><span class="co">#&gt; 281.90 B</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">spe</span></span>
 <span><span class="co">#&gt; class: SpatialExperiment </span></span>
 <span><span class="co">#&gt; dim: 36601 4035 </span></span>
 <span><span class="co">#&gt; metadata(0):</span></span>
@@ -367,8 +370,9 @@ that is memory-efficient for sparse data.</p>
 <span><span class="co">#&gt; mainExpName: NULL</span></span>
 <span><span class="co">#&gt; altExpNames(0):</span></span>
 <span><span class="co">#&gt; spatialCoords names(2) : pxl_col_in_fullres pxl_row_in_fullres</span></span>
-<span><span class="co">#&gt; imgData names(4): sample_id image_id data scaleFactor</span></span>
-<span></span>
+<span><span class="co">#&gt; imgData names(4): sample_id image_id data scaleFactor</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="co">## The counts are saved in a sparse matrix R object</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "dgCMatrix"</span></span>
@@ -400,7 +404,7 @@ number of counts for each sample prior to filtering any genes.</li>
 <code>sum_gene</code>: this continuous variable contains the number
 of genes that have at least 1 count.</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Add some information used by spatialLIBD</span></span>
 <span><span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_key.html">add_key</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span></span>
 <span><span class="va">spe</span><span class="op">$</span><span class="va">sum_umi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span></span>
@@ -419,7 +423,7 @@ download that file without downloading other files for this example.
 Thus we’ll show you the code you would use if you had access to the GTF
 file from 10x Genomics and also show a second approach that works for
 this vignette.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Initially we don't have much information about the genes</span></span>
 <span><span class="fu">rowRanges</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span></span>
 <span><span class="co">#&gt; GRangesList object of length 36601:</span></span>
@@ -462,14 +466,14 @@ Genomics and add the information into your <code>spe</code> object that
 <code><a href="https://rdrr.io/pkg/SpatialExperiment/man/read10xVisium.html" class="external-link">SpatialExperiment::read10xVisium()</a></code> does not include.</p>
 <p>For example, in our computing cluster this GTF file is located at the
 following path and is 1.4 GB in size:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> cd /dcs04/lieber/lcolladotor/annotationFiles_LIBD001/10x/refdata-gex-GRCh38-2020-A</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="ex">$</span> du <span class="at">-sh</span> <span class="at">--apparent-size</span> genes/genes.gtf</span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="ex">1.4G</span>    genes/genes.gtf</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="ex">$</span> cd /dcs04/lieber/lcolladotor/annotationFiles_LIBD001/10x/refdata-gex-GRCh38-2020-A</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="ex">$</span> du <span class="at">-sh</span> <span class="at">--apparent-size</span> genes/genes.gtf</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="ex">1.4G</span>    genes/genes.gtf</span></code></pre></div>
 <p>If you have the GTF file from 10x Genomics, we show next how you can
 read the information into R, match it appropriately with the information
 in the <code>spe</code> object and add it back into the <code>spe</code>
 object.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## You could:</span></span>
 <span><span class="co">## * download the 11 GB file from</span></span>
 <span><span class="co">## https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz</span></span>
@@ -521,7 +525,7 @@ show that 10x Genomics used Gencode v32. They also used Ensembl version
 missing. We show next how you can read the information into R, match it
 appropriately with the information in the <code>spe</code> object and
 add it back into the <code>spe</code> object.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Download the Gencode v32 GTF file and cache it</span></span>
 <span><span class="va">gtf_cache</span> <span class="op">&lt;-</span> <span class="fu">BiocFileCache</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">bfcrpath</a></span><span class="op">(</span></span>
 <span>    <span class="va">bfc</span>,</span>
@@ -533,9 +537,10 @@ add it back into the <code>spe</code> object.</p>
 <span></span>
 <span><span class="co">## Show the GTF cache location</span></span>
 <span><span class="va">gtf_cache</span></span>
-<span><span class="co">#&gt;                                                                            BFC4 </span></span>
-<span><span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/ca45fdda8c7_gencode.v32.annotation.gtf.gz"</span></span>
-<span></span>
+<span><span class="co">#&gt;                                                                             BFC4 </span></span>
+<span><span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/68fe24c4821c_gencode.v32.annotation.gtf.gz"</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="co">## Import into R (takes ~1 min)</span></span>
 <span><span class="va">gtf</span> <span class="op">&lt;-</span> <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span><span class="va">gtf_cache</span><span class="op">)</span></span>
 <span></span>
@@ -553,8 +558,9 @@ add it back into the <code>spe</code> object.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">match_genes</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; FALSE  TRUE </span></span>
-<span><span class="co">#&gt; 36572    29</span></span>
-<span></span>
+<span><span class="co">#&gt; 36572    29</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="co">## Drop the few genes for which we don't have information</span></span>
 <span><span class="va">spe</span> <span class="op">&lt;-</span> <span class="va">spe</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">match_genes</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">match_genes</span> <span class="op">&lt;-</span> <span class="va">match_genes</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">match_genes</span><span class="op">)</span><span class="op">]</span></span>
@@ -615,7 +621,7 @@ useful for biological interpretations. For instance, in our pilot data
 <code>expr_chrM_ratio</code> was associated to DLPFC layers. That is,
 spots with high <code>expr_chrM_ratio</code> were not randomly located
 in our Visium slides.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Add information used by spatialLIBD</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_search</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_name</span>, <span class="st">"; "</span>, <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">rowData</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">$</span><span class="va">gene_id</span></span>
@@ -632,27 +638,30 @@ in our Visium slides.</p>
 </h3>
 <p>We can now continue with some filtering steps since this can help
 reduce the object size in memory as well as make it ready to use for
-downstream processing tools such as those from the <em><a href="https://bioconductor.org/packages/3.18/scran" class="external-link">scran</a></em> and
-<em><a href="https://bioconductor.org/packages/3.18/scuttle" class="external-link">scuttle</a></em>
+downstream processing tools such as those from the <em><a href="https://bioconductor.org/packages/3.19/scran" class="external-link">scran</a></em> and
+<em><a href="https://bioconductor.org/packages/3.19/scuttle" class="external-link">scuttle</a></em>
 packages. Though these steps are not absolutely necessary.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Remove genes with no data</span></span>
 <span><span class="va">no_expr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html" class="external-link">counts</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Number of genes with no counts</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">no_expr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 11397</span></span>
-<span></span>
+<span><span class="co">#&gt; [1] 11397</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="co">## Compute the percent of genes with no counts</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">no_expr</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
-<span><span class="co">#&gt; [1] 31.16318</span></span>
-<span><span class="va">spe</span> <span class="op">&lt;-</span> <span class="va">spe</span><span class="op">[</span><span class="op">-</span><span class="va">no_expr</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 31.16318</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">spe</span> <span class="op">&lt;-</span> <span class="va">spe</span><span class="op">[</span><span class="op">-</span><span class="va">no_expr</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co">## Remove spots without counts</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">spe</span><span class="op">$</span><span class="va">sum_umi</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span><span class="co">#&gt;      23   15917   20239   20738   25252   54931</span></span>
-<span></span>
+<span><span class="co">#&gt;      23   15917   20239   20738   25252   54931</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="co">## If we had spots with no counts, we would remove them</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="va">spe</span><span class="op">$</span><span class="va">sum_umi</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">spots_no_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">spe</span><span class="op">$</span><span class="va">sum_umi</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span></span>
@@ -670,7 +679,7 @@ packages. Though these steps are not absolutely necessary.</p>
 information table (<code><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData()</a></code>) with <code>"NA"</code>. That
 variable is used by the interactive website to store any manual
 annotations.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Add a variable for saving the manual annotations</span></span>
 <span><span class="va">spe</span><span class="op">$</span><span class="va">ManualAnnotation</span> <span class="op">&lt;-</span> <span class="st">"NA"</span></span></code></pre></div>
 <p>Finally, we can now check the final object using
@@ -678,13 +687,15 @@ annotations.</p>
 will warn us if some important element is missing in <code>spe</code>
 that we use later for the interactive website. If it all goes well, it
 will return the original <code>spe</code> object.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Check the final dimensions and object size</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 25175  4035</span></span>
-<span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/obj_size.html" class="external-link">obj_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1024</span><span class="op">^</span><span class="fl">2</span> <span class="co">## Convert to MB</span></span>
-<span><span class="co">#&gt; 283.86 B</span></span>
-<span></span>
+<span><span class="co">#&gt; [1] 25175  4035</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/obj_size.html" class="external-link">obj_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1024</span><span class="op">^</span><span class="fl">2</span> <span class="co">## Convert to MB</span></span>
+<span><span class="co">#&gt; 283.86 B</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="co">## Run check_spe() function</span></span>
 <span><span class="fu"><a href="../reference/check_spe.html">check_spe</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span></span>
 <span><span class="co">#&gt; class: SpatialExperiment </span></span>
@@ -708,13 +719,13 @@ will return the original <code>spe</code> object.</p>
 <div class="section level2">
 <h2 id="explore-the-data">Explore the data<a class="anchor" aria-label="anchor" href="#explore-the-data"></a>
 </h2>
-<p>With our complete <code>spe</code> object, we can now use <em><a href="https://bioconductor.org/packages/3.18/spatialLIBD" class="external-link">spatialLIBD</a></em>
+<p>With our complete <code>spe</code> object, we can now use <em><a href="https://bioconductor.org/packages/3.19/spatialLIBD" class="external-link">spatialLIBD</a></em>
 for visualizing our data. We can do so using functions such as
 <code><a href="../reference/vis_gene.html">vis_gene()</a></code> and <code><a href="../reference/vis_clus.html">vis_clus()</a></code> that are described
 in more detail at the <em>Introduction to spatialLIBD</em> vignette
 available through <a href="http://research.libd.org/spatialLIBD/articles/spatialLIBD.html" class="external-link">GitHub</a>
 or <a href="https://bioconductor.org/packages/spatialLIBD" class="external-link">Bioconductor</a>.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Example visualizations. Let's start with a continuous variable.</span></span>
 <span><span class="fu">spatialLIBD</span><span class="fu">::</span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span></span>
 <span>    spe <span class="op">=</span> <span class="va">spe</span>,</span>
@@ -723,7 +734,7 @@ or <a href="https://bioconductor.org/packages/spatialLIBD" class="external-link"
 <span>    assayname <span class="op">=</span> <span class="st">"counts"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="TenX_data_download_files/figure-html/test_visualizations-1.png" width="700"></p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## We next create a random cluster label to visualize</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20210428</span><span class="op">)</span></span>
@@ -762,7 +773,7 @@ the manual annotations and <code>random_cluster</code> that we created
 in the previous section.</li>
 <li>
 <code>spe_continous_vars</code>: we have computed several continuous
-variables while adapting our <code>spe</code> object for <em><a href="https://bioconductor.org/packages/3.18/spatialLIBD" class="external-link">spatialLIBD</a></em>,
+variables while adapting our <code>spe</code> object for <em><a href="https://bioconductor.org/packages/3.19/spatialLIBD" class="external-link">spatialLIBD</a></em>,
 so we’ll list these variables below in order to visually inspect
 them.</li>
 <li>
@@ -770,7 +781,7 @@ them.</li>
 default discrete variable and for now we’ll set it to our
 <code>random_cluster</code>.</li>
 </ul>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Run our shiny app</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/run_app.html">run_app</a></span><span class="op">(</span></span>
@@ -790,12 +801,13 @@ Those documentation files will help you describe your project to your
 users in a more personalized way. The easiest way to start is to copy
 our documentation files to a new location and adapt them. You can locate
 them at the following path.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Locate our documentation files</span></span>
 <span><span class="va">docs_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"app"</span>, <span class="st">"www"</span>, package <span class="op">=</span> <span class="st">"spatialLIBD"</span><span class="op">)</span></span>
 <span><span class="va">docs_path</span></span>
-<span><span class="co">#&gt; [1] "/__w/_temp/Library/spatialLIBD/app/www"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">docs_path</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "/__w/_temp/Library/spatialLIBD/app/www"</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">docs_path</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "documentation_sce_layer.md" "documentation_spe.md"      </span></span>
 <span><span class="co">#&gt; [3] "favicon.ico"                "footer.html"               </span></span>
 <span><span class="co">#&gt; [5] "README.md"</span></span></code></pre></div>
@@ -811,7 +823,7 @@ interactively using <code><a href="../reference/run_app.html">spatialLIBD::run_a
 described in this vignette. In this example, we’ll load all four images
 created by SpaceRanger: lowres, hires, detected, and aligned. That way
 we can toggle between them on the web application.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Import the data as a SpatialExperiment object</span></span>
 <span><span class="va">spe_wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read10xVisiumWrapper.html">read10xVisiumWrapper</a></span><span class="op">(</span></span>
 <span>    samples <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"outs"</span><span class="op">)</span>,</span>
@@ -820,11 +832,11 @@ we can toggle between them on the web application.</p>
 <span>    images <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lowres"</span>, <span class="st">"hires"</span>, <span class="st">"detected"</span>, <span class="st">"aligned"</span><span class="op">)</span>, load <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    reference_gtf <span class="op">=</span> <span class="va">gtf_cache</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2024-05-24 05:26:30.455573 SpatialExperiment::read10xVisium: reading basic data from SpaceRanger</span></span>
-<span><span class="co">#&gt; 2024-05-24 05:26:41.852232 read10xVisiumAnalysis: reading analysis output from SpaceRanger</span></span>
-<span><span class="co">#&gt; 2024-05-24 05:26:42.904459 add10xVisiumAnalysis: adding analysis output from SpaceRanger</span></span>
-<span><span class="co">#&gt; 2024-05-24 05:26:43.149696 rtracklayer::import: reading the reference GTF file</span></span>
-<span><span class="co">#&gt; 2024-05-24 05:27:10.135944 adding gene information to the SPE object</span></span>
+<span><span class="co">#&gt; 2024-05-24 05:56:03.512447 SpatialExperiment::read10xVisium: reading basic data from SpaceRanger</span></span>
+<span><span class="co">#&gt; 2024-05-24 05:56:14.467328 read10xVisiumAnalysis: reading analysis output from SpaceRanger</span></span>
+<span><span class="co">#&gt; 2024-05-24 05:56:15.523564 add10xVisiumAnalysis: adding analysis output from SpaceRanger</span></span>
+<span><span class="co">#&gt; 2024-05-24 05:56:15.776144 rtracklayer::import: reading the reference GTF file</span></span>
+<span><span class="co">#&gt; 2024-05-24 05:56:42.003628 adding gene information to the SPE object</span></span>
 <span><span class="co">#&gt; Warning: Gene IDs did not match. This typically happens when you are not using</span></span>
 <span><span class="co">#&gt; the same GTF file as the one that was used by SpaceRanger. For example, one</span></span>
 <span><span class="co">#&gt; file uses GENCODE IDs and the other one ENSEMBL IDs. read10xVisiumWrapper()</span></span>
@@ -832,8 +844,8 @@ we can toggle between them on the web application.</p>
 <span><span class="co">#&gt; Warning: Dropping 29 out of 36601 genes for which we don't have information on</span></span>
 <span><span class="co">#&gt; the reference GTF file. This typically happens when you are not using the same</span></span>
 <span><span class="co">#&gt; GTF file as the one that was used by SpaceRanger.</span></span>
-<span><span class="co">#&gt; 2024-05-24 05:27:11.62603 adding information used by spatialLIBD</span></span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt; 2024-05-24 05:56:43.541219 adding information used by spatialLIBD</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Run our shiny app</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">spe_wrapper</span><span class="op">)</span><span class="op">)</span></span>
@@ -875,7 +887,7 @@ and deploy the app, which we usually do with a
 <code>app_dir/deploy.R</code> script</li>
 </ul>
 <p>Below we illustrate these steps</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Directory we created to host the data for the web application</span></span>
 <span><span class="co">## Use a directory of your preference instead of copy-pasting this code</span></span>
 <span><span class="va">app_dir</span> <span class="op">&lt;-</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst"</span>, <span class="st">"spe_wrapper_app"</span><span class="op">)</span></span>
@@ -999,7 +1011,7 @@ magnify specific spots,</li>
 <p>Regarding the memory limitation, you can estimate how much memory you
 need per user by considering the memory required for the
 <code>spe</code> and <code>sce_layer</code> objects.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/obj_size.html" class="external-link">obj_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1024</span><span class="op">^</span><span class="fl">2</span> <span class="co">## Convert to MB</span></span>
 <span><span class="co">#&gt; 283.88 B</span></span></code></pre></div>
 <p>In our pilot data (Maynard, Collado-Torres, Weber et al., 2021) our
@@ -1041,7 +1053,7 @@ Santiago</a>, the app is more responsive as of version 1.3.15 by using
 <h3 id="image-resolution">Image resolution<a class="anchor" aria-label="anchor" href="#image-resolution"></a>
 </h3>
 <p>When you construct the SpatialExperiment <code>spe</code> object with
-<em><a href="https://bioconductor.org/packages/3.18/SpatialExperiment" class="external-link">SpatialExperiment</a></em>,
+<em><a href="https://bioconductor.org/packages/3.19/SpatialExperiment" class="external-link">SpatialExperiment</a></em>,
 you can read in higher resolution images. However, the benefit of
 loading the raw histology images (500 MB to 20 GB per image) is likely
 non-existent in this web application. The memory required would likely
@@ -1056,8 +1068,8 @@ spot and/or cell resolution.</p>
 <p>While the documentation, title, icon and HTML footer are all
 customizable at <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code>, ultimately the
 panels shown are not unless you fork and adapt the internal code of this
-package. Thus, the interactive web applications powered by <em><a href="https://bioconductor.org/packages/3.18/spatialLIBD" class="external-link">spatialLIBD</a></em>
-are not as easy to customize as say <em><a href="https://bioconductor.org/packages/3.18/iSEE" class="external-link">iSEE</a></em> web
+package. Thus, the interactive web applications powered by <em><a href="https://bioconductor.org/packages/3.19/spatialLIBD" class="external-link">spatialLIBD</a></em>
+are not as easy to customize as say <em><a href="https://bioconductor.org/packages/3.19/iSEE" class="external-link">iSEE</a></em> web
 applications are. We think of our web application as a good enough
 prototype that can be useful for initial explorations of 10x Genomics
 Visium data. We welcome additions to our code, though we recognize that
@@ -1067,17 +1079,17 @@ you might want to build your own production-level solution.</p>
 <div class="section level2">
 <h2 id="reproducibility">Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility"></a>
 </h2>
-<p>The <em><a href="https://bioconductor.org/packages/3.18/spatialLIBD" class="external-link">spatialLIBD</a></em>
+<p>The <em><a href="https://bioconductor.org/packages/3.19/spatialLIBD" class="external-link">spatialLIBD</a></em>
 package (Pardo, Spangler, Weber et al., 2022) was made possible thanks
 to:</p>
 <ul>
 <li>R (R Core Team, 2024)</li>
 <li>
-<em><a href="https://bioconductor.org/packages/3.18/BiocFileCache" class="external-link">BiocFileCache</a></em>
+<em><a href="https://bioconductor.org/packages/3.19/BiocFileCache" class="external-link">BiocFileCache</a></em>
 (Shepherd and Morgan, 2024)</li>
 <li>
-<em><a href="https://bioconductor.org/packages/3.18/BiocStyle" class="external-link">BiocStyle</a></em>
-(Oleś, 2023)</li>
+<em><a href="https://bioconductor.org/packages/3.19/BiocStyle" class="external-link">BiocStyle</a></em>
+(Oleś, 2024)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie,
 2024)</li>
@@ -1092,22 +1104,22 @@ to:</p>
 (Allaire, Xie, Dervieux, McPherson, Luraschi, Ushey, Atkins, Wickham,
 Cheng, Chang, and Iannone, 2024)</li>
 <li>
-<em><a href="https://bioconductor.org/packages/3.18/rtracklayer" class="external-link">rtracklayer</a></em>
+<em><a href="https://bioconductor.org/packages/3.19/rtracklayer" class="external-link">rtracklayer</a></em>
 (Lawrence, Gentleman, and Carey, 2009)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=sessioninfo" class="external-link">sessioninfo</a></em>
 (Wickham, Chang, Flight, Müller, and Hester, 2021)</li>
 <li>
-<em><a href="https://bioconductor.org/packages/3.18/SpatialExperiment" class="external-link">SpatialExperiment</a></em>
+<em><a href="https://bioconductor.org/packages/3.19/SpatialExperiment" class="external-link">SpatialExperiment</a></em>
 (Righelli, Weber, Crowell, Pardo, Collado-Torres, Ghazanfar, Lun, Hicks,
 and Risso, 2022)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=testthat" class="external-link">testthat</a></em>
 (Wickham, 2011)</li>
 </ul>
-<p>This package was developed using <em><a href="https://bioconductor.org/packages/3.18/biocthis" class="external-link">biocthis</a></em>.</p>
+<p>This package was developed using <em><a href="https://bioconductor.org/packages/3.19/biocthis" class="external-link">biocthis</a></em>.</p>
 <p>Code for creating the vignette</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create the vignette</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/rmarkdown" class="external-link">"rmarkdown"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, <span class="st">"BiocStyle::html_document"</span><span class="op">)</span><span class="op">)</span></span>
@@ -1116,13 +1128,13 @@ and Risso, 2022)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2024-05-24 05:27:12 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2024-05-24 05:56:44 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 1.779 mins</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 1.771 mins</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
-<span><span class="co">#&gt;  version  R version 4.3.3 (2024-02-29)</span></span>
+<span><span class="co">#&gt;  version  R version 4.4.0 (2024-04-24)</span></span>
 <span><span class="co">#&gt;  os       Ubuntu 22.04.4 LTS</span></span>
 <span><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
 <span><span class="co">#&gt;  ui       X11</span></span>
@@ -1131,183 +1143,183 @@ and Risso, 2022)</li>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
 <span><span class="co">#&gt;  date     2024-05-24</span></span>
-<span><span class="co">#&gt;  pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)</span></span>
+<span><span class="co">#&gt;  pandoc   3.1.13 @ /usr/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package               </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version    </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
-<span><span class="co">#&gt;  abind                    1.4-5       <span style="color: #555555;">2016-07-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  AnnotationDbi            1.64.1      <span style="color: #555555;">2023-11-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  AnnotationHub            3.10.1      <span style="color: #555555;">2024-04-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  attempt                  0.3.1       <span style="color: #555555;">2020-05-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  backports                1.4.1       <span style="color: #555555;">2021-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  beachmat                 2.18.1      <span style="color: #555555;">2024-02-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  beeswarm                 0.4.0       <span style="color: #555555;">2021-06-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  benchmarkme              1.0.8       <span style="color: #555555;">2022-06-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  benchmarkmeData          1.0.4       <span style="color: #555555;">2020-04-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  bibtex                   0.5.1       <span style="color: #555555;">2023-01-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  Biobase                * 2.62.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  BiocFileCache          * 2.10.2      <span style="color: #555555;">2024-03-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  BiocGenerics           * 0.48.1      <span style="color: #555555;">2023-11-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  BiocIO                   1.12.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  BiocManager              1.30.22     <span style="color: #555555;">2023-08-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  BiocNeighbors            1.20.2      <span style="color: #555555;">2024-01-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  BiocParallel             1.36.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  BiocSingular             1.18.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  BiocStyle              * 2.30.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  BiocVersion              3.18.1      <span style="color: #555555;">2023-11-15</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  Biostrings               2.70.3      <span style="color: #555555;">2024-03-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  bit                      4.0.5       <span style="color: #555555;">2022-11-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  bit64                    4.0.5       <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  bitops                   1.0-7       <span style="color: #555555;">2021-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  blob                     1.2.4       <span style="color: #555555;">2023-03-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  bookdown                 0.39        <span style="color: #555555;">2024-04-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  bslib                    0.7.0       <span style="color: #555555;">2024-03-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  cachem                   1.0.8       <span style="color: #555555;">2023-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  cli                      3.6.2       <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  codetools                0.2-20      <span style="color: #555555;">2024-03-31</span> <span style="color: #555555;">[3]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  colorspace               2.1-0       <span style="color: #555555;">2023-01-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  config                   0.3.2       <span style="color: #555555;">2023-08-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  cowplot                  1.1.3       <span style="color: #555555;">2024-01-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  crayon                   1.5.2       <span style="color: #555555;">2022-09-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  curl                     5.2.1       <span style="color: #555555;">2024-03-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  data.table               1.15.4      <span style="color: #555555;">2024-03-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  DBI                      1.2.2       <span style="color: #555555;">2024-02-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  dbplyr                 * 2.5.0       <span style="color: #555555;">2024-03-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  DelayedArray             0.28.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  DelayedMatrixStats       1.24.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  desc                     1.4.3       <span style="color: #555555;">2023-12-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  digest                   0.6.35      <span style="color: #555555;">2024-03-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  doParallel               1.0.17      <span style="color: #555555;">2022-02-07</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  dotCall64                1.1-1       <span style="color: #555555;">2023-11-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  dplyr                    1.1.4       <span style="color: #555555;">2023-11-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  dqrng                    0.3.2       <span style="color: #555555;">2023-11-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  DropletUtils             1.22.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  DT                       0.33        <span style="color: #555555;">2024-04-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  edgeR                    4.0.16      <span style="color: #555555;">2024-02-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  evaluate                 0.23        <span style="color: #555555;">2023-11-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  ExperimentHub            2.10.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  fansi                    1.0.6       <span style="color: #555555;">2023-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  farver                   2.1.1       <span style="color: #555555;">2022-07-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  fastmap                  1.1.1       <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  fields                   15.2        <span style="color: #555555;">2023-08-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  filelock                 1.0.3       <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  foreach                  1.5.2       <span style="color: #555555;">2022-02-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  fs                       1.6.3       <span style="color: #555555;">2023-07-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  generics                 0.1.3       <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  GenomeInfoDb           * 1.38.8      <span style="color: #555555;">2024-03-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  GenomeInfoDbData         1.2.11      <span style="color: #555555;">2024-04-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  GenomicAlignments        1.38.2      <span style="color: #555555;">2024-01-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  GenomicRanges          * 1.54.1      <span style="color: #555555;">2023-10-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  ggbeeswarm               0.7.2       <span style="color: #555555;">2023-04-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  ggplot2                  3.5.0       <span style="color: #555555;">2024-02-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  ggrepel                  0.9.5       <span style="color: #555555;">2024-01-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  glue                     1.7.0       <span style="color: #555555;">2024-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  golem                    0.4.1       <span style="color: #555555;">2023-06-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  gridExtra                2.3         <span style="color: #555555;">2017-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  gtable                   0.3.5       <span style="color: #555555;">2024-04-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  HDF5Array                1.30.1      <span style="color: #555555;">2024-02-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  highr                    0.10        <span style="color: #555555;">2022-12-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  htmltools                0.5.8.1     <span style="color: #555555;">2024-04-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  htmlwidgets              1.6.4       <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  httpuv                   1.6.15      <span style="color: #555555;">2024-03-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  httr                     1.4.7       <span style="color: #555555;">2023-08-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  interactiveDisplayBase   1.40.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  IRanges                * 2.36.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  irlba                    2.3.5.1     <span style="color: #555555;">2022-10-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  iterators                1.0.14      <span style="color: #555555;">2022-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  jquerylib                0.1.4       <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  jsonlite                 1.8.8       <span style="color: #555555;">2023-12-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  KEGGREST                 1.42.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  knitr                    1.46        <span style="color: #555555;">2024-04-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  labeling                 0.4.3       <span style="color: #555555;">2023-08-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  later                    1.3.2       <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  lattice                  0.22-6      <span style="color: #555555;">2024-03-20</span> <span style="color: #555555;">[3]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  lazyeval                 0.2.2       <span style="color: #555555;">2019-03-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  lifecycle                1.0.4       <span style="color: #555555;">2023-11-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  limma                    3.58.1      <span style="color: #555555;">2023-10-31</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  lobstr                 * 1.1.2       <span style="color: #555555;">2022-06-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  locfit                   1.5-9.9     <span style="color: #555555;">2024-03-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  lubridate                1.9.3       <span style="color: #555555;">2023-09-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  magick                   2.8.3       <span style="color: #555555;">2024-02-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  magrittr                 2.0.3       <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  maps                     3.4.2       <span style="color: #555555;">2023-12-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  Matrix                   1.6-5       <span style="color: #555555;">2024-01-11</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.3.3)</span></span></span>
-<span><span class="co">#&gt;  MatrixGenerics         * 1.14.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  matrixStats            * 1.3.0       <span style="color: #555555;">2024-04-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  memoise                  2.0.1       <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  mime                     0.12        <span style="color: #555555;">2021-09-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  munsell                  0.5.1       <span style="color: #555555;">2024-04-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  paletteer                1.6.0       <span style="color: #555555;">2024-01-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  pillar                   1.9.0       <span style="color: #555555;">2023-03-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  pkgconfig                2.0.3       <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  pkgdown                  2.0.9       <span style="color: #555555;">2024-04-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  plotly                   4.10.4      <span style="color: #555555;">2024-01-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  plyr                     1.8.9       <span style="color: #555555;">2023-10-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  png                      0.1-8       <span style="color: #555555;">2022-11-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  prettyunits              1.2.0       <span style="color: #555555;">2023-09-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  promises                 1.3.0       <span style="color: #555555;">2024-04-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  purrr                    1.0.2       <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  R.methodsS3              1.8.2       <span style="color: #555555;">2022-06-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  R.oo                     1.26.0      <span style="color: #555555;">2024-01-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  R.utils                  2.12.3      <span style="color: #555555;">2023-11-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  R6                       2.5.1       <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  ragg                     1.3.0       <span style="color: #555555;">2024-03-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  rappdirs                 0.3.3       <span style="color: #555555;">2021-01-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  RColorBrewer             1.1-3       <span style="color: #555555;">2022-04-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  Rcpp                     1.0.12      <span style="color: #555555;">2024-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  RCurl                    1.98-1.14   <span style="color: #555555;">2024-01-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  RefManageR             * 1.4.0       <span style="color: #555555;">2022-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  rematch2                 2.1.2       <span style="color: #555555;">2020-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  restfulr                 0.0.15      <span style="color: #555555;">2022-06-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  rhdf5                    2.46.1      <span style="color: #555555;">2023-11-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  rhdf5filters             1.14.1      <span style="color: #555555;">2023-11-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  Rhdf5lib                 1.24.2      <span style="color: #555555;">2024-02-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  rjson                    0.2.21      <span style="color: #555555;">2022-01-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  rlang                    1.1.3       <span style="color: #555555;">2024-01-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  rmarkdown                2.26        <span style="color: #555555;">2024-03-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  Rsamtools                2.18.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  RSQLite                  2.3.6       <span style="color: #555555;">2024-03-31</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  rsvd                     1.0.5       <span style="color: #555555;">2021-04-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  rtracklayer            * 1.62.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  S4Arrays                 1.2.1       <span style="color: #555555;">2024-03-04</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  S4Vectors              * 0.40.2      <span style="color: #555555;">2023-11-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  sass                     0.4.9       <span style="color: #555555;">2024-03-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  ScaledMatrix             1.10.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  scales                   1.3.0       <span style="color: #555555;">2023-11-28</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  scater                   1.30.1      <span style="color: #555555;">2023-11-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  scuttle                  1.12.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  sessioninfo            * 1.2.2       <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  shiny                    1.8.1.1     <span style="color: #555555;">2024-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  shinyWidgets             0.8.5       <span style="color: #555555;">2024-04-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  SingleCellExperiment   * 1.24.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  spam                     2.10-0      <span style="color: #555555;">2023-10-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  SparseArray              1.2.4       <span style="color: #555555;">2024-02-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  sparseMatrixStats        1.14.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  SpatialExperiment      * 1.12.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  spatialLIBD            * 1.17.1      <span style="color: #555555;">2024-05-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  statmod                  1.5.0       <span style="color: #555555;">2023-01-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  stringi                  1.8.3       <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  stringr                  1.5.1       <span style="color: #555555;">2023-11-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  SummarizedExperiment   * 1.32.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  systemfonts              1.0.6       <span style="color: #555555;">2024-03-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  textshaping              0.3.7       <span style="color: #555555;">2023-10-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  tibble                   3.2.1       <span style="color: #555555;">2023-03-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  tidyr                    1.3.1       <span style="color: #555555;">2024-01-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  tidyselect               1.2.1       <span style="color: #555555;">2024-03-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  timechange               0.3.0       <span style="color: #555555;">2024-01-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  utf8                     1.2.4       <span style="color: #555555;">2023-10-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  vctrs                    0.6.5       <span style="color: #555555;">2023-12-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  vipor                    0.4.7       <span style="color: #555555;">2023-12-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  viridis                  0.6.5       <span style="color: #555555;">2024-01-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  viridisLite              0.4.2       <span style="color: #555555;">2023-05-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  withr                    3.0.0       <span style="color: #555555;">2024-01-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  xfun                     0.43        <span style="color: #555555;">2024-03-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  XML                      3.99-0.16.1 <span style="color: #555555;">2024-01-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  xml2                     1.3.6       <span style="color: #555555;">2023-12-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  xtable                   1.8-4       <span style="color: #555555;">2019-04-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  XVector                  0.42.0      <span style="color: #555555;">2023-10-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  yaml                     2.3.8       <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  zlibbioc                 1.48.2      <span style="color: #555555;">2024-03-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.18 (R 4.3.2)</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package             </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version    </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
+<span><span class="co">#&gt;  abind                  1.4-5       <span style="color: #555555;">2016-07-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  AnnotationDbi          1.66.0      <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  AnnotationHub          3.12.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  attempt                0.3.1       <span style="color: #555555;">2020-05-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  backports              1.4.1       <span style="color: #555555;">2021-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  beachmat               2.20.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  beeswarm               0.4.0       <span style="color: #555555;">2021-06-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  benchmarkme            1.0.8       <span style="color: #555555;">2022-06-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  benchmarkmeData        1.0.4       <span style="color: #555555;">2020-04-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  bibtex                 0.5.1       <span style="color: #555555;">2023-01-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  Biobase              * 2.64.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocFileCache        * 2.12.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocGenerics         * 0.50.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocIO                 1.14.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocManager            1.30.23     <span style="color: #555555;">2024-05-04</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocNeighbors          1.22.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocParallel           1.38.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocSingular           1.20.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocStyle            * 2.32.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  BiocVersion            3.19.1      <span style="color: #555555;">2024-04-17</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  Biostrings             2.72.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  bit                    4.0.5       <span style="color: #555555;">2022-11-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  bit64                  4.0.5       <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  bitops                 1.0-7       <span style="color: #555555;">2021-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  blob                   1.2.4       <span style="color: #555555;">2023-03-17</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  bookdown               0.39        <span style="color: #555555;">2024-04-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  bslib                  0.7.0       <span style="color: #555555;">2024-03-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  cachem                 1.1.0       <span style="color: #555555;">2024-05-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  cli                    3.6.2       <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  codetools              0.2-20      <span style="color: #555555;">2024-03-31</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  colorspace             2.1-0       <span style="color: #555555;">2023-01-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  config                 0.3.2       <span style="color: #555555;">2023-08-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  cowplot                1.1.3       <span style="color: #555555;">2024-01-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  crayon                 1.5.2       <span style="color: #555555;">2022-09-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  curl                   5.2.1       <span style="color: #555555;">2024-03-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  data.table             1.15.4      <span style="color: #555555;">2024-03-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  DBI                    1.2.2       <span style="color: #555555;">2024-02-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  dbplyr               * 2.5.0       <span style="color: #555555;">2024-03-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  DelayedArray           0.30.1      <span style="color: #555555;">2024-05-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  DelayedMatrixStats     1.26.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  desc                   1.4.3       <span style="color: #555555;">2023-12-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  digest                 0.6.35      <span style="color: #555555;">2024-03-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  doParallel             1.0.17      <span style="color: #555555;">2022-02-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  dotCall64              1.1-1       <span style="color: #555555;">2023-11-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  dplyr                  1.1.4       <span style="color: #555555;">2023-11-17</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  dqrng                  0.4.0       <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  DropletUtils           1.24.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  DT                     0.33        <span style="color: #555555;">2024-04-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  edgeR                  4.2.0       <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  evaluate               0.23        <span style="color: #555555;">2023-11-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ExperimentHub          2.12.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  fansi                  1.0.6       <span style="color: #555555;">2023-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  farver                 2.1.2       <span style="color: #555555;">2024-05-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  fastmap                1.2.0       <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  fields                 15.2        <span style="color: #555555;">2023-08-17</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  filelock               1.0.3       <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  foreach                1.5.2       <span style="color: #555555;">2022-02-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  fs                     1.6.4       <span style="color: #555555;">2024-04-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  generics               0.1.3       <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  GenomeInfoDb         * 1.40.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  GenomeInfoDbData       1.2.12      <span style="color: #555555;">2024-05-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  GenomicAlignments      1.40.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  GenomicRanges        * 1.56.0      <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ggbeeswarm             0.7.2       <span style="color: #555555;">2023-04-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ggplot2                3.5.1       <span style="color: #555555;">2024-04-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ggrepel                0.9.5       <span style="color: #555555;">2024-01-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  glue                   1.7.0       <span style="color: #555555;">2024-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  golem                  0.4.1       <span style="color: #555555;">2023-06-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  gridExtra              2.3         <span style="color: #555555;">2017-09-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  gtable                 0.3.5       <span style="color: #555555;">2024-04-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  HDF5Array              1.32.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  highr                  0.10        <span style="color: #555555;">2022-12-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  htmltools              0.5.8.1     <span style="color: #555555;">2024-04-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  htmlwidgets            1.6.4       <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  httpuv                 1.6.15      <span style="color: #555555;">2024-03-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  httr                   1.4.7       <span style="color: #555555;">2023-08-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  IRanges              * 2.38.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  irlba                  2.3.5.1     <span style="color: #555555;">2022-10-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  iterators              1.0.14      <span style="color: #555555;">2022-02-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  jquerylib              0.1.4       <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  jsonlite               1.8.8       <span style="color: #555555;">2023-12-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  KEGGREST               1.44.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  knitr                  1.46        <span style="color: #555555;">2024-04-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  labeling               0.4.3       <span style="color: #555555;">2023-08-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  later                  1.3.2       <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  lattice                0.22-6      <span style="color: #555555;">2024-03-20</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  lazyeval               0.2.2       <span style="color: #555555;">2019-03-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  lifecycle              1.0.4       <span style="color: #555555;">2023-11-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  limma                  3.60.2      <span style="color: #555555;">2024-05-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  lobstr               * 1.1.2       <span style="color: #555555;">2022-06-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  locfit                 1.5-9.9     <span style="color: #555555;">2024-03-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  lubridate              1.9.3       <span style="color: #555555;">2023-09-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  magick                 2.8.3       <span style="color: #555555;">2024-02-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  magrittr               2.0.3       <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  maps                   3.4.2       <span style="color: #555555;">2023-12-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  Matrix                 1.7-0       <span style="color: #555555;">2024-03-22</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  MatrixGenerics       * 1.16.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  matrixStats          * 1.3.0       <span style="color: #555555;">2024-04-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  memoise                2.0.1       <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  mime                   0.12        <span style="color: #555555;">2021-09-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  munsell                0.5.1       <span style="color: #555555;">2024-04-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  paletteer              1.6.0       <span style="color: #555555;">2024-01-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  pillar                 1.9.0       <span style="color: #555555;">2023-03-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  pkgconfig              2.0.3       <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  pkgdown                2.0.9       <span style="color: #555555;">2024-04-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  plotly                 4.10.4      <span style="color: #555555;">2024-01-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  plyr                   1.8.9       <span style="color: #555555;">2023-10-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  png                    0.1-8       <span style="color: #555555;">2022-11-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  prettyunits            1.2.0       <span style="color: #555555;">2023-09-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  promises               1.3.0       <span style="color: #555555;">2024-04-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  purrr                  1.0.2       <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  R.methodsS3            1.8.2       <span style="color: #555555;">2022-06-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  R.oo                   1.26.0      <span style="color: #555555;">2024-01-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  R.utils                2.12.3      <span style="color: #555555;">2023-11-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  R6                     2.5.1       <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ragg                   1.3.2       <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rappdirs               0.3.3       <span style="color: #555555;">2021-01-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  RColorBrewer           1.1-3       <span style="color: #555555;">2022-04-03</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  Rcpp                   1.0.12      <span style="color: #555555;">2024-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  RCurl                  1.98-1.14   <span style="color: #555555;">2024-01-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  RefManageR           * 1.4.0       <span style="color: #555555;">2022-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rematch2               2.1.2       <span style="color: #555555;">2020-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  restfulr               0.0.15      <span style="color: #555555;">2022-06-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rhdf5                  2.48.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rhdf5filters           1.16.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  Rhdf5lib               1.26.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rjson                  0.2.21      <span style="color: #555555;">2022-01-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rlang                  1.1.3       <span style="color: #555555;">2024-01-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rmarkdown              2.27        <span style="color: #555555;">2024-05-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  Rsamtools              2.20.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  RSQLite                2.3.6       <span style="color: #555555;">2024-03-31</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rsvd                   1.0.5       <span style="color: #555555;">2021-04-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  rtracklayer          * 1.64.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  S4Arrays               1.4.1       <span style="color: #555555;">2024-05-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  S4Vectors            * 0.42.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  sass                   0.4.9       <span style="color: #555555;">2024-03-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  ScaledMatrix           1.12.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  scales                 1.3.0       <span style="color: #555555;">2023-11-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  scater                 1.32.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  scuttle                1.14.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  sessioninfo          * 1.2.2       <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  shiny                  1.8.1.1     <span style="color: #555555;">2024-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  shinyWidgets           0.8.6       <span style="color: #555555;">2024-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  SingleCellExperiment * 1.26.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  spam                   2.10-0      <span style="color: #555555;">2023-10-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  SparseArray            1.4.5       <span style="color: #555555;">2024-05-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  sparseMatrixStats      1.16.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  SpatialExperiment    * 1.14.0      <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  spatialLIBD          * 1.17.1      <span style="color: #555555;">2024-05-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  statmod                1.5.0       <span style="color: #555555;">2023-01-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  stringi                1.8.4       <span style="color: #555555;">2024-05-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  stringr                1.5.1       <span style="color: #555555;">2023-11-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  SummarizedExperiment * 1.34.0      <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  systemfonts            1.1.0       <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  textshaping            0.3.7       <span style="color: #555555;">2023-10-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  tibble                 3.2.1       <span style="color: #555555;">2023-03-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  tidyr                  1.3.1       <span style="color: #555555;">2024-01-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  tidyselect             1.2.1       <span style="color: #555555;">2024-03-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  timechange             0.3.0       <span style="color: #555555;">2024-01-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  UCSC.utils             1.0.0       <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  utf8                   1.2.4       <span style="color: #555555;">2023-10-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  vctrs                  0.6.5       <span style="color: #555555;">2023-12-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  vipor                  0.4.7       <span style="color: #555555;">2023-12-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  viridis                0.6.5       <span style="color: #555555;">2024-01-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  viridisLite            0.4.2       <span style="color: #555555;">2023-05-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  withr                  3.0.0       <span style="color: #555555;">2024-01-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  xfun                   0.44        <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  XML                    3.99-0.16.1 <span style="color: #555555;">2024-01-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  xml2                   1.3.6       <span style="color: #555555;">2023-12-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  xtable                 1.8-4       <span style="color: #555555;">2019-04-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  XVector                0.44.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  yaml                   2.3.8       <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  zlibbioc               1.50.0      <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [1] /__w/_temp/Library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /usr/local/lib/R/site-library</span></span></span>
@@ -1318,8 +1330,8 @@ and Risso, 2022)</li>
 <div class="section level2">
 <h2 id="bibliography">Bibliography<a class="anchor" aria-label="anchor" href="#bibliography"></a>
 </h2>
-<p>This vignette was generated using <em><a href="https://bioconductor.org/packages/3.18/BiocStyle" class="external-link">BiocStyle</a></em>
-(Oleś, 2023) with <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie,
+<p>This vignette was generated using <em><a href="https://bioconductor.org/packages/3.19/BiocStyle" class="external-link">BiocStyle</a></em>
+(Oleś, 2024) with <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie,
 2024) and <em><a href="https://CRAN.R-project.org/package=rmarkdown" class="external-link">rmarkdown</a></em>
 (Allaire, Xie, Dervieux et al., 2024) running behind the scenes.</p>
 <p>Citations made with <em><a href="https://CRAN.R-project.org/package=RefManageR" class="external-link">RefManageR</a></em>
@@ -1327,7 +1339,7 @@ and Risso, 2022)</li>
 <p>
 <a id="bib-allaire2024rmarkdown"></a><a href="#cite-allaire2024rmarkdown">[1]</a><cite>
 J. Allaire, Y. Xie, C. Dervieux, et al. <em>rmarkdown: Dynamic Documents
-for R</em>. R package version 2.26. 2024. URL:
+for R</em>. R package version 2.27. 2024. URL:
 <a href="https://github.com/rstudio/rmarkdown" class="external-link">https://github.com/rstudio/rmarkdown</a>.</cite>
 </p>
 <p>
@@ -1356,12 +1368,10 @@ References in R”. In: <em>The Journal of Open Source Software</em>
 <a href="https://doi.org/10.21105/joss.00338" class="external-link">10.21105/joss.00338</a>.</cite>
 </p>
 <p>
-<a id="bib-ole2023biocstyle"></a><a href="#cite-ole2023biocstyle">[5]</a><cite>
+<a id="bib-ole2024biocstyle"></a><a href="#cite-ole2024biocstyle">[5]</a><cite>
 A. Oleś. <em>BiocStyle: Standard styles for vignettes and other
-Bioconductor documents</em>. R package version 2.30.0. 2023. DOI:
-<a href="https://doi.org/10.18129/B9.bioc.BiocStyle" class="external-link">10.18129/B9.bioc.BiocStyle</a>.
-URL:
-<a href="https://bioconductor.org/packages/BiocStyle" class="external-link">https://bioconductor.org/packages/BiocStyle</a>.</cite>
+Bioconductor documents</em>. R package version 2.32.0. 2024. URL:
+<a href="https://github.com/Bioconductor/BiocStyle" class="external-link">https://github.com/Bioconductor/BiocStyle</a>.</cite>
 </p>
 <p>
 <a id="bib-pardo2022spatiallibd"></a><a href="#cite-pardo2022spatiallibd">[6]</a><cite>
@@ -1389,13 +1399,13 @@ Bioconductor”. In: <em>Bioinformatics</em> 38.11 (2022), pp. -3. DOI:
 <p>
 <a id="bib-shepherd2024biocfilecache"></a><a href="#cite-shepherd2024biocfilecache">[9]</a><cite>
 L. Shepherd and M. Morgan. <em>BiocFileCache: Manage Files Across
-Sessions</em>. R package version 2.10.2. 2024.</cite>
+Sessions</em>. R package version 2.12.0. 2024.</cite>
 </p>
 <p>
 <a id="bib-wickham2022lobstr"></a><a href="#cite-wickham2022lobstr">[10]</a><cite>
 H. Wickham. <em>lobstr: Visualize R Data Structures with Trees</em>. R
-package version 1.1.2, <a href="https://github.com/r-lib/lobstr" class="external-link uri">https://github.com/r-lib/lobstr</a>. 2022. URL:
-<a href="https://lobstr.r-lib.org/" class="external-link">https://lobstr.r-lib.org/</a>.</cite>
+package version 1.1.2. 2022. URL:
+<a href="https://CRAN.R-project.org/package=lobstr" class="external-link">https://CRAN.R-project.org/package=lobstr</a>.</cite>
 </p>
 <p>
 <a id="bib-wickham2011testthat"></a><a href="#cite-wickham2011testthat">[11]</a><cite>
