@@ -344,9 +344,9 @@ print(citation("spatialLIBD"), bibtex = TRUE)
 #>     title = {Influence of Alzheimer’s disease related neuropathology on local microenvironment gene expression in the human inferior temporal cortex},
 #>     author = {Sang Ho Kwon and Sowmya Parthiban and Madhavi Tippani and Heena R. Divecha and Nicholas J. Eagles and Jashandeep S. Lobana and Stephen R. Williams and Michelle Mark and Rahul A. Bharadwaj and Joel E. Kleinman and Thomas M. Hyde and Stephanie C. Page and Stephanie C. Hicks and Keri Martinowich and Kristen R. Maynard and Leonardo Collado-Torres},
 #>     year = {2023},
-#>     journal = {bioRxiv},
-#>     doi = {10.1101/2023.04.20.537710},
-#>     url = {https://www.biorxiv.org/content/10.1101/2023.04.20.537710v1},
+#>     journal = {GEN Biotechnology},
+#>     doi = {10.1089/genbio.2023.0019},
+#>     url = {https://doi.org/10.1089/genbio.2023.0019},
 #>   }
 ```
 
