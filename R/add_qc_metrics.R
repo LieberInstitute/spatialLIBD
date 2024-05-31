@@ -86,7 +86,7 @@ add_qc_metrics <- function(spe) {
     ## low_n_features
     spe$scran_low_n_features <- NA
     spe$scran_low_n_features[which(spe$in_tissue)] <- qcfilter$low_n_features
-    spe$sscran_low_n_features <- factor(spe$scran_low_n_features,
+    spe$scran_low_n_features <- factor(spe$scran_low_n_features,
         levels = c("TRUE", "FALSE")
     )
 
