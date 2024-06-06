@@ -192,6 +192,14 @@ vis_gene <-
             stop(sprintf("'%s' is not an assay in 'spe'", assayname), call. = FALSE)
         }
 
+        #   Check validity of spatial coordinates
+        if (!setequal(c("pxl_col_in_fullres", "pxl_row_in_fullres"), colnames(spatialCoords(spe)))) {
+            stop(
+                "Abnormal spatial coordinates: should have 'pxl_row_in_fullres' and 'pxl_col_in_fullres' columns.",
+                call. = FALSE
+            )
+        }
+
         spe_sub <- spe[, spe$sample_id == sampleid]
         d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
 
