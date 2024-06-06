@@ -36,6 +36,12 @@
 #' the proportion of continuous variables with positive values for each spot is
 #' computed. For more details, check the multi gene vignette at
 #' <https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html>.
+#' @param is_stitched A \code{logical(1)} vector: If true, expects a
+#' \code{SpatialExperiment} built with \code{visiumStitched::build_spe()}
+#' <http://research.libd.org/visiumStitched/reference/build_spe.html>; in
+#' particular, expects a logical colData column \code{exclude_overlapping}
+#' specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}
+#' when TRUE.
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
@@ -172,6 +178,7 @@ vis_gene <-
     auto_crop = TRUE,
     na_color = "#CCCCCC40",
     multi_gene_method = c("z_score", "pca", "sparsity"),
+    is_stitched = FALSE,
     ...) {
         multi_gene_method <- rlang::arg_match(multi_gene_method)
         #   Verify existence and legitimacy of 'sampleid'
@@ -201,6 +208,30 @@ vis_gene <-
         }
 
         spe_sub <- spe[, spe$sample_id == sampleid]
+
+        if (is_stitched) {
+            #   State assumptions about columns expected to be in the colData
+            expected_cols <- c("array_row", "array_col", "exclude_overlapping")
+            if (!all(expected_cols %in% colnames(colData(spe)))) {
+                stop(
+                    sprintf(
+                        'Missing at least one of the following colData columns: "%s"',
+                        paste(expected_cols, collapse = '", "')
+                    )
+                )
+            }
+
+            #   Drop excluded spots; verify some spots are not excluded
+            subset_cols = !spe$exclude_overlapping
+            if (length(which(subset_cols)) == 0) {
+                stop(
+                    "spe$exclude_overlapping must include some FALSE values to plot",
+                    call. = FALSE
+                )
+            }
+            spe_sub <- spe_sub[, subset_cols]
+        }
+        
         d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
 
         #   Verify legitimacy of names in geneid
