@@ -217,8 +217,13 @@ vis_gene <-
                     sprintf(
                         'Missing at least one of the following colData columns: "%s"',
                         paste(expected_cols, collapse = '", "')
-                    )
+                    ),
+                    call. = FALSE
                 )
+            }
+
+            if(any(is.na(spe_sub$exclude_overlapping))) {
+                stop("spe$exclude_overlapping must not have NAs", call. = FALSE)
             }
 
             #   Drop excluded spots; verify some spots are not excluded
