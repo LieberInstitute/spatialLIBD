@@ -36,12 +36,6 @@
 #' the proportion of continuous variables with positive values for each spot is
 #' computed. For more details, check the multi gene vignette at
 #' <https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html>.
-#' @param is_stitched A \code{logical(1)} vector: If true, expects a
-#' \code{SpatialExperiment} built with \code{visiumStitched::build_spe()}
-#' <http://research.libd.org/visiumStitched/reference/build_spe.html>; in
-#' particular, expects a logical colData column \code{exclude_overlapping}
-#' specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}
-#' when TRUE.
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
