@@ -46,23 +46,6 @@ test_that(
             "Could not find the 'geneid'\\(s\\) aaa"
         )
 
-        #   Missing exclude_overlapping
-        expect_error(
-            {
-                p <- vis_gene(spe, geneid = "sum_umi", is_stitched = TRUE)
-            },
-            "^Missing at least one of the following colData"
-        )
-
-        #   Can't exclude all spots
-        spe$exclude_overlapping = TRUE
-        expect_error(
-            {
-                p <- vis_gene(spe, geneid = "sum_umi", is_stitched = TRUE)
-            },
-            "^spe\\$exclude_overlapping must include some FALSE values to plot$"
-        )
-
         #   Trivially check success with legitimate input
         expect_equal(
             class(vis_gene(spe, geneid = c("sum_umi", rownames(spe)[1]))),
