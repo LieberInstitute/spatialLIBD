@@ -210,55 +210,10 @@ vis_gene <-
         spe_sub <- spe[, spe$sample_id == sampleid]
 
         if (is_stitched) {
-            #   State assumptions about columns expected to be in the colData
-            expected_cols <- c("array_row", "array_col", "exclude_overlapping")
-            if (!all(expected_cols %in% colnames(colData(spe_sub)))) {
-                stop(
-                    sprintf(
-                        'Missing at least one of the following colData columns: "%s"',
-                        paste(expected_cols, collapse = '", "')
-                    ),
-                    call. = FALSE
-                )
-            }
-
-            if(any(is.na(spe_sub$exclude_overlapping))) {
-                stop("spe$exclude_overlapping must not have NAs", call. = FALSE)
-            }
-
-            #   Drop excluded spots; verify some spots are not excluded
-            subset_cols = !spe_sub$exclude_overlapping
-            if (length(which(subset_cols)) == 0) {
-                stop(
-                    "spe$exclude_overlapping must include some FALSE values to plot",
-                    call. = FALSE
-                )
-            }
-            spe_sub <- spe_sub[, subset_cols]
-
-            #   Compute an appropriate spot size for this sample
-
-            #   Determine some pixel values for the horizontal bounds of the spots
-            MIN_COL <- min(spatialCoords(spe_sub)[, "pxl_row_in_fullres"])
-            MAX_COL <- max(spatialCoords(spe_sub)[, "pxl_row_in_fullres"])
-
-            #   The distance between spots (in pixels) is double the average distance
-            #   between array columns
-            INTER_SPOT_DIST_PX <- 2 * (MAX_COL - MIN_COL) /
-                (max(spe_sub$array_col) - min(spe_sub$array_col))
-
-            #   Find the appropriate spot size for this donor. This can vary because
-            #   ggplot downscales a plot to fit desired output dimensions (in this
-            #   case presumably a square region on a PDF), and stitched images can vary
-            #   in aspect ratio. Also, lowres images always have a larger image
-            #   dimension of 1200, no matter how many spots fit in either dimension.
-            small_image_data <- imgData(spe_sub)[
-                imgData(spe_sub)$image_id == image_id,
-            ]
-
-            #   The coefficient of 100 was determined empirically
-            point_size <- point_size * 100 * INTER_SPOT_DIST_PX *
-                small_image_data$scaleFactor / max(dim(small_image_data$data[[1]]))
+            #   Drop excluded spots and calculate an appropriate point size
+            temp = prep_stitched_data(spe_sub, point_size, image_id)
+            spe_sub = temp$spe
+            point_size = temp$point_size
             
             #   Frame limits are poorly defined for stitched data
             auto_crop = FALSE
