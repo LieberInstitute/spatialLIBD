@@ -91,11 +91,11 @@ add_qc_metrics <- function(spe) {
     )
 
     ## high mito percent
-    spe$scran_high_subsets_Mito_percent <- NA
-    spe$scran_high_subsets_Mito_percent[which(spe$in_tissue)] <-
+    spe$scran_high_Mito_percent <- NA
+    spe$scran_high_Mito_percent[which(spe$in_tissue)] <-
         qcfilter$high_subsets_Mito_percent
-    spe$scran_high_subsets_Mito_percent <-
-        factor(spe$scran_high_subsets_Mito_percent, levels = c("TRUE", "FALSE"))
+    spe$scran_high_Mito_percent <-
+        factor(spe$scran_high_Mito_percent, levels = c("TRUE", "FALSE"))
 
     ## Find edge spots
     # define variables 
