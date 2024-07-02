@@ -20,13 +20,13 @@ use in the background.}
 }
 \value{
 A list with names \code{spe} and \code{point_size} containing a
-filtered, ready-to-plot \code{SpatialExperiment} and an appopriate spot size
+filtered, ready-to-plot \code{SpatialExperiment} and an appropriate spot size
 (passed to \code{vis_gene()} or \code{vis_clus()}), respectively
 }
 \description{
 Given a \code{SpatialExperiment} built with \code{visiumStitched::build_spe()}
 \url{http://research.libd.org/visiumStitched/reference/build_spe.html}, drop
-exluded spots (specified by \code{spe$exclude_overlapping}) and compute an
+excluded spots (specified by \code{spe$exclude_overlapping}) and compute an
 appropriate spot size for plotting with \code{vis_gene()} or
 \code{vis_clus()}, assuming the plot will be written to a PDF of default
 dimensions (i.e. \code{width = 7} and \code{height = 7}).
