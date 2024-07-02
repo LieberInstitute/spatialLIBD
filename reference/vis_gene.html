@@ -94,6 +94,7 @@ To visualize clusters (or any discrete variable) use <code><a href="vis_clus.htm
 <span>  auto_crop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  na_color <span class="op">=</span> <span class="st">"#CCCCCC40"</span>,</span>
 <span>  multi_gene_method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z_score"</span>, <span class="st">"pca"</span>, <span class="st">"sparsity"</span><span class="op">)</span>,</span>
+<span>  is_stitched <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -194,6 +195,15 @@ needed to have the majority of the values for PC1 to be positive. <code>sparsity
 the proportion of continuous variables with positive values for each spot is
 computed. For more details, check the multi gene vignette at
 <a href="https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html" class="external-link">https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html</a>.</p></dd>
+
+
+<dt>is_stitched</dt>
+<dd><p>A <code>logical(1)</code> vector: If true, expects a
+<code>SpatialExperiment</code> built with <code>visiumStitched::build_spe()</code>
+<a href="http://research.libd.org/visiumStitched/reference/build_spe.html" class="external-link">http://research.libd.org/visiumStitched/reference/build_spe.html</a>; in
+particular, expects a logical colData column <code>exclude_overlapping</code>
+specifying which spots to exclude from the plot. Sets <code>auto_crop = FALSE</code>
+when TRUE.</p></dd>
 
 
 <dt>...</dt>
@@ -331,7 +341,7 @@ data and title for <code><a href="vis_gene_p.html">vis_gene_p()</a></code>. It a
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p8</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-05-24 18:13:20.698758 loading file /github/home/.cache/R/BiocFileCache/db65995fbcb_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-02 15:57:09.730878 loading file /github/home/.cache/R/BiocFileCache/179344b262cb_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-plt img"><img src="vis_gene-1.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_gene-2.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_gene-3.png" alt="" width="700" height="433"></span>
