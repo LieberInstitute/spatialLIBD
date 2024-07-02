@@ -5,9 +5,11 @@ test_that(
 
         #   Bad spatialCoords
         spe_temp <- spe
-        colnames(spatialCoords(spe_temp)) = c('a', 'b')
+        colnames(spatialCoords(spe_temp)) <- c("a", "b")
         expect_error(
-            { p <- vis_clus(spe_temp, clustervar = "sample_id") },
+            {
+                p <- vis_clus(spe_temp, clustervar = "sample_id")
+            },
             "^Abnormal spatial coordinates"
         )
         rm(spe_temp)

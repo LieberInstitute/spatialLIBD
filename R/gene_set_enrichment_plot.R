@@ -84,18 +84,17 @@
 #'     layerHeights = c(0, 40, 55, 75, 85, 110, 120, 135),
 #' )
 gene_set_enrichment_plot <-
-    function(
-        enrichment,
-        xlabs = unique(enrichment$ID),
-        PThresh = 12,
-        ORcut = 3,
-        enrichOnly = FALSE,
-        layerHeights = c(0, seq_len(length(unique(enrichment$test)))) * 15,
-        mypal = c(
-            "white",
-            grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "YlOrRd"))(50)
-        ),
-        cex = 1.2) {
+    function(enrichment,
+    xlabs = unique(enrichment$ID),
+    PThresh = 12,
+    ORcut = 3,
+    enrichOnly = FALSE,
+    layerHeights = c(0, seq_len(length(unique(enrichment$test)))) * 15,
+    mypal = c(
+        "white",
+        grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "YlOrRd"))(50)
+    ),
+    cex = 1.2) {
         ## Re-order and shorten names if they match our data
         if (all(unique(enrichment$test) %in% c("WM", paste0("Layer", seq_len(6))))) {
             enrichment$test <-

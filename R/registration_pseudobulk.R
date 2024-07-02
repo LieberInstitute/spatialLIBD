@@ -51,12 +51,13 @@
 #' sce_pseudo <- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)
 #' colData(sce_pseudo)
 registration_pseudobulk <-
-    function(sce,
-    var_registration,
-    var_sample_id,
-    covars = NULL,
-    min_ncells = 10,
-    pseudobulk_rds_file = NULL) {
+    function(
+        sce,
+        var_registration,
+        var_sample_id,
+        covars = NULL,
+        min_ncells = 10,
+        pseudobulk_rds_file = NULL) {
         ## Check that inputs are correct
         stopifnot(is(sce, "SingleCellExperiment"))
         stopifnot(var_registration %in% colnames(colData(sce)))

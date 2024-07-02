@@ -55,9 +55,11 @@ test_that(
 
         #   Bad spatialCoords
         spe_temp <- spe
-        colnames(spatialCoords(spe_temp)) = c('a', 'b')
+        colnames(spatialCoords(spe_temp)) <- c("a", "b")
         expect_error(
-            { p <- vis_gene(spe_temp, geneid = "sum_umi") },
+            {
+                p <- vis_gene(spe_temp, geneid = "sum_umi")
+            },
             "^Abnormal spatial coordinates"
         )
         rm(spe_temp)

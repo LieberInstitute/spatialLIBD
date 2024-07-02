@@ -25,14 +25,13 @@
 #'     ## Check the object
 #'     check_spe(spe)
 #' }
-check_spe <- function(
-        spe,
-        variables = c(
-            "sum_umi",
-            "sum_gene",
-            "expr_chrM",
-            "expr_chrM_ratio"
-        )) {
+check_spe <- function(spe,
+    variables = c(
+        "sum_umi",
+        "sum_gene",
+        "expr_chrM",
+        "expr_chrM_ratio"
+    )) {
     ## Should be a SpatialExperiment object
     stopifnot(is(spe, "SpatialExperiment"))
 

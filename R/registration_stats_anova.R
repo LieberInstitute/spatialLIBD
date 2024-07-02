@@ -50,15 +50,14 @@
 #' results_anova_merged <- merge(results_anova, results_anova_nocovar)
 #' head(results_anova_merged)
 registration_stats_anova <-
-    function(
-        sce_pseudo,
-        block_cor,
-        covars = NULL,
-        var_registration = "registration_variable",
-        var_sample_id = "registration_sample_id",
-        gene_ensembl = NULL,
-        gene_name = NULL,
-        suffix = "") {
+    function(sce_pseudo,
+    block_cor,
+    covars = NULL,
+    var_registration = "registration_variable",
+    var_sample_id = "registration_sample_id",
+    gene_ensembl = NULL,
+    gene_name = NULL,
+    suffix = "") {
         if (is.null(covars)) {
             mat_formula <- eval(str2expression(paste("~", var_registration)))
         } else {

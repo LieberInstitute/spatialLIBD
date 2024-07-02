@@ -19,7 +19,7 @@
 #'
 #' @author Nicholas J. Eagles
 #' @keywords internal
-prep_stitched_data = function(spe, point_size, image_id) {
+prep_stitched_data <- function(spe, point_size, image_id) {
     #   State assumptions about columns expected to be in the colData
     expected_cols <- c("array_row", "array_col", "exclude_overlapping")
     if (!all(expected_cols %in% colnames(colData(spe)))) {
@@ -32,12 +32,12 @@ prep_stitched_data = function(spe, point_size, image_id) {
         )
     }
 
-    if(any(is.na(spe$exclude_overlapping))) {
+    if (any(is.na(spe$exclude_overlapping))) {
         stop("spe$exclude_overlapping must not have NAs", call. = FALSE)
     }
 
     #   Drop excluded spots; verify some spots are not excluded
-    subset_cols = !spe$exclude_overlapping
+    subset_cols <- !spe$exclude_overlapping
     if (length(which(subset_cols)) == 0) {
         stop(
             "spe$exclude_overlapping must include some FALSE values to plot",
