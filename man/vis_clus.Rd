@@ -16,6 +16,7 @@ vis_clus(
   point_size = 2,
   auto_crop = TRUE,
   na_color = "#CCCCCC40",
+  is_stitched = FALSE,
   ...
 )
 }
@@ -58,6 +59,13 @@ If you set \code{alpha = NA} then it's best to set \code{na_color} to a color th
 alpha blending already, which will make non-NA values pop up more and the NA
 values will show with a lighter color. This behavior is lost when \code{alpha} is
 set to a non-\code{NA} value.}
+
+\item{is_stitched}{A \code{logical(1)} vector: If true, expects a
+\code{SpatialExperiment} built with \code{visiumStitched::build_spe()}
+\url{http://research.libd.org/visiumStitched/reference/build_spe.html}; in
+particular, expects a logical colData column \code{exclude_overlapping}
+specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}
+when TRUE.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}

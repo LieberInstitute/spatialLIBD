@@ -29,6 +29,12 @@
 #' alpha blending already, which will make non-NA values pop up more and the NA
 #' values will show with a lighter color. This behavior is lost when `alpha` is
 #' set to a non-`NA` value.
+#' @param is_stitched A \code{logical(1)} vector: If true, expects a
+#' \code{SpatialExperiment} built with \code{visiumStitched::build_spe()}
+#' <http://research.libd.org/visiumStitched/reference/build_spe.html>; in
+#' particular, expects a logical colData column \code{exclude_overlapping}
+#' specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}
+#' when TRUE.
 #' @param ... Passed to [paste0()][base::paste] for making the title of the
 #' plot following the `sampleid`.
 #'
@@ -116,6 +122,7 @@ vis_clus <- function(spe,
     point_size = 2,
     auto_crop = TRUE,
     na_color = "#CCCCCC40",
+    is_stitched = FALSE,
     ...) {
     #   Verify existence and legitimacy of 'sampleid'
     if (
@@ -130,7 +137,26 @@ vis_clus <- function(spe,
         )
     }
 
+    #   Check validity of spatial coordinates
+    if (!setequal(c("pxl_col_in_fullres", "pxl_row_in_fullres"), colnames(spatialCoords(spe)))) {
+        stop(
+            "Abnormal spatial coordinates: should have 'pxl_row_in_fullres' and 'pxl_col_in_fullres' columns.",
+            call. = FALSE
+        )
+    }
+
     spe_sub <- spe[, spe$sample_id == sampleid]
+
+    if (is_stitched) {
+        #   Drop excluded spots and calculate an appropriate point size
+        temp = prep_stitched_data(spe_sub, point_size, image_id)
+        spe_sub = temp$spe
+        point_size = temp$point_size
+        
+        #   Frame limits are poorly defined for stitched data
+        auto_crop = FALSE
+    }
+
     d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
 
     vis_clus_p(

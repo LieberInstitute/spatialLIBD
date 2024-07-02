@@ -51,5 +51,13 @@ test_that(
             class(vis_gene(spe, geneid = c("sum_umi", rownames(spe)[1]))),
             c("gg", "ggplot")
         )
+
+
+        #   Bad spatialCoords
+        colnames(spatialCoords(spe)) = c('a', 'b')
+        expect_error(
+            { p <- vis_gene(spe, geneid = "sum_umi") },
+            "^Abnormal spatial coordinates"
+        )
     }
 )

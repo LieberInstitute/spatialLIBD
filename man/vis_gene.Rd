@@ -20,6 +20,7 @@ vis_gene(
   auto_crop = TRUE,
   na_color = "#CCCCCC40",
   multi_gene_method = c("z_score", "pca", "sparsity"),
+  is_stitched = FALSE,
   ...
 )
 }
@@ -91,6 +92,13 @@ needed to have the majority of the values for PC1 to be positive. \code{sparsity
 the proportion of continuous variables with positive values for each spot is
 computed. For more details, check the multi gene vignette at
 \url{https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html}.}
+
+\item{is_stitched}{A \code{logical(1)} vector: If true, expects a
+\code{SpatialExperiment} built with \code{visiumStitched::build_spe()}
+\url{http://research.libd.org/visiumStitched/reference/build_spe.html}; in
+particular, expects a logical colData column \code{exclude_overlapping}
+specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}
+when TRUE.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}
