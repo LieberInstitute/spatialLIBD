@@ -2,7 +2,7 @@
 #'
 #' Given a \code{SpatialExperiment} built with \code{visiumStitched::build_spe()}
 #' <http://research.libd.org/visiumStitched/reference/build_spe.html>, drop
-#' exluded spots (specified by \code{spe$exclude_overlapping}) and compute an
+#' excluded spots (specified by \code{spe$exclude_overlapping}) and compute an
 #' appropriate spot size for plotting with \code{vis_gene()} or
 #' \code{vis_clus()}, assuming the plot will be written to a PDF of default
 #' dimensions (i.e. \code{width = 7} and \code{height = 7}).
@@ -14,10 +14,9 @@
 #' @inheritParams vis_clus
 #'
 #' @return A list with names \code{spe} and \code{point_size} containing a
-#' filtered, ready-to-plot \code{SpatialExperiment} and an appopriate spot size
+#' filtered, ready-to-plot \code{SpatialExperiment} and an appropriate spot size
 #' (passed to \code{vis_gene()} or \code{vis_clus()}), respectively
 #'
-#' @import SpatialExperiment
 #' @author Nicholas J. Eagles
 #' @keywords internal
 prep_stitched_data = function(spe, point_size, image_id) {
@@ -70,6 +69,6 @@ prep_stitched_data = function(spe, point_size, image_id) {
     #   The coefficient of 100 was determined empirically
     point_size <- point_size * 100 * INTER_SPOT_DIST_PX *
         small_image_data$scaleFactor / max(dim(small_image_data$data[[1]]))
-    
+
     return(list(spe = spe, point_size = point_size))
 }

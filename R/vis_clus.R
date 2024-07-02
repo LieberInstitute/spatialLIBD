@@ -29,12 +29,12 @@
 #' alpha blending already, which will make non-NA values pop up more and the NA
 #' values will show with a lighter color. This behavior is lost when `alpha` is
 #' set to a non-`NA` value.
-#' @param is_stitched A \code{logical(1)} vector: If true, expects a
-#' \code{SpatialExperiment} built with \code{visiumStitched::build_spe()}
+#' @param is_stitched A \code{logical(1)} vector: If `TRUE`, expects a
+#' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class] built
+#' with `visiumStitched::build_spe()`.
 #' <http://research.libd.org/visiumStitched/reference/build_spe.html>; in
-#' particular, expects a logical colData column \code{exclude_overlapping}
-#' specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}
-#' when TRUE.
+#' particular, expects a logical colData column `exclude_overlapping`
+#' specifying which spots to exclude from the plot. Sets `auto_crop = FALSE`.
 #' @param ... Passed to [paste0()][base::paste] for making the title of the
 #' plot following the `sampleid`.
 #'
@@ -152,7 +152,7 @@ vis_clus <- function(spe,
         temp = prep_stitched_data(spe_sub, point_size, image_id)
         spe_sub = temp$spe
         point_size = temp$point_size
-        
+
         #   Frame limits are poorly defined for stitched data
         auto_crop = FALSE
     }
