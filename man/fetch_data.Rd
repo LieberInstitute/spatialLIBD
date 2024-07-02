@@ -11,7 +11,8 @@ fetch_data(
     "spatialDLPFC_Visium_SPG", "spatialDLPFC_snRNAseq",
     "Visium_SPG_AD_Visium_wholegenome_spe", "Visium_SPG_AD_Visium_targeted_spe",
     "Visium_SPG_AD_Visium_wholegenome_pseudobulk_spe",
-    "Visium_SPG_AD_Visium_wholegenome_modeling_results"),
+    "Visium_SPG_AD_Visium_wholegenome_modeling_results", "Visium_LS_spe",
+    "Visium_LS_spaceranger", "Visium_LS_ImageJ_out"),
   destdir = tempdir(),
   eh = ExperimentHub::ExperimentHub(),
   bfc = BiocFileCache::BiocFileCache()
