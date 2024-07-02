@@ -24,6 +24,7 @@ run_app(
     "expr_chrM_ratio"),
   default_cluster = "spatialLIBD",
   auto_crop_default = TRUE,
+  is_stitched = FALSE,
   ...
 )
 }
@@ -74,6 +75,13 @@ and \code{colData(sce_layer)}.}
 automatically cropping the images. Set this to \code{FALSE} if your images do not
 follow the Visium grid size expectations, which are key for enabling
 auto-cropping.}
+
+\item{is_stitched}{A \code{logical(1)} vector: If \code{TRUE}, expects a
+\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class} built
+with \code{visiumStitched::build_spe()}.
+\url{http://research.libd.org/visiumStitched/reference/build_spe.html}; in
+particular, expects a logical colData column \code{exclude_overlapping}
+specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}.}
 
 \item{...}{Other arguments passed to the list of golem options for running
 the application.}
@@ -233,5 +241,43 @@ if (enough_ram(9e9)) {
 ## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/deploy_app_k09_position_noWM
 ## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/deploy_app_k16
 ## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/analysis_IF/03_spatialLIBD_app
+
+
+## Example for an object with multiple capture areas stitched together with
+## <http://research.libd.org/visiumStitched/>.
+spe_stitched <- fetch_data("Visium_LS_spe")
+
+## Inspect this object
+spe_stitched
+
+## Notice the use of "exclude_overlapping"
+table(spe_stitched$exclude_overlapping, useNA = "ifany")
+
+## Drop NAs
+spe_stitched <- spe_stitched[, !is.na(spe_stitched$exclude_overlapping)]
+
+## Make it compatible with spatialLIBD::run_app()
+spe_stitched <- add_key(spe_stitched)
+spe_stitched$sum_umi <- colSums(logcounts(spe_stitched))
+spe_stitched$sum_gene <- colSums(logcounts(spe_stitched) > 0)
+rowData(spe_stitched)$gene_name <- rowData(spe_stitched)$symbol
+rowData(spe_stitched)$gene_id <- rownames(spe_stitched)
+rowData(spe_stitched)$gene_search <- paste0(rowData(spe_stitched)$gene_name, "; ", rowData(spe_stitched)$gene_id)
+is_mito <- seq_len(1000)
+spe_stitched$expr_chrM <- colSums(logcounts(spe_stitched)[is_mito, , drop = FALSE])
+spe_stitched$expr_chrM_ratio <- spe_stitched$expr_chrM / spe_stitched$sum_umi
+## Add a variable for saving the manual annotations
+spe_stitched$ManualAnnotation <- "NA"
+
+## Run the app with this stitched data
+run_app(
+    spe = spe_stitched,
+    sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
+    title = "visiumStitched example data",
+    spe_discrete_vars = c("capture_area", "scran_quick_cluster", "ManualAnnotation"),
+    spe_continuous_vars = c("sum_umi", "sum_gene", "expr_chrM", "expr_chrM_ratio"),
+    default_cluster = "scran_quick_cluster",
+    is_stitched = TRUE
+)
 }
 }

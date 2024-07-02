@@ -35,25 +35,26 @@
 #'     cowplot::plot_grid(plotlist = p_list, ncol = 2)
 #' }
 vis_grid_gene <-
-    function(spe,
-    geneid = rowData(spe)$gene_search[1],
-    pdf_file,
-    assayname = "logcounts",
-    minCount = 0,
-    return_plots = FALSE,
-    spatial = TRUE,
-    viridis = TRUE,
-    height = 24,
-    width = 36,
-    image_id = "lowres",
-    alpha = NA,
-    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
-    sample_order = unique(spe$sample_id),
-    point_size = 2,
-    auto_crop = TRUE,
-    na_color = "#CCCCCC40",
-    is_stitched = FALSE,
-    ...) {
+    function(
+        spe,
+        geneid = rowData(spe)$gene_search[1],
+        pdf_file,
+        assayname = "logcounts",
+        minCount = 0,
+        return_plots = FALSE,
+        spatial = TRUE,
+        viridis = TRUE,
+        height = 24,
+        width = 36,
+        image_id = "lowres",
+        alpha = NA,
+        cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
+        sample_order = unique(spe$sample_id),
+        point_size = 2,
+        auto_crop = TRUE,
+        na_color = "#CCCCCC40",
+        is_stitched = FALSE,
+        ...) {
         stopifnot(all(sample_order %in% unique(spe$sample_id)))
 
         plots <- lapply(sample_order, function(sampleid) {

@@ -215,7 +215,8 @@
 #' spe_stitched$ManualAnnotation <- "NA"
 #'
 #' ## Run the app with this stitched data
-#' run_app(spe = spe_stitched,
+#' run_app(
+#'     spe = spe_stitched,
 #'     sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
 #'     title = "visiumStitched example data",
 #'     spe_discrete_vars = c("capture_area", "scran_quick_cluster", "ManualAnnotation"),
@@ -224,55 +225,56 @@
 #'     is_stitched = TRUE
 #' )
 #' }
-run_app <- function(spe = fetch_data(type = "spe"),
-    sce_layer = fetch_data(type = "sce_layer"),
-    modeling_results = fetch_data(type = "modeling_results"),
-    sig_genes = sig_genes_extract_all(
-        n = nrow(sce_layer),
-        modeling_results = modeling_results,
-        sce_layer = sce_layer
-    ),
-    docs_path = system.file("app", "www", package = "spatialLIBD"),
-    title = "spatialLIBD",
-    spe_discrete_vars = c(
-        "spatialLIBD",
-        "GraphBased",
-        "ManualAnnotation",
-        "Maynard",
-        "Martinowich",
-        paste0("SNN_k50_k", 4:28),
-        "SpatialDE_PCA",
-        "SpatialDE_pool_PCA",
-        "HVG_PCA",
-        "pseudobulk_PCA",
-        "markers_PCA",
-        "SpatialDE_UMAP",
-        "SpatialDE_pool_UMAP",
-        "HVG_UMAP",
-        "pseudobulk_UMAP",
-        "markers_UMAP",
-        "SpatialDE_PCA_spatial",
-        "SpatialDE_pool_PCA_spatial",
-        "HVG_PCA_spatial",
-        "pseudobulk_PCA_spatial",
-        "markers_PCA_spatial",
-        "SpatialDE_UMAP_spatial",
-        "SpatialDE_pool_UMAP_spatial",
-        "HVG_UMAP_spatial",
-        "pseudobulk_UMAP_spatial",
-        "markers_UMAP_spatial"
-    ),
-    spe_continuous_vars = c(
-        "cell_count",
-        "sum_umi",
-        "sum_gene",
-        "expr_chrM",
-        "expr_chrM_ratio"
-    ),
-    default_cluster = "spatialLIBD",
-    auto_crop_default = TRUE,
-    is_stitched = FALSE,
-    ...) {
+run_app <- function(
+        spe = fetch_data(type = "spe"),
+        sce_layer = fetch_data(type = "sce_layer"),
+        modeling_results = fetch_data(type = "modeling_results"),
+        sig_genes = sig_genes_extract_all(
+            n = nrow(sce_layer),
+            modeling_results = modeling_results,
+            sce_layer = sce_layer
+        ),
+        docs_path = system.file("app", "www", package = "spatialLIBD"),
+        title = "spatialLIBD",
+        spe_discrete_vars = c(
+            "spatialLIBD",
+            "GraphBased",
+            "ManualAnnotation",
+            "Maynard",
+            "Martinowich",
+            paste0("SNN_k50_k", 4:28),
+            "SpatialDE_PCA",
+            "SpatialDE_pool_PCA",
+            "HVG_PCA",
+            "pseudobulk_PCA",
+            "markers_PCA",
+            "SpatialDE_UMAP",
+            "SpatialDE_pool_UMAP",
+            "HVG_UMAP",
+            "pseudobulk_UMAP",
+            "markers_UMAP",
+            "SpatialDE_PCA_spatial",
+            "SpatialDE_pool_PCA_spatial",
+            "HVG_PCA_spatial",
+            "pseudobulk_PCA_spatial",
+            "markers_PCA_spatial",
+            "SpatialDE_UMAP_spatial",
+            "SpatialDE_pool_UMAP_spatial",
+            "HVG_UMAP_spatial",
+            "pseudobulk_UMAP_spatial",
+            "markers_UMAP_spatial"
+        ),
+        spe_continuous_vars = c(
+            "cell_count",
+            "sum_umi",
+            "sum_gene",
+            "expr_chrM",
+            "expr_chrM_ratio"
+        ),
+        default_cluster = "spatialLIBD",
+        auto_crop_default = TRUE,
+        is_stitched = FALSE,
+        ...) {
     ## Run the checks in the relevant order
     stopifnot(length(default_cluster) == 1)
     stopifnot(default_cluster %in% spe_discrete_vars)
