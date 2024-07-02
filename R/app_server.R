@@ -25,6 +25,7 @@ app_server <- function(input, output, session) {
     modeling_results <- golem::get_golem_options("modeling_results")
     sig_genes <- golem::get_golem_options("sig_genes")
     default_cluster <- golem::get_golem_options("default_cluster")
+    is_stitched <- golem::get_golem_options("is_stitched")
 
 
     # List the first level callModules here
@@ -171,6 +172,7 @@ app_server <- function(input, output, session) {
             alpha = input$alphalevel,
             point_size = input$pointsize,
             auto_crop = input$auto_crop,
+            is_stitched = is_stitched,
             ... = paste(" with", input$cluster)
         )
         if (!input$side_by_side_histology) {
@@ -211,6 +213,7 @@ app_server <- function(input, output, session) {
                 sample_order = isolate(input$grid_samples),
                 point_size = isolate(input$pointsize),
                 auto_crop = isolate(input$auto_crop),
+                is_stitched = is_stitched,
                 ... = paste(" with", isolate(input$cluster))
             )
         cowplot::plot_grid(
@@ -232,7 +235,8 @@ app_server <- function(input, output, session) {
             image_id = input$imageid,
             alpha = input$alphalevel,
             point_size = input$pointsize,
-            auto_crop = input$auto_crop
+            auto_crop = input$auto_crop,
+            is_stitched = is_stitched
         )
         if (!input$side_by_side_gene) {
             return(p)
@@ -270,7 +274,8 @@ app_server <- function(input, output, session) {
                 alpha = isolate(input$alphalevel),
                 point_size = isolate(input$pointsize),
                 sample_order = isolate(input$gene_grid_samples),
-                auto_crop = isolate(input$auto_crop)
+                auto_crop = isolate(input$auto_crop),
+                is_stitched = is_stitched
             )
         cowplot::plot_grid(
             plotlist = plots,
@@ -608,8 +613,17 @@ app_server <- function(input, output, session) {
 
         ## From vis_gene() in global.R
         spe_sub <- spe[, spe$sample_id == sampleid]
+
+        point_size <- input$pointsize
+        if (is_stitched) {
+            #   Drop excluded spots and calculate an appropriate point size
+            temp <- prep_stitched_data(spe_sub, point_size, input$imageid)
+            spe_sub <- temp$spe
+            point_size <- temp$point_size
+        }
+
         d <-
-            as.data.frame(cbind(colData(spe), SpatialExperiment::spatialCoords(spe))[spe$sample_id == sampleid, ],
+            as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)),
                 optional = TRUE
             )
         #   Grab any continuous colData columns
@@ -692,7 +706,7 @@ app_server <- function(input, output, session) {
             title = plot_title,
             image_id = input$imageid,
             alpha = input$alphalevel,
-            point_size = input$pointsize,
+            point_size = point_size,
             auto_crop = input$auto_crop
         )
 
@@ -706,11 +720,11 @@ app_server <- function(input, output, session) {
             cont_colors = cont_colors(),
             image_id = input$imageid,
             alpha = input$alphalevel,
-            point_size = input$pointsize,
+            point_size = point_size,
             auto_crop = input$auto_crop
         ) + geom_point(
             shape = 21,
-            size = input$pointsize,
+            size = point_size,
             stroke = 0,
             alpha = input$alphalevel
         )
@@ -728,7 +742,7 @@ app_server <- function(input, output, session) {
             ) +
                 geom_point(
                     shape = 21,
-                    size = input$pointsize,
+                    size = point_size,
                     stroke = 0
                 ) +
                 scale_fill_manual(values = get_colors(colors, colData(spe)[[clustervar]][spe$sample_id == sampleid])) +
@@ -756,7 +770,7 @@ app_server <- function(input, output, session) {
             ) +
                 geom_point(
                     shape = 21,
-                    size = input$pointsize,
+                    size = point_size,
                     stroke = 0
                 )
         } else {
@@ -951,7 +965,8 @@ app_server <- function(input, output, session) {
                 image_id = input$imageid,
                 alpha = input$alphalevel,
                 point_size = input$pointsize,
-                auto_crop = input$auto_crop
+                auto_crop = input$auto_crop,
+                is_stitched = is_stitched
             ) +
             geom_point(
                 shape = 21,
