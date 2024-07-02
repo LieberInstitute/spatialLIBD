@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.3</span>
       </span>
     </div>
 
@@ -197,10 +197,10 @@ Martinowich, and Jaffe, 2021). It’s the 386th highest ranked white
 matter marker gene based on the enrichment test.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2024-07-02 15:59:25.75041 loading file /github/home/.cache/R/BiocFileCache/cc566297d89_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
+<span><span class="co">#&gt; 2024-07-02 17:46:13.486425 loading file /github/home/.cache/R/BiocFileCache/2426d9754b0_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2024-07-02 15:59:26.618248 loading file /github/home/.cache/R/BiocFileCache/cc570361174_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span></code></pre></div>
+<span><span class="co">#&gt; 2024-07-02 17:46:14.311767 loading file /github/home/.cache/R/BiocFileCache/24246eff6c4_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sig_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sig_genes_extract_all.html">sig_genes_extract_all</a></span><span class="op">(</span></span>
 <span>    n <span class="op">=</span> <span class="fl">400</span>,</span>
@@ -426,9 +426,9 @@ fun using them!</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"multi_gene_plots.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2024-07-02 15:59:42 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2024-07-02 17:46:30 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 36.738 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 37.253 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -582,7 +582,7 @@ fun using them!</p>
 <span><span class="co">#&gt;  SparseArray            1.4.8     <span style="color: #555555;">2024-05-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.1)</span></span></span>
 <span><span class="co">#&gt;  sparseMatrixStats      1.16.0    <span style="color: #555555;">2024-04-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.1)</span></span></span>
 <span><span class="co">#&gt;  SpatialExperiment    * 1.14.0    <span style="color: #555555;">2024-05-01</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.19 (R 4.4.1)</span></span></span>
-<span><span class="co">#&gt;  spatialLIBD          * 1.17.2    <span style="color: #555555;">2024-07-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  spatialLIBD          * 1.17.3    <span style="color: #555555;">2024-07-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  statmod                1.5.0     <span style="color: #555555;">2023-01-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  stringi                1.8.4     <span style="color: #555555;">2024-05-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  stringr                1.5.1     <span style="color: #555555;">2023-11-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>

@@ -19,7 +19,7 @@ any other data that you have shaped according to our object structure."><meta pr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.3</span>
       </span>
     </div>
 
@@ -96,6 +96,7 @@ any other data that you have shaped according to our object structure.</p>
 <span>    <span class="st">"expr_chrM_ratio"</span><span class="op">)</span>,</span>
 <span>  default_cluster <span class="op">=</span> <span class="st">"spatialLIBD"</span>,</span>
 <span>  auto_crop_default <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  is_stitched <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -167,6 +168,15 @@ and <code>colData(sce_layer)</code>.</p></dd>
 automatically cropping the images. Set this to <code>FALSE</code> if your images do not
 follow the Visium grid size expectations, which are key for enabling
 auto-cropping.</p></dd>
+
+
+<dt>is_stitched</dt>
+<dd><p>A <code>logical(1)</code> vector: If <code>TRUE</code>, expects a
+<a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html" class="external-link">SpatialExperiment-class</a> built
+with <code>visiumStitched::build_spe()</code>.
+<a href="http://research.libd.org/visiumStitched/reference/build_spe.html" class="external-link">http://research.libd.org/visiumStitched/reference/build_spe.html</a>; in
+particular, expects a logical colData column <code>exclude_overlapping</code>
+specifying which spots to exclude from the plot. Sets <code>auto_crop = FALSE</code>.</p></dd>
 
 
 <dt>...</dt>
@@ -330,6 +340,44 @@ That vignette is available at
 <span class="r-in"><span><span class="co">## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/deploy_app_k09_position_noWM</span></span></span>
 <span class="r-in"><span><span class="co">## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/deploy_app_k16</span></span></span>
 <span class="r-in"><span><span class="co">## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/analysis_IF/03_spatialLIBD_app</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Example for an object with multiple capture areas stitched together with</span></span></span>
+<span class="r-in"><span><span class="co">## &lt;http://research.libd.org/visiumStitched/&gt;.</span></span></span>
+<span class="r-in"><span><span class="va">spe_stitched</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"Visium_LS_spe"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Inspect this object</span></span></span>
+<span class="r-in"><span><span class="va">spe_stitched</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Notice the use of "exclude_overlapping"</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">spe_stitched</span><span class="op">$</span><span class="va">exclude_overlapping</span>, useNA <span class="op">=</span> <span class="st">"ifany"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Drop NAs</span></span></span>
+<span class="r-in"><span><span class="va">spe_stitched</span> <span class="op">&lt;-</span> <span class="va">spe_stitched</span><span class="op">[</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">spe_stitched</span><span class="op">$</span><span class="va">exclude_overlapping</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Make it compatible with spatialLIBD::run_app()</span></span></span>
+<span class="r-in"><span><span class="va">spe_stitched</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_key.html">add_key</a></span><span class="op">(</span><span class="va">spe_stitched</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">spe_stitched</span><span class="op">$</span><span class="va">sum_umi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu">logcounts</span><span class="op">(</span><span class="va">spe_stitched</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">spe_stitched</span><span class="op">$</span><span class="va">sum_gene</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu">logcounts</span><span class="op">(</span><span class="va">spe_stitched</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">rowData</span><span class="op">(</span><span class="va">spe_stitched</span><span class="op">)</span><span class="op">$</span><span class="va">gene_name</span> <span class="op">&lt;-</span> <span class="fu">rowData</span><span class="op">(</span><span class="va">spe_stitched</span><span class="op">)</span><span class="op">$</span><span class="va">symbol</span></span></span>
+<span class="r-in"><span><span class="fu">rowData</span><span class="op">(</span><span class="va">spe_stitched</span><span class="op">)</span><span class="op">$</span><span class="va">gene_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">spe_stitched</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">rowData</span><span class="op">(</span><span class="va">spe_stitched</span><span class="op">)</span><span class="op">$</span><span class="va">gene_search</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu">rowData</span><span class="op">(</span><span class="va">spe_stitched</span><span class="op">)</span><span class="op">$</span><span class="va">gene_name</span>, <span class="st">"; "</span>, <span class="fu">rowData</span><span class="op">(</span><span class="va">spe_stitched</span><span class="op">)</span><span class="op">$</span><span class="va">gene_id</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">is_mito</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">spe_stitched</span><span class="op">$</span><span class="va">expr_chrM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu">logcounts</span><span class="op">(</span><span class="va">spe_stitched</span><span class="op">)</span><span class="op">[</span><span class="va">is_mito</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">spe_stitched</span><span class="op">$</span><span class="va">expr_chrM_ratio</span> <span class="op">&lt;-</span> <span class="va">spe_stitched</span><span class="op">$</span><span class="va">expr_chrM</span> <span class="op">/</span> <span class="va">spe_stitched</span><span class="op">$</span><span class="va">sum_umi</span></span></span>
+<span class="r-in"><span><span class="co">## Add a variable for saving the manual annotations</span></span></span>
+<span class="r-in"><span><span class="va">spe_stitched</span><span class="op">$</span><span class="va">ManualAnnotation</span> <span class="op">&lt;-</span> <span class="st">"NA"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Run the app with this stitched data</span></span></span>
+<span class="r-in"><span><span class="fu">run_app</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    spe <span class="op">=</span> <span class="va">spe_stitched</span>,</span></span>
+<span class="r-in"><span>    sce_layer <span class="op">=</span> <span class="cn">NULL</span>, modeling_results <span class="op">=</span> <span class="cn">NULL</span>, sig_genes <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>    title <span class="op">=</span> <span class="st">"visiumStitched example data"</span>,</span></span>
+<span class="r-in"><span>    spe_discrete_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"capture_area"</span>, <span class="st">"scran_quick_cluster"</span>, <span class="st">"ManualAnnotation"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    spe_continuous_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sum_umi"</span>, <span class="st">"sum_gene"</span>, <span class="st">"expr_chrM"</span>, <span class="st">"expr_chrM_ratio"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    default_cluster <span class="op">=</span> <span class="st">"scran_quick_cluster"</span>,</span></span>
+<span class="r-in"><span>    is_stitched <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>

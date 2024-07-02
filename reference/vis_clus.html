@@ -19,7 +19,7 @@ gene-level (or any continuous variable) use vis_gene()."><meta property="og:imag
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.3</span>
       </span>
     </div>
 
@@ -155,12 +155,12 @@ set to a non-<code>NA</code> value.</p></dd>
 
 
 <dt>is_stitched</dt>
-<dd><p>A <code>logical(1)</code> vector: If true, expects a
-<code>SpatialExperiment</code> built with <code>visiumStitched::build_spe()</code>
+<dd><p>A <code>logical(1)</code> vector: If <code>TRUE</code>, expects a
+<a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html" class="external-link">SpatialExperiment-class</a> built
+with <code>visiumStitched::build_spe()</code>.
 <a href="http://research.libd.org/visiumStitched/reference/build_spe.html" class="external-link">http://research.libd.org/visiumStitched/reference/build_spe.html</a>; in
 particular, expects a logical colData column <code>exclude_overlapping</code>
-specifying which spots to exclude from the plot. Sets <code>auto_crop = FALSE</code>
-when TRUE.</p></dd>
+specifying which spots to exclude from the plot. Sets <code>auto_crop = FALSE</code>.</p></dd>
 
 
 <dt>...</dt>
@@ -242,7 +242,7 @@ data and title for <code><a href="vis_clus_p.html">vis_clus_p()</a></code>.</p>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-02 15:56:36.315979 loading file /github/home/.cache/R/BiocFileCache/179344b262cb_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-02 17:43:19.825105 loading file /github/home/.cache/R/BiocFileCache/d101ffed1e2_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-plt img"><img src="vis_clus-1.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_clus-2.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_clus-3.png" alt="" width="700" height="433"></span>
