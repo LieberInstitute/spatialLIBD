@@ -253,22 +253,6 @@ spe_stitched
 ## Notice the use of "exclude_overlapping"
 table(spe_stitched$exclude_overlapping, useNA = "ifany")
 
-## Drop NAs
-spe_stitched <- spe_stitched[, !is.na(spe_stitched$exclude_overlapping)]
-
-## Make it compatible with spatialLIBD::run_app()
-spe_stitched <- add_key(spe_stitched)
-spe_stitched$sum_umi <- colSums(logcounts(spe_stitched))
-spe_stitched$sum_gene <- colSums(logcounts(spe_stitched) > 0)
-rowData(spe_stitched)$gene_name <- rowData(spe_stitched)$symbol
-rowData(spe_stitched)$gene_id <- rownames(spe_stitched)
-rowData(spe_stitched)$gene_search <- paste0(rowData(spe_stitched)$gene_name, "; ", rowData(spe_stitched)$gene_id)
-is_mito <- seq_len(1000)
-spe_stitched$expr_chrM <- colSums(logcounts(spe_stitched)[is_mito, , drop = FALSE])
-spe_stitched$expr_chrM_ratio <- spe_stitched$expr_chrM / spe_stitched$sum_umi
-## Add a variable for saving the manual annotations
-spe_stitched$ManualAnnotation <- "NA"
-
 ## Run the app with this stitched data
 run_app(
     spe = spe_stitched,
