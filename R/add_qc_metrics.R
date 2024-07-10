@@ -80,7 +80,6 @@
 #' )
 #' vis_clus(spe_qc, sample_id = "Br6432_ant", clustervar = "our_low_lib_edge")
 #'
-
 add_qc_metrics <- function(spe, overwrite = FALSE) {
     stopifnot("in_tissue" %in% colnames(colData(spe)))
     stopifnot("sum_umi" %in% colnames(colData(spe)))
@@ -90,13 +89,13 @@ add_qc_metrics <- function(spe, overwrite = FALSE) {
 
     if (!overwrite) {
         new_vars <- c(
-            'scran_discard',
-            'scran_low_lib_size',
-            'scran_low_n_features',
-            'scran_high_Mito_percent',
-            'edge_spot',
-            'edge_distance',
-            'scran_low_lib_size_edge'
+            "scran_discard",
+            "scran_low_lib_size",
+            "scran_low_n_features",
+            "scran_high_Mito_percent",
+            "edge_spot",
+            "edge_distance",
+            "scran_low_lib_size_edge"
         )
         present <- new_vars %in% colnames(colData(spe))
         if (any(present)) {

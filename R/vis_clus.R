@@ -99,32 +99,31 @@
 #'     )
 #'     print(p4)
 #' }
-vis_clus <- function(
-        spe,
-        sampleid = unique(spe$sample_id)[1],
-        clustervar,
-        colors = c(
-            "#b2df8a",
-            "#e41a1c",
-            "#377eb8",
-            "#4daf4a",
-            "#ff7f00",
-            "gold",
-            "#a65628",
-            "#999999",
-            "black",
-            "grey",
-            "white",
-            "purple"
-        ),
-        spatial = TRUE,
-        image_id = "lowres",
-        alpha = NA,
-        point_size = 2,
-        auto_crop = TRUE,
-        na_color = "#CCCCCC40",
-        is_stitched = FALSE,
-        ...) {
+vis_clus <- function(spe,
+    sampleid = unique(spe$sample_id)[1],
+    clustervar,
+    colors = c(
+        "#b2df8a",
+        "#e41a1c",
+        "#377eb8",
+        "#4daf4a",
+        "#ff7f00",
+        "gold",
+        "#a65628",
+        "#999999",
+        "black",
+        "grey",
+        "white",
+        "purple"
+    ),
+    spatial = TRUE,
+    image_id = "lowres",
+    alpha = NA,
+    point_size = 2,
+    auto_crop = TRUE,
+    na_color = "#CCCCCC40",
+    is_stitched = FALSE,
+    ...) {
     #   Verify existence and legitimacy of 'sampleid'
     if (
         !("sample_id" %in% colnames(colData(spe))) ||

@@ -41,12 +41,13 @@
 #'     imgData(img_update(spe, sampleid = "151507", brightness = 25))
 #' }
 img_update <-
-    function(spe,
-    sampleid,
-    image_id = "lowres",
-    new_image_id = paste0("edited_", image_id),
-    overwrite = FALSE,
-    ...) {
+    function(
+        spe,
+        sampleid,
+        image_id = "lowres",
+        new_image_id = paste0("edited_", image_id),
+        overwrite = FALSE,
+        ...) {
         img_data <- SpatialExperiment::imgData(spe)
 
         ## Skip this sample if there's no existing image to update

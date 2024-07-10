@@ -34,14 +34,13 @@
 #' )
 #' head(results_enrichment_nan)
 registration_stats_enrichment <-
-    function(
-        sce_pseudo,
-        block_cor,
-        covars = NULL,
-        var_registration = "registration_variable",
-        var_sample_id = "registration_sample_id",
-        gene_ensembl = NULL,
-        gene_name = NULL) {
+    function(sce_pseudo,
+    block_cor,
+    covars = NULL,
+    var_registration = "registration_variable",
+    var_sample_id = "registration_sample_id",
+    gene_ensembl = NULL,
+    gene_name = NULL) {
         ## For each cluster, test it against the rest
         cluster_idx <- split(seq(along = sce_pseudo[[var_registration]]), sce_pseudo[[var_registration]])
 
