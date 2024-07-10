@@ -1,3 +1,12 @@
+# spatialLIBD 1.17.5
+
+NEW FEATURES
+
+* Added `add_qc_metrics()` inspired by 
+<https://github.com/LieberInstitute/Visium_SPG_AD/blob/master/code/07_spot_qc/01_qc_metrics_and_segmentation.R>
+which adds seven new columns to the `colData(spe)` that can be useful when
+performing quality control of the data. Developed by @lahuuki.
+
 # spatialLIBD 1.17.3
 
 NEW FEATURES
