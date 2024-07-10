@@ -4,47 +4,88 @@
 \alias{add_qc_metrics}
 \title{Quality Control for Spatial Data}
 \usage{
-add_qc_metrics(spe)
+add_qc_metrics(spe, overwrite = FALSE)
 }
 \arguments{
-\item{spe}{a \link[SpatialExperiment:SpatialExperiment]{SpatialExperiment}}
+\item{spe}{a \link[SpatialExperiment:SpatialExperiment]{SpatialExperiment}
+object that has \code{sum_umi}, \code{sum_gene}, \code{expr_chrM_ratio}, and \code{in_tissue}
+variables in the \code{colData(spe)}. Note that these are automatically created
+when you build your \code{spe} object with \code{spatialLIBD::read10xVisiumWrapper()}.}
+
+\item{overwrite}{a \code{logical(1)} specifying whether to overwrite the 7
+\code{colData(spe)} columns that this function creates. If set to \code{FALSE} and any
+of them are present, the function will return an error.}
 }
 \value{
 A \link[SpatialExperiment:SpatialExperiment]{SpatialExperiment}
-with added quiality control information added to the colData.
+with added quality control information added to the \code{colData()}.
+\describe{
+\item{\code{scran_low_lib_size}}{shows spots that have a low library size.}
+\item{\code{scran_low_n_features}}{spots with a low number of expressed genes.}
+\item{\code{scran_high_Mito_percent}}{spots with a high percent of mitochondrial gene expression.}
+\item{\code{scran_discard}}{spots belonging to either \code{scran_low_lib_size},
+\code{scran_low_n_feature}, or \code{scran_high_Mito_percent}.}
+\item{\code{edge_spot}}{spots that are automatically detected as the edge spots
+of the \code{in_tissue} section.}
+\item{\code{edge_distance}}{closest distance in number of spots to either the
+vertical or horizontal edge.}
+\item{\code{scran_low_lib_size_edge}}{spots that have a low library size and
+are an edge spot.}
+}
 }
 \description{
 This function identify spots in a
 \link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class} (SPE)
 with outlier quality control values: low \code{sum_umi} or \code{sum_gene}, or high
-\code{expr_chrM_ratio}, utilizing \code{scran::isOutlier()}. Also identifies in-tissue
+\code{expr_chrM_ratio}, utilizing \link[scuttle:isOutlier]{scuttle::isOutlier}. Also identifies in-tissue
 edge spots and distance to the edge for each spot.
 }
-\examples{
-if (enough_ram()) {
-    ## Obtain the necessary data
-    if (!exists("spe")) spe <- fetch_data("spe")
-
-    ## fake out tissue spots in example data (TODO add pre-qc data)
-    spe_qc <- spe
-    spe_qc$in_tissue[spe_qc$array_col < 10] <- FALSE
-
-    ## adds QC metrics to colData of the spe
-    spe_qc <- add_qc_metrics(spe_qc)
-    colData(spe_qc)
-
-    ## visualize edge spots
-    vis_clus(spe_qc, sampleid = "151507", clustervar = "edge_spot")
-    vis_gene(spe_qc, sampleid = "151507", geneid = "edge_distance", minCount = -1)
-
-    ## visualize scran QC flags
-
-    vis_clus(spe_qc, sample_id = "151507", clustervar = "scran_low_lib_size")
-
-    # scater::plotColData(spe_qc[, spe_qc$in_tissue], x = "sample_id", y = "sum_umi", colour_by = "scran_low_lib_size")
-
-    vis_clus(spe_qc, sampleid = "151507", clustervar = "scran_discard")
-    vis_clus(spe_qc, sampleid = "151507", clustervar = "scran_low_lib_size_edge")
+\details{
+The initial version of this function lives at
+\url{https://github.com/LieberInstitute/Visium_SPG_AD/blob/master/code/07_spot_qc/01_qc_metrics_and_segmentation.R}.
 }
+\examples{
+## Obtain the necessary data
+spe_pre_qc <- fetch_data("spatialDLPFC_Visium_example_subset")
 
+## For now, we fake out tissue spots in example data
+spe_qc <- spe_pre_qc
+spe_qc$in_tissue[spe_qc$array_col < 10] <- FALSE
+
+## adds QC metrics to colData of the spe
+spe_qc <- add_qc_metrics(spe_qc, overwrite = TRUE)
+vars <- colnames(colData(spe_qc))
+vars[grep("^(scran|edge)", vars)]
+
+## visualize edge spots
+vis_clus(spe_qc, sampleid = "Br6432_ant", clustervar = "edge_spot")
+vis_gene(spe_qc, sampleid = "Br6432_ant", geneid = "edge_distance", minCount = -1)
+
+## Visualize scran QC flags
+
+## Check the spots with low library size as detected by scran::isOutlier()
+vis_clus(spe_qc, sample_id = "Br6432_ant", clustervar = "scran_low_lib_size")
+
+## Violin plot of library size with low library size highlighted in a
+## different color.
+scater::plotColData(spe_qc[, spe_qc$in_tissue], x = "sample_id", y = "sum_umi", colour_by = "scran_low_lib_size")
+
+## Check any spots that scran::isOutlier() flagged
+vis_clus(spe_qc, sampleid = "Br6432_ant", clustervar = "scran_discard")
+
+## Low library spots that are on the edge of the tissue
+vis_clus(spe_qc, sampleid = "Br6432_ant", clustervar = "scran_low_lib_size_edge")
+
+## Use `low_library_size` (or other variables) and `edge_distance` as you
+## please.
+spe_qc$our_low_lib_edge <- factor(
+    spe_qc$scran_low_lib_size == "TRUE" &
+        spe_qc$edge_distance < 5,
+    levels = c("TRUE", "FALSE")
+)
+vis_clus(spe_qc, sample_id = "Br6432_ant", clustervar = "our_low_lib_edge")
+
+}
+\author{
+Louise A. Huuki-Myers
 }
