@@ -43,13 +43,12 @@
 #'     ))
 #' }
 add_images <-
-    function(
-        spe,
-        image_dir,
-        image_pattern,
-        image_id_current = "lowres",
-        image_id = image_pattern,
-        image_paths = locate_images(spe, image_dir, image_pattern)) {
+    function(spe,
+    image_dir,
+    image_pattern,
+    image_id_current = "lowres",
+    image_id = image_pattern,
+    image_paths = locate_images(spe, image_dir, image_pattern)) {
         stopifnot(length(names(image_paths)) > 0)
         stopifnot(all(names(image_paths) %in% unique(spe$sample_id)))
         stopifnot(!any(duplicated(names(image_paths))))

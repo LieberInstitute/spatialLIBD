@@ -53,6 +53,7 @@ vis_grid_gene <-
         point_size = 2,
         auto_crop = TRUE,
         na_color = "#CCCCCC40",
+        is_stitched = FALSE,
         ...) {
         stopifnot(all(sample_order %in% unique(spe$sample_id)))
 
@@ -71,6 +72,7 @@ vis_grid_gene <-
                 point_size = point_size,
                 auto_crop = auto_crop,
                 na_color = na_color,
+                is_stitched = is_stitched,
                 ...
             )
         })

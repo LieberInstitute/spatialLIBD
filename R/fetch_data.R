@@ -84,26 +84,30 @@
 #' #> 172.28 MB
 #' }
 fetch_data <-
-    function(type = c(
-        "sce",
-        "sce_layer",
-        "modeling_results",
-        "sce_example",
-        "spe",
-        "spatialDLPFC_Visium",
-        "spatialDLPFC_Visium_example_subset",
-        "spatialDLPFC_Visium_pseudobulk",
-        "spatialDLPFC_Visium_modeling_results",
-        "spatialDLPFC_Visium_SPG",
-        "spatialDLPFC_snRNAseq",
-        "Visium_SPG_AD_Visium_wholegenome_spe",
-        "Visium_SPG_AD_Visium_targeted_spe",
-        "Visium_SPG_AD_Visium_wholegenome_pseudobulk_spe",
-        "Visium_SPG_AD_Visium_wholegenome_modeling_results"
-    ),
-    destdir = tempdir(),
-    eh = ExperimentHub::ExperimentHub(),
-    bfc = BiocFileCache::BiocFileCache()) {
+    function(
+        type = c(
+            "sce",
+            "sce_layer",
+            "modeling_results",
+            "sce_example",
+            "spe",
+            "spatialDLPFC_Visium",
+            "spatialDLPFC_Visium_example_subset",
+            "spatialDLPFC_Visium_pseudobulk",
+            "spatialDLPFC_Visium_modeling_results",
+            "spatialDLPFC_Visium_SPG",
+            "spatialDLPFC_snRNAseq",
+            "Visium_SPG_AD_Visium_wholegenome_spe",
+            "Visium_SPG_AD_Visium_targeted_spe",
+            "Visium_SPG_AD_Visium_wholegenome_pseudobulk_spe",
+            "Visium_SPG_AD_Visium_wholegenome_modeling_results",
+            "Visium_LS_spe",
+            "Visium_LS_spaceranger",
+            "Visium_LS_ImageJ_out"
+        ),
+        destdir = tempdir(),
+        eh = ExperimentHub::ExperimentHub(),
+        bfc = BiocFileCache::BiocFileCache()) {
         ## Some variables
         sce <-
             sce_layer <- modeling_results <- sce_sub <- spe <- NULL
@@ -258,6 +262,30 @@ fetch_data <-
             file_name <- "Visium_IF_AD_modeling_results.Rdata"
             url <-
                 "https://www.dropbox.com/s/5plupu8bj5m0kfh/Visium_IF_AD_modeling_results.Rdata?dl=1"
+        } else if (type == "Visium_LS_spe") {
+            tag <- "VisiumLS_Visium_stitched_spatialLIBD"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "Visium_LS_spe.rds"
+            url <-
+                "https://www.dropbox.com/scl/fi/9re464y6qaojx3r94nq5u/Visium_LS_spe.rds?rlkey=nq6a82u23xuu9hohr86oodwdi&dl=1"
+        } else if (type == "Visium_LS_spaceranger") {
+            tag <- "VisiumLS_Visium_stitched_spatialLIBD"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "Visium_LS_spaceranger.zip"
+            url <-
+                "https://www.dropbox.com/scl/fi/5jdoaukvhq3v7lk19228y/Visium_LS_spaceranger.zip?rlkey=bdgjc6mgy1ierdad6h6v5g29c&dl=1"
+        } else if (type == "Visium_LS_ImageJ_out") {
+            tag <- "VisiumLS_Visium_stitched_spatialLIBD"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "Visium_LS_imagej_out.zip"
+            url <-
+                "https://www.dropbox.com/scl/fi/bevo52e96f2kdwllf8dkk/Visium_LS_imagej_out.zip?rlkey=ptwal8f5zxakzejwd0oqw0lhj&dl=1"
         }
 
         file_path <- file.path(destdir, file_name)

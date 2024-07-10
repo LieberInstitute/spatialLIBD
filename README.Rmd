@@ -70,6 +70,16 @@ spatialLIBD::run_app()
 * [Main shiny application website](http://spatial.libd.org/spatialLIBD/) (note that the link must have a trailing slash `/` for it to work)
 * [Shinyapps](https://libd.shinyapps.io/spatialLIBD/) This version has less RAM memory but is typically deployed using the latest version of `spatialLIBD`.
 
+## Introductory material
+
+If you prefer to watch a video overview of the `HumanPilot` project, check the following journal club presentation of the main results.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qloLbG5-IPM?si=1gO1fujrgSXPfa6F" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen data-external="1"></iframe>
+
+You might also be interested in the explainer video and [companion blog post](https://lcolladotor.github.io/2024/05/23/humanpilot-first-spatially-resolved-transcriptomics-study-using-visium/) as well as [the original Feb 29, 2020 blog post](https://lcolladotor.github.io/2020/02/29/diving-together-into-the-unknown-world-of-spatial-transcriptomics/) from when we first made this project public.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HGioWKuI3ek?si=X-tqtZtcPSV-3uMt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen data-external="1"></iframe>
+
 ## R/Bioconductor package
 
 The `spatialLIBD` package contains functions for:

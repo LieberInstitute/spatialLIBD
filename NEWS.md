@@ -1,3 +1,12 @@
+# spatialLIBD 1.17.3
+
+NEW FEATURES
+
+* Added support for `SpatialExperiment` objects created with
+`visiumStitched::build_spe()` 
+<https://research.libd.org/visiumStitched/reference/build_spe.html> that 
+stitch together multiple Visium capture areas. Developed by @Nick-Eagles.
+
 # spatialLIBD 1.15.2
 
 SIGNIFICANT USER-VISIBLE CHANGES

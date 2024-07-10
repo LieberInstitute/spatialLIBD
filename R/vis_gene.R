@@ -158,21 +158,23 @@
 #'     print(p8)
 #' }
 vis_gene <-
-    function(spe,
-    sampleid = unique(spe$sample_id)[1],
-    geneid = rowData(spe)$gene_search[1],
-    spatial = TRUE,
-    assayname = "logcounts",
-    minCount = 0,
-    viridis = TRUE,
-    image_id = "lowres",
-    alpha = NA,
-    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
-    point_size = 2,
-    auto_crop = TRUE,
-    na_color = "#CCCCCC40",
-    multi_gene_method = c("z_score", "pca", "sparsity"),
-    ...) {
+    function(
+        spe,
+        sampleid = unique(spe$sample_id)[1],
+        geneid = rowData(spe)$gene_search[1],
+        spatial = TRUE,
+        assayname = "logcounts",
+        minCount = 0,
+        viridis = TRUE,
+        image_id = "lowres",
+        alpha = NA,
+        cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
+        point_size = 2,
+        auto_crop = TRUE,
+        na_color = "#CCCCCC40",
+        multi_gene_method = c("z_score", "pca", "sparsity"),
+        is_stitched = FALSE,
+        ...) {
         multi_gene_method <- rlang::arg_match(multi_gene_method)
         #   Verify existence and legitimacy of 'sampleid'
         if (
@@ -192,7 +194,26 @@ vis_gene <-
             stop(sprintf("'%s' is not an assay in 'spe'", assayname), call. = FALSE)
         }
 
+        #   Check validity of spatial coordinates
+        if (!setequal(c("pxl_col_in_fullres", "pxl_row_in_fullres"), colnames(spatialCoords(spe)))) {
+            stop(
+                "Abnormal spatial coordinates: should have 'pxl_row_in_fullres' and 'pxl_col_in_fullres' columns.",
+                call. = FALSE
+            )
+        }
+
         spe_sub <- spe[, spe$sample_id == sampleid]
+
+        if (is_stitched) {
+            #   Drop excluded spots and calculate an appropriate point size
+            temp <- prep_stitched_data(spe_sub, point_size, image_id)
+            spe_sub <- temp$spe
+            point_size <- temp$point_size
+
+            #   Frame limits are poorly defined for stitched data
+            auto_crop <- FALSE
+        }
+
         d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
 
         #   Verify legitimacy of names in geneid

@@ -45,7 +45,7 @@ c(
         url = "https://www.nature.com/articles/s41593-020-00787-0"
     ),
     bibentry(bibtype="article",
-        title = "Integrated single cell and unsupervised spatial transcriptomic analysis defines molecular anatomy of the human dorsolateral prefrontal cortex",
+        title = "A data-driven single-cell and spatial transcriptomic map of the human prefrontal cortex",
         author = personList(
             as.person("Louise A. Huuki-Myers"),
             as.person("Abby Spangler"),
@@ -72,10 +72,10 @@ c(
             as.person("Leonardo Collado-Torres"),
             as.person("Kristen R. Maynard")
         ),
-        year = 2023,
-        journal = "bioRxiv",
-        doi = "10.1101/2023.02.15.528722",
-        url = "https://www.biorxiv.org/content/10.1101/2023.02.15.528722v1"
+        year = 2024,
+        journal = "Science",
+        doi = "10.1126/science.adh1938",
+        url = "https://doi.org/10.1126/science.adh1938"
     ),
     bibentry(bibtype="article",
         title = "Influence of Alzheimer’s disease related neuropathology on local microenvironment gene expression in the human inferior temporal cortex",
@@ -98,8 +98,8 @@ c(
             as.person("Leonardo Collado-Torres")
         ),
         year = 2023,
-        journal = "bioRxiv",
-        doi = "10.1101/2023.04.20.537710",
-        url = "https://www.biorxiv.org/content/10.1101/2023.04.20.537710v1"
+        journal = "GEN Biotechnology",
+        doi = "10.1089/genbio.2023.0019",
+        url = "https://doi.org/10.1089/genbio.2023.0019"
     )
 )

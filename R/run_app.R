@@ -40,6 +40,7 @@
 #' automatically cropping the images. Set this to `FALSE` if your images do not
 #' follow the Visium grid size expectations, which are key for enabling
 #' auto-cropping.
+#' @inheritParams vis_clus
 #' @param ... Other arguments passed to the list of golem options for running
 #' the application.
 #'
@@ -185,6 +186,28 @@
 #' ## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/deploy_app_k09_position_noWM
 #' ## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/deploy_app_k16
 #' ## * https://github.com/LieberInstitute/spatialDLPFC/tree/main/code/analysis_IF/03_spatialLIBD_app
+#'
+#'
+#' ## Example for an object with multiple capture areas stitched together with
+#' ## <http://research.libd.org/visiumStitched/>.
+#' spe_stitched <- fetch_data("Visium_LS_spe")
+#'
+#' ## Inspect this object
+#' spe_stitched
+#'
+#' ## Notice the use of "exclude_overlapping"
+#' table(spe_stitched$exclude_overlapping, useNA = "ifany")
+#'
+#' ## Run the app with this stitched data
+#' run_app(
+#'     spe = spe_stitched,
+#'     sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
+#'     title = "visiumStitched example data",
+#'     spe_discrete_vars = c("capture_area", "scran_quick_cluster", "ManualAnnotation"),
+#'     spe_continuous_vars = c("sum_umi", "sum_gene", "expr_chrM", "expr_chrM_ratio"),
+#'     default_cluster = "scran_quick_cluster",
+#'     is_stitched = TRUE
+#' )
 #' }
 run_app <- function(
         spe = fetch_data(type = "spe"),
@@ -234,10 +257,12 @@ run_app <- function(
         ),
         default_cluster = "spatialLIBD",
         auto_crop_default = TRUE,
+        is_stitched = FALSE,
         ...) {
     ## Run the checks in the relevant order
     stopifnot(length(default_cluster) == 1)
     stopifnot(default_cluster %in% spe_discrete_vars)
+    if (is_stitched) auto_crop_default <- FALSE
 
     spe <-
         check_spe(spe,
@@ -282,6 +307,7 @@ run_app <- function(
             spe_continuous_vars = spe_continuous_vars,
             default_cluster = default_cluster,
             auto_crop_default = auto_crop_default,
+            is_stitched = is_stitched,
             ...
         )
     )
