@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.5</span>
       </span>
     </div>
 
@@ -66,6 +66,11 @@
       <small>Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.17.5" id="spatiallibd-1175">spatialLIBD 1.17.5<a class="anchor" aria-label="anchor" href="#spatiallibd-1175"></a></h2>
+<p>NEW FEATURES</p>
+<ul><li>Added <code><a href="../reference/add_qc_metrics.html">add_qc_metrics()</a></code> inspired by <a href="https://github.com/LieberInstitute/Visium_SPG_AD/blob/master/code/07_spot_qc/01_qc_metrics_and_segmentation.R" class="external-link uri">https://github.com/LieberInstitute/Visium_SPG_AD/blob/master/code/07_spot_qc/01_qc_metrics_and_segmentation.R</a> which adds seven new columns to the <code>colData(spe)</code> that can be useful when performing quality control of the data. Developed by <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a>.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.17.3" id="spatiallibd-1173">spatialLIBD 1.17.3<a class="anchor" aria-label="anchor" href="#spatiallibd-1173"></a></h2>
 <p>NEW FEATURES</p>
@@ -211,7 +216,7 @@
 <ul><li>
 <code><a href="../reference/run_app.html">run_app()</a></code> now offers the option to chose any of the <code><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.html" class="external-link">paletteer::paletteer_d</a></code> color palettes for discrete variables.</li>
 <li>
-<code>Polychrome</code> has been replaced as a dependency by <code>paletteer</code>. Note that <code>Polychrome::palette36</code> is still the default.</li>
+<code>Polychrome</code> has been replaced as a dependency by <code>paletteer</code>. Note that <code><a href="https://rdrr.io/pkg/Polychrome/man/palette36.html" class="external-link">Polychrome::palette36</a></code> is still the default.</li>
 <li>
 <code><a href="../reference/run_app.html">run_app()</a></code> now looks for columns that end with ’_colors’ in their name which can be used to pre-specify colors for any companion variables. For example if you have <code>spe$my_groups</code> and <code>spe$my_groups_colors</code> then the second one can specify the colors that will be used for visualizing <code>spe$my_groups</code>. This makes specifying default colors more flexible than before, and the user is still free to change them if necessary.</li>
 </ul></div>

@@ -18,7 +18,7 @@ names. It can be used to automatically assign colors."><meta property="og:image"
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.5</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@ names. It can be used to automatically assign colors.</p>
     <dl><dt>colors</dt>
 <dd><p>A vector of colors. If <code>NULL</code> then a set of default colors will
 be used when <code>clusters</code> has less than 12 unique values, otherwise
-<code>Polychrome::palette36</code> will be used which can
+<code><a href="https://rdrr.io/pkg/Polychrome/man/palette36.html" class="external-link">Polychrome::palette36</a></code> will be used which can
 generate up to 36 unique colors. If the number of unique clusters is beyond
 36 then this function will fail.</p></dd>
 
@@ -105,27 +105,28 @@ either change the names or use <a href="https://rdrr.io/r/base/unname.html" clas
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Obtain the necessary data</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-03 21:20:58.878645 loading file /github/home/.cache/R/BiocFileCache/26b47375006_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2024-04-29</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:09:17.128082 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/fc1571d8e1fb_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Example layer colors with the corresponding names</span></span></span>
 <span class="r-in"><span><span class="fu">get_colors</span><span class="op">(</span><span class="va">libd_layer_colors</span>, <span class="va">sce_layer</span><span class="op">$</span><span class="va">layer_guess</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        Layer1        Layer2        Layer3        Layer4        Layer5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "#F0027F"     "#377EB8"     "#4DAF4A"     "#984EA3"     "#FFD700" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        Layer6            WM            NA           WM2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "#FF7F00"     "#1A1A1A" "transparent"     "#666666" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        Layer1        Layer2        Layer3        Layer4        Layer5        Layer6            WM </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "#F0027F"     "#377EB8"     "#4DAF4A"     "#984EA3"     "#FFD700"     "#FF7F00"     "#1A1A1A" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            NA           WM2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "transparent"     "#666666" </span>
 <span class="r-in"><span><span class="fu">get_colors</span><span class="op">(</span><span class="va">libd_layer_colors</span>, <span class="va">sce_layer</span><span class="op">$</span><span class="va">layer_guess_reordered_short</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            L1            L2            L3            L4            L5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "#F0027F"     "#377EB8"     "#4DAF4A"     "#984EA3"     "#FFD700" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            L6            WM            NA           WM2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "#FF7F00"     "#1A1A1A" "transparent"     "#666666" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            L1            L2            L3            L4            L5            L6            WM </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "#F0027F"     "#377EB8"     "#4DAF4A"     "#984EA3"     "#FFD700"     "#FF7F00"     "#1A1A1A" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            NA           WM2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "transparent"     "#666666" </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Example where colors are assigned automatically</span></span></span>
 <span class="r-in"><span><span class="co">## based on a pre-defined set of colors</span></span></span>
 <span class="r-in"><span><span class="fu">get_colors</span><span class="op">(</span>clusters <span class="op">=</span> <span class="va">sce_layer</span><span class="op">$</span><span class="va">kmeans_k7</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         1         2         3         4         5         6         7         8 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "#b2df8a" "#e41a1c" "#377eb8" "#4daf4a" "#ff7f00"    "gold" "#a65628" "#999999" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         9        10        11        12 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   "black"    "grey"   "white"  "purple" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         1         2         3         4         5         6         7         8         9 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "#b2df8a" "#e41a1c" "#377eb8" "#4daf4a" "#ff7f00"    "gold" "#a65628" "#999999"   "black" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        10        11        12 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    "grey"   "white"  "purple" </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Example where Polychrome::palette36.colors() gets used</span></span></span>
 <span class="r-in"><span><span class="fu">get_colors</span><span class="op">(</span>clusters <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">13</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>

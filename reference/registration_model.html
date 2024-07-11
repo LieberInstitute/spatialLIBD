@@ -21,7 +21,7 @@ to model it as a categorical variable and not a continuous one."><meta property=
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.5</span>
       </span>
     </div>
 
@@ -125,63 +125,63 @@ your sample-level covariates are being properly modeled.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/example.html" class="external-link">example</a></span><span class="op">(</span><span class="st">"registration_pseudobulk"</span>, package <span class="op">=</span> <span class="st">"spatialLIBD"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Ensure reproducibility of example data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; set.seed(20220907)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; ## Ensure reproducibility of example data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; set.seed(20220907)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Generate example data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce &lt;- scuttle::mockSCE()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; ## Generate example data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; sce &lt;- scuttle::mockSCE()</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Add some sample IDs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce$sample_id &lt;- sample(LETTERS[1:5], ncol(sce), replace = TRUE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; ## Add some sample IDs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; sce$sample_id &lt;- sample(LETTERS[1:5], ncol(sce), replace = TRUE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Add a sample-level covariate: age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ages &lt;- rnorm(5, mean = 20, sd = 4)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; ## Add a sample-level covariate: age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; ages &lt;- rnorm(5, mean = 20, sd = 4)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; names(ages) &lt;- LETTERS[1:5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; names(ages) &lt;- LETTERS[1:5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce$age &lt;- ages[sce$sample_id]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; sce$age &lt;- ages[sce$sample_id]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Add gene-level information</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; rowData(sce)$ensembl &lt;- paste0("ENSG", seq_len(nrow(sce)))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; ## Add gene-level information</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; rowData(sce)$ensembl &lt;- paste0("ENSG", seq_len(nrow(sce)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; rowData(sce)$gene_name &lt;- paste0("gene", seq_len(nrow(sce)))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; rowData(sce)$gene_name &lt;- paste0("gene", seq_len(nrow(sce)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Pseudo-bulk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce_pseudo &lt;- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-03 21:21:56.706004 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-03 21:21:56.926285 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-03 21:21:56.98008 normalize expression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; ## Pseudo-bulk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; sce_pseudo &lt;- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:00.438993 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:00.529084 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:00.555515 normalize expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; colData(sce_pseudo)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; colData(sce_pseudo)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 8 columns</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      Mutation_Status  Cell_Cycle   Treatment   sample_id       age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0              NA          G0          NA           A   19.1872</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0              NA          G0          NA           B   25.3496</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0              NA          G0          NA           C   24.1802</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0              NA          G0          NA           D   15.5211</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0              NA          G0          NA           E   20.9701</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...              ...         ...         ...         ...       ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_S               NA           S          NA           A   19.1872</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_S               NA           S          NA           B   25.3496</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_S               NA           S          NA           C   24.1802</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_S               NA           S          NA           D   15.5211</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_S               NA           S          NA           E   20.9701</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variable registration_sample_id    ncells</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;character&gt;            &lt;character&gt; &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0                    G0                      A         8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0                    G0                      B        13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0                    G0                      C         9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0                    G0                      D         7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0                    G0                      E        10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                    ...                    ...       ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_S                      S                      A        12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_S                      S                      B         8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_S                      S                      C         7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_S                      S                      D        14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_S                      S                      E        11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Mutation_Status  Cell_Cycle   Treatment   sample_id       age registration_variable</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;numeric&gt;           &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0              NA          G0          NA           A   19.1872                    G0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0              NA          G0          NA           B   25.3496                    G0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0              NA          G0          NA           C   24.1802                    G0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0              NA          G0          NA           D   15.5211                    G0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0              NA          G0          NA           E   20.9701                    G0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...              ...         ...         ...         ...       ...                   ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_S               NA           S          NA           A   19.1872                     S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_S               NA           S          NA           B   25.3496                     S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_S               NA           S          NA           C   24.1802                     S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_S               NA           S          NA           D   15.5211                     S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_S               NA           S          NA           E   20.9701                     S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      registration_sample_id    ncells</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 &lt;character&gt; &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0                      A         8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0                      B        13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0                      C         9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0                      D         7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0                      E        10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                     ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_S                       A        12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_S                       B         8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_S                       C         7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_S                       D        14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_S                       E        11</span>
 <span class="r-in"><span><span class="va">registration_mod</span> <span class="op">&lt;-</span> <span class="fu">registration_model</span><span class="op">(</span><span class="va">sce_pseudo</span>, <span class="st">"age"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-03 21:21:57.052301 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:00.595729 create model matrix</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">registration_mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variableG0 registration_variableG1 registration_variableG2M</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_G0                       1                       0                        0</span>

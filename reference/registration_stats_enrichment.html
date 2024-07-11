@@ -19,7 +19,7 @@ registration with layer_stat_cor() and related functions."><meta property="og:im
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.5</span>
       </span>
     </div>
 
@@ -144,70 +144,70 @@ similar to <code>fetch_data("modeling_results")$enrichment</code>.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/example.html" class="external-link">example</a></span><span class="op">(</span><span class="st">"registration_block_cor"</span>, package <span class="op">=</span> <span class="st">"spatialLIBD"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgst__&gt; example("registration_model", package = "spatialLIBD")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgst__devel &gt; example("registration_model", package = "spatialLIBD")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; example("registration_pseudobulk", package = "spatialLIBD")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; example("registration_pseudobulk", package = "spatialLIBD")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Ensure reproducibility of example data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; set.seed(20220907)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; ## Ensure reproducibility of example data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; set.seed(20220907)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Generate example data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce &lt;- scuttle::mockSCE()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; ## Generate example data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; sce &lt;- scuttle::mockSCE()</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Add some sample IDs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce$sample_id &lt;- sample(LETTERS[1:5], ncol(sce), replace = TRUE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; ## Add some sample IDs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; sce$sample_id &lt;- sample(LETTERS[1:5], ncol(sce), replace = TRUE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Add a sample-level covariate: age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ages &lt;- rnorm(5, mean = 20, sd = 4)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; ## Add a sample-level covariate: age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; ages &lt;- rnorm(5, mean = 20, sd = 4)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; names(ages) &lt;- LETTERS[1:5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; names(ages) &lt;- LETTERS[1:5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce$age &lt;- ages[sce$sample_id]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; sce$age &lt;- ages[sce$sample_id]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Add gene-level information</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; rowData(sce)$ensembl &lt;- paste0("ENSG", seq_len(nrow(sce)))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; ## Add gene-level information</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; rowData(sce)$ensembl &lt;- paste0("ENSG", seq_len(nrow(sce)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; rowData(sce)$gene_name &lt;- paste0("gene", seq_len(nrow(sce)))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; rowData(sce)$gene_name &lt;- paste0("gene", seq_len(nrow(sce)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Pseudo-bulk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce_pseudo &lt;- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-03 21:22:00.575987 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-03 21:22:00.757533 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-03 21:22:00.810531 normalize expression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; ## Pseudo-bulk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; sce_pseudo &lt;- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:02.664154 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:02.746224 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:02.789414 normalize expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; colData(sce_pseudo)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; colData(sce_pseudo)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 8 columns</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      Mutation_Status  Cell_Cycle   Treatment   sample_id       age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;numeric&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0              NA          G0          NA           A   19.1872</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0              NA          G0          NA           B   25.3496</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0              NA          G0          NA           C   24.1802</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0              NA          G0          NA           D   15.5211</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0              NA          G0          NA           E   20.9701</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...              ...         ...         ...         ...       ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_S               NA           S          NA           A   19.1872</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_S               NA           S          NA           B   25.3496</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_S               NA           S          NA           C   24.1802</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_S               NA           S          NA           D   15.5211</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_S               NA           S          NA           E   20.9701</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variable registration_sample_id    ncells</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;character&gt;            &lt;character&gt; &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0                    G0                      A         8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0                    G0                      B        13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0                    G0                      C         9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0                    G0                      D         7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0                    G0                      E        10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                    ...                    ...       ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_S                      S                      A        12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_S                      S                      B         8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_S                      S                      C         7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_S                      S                      D        14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_S                      S                      E        11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Mutation_Status  Cell_Cycle   Treatment   sample_id       age registration_variable</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;numeric&gt;           &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0              NA          G0          NA           A   19.1872                    G0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0              NA          G0          NA           B   25.3496                    G0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0              NA          G0          NA           C   24.1802                    G0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0              NA          G0          NA           D   15.5211                    G0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0              NA          G0          NA           E   20.9701                    G0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...              ...         ...         ...         ...       ...                   ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_S               NA           S          NA           A   19.1872                     S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_S               NA           S          NA           B   25.3496                     S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_S               NA           S          NA           C   24.1802                     S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_S               NA           S          NA           D   15.5211                     S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_S               NA           S          NA           E   20.9701                     S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      registration_sample_id    ncells</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 &lt;character&gt; &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0                      A         8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0                      B        13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0                      C         9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0                      D         7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0                      E        10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                     ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_S                       A        12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_S                       B         8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_S                       C         7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_S                       D        14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_S                       E        11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; registration_mod &lt;- registration_model(sce_pseudo, "age")</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-03 21:22:00.882807 create model matrix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; registration_mod &lt;- registration_model(sce_pseudo, "age")</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:02.828205 create model matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; head(registration_mod)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel &gt; head(registration_mod)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variableG0 registration_variableG1 registration_variableG2M</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_G0                       1                       0                        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> B_G0                       1                       0                        0</span>
@@ -223,67 +223,67 @@ similar to <code>fetch_data("modeling_results")$enrichment</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> E_G0                      0 20.97006</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_G1                      0 19.18719</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgst__&gt; block_cor &lt;- registration_block_cor(sce_pseudo, registration_mod)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-03 21:22:00.893758 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-03 21:22:02.166489 The estimated correlation is: -0.0187869166526901</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgst__devel &gt; block_cor &lt;- registration_block_cor(sce_pseudo, registration_mod)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:02.833594 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:03.367088 The estimated correlation is: -0.0187869166526901</span>
 <span class="r-in"><span><span class="va">results_enrichment</span> <span class="op">&lt;-</span> <span class="fu">registration_stats_enrichment</span><span class="op">(</span><span class="va">sce_pseudo</span>,</span></span>
 <span class="r-in"><span>    <span class="va">block_cor</span>, <span class="st">"age"</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-03 21:22:02.170216 computing enrichment statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-03 21:22:02.286454 extract and reformat enrichment results</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:03.371203 computing enrichment statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:03.417578 extract and reformat enrichment results</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_enrichment</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            t_stat_G0  t_stat_G1 t_stat_G2M   t_stat_S p_value_G0 p_value_G1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001  0.1482017  0.5610669 -0.3612235 -0.3458508 0.88374480 0.58130631</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002  1.1913621 -0.4218015  0.1861521 -0.9362781 0.24817889 0.67790173</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003  0.3911563 -0.1708744 -1.1308523  0.8936891 0.70003266 0.86612822</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004 -0.2261922  0.7745193 -0.3413959 -0.1966017 0.82346696 0.44815103</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005 -2.8506769  0.0763176  1.3501762  1.0489289 0.01022576 0.93996395</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006  0.6567980 -2.0933725  1.9447842 -0.5422089 0.51918624 0.04995892</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           p_value_G2M p_value_S    fdr_G0    fdr_G1   fdr_G2M     fdr_S</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001   0.7219173 0.7332538 0.9877448 0.9964804 0.9852245 0.9874654</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002   0.8542983 0.3608759 0.9610612 0.9964804 0.9852245 0.9419020</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003   0.2721883 0.3826660 0.9875616 0.9964804 0.9380488 0.9419020</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004   0.7365517 0.8462264 0.9875616 0.9964804 0.9852245 0.9874654</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005   0.1928228 0.3073674 0.8705766 0.9964804 0.9327794 0.9354977</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006   0.0667520 0.5939759 0.9715681 0.9964804 0.9059695 0.9745520</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             logFC_G0    logFC_G1  logFC_G2M    logFC_S ensembl  gene</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001  0.0714226  0.26841193 -0.1735825 -0.1662520   ENSG1 gene1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002  1.1391547 -0.41614757  0.1843559 -0.9073630   ENSG2 gene2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003  0.0746434 -0.03279529 -0.2096408  0.1677927   ENSG3 gene3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004 -0.1509837  0.50974778 -0.2274905 -0.1312736   ENSG4 gene4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005 -2.2969018  0.07345877  1.2416624  0.9817806   ENSG5 gene5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006  0.3707513 -1.07744072  1.0138450 -0.3071555   ENSG6 gene6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            t_stat_G0  t_stat_G1 t_stat_G2M   t_stat_S p_value_G0 p_value_G1 p_value_G2M p_value_S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001  0.1482017  0.5610669 -0.3612235 -0.3458508 0.88374480 0.58130631   0.7219173 0.7332538</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002  1.1913621 -0.4218015  0.1861521 -0.9362781 0.24817889 0.67790173   0.8542983 0.3608759</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003  0.3911563 -0.1708744 -1.1308523  0.8936891 0.70003266 0.86612822   0.2721883 0.3826660</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004 -0.2261922  0.7745193 -0.3413959 -0.1966017 0.82346696 0.44815103   0.7365517 0.8462264</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005 -2.8506769  0.0763176  1.3501762  1.0489289 0.01022576 0.93996395   0.1928228 0.3073674</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006  0.6567980 -2.0933725  1.9447842 -0.5422089 0.51918624 0.04995892   0.0667520 0.5939759</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              fdr_G0    fdr_G1   fdr_G2M     fdr_S   logFC_G0    logFC_G1  logFC_G2M    logFC_S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001 0.9877448 0.9964804 0.9852245 0.9874654  0.0714226  0.26841193 -0.1735825 -0.1662520</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002 0.9610612 0.9964804 0.9852245 0.9419020  1.1391547 -0.41614757  0.1843559 -0.9073630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003 0.9875616 0.9964804 0.9380488 0.9419020  0.0746434 -0.03279529 -0.2096408  0.1677927</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004 0.9875616 0.9964804 0.9852245 0.9874654 -0.1509837  0.50974778 -0.2274905 -0.1312736</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005 0.8705766 0.9964804 0.9327794 0.9354977 -2.2969018  0.07345877  1.2416624  0.9817806</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006 0.9715681 0.9964804 0.9059695 0.9745520  0.3707513 -1.07744072  1.0138450 -0.3071555</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           ensembl  gene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001   ENSG1 gene1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002   ENSG2 gene2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003   ENSG3 gene3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004   ENSG4 gene4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005   ENSG5 gene5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006   ENSG6 gene6</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Specifying `block_cor = NaN` then ignores the correlation structure</span></span></span>
 <span class="r-in"><span><span class="va">results_enrichment_nan</span> <span class="op">&lt;-</span> <span class="fu">registration_stats_enrichment</span><span class="op">(</span><span class="va">sce_pseudo</span>,</span></span>
 <span class="r-in"><span>    block_cor <span class="op">=</span> <span class="cn">NaN</span>, <span class="st">"age"</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-03 21:22:02.318868 computing enrichment statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-03 21:22:02.420505 extract and reformat enrichment results</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:03.430109 computing enrichment statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:03.47337 extract and reformat enrichment results</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_enrichment_nan</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            t_stat_G0   t_stat_G1 t_stat_G2M   t_stat_S p_value_G0 p_value_G1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001  0.1497747  0.56711100 -0.3650801 -0.3495404 0.88252049 0.57727506</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002  1.2045227 -0.42617266  0.1880666 -0.9463404 0.24317510 0.67476888</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003  0.3947677 -0.17243577 -1.1419417  0.9022243 0.69740991 0.86491760</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004 -0.2301639  0.78851532 -0.3474114 -0.2000511 0.82042384 0.44011889</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005 -2.8587641  0.07646923  1.3531129  1.0511322 0.01004623 0.93984490</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006  0.6606524 -2.10817213  1.9581833 -0.5453678 0.51676445 0.04851534</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           p_value_G2M p_value_S    fdr_G0    fdr_G1   fdr_G2M     fdr_S</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001  0.71908334 0.7305269 0.9869999 0.9961051 0.9838800 0.9869894</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002  0.85281819 0.3558526 0.9512827 0.9961051 0.9838800 0.9361872</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003  0.26766387 0.3782304 0.9863868 0.9961051 0.9269203 0.9361872</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004  0.73210050 0.8435656 0.9863868 0.9961051 0.9838800 0.9869894</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005  0.19189934 0.3063803 0.8538025 0.9961051 0.9167840 0.9269610</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006  0.06505398 0.5918443 0.9659963 0.9961051 0.8763496 0.9719602</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             logFC_G0    logFC_G1  logFC_G2M    logFC_S ensembl  gene</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001  0.0714226  0.26841193 -0.1735825 -0.1662520   ENSG1 gene1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002  1.1391547 -0.41614757  0.1843559 -0.9073630   ENSG2 gene2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003  0.0746434 -0.03279529 -0.2096408  0.1677927   ENSG3 gene3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004 -0.1509837  0.50974778 -0.2274905 -0.1312736   ENSG4 gene4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005 -2.2969018  0.07345877  1.2416624  0.9817806   ENSG5 gene5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006  0.3707513 -1.07744072  1.0138450 -0.3071555   ENSG6 gene6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            t_stat_G0   t_stat_G1 t_stat_G2M   t_stat_S p_value_G0 p_value_G1 p_value_G2M p_value_S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001  0.1497747  0.56711100 -0.3650801 -0.3495404 0.88252049 0.57727506  0.71908334 0.7305269</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002  1.2045227 -0.42617266  0.1880666 -0.9463404 0.24317510 0.67476888  0.85281819 0.3558526</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003  0.3947677 -0.17243577 -1.1419417  0.9022243 0.69740991 0.86491760  0.26766387 0.3782304</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004 -0.2301639  0.78851532 -0.3474114 -0.2000511 0.82042384 0.44011889  0.73210050 0.8435656</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005 -2.8587641  0.07646923  1.3531129  1.0511322 0.01004623 0.93984490  0.19189934 0.3063803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006  0.6606524 -2.10817213  1.9581833 -0.5453678 0.51676445 0.04851534  0.06505398 0.5918443</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              fdr_G0    fdr_G1   fdr_G2M     fdr_S   logFC_G0    logFC_G1  logFC_G2M    logFC_S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001 0.9869999 0.9961051 0.9838800 0.9869894  0.0714226  0.26841193 -0.1735825 -0.1662520</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002 0.9512827 0.9961051 0.9838800 0.9361872  1.1391547 -0.41614757  0.1843559 -0.9073630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003 0.9863868 0.9961051 0.9269203 0.9361872  0.0746434 -0.03279529 -0.2096408  0.1677927</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004 0.9863868 0.9961051 0.9838800 0.9869894 -0.1509837  0.50974778 -0.2274905 -0.1312736</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005 0.8538025 0.9961051 0.9167840 0.9269610 -2.2969018  0.07345877  1.2416624  0.9817806</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006 0.9659963 0.9961051 0.8763496 0.9719602  0.3707513 -1.07744072  1.0138450 -0.3071555</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           ensembl  gene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001   ENSG1 gene1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002   ENSG2 gene2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003   ENSG3 gene3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004   ENSG4 gene4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005   ENSG5 gene5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0006   ENSG6 gene6</span>
 </code></pre></div>
     </div>
   </div>
