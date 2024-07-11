@@ -98,7 +98,6 @@ if (enough_ram()) {
     df <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
     df$COUNT <- df$expr_chrM_ratio
 
-    ## Use the manual color palette by Lukas M Weber
     ## Don't plot the histology information
     p <- vis_gene_p(
         spe = spe_sub,
