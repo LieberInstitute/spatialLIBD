@@ -80,6 +80,9 @@
 #' )
 #' vis_clus(spe_qc, sample_id = "Br6432_ant", clustervar = "our_low_lib_edge")
 #'
+#' ## Clean up
+#' rm(spe_qc, spec_pre_qc)
+#'
 add_qc_metrics <- function(spe, overwrite = FALSE) {
     stopifnot("in_tissue" %in% colnames(colData(spe)))
     stopifnot("sum_umi" %in% colnames(colData(spe)))

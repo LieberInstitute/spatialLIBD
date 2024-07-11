@@ -85,6 +85,9 @@ spe_qc$our_low_lib_edge <- factor(
 )
 vis_clus(spe_qc, sample_id = "Br6432_ant", clustervar = "our_low_lib_edge")
 
+## Clean up
+rm(spe_qc, spec_pre_qc)
+
 }
 \author{
 Louise A. Huuki-Myers
