@@ -59,6 +59,18 @@ vars[grep("^(scran|edge)", vars)]
 
 ## visualize edge spots
 vis_clus(spe_qc, sampleid = "Br6432_ant", clustervar = "edge_spot")
+
+## specify your own colors
+vis_clus(
+    spe_qc,
+    sampleid = "Br6432_ant",
+    clustervar = "edge_spot",
+    colors = c(
+        "TRUE" = "lightgreen",
+        "FALSE" = "pink",
+        "NA" = "red"
+    )
+)
 vis_gene(spe_qc, sampleid = "Br6432_ant", geneid = "edge_distance", minCount = -1)
 
 ## Visualize scran QC flags
@@ -78,11 +90,8 @@ vis_clus(spe_qc, sampleid = "Br6432_ant", clustervar = "scran_low_lib_size_edge"
 
 ## Use `low_library_size` (or other variables) and `edge_distance` as you
 ## please.
-spe_qc$our_low_lib_edge <- factor(
-    spe_qc$scran_low_lib_size == "TRUE" &
-        spe_qc$edge_distance < 5,
-    levels = c("TRUE", "FALSE")
-)
+spe_qc$our_low_lib_edge <- spe_qc$scran_low_lib_size & spe_qc$edge_distance < 5
+
 vis_clus(spe_qc, sample_id = "Br6432_ant", clustervar = "our_low_lib_edge")
 
 ## Clean up

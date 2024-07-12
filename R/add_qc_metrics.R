@@ -54,6 +54,18 @@
 #'
 #' ## visualize edge spots
 #' vis_clus(spe_qc, sampleid = "Br6432_ant", clustervar = "edge_spot")
+#'
+#' ## specify your own colors
+#' vis_clus(
+#'     spe_qc,
+#'     sampleid = "Br6432_ant",
+#'     clustervar = "edge_spot",
+#'     colors = c(
+#'         "TRUE" = "lightgreen",
+#'         "FALSE" = "pink",
+#'         "NA" = "red"
+#'     )
+#' )
 #' vis_gene(spe_qc, sampleid = "Br6432_ant", geneid = "edge_distance", minCount = -1)
 #'
 #' ## Visualize scran QC flags
@@ -73,11 +85,8 @@
 #'
 #' ## Use `low_library_size` (or other variables) and `edge_distance` as you
 #' ## please.
-#' spe_qc$our_low_lib_edge <- factor(
-#'     spe_qc$scran_low_lib_size == "TRUE" &
-#'         spe_qc$edge_distance < 5,
-#'     levels = c("TRUE", "FALSE")
-#' )
+#' spe_qc$our_low_lib_edge <- spe_qc$scran_low_lib_size & spe_qc$edge_distance < 5
+#'
 #' vis_clus(spe_qc, sample_id = "Br6432_ant", clustervar = "our_low_lib_edge")
 #'
 #' ## Clean up
@@ -136,27 +145,19 @@ add_qc_metrics <- function(spe, overwrite = FALSE) {
     ## discard
     spe$scran_discard <- NA
     spe$scran_discard[which(spe$in_tissue)] <- qcfilter$discard
-    spe$scran_discard <- factor(spe$scran_discard, levels = c("TRUE", "FALSE"))
 
     ## low_lib_size
     spe$scran_low_lib_size <- NA
     spe$scran_low_lib_size[which(spe$in_tissue)] <- qcfilter$low_lib_size
-    spe$scran_low_lib_size <- factor(spe$scran_low_lib_size,
-        levels = c("TRUE", "FALSE")
-    )
+
     ## low_n_features
     spe$scran_low_n_features <- NA
     spe$scran_low_n_features[which(spe$in_tissue)] <- qcfilter$low_n_features
-    spe$scran_low_n_features <- factor(spe$scran_low_n_features,
-        levels = c("TRUE", "FALSE")
-    )
 
     ## high mito percent
     spe$scran_high_Mito_percent <- NA
     spe$scran_high_Mito_percent[which(spe$in_tissue)] <-
         qcfilter$high_subsets_Mito_percent
-    spe$scran_high_Mito_percent <-
-        factor(spe$scran_high_Mito_percent, levels = c("TRUE", "FALSE"))
 
     ## Find edge spots
     # define variables
@@ -192,14 +193,12 @@ add_qc_metrics <- function(spe, overwrite = FALSE) {
     ## Add Edge info to spe
     spe$edge_spot <- NA
     spe$edge_spot[which(spe$in_tissue)] <- spot_coords$edge_spot
-    spe$edge_spot <- factor(spe$edge_spot, levels = c("TRUE", "FALSE"))
 
     spe$edge_distance <- NA
     spe$edge_distance[which(spe$in_tissue)] <- spot_coords$edge_distance
 
     spe$scran_low_lib_size_edge <- NA
     spe$scran_low_lib_size_edge[which(spe$in_tissue)] <- qcfilter$low_lib_size & spot_coords$edge_spot
-    spe$scran_low_lib_size_edge <- factor(spe$scran_low_lib_size_edge, levels = c("TRUE", "FALSE"))
 
     return(spe)
 }
