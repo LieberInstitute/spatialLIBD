@@ -1,3 +1,14 @@
+# spatialLIBD 1.17.6
+
+BUG FIXES
+
+* Fixed the bug reported by @lahuuki about `vis_grid_clus()` not handling
+`logical()` cluster variables.
+See <https://github.com/LieberInstitute/spatialLIBD/issues/80>. To resolve this,
+`sort_clusters()` and `get_colors()` had to change internally. Examples and
+documentation for both functions have now been updated to showcase what happens
+when you provide a `logical()` vector as an input.
+
 # spatialLIBD 1.17.5
 
 NEW FEATURES

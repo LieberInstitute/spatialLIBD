@@ -31,6 +31,17 @@
 #'
 #' ## Example where Polychrome::palette36.colors() gets used
 #' get_colors(clusters = letters[seq_len(13)])
+#'
+#' ## What happens if you have a logical variable with NAs?
+#' set.seed(20240712)
+#' log_var <- sample(c(TRUE, FALSE, NA),
+#'     1000,
+#'     replace = TRUE,
+#'     prob = c(0.3, 0.15, 0.55))
+#' log_var_sorted <- sort_clusters(log_var)
+#' ## A color does get assigned to 'NA', but will be overwritten by
+#' ## 'na_color' passed to `vis_clus_p()` and related functions.
+#' get_colors(colors = NULL, clusters = log_var_sorted)
 get_colors <- function(colors = NULL, clusters) {
     n_clus <- length(unique(clusters))
 
@@ -67,7 +78,12 @@ get_colors <- function(colors = NULL, clusters) {
                     "purple"
                 )
             }
-        names(colors) <- seq_len(length(colors))
+        ## Subset to the actual number of values if we are working with < 12
+        colors <- colors[seq_len(n_clus)]
+
+        ## Set the names of the colors in a way compatible with how names
+        ## are set in vis_clus_p().
+        names(colors) <- levels(factor(clusters))
     } else if (all(unique(as.character(clusters)) %in% c(gsub("ayer", "", names(colors)), NA))) {
         names(colors) <- gsub("ayer", "", names(colors))
     }
