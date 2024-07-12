@@ -20,7 +20,7 @@ object."><meta property="og:image" content="/logo.png"><!-- mathjax --><script s
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.6</span>
       </span>
     </div>
 
@@ -138,195 +138,260 @@ with the imported clusters appended on the <code>colData()</code>.</p>
 <span class="r-in"><span>    <span class="fu">colData</span><span class="op">(</span><span class="fu">cluster_import</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2024-04-29</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:08:32.632255 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/6f56656adcb_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-12 13:31:32.144977 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/6f56656adcb_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/var/folders/_2/hqcmhc1d1bl3lqxgcrkpv8_00000gn/T//RtmpCGZyme/exported_clusters/spatialLIBD' already exists</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/var/folders/_2/hqcmhc1d1bl3lqxgcrkpv8_00000gn/T//RtmpaEDqcP/exported_clusters/spatialLIBD' already exists</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/var/folders/_2/hqcmhc1d1bl3lqxgcrkpv8_00000gn/T//RtmpCGZyme/exported_clusters/GraphBased' already exists</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'/var/folders/_2/hqcmhc1d1bl3lqxgcrkpv8_00000gn/T//RtmpaEDqcP/exported_clusters/GraphBased' already exists</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Overwriting 'spe$key'. Set 'overwrite = FALSE' if you do not want to overwrite it.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 47681 rows and 71 columns</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                       key   sample_id   Cluster   sum_umi  sum_gene     subject</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                               &lt;character&gt; &lt;character&gt; &lt;integer&gt; &lt;numeric&gt; &lt;integer&gt; &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1 AAACAACGAATAGTTC-1_1..      151507         6       948       727      Br5292</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1 AAACAAGTATCTCCCA-1_1..      151507         3      4261      2170      Br5292</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1 AAACAATCTACTAGCA-1_1..      151507         2      1969      1093      Br5292</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1 AAACACCAATAACTGC-1_1..      151507         5      3368      1896      Br5292</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1 AAACAGCTTTCAGAAG-1_1..      151507         1      2981      1620      Br5292</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                                   ...         ...       ...       ...       ...         ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1 TTGTTGTGTGTCAAGA-1_1..      151676         5      2880      1638      Br8100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1 TTGTTTCACATCCAGG-1_1..      151676         2      2640      1526      Br8100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1 TTGTTTCATTAGTCTA-1_1..      151676         2      2063      1279      Br8100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1 TTGTTTCCATACAACT-1_1..      151676         7      1031       748      Br8100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1 TTGTTTGTGTAAATTC-1_1..      151676         1      2625      1392      Br8100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                       position   replicate subject_position   discard cell_count SNN_k50_k4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    &lt;character&gt; &lt;character&gt;      &lt;character&gt; &lt;logical&gt;  &lt;integer&gt;  &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1           0           1      Br5292_pos0     FALSE          0          1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1           0           1      Br5292_pos0     FALSE          3          1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1           0           1      Br5292_pos0     FALSE          2          3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1           0           1      Br5292_pos0     FALSE          5          2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1           0           1      Br5292_pos0     FALSE          3          1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                        ...         ...              ...       ...        ...        ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1         300           2    Br8100_pos300     FALSE          1          1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1         300           2    Br8100_pos300     FALSE          6          2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1         300           2    Br8100_pos300     FALSE          9          2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1         300           2    Br8100_pos300     FALSE          2          1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1         300           2    Br8100_pos300     FALSE          0          1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    SNN_k50_k5 SNN_k50_k6 SNN_k50_k7 SNN_k50_k8 SNN_k50_k9 SNN_k50_k10 SNN_k50_k11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     &lt;integer&gt;  &lt;integer&gt;  &lt;integer&gt;  &lt;integer&gt;  &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1          1          1          3          3          4           4           5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1          1          1          1          1          1           1           4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1          2          3          4          4          5           5           6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1          3          4          5          8          9          10          11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1          1          1          1          1          3           3           3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                       ...        ...        ...        ...        ...         ...         ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1          1          1          1          1          1           1           4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1          3          4          5          6          7           8           9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1          3          4          5          6          7           8           9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1          1          1          1          1          3           3           3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1          1          2          2          2          2           2           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    SNN_k50_k12 SNN_k50_k13 SNN_k50_k14 SNN_k50_k15 SNN_k50_k16 SNN_k50_k17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1           5           5           6           7           7           9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1           4           4           4           3           3           3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1           6           6           7           8           8           7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1          10           9          10          11          11          12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1           3           3           3           2           2           2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                        ...         ...         ...         ...         ...         ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1           4           4           4           3           3           3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1           8           8           9          10          10          11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1           8           8           9          10          10          11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1           3           3           3           2           2           2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1           1           1           1           5           5           5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    SNN_k50_k18 SNN_k50_k19 SNN_k50_k20 SNN_k50_k21 SNN_k50_k22 SNN_k50_k23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1          10          10          10          10          11          11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1           2           2           2           2           1           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1           8           8           8           8           9           9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1          13          12          11          11          12          20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1           1           1           1           1           6           6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                        ...         ...         ...         ...         ...         ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1           2           2           2           2           1           1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1          12          18          18          17          18          17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1          12          15          15          14          15          14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1           1           1           1           1           6           6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1           5           5           5           5           4           4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    SNN_k50_k24 SNN_k50_k25 SNN_k50_k26 SNN_k50_k27 SNN_k50_k28 GraphBased  Maynard</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;  &lt;integer&gt; &lt;factor&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1          11          12          13          13          14          6       WM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1           1           6           5           5           4          3       6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1           9           9           9           9           9          2       1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1          20          21          22          21          22          5       5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1           6           5           4           4           3          1       4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                        ...         ...         ...         ...         ...        ...      ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1           1          10          10          10          10          5       5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1          17          18          19          18          19          2       WM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1          13          14          15          15          16          2       WM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1           6           5           4           4           3          7       6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1           4           3           3           3           2          1       1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    Martinowich layer_guess layer_guess_reordered layer_guess_reordered_short</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                       &lt;factor&gt;    &lt;factor&gt;              &lt;factor&gt;                    &lt;factor&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1          WM      Layer1                Layer1                          L1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1          6       Layer3                Layer3                          L3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1          1       Layer1                Layer1                          L1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1          5       WM                    WM                              WM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1          4       Layer6                Layer6                          L6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                        ...         ...                   ...                         ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1          4       Layer6                Layer6                          L6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1          WM      WM                    WM                              WM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1          WM      WM                    WM                              WM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1          6       Layer6                Layer6                          L6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1          1       Layer1                Layer1                          L1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    expr_chrM expr_chrM_ratio SpatialDE_PCA SpatialDE_pool_PCA   HVG_PCA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    &lt;numeric&gt;       &lt;numeric&gt;     &lt;integer&gt;          &lt;integer&gt; &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1        88       0.0928270             4                  5         3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1       657       0.1541892             2                  3         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1       431       0.2188928             4                  4         4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1       272       0.0807601             6                  7         6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1       502       0.1683999             1                  1         3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                      ...             ...           ...                ...       ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1       475        0.164931             1                  2         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1       320        0.121212             5                  5         4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1       262        0.127000             5                  5         4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1       161        0.156159             4                  8         6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1       667        0.254095             1                  1         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    pseudobulk_PCA markers_PCA SpatialDE_UMAP SpatialDE_pool_UMAP  HVG_UMAP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         &lt;integer&gt;   &lt;integer&gt;      &lt;integer&gt;           &lt;integer&gt; &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1              5           4              1                   2         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1              2           2              1                   3         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1              4           8              2                   4         5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1              6           8              5                   7         7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1              1           1              2                   3         6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                           ...         ...            ...                 ...       ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1              2           1              1                   3         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1              5           6              4                   5         5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1              4           1              4                   5         7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1              2           3              1                   2         3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1              7           4              2                   1         4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    pseudobulk_UMAP markers_UMAP SpatialDE_PCA_spatial SpatialDE_pool_PCA_spatial</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          &lt;integer&gt;    &lt;integer&gt;             &lt;integer&gt;                  &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1               3            1                     3                          5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1               2            1                     4                          1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1               3            6                     3                          4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1               7            1                     7                          6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1               1            1                     1                          2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                            ...          ...                   ...                        ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1               2            3                     1                          1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1               6            1                     5                          5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1               4            2                     5                          5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1               3            1                     4                          8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1               2            6                     2                          2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    HVG_PCA_spatial pseudobulk_PCA_spatial markers_PCA_spatial</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          &lt;integer&gt;              &lt;integer&gt;           &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1               5                      4                   3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1               2                      3                   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1               3                      5                   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1               7                      7                   7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1               1                      1                   2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                            ...                    ...                 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1               4                      2                   6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1               5                      4                   4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1               5                      4                   2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1               2                      2                   4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1               1                      3                   2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    SpatialDE_UMAP_spatial SpatialDE_pool_UMAP_spatial HVG_UMAP_spatial</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 &lt;integer&gt;                   &lt;integer&gt;        &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1                      1                           1                1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1                      2                           2                1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1                      2                           1                4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1                      7                           8                7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1                      8                           2                8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                                   ...                         ...              ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1                      6                           1                4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1                      5                           5                5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1                      5                           5                8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1                      2                           3                2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1                      1                           2                1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    pseudobulk_UMAP_spatial markers_UMAP_spatial spatialLIBD ManualAnnotation</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                  &lt;integer&gt;            &lt;integer&gt;    &lt;factor&gt;      &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1                       1                    1          L1               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1                       2                    1          L3               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1                       1                    6          L1               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1                       8                    1          WM               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1                       1                    1          L6               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                                    ...                  ...         ...              ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1                       1                    1          L6               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1                       8                    1          WM               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1                       1                    1          WM               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1                       4                    7          L6               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1                       2                    5          L1               NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    in_tissue array_row array_col imported_GraphBased imported_spatialLIBD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    &lt;logical&gt; &lt;integer&gt; &lt;integer&gt;           &lt;integer&gt;          &lt;character&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1      TRUE         0        16                   6                   L1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1      TRUE        50       102                   3                   L3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1      TRUE         3        43                   2                   L1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1      TRUE        59        19                   5                   WM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1      TRUE        43         9                   1                   L6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                      ...       ...       ...                 ...                  ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1      TRUE        31        77                   5                   L6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1      TRUE        58        42                   2                   WM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1      TRUE        60        30                   2                   WM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1      TRUE        45        27                   7                   L6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1      TRUE         7        51                   1                   L1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                       key   sample_id   Cluster   sum_umi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                               &lt;character&gt; &lt;character&gt; &lt;integer&gt; &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1 AAACAACGAATAGTTC-1_1..      151507         6       948</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1 AAACAAGTATCTCCCA-1_1..      151507         3      4261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1 AAACAATCTACTAGCA-1_1..      151507         2      1969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1 AAACACCAATAACTGC-1_1..      151507         5      3368</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1 AAACAGCTTTCAGAAG-1_1..      151507         1      2981</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                                   ...         ...       ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1 TTGTTGTGTGTCAAGA-1_1..      151676         5      2880</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1 TTGTTTCACATCCAGG-1_1..      151676         2      2640</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1 TTGTTTCATTAGTCTA-1_1..      151676         2      2063</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1 TTGTTTCCATACAACT-1_1..      151676         7      1031</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1 TTGTTTGTGTAAATTC-1_1..      151676         1      2625</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     sum_gene     subject    position   replicate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    &lt;integer&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1       727      Br5292           0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1      2170      Br5292           0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1      1093      Br5292           0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1      1896      Br5292           0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1      1620      Br5292           0           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                      ...         ...         ...         ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1      1638      Br8100         300           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1      1526      Br8100         300           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1      1279      Br8100         300           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1       748      Br8100         300           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1      1392      Br8100         300           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    subject_position   discard cell_count SNN_k50_k4 SNN_k50_k5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         &lt;character&gt; &lt;logical&gt;  &lt;integer&gt;  &lt;integer&gt;  &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1      Br5292_pos0     FALSE          0          1          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1      Br5292_pos0     FALSE          3          1          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1      Br5292_pos0     FALSE          2          3          2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1      Br5292_pos0     FALSE          5          2          3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1      Br5292_pos0     FALSE          3          1          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                             ...       ...        ...        ...        ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1    Br8100_pos300     FALSE          1          1          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1    Br8100_pos300     FALSE          6          2          3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1    Br8100_pos300     FALSE          9          2          3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1    Br8100_pos300     FALSE          2          1          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1    Br8100_pos300     FALSE          0          1          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    SNN_k50_k6 SNN_k50_k7 SNN_k50_k8 SNN_k50_k9 SNN_k50_k10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     &lt;integer&gt;  &lt;integer&gt;  &lt;integer&gt;  &lt;integer&gt;   &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1          1          3          3          4           4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1          1          1          1          1           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1          3          4          4          5           5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1          4          5          8          9          10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1          1          1          1          3           3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                       ...        ...        ...        ...         ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1          1          1          1          1           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1          4          5          6          7           8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1          4          5          6          7           8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1          1          1          1          3           3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1          2          2          2          2           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    SNN_k50_k11 SNN_k50_k12 SNN_k50_k13 SNN_k50_k14 SNN_k50_k15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1           5           5           5           6           7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1           4           4           4           4           3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1           6           6           6           7           8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1          11          10           9          10          11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1           3           3           3           3           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                        ...         ...         ...         ...         ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1           4           4           4           4           3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1           9           8           8           9          10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1           9           8           8           9          10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1           3           3           3           3           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1           1           1           1           1           5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    SNN_k50_k16 SNN_k50_k17 SNN_k50_k18 SNN_k50_k19 SNN_k50_k20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1           7           9          10          10          10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1           3           3           2           2           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1           8           7           8           8           8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1          11          12          13          12          11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1           2           2           1           1           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                        ...         ...         ...         ...         ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1           3           3           2           2           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1          10          11          12          18          18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1          10          11          12          15          15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1           2           2           1           1           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1           5           5           5           5           5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    SNN_k50_k21 SNN_k50_k22 SNN_k50_k23 SNN_k50_k24 SNN_k50_k25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1          10          11          11          11          12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1           2           1           1           1           6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1           8           9           9           9           9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1          11          12          20          20          21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1           1           6           6           6           5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                        ...         ...         ...         ...         ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1           2           1           1           1          10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1          17          18          17          17          18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1          14          15          14          13          14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1           1           6           6           6           5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1           5           4           4           4           3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    SNN_k50_k26 SNN_k50_k27 SNN_k50_k28 GraphBased  Maynard</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      &lt;integer&gt;   &lt;integer&gt;   &lt;integer&gt;  &lt;integer&gt; &lt;factor&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1          13          13          14          6       WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1           5           5           4          3       6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1           9           9           9          2       1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1          22          21          22          5       5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1           4           4           3          1       4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                        ...         ...         ...        ...      ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1          10          10          10          5       5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1          19          18          19          2       WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1          15          15          16          2       WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1           4           4           3          7       6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1           3           3           2          1       1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    Martinowich layer_guess layer_guess_reordered</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       &lt;factor&gt;    &lt;factor&gt;              &lt;factor&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1          WM      Layer1                Layer1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1          6       Layer3                Layer3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1          1       Layer1                Layer1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1          5       WM                    WM    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1          4       Layer6                Layer6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                        ...         ...                   ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1          4       Layer6                Layer6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1          WM      WM                    WM    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1          WM      WM                    WM    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1          6       Layer6                Layer6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1          1       Layer1                Layer1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    layer_guess_reordered_short expr_chrM expr_chrM_ratio</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                       &lt;factor&gt; &lt;numeric&gt;       &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1                          L1        88       0.0928270</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1                          L3       657       0.1541892</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1                          L1       431       0.2188928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1                          WM       272       0.0807601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1                          L6       502       0.1683999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                                        ...       ...             ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1                          L6       475        0.164931</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1                          WM       320        0.121212</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1                          WM       262        0.127000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1                          L6       161        0.156159</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1                          L1       667        0.254095</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    SpatialDE_PCA SpatialDE_pool_PCA   HVG_PCA pseudobulk_PCA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        &lt;integer&gt;          &lt;integer&gt; &lt;integer&gt;      &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1             4                  5         3              5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1             2                  3         1              2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1             4                  4         4              4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1             6                  7         6              6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1             1                  1         3              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                          ...                ...       ...            ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1             1                  2         2              2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1             5                  5         4              5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1             5                  5         4              4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1             4                  8         6              2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1             1                  1         2              7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    markers_PCA SpatialDE_UMAP SpatialDE_pool_UMAP  HVG_UMAP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      &lt;integer&gt;      &lt;integer&gt;           &lt;integer&gt; &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1           4              1                   2         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1           2              1                   3         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1           8              2                   4         5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1           8              5                   7         7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1           1              2                   3         6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                        ...            ...                 ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1           1              1                   3         2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1           6              4                   5         5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1           1              4                   5         7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1           3              1                   2         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1           4              2                   1         4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    pseudobulk_UMAP markers_UMAP SpatialDE_PCA_spatial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          &lt;integer&gt;    &lt;integer&gt;             &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1               3            1                     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1               2            1                     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1               3            6                     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1               7            1                     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1               1            1                     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                            ...          ...                   ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1               2            3                     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1               6            1                     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1               4            2                     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1               3            1                     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1               2            6                     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    SpatialDE_pool_PCA_spatial HVG_PCA_spatial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                     &lt;integer&gt;       &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1                          5               5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1                          1               2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1                          4               3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1                          6               7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1                          2               1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                                       ...             ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1                          1               4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1                          5               5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1                          5               5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1                          8               2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1                          2               1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    pseudobulk_PCA_spatial markers_PCA_spatial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 &lt;integer&gt;           &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1                      4                   3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1                      3                   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1                      5                   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1                      7                   7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1                      1                   2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                                   ...                 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1                      2                   6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1                      4                   4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1                      4                   2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1                      2                   4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1                      3                   2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    SpatialDE_UMAP_spatial SpatialDE_pool_UMAP_spatial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 &lt;integer&gt;                   &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1                      1                           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1                      2                           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1                      2                           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1                      7                           8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1                      8                           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                                   ...                         ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1                      6                           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1                      5                           5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1                      5                           5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1                      2                           3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1                      1                           2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    HVG_UMAP_spatial pseudobulk_UMAP_spatial</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           &lt;integer&gt;               &lt;integer&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1                1                       1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1                1                       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1                4                       1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1                7                       8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1                8                       1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                             ...                     ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1                4                       1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1                5                       8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1                8                       1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1                2                       4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1                1                       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    markers_UMAP_spatial spatialLIBD ManualAnnotation in_tissue</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                               &lt;integer&gt;    &lt;factor&gt;      &lt;character&gt; &lt;logical&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1                    1          L1               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1                    1          L3               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1                    6          L1               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1                    1          WM               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1                    1          L6               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                                 ...         ...              ...       ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1                    1          L6               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1                    1          WM               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1                    1          WM               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1                    7          L6               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1                    5          L1               NA      TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    array_row array_col imported_GraphBased imported_spatialLIBD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    &lt;integer&gt; &lt;integer&gt;           &lt;integer&gt;          &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAACGAATAGTTC-1         0        16                   6                   L1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAAGTATCTCCCA-1        50       102                   3                   L3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAATCTACTAGCA-1         3        43                   2                   L1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACACCAATAACTGC-1        59        19                   5                   WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AAACAGCTTTCAGAAG-1        43         9                   1                   L6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                      ...       ...                 ...                  ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTGTGTGTCAAGA-1        31        77                   5                   L6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCACATCCAGG-1        58        42                   2                   WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCATTAGTCTA-1        60        30                   2                   WM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTCCATACAACT-1        45        27                   7                   L6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TTGTTTGTGTAAATTC-1         7        51                   1                   L1</span>
 </code></pre></div>
     </div>
   </div>

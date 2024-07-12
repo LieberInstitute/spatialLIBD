@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.6</span>
       </span>
     </div>
 
@@ -66,6 +66,11 @@
       <small>Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.17.6" id="spatiallibd-1176">spatialLIBD 1.17.6<a class="anchor" aria-label="anchor" href="#spatiallibd-1176"></a></h2>
+<p>BUG FIXES</p>
+<ul><li>Fixed the bug reported by <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a> about <code><a href="../reference/vis_grid_clus.html">vis_grid_clus()</a></code> not handling <code><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical()</a></code> cluster variables. See <a href="https://github.com/LieberInstitute/spatialLIBD/issues/80" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/80</a>. To resolve this, <code><a href="../reference/sort_clusters.html">sort_clusters()</a></code> and <code><a href="../reference/get_colors.html">get_colors()</a></code> had to change internally. Examples and documentation for both functions have now been updated to showcase what happens when you provide a <code><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical()</a></code> vector as an input.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.17.5" id="spatiallibd-1175">spatialLIBD 1.17.5<a class="anchor" aria-label="anchor" href="#spatiallibd-1175"></a></h2>
 <p>NEW FEATURES</p>

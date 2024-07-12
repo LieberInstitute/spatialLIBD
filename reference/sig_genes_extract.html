@@ -21,7 +21,7 @@ informative titles."><meta property="og:image" content="/logo.png"><!-- mathjax 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.6</span>
       </span>
     </div>
 
@@ -157,37 +157,58 @@ https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses
 <span class="r-in"><span>    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2024-04-29</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:17.848291 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/fc154f26894b_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-12 13:33:10.249093 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/fc154f26894b_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2024-04-29</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-11 14:10:18.468371 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/fc1571d8e1fb_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-12 13:33:10.92515 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/fc1571d8e1fb_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## anova top 10 genes</span></span></span>
 <span class="r-in"><span><span class="fu">sig_genes_extract</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    modeling_results <span class="op">=</span> <span class="va">modeling_results</span>,</span></span>
 <span class="r-in"><span>    sce_layer <span class="op">=</span> <span class="va">sce_layer</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    top model_type test     gene     stat         pval          fdr gene_index         ensembl</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1      anova full    KRT17 142.6223 1.047345e-37 2.338827e-33      18321 ENSG00000128422</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    2      anova full SERPINE2 130.0159 2.154786e-36 2.405926e-32       3621 ENSG00000135919</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    3      anova full     GFAP 127.3117 4.267922e-36 3.176899e-32      18436 ENSG00000131095</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    4      anova full    CBLN4 118.0481 4.923904e-35 2.748892e-31      19844 ENSG00000054803</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    5      anova full   VSTM2A 111.0341 3.530274e-34 1.576691e-30       8315 ENSG00000170419</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    6      anova full  CAMK2N1 108.9155 6.542909e-34 2.435162e-30        308 ENSG00000162545</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    7      anova full   HS3ST4 104.9437 2.142606e-33 6.049917e-30      16991 ENSG00000182601</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    8      anova full     MYRF 104.9059 2.167361e-33 6.049917e-30      11871 ENSG00000124920</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    9      anova full    BCAS1 103.3046 3.537055e-33 8.776220e-30      19839 ENSG00000064787</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  10      anova full     MOBP 100.9366 7.389973e-33 1.650255e-29       3978 ENSG00000168314</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11   1      anova noWM SERPINE2 209.6240 9.525498e-37 2.127139e-32       3621 ENSG00000135919</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12   2      anova noWM  B3GALT2 181.2393 5.843659e-35 4.749316e-31       1809 ENSG00000162630</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13   3      anova noWM    KRT17 180.6747 6.380345e-35 4.749316e-31      18321 ENSG00000128422</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14   4      anova noWM    EFHD2 163.2460 1.099248e-33 5.247556e-30        232 ENSG00000142634</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15   5      anova noWM  CAMK2N1 162.8576 1.174949e-33 5.247556e-30        308 ENSG00000162545</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16   6      anova noWM     HOPX 157.1804 3.164231e-33 1.177674e-29       5291 ENSG00000171476</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17   7      anova noWM   CLSTN2 148.4278 1.558137e-32 4.970680e-29       4638 ENSG00000158258</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18   8      anova noWM   TUBA1B 135.6197 1.890890e-31 4.918869e-28      13893 ENSG00000123416</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19   9      anova noWM   HS3ST2 135.3872 1.982438e-31 4.918869e-28      16964 ENSG00000122254</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20  10      anova noWM     ETV1 130.0174 6.033934e-31 1.347438e-27       8095 ENSG00000006468</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    top model_type test     gene     stat         pval          fdr gene_index</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1      anova full    KRT17 142.6223 1.047345e-37 2.338827e-33      18321</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    2      anova full SERPINE2 130.0159 2.154786e-36 2.405926e-32       3621</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    3      anova full     GFAP 127.3117 4.267922e-36 3.176899e-32      18436</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    4      anova full    CBLN4 118.0481 4.923904e-35 2.748892e-31      19844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    5      anova full   VSTM2A 111.0341 3.530274e-34 1.576691e-30       8315</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    6      anova full  CAMK2N1 108.9155 6.542909e-34 2.435162e-30        308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    7      anova full   HS3ST4 104.9437 2.142606e-33 6.049917e-30      16991</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    8      anova full     MYRF 104.9059 2.167361e-33 6.049917e-30      11871</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    9      anova full    BCAS1 103.3046 3.537055e-33 8.776220e-30      19839</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  10      anova full     MOBP 100.9366 7.389973e-33 1.650255e-29       3978</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11   1      anova noWM SERPINE2 209.6240 9.525498e-37 2.127139e-32       3621</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12   2      anova noWM  B3GALT2 181.2393 5.843659e-35 4.749316e-31       1809</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13   3      anova noWM    KRT17 180.6747 6.380345e-35 4.749316e-31      18321</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14   4      anova noWM    EFHD2 163.2460 1.099248e-33 5.247556e-30        232</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15   5      anova noWM  CAMK2N1 162.8576 1.174949e-33 5.247556e-30        308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   6      anova noWM     HOPX 157.1804 3.164231e-33 1.177674e-29       5291</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17   7      anova noWM   CLSTN2 148.4278 1.558137e-32 4.970680e-29       4638</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18   8      anova noWM   TUBA1B 135.6197 1.890890e-31 4.918869e-28      13893</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19   9      anova noWM   HS3ST2 135.3872 1.982438e-31 4.918869e-28      16964</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  10      anova noWM     ETV1 130.0174 6.033934e-31 1.347438e-27       8095</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            ensembl</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  ENSG00000128422</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  ENSG00000135919</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  ENSG00000131095</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  ENSG00000054803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  ENSG00000170419</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  ENSG00000162545</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  ENSG00000182601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  ENSG00000124920</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  ENSG00000064787</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 ENSG00000168314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 ENSG00000135919</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 ENSG00000162630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 ENSG00000128422</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 ENSG00000142634</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 ENSG00000162545</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 ENSG00000171476</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 ENSG00000158258</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 ENSG00000123416</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 ENSG00000122254</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 ENSG00000006468</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Extract all genes</span></span></span>
 <span class="r-in"><span><span class="fu">sig_genes_extract</span><span class="op">(</span></span></span>
@@ -195,118 +216,230 @@ https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses
 <span class="r-in"><span>    sce_layer <span class="op">=</span> <span class="va">sce_layer</span>,</span></span>
 <span class="r-in"><span>    n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sce_layer</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     top model_type test     gene      stat         pval          fdr gene_index         ensembl</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1      anova full    KRT17 142.62226 1.047345e-37 2.338827e-33      18321 ENSG00000128422</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     2      anova full SERPINE2 130.01590 2.154786e-36 2.405926e-32       3621 ENSG00000135919</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     3      anova full     GFAP 127.31169 4.267922e-36 3.176899e-32      18436 ENSG00000131095</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     4      anova full    CBLN4 118.04809 4.923904e-35 2.748892e-31      19844 ENSG00000054803</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     5      anova full   VSTM2A 111.03407 3.530274e-34 1.576691e-30       8315 ENSG00000170419</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     6      anova full  CAMK2N1 108.91547 6.542909e-34 2.435162e-30        308 ENSG00000162545</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     7      anova full   HS3ST4 104.94373 2.142606e-33 6.049917e-30      16991 ENSG00000182601</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     8      anova full     MYRF 104.90591 2.167361e-33 6.049917e-30      11871 ENSG00000124920</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     9      anova full    BCAS1 103.30459 3.537055e-33 8.776220e-30      19839 ENSG00000064787</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10   10      anova full     MOBP 100.93656 7.389973e-33 1.650255e-29       3978 ENSG00000168314</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11   11      anova full    EFHD2  95.11926 4.830189e-32 9.805724e-29        232 ENSG00000142634</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12   12      anova full      MBP  93.31013 8.841183e-32 1.645271e-28      19352 ENSG00000197971</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13   13      anova full     PLP1  90.81919 2.067407e-31 3.551327e-28       9433 ENSG00000123560</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14   14      anova full     TLE4  89.57378 3.185778e-31 5.081544e-28      10842 ENSG00000106829</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15   15      anova full    SCN1B  89.29950 3.506551e-31 5.220320e-28      20704 ENSG00000105711</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16   16      anova full   HS3ST2  88.80268 4.174799e-31 5.826714e-28      16964 ENSG00000122254</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17   17      anova full   HPCAL1  87.92038 5.702797e-31 7.491127e-28       2313 ENSG00000115756</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18   18      anova full   FRMPD2  87.32346 7.053483e-31 8.394075e-28      12882 ENSG00000170324</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19   19      anova full     HOPX  87.28856 7.141974e-31 8.394075e-28       5291 ENSG00000171476</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20   20      anova full     CTGF  86.88731 8.245258e-31 9.206242e-28       7750 ENSG00000118523</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21   21      anova full   CARTPT  86.45410 9.634771e-31 1.024543e-27       6121 ENSG00000164326</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22   22      anova full      MAG  85.73052 1.251635e-30 1.242947e-27      20716 ENSG00000105695</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23   23      anova full     MT1G  85.49982 1.361082e-30 1.242947e-27      17246 ENSG00000125144</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24   24      anova full    LAMP5  85.49858 1.361696e-30 1.242947e-27      19480 ENSG00000125869</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25   25      anova full    PARM1  85.43907 1.391504e-30 1.242947e-27       5344 ENSG00000169116</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26   26      anova full     CNR1  82.78401 3.706832e-30 3.183741e-27       7564 ENSG00000118432</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27   27      anova full     SNCG  81.49962 6.013272e-30 4.973422e-27      13092 ENSG00000173267</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28   28      anova full   CLDND1  79.53535 1.276556e-29 1.018099e-26       4350 ENSG00000080822</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29   29      anova full   OPALIN  79.24022 1.431399e-29 1.102226e-26      13171 ENSG00000197430</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30   30      anova full   NECAB2  78.87941 1.647264e-29 1.226169e-26      17538 ENSG00000103154</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31   31      anova full    RGS12  78.67761 1.782330e-29 1.283910e-26       5059 ENSG00000159788</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32   32      anova full     RORB  77.71670 2.600133e-29 1.814486e-26      10825 ENSG00000198963</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33   33      anova full     CRYM  75.38463 6.612801e-29 4.474863e-26      16941 ENSG00000103316</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34   34      anova full       TF  74.48048 9.559810e-29 6.278827e-26       4598 ENSG00000091513</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35   35      anova full    SEPT4  74.28070 1.037625e-28 6.620342e-26      18627 ENSG00000108387</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36   36      anova full      MAL  73.88124 1.223066e-28 7.392804e-26       2851 ENSG00000172005</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37   37      anova full   TUBA1B  73.87759 1.224906e-28 7.392804e-26      13893 ENSG00000123416</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38   38      anova full    LPAR1  73.75946 1.286128e-28 7.558034e-26      11021 ENSG00000198121</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39   39      anova full     ERMN  73.66065 1.339754e-28 7.671295e-26       3181 ENSG00000136541</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40   40      anova full    EVI2A  72.84319 1.881777e-28 1.025818e-25      18141 ENSG00000126860</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41   41      anova full  B3GALT2  72.84110 1.883415e-28 1.025818e-25       1809 ENSG00000162630</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42   42      anova full    ERBB3  72.33845 2.324733e-28 1.236038e-25      14064 ENSG00000065361</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43   43      anova full    PVALB  72.26690 2.395696e-28 1.244146e-25      21800 ENSG00000100362</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44   44      anova full   SOWAHA  70.87215 4.327060e-28 2.196081e-25       6395 ENSG00000198944</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45   45      anova full PPP1R14A  70.24044 5.674096e-28 2.765105e-25      20817 ENSG00000167641</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46   46      anova full    OLFM1  70.23154 5.695886e-28 2.765105e-25      11296 ENSG00000130558</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47   47      anova full   CLSTN2  70.07161 6.102471e-28 2.899453e-25       4638 ENSG00000158258</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48   48      anova full      SHB  69.98933 6.323153e-28 2.941715e-25      10755 ENSG00000107338</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49   49      anova full    SMYD2  69.81673 6.813144e-28 3.104986e-25       1994 ENSG00000143499</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50   50      anova full   CLDN11  69.69652 7.177327e-28 3.205538e-25       4790 ENSG00000013297</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51   51      anova full    CNDP1  69.23235 8.782105e-28 3.845356e-25      19335 ENSG00000150656</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52   52      anova full     SNCB  68.96081 9.887700e-28 4.246197e-25       6771 ENSG00000074317</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53   53      anova full   NAP1L5  68.85738 1.034557e-27 4.358997e-25       5434 ENSG00000177432</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54   54      anova full    TPPP3  68.53788 1.190263e-27 4.922180e-25      17341 ENSG00000159713</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55   55      anova full    PDZD2  68.33889 1.299236e-27 5.275134e-25       5932 ENSG00000133401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56   56      anova full      MOG  68.06957 1.463276e-27 5.835073e-25       7082 ENSG00000204655</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57   57      anova full    S1PR5  67.98191 1.521144e-27 5.959415e-25      20298 ENSG00000180739</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58   58      anova full      CNP  67.60795 1.795712e-27 6.913801e-25      18334 ENSG00000173786</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59   59      anova full    STMN1  67.55910 1.835160e-27 6.945925e-25        390 ENSG00000117632</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60   60      anova full   PCDH17  67.41889 1.953426e-27 7.270326e-25      14929 ENSG00000118946</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61   61      anova full     JAM3  67.15544 2.197292e-27 8.043888e-25      12600 ENSG00000166086</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62   62      anova full     SPP1  67.11037 2.242055e-27 8.075377e-25       5424 ENSG00000118785</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63   63      anova full     NSG2  66.84392 2.526499e-27 8.836315e-25       6749 ENSG00000170091</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64   64      anova full   RASSF2  66.83867 2.532462e-27 8.836315e-25      19455 ENSG00000101265</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65   65      anova full     AQP1  66.58571 2.837625e-27 9.748771e-25       8201 ENSG00000240583</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66   66      anova full     KLK6  66.37700 3.117757e-27 1.054888e-24      21228 ENSG00000167755</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67   67      anova full    PCDH8  66.28215 3.254313e-27 1.084658e-24      14927 ENSG00000136099</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68   68      anova full      CD9  66.16132 3.437214e-27 1.128771e-24      13536 ENSG00000010278</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69   69      anova full    HSPA2  66.01644 3.670548e-27 1.187928e-24      15448 ENSG00000126803</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70   70      anova full    LAMP2  65.92895 3.819274e-27 1.208047e-24       9511 ENSG00000005893</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71   71      anova full  ADAMTS4  65.91652 3.840907e-27 1.208047e-24       1600 ENSG00000158859</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72   72      anova full   NKX6-2  65.69436 4.249409e-27 1.317966e-24      13454 ENSG00000148826</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73   73      anova full    RXFP1  65.65748 4.321441e-27 1.321946e-24       5706 ENSG00000171509</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74   74      anova full    NDRG1  65.45209 4.746138e-27 1.432243e-24      10404 ENSG00000104419</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75   75      anova full     CUX2  65.04134 5.728994e-27 1.692984e-24      14444 ENSG00000111249</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76   76      anova full   HS6ST3  65.02892 5.761802e-27 1.692984e-24      14990 ENSG00000185352</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77   77      anova full    CRYAB  64.96607 5.930678e-27 1.719974e-24      12390 ENSG00000109846</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78   78      anova full    EPHA4  64.72078 6.640039e-27 1.901009e-24       3606 ENSG00000116106</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79   79      anova full   CAMK2D  64.59040 7.052032e-27 1.993404e-24       5548 ENSG00000145349</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80   80      anova full     MT2A  64.50088 7.350042e-27 2.051672e-24      17241 ENSG00000125148</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 81   81      anova full    SATB1  64.19407 8.473373e-27 2.336036e-24       3886 ENSG00000182568</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 82   82      anova full    CALB2  63.95806 9.456666e-27 2.551130e-24      17428 ENSG00000172137</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 83   83      anova full     NEFL  63.95231 9.482055e-27 2.551130e-24       9854 ENSG00000277586</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 84   84      anova full  TMEM144  63.91723 9.638339e-27 2.562306e-24       5705 ENSG00000164124</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 85   85      anova full  SELENOP  63.78713 1.024149e-26 2.669139e-24       5993 ENSG00000250722</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 86   86      anova full    SNRPN  63.77925 1.027925e-26 2.669139e-24      15855 ENSG00000128739</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 87   87      anova full   RNASE1  63.49234 1.175599e-26 3.017506e-24      15115 ENSG00000129538</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 88   88      anova full    CLIC4  63.10849 1.407984e-26 3.572920e-24        372 ENSG00000169504</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89   89      anova full     NFIA  63.03233 1.459447e-26 3.661900e-24        845 ENSG00000162599</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 90   90      anova full     NSG1  62.72375 1.688565e-26 4.189705e-24       5069 ENSG00000168824</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 91   91      anova full    CRLF1  62.52176 1.858283e-26 4.516390e-24      20551 ENSG00000006016</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 92   92      anova full    FABP7  62.51905 1.860677e-26 4.516390e-24       7713 ENSG00000164434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 93   93      anova full     RCN1  62.03260 2.345867e-26 5.632854e-24      11682 ENSG00000049449</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 94   94      anova full    VAMP1  61.84644 2.564412e-26 6.092115e-24      13544 ENSG00000139190</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 95   95      anova full     HHIP  61.80629 2.614236e-26 6.121400e-24       5646 ENSG00000164161</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 96   96      anova full      CA4  61.79251 2.631563e-26 6.121400e-24      18652 ENSG00000167434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 97   97      anova full    NR4A2  61.51882 3.001264e-26 6.909405e-24       3178 ENSG00000153234</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 98   98      anova full   CARNS1  61.43900 3.118843e-26 7.106825e-24      12099 ENSG00000172508</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 99   99      anova full      SCD  61.37812 3.211695e-26 7.244481e-24      13221 ENSG00000099194</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 100 100      anova full    PMP22  60.92389 4.000660e-26 8.933874e-24      17940 ENSG00000109099</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 101 101      anova full  NEUROD6  60.22879 5.613816e-26 1.241209e-23       8204 ENSG00000164600</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 102 102      anova full  TMEM125  60.20007 5.693345e-26 1.246452e-23        660 ENSG00000179178</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 103 103      anova full     ASS1  59.82893 6.831717e-26 1.481156e-23      11234 ENSG00000130707</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 104 104      anova full   FAM84A  59.68038 7.350694e-26 1.578349e-23       2335 ENSG00000162981</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 105 105      anova full   ELOVL1  59.52045 7.954890e-26 1.691816e-23        666 ENSG00000066322</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 106 106      anova full  RETREG1  59.44490 8.257848e-26 1.739679e-23       5910 ENSG00000154153</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 107 107      anova full    MEF2C  59.36216 8.603284e-26 1.795513e-23       6227 ENSG00000081189</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 108 108      anova full    CERS2  59.28061 8.958301e-26 1.852295e-23       1338 ENSG00000143418</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 109 109      anova full   PTP4A2  59.08478 9.873643e-26 2.022829e-23        487 ENSG00000184007</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 110 110      anova full     NEFM  58.86242 1.103046e-25 2.239283e-23       9853 ENSG00000104722</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 111 111      anova full     GJC2  58.49740 1.324042e-25 2.663710e-23       2083 ENSG00000198835</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     top model_type test     gene      stat         pval          fdr gene_index</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1      anova full    KRT17 142.62226 1.047345e-37 2.338827e-33      18321</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     2      anova full SERPINE2 130.01590 2.154786e-36 2.405926e-32       3621</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     3      anova full     GFAP 127.31169 4.267922e-36 3.176899e-32      18436</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     4      anova full    CBLN4 118.04809 4.923904e-35 2.748892e-31      19844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     5      anova full   VSTM2A 111.03407 3.530274e-34 1.576691e-30       8315</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     6      anova full  CAMK2N1 108.91547 6.542909e-34 2.435162e-30        308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     7      anova full   HS3ST4 104.94373 2.142606e-33 6.049917e-30      16991</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     8      anova full     MYRF 104.90591 2.167361e-33 6.049917e-30      11871</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     9      anova full    BCAS1 103.30459 3.537055e-33 8.776220e-30      19839</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   10      anova full     MOBP 100.93656 7.389973e-33 1.650255e-29       3978</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11   11      anova full    EFHD2  95.11926 4.830189e-32 9.805724e-29        232</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12   12      anova full      MBP  93.31013 8.841183e-32 1.645271e-28      19352</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13   13      anova full     PLP1  90.81919 2.067407e-31 3.551327e-28       9433</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14   14      anova full     TLE4  89.57378 3.185778e-31 5.081544e-28      10842</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15   15      anova full    SCN1B  89.29950 3.506551e-31 5.220320e-28      20704</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   16      anova full   HS3ST2  88.80268 4.174799e-31 5.826714e-28      16964</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17   17      anova full   HPCAL1  87.92038 5.702797e-31 7.491127e-28       2313</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18   18      anova full   FRMPD2  87.32346 7.053483e-31 8.394075e-28      12882</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19   19      anova full     HOPX  87.28856 7.141974e-31 8.394075e-28       5291</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20   20      anova full     CTGF  86.88731 8.245258e-31 9.206242e-28       7750</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21   21      anova full   CARTPT  86.45410 9.634771e-31 1.024543e-27       6121</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22   22      anova full      MAG  85.73052 1.251635e-30 1.242947e-27      20716</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23   23      anova full     MT1G  85.49982 1.361082e-30 1.242947e-27      17246</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24   24      anova full    LAMP5  85.49858 1.361696e-30 1.242947e-27      19480</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25   25      anova full    PARM1  85.43907 1.391504e-30 1.242947e-27       5344</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26   26      anova full     CNR1  82.78401 3.706832e-30 3.183741e-27       7564</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27   27      anova full     SNCG  81.49962 6.013272e-30 4.973422e-27      13092</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28   28      anova full   CLDND1  79.53535 1.276556e-29 1.018099e-26       4350</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29   29      anova full   OPALIN  79.24022 1.431399e-29 1.102226e-26      13171</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30   30      anova full   NECAB2  78.87941 1.647264e-29 1.226169e-26      17538</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31   31      anova full    RGS12  78.67761 1.782330e-29 1.283910e-26       5059</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32   32      anova full     RORB  77.71670 2.600133e-29 1.814486e-26      10825</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33   33      anova full     CRYM  75.38463 6.612801e-29 4.474863e-26      16941</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34   34      anova full       TF  74.48048 9.559810e-29 6.278827e-26       4598</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35   35      anova full    SEPT4  74.28070 1.037625e-28 6.620342e-26      18627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36   36      anova full      MAL  73.88124 1.223066e-28 7.392804e-26       2851</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37   37      anova full   TUBA1B  73.87759 1.224906e-28 7.392804e-26      13893</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38   38      anova full    LPAR1  73.75946 1.286128e-28 7.558034e-26      11021</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39   39      anova full     ERMN  73.66065 1.339754e-28 7.671295e-26       3181</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40   40      anova full    EVI2A  72.84319 1.881777e-28 1.025818e-25      18141</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41   41      anova full  B3GALT2  72.84110 1.883415e-28 1.025818e-25       1809</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42   42      anova full    ERBB3  72.33845 2.324733e-28 1.236038e-25      14064</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43   43      anova full    PVALB  72.26690 2.395696e-28 1.244146e-25      21800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44   44      anova full   SOWAHA  70.87215 4.327060e-28 2.196081e-25       6395</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45   45      anova full PPP1R14A  70.24044 5.674096e-28 2.765105e-25      20817</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46   46      anova full    OLFM1  70.23154 5.695886e-28 2.765105e-25      11296</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47   47      anova full   CLSTN2  70.07161 6.102471e-28 2.899453e-25       4638</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48   48      anova full      SHB  69.98933 6.323153e-28 2.941715e-25      10755</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49   49      anova full    SMYD2  69.81673 6.813144e-28 3.104986e-25       1994</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50   50      anova full   CLDN11  69.69652 7.177327e-28 3.205538e-25       4790</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51   51      anova full    CNDP1  69.23235 8.782105e-28 3.845356e-25      19335</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52   52      anova full     SNCB  68.96081 9.887700e-28 4.246197e-25       6771</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53   53      anova full   NAP1L5  68.85738 1.034557e-27 4.358997e-25       5434</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54   54      anova full    TPPP3  68.53788 1.190263e-27 4.922180e-25      17341</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55   55      anova full    PDZD2  68.33889 1.299236e-27 5.275134e-25       5932</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56   56      anova full      MOG  68.06957 1.463276e-27 5.835073e-25       7082</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57   57      anova full    S1PR5  67.98191 1.521144e-27 5.959415e-25      20298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58   58      anova full      CNP  67.60795 1.795712e-27 6.913801e-25      18334</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59   59      anova full    STMN1  67.55910 1.835160e-27 6.945925e-25        390</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60   60      anova full   PCDH17  67.41889 1.953426e-27 7.270326e-25      14929</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61   61      anova full     JAM3  67.15544 2.197292e-27 8.043888e-25      12600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62   62      anova full     SPP1  67.11037 2.242055e-27 8.075377e-25       5424</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63   63      anova full     NSG2  66.84392 2.526499e-27 8.836315e-25       6749</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64   64      anova full   RASSF2  66.83867 2.532462e-27 8.836315e-25      19455</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65   65      anova full     AQP1  66.58571 2.837625e-27 9.748771e-25       8201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66   66      anova full     KLK6  66.37700 3.117757e-27 1.054888e-24      21228</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67   67      anova full    PCDH8  66.28215 3.254313e-27 1.084658e-24      14927</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68   68      anova full      CD9  66.16132 3.437214e-27 1.128771e-24      13536</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69   69      anova full    HSPA2  66.01644 3.670548e-27 1.187928e-24      15448</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70   70      anova full    LAMP2  65.92895 3.819274e-27 1.208047e-24       9511</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71   71      anova full  ADAMTS4  65.91652 3.840907e-27 1.208047e-24       1600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72   72      anova full   NKX6-2  65.69436 4.249409e-27 1.317966e-24      13454</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73   73      anova full    RXFP1  65.65748 4.321441e-27 1.321946e-24       5706</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74   74      anova full    NDRG1  65.45209 4.746138e-27 1.432243e-24      10404</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75   75      anova full     CUX2  65.04134 5.728994e-27 1.692984e-24      14444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76   76      anova full   HS6ST3  65.02892 5.761802e-27 1.692984e-24      14990</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77   77      anova full    CRYAB  64.96607 5.930678e-27 1.719974e-24      12390</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78   78      anova full    EPHA4  64.72078 6.640039e-27 1.901009e-24       3606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79   79      anova full   CAMK2D  64.59040 7.052032e-27 1.993404e-24       5548</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80   80      anova full     MT2A  64.50088 7.350042e-27 2.051672e-24      17241</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81   81      anova full    SATB1  64.19407 8.473373e-27 2.336036e-24       3886</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82   82      anova full    CALB2  63.95806 9.456666e-27 2.551130e-24      17428</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83   83      anova full     NEFL  63.95231 9.482055e-27 2.551130e-24       9854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84   84      anova full  TMEM144  63.91723 9.638339e-27 2.562306e-24       5705</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85   85      anova full  SELENOP  63.78713 1.024149e-26 2.669139e-24       5993</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86   86      anova full    SNRPN  63.77925 1.027925e-26 2.669139e-24      15855</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87   87      anova full   RNASE1  63.49234 1.175599e-26 3.017506e-24      15115</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88   88      anova full    CLIC4  63.10849 1.407984e-26 3.572920e-24        372</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89   89      anova full     NFIA  63.03233 1.459447e-26 3.661900e-24        845</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90   90      anova full     NSG1  62.72375 1.688565e-26 4.189705e-24       5069</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91   91      anova full    CRLF1  62.52176 1.858283e-26 4.516390e-24      20551</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92   92      anova full    FABP7  62.51905 1.860677e-26 4.516390e-24       7713</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93   93      anova full     RCN1  62.03260 2.345867e-26 5.632854e-24      11682</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94   94      anova full    VAMP1  61.84644 2.564412e-26 6.092115e-24      13544</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95   95      anova full     HHIP  61.80629 2.614236e-26 6.121400e-24       5646</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96   96      anova full      CA4  61.79251 2.631563e-26 6.121400e-24      18652</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97   97      anova full    NR4A2  61.51882 3.001264e-26 6.909405e-24       3178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98   98      anova full   CARNS1  61.43900 3.118843e-26 7.106825e-24      12099</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99   99      anova full      SCD  61.37812 3.211695e-26 7.244481e-24      13221</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100 100      anova full    PMP22  60.92389 4.000660e-26 8.933874e-24      17940</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101 101      anova full  NEUROD6  60.22879 5.613816e-26 1.241209e-23       8204</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102 102      anova full  TMEM125  60.20007 5.693345e-26 1.246452e-23        660</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103 103      anova full     ASS1  59.82893 6.831717e-26 1.481156e-23      11234</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104 104      anova full   FAM84A  59.68038 7.350694e-26 1.578349e-23       2335</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 105 105      anova full   ELOVL1  59.52045 7.954890e-26 1.691816e-23        666</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 106 106      anova full  RETREG1  59.44490 8.257848e-26 1.739679e-23       5910</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 107 107      anova full    MEF2C  59.36216 8.603284e-26 1.795513e-23       6227</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 108 108      anova full    CERS2  59.28061 8.958301e-26 1.852295e-23       1338</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 109 109      anova full   PTP4A2  59.08478 9.873643e-26 2.022829e-23        487</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 110 110      anova full     NEFM  58.86242 1.103046e-25 2.239283e-23       9853</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 111 111      anova full     GJC2  58.49740 1.324042e-25 2.663710e-23       2083</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ensembl</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   ENSG00000128422</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   ENSG00000135919</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   ENSG00000131095</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   ENSG00000054803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   ENSG00000170419</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   ENSG00000162545</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   ENSG00000182601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   ENSG00000124920</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   ENSG00000064787</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  ENSG00000168314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  ENSG00000142634</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  ENSG00000197971</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  ENSG00000123560</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  ENSG00000106829</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  ENSG00000105711</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  ENSG00000122254</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  ENSG00000115756</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  ENSG00000170324</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  ENSG00000171476</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  ENSG00000118523</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21  ENSG00000164326</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22  ENSG00000105695</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23  ENSG00000125144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24  ENSG00000125869</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25  ENSG00000169116</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26  ENSG00000118432</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27  ENSG00000173267</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28  ENSG00000080822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29  ENSG00000197430</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30  ENSG00000103154</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31  ENSG00000159788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32  ENSG00000198963</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33  ENSG00000103316</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34  ENSG00000091513</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35  ENSG00000108387</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36  ENSG00000172005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37  ENSG00000123416</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38  ENSG00000198121</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39  ENSG00000136541</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40  ENSG00000126860</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41  ENSG00000162630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42  ENSG00000065361</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43  ENSG00000100362</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44  ENSG00000198944</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45  ENSG00000167641</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46  ENSG00000130558</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47  ENSG00000158258</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48  ENSG00000107338</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49  ENSG00000143499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50  ENSG00000013297</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51  ENSG00000150656</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52  ENSG00000074317</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53  ENSG00000177432</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54  ENSG00000159713</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55  ENSG00000133401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56  ENSG00000204655</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57  ENSG00000180739</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58  ENSG00000173786</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59  ENSG00000117632</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60  ENSG00000118946</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61  ENSG00000166086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62  ENSG00000118785</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63  ENSG00000170091</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64  ENSG00000101265</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65  ENSG00000240583</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66  ENSG00000167755</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67  ENSG00000136099</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68  ENSG00000010278</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69  ENSG00000126803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70  ENSG00000005893</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71  ENSG00000158859</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72  ENSG00000148826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73  ENSG00000171509</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74  ENSG00000104419</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75  ENSG00000111249</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76  ENSG00000185352</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77  ENSG00000109846</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78  ENSG00000116106</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79  ENSG00000145349</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80  ENSG00000125148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81  ENSG00000182568</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82  ENSG00000172137</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83  ENSG00000277586</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84  ENSG00000164124</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85  ENSG00000250722</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86  ENSG00000128739</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87  ENSG00000129538</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88  ENSG00000169504</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89  ENSG00000162599</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90  ENSG00000168824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91  ENSG00000006016</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92  ENSG00000164434</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93  ENSG00000049449</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94  ENSG00000139190</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95  ENSG00000164161</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96  ENSG00000167434</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97  ENSG00000153234</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98  ENSG00000172508</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99  ENSG00000099194</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100 ENSG00000109099</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101 ENSG00000164600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102 ENSG00000179178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103 ENSG00000130707</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104 ENSG00000162981</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 105 ENSG00000066322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 106 ENSG00000154153</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 107 ENSG00000081189</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 108 ENSG00000143418</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 109 ENSG00000184007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 110 ENSG00000104722</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 111 ENSG00000198835</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [ reached 'max' / getOption("max.print") -- omitted 44551 rows ]</span>
 </code></pre></div>
     </div>
