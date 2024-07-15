@@ -779,7 +779,7 @@ app_ui <- function() {
                                         helpText(
                                             "It should be a CSV file without row names and similar to ",
                                             HTML(
-                                                '<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/asd_sfari_geneList.csv">this example file.</a>'
+                                                '<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/asd_sfari_geneList.csv">this example file</a>. For more context, check <a href="https://www.nature.com/articles/s41593-020-00787-0#Fig6">this figure</a>.'
                                             )
                                         )
                                     ),
@@ -840,7 +840,7 @@ app_ui <- function() {
                                         helpText(
                                             "It should be a CSV file similar to ",
                                             HTML(
-                                                '<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv">this example file.</a>'
+                                                '<a href="https://github.com/LieberInstitute/spatialLIBD/blob/master/data-raw/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.csv">this example file</a>, documented <a href="https://research.libd.org/spatialLIBD/reference/tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer.html">here</a>. For more context, check <a href="https://www.nature.com/articles/s41593-020-00787-0#Fig5">this figure</a>.'
                                             )
                                         )
                                     ),
