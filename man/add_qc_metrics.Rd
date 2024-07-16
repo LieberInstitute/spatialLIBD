@@ -95,7 +95,7 @@ spe_qc$our_low_lib_edge <- spe_qc$scran_low_lib_size & spe_qc$edge_distance < 5
 vis_clus(spe_qc, sample_id = "Br6432_ant", clustervar = "our_low_lib_edge")
 
 ## Clean up
-rm(spe_qc, spec_pre_qc)
+rm(spe_qc, spe_pre_qc, vars)
 
 }
 \author{

@@ -25,10 +25,11 @@ For more details please check the vignette documentation.
 }
 \examples{
 
-## Obtain the necessary data
+## Obtain example data from the HumanPilot project
+## (Maynard, Collado-Torres, et al, 2021)
 if (!exists("sce_layer")) sce_layer <- fetch_data("sce_layer")
 
-## Check the object
+## Check the pseudo-bulked data
 check_sce_layer(sce_layer)
 }
 \seealso{

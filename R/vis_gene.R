@@ -7,11 +7,11 @@
 #'
 #' @inheritParams vis_clus
 #' @param geneid A `character()` specifying the gene ID(s) stored in
-#' `rowData(spe)$gene_search` or a continuous variable(s) stored in `colData(spe)`
-#' to visualize. For each ID, if `rowData(spe)$gene_search` is missing, then
-#' `rownames(spe)` is used to search for the gene ID. When a vector of length > 1
-#' is supplied, the continuous variables are combined according to \code{multi_gene_method},
-#' producing a single value for each spot.
+#' `rowData(spe)$gene_search` or a continuous variable(s) stored in
+#' `colData(spe)` to visualize. For each ID, if `rowData(spe)$gene_search` is
+#' missing, then `rownames(spe)` is used to search for the gene ID. When a
+#' vector of length > 1 is supplied, the continuous variables are combined
+#' according to `multi_gene_method`, producing a single value for each spot.
 #' @param assayname The name of the `assays(spe)` to use for extracting the
 #' gene expression data. Defaults to `logcounts`.
 #' @param minCount A `numeric(1)` specifying the minimum gene expression (or
@@ -25,9 +25,9 @@
 #' dependent on cell density.
 #' @param cont_colors A `character()` vector of colors that supersedes the
 #' `viridis` argument.
-#' @param multi_gene_method A \code{character(1)}: either "pca", "sparsity", or
-#' "z_score". This parameter controls how multiple continuous variables are
-#' combined for visualization, and only applies when \code{geneid} has length
+#' @param multi_gene_method A `character(1)`: either `"pca"`, `"sparsity"`, or
+#' `"z_score"`. This parameter controls how multiple continuous variables are
+#' combined for visualization, and only applies when `geneid` has length
 #' great than 1. `z_score`: to summarize multiple continuous variables, each is
 #' normalized to represent a Z-score. The multiple scores are then averaged.
 #' `pca`: PCA dimension reduction is conducted on the matrix formed by the

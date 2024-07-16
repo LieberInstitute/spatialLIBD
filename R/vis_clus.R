@@ -4,7 +4,11 @@
 #' using (by default) the histology information on the background. To visualize
 #' gene-level (or any continuous variable) use [vis_gene()].
 #'
-#' @inheritParams run_app
+#' @param spe A
+#' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]
+#' object. See [fetch_data()] for how to download some example objects or
+#' [read10xVisiumWrapper()] to read in `spaceranger --count` output files and
+#' build your own `spe` object.
 #' @param sampleid A `character(1)` specifying which sample to plot from
 #' `colData(spe)$sample_id` (formerly `colData(spe)$sample_name`).
 #' @param clustervar A `character(1)` with the name of the `colData(spe)`

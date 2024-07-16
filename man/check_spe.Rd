@@ -10,11 +10,11 @@ check_spe(
 )
 }
 \arguments{
-\item{spe}{Defaults to the output of
-\code{fetch_data(type = 'spe')}. This is a
+\item{spe}{A
 \link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
-object with the spot-level Visium data and information required for
-visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
+object. See \code{\link[=fetch_data]{fetch_data()}} for how to download some example objects or
+\code{\link[=read10xVisiumWrapper]{read10xVisiumWrapper()}} to read in \code{spaceranger --count} output files and
+build your own \code{spe} object.}
 
 \item{variables}{A \code{character()} vector of variable names expected to
 be present in \code{colData(spe)}.}

@@ -6,8 +6,8 @@
 #' gene-level (or any continuous variable) use [vis_gene_p()].
 #'
 #' @inheritParams vis_clus
-#' @param d A data.frame with the sample-level information. This is typically
-#' obtained using `cbind(colData(spe), spatialCoords(spe))`.
+#' @param d A `data.frame()` with the sample-level information. This is
+#' typically obtained using `cbind(colData(spe), spatialCoords(spe))`.
 #' @param title The title for the plot.
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.

@@ -19,8 +19,12 @@ and
 tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer
 }
 \description{
-Using the DLPFC snRNA-seq data from Matthew N Tran et al we computed
-enrichment t-statistics for the cell clusters. This is a subset of them
-used in examples such as in \code{\link[=layer_stat_cor_plot]{layer_stat_cor_plot()}}.
+Using the DLPFC snRNA-seq data from Matthew N Tran et al
+\url{https://doi.org/10.1016/j.neuron.2021.09.001} we computed
+enrichment t-statistics for the cell clusters. The Tran et al data has been
+subset to the top 100 DLPFC layer markers found in Maynard, Collado-Torres,
+et al 2021. This data is used in examples such as in
+\code{\link[=layer_stat_cor_plot]{layer_stat_cor_plot()}}. The Tran et al data is from the pre-print version
+of that project.
 }
 \keyword{datasets}

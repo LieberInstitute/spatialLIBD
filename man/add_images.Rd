@@ -14,11 +14,11 @@ add_images(
 )
 }
 \arguments{
-\item{spe}{Defaults to the output of
-\code{fetch_data(type = 'spe')}. This is a
+\item{spe}{A
 \link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
-object with the spot-level Visium data and information required for
-visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
+object. See \code{\link[=fetch_data]{fetch_data()}} for how to download some example objects or
+\code{\link[=read10xVisiumWrapper]{read10xVisiumWrapper()}} to read in \code{spaceranger --count} output files and
+build your own \code{spe} object.}
 
 \item{image_dir}{A \code{character(1)} specifying a path to a directory containing
 image files with the pattern \code{sampleID_pattern.png}.}

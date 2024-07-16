@@ -14,10 +14,11 @@
 #'
 #' @examples
 #'
-#' ## Obtain the necessary data
+#' ## Obtain example data from the HumanPilot project
+#' ## (Maynard, Collado-Torres, et al, 2021)
 #' if (!exists("sce_layer")) sce_layer <- fetch_data("sce_layer")
 #'
-#' ## Check the object
+#' ## Check the pseudo-bulked data
 #' check_sce_layer(sce_layer)
 check_sce_layer <- function(sce_layer, variables = "spatialLIBD") {
     ## Should be a SingleCellExperiment object

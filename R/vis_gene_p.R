@@ -3,12 +3,12 @@
 #' This function visualizes the gene expression stored in `assays(spe)` or any
 #' continuous variable stored in `colData(spe)` for one given sample at the
 #' spot-level using (by default) the histology information on the background.
-#' This is the function that does all the plotting behind [vis_gene()].
+#' This is the function that does all the plotting behind [vis_gene()]
 #' To visualize clusters (or any discrete variable) use [vis_clus_p()].
 #'
-#' @param d A data.frame with the sample-level information. This is typically
-#' obtained using `cbind(colData(spe), spatialCoords(spe))`.
-#' The data.frame has to contain
+#' @param d A `data.frame()` with the sample-level information. This is
+#' typically obtained using `cbind(colData(spe), spatialCoords(spe))`.
+#' The `data.frame` has to contain
 #' a column with the continuous variable data to plot stored under `d$COUNT`.
 #' @param legend_title A `character(1)` specifying the legend title.
 #' @inheritParams vis_clus_p

@@ -21,13 +21,20 @@
 #'     head(spe$key)
 #'
 #'     ## We can clean it
+#'     spe$key_original <- spe$key
 #'     spe$key <- NULL
 #'
 #'     ## and then add it back
-#'     head(add_key(spe)$key)
+#'     spe <- add_key(spe)
+#'     head(spe$key)
 #'
 #'     ## Note that the original 'key' order was 'sample_id'_'barcode' and we'
 #'     ## have since changed it to 'barcode'_'sample_id'.
+#'
+#'     ## Below we restore the original 'key'
+#'     spe$key <- spe$key_original
+#'     spe$key_original <- NULL
+#'     head(spe$key)
 #' }
 add_key <- function(spe, overwrite = TRUE) {
     if ("key" %in% colnames(colData(spe))) {
