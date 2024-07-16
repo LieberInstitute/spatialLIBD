@@ -7,7 +7,7 @@ object."><meta property="og:image" content="/logo.png"><!-- mathjax --><script s
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -35,7 +35,7 @@ object."><meta property="og:image" content="/logo.png"><!-- mathjax --><script s
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -54,14 +54,14 @@ object."><meta property="og:image" content="/logo.png"><!-- mathjax --><script s
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/LieberInstitute/spatialLIBD/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -85,7 +85,9 @@ object.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>sce</dt>
+
+
+<dl><dt id="arg-sce">sce<a class="anchor" aria-label="anchor" href="#arg-sce"></a></dt>
 <dd><p>Defaults to the output of
 <code>fetch_data(type = 'sce')</code>. This is a
 SingleCellExperiment
@@ -93,7 +95,7 @@ object with the spot-level Visium data and information required for
 visualizing the histology. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details.</p></dd>
 
 
-<dt>imageData</dt>
+<dt id="arg-imagedata">imageData<a class="anchor" aria-label="anchor" href="#arg-imagedata"></a></dt>
 <dd><p>A <code>DataFrame()</code> with image data. Will be used with
 <a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-methods.html" class="external-link">SpatialExperiment::imgData</a>.
 If <code>NULL</code>, then this will be constructed for you assuming that you are
@@ -102,9 +104,7 @@ working with the original data from <code>spatialLIBD::fetch_data("sce")</code>.
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>A a
+    <p>A a
 <a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html" class="external-link">SpatialExperiment-class</a>  object.</p>
     </div>
     <div id="details">
@@ -128,7 +128,7 @@ otherwise have to generate for your own data.</p>
 <span class="r-in"><span>    <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu">sce_to_spe</span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2024-04-29</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-16 11:34:04.850792 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/6f56656adcb_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-16 17:02:43.103369 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/6f56656adcb_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 </code></pre></div>
     </div>
   </div>
@@ -143,15 +143,15 @@ otherwise have to generate for your own data.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 
