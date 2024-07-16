@@ -147,7 +147,7 @@ are an edge spot.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Obtain the necessary data</span></span></span>
 <span class="r-in"><span><span class="va">spe_pre_qc</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spatialDLPFC_Visium_example_subset"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2024-04-29</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-12 13:30:58.248283 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/6f563a40ecf7_spatialDLPFC_spe_subset_example.rds%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-16 11:32:04.564103 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/6f563a40ecf7_spatialDLPFC_spe_subset_example.rds%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## For now, we fake out tissue spots in example data</span></span></span>
 <span class="r-in"><span><span class="va">spe_qc</span> <span class="op">&lt;-</span> <span class="va">spe_pre_qc</span></span></span>
@@ -166,37 +166,48 @@ are an edge spot.</p></dd>
 <span class="r-in"><span><span class="co">## visualize edge spots</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="vis_clus.html">vis_clus</a></span><span class="op">(</span><span class="va">spe_qc</span>, sampleid <span class="op">=</span> <span class="st">"Br6432_ant"</span>, clustervar <span class="op">=</span> <span class="st">"edge_spot"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_qc_metrics-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu"><a href="vis_gene.html">vis_gene</a></span><span class="op">(</span><span class="va">spe_qc</span>, sampleid <span class="op">=</span> <span class="st">"Br6432_ant"</span>, geneid <span class="op">=</span> <span class="st">"edge_distance"</span>, minCount <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## specify your own colors</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="vis_clus.html">vis_clus</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">spe_qc</span>,</span></span>
+<span class="r-in"><span>    sampleid <span class="op">=</span> <span class="st">"Br6432_ant"</span>,</span></span>
+<span class="r-in"><span>    clustervar <span class="op">=</span> <span class="st">"edge_spot"</span>,</span></span>
+<span class="r-in"><span>    colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"TRUE"</span> <span class="op">=</span> <span class="st">"lightgreen"</span>,</span></span>
+<span class="r-in"><span>        <span class="st">"FALSE"</span> <span class="op">=</span> <span class="st">"pink"</span>,</span></span>
+<span class="r-in"><span>        <span class="st">"NA"</span> <span class="op">=</span> <span class="st">"red"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_qc_metrics-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="vis_gene.html">vis_gene</a></span><span class="op">(</span><span class="va">spe_qc</span>, sampleid <span class="op">=</span> <span class="st">"Br6432_ant"</span>, geneid <span class="op">=</span> <span class="st">"edge_distance"</span>, minCount <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="add_qc_metrics-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Visualize scran QC flags</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Check the spots with low library size as detected by scran::isOutlier()</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="vis_clus.html">vis_clus</a></span><span class="op">(</span><span class="va">spe_qc</span>, sample_id <span class="op">=</span> <span class="st">"Br6432_ant"</span>, clustervar <span class="op">=</span> <span class="st">"scran_low_lib_size"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="add_qc_metrics-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_qc_metrics-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Violin plot of library size with low library size highlighted in a</span></span></span>
 <span class="r-in"><span><span class="co">## different color.</span></span></span>
 <span class="r-in"><span><span class="fu">scater</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotColData.html" class="external-link">plotColData</a></span><span class="op">(</span><span class="va">spe_qc</span><span class="op">[</span>, <span class="va">spe_qc</span><span class="op">$</span><span class="va">in_tissue</span><span class="op">]</span>, x <span class="op">=</span> <span class="st">"sample_id"</span>, y <span class="op">=</span> <span class="st">"sum_umi"</span>, colour_by <span class="op">=</span> <span class="st">"scran_low_lib_size"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="add_qc_metrics-4.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_qc_metrics-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Check any spots that scran::isOutlier() flagged</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="vis_clus.html">vis_clus</a></span><span class="op">(</span><span class="va">spe_qc</span>, sampleid <span class="op">=</span> <span class="st">"Br6432_ant"</span>, clustervar <span class="op">=</span> <span class="st">"scran_discard"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="add_qc_metrics-5.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_qc_metrics-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Low library spots that are on the edge of the tissue</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="vis_clus.html">vis_clus</a></span><span class="op">(</span><span class="va">spe_qc</span>, sampleid <span class="op">=</span> <span class="st">"Br6432_ant"</span>, clustervar <span class="op">=</span> <span class="st">"scran_low_lib_size_edge"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="add_qc_metrics-6.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_qc_metrics-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Use `low_library_size` (or other variables) and `edge_distance` as you</span></span></span>
 <span class="r-in"><span><span class="co">## please.</span></span></span>
-<span class="r-in"><span><span class="va">spe_qc</span><span class="op">$</span><span class="va">our_low_lib_edge</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="va">spe_qc</span><span class="op">$</span><span class="va">scran_low_lib_size</span> <span class="op">==</span> <span class="st">"TRUE"</span> <span class="op">&amp;</span></span></span>
-<span class="r-in"><span>        <span class="va">spe_qc</span><span class="op">$</span><span class="va">edge_distance</span> <span class="op">&lt;</span> <span class="fl">5</span>,</span></span>
-<span class="r-in"><span>    levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRUE"</span>, <span class="st">"FALSE"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">spe_qc</span><span class="op">$</span><span class="va">our_low_lib_edge</span> <span class="op">&lt;-</span> <span class="va">spe_qc</span><span class="op">$</span><span class="va">scran_low_lib_size</span> <span class="op">&amp;</span> <span class="va">spe_qc</span><span class="op">$</span><span class="va">edge_distance</span> <span class="op">&lt;</span> <span class="fl">5</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>‘&amp;’ not meaningful for factors</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="vis_clus.html">vis_clus</a></span><span class="op">(</span><span class="va">spe_qc</span>, sample_id <span class="op">=</span> <span class="st">"Br6432_ant"</span>, clustervar <span class="op">=</span> <span class="st">"our_low_lib_edge"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="add_qc_metrics-7.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_qc_metrics-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Clean up</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">spe_qc</span>, <span class="va">spec_pre_qc</span><span class="op">)</span></span></span>
