@@ -63,7 +63,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/devel/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
@@ -221,7 +221,7 @@
 <ul><li>
 <code><a href="../reference/run_app.html">run_app()</a></code> now offers the option to chose any of the <code><a href="https://rdrr.io/pkg/paletteer/man/paletteer_d.html" class="external-link">paletteer::paletteer_d</a></code> color palettes for discrete variables.</li>
 <li>
-<code>Polychrome</code> has been replaced as a dependency by <code>paletteer</code>. Note that <code><a href="https://rdrr.io/pkg/Polychrome/man/palette36.html" class="external-link">Polychrome::palette36</a></code> is still the default.</li>
+<code>Polychrome</code> has been replaced as a dependency by <code>paletteer</code>. Note that <code>Polychrome::palette36</code> is still the default.</li>
 <li>
 <code><a href="../reference/run_app.html">run_app()</a></code> now looks for columns that end with ’_colors’ in their name which can be used to pre-specify colors for any companion variables. For example if you have <code>spe$my_groups</code> and <code>spe$my_groups_colors</code> then the second one can specify the colors that will be used for visualizing <code>spe$my_groups</code>. This makes specifying default colors more flexible than before, and the user is still free to change them if necessary.</li>
 </ul></div>
@@ -265,7 +265,7 @@
 <h2 class="page-header" data-toc-text="1.7.6" id="spatiallibd-176">spatialLIBD 1.7.6<a class="anchor" aria-label="anchor" href="#spatiallibd-176"></a></h2>
 <p>NEW FEATURES</p>
 <ul><li>
-<code>vis_gene_p()</code>, <code><a href="../reference/vis_clus_p.html">vis_clus_p()</a></code> and all related functions now have an argument <code>point_size</code> which lets you control how big the points are plotted. This can be useful for visualization purposes.</li>
+<code><a href="../reference/vis_gene_p.html">vis_gene_p()</a></code>, <code><a href="../reference/vis_clus_p.html">vis_clus_p()</a></code> and all related functions now have an argument <code>point_size</code> which lets you control how big the points are plotted. This can be useful for visualization purposes.</li>
 <li>The shiny app now has an input controlling the point size. If you increase it to say <code>5</code>, then if you zoom in the <code>clusters (interactive)</code> panel, you can see larger spots when zooming in.</li>
 <li>These features are related to <a href="https://github.com/LieberInstitute/spatialLIBD/issues/28" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/28</a> although the spot diameter is still not the true spot diameter. However, now you have more flexibility for visualizing the spots.</li>
 </ul></div>
@@ -333,7 +333,7 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.3.3" id="spatiallibd-133">spatialLIBD 1.3.3<a class="anchor" aria-label="anchor" href="#spatiallibd-133"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>Overall the package has been updated to use <code>SpatialExperiment</code> version 1.1.427 available on Bioconductor 3.13 (bioc-devel). Several functions were re-named such as <code>sce_image_gene_p()</code> now has a shorter name <code>vis_gene_p()</code>. This update also changes these visualization functions to ONLY support <code>SpatialExperiment</code> objects instead of the original modified <code>SingleCellExperiment</code> objects.</li>
+<ul><li>Overall the package has been updated to use <code>SpatialExperiment</code> version 1.1.427 available on Bioconductor 3.13 (bioc-devel). Several functions were re-named such as <code>sce_image_gene_p()</code> now has a shorter name <code><a href="../reference/vis_gene_p.html">vis_gene_p()</a></code>. This update also changes these visualization functions to ONLY support <code>SpatialExperiment</code> objects instead of the original modified <code>SingleCellExperiment</code> objects.</li>
 <li>Updated citation information to reflect that <a href="https://doi.org/10.1038/s41593-020-00787-0" class="external-link uri">https://doi.org/10.1038/s41593-020-00787-0</a> is now public. Also added a link on the README to <a href="https://doi.org/10.6084/m9.figshare.13623902.v1" class="external-link uri">https://doi.org/10.6084/m9.figshare.13623902.v1</a> for the manuscript high resolution images.</li>
 </ul></div>
     <div class="section level2">

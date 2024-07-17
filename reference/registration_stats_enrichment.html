@@ -65,7 +65,7 @@ registration with layer_stat_cor() and related functions."><meta property="og:im
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Spatial registration: compute enrichment statistics</h1>
-    <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/R/registration_stats_enrichment.R" class="external-link"><code>R/registration_stats_enrichment.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/devel/R/registration_stats_enrichment.R" class="external-link"><code>R/registration_stats_enrichment.R</code></a></small>
     <div class="hidden name"><code>registration_stats_enrichment.Rd</code></div>
     </div>
 
@@ -144,38 +144,38 @@ similar to <code>fetch_data("modeling_results")$enrichment</code>.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/example.html" class="external-link">example</a></span><span class="op">(</span><span class="st">"registration_block_cor"</span>, package <span class="op">=</span> <span class="st">"spatialLIBD"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgst__devel* &gt; example("registration_model", package = "spatialLIBD")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgst__&gt; example("registration_model", package = "spatialLIBD")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; example("registration_pseudobulk", package = "spatialLIBD")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; example("registration_pseudobulk", package = "spatialLIBD")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; ## Ensure reproducibility of example data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; set.seed(20220907)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Ensure reproducibility of example data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; set.seed(20220907)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; ## Generate example data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; sce &lt;- scuttle::mockSCE()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Generate example data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce &lt;- scuttle::mockSCE()</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; ## Add some sample IDs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; sce$sample_id &lt;- sample(LETTERS[1:5], ncol(sce), replace = TRUE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Add some sample IDs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce$sample_id &lt;- sample(LETTERS[1:5], ncol(sce), replace = TRUE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; ## Add a sample-level covariate: age</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; ages &lt;- rnorm(5, mean = 20, sd = 4)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Add a sample-level covariate: age</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ages &lt;- rnorm(5, mean = 20, sd = 4)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; names(ages) &lt;- LETTERS[1:5]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; names(ages) &lt;- LETTERS[1:5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; sce$age &lt;- ages[sce$sample_id]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce$age &lt;- ages[sce$sample_id]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; ## Add gene-level information</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; rowData(sce)$ensembl &lt;- paste0("ENSG", seq_len(nrow(sce)))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Add gene-level information</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; rowData(sce)$ensembl &lt;- paste0("ENSG", seq_len(nrow(sce)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; rowData(sce)$gene_name &lt;- paste0("gene", seq_len(nrow(sce)))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; rowData(sce)$gene_name &lt;- paste0("gene", seq_len(nrow(sce)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; ## Pseudo-bulk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; sce_pseudo &lt;- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-16 17:02:37.992936 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-16 17:02:38.06571 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-16 17:02:38.091375 normalize expression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Pseudo-bulk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce_pseudo &lt;- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-17 13:51:42.992514 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-17 13:51:43.146693 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-17 13:51:43.201202 normalize expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; colData(sce_pseudo)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; colData(sce_pseudo)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 8 columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Mutation_Status  Cell_Cycle   Treatment   sample_id       age</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;numeric&gt;</span>
@@ -204,10 +204,10 @@ similar to <code>fetch_data("modeling_results")$enrichment</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D_S                      S                      D        14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> E_S                      S                      E        11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; registration_mod &lt;- registration_model(sce_pseudo, "age")</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-16 17:02:38.129501 create model matrix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; registration_mod &lt;- registration_model(sce_pseudo, "age")</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-17 13:51:43.274381 create model matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_devel* &gt; head(registration_mod)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; head(registration_mod)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variableG0 registration_variableG1 registration_variableG2M</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_G0                       1                       0                        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> B_G0                       1                       0                        0</span>
@@ -223,15 +223,15 @@ similar to <code>fetch_data("modeling_results")$enrichment</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> E_G0                      0 20.97006</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_G1                      0 19.18719</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgst__devel* &gt; block_cor &lt;- registration_block_cor(sce_pseudo, registration_mod)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-16 17:02:38.134799 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-16 17:02:38.654908 The estimated correlation is: -0.0187869166526901</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgst__&gt; block_cor &lt;- registration_block_cor(sce_pseudo, registration_mod)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-17 13:51:43.285637 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-17 13:51:44.583617 The estimated correlation is: -0.0187869166526901</span>
 <span class="r-in"><span><span class="va">results_enrichment</span> <span class="op">&lt;-</span> <span class="fu">registration_stats_enrichment</span><span class="op">(</span><span class="va">sce_pseudo</span>,</span></span>
 <span class="r-in"><span>    <span class="va">block_cor</span>, <span class="st">"age"</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-16 17:02:38.657236 computing enrichment statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-16 17:02:38.701689 extract and reformat enrichment results</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-17 13:51:44.587859 computing enrichment statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-17 13:51:44.705956 extract and reformat enrichment results</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_enrichment</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            t_stat_G0  t_stat_G1 t_stat_G2M   t_stat_S p_value_G0 p_value_G1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001  0.1482017  0.5610669 -0.3612235 -0.3458508 0.88374480 0.58130631</span>
@@ -260,8 +260,8 @@ similar to <code>fetch_data("modeling_results")$enrichment</code>.</p>
 <span class="r-in"><span>    block_cor <span class="op">=</span> <span class="cn">NaN</span>, <span class="st">"age"</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-16 17:02:38.712787 computing enrichment statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-16 17:02:38.771541 extract and reformat enrichment results</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-17 13:51:44.739083 computing enrichment statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-17 13:51:44.842281 extract and reformat enrichment results</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_enrichment_nan</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            t_stat_G0   t_stat_G1 t_stat_G2M   t_stat_S p_value_G0 p_value_G1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001  0.1497747  0.56711100 -0.3650801 -0.3495404 0.88252049 0.57727506</span>

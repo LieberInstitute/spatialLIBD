@@ -64,7 +64,7 @@ names. It can be used to automatically assign colors."><meta property="og:image"
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Obtain the colors for a set of cluster names</h1>
-    <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/R/get_colors.R" class="external-link"><code>R/get_colors.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/devel/R/get_colors.R" class="external-link"><code>R/get_colors.R</code></a></small>
     <div class="hidden name"><code>get_colors.Rd</code></div>
     </div>
 
@@ -84,7 +84,7 @@ names. It can be used to automatically assign colors.</p>
 <dl><dt id="arg-colors">colors<a class="anchor" aria-label="anchor" href="#arg-colors"></a></dt>
 <dd><p>A vector of colors. If <code>NULL</code> then a set of default colors will
 be used when <code>clusters</code> has less than 12 unique values, otherwise
-<code><a href="https://rdrr.io/pkg/Polychrome/man/palette36.html" class="external-link">Polychrome::palette36</a></code> will be used which can
+<code>Polychrome::palette36</code> will be used which can
 generate up to 36 unique colors. If the number of unique clusters is beyond
 36 then this function will fail.</p></dd>
 
@@ -105,8 +105,7 @@ either change the names or use <a href="https://rdrr.io/r/base/unname.html" clas
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Obtain the necessary data</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2024-04-29</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-16 17:01:54.433623 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/fc1571d8e1fb_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-17 13:50:39.853193 loading file /github/home/.cache/R/BiocFileCache/4987a2d0cae_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Example layer colors with the corresponding names</span></span></span>
 <span class="r-in"><span><span class="fu">get_colors</span><span class="op">(</span><span class="va">libd_layer_colors</span>, <span class="va">sce_layer</span><span class="op">$</span><span class="va">layer_guess</span><span class="op">)</span></span></span>

@@ -64,7 +64,7 @@ For more details please check the vignette documentation."><meta property="og:im
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Check input sce_layer</h1>
-    <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/HEAD/R/check_sce_layer.R" class="external-link"><code>R/check_sce_layer.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/devel/R/check_sce_layer.R" class="external-link"><code>R/check_sce_layer.R</code></a></small>
     <div class="hidden name"><code>check_sce_layer.Rd</code></div>
     </div>
 
@@ -112,8 +112,7 @@ be present in <code>colData(sce_layer)</code>.</p></dd>
 <span class="r-in"><span><span class="co">## Obtain example data from the HumanPilot project</span></span></span>
 <span class="r-in"><span><span class="co">## (Maynard, Collado-Torres, et al, 2021)</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> snapshotDate(): 2024-04-29</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-16 17:00:55.536908 loading file /Users/leocollado/Library/Caches/org.R-project.R/R/BiocFileCache/fc1571d8e1fb_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-17 13:49:18.090538 loading file /github/home/.cache/R/BiocFileCache/4987a2d0cae_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Check the pseudo-bulked data</span></span></span>
 <span class="r-in"><span><span class="fu">check_sce_layer</span><span class="op">(</span><span class="va">sce_layer</span><span class="op">)</span></span></span>
