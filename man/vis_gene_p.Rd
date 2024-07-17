@@ -109,7 +109,7 @@ if (enough_ram()) {
 }
 }
 \seealso{
-Other Spatial gene visualization functions:
+Other Spatial gene visualization functions: 
 \code{\link{vis_gene}()},
 \code{\link{vis_grid_gene}()}
 }
