@@ -262,7 +262,7 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/s/5plupu8bj5m0kfh/Visium_IF_AD_modeling_results.Rdata?dl=1"
         } else if (type == "Visium_LS_spe") {
-            tag <- "VisiumLS_Visium_stitched_spatialLIBD"
+            tag <- "visiumStitched_brain_spatialLIBD"
             hub_title <- type
 
             ## While EH is not set-up
@@ -270,7 +270,7 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/scl/fi/9re464y6qaojx3r94nq5u/visiumStitched_brain_spe.rds?rlkey=nq6a82u23xuu9hohr86oodwdi&dl=1"
         } else if (type == "visiumStitched_brain_spaceranger") {
-            tag <- "VisiumLS_Visium_stitched_spatialLIBD"
+            tag <- "visiumStitched_brain_spatialLIBD"
             hub_title <- type
 
             ## While EH is not set-up
@@ -278,7 +278,7 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/scl/fi/5jdoaukvhq3v7lk19228y/visiumStitched_brain_spaceranger.zip?rlkey=bdgjc6mgy1ierdad6h6v5g29c&dl=1"
         } else if (type == "visiumStitched_brain_ImageJ_out") {
-            tag <- "VisiumLS_Visium_stitched_spatialLIBD"
+            tag <- "visiumStitched_brain_spatialLIBD"
             hub_title <- type
 
             ## While EH is not set-up
