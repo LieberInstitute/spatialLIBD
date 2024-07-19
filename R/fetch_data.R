@@ -261,7 +261,7 @@ fetch_data <-
             file_name <- "Visium_IF_AD_modeling_results.Rdata"
             url <-
                 "https://www.dropbox.com/s/5plupu8bj5m0kfh/Visium_IF_AD_modeling_results.Rdata?dl=1"
-        } else if (type == "Visium_LS_spe") {
+        } else if (type == "visiumStitched_brain_spe") {
             tag <- "visiumStitched_brain_spatialLIBD"
             hub_title <- type
 
