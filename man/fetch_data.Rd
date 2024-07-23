@@ -12,7 +12,7 @@ fetch_data(
     "Visium_SPG_AD_Visium_wholegenome_spe", "Visium_SPG_AD_Visium_targeted_spe",
     "Visium_SPG_AD_Visium_wholegenome_pseudobulk_spe",
     "Visium_SPG_AD_Visium_wholegenome_modeling_results", "visiumStitched_brain_spe",
-    "visiumStitched_brain_spaceranger", "visiumStitched_brain_ImageJ_out"),
+    "visiumStitched_brain_spaceranger", "visiumStitched_brain_Fiji_out"),
   destdir = tempdir(),
   eh = ExperimentHub::ExperimentHub(),
   bfc = BiocFileCache::BiocFileCache()

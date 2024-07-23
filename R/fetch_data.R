@@ -102,7 +102,7 @@ fetch_data <-
         "Visium_SPG_AD_Visium_wholegenome_modeling_results",
         "visiumStitched_brain_spe",
         "visiumStitched_brain_spaceranger",
-        "visiumStitched_brain_ImageJ_out"
+        "visiumStitched_brain_Fiji_out"
     ),
     destdir = tempdir(),
     eh = ExperimentHub::ExperimentHub(),
@@ -277,14 +277,14 @@ fetch_data <-
             file_name <- "visiumStitched_brain_spaceranger.zip"
             url <-
                 "https://www.dropbox.com/scl/fi/5jdoaukvhq3v7lk19228y/visiumStitched_brain_spaceranger.zip?rlkey=bdgjc6mgy1ierdad6h6v5g29c&dl=1"
-        } else if (type == "visiumStitched_brain_ImageJ_out") {
+        } else if (type == "visiumStitched_brain_Fiji_out") {
             tag <- "visiumStitched_brain_spatialLIBD"
             hub_title <- type
 
             ## While EH is not set-up
-            file_name <- "visiumStitched_brain_imagej_out.zip"
+            file_name <- "visiumStitched_brain_fiji_out.zip"
             url <-
-                "https://www.dropbox.com/scl/fi/bevo52e96f2kdwllf8dkk/visiumStitched_brain_imagej_out.zip?rlkey=ptwal8f5zxakzejwd0oqw0lhj&dl=1"
+                "https://www.dropbox.com/scl/fi/bevo52e96f2kdwllf8dkk/visiumStitched_brain_fiji_out.zip?rlkey=ptwal8f5zxakzejwd0oqw0lhj&dl=1"
         }
 
         file_path <- file.path(destdir, file_name)
