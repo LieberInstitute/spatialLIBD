@@ -25,7 +25,7 @@ the data."><meta property="og:image" content="/logo.png"><!-- mathjax --><script
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.8</span>
       </span>
     </div>
 
@@ -96,7 +96,7 @@ the data.</p>
 <span>    <span class="st">"Visium_SPG_AD_Visium_wholegenome_spe"</span>, <span class="st">"Visium_SPG_AD_Visium_targeted_spe"</span>,</span>
 <span>    <span class="st">"Visium_SPG_AD_Visium_wholegenome_pseudobulk_spe"</span>,</span>
 <span>    <span class="st">"Visium_SPG_AD_Visium_wholegenome_modeling_results"</span>, <span class="st">"visiumStitched_brain_spe"</span>,</span>
-<span>    <span class="st">"visiumStitched_brain_spaceranger"</span>, <span class="st">"visiumStitched_brain_ImageJ_out"</span><span class="op">)</span>,</span>
+<span>    <span class="st">"visiumStitched_brain_spaceranger"</span>, <span class="st">"visiumStitched_brain_Fiji_out"</span><span class="op">)</span>,</span>
 <span>  destdir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  eh <span class="op">=</span> <span class="fu">ExperimentHub</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ExperimentHub/man/ExperimentHub-class.html" class="external-link">ExperimentHub</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  bfc <span class="op">=</span> <span class="fu">BiocFileCache</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -166,7 +166,7 @@ https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-dat
 <span class="r-in"><span><span class="co">## Download the SingleCellExperiment object</span></span></span>
 <span class="r-in"><span><span class="co">## at the layer-level</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu">fetch_data</span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-19 19:17:29.707474 loading file /github/home/.cache/R/BiocFileCache/2e2552c8efc_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-07-23 16:21:34.511929 loading file /github/home/.cache/R/BiocFileCache/3552a3d7c04_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Explore the data</span></span></span>
 <span class="r-in"><span><span class="va">sce_layer</span></span></span>
