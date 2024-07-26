@@ -682,8 +682,7 @@ app_server <- function(input, output, session) {
 
         ## Add the reduced dims
         if (reduced_name != "") {
-            red_dims <-
-                reducedDim(spe, reduced_name)[spe$sample_id == sampleid, ]
+            red_dims <- reducedDim(spe_sub, reduced_name)
             colnames(red_dims) <-
                 paste(reduced_name, "dim", seq_len(ncol(red_dims)))
             d <- cbind(d, red_dims)
