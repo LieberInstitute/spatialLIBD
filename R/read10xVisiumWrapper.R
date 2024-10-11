@@ -72,7 +72,10 @@ read10xVisiumWrapper <- function(
                 web[grep('--transcriptome=', web)]
             )
         }
-        reference_gtf <- file.path(reference_path, "genes", "genes.gtf")
+        reference_gtf <- list.files(
+            file.path(reference_path, "genes"), "^genes\\.gtf(\\.gz)?$",
+            full.names = TRUE
+        )
     }
     reference_gtf <- reference_gtf[file.exists(reference_gtf)]
     if (length(reference_gtf) > 1) {
