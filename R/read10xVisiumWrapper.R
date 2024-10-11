@@ -60,7 +60,18 @@ read10xVisiumWrapper <- function(
     if (missing(reference_gtf)) {
         summary_file <- file.path(samples[1], "web_summary.html")
         web <- readLines(summary_file)
+
+        #   For spaceranger versions before 3.0
         reference_path <- gsub('.*"', "", regmatches(web, regexpr('\\["Reference Path", *"[/|A-z|0-9|-]+', web)))
+
+        #   For recent spaceranger versions (3.0.0+?)
+        if (length(reference_path) == 0) {
+            reference_path = sub(
+                '.*--transcriptome=(\\S*).*',
+                '\\1', 
+                web[grep('--transcriptome=', web)]
+            )
+        }
         reference_gtf <- file.path(reference_path, "genes", "genes.gtf")
     }
     reference_gtf <- reference_gtf[file.exists(reference_gtf)]
