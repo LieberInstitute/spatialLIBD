@@ -1,3 +1,12 @@
+# spatialLIBD 1.17.10
+
+BUG FIXES
+
+* `registration_wrapper()` now automatically handles the scenario where `k = 2`
+by not using `registration_stats_anova()` and providing an apporpriate warning.
+Implemented by @lahuuki at 
+<https://github.com/LieberInstitute/spatialLIBD/pull/86>.
+
 # spatialLIBD 1.17.9
 
 BUG FIXES
