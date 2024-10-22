@@ -20,16 +20,17 @@ rowData(sce)$ensembl <- paste0("ENSG", seq_len(nrow(sce)))
 rowData(sce)$gene_name <- paste0("gene", seq_len(nrow(sce)))
 
 
-test_that("warning for k=2 variable",
-          example_modeling_results <- expect_warning(
-            registration_wrapper(
-              sce,
-              var_registration ="Treatment",
-              var_sample_id ="sample_id",
-              covars = c("age"),
-              gene_ensembl = "ensembl",
-              gene_name = "gene_name",
-              suffix = "wrapper"
-            )
-          )
+test_that(
+    "warning for k=2 variable",
+    example_modeling_results <- expect_warning(
+        registration_wrapper(
+            sce,
+            var_registration = "Treatment",
+            var_sample_id = "sample_id",
+            covars = c("age"),
+            gene_ensembl = "ensembl",
+            gene_name = "gene_name",
+            suffix = "wrapper"
+        )
+    )
 )
