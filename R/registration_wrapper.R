@@ -47,7 +47,12 @@
 #' ## Compute all modeling results
 #' example_modeling_results <- registration_wrapper(
 #'     sce,
-#'     "Cell_Cycle", "sample_id", c("age"), "ensembl", "gene_name", "wrapper"
+#'     var_regustration ="Cell_Cycle", 
+#'     var_sample_id ="sample_id", 
+#'     covars = c("age"),
+#'     gene_ensembl = "ensembl", 
+#'     gene_name = "gene_name", 
+#'     suffix = "wrapper"
 #' )
 registration_wrapper <-
     function(sce,
@@ -76,6 +81,12 @@ registration_wrapper <-
 
         block_cor <-
             registration_block_cor(sce_pseudo, registration_model = registration_mod)
+        
+        ## test if registration var has two groups
+        registration_var_k2 <- length(grep("^registration_variable", colnames(registration_mod))) == 2
+        if (registration_var_k2) {
+          warning("You need 'var_registration' to have at least 3 different values to compute an F-statistic, returning Enrichment statistics only", call. = FALSE)
+        }
 
         results_enrichment <-
             registration_stats_enrichment(
@@ -85,29 +96,40 @@ registration_wrapper <-
                 gene_ensembl = gene_ensembl,
                 gene_name = gene_name
             )
-        results_pairwise <-
+        
+        ## with more than 2 groups run ANOVA and pairwise data
+        if(!registration_var_k2){
+          results_pairwise <-
             registration_stats_pairwise(
-                sce_pseudo,
-                registration_model = registration_mod,
-                block_cor = block_cor,
-                gene_ensembl = gene_ensembl,
-                gene_name = gene_name
+              sce_pseudo,
+              registration_model = registration_mod,
+              block_cor = block_cor,
+              gene_ensembl = gene_ensembl,
+              gene_name = gene_name
             )
-        results_anova <-
+          results_anova <-
             registration_stats_anova(
-                sce_pseudo,
-                block_cor = block_cor,
-                covars = covars,
-                gene_ensembl = gene_ensembl,
-                gene_name = gene_name,
-                suffix = suffix
+              sce_pseudo,
+              block_cor = block_cor,
+              covars = covars,
+              gene_ensembl = gene_ensembl,
+              gene_name = gene_name,
+              suffix = suffix
             )
-
-        modeling_results <- list(
+          
+          modeling_results <- list(
             "anova" = results_anova,
             "enrichment" = results_enrichment,
             "pairwise" = results_pairwise
-        )
+          )
+        } else {
+          modeling_results <- list(
+            "anova" = NULL,
+            "enrichment" = results_enrichment,
+            "pairwise" = NULL
+          )
+        }
+        
 
         return(modeling_results)
     }

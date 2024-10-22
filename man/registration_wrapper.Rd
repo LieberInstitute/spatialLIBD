@@ -92,7 +92,12 @@ rowData(sce)$gene_name <- paste0("gene", seq_len(nrow(sce)))
 ## Compute all modeling results
 example_modeling_results <- registration_wrapper(
     sce,
-    "Cell_Cycle", "sample_id", c("age"), "ensembl", "gene_name", "wrapper"
+    var_regustration ="Cell_Cycle", 
+    var_sample_id ="sample_id", 
+    covars = c("age"),
+    gene_ensembl = "ensembl", 
+    gene_name = "gene_name", 
+    suffix = "wrapper"
 )
 }
 \seealso{
