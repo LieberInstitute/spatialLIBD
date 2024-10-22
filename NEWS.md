@@ -1,3 +1,12 @@
+# spatialLIBD 1.17.9
+
+BUG FIXES
+
+* `read10xVisiumWrapper()` is now able to detect the GTF file used by
+`SpaceRanger` for version 3.0.0+. Implemented by @nick-eagles at
+<https://github.com/LieberInstitute/spatialLIBD/pull/88>.
+
+
 # spatialLIBD 1.17.6
 
 BUG FIXES
