@@ -22,7 +22,7 @@ related functions of sc/snRNA-seq datasets."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.17.10</span>
       </span>
     </div>
 
@@ -198,20 +198,97 @@ to choose the best cutoff.</p>
 <span class="r-in"><span><span class="co">## Compute all modeling results</span></span></span>
 <span class="r-in"><span><span class="va">example_modeling_results</span> <span class="op">&lt;-</span> <span class="fu">registration_wrapper</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="va">sce</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"Cell_Cycle"</span>, <span class="st">"sample_id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>, <span class="st">"ensembl"</span>, <span class="st">"gene_name"</span>, <span class="st">"wrapper"</span></span></span>
+<span class="r-in"><span>    var_registration <span class="op">=</span> <span class="st">"Cell_Cycle"</span>,</span></span>
+<span class="r-in"><span>    var_sample_id <span class="op">=</span> <span class="st">"sample_id"</span>,</span></span>
+<span class="r-in"><span>    covars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>,</span></span>
+<span class="r-in"><span>    gene_name <span class="op">=</span> <span class="st">"gene_name"</span>,</span></span>
+<span class="r-in"><span>    suffix <span class="op">=</span> <span class="st">"wrapper"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:38:54.705986 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:38:54.855254 dropping 9 pseudo-bulked samples that are below 'min_ncells'.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:38:54.876318 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:38:54.929357 normalize expression</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:38:55.021009 create model matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:38:55.033263 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:38:57.365731 The estimated correlation is: -0.0783081238514532</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:38:57.368384 computing enrichment statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:38:57.486334 extract and reformat enrichment results</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:38:57.512208 running the baseline pairwise model</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:38:57.530169 computing pairwise statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:38:57.635923 computing F-statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:50:58.101932 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:50:58.255897 dropping 9 pseudo-bulked samples that are below 'min_ncells'.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:50:58.277534 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:50:58.395509 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:50:58.452923 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:50:58.463573 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:51:00.834925 The estimated correlation is: -0.0783081238514532</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:51:00.837409 computing enrichment statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:51:00.952989 extract and reformat enrichment results</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:51:00.978619 running the baseline pairwise model</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:51:00.996935 computing pairwise statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-10-22 13:51:01.07164 computing F-statistics</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Explore the results from registration_wrapper()</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">example_modeling_results</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "list"</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">example_modeling_results</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">example_modeling_results</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "anova"      "enrichment" "pairwise"  </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">example_modeling_results</span>, <span class="va">head</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $anova</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $enrichment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        t_stat_G0  t_stat_G1 t_stat_G2M    t_stat_S p_value_G0 p_value_G1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG1 -0.1547374  1.5323608 -0.2348981 -1.29289250 0.88011484 0.15652594</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG2  0.5630611  1.4947773 -0.5105565 -1.76319136 0.58582739 0.16593179</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG3  0.4228896 -0.8317725 -0.4890891  1.03785001 0.68134877 0.42500953</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG4 -0.8090376  0.8315512  1.5976031 -1.75950259 0.43736743 0.42512872</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG5 -2.0758087  0.2188378  0.2130925  1.15619668 0.06472348 0.83119090</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG6  0.3913959 -1.8396065  1.6689318  0.07483167 0.70373612 0.09574789</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       p_value_G2M p_value_S    fdr_G0    fdr_G1   fdr_G2M     fdr_S   logFC_G0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG1   0.8190364 0.2252116 0.9852255 0.9966809 0.9953748 0.9681139 -0.1236594</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG2   0.6207620 0.1084407 0.9612662 0.9966809 0.9899698 0.9392089  0.5488682</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG3   0.6353470 0.3238615 0.9648540 0.9966809 0.9921856 0.9681139  0.1430331</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG4   0.1412712 0.1090902 0.9612662 0.9966809 0.9399839 0.9392089 -0.9237743</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG5   0.8355440 0.2745611 0.8631058 0.9966809 0.9953748 0.9681139 -2.1724966</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG6   0.1261463 0.9418292 0.9648540 0.9966809 0.9399839 0.9906646  0.3550924</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         logFC_G1  logFC_G2M     logFC_S ensembl  gene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG1  0.8654897 -0.1777803 -0.84406114   ENSG1 gene1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG2  1.0494805 -0.4733543 -1.34394213   ENSG2 gene2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG3 -0.2158331 -0.1565191  0.29666354   ENSG3 gene3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG4  0.7435077  1.5938565 -1.59726925   ENSG4 gene4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG5  0.2144746  0.2525529  1.19887499   ENSG5 gene5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG6 -1.1400513  1.2795838  0.06030075   ENSG6 gene6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $pairwise</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       t_stat_G0-G1 t_stat_G0-G2M t_stat_G0-S t_stat_G1-G2M t_stat_G1-S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG1   -0.6671464     0.2089510   0.6599089    0.91003998   1.5430022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG2   -0.1147743     0.9762769   1.5297496    1.24964041   2.0208873</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG3    0.5773407     0.4415661  -0.2753587   -0.06404534  -0.9687469</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG4   -0.9551094    -1.4267069   0.3614961   -0.70335585   1.4860622</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG5   -1.6015394    -1.5242463  -2.1000859   -0.17030985  -0.8625983</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG6    1.1007274    -0.8249394   0.1399109   -2.05967232  -1.0228113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       t_stat_G2M-S p_value_G0-G1 p_value_G0-G2M p_value_G0-S p_value_G1-G2M</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG1    0.4932384     0.5234599      0.8397112   0.52785817     0.38940816</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG2    0.5901220     0.9114537      0.3575335   0.16462386     0.24676596</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG3   -0.8005264     0.5795972      0.6705001   0.79002220     0.95050622</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG4    2.0036167     0.3675007      0.1915203   0.72709410     0.50179611</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG5   -0.6032018     0.1479422      0.1659702   0.06894394     0.86899666</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG6    1.0822474     0.3030434      0.4333238   0.89219028     0.07341321</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       p_value_G1-S p_value_G2M-S fdr_G0-G1 fdr_G0-G2M  fdr_G0-S fdr_G1-G2M</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG1   0.16142199     0.6351035 0.9984915  0.9764704 0.9742266  0.9854617</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG2   0.07796735     0.5714040 0.9984915  0.9531915 0.9683756  0.9854617</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG3   0.36105562     0.4465356 0.9984915  0.9764704 0.9742266  0.9977609</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG4   0.17558652     0.0800825 0.9984915  0.8839550 0.9742266  0.9901259</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG5   0.41347911     0.5630883 0.9984915  0.8492243 0.8695062  0.9947237</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG6   0.33634080     0.3106958 0.9984915  0.9531915 0.9864940  0.9854617</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        fdr_G1-S fdr_G2M-S logFC_G0-G1 logFC_G0-G2M logFC_G0-S logFC_G1-G2M</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG1 0.9983017 0.9742209  -0.5605347    0.2040786  0.6323864   0.76461332</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG2 0.9860485 0.9695084  -0.1085720    1.0735394  1.6504823   1.18211143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG3 0.9983017 0.9651275   0.2209283    0.1964203 -0.1201808  -0.02450793</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG4 0.9983017 0.9297596  -1.0540875   -1.8303321  0.4550345  -0.77624467</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG5 0.9983017 0.9695084  -1.9220357   -2.1264276 -2.8746043  -0.20439186</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG6 0.9983017 0.9651275   0.9692943   -0.8444414  0.1405221  -1.81373577</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       logFC_G1-S logFC_G2M-S ensembl  gene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG1  1.1929212   0.4283078   ENSG1 gene1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG2  1.7590544   0.5769429   ENSG2 gene2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG3 -0.3411090  -0.3166011   ENSG3 gene3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG4  1.5091219   2.2853666   ENSG4 gene4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG5 -0.9525685  -0.7481767   ENSG5 gene5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ENSG6 -0.8287723   0.9849635   ENSG6 gene6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
   </div>
