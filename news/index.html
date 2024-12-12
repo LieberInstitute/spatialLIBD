@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.1</span>
       </span>
     </div>
 
@@ -66,6 +66,13 @@
       <small>Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/devel/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.19.1" id="spatiallibd-1191">spatialLIBD 1.19.1<a class="anchor" aria-label="anchor" href="#spatiallibd-1191"></a></h2>
+<p>NEW FEATURES</p>
+<ul><li>Merged <a href="https://github.com/LieberInstitute/spatialLIBD/pull/91" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/91</a> by <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a>. This pull request fully re-implemented <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> with a version that uses <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">ComplexHeatmap::Heatmap()</a></code> internally. It also adds support for incorporating the automatic annotation results from <code><a href="../reference/annotate_registered_clusters.html">annotate_registered_clusters()</a></code>. NOTE that the <code>max</code> argument was renamed to <code>color_max</code>, as well as <code>min</code> to <code>color_min</code>. Also, the default for <code>min</code> used to be <code>-max</code> and now for <code>color_min</code> the default is the <code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min()</a></code> correlation observed. The default for <code>max</code> was 0.81 and the default for <code>color_max()</code> is the <code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max()</a></code> observed correlation.</li>
+<li>
+<code><a href="../reference/run_app.html">run_app()</a></code> was also updated to match the updated in <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> and now has 2 new inputs for controlling the annotation process with <code><a href="../reference/annotate_registered_clusters.html">annotate_registered_clusters()</a></code>. It also allows downloading a CSV file with the annotation results.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.17.10" id="spatiallibd-11710">spatialLIBD 1.17.10<a class="anchor" aria-label="anchor" href="#spatiallibd-11710"></a></h2>
 <p>BUG FIXES</p>
