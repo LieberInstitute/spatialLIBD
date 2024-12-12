@@ -195,9 +195,9 @@ Martinowich, and Jaffe, 2021). It’s the 386th highest ranked white
 matter marker gene based on the enrichment test.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2024-12-12 20:32:47.318725 loading file /github/home/.cache/R/BiocFileCache/5c8368bad58_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2024-12-12 21:20:26.981926 loading file /github/home/.cache/R/BiocFileCache/5c6309511c0_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span>
 <span><span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2024-12-12 20:32:48.156547 loading file /github/home/.cache/R/BiocFileCache/5c84ecba40c_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2024-12-12 21:20:27.848457 loading file /github/home/.cache/R/BiocFileCache/5c6ef04730_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
 <span><span class="va">sig_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sig_genes_extract_all.html">sig_genes_extract_all</a></span><span class="op">(</span></span>
 <span>    n <span class="op">=</span> <span class="fl">400</span>,</span>
 <span>    modeling_results <span class="op">=</span> <span class="va">modeling_results</span>,</span>
@@ -421,9 +421,9 @@ fun using them!</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"multi_gene_plots.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2024-12-12 20:33:03 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2024-12-12 21:20:43 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 35.604 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 35.171 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -617,8 +617,8 @@ fun using them!</p>
 <h2 id="bibliography">Bibliography<a class="anchor" aria-label="anchor" href="#bibliography"></a>
 </h2>
 <p>This vignette was generated using <em><a href="https://bioconductor.org/packages/3.20/BiocStyle" class="external-link">BiocStyle</a></em>
-, <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em>
-(Xie, 2014) and <em><a href="https://CRAN.R-project.org/package=rmarkdown" class="external-link">rmarkdown</a></em>
+(Oleś, 2024), <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie,
+2014) and <em><a href="https://CRAN.R-project.org/package=rmarkdown" class="external-link">rmarkdown</a></em>
 (Allaire, Xie, Dervieux, McPherson, Luraschi, Ushey, Atkins, Wickham,
 Cheng, Chang, and Iannone, 2024) running behind the scenes.</p>
 <p>Citations made with <em><a href="https://CRAN.R-project.org/package=RefManageR" class="external-link">RefManageR</a></em>
@@ -655,14 +655,22 @@ References in R”. In: <em>The Journal of Open Source Software</em>
 <a href="https://doi.org/10.21105/joss.00338" class="external-link">10.21105/joss.00338</a>.</cite>
 </p>
 <p>
-<a id="bib-tran2021"></a><a href="#cite-tran2021">[5]</a><cite> M. N.
+<a id="bib-ole2024biocstyle"></a><a href="#cite-ole2024biocstyle">[5]</a><cite>
+A. Oleś. <em>BiocStyle: Standard styles for vignettes and other
+Bioconductor documents</em>. R package version 2.34.0. 2024. DOI:
+<a href="https://doi.org/10.18129/B9.bioc.BiocStyle" class="external-link">10.18129/B9.bioc.BiocStyle</a>.
+URL:
+<a href="https://bioconductor.org/packages/BiocStyle" class="external-link">https://bioconductor.org/packages/BiocStyle</a>.</cite>
+</p>
+<p>
+<a id="bib-tran2021"></a><a href="#cite-tran2021">[6]</a><cite> M. N.
 Tran, K. R. Maynard, A. Spangler, et al. “Single-nucleus transcriptome
 analysis reveals cell-type-specific molecular signatures across reward
 circuitry in the human brain”. In: <em>Neuron</em> (2021). DOI:
 <a href="https://doi.org/10.1016/j.neuron.2021.09.001" class="external-link">10.1016/j.neuron.2021.09.001</a>.</cite>
 </p>
 <p>
-<a id="bib-xie2014knitr"></a><a href="#cite-xie2014knitr">[6]</a><cite>
+<a id="bib-xie2014knitr"></a><a href="#cite-xie2014knitr">[7]</a><cite>
 Y. Xie. “knitr: A Comprehensive Tool for Reproducible Research in R”.
 In: <em>Implementing Reproducible Computational Research</em>. Ed. by V.
 Stodden, F. Leisch and R. D. Peng. ISBN 978-1466561595. Chapman and
