@@ -22,7 +22,7 @@ related functions of sc/snRNA-seq datasets."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.2</span>
       </span>
     </div>
 
@@ -108,7 +108,9 @@ object or one that inherits its properties.</p></dd>
 <dt id="arg-var-registration">var_registration<a class="anchor" aria-label="anchor" href="#arg-var-registration"></a></dt>
 <dd><p>A <code>character(1)</code> specifying the <code>colData(sce)</code>
 variable of interest against which will be used for computing the relevant
-statistics.</p></dd>
+statistics. This should be a categorical variable, with all categories
+syntaticly valid (could be used as an R variable, no special characters or
+leading numbers), ex. 'L1.2', 'celltype2' not 'L1/2' or '2'.</p></dd>
 
 
 <dt id="arg-var-sample-id">var_sample_id<a class="anchor" aria-label="anchor" href="#arg-var-sample-id"></a></dt>
@@ -205,18 +207,18 @@ to choose the best cutoff.</p>
 <span class="r-in"><span>    gene_name <span class="op">=</span> <span class="st">"gene_name"</span>,</span></span>
 <span class="r-in"><span>    suffix <span class="op">=</span> <span class="st">"wrapper"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:09:12.333615 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:09:12.430094 dropping 9 pseudo-bulked samples that are below 'min_ncells'.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:09:12.443116 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:09:12.489188 normalize expression</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:09:12.546815 create model matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:09:12.557324 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:09:14.988015 The estimated correlation is: -0.0783081238514531</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:09:14.990538 computing enrichment statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:09:15.106225 extract and reformat enrichment results</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:09:15.131998 running the baseline pairwise model</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:09:15.15045 computing pairwise statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:09:15.224735 computing F-statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:14:31.495134 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:14:31.588071 dropping 9 pseudo-bulked samples that are below 'min_ncells'.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:14:31.600617 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:14:31.646827 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:14:31.705572 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:14:31.715721 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:14:34.131909 The estimated correlation is: -0.0783081238514531</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:14:34.134398 computing enrichment statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:14:34.246299 extract and reformat enrichment results</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:14:34.271317 running the baseline pairwise model</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:14:34.289143 computing pairwise statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:14:34.361598 computing F-statistics</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Explore the results from registration_wrapper()</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">example_modeling_results</span><span class="op">)</span></span></span>

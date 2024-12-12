@@ -18,7 +18,7 @@ This is the first step for spatial registration and for statistical modeling."><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.2</span>
       </span>
     </div>
 
@@ -97,7 +97,9 @@ object or one that inherits its properties.</p></dd>
 <dt id="arg-var-registration">var_registration<a class="anchor" aria-label="anchor" href="#arg-var-registration"></a></dt>
 <dd><p>A <code>character(1)</code> specifying the <code>colData(sce)</code>
 variable of interest against which will be used for computing the relevant
-statistics.</p></dd>
+statistics. This should be a categorical variable, with all categories
+syntaticly valid (could be used as an R variable, no special characters or
+leading numbers), ex. 'L1.2', 'celltype2' not 'L1/2' or '2'.</p></dd>
 
 
 <dt id="arg-var-sample-id">var_sample_id<a class="anchor" aria-label="anchor" href="#arg-var-sample-id"></a></dt>
@@ -159,9 +161,9 @@ pseudo-bulking can take hours to run on large datasets.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Pseudo-bulk</span></span></span>
 <span class="r-in"><span><span class="va">sce_pseudo</span> <span class="op">&lt;-</span> <span class="fu">registration_pseudobulk</span><span class="op">(</span><span class="va">sce</span>, <span class="st">"Cell_Cycle"</span>, <span class="st">"sample_id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>, min_ncells <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:09:05.350546 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:09:05.453346 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:09:05.502202 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:14:24.60953 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:14:24.705615 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 20:14:24.751247 normalize expression</span>
 <span class="r-in"><span><span class="fu">colData</span><span class="op">(</span><span class="va">sce_pseudo</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 8 columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Mutation_Status  Cell_Cycle   Treatment   sample_id       age</span>
