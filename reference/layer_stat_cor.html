@@ -86,13 +86,17 @@
 
 
 <dl><dt id="arg-stats">stats<a class="anchor" aria-label="anchor" href="#arg-stats"></a></dt>
-<dd><p>A data.frame where the row names are Ensembl gene IDs, the
-column names are labels for clusters of cells or cell types, and where
+<dd><p>A query <code>data.frame</code> where the row names are ENSEMBL gene IDs,
+the column names are labels for clusters of cells or cell types, and where
 each cell contains the given statistic for that gene and cell type. These
 statistics should be computed similarly to the modeling results from
 the data we provide. For example, like the <code>enrichment</code> t-statistics that
 are derived from comparing one layer against the rest. The <code>stats</code> will be
-matched and then correlated with our statistics.</p></dd>
+matched and then correlated with the reference statistics.</p>
+<p>If using the output of <code><a href="registration_wrapper.html">registration_wrapper()</a></code> then use <code>$enrichment</code> to
+access the results from <code><a href="registration_stats_enrichment.html">registration_stats_enrichment()</a></code>. This function will
+automatically extract the statistics and assign the ENSEMBL gene IDs to the
+row names of the query matrix.</p></dd>
 
 
 <dt id="arg-modeling-results">modeling_results<a class="anchor" aria-label="anchor" href="#arg-modeling-results"></a></dt>
@@ -101,7 +105,8 @@ matched and then correlated with our statistics.</p></dd>
 columns <code>f_stat_*</code> or <code>t_stat_*</code> as well as <code>p_value_*</code> and <code>fdr_*</code> plus
 <code>ensembl</code>. The column name is used to extract the statistic results, the
 p-values, and the FDR adjusted p-values. Then the <code>ensembl</code> column is used
-for matching in some cases. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details.</p></dd>
+for matching in some cases. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details. Typically
+this is the set of reference statistics used in <code>layer_stat_cor()</code>.</p></dd>
 
 
 <dt id="arg-model-type">model_type<a class="anchor" aria-label="anchor" href="#arg-model-type"></a></dt>
@@ -128,9 +133,9 @@ genes. The default is <code>NULL</code> in which case no filtering is done.</p><
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A correlation matrix between <code>stats</code> and our statistics using only
-the Ensembl gene IDs present in both tables. The columns are sorted using
-a hierarchical cluster.</p>
+    <p>A correlation matrix between the query <code>stats</code> and the reference
+statistics using only the ENSEMBL gene IDs present in both tables.
+The columns are sorted using hierarchical clustering.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -156,7 +161,7 @@ for a full analysis from which this family of functions is derived from.</p>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-10 22:29:33.879927 loading file /github/home/.cache/R/BiocFileCache/68fe22c99949_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-12 18:02:45.723111 loading file /github/home/.cache/R/BiocFileCache/38010d4a0ba_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Compute the correlations</span></span></span>
 <span class="r-in"><span><span class="va">cor_stats_layer</span> <span class="op">&lt;-</span> <span class="fu">layer_stat_cor</span><span class="op">(</span></span></span>
