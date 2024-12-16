@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.6</span>
       </span>
     </div>
 
@@ -66,6 +66,16 @@
       <small>Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/devel/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.19.5" id="spatiallibd-1195">spatialLIBD 1.19.5<a class="anchor" aria-label="anchor" href="#spatiallibd-1195"></a></h2>
+<p>BUG FIXES</p>
+<ul><li>Fixed internal errors in <code><a href="../reference/add_qc_metrics.html">add_qc_metrics()</a></code> on the <code><a href="https://rdrr.io/pkg/scuttle/man/isOutlier.html" class="external-link">scuttle::isOutlier()</a></code> function calls.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.19.4" id="spatiallibd-1194">spatialLIBD 1.19.4<a class="anchor" aria-label="anchor" href="#spatiallibd-1194"></a></h2>
+<p>NEW FEATURES</p>
+<ul><li>@lahuuki fully re-implemented <code><a href="../reference/gene_set_enrichment_plot.html">gene_set_enrichment_plot()</a></code> using <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">ComplexHeatmap::Heatmap()</a></code>. This new version has several new arguments that allow adding more annotation to the resulting heatmap. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/93" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/93</a> for more details. This also means that <code>layer_matrix_plot()</code> has been removed from the package since it previously served as a helper function for <code><a href="../reference/gene_set_enrichment_plot.html">gene_set_enrichment_plot()</a></code>.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.19.3" id="spatiallibd-1193">spatialLIBD 1.19.3<a class="anchor" aria-label="anchor" href="#spatiallibd-1193"></a></h2>
 <p>BUG FIXES</p>
@@ -258,7 +268,7 @@
 <h2 class="page-header" data-toc-text="1.7.17" id="spatiallibd-1717">spatialLIBD 1.7.17<a class="anchor" aria-label="anchor" href="#spatiallibd-1717"></a></h2>
 <p>BUG FIXES</p>
 <ul><li>Fix bugs in <code><a href="../reference/layer_boxplot.html">layer_boxplot()</a></code> where it was too specific to the Maynard et al 2021 data. We have made it more flexible now.</li>
-<li>Made the y-axis space more dynamic in <code><a href="../reference/gene_set_enrichment_plot.html">gene_set_enrichment_plot()</a></code> and <code><a href="../reference/layer_matrix_plot.html">layer_matrix_plot()</a></code>.</li>
+<li>Made the y-axis space more dynamic in <code><a href="../reference/gene_set_enrichment_plot.html">gene_set_enrichment_plot()</a></code> and <code>layer_matrix_plot()</code>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7.16" id="spatiallibd-1716">spatialLIBD 1.7.16<a class="anchor" aria-label="anchor" href="#spatiallibd-1716"></a></h2>

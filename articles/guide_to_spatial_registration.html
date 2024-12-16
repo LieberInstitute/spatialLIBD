@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.6</span>
       </span>
     </div>
 
@@ -101,7 +101,7 @@ Huuki-Myers</h4>
 Development<br><a class="author_email" href="mailto:#"></a><a href="mailto:lahuuki@gmail.com" class="email">lahuuki@gmail.com</a>
       </address>
                   
-            <h4 data-toc-skip class="date">13 December 2024</h4>
+            <h4 data-toc-skip class="date">16 December 2024</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/devel/vignettes/guide_to_spatial_registration.Rmd" class="external-link"><code>vignettes/guide_to_spatial_registration.Rmd</code></a></small>
       <div class="hidden name"><code>guide_to_spatial_registration.Rmd</code></div>
@@ -288,7 +288,7 @@ p-values, and gene ensembl ID and symbol.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## get reference layer enrichment statistics</span></span>
 <span><span class="va">layer_modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2024-12-13 19:43:50.322044 loading file /github/home/.cache/R/BiocFileCache/5c656d46b9_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2024-12-16 21:53:58.147115 loading file /github/home/.cache/R/BiocFileCache/5db39a09009_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span>
 <span></span>
 <span><span class="va">layer_modeling_results</span><span class="op">$</span><span class="va">enrichment</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
 <span><span class="co">#&gt;    t_stat_WM t_stat_Layer1 t_stat_Layer2 t_stat_Layer3 t_stat_Layer4</span></span>
@@ -391,18 +391,18 @@ wrapping these functions together in to one step!</p>
 <span>    gene_ensembl <span class="op">=</span> <span class="st">"gene_id"</span>,</span>
 <span>    gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2024-12-13 19:43:58.477072 make pseudobulk object</span></span>
-<span><span class="co">#&gt; 2024-12-13 19:44:00.189925 dropping 13 pseudo-bulked samples that are below 'min_ncells'.</span></span>
-<span><span class="co">#&gt; 2024-12-13 19:44:00.234375 drop lowly expressed genes</span></span>
-<span><span class="co">#&gt; 2024-12-13 19:44:00.410041 normalize expression</span></span>
-<span><span class="co">#&gt; 2024-12-13 19:44:01.961323 create model matrix</span></span>
-<span><span class="co">#&gt; 2024-12-13 19:44:01.984897 run duplicateCorrelation()</span></span>
-<span><span class="co">#&gt; 2024-12-13 19:44:15.099913 The estimated correlation is: 0.138734774807097</span></span>
-<span><span class="co">#&gt; 2024-12-13 19:44:15.102649 computing enrichment statistics</span></span>
-<span><span class="co">#&gt; 2024-12-13 19:44:16.298825 extract and reformat enrichment results</span></span>
-<span><span class="co">#&gt; 2024-12-13 19:44:16.356218 running the baseline pairwise model</span></span>
-<span><span class="co">#&gt; 2024-12-13 19:44:16.499474 computing pairwise statistics</span></span>
-<span><span class="co">#&gt; 2024-12-13 19:44:18.643841 computing F-statistics</span></span></code></pre></div>
+<span><span class="co">#&gt; 2024-12-16 21:54:04.817375 make pseudobulk object</span></span>
+<span><span class="co">#&gt; 2024-12-16 21:54:06.511171 dropping 13 pseudo-bulked samples that are below 'min_ncells'.</span></span>
+<span><span class="co">#&gt; 2024-12-16 21:54:06.557052 drop lowly expressed genes</span></span>
+<span><span class="co">#&gt; 2024-12-16 21:54:06.729971 normalize expression</span></span>
+<span><span class="co">#&gt; 2024-12-16 21:54:08.188519 create model matrix</span></span>
+<span><span class="co">#&gt; 2024-12-16 21:54:08.211547 run duplicateCorrelation()</span></span>
+<span><span class="co">#&gt; 2024-12-16 21:54:21.102966 The estimated correlation is: 0.138734774807097</span></span>
+<span><span class="co">#&gt; 2024-12-16 21:54:21.105598 computing enrichment statistics</span></span>
+<span><span class="co">#&gt; 2024-12-16 21:54:22.284198 extract and reformat enrichment results</span></span>
+<span><span class="co">#&gt; 2024-12-16 21:54:22.366042 running the baseline pairwise model</span></span>
+<span><span class="co">#&gt; 2024-12-16 21:54:22.54133 computing pairwise statistics</span></span>
+<span><span class="co">#&gt; 2024-12-16 21:54:23.833089 computing F-statistics</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="extract-enrichment-t-statistics">Extract Enrichment t-statistics<a class="anchor" aria-label="anchor" href="#extract-enrichment-t-statistics"></a>
@@ -576,9 +576,9 @@ Cheng, Chang, and Iannone, 2024)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"guide_to_spatial_registration.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2024-12-13 19:44:21 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2024-12-16 21:54:27 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 44.159 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 40.73 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -590,7 +590,7 @@ Cheng, Chang, and Iannone, 2024)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2024-12-13</span></span>
+<span><span class="co">#&gt;  date     2024-12-16</span></span>
 <span><span class="co">#&gt;  pandoc   3.5 @ /usr/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -642,7 +642,6 @@ Cheng, Chang, and Iannone, 2024)</li>
 <span><span class="co">#&gt;  desc                   1.4.3     <span style="color: #555555;">2023-12-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  digest                 0.6.37    <span style="color: #555555;">2024-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  doParallel             1.0.17    <span style="color: #555555;">2022-02-07</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
-<span><span class="co">#&gt;  dotCall64              1.2       <span style="color: #555555;">2024-10-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  dplyr                  1.1.4     <span style="color: #555555;">2023-11-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  DT                     0.33      <span style="color: #555555;">2024-04-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  edgeR                  4.4.1     <span style="color: #555555;">2024-12-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.2)</span></span></span>
@@ -651,7 +650,6 @@ Cheng, Chang, and Iannone, 2024)</li>
 <span><span class="co">#&gt;  fansi                  1.0.6     <span style="color: #555555;">2023-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  farver                 2.1.2     <span style="color: #555555;">2024-05-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  fastmap                1.2.0     <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
-<span><span class="co">#&gt;  fields                 16.3      <span style="color: #555555;">2024-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  filelock               1.0.3     <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  foreach                1.5.2     <span style="color: #555555;">2022-02-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  fs                     1.6.5     <span style="color: #555555;">2024-10-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
@@ -689,7 +687,6 @@ Cheng, Chang, and Iannone, 2024)</li>
 <span><span class="co">#&gt;  lubridate              1.9.4     <span style="color: #555555;">2024-12-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  magick                 2.8.5     <span style="color: #555555;">2024-09-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  magrittr               2.0.3     <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
-<span><span class="co">#&gt;  maps                   3.4.2.1   <span style="color: #555555;">2024-11-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  Matrix                 1.7-1     <span style="color: #555555;">2024-10-18</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.4.2)</span></span></span>
 <span><span class="co">#&gt;  MatrixGenerics       * 1.18.0    <span style="color: #555555;">2024-10-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.2)</span></span></span>
 <span><span class="co">#&gt;  matrixStats          * 1.4.1     <span style="color: #555555;">2024-09-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
@@ -731,13 +728,12 @@ Cheng, Chang, and Iannone, 2024)</li>
 <span><span class="co">#&gt;  scuttle                1.16.0    <span style="color: #555555;">2024-10-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.2)</span></span></span>
 <span><span class="co">#&gt;  sessioninfo          * 1.2.2     <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  shape                  1.4.6.1   <span style="color: #555555;">2024-02-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
-<span><span class="co">#&gt;  shiny                  1.9.1     <span style="color: #555555;">2024-08-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  shiny                  1.10.0    <span style="color: #555555;">2024-12-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  shinyWidgets           0.8.7     <span style="color: #555555;">2024-09-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  SingleCellExperiment * 1.28.1    <span style="color: #555555;">2024-11-10</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.2)</span></span></span>
-<span><span class="co">#&gt;  spam                   2.11-0    <span style="color: #555555;">2024-10-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  SparseArray            1.6.0     <span style="color: #555555;">2024-10-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.2)</span></span></span>
 <span><span class="co">#&gt;  SpatialExperiment    * 1.16.0    <span style="color: #555555;">2024-10-29</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.20 (R 4.4.2)</span></span></span>
-<span><span class="co">#&gt;  spatialLIBD          * 1.19.3    <span style="color: #555555;">2024-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  spatialLIBD          * 1.19.6    <span style="color: #555555;">2024-12-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  statmod                1.5.0     <span style="color: #555555;">2023-01-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  stringi                1.8.4     <span style="color: #555555;">2024-05-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  stringr                1.5.1     <span style="color: #555555;">2023-11-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>

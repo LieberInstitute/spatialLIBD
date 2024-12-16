@@ -22,7 +22,7 @@ to TRUE."><meta property="og:image" content="/logo.png"><!-- mathjax --><script 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.6</span>
       </span>
     </div>
 
@@ -135,8 +135,17 @@ into <code>layerB-layerA</code>.</p></dd>
     <div id="value">
     <h2>Value</h2>
     <p>A table in long format with the enrichment results using
-<code><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">stats::fisher.test()</a></code>.</p>
-    </div>
+<code><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">stats::fisher.test()</a></code>.</p><ul><li><p><code>OR</code> odds ratio.</p></li>
+<li><p><code>Pval</code> p-value for <code><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">fisher.test()</a></code>.</p></li>
+<li><p><code>test</code> group or layer in the <code>modeling_results</code>.</p></li>
+<li><p><code>NumSig</code> Number of genes from the gene set present in <code>modeling_results</code> &amp;
+with <code>fdr &lt; fdr_cut</code> and <code>t_stat &gt; 0</code> (unless reverse = TRUE) for <code>test</code> in
+modeling results.</p></li>
+<li><p><code>SetSize</code> Number of genes from <code>modeling_results</code> present in <code>gene_set</code>.</p></li>
+<li><p><code>ID</code> name of gene set.</p></li>
+<li><p><code>model_type</code> record of input model type from <code>modeling results</code>.</p></li>
+<li><p><code>fdr_cut</code> record of input <code>frd_cut</code>.</p></li>
+</ul></div>
     <div id="details">
     <h2>Details</h2>
     <p>Check
@@ -177,7 +186,7 @@ to see a full script from where this family of functions is derived from.</p>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-13 19:40:49.381133 loading file /github/home/.cache/R/BiocFileCache/5c656d46b9_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2024-12-16 21:50:56.291183 loading file /github/home/.cache/R/BiocFileCache/5db39a09009_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Compute the gene set enrichment results</span></span></span>
 <span class="r-in"><span><span class="va">asd_sfari_enrichment</span> <span class="op">&lt;-</span> <span class="fu">gene_set_enrichment</span><span class="op">(</span></span></span>
