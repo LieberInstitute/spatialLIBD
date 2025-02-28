@@ -22,7 +22,7 @@ default arguments)."><meta property="og:image" content="/logo.png"><!-- mathjax 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.6</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@ default arguments).</p>
 <span>  <span class="va">cor_stats_layer</span>,</span>
 <span>  color_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">cor_stats_layer</span><span class="op">)</span>,</span>
 <span>  color_min <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">cor_stats_layer</span><span class="op">)</span>,</span>
-<span>  color_scale <span class="op">=</span> <span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">7</span>, <span class="st">"PRGn"</span><span class="op">)</span>,</span>
+<span>  color_scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#762A83"</span>, <span class="st">"#F7F7F7"</span>, <span class="st">"#1B7837"</span><span class="op">)</span>,</span>
 <span>  query_colors <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  reference_colors <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  annotation <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -113,10 +113,9 @@ the color scale (should be between 0 and -1).</p></dd>
 
 
 <dt id="arg-color-scale">color_scale<a class="anchor" aria-label="anchor" href="#arg-color-scale"></a></dt>
-<dd><p>A <code>character</code> vector with three or more values specifying
-the color scale for the fill of the heatmap. The first value is used for
-<code>color_min</code>, the middle for zero, and the last for <code>color_max</code>. If an even
-number of colors are supplied, the last color is dropped to center zero.</p></dd>
+<dd><p>A <code>character(3)</code> vector specifying the color scale for the
+fill of the heatmap. The first value is used for <code>color_min</code>, the second one
+for zero, and the third for <code>color_max</code>.</p></dd>
 
 
 <dt id="arg-query-colors">query_colors<a class="anchor" aria-label="anchor" href="#arg-query-colors"></a></dt>
@@ -170,13 +169,13 @@ correlations</p>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-02-28 22:29:09.287217 loading file /github/home/.cache/R/BiocFileCache/49e64abbaea_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-02-28 22:29:16.519807 loading file /github/home/.cache/R/BiocFileCache/6ad6607cfc9c_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## query spatialDLPFC modeling results</span></span></span>
 <span class="r-in"><span><span class="va">query_modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    type <span class="op">=</span> <span class="st">"spatialDLPFC_Visium_modeling_results"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-02-28 22:29:10.120718 loading file /github/home/.cache/R/BiocFileCache/fc774e1f3a6_modeling_results_BayesSpace_k09.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-02-28 22:29:17.396382 loading file /github/home/.cache/R/BiocFileCache/76012994628_modeling_results_BayesSpace_k09.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Compute the correlations</span></span></span>
 <span class="r-in"><span><span class="va">cor_stats_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="layer_stat_cor.html">layer_stat_cor</a></span><span class="op">(</span></span></span>
@@ -191,7 +190,7 @@ correlations</p>
 <span class="r-in"><span><span class="fu">layer_stat_cor_plot</span><span class="op">(</span><span class="va">cor_stats_layer</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="layer_stat_cor_plot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## add Annotation colors</span></span></span>
+<span class="r-in"><span><span class="co">## add colors</span></span></span>
 <span class="r-in"><span><span class="co">## add libd_layer_colors to reference Human Pilot layers</span></span></span>
 <span class="r-in"><span><span class="fu">layer_stat_cor_plot</span><span class="op">(</span><span class="va">cor_stats_layer</span>, reference_colors <span class="op">=</span> <span class="va">libd_layer_colors</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="layer_stat_cor_plot-2.png" alt="" width="700" height="433"></span>
@@ -219,23 +218,16 @@ correlations</p>
 <span class="r-in"><span><span class="fu">layer_stat_cor_plot</span><span class="op">(</span><span class="va">cor_stats_layer</span>, annotation <span class="op">=</span> <span class="va">annotation_df</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="layer_stat_cor_plot-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## change fill color scale</span></span></span>
-<span class="r-in"><span><span class="fu">layer_stat_cor_plot</span><span class="op">(</span><span class="va">cor_stats_layer</span>, </span></span>
-<span class="r-in"><span>                    color_scale <span class="op">=</span> <span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">2</span>, <span class="st">"PiYG"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>minimal value for n is 3, returning requested palette with 3 different levels</span>
-<span class="r-plt img"><img src="layer_stat_cor_plot-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## All together</span></span></span>
 <span class="r-in"><span><span class="fu">layer_stat_cor_plot</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="va">cor_stats_layer</span>, </span></span>
-<span class="r-in"><span>    color_scale <span class="op">=</span> <span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">5</span>, <span class="st">"PiYG"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="va">cor_stats_layer</span>,</span></span>
 <span class="r-in"><span>    query_colors <span class="op">=</span> <span class="va">cluster_colors</span>,</span></span>
 <span class="r-in"><span>    reference_colors <span class="op">=</span> <span class="va">libd_layer_colors</span>,</span></span>
 <span class="r-in"><span>    annotation <span class="op">=</span> <span class="va">annotation_df</span>,</span></span>
 <span class="r-in"><span>    cluster_rows <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>    cluster_columns <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="layer_stat_cor_plot-7.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="layer_stat_cor_plot-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

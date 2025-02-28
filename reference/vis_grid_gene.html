@@ -20,7 +20,7 @@ To visualize clusters (or any discrete variable) use vis_grid_clus()."><meta pro
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.6</span>
       </span>
     </div>
 
@@ -98,7 +98,6 @@ To visualize clusters (or any discrete variable) use <code><a href="vis_grid_clu
 <span>  auto_crop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  na_color <span class="op">=</span> <span class="st">"#CCCCCC40"</span>,</span>
 <span>  is_stitched <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  cap_percentile <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -216,14 +215,6 @@ particular, expects a logical colData column <code>exclude_overlapping</code>
 specifying which spots to exclude from the plot. Sets <code>auto_crop = FALSE</code>.</p></dd>
 
 
-<dt id="arg-cap-percentile">cap_percentile<a class="anchor" aria-label="anchor" href="#arg-cap-percentile"></a></dt>
-<dd><p>A <code>numeric(1)</code> in (0, 1] determining the maximum
-percentile (as a proportion) at which to cap expression. For example, a value
-of 0.95 sets the top 5% of expression values to the 95th percentile value.
-This can help make the color scale more dynamic in the presence of high
-outliers. Defaults to <code>1</code>, which effectively performs no capping.</p></dd>
-
-
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Passed to <a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0()</a> for making the title of the
 plot following the <code>sampleid</code>.</p></dd>
@@ -265,7 +256,7 @@ objects.</p>
 <span class="r-in"><span>    <span class="co">## for subject 3</span></span></span>
 <span class="r-in"><span>    <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html" class="external-link">plot_grid</a></span><span class="op">(</span>plotlist <span class="op">=</span> <span class="va">p_list</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-02-28 22:30:42.870622 loading file /github/home/.cache/R/BiocFileCache/fc71fd3d16f_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-02-28 22:31:06.254834 loading file /github/home/.cache/R/BiocFileCache/76014498389_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-plt img"><img src="vis_grid_gene-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
