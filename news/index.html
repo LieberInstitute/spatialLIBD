@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.8</span>
       </span>
     </div>
 
@@ -67,10 +67,19 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.19.8" id="spatiallibd-1198">spatialLIBD 1.19.8<a class="anchor" aria-label="anchor" href="#spatiallibd-1198"></a></h2>
+<p>NEW FEATURES</p>
+<ul><li>
+<code><a href="../reference/vis_gene.html">vis_gene()</a></code> now has the <code>cap_percentile</code> argument as implemented by</li>
+</ul><ol class="example" style="list-style-type: decimal"><li>This allows you to cap the expression values at a certain percentiles, which can be useful to exclude super high outlier values which are common with Visium HD data. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/97" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/97</a> for details.</li>
+</ol><p>BUG FIXES</p>
+<ul><li>Fixed colors on <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> thanks to <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a>. Details at <a href="https://github.com/LieberInstitute/spatialLIBD/pull/94" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/94</a>.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.19.7" id="spatiallibd-1197">spatialLIBD 1.19.7<a class="anchor" aria-label="anchor" href="#spatiallibd-1197"></a></h2>
 <p>BUG FIXES</p>
 <ul><li>Removed code that made the app very slow to load using <code>HDF5Array</code> objects. See <a href="https://github.com/LieberInstitute/spatialLIBD/commit/b80d92c3271a6ad92859f79a3bc343f77bad9bf2" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/commit/b80d92c3271a6ad92859f79a3bc343f77bad9bf2</a> for details.</li>
-<li>Fixed a bug on the Z-score calculation in <code><a href="../reference/multi_gene_z_score.html">multi_gene_z_score()</a></code>. See <a href="https://github.com/LieberInstitute/spatialLIBD/commit/2d17ea2c3d1b73b38fbd50503765052c8487b9b1" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/commit/2d17ea2c3d1b73b38fbd50503765052c8487b9b1</a> for details. Implemented by <a href="https://github.com/Nick-Eagles" class="external-link">@Nick-Eagles</a>.</li>
+<li>Fixed a bug on the Z-score calculation in <code><a href="../reference/multi_gene_z_score.html">multi_gene_z_score()</a></code>. See <a href="https://github.com/LieberInstitute/spatialLIBD/commit/2d17ea2c3d1b73b38fbd50503765052c8487b9b1" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/commit/2d17ea2c3d1b73b38fbd50503765052c8487b9b1</a> for details. Implemented by 1.</li>
 <li>Fix a bug in the documentation of <code><a href="../reference/run_app.html">run_app()</a></code> for the example stitched data.</li>
 <li>No longer point to Twitter, instead point to Bluesky. This is for the package main README file as well as the default app documentation files.</li>
 </ul></div>
@@ -126,13 +135,13 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.17.3" id="spatiallibd-1173">spatialLIBD 1.17.3<a class="anchor" aria-label="anchor" href="#spatiallibd-1173"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>Added support for <code>SpatialExperiment</code> objects created with <code>visiumStitched::build_spe()</code> <a href="https://research.libd.org/visiumStitched/reference/build_spe.html" class="external-link uri">https://research.libd.org/visiumStitched/reference/build_spe.html</a> that stitch together multiple Visium capture areas. Developed by <a href="https://github.com/Nick-Eagles" class="external-link">@Nick-Eagles</a>.</li>
+<ul><li>Added support for <code>SpatialExperiment</code> objects created with <code>visiumStitched::build_spe()</code> <a href="https://research.libd.org/visiumStitched/reference/build_spe.html" class="external-link uri">https://research.libd.org/visiumStitched/reference/build_spe.html</a> that stitch together multiple Visium capture areas. Developed by 1.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.15.2" id="spatiallibd-1152">spatialLIBD 1.15.2<a class="anchor" aria-label="anchor" href="#spatiallibd-1152"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
 <ul><li>
-<code><a href="../reference/vis_gene.html">vis_gene()</a></code> now has a <code>multi_gene_method</code> argument which provides 3 methods for combining multiple continuous variables: <code>z_score</code>, <code>pca</code>, and <code>sparsity</code>. These options can now be used with <code><a href="../reference/run_app.html">run_app()</a></code> (the interactive websites). These methods are further illustrated and documented in a new vignette available at <a href="https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html" class="external-link uri">https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html</a>. This work was contributed by <a href="https://github.com/Nick-Eagles" class="external-link">@Nick-Eagles</a>.</li>
+<code><a href="../reference/vis_gene.html">vis_gene()</a></code> now has a <code>multi_gene_method</code> argument which provides 3 methods for combining multiple continuous variables: <code>z_score</code>, <code>pca</code>, and <code>sparsity</code>. These options can now be used with <code><a href="../reference/run_app.html">run_app()</a></code> (the interactive websites). These methods are further illustrated and documented in a new vignette available at <a href="https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html" class="external-link uri">https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html</a>. This work was contributed by 1.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.13.6" id="spatiallibd-1136">spatialLIBD 1.13.6<a class="anchor" aria-label="anchor" href="#spatiallibd-1136"></a></h2>
@@ -220,7 +229,7 @@
 <h2 class="page-header" data-toc-text="1.9.11" id="spatiallibd-1911">spatialLIBD 1.9.11<a class="anchor" aria-label="anchor" href="#spatiallibd-1911"></a></h2>
 <p>BUG FIXES</p>
 <ul><li>Fixed bugs in <code><a href="../reference/gene_set_enrichment.html">gene_set_enrichment()</a></code> for <code>reverse = TRUE</code> reported by</li>
-</ul><ol class="example" style="list-style-type: decimal"><li>
+</ul><ol start="2" class="example" style="list-style-type: decimal"><li>
 </li></ol><ul><li>Added a <code>reverse</code> option on the shiny app under the gene set enrichment tab, that we tested with the example <code>spe</code> data.</li>
 </ul></div>
     <div class="section level2">
@@ -241,18 +250,18 @@
 <h2 class="page-header" data-toc-text="1.9.5" id="spatiallibd-195">spatialLIBD 1.9.5<a class="anchor" aria-label="anchor" href="#spatiallibd-195"></a></h2>
 <p>BUG FIXES</p>
 <ul><li>Fix <a href="https://github.com/LieberInstitute/spatialLIBD/issues/41" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/41</a>. Reported by</li>
-</ul><ol start="2" class="example" style="list-style-type: decimal"><li>Now the gene selector changes automatically when you change the ‘model results’ (model type) or ‘model test’ inputs. The gene selector is now only shown inside the ‘model boxplots’ panel since it only affects that one.</li>
+</ul><ol start="3" class="example" style="list-style-type: decimal"><li>Now the gene selector changes automatically when you change the ‘model results’ (model type) or ‘model test’ inputs. The gene selector is now only shown inside the ‘model boxplots’ panel since it only affects that one.</li>
 </ol></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.9.4" id="spatiallibd-194">spatialLIBD 1.9.4<a class="anchor" aria-label="anchor" href="#spatiallibd-194"></a></h2>
 <p>BUG FIXES</p>
 <ul><li>Fix <a href="https://github.com/LieberInstitute/spatialLIBD/issues/40" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/40</a>. Reported by</li>
-</ul><ol start="3" class="example" style="list-style-type: decimal"><li>
+</ul><ol start="4" class="example" style="list-style-type: decimal"><li>
 </li></ol></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.9.3" id="spatiallibd-193">spatialLIBD 1.9.3<a class="anchor" aria-label="anchor" href="#spatiallibd-193"></a></h2>
 <p>BUG FIXES</p>
-<ul><li>Added a more informative error message when ‘stats’ does not have ENSEMBL gene IDs as the <code><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames()</a></code>. Reported by 2 and 1 at <a href="https://github.com/LieberInstitute/spatialLIBD/issues/33#issuecomment-1137544893" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/33#issuecomment-1137544893</a>
+<ul><li>Added a more informative error message when ‘stats’ does not have ENSEMBL gene IDs as the <code><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames()</a></code>. Reported by 3 and 2 at <a href="https://github.com/LieberInstitute/spatialLIBD/issues/33#issuecomment-1137544893" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/33#issuecomment-1137544893</a>
 </li>
 </ul></div>
     <div class="section level2">
