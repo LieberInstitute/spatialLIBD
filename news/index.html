@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.9</span>
       </span>
     </div>
 
@@ -66,6 +66,11 @@
       <small>Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/devel/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.19.9" id="spatiallibd-1199">spatialLIBD 1.19.9<a class="anchor" aria-label="anchor" href="#spatiallibd-1199"></a></h2>
+<p>BUG FIXES</p>
+<ul><li>@lahuuki resolved the bug we discovered on a dataset being analyzed by 1 as we documented at <a href="https://github.com/LieberInstitute/spatialLIBD/issues/98" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/98</a>. Basically, an internal function used by <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> was having issues with cluster names that were just numbers such as “1”, “2”, …, “13” where <code><a href="../reference/annotate_registered_clusters.html">annotate_registered_clusters()</a></code> could result in a “9/13” annotation but then that would match with “1”, “3”, “9”, and “13” instead of just “9” and “13”, thus introducing incorrect “X” annotations on <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code>. <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a> resolved this at <a href="https://github.com/LieberInstitute/spatialLIBD/pull/99" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/99</a>.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.19.8" id="spatiallibd-1198">spatialLIBD 1.19.8<a class="anchor" aria-label="anchor" href="#spatiallibd-1198"></a></h2>
 <p>NEW FEATURES</p>
