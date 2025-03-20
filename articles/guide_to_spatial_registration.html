@@ -288,7 +288,7 @@ p-values, and gene ensembl ID and symbol.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## get reference layer enrichment statistics</span></span>
 <span><span class="va">layer_modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2025-03-20 17:47:18.472782 loading file /github/home/.cache/R/BiocFileCache/4e318f500db_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2025-03-20 21:17:42.918741 loading file /github/home/.cache/R/BiocFileCache/4e329011eac_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span>
 <span></span>
 <span><span class="va">layer_modeling_results</span><span class="op">$</span><span class="va">enrichment</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
 <span><span class="co">#&gt;    t_stat_WM t_stat_Layer1 t_stat_Layer2 t_stat_Layer3 t_stat_Layer4</span></span>
@@ -391,18 +391,18 @@ wrapping these functions together in to one step!</p>
 <span>    gene_ensembl <span class="op">=</span> <span class="st">"gene_id"</span>,</span>
 <span>    gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2025-03-20 17:47:25.213887 make pseudobulk object</span></span>
-<span><span class="co">#&gt; 2025-03-20 17:47:26.94089 dropping 13 pseudo-bulked samples that are below 'min_ncells'.</span></span>
-<span><span class="co">#&gt; 2025-03-20 17:47:26.984651 drop lowly expressed genes</span></span>
-<span><span class="co">#&gt; 2025-03-20 17:47:27.134934 normalize expression</span></span>
-<span><span class="co">#&gt; 2025-03-20 17:47:28.623322 create model matrix</span></span>
-<span><span class="co">#&gt; 2025-03-20 17:47:28.64824 run duplicateCorrelation()</span></span>
-<span><span class="co">#&gt; 2025-03-20 17:47:42.057486 The estimated correlation is: 0.138734774807097</span></span>
-<span><span class="co">#&gt; 2025-03-20 17:47:42.060207 computing enrichment statistics</span></span>
-<span><span class="co">#&gt; 2025-03-20 17:47:43.285213 extract and reformat enrichment results</span></span>
-<span><span class="co">#&gt; 2025-03-20 17:47:43.345032 running the baseline pairwise model</span></span>
-<span><span class="co">#&gt; 2025-03-20 17:47:43.51197 computing pairwise statistics</span></span>
-<span><span class="co">#&gt; 2025-03-20 17:47:44.873046 computing F-statistics</span></span></code></pre></div>
+<span><span class="co">#&gt; 2025-03-20 21:17:50.834652 make pseudobulk object</span></span>
+<span><span class="co">#&gt; 2025-03-20 21:17:52.644863 dropping 13 pseudo-bulked samples that are below 'min_ncells'.</span></span>
+<span><span class="co">#&gt; 2025-03-20 21:17:52.700227 drop lowly expressed genes</span></span>
+<span><span class="co">#&gt; 2025-03-20 21:17:52.861703 normalize expression</span></span>
+<span><span class="co">#&gt; 2025-03-20 21:17:54.698654 create model matrix</span></span>
+<span><span class="co">#&gt; 2025-03-20 21:17:54.722631 run duplicateCorrelation()</span></span>
+<span><span class="co">#&gt; 2025-03-20 21:18:08.837715 The estimated correlation is: 0.138734774807097</span></span>
+<span><span class="co">#&gt; 2025-03-20 21:18:08.840471 computing enrichment statistics</span></span>
+<span><span class="co">#&gt; 2025-03-20 21:18:10.029757 extract and reformat enrichment results</span></span>
+<span><span class="co">#&gt; 2025-03-20 21:18:10.087758 running the baseline pairwise model</span></span>
+<span><span class="co">#&gt; 2025-03-20 21:18:10.268436 computing pairwise statistics</span></span>
+<span><span class="co">#&gt; 2025-03-20 21:18:11.648615 computing F-statistics</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="extract-enrichment-t-statistics">Extract Enrichment t-statistics<a class="anchor" aria-label="anchor" href="#extract-enrichment-t-statistics"></a>
@@ -576,9 +576,9 @@ Cheng, Chang, and Iannone, 2024)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"guide_to_spatial_registration.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2025-03-20 17:47:48 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2025-03-20 21:18:15 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 41.981 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 46.619 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>

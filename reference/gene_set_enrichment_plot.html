@@ -203,7 +203,7 @@ to see a full script from where this family of functions is derived from.</p>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-03-20 17:44:32.188628 loading file /github/home/.cache/R/BiocFileCache/4e318f500db_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-03-20 21:14:44.148471 loading file /github/home/.cache/R/BiocFileCache/4e329011eac_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Compute the gene set enrichment results</span></span></span>
 <span class="r-in"><span><span class="va">asd_sfari_enrichment</span> <span class="op">&lt;-</span> <span class="fu"><a href="gene_set_enrichment.html">gene_set_enrichment</a></span><span class="op">(</span></span></span>
@@ -249,7 +249,7 @@ to see a full script from where this family of functions is derived from.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## add bar plot annotations for number of enriched genes from layers</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-03-20 17:44:36.476889 loading file /github/home/.cache/R/BiocFileCache/4e3648f6e3a_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-03-20 21:14:48.793655 loading file /github/home/.cache/R/BiocFileCache/4e324dca8b8_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span><span class="va">sig_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="sig_genes_extract.html">sig_genes_extract</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    modeling_results <span class="op">=</span> <span class="va">modeling_results</span>,</span></span>
 <span class="r-in"><span>    model <span class="op">=</span> <span class="st">"enrichment"</span>,</span></span>
