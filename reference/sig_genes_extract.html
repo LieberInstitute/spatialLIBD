@@ -21,7 +21,7 @@ informative titles."><meta property="og:image" content="/logo.png"><!-- mathjax 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.10</span>
       </span>
     </div>
 
@@ -135,8 +135,8 @@ layer-level (group-level) resolution. See <code><a href="fetch_data.html">fetch_
 
 <dt id="arg-gene-name">gene_name<a class="anchor" aria-label="anchor" href="#arg-gene-name"></a></dt>
 <dd><p>A <code>character(1)</code> specifying the <code>rowData(sce_layer)</code>
-column with the gene names that match the rownames of modeling_results.
-Defaults to "gene_name".</p></dd>
+column with the gene names that match the <code>rownames(modeling_results)</code>.
+Defaults to <code>"gene_name"</code>.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -164,9 +164,9 @@ https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-03-20 17:41:33.337778 loading file /github/home/.cache/R/BiocFileCache/4863a1b4dfd_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-03-20 17:45:52.134362 loading file /github/home/.cache/R/BiocFileCache/4e318f500db_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-03-20 17:41:34.232299 loading file /github/home/.cache/R/BiocFileCache/48630984c3f_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-03-20 17:45:52.99911 loading file /github/home/.cache/R/BiocFileCache/4e3648f6e3a_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## anova top 10 genes</span></span></span>
 <span class="r-in"><span><span class="fu">sig_genes_extract</span><span class="op">(</span></span></span>
