@@ -70,7 +70,7 @@ vis_grid_clus <-
     na_color = "#CCCCCC40",
     is_stitched = FALSE,
     guides = c("all", "last", "none"),
-    ...) {
+    title_suffix = NULL) {
       
       stopifnot(all(sample_order %in% unique(spe$sample_id)))
       ## check guides selection
@@ -93,8 +93,7 @@ vis_grid_clus <-
                     auto_crop = auto_crop,
                     na_color = na_color,
                     is_stitched = is_stitched,
-                    one_guide = TRUE,
-                    ...
+                    one_guide = TRUE
                 )
             })
         names(plots) <- sample_order

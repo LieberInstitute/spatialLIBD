@@ -22,7 +22,7 @@ vis_grid_clus(
   na_color = "#CCCCCC40",
   is_stitched = FALSE,
   guides = c("all", "last", "none"),
-  ...
+  title_suffix = NULL
 )
 }
 \arguments{
@@ -90,8 +90,8 @@ specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}.}
 sample. \code{none} prints no guides with the plots, but prints a guide on
 separate page.}
 
-\item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
-plot following the \code{sampleid}.}
+\item{title_suffix}{A \code{character(1)} passed to \link[base:paste]{paste()} to
+modify the title of the plot following the \code{sampleid}.}
 }
 \value{
 A list of \link[ggplot2:ggplot]{ggplot2} objects.

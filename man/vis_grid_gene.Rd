@@ -107,9 +107,6 @@ percentile (as a proportion) at which to cap expression. For example, a value
 of 0.95 sets the top 5\% of expression values to the 95th percentile value.
 This can help make the color scale more dynamic in the presence of high
 outliers. Defaults to \code{1}, which effectively performs no capping.}
-
-\item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
-plot following the \code{sampleid}.}
 }
 \value{
 A list of \link[ggplot2:ggplot]{ggplot2} objects.
