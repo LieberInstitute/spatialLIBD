@@ -92,15 +92,14 @@ vis_grid_clus <-
                     point_size = point_size,
                     auto_crop = auto_crop,
                     na_color = na_color,
-                    is_stitched = is_stitched,
-                    one_guide = TRUE
+                    is_stitched = is_stitched
                 )
             })
         names(plots) <- sample_order
         
         if(!guides == "all"){
           ## get legend
-          legend <- cowplot::get_legend(plots[[1]])
+          suppressWarnings(legend <- cowplot::get_legend(plots[[1]]))
           
           ## Set legend position to None on all plots
           noguide <- function(gp){
