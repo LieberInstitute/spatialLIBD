@@ -86,6 +86,9 @@ specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}
+
+\item{one_guide}{A \code{logical(1)}indicating whether you want a guide printed
+only on the last sample. Defaults to \code{FALSE} which plots all guides.}
 }
 \value{
 A list of \link[ggplot2:ggplot]{ggplot2} objects.

@@ -15,6 +15,8 @@
 #' @param width A `numeric(1)` passed to [pdf][grDevices::pdf()].
 #' @param sample_order A `character()` with the names of the samples to use
 #' and their order.
+#' @param one_guide A `logical(1)`indicating whether you want a guide printed
+#' only on the last sample. Defaults to `FALSE` which plots all guides.
 #'
 #' @return A list of [ggplot2][ggplot2::ggplot] objects.
 #' @export
@@ -83,11 +85,21 @@ vis_grid_clus <-
                     auto_crop = auto_crop,
                     na_color = na_color,
                     is_stitched = is_stitched,
+                    one_guide = TRUE,
                     ...
                 )
             })
         names(plots) <- sample_order
-
+        
+        if(one_guide){
+          ## Set legend position to None on all plots
+          noguide <- function(gp){
+            gp + theme(legend.position = "None")
+          }
+          plots <- lapply(plots, noguide)
+          ## re-set legend in last plot
+          plots[[length(plots)]] <- plots[[length(plots)]] + theme(legend.position = "right")
+        }
 
         if (!return_plots) {
             pdf(pdf_file, height = height, width = width)
