@@ -24,8 +24,7 @@ vis_grid_gene(
   auto_crop = TRUE,
   na_color = "#CCCCCC40",
   is_stitched = FALSE,
-  cap_percentile = 1,
-  ...
+  cap_percentile = 1
 )
 }
 \arguments{
