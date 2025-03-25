@@ -17,7 +17,7 @@ vis_clus(
   auto_crop = TRUE,
   na_color = "#CCCCCC40",
   is_stitched = FALSE,
-  ...
+  title_suffix = NULL
 )
 }
 \arguments{
@@ -67,8 +67,8 @@ with \code{visiumStitched::build_spe()}.
 particular, expects a logical colData column \code{exclude_overlapping}
 specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}.}
 
-\item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
-plot following the \code{sampleid}.}
+\item{title_suffix}{A \code{character(1)} passed to \link[base:paste]{paste()} to
+modify the title of the plot following the \code{sampleid}.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2} object.
@@ -97,7 +97,7 @@ if (enough_ram()) {
         clustervar = "layer_guess_reordered",
         sampleid = "151673",
         colors = libd_layer_colors,
-        ... = " LIBD Layers"
+        title_suffix = "LIBD Layers"
     )
     print(p1)
 
@@ -108,7 +108,7 @@ if (enough_ram()) {
         sampleid = "151673",
         colors = libd_layer_colors,
         auto_crop = FALSE,
-        ... = " LIBD Layers"
+        title_suffix = "LIBD Layers"
     )
     print(p2)
 
@@ -118,7 +118,7 @@ if (enough_ram()) {
         clustervar = "layer_guess_reordered",
         sampleid = "151673",
         colors = libd_layer_colors,
-        ... = " LIBD Layers",
+        title_suffix = " LIBD Layers",
         spatial = FALSE
     )
     print(p3)
@@ -132,7 +132,7 @@ if (enough_ram()) {
         sampleid = "151673",
         colors = libd_layer_colors,
         na_color = "white",
-        ... = " LIBD Layers"
+        title_suffix = " LIBD Layers"
     )
     print(p4)
 }
