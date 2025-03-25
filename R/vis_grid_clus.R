@@ -15,13 +15,17 @@
 #' @param width A `numeric(1)` passed to [pdf][grDevices::pdf()].
 #' @param sample_order A `character()` with the names of the samples to use
 #' and their order.
-#' @param one_guide A `logical(1)`indicating whether you want a guide printed
-#' only on the last sample. Defaults to `FALSE` which plots all guides.
+#' @param guides A `character(1)` specifying which guides to print. Defaults to 
+#' `all` which plots all guides. `last` prints a guide for only on the last 
+#' sample. `none` prints no guides with the plots, but prints a guide on 
+#' separate page.
 #'
 #' @return A list of [ggplot2][ggplot2::ggplot] objects.
 #' @export
 #' @importFrom grDevices pdf dev.off
 #' @importFrom SummarizedExperiment colData<-
+#' @importFrom cowplot plot_grid get_legend
+#' @importFrom grid grid.newpage grid.draw
 #' @family Spatial cluster visualization functions
 #' @details This function prepares the data and then loops through
 #' [vis_clus()] for computing the list of [ggplot2][ggplot2::ggplot]
@@ -65,8 +69,12 @@ vis_grid_clus <-
     auto_crop = TRUE,
     na_color = "#CCCCCC40",
     is_stitched = FALSE,
+    guides = c("all", "last", "none"),
     ...) {
-        stopifnot(all(sample_order %in% unique(spe$sample_id)))
+      
+      stopifnot(all(sample_order %in% unique(spe$sample_id)))
+      ## check guides selection
+      guides <- rlang::arg_match(guides)
 
         if (sort_clust) {
             colData(spe)[[clustervar]] <-
@@ -91,20 +99,37 @@ vis_grid_clus <-
             })
         names(plots) <- sample_order
         
-        if(one_guide){
+        if(!guides == "all"){
+          ## get legend
+          legend <- cowplot::get_legend(plots[[1]])
+          
           ## Set legend position to None on all plots
           noguide <- function(gp){
             gp + theme(legend.position = "None")
           }
           plots <- lapply(plots, noguide)
-          ## re-set legend in last plot
-          plots[[length(plots)]] <- plots[[length(plots)]] + theme(legend.position = "right")
+          
+          if(guides == "last") {
+            ## re-set legend in last plot
+            plots[[length(plots)]] <- plots[[length(plots)]] + theme(legend.position = "right")
+          } 
+          
         }
 
         if (!return_plots) {
+          if(guides %in% c("all", "last")){
             pdf(pdf_file, height = height, width = width)
             print(cowplot::plot_grid(plotlist = plots))
             dev.off()
+            
+          } else if(guides == "none"){
+            ## print guide on next page
+            pdf(pdf_file, height = height, width = width)
+            print(cowplot::plot_grid(plotlist = plots))
+            grid::grid.newpage()
+            grid::grid.draw(legend)
+            dev.off()
+          }
             return(pdf_file)
         } else {
             return(plots)

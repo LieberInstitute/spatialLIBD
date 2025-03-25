@@ -21,6 +21,7 @@ vis_grid_clus(
   auto_crop = TRUE,
   na_color = "#CCCCCC40",
   is_stitched = FALSE,
+  guides = c("all", "last", "none"),
   ...
 )
 }
@@ -84,11 +85,13 @@ with \code{visiumStitched::build_spe()}.
 particular, expects a logical colData column \code{exclude_overlapping}
 specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}.}
 
+\item{guides}{A \code{character(1)} specifying which guides to print. Defaults to
+\code{all} which plots all guides. \code{last} prints a guide for only on the last
+sample. \code{none} prints no guides with the plots, but prints a guide on
+separate page.}
+
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}
-
-\item{one_guide}{A \code{logical(1)}indicating whether you want a guide printed
-only on the last sample. Defaults to \code{FALSE} which plots all guides.}
 }
 \value{
 A list of \link[ggplot2:ggplot]{ggplot2} objects.
