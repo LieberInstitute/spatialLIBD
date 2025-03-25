@@ -61,9 +61,9 @@ pre-print](https://www.biorxiv.org/content/10.1101/2020.02.28.969931v1)
 for more details about this project.
 
 If you write about this website, the data or the R package please use
-the <code>\#spatialLIBD</code> hashtag. See previous tagged Bluesky posts 
-<a href="https://bsky.app/search?q=%23spatialLIBD">here</a>.
-Thank you!
+the <code>\#spatialLIBD</code> hashtag. See previous tagged Bluesky
+posts <a href="https://bsky.app/search?q=%23spatialLIBD">here</a>. Thank
+you!
 
 ## Study design
 
@@ -188,6 +188,10 @@ details, check the help file for `fetch_data()`.
 ``` r
 ## Load the package
 library("spatialLIBD")
+#> Warning: package 'SingleCellExperiment' was built under R version 4.4.2
+#> Warning: package 'MatrixGenerics' was built under R version 4.4.2
+#> Warning: package 'IRanges' was built under R version 4.4.2
+#> Warning: package 'GenomeInfoDb' was built under R version 4.4.2
 
 ## Download the spot-level data
 spe <- fetch_data(type = "spe")
@@ -210,16 +214,10 @@ spe
 #> altExpNames(0):
 #> spatialCoords names(2) : pxl_col_in_fullres pxl_row_in_fullres
 #> imgData names(4): sample_id image_id data scaleFactor
-```
-
-``` r
 
 ## Note the memory size
 lobstr::obj_size(spe)
 #> 2.04 GB
-```
-
-``` r
 
 ## Remake the logo image with histology information
 vis_clus(
@@ -227,7 +225,7 @@ vis_clus(
     clustervar = "spatialLIBD",
     sampleid = "151673",
     colors = libd_layer_colors,
-    ... = " DLPFC Human Brain Layers\nMade with research.libd.org/spatialLIBD/"
+    title_suffix = " DLPFC Human Brain Layers\nMade with research.libd.org/spatialLIBD/"
 )
 ```
 
@@ -366,7 +364,7 @@ By contributing to this project, you agree to abide by its terms.
   *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized
   to use [Bioconductor’s docker
   containers](https://www.bioconductor.org/help/docker/) and
-  *[BiocCheck](https://bioconductor.org/packages/3.19/BiocCheck)*.
+  *[BiocCheck](https://bioconductor.org/packages/3.20/BiocCheck)*.
 - Code coverage assessment is possible thanks to
   [codecov](https://codecov.io/gh) and
   *[covr](https://CRAN.R-project.org/package=covr)*.
@@ -383,7 +381,7 @@ By contributing to this project, you agree to abide by its terms.
 For more details, check the `dev` directory.
 
 This package was developed using
-*[biocthis](https://bioconductor.org/packages/3.19/biocthis)*.
+*[biocthis](https://bioconductor.org/packages/3.20/biocthis)*.
 
 <a href="https://www.libd.org/"><img src="http://lcolladotor.github.io/img/LIBD_logo.jpg" width="250px"></a>
 
@@ -396,5 +394,5 @@ This package was developed using
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-QKT3SV9EFL');
+&#10;  gtag('config', 'G-QKT3SV9EFL');
 </script>
