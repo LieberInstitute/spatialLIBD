@@ -294,7 +294,7 @@ vis_clus(
     clustervar = "layer_guess_reordered",
     sampleid = "151673",
     colors = libd_layer_colors,
-    ... = " LIBD Layers"
+    title_suffix = "LIBD Layers"
 )
 ```
 
@@ -319,7 +319,7 @@ vis_clus(
     clustervar = "layer_guess_reordered",
     sampleid = "151673",
     colors = libd_layer_colors,
-    ... = " LIBD Layers",
+    title_suffix = "LIBD Layers",
     spatial = FALSE
 )
 ```
