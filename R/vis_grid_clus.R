@@ -7,7 +7,7 @@
 #' @inheritParams vis_clus
 #' @param pdf_file A `character(1)` specifying the path for the resulting PDF.
 #' @param sort_clust A `logical(1)` indicating whether you want to sort
-#' the clusters by frequency using [sort_clusters()].
+#' the clusters by frequency using [sort_clusters()]. Defuault `FALSE`.
 #' @param return_plots A `logical(1)` indicating whether to print the plots
 #' to a PDF or to return the list of plots that you can then print using
 #' [plot_grid][cowplot::plot_grid()].
@@ -56,7 +56,7 @@ vis_grid_clus <-
     function(spe,
     clustervar,
     pdf_file,
-    sort_clust = TRUE,
+    sort_clust = FALSE,
     colors = NULL,
     return_plots = FALSE,
     spatial = TRUE,

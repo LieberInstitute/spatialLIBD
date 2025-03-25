@@ -8,7 +8,7 @@ vis_grid_clus(
   spe,
   clustervar,
   pdf_file,
-  sort_clust = TRUE,
+  sort_clust = FALSE,
   colors = NULL,
   return_plots = FALSE,
   spatial = TRUE,
@@ -38,7 +38,7 @@ column that has the cluster values.}
 \item{pdf_file}{A \code{character(1)} specifying the path for the resulting PDF.}
 
 \item{sort_clust}{A \code{logical(1)} indicating whether you want to sort
-the clusters by frequency using \code{\link[=sort_clusters]{sort_clusters()}}.}
+the clusters by frequency using \code{\link[=sort_clusters]{sort_clusters()}}. Defuault \code{FALSE}.}
 
 \item{colors}{A vector of colors to use for visualizing the clusters
 from \code{clustervar}. If the vector has names, then those should match the
