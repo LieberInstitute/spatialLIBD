@@ -1,3 +1,12 @@
+# spatialLIBD 1.19.12
+
+NEW FEATURES
+
+* @lahuuki added `guide_point_size` as a argument to `vis_clus()` and
+`vis_grid_clus()`, which allows controlling the size of the points in the
+legends for the discrete variable plots. See 
+<https://github.com/LieberInstitute/spatialLIBD/pull/104> for more details.
+
 # spatialLIBD 1.19.11
 
 BUG FIXES
