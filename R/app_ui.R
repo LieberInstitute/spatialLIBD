@@ -191,6 +191,16 @@ app_ui <- function() {
                         ),
                         helpText("We recommend that you use values between 1.25 and 2 (default)."),
                         hr(),
+                        numericInput(
+                            "guidepointsize",
+                            "Guide point size",
+                            value = 2,
+                            min = 1,
+                            max = 3,
+                            step = 0.1
+                        ),
+                        helpText("This controls the point size in the legend when visualizing discrete variables."),
+                        hr(),
                         checkboxInput(
                             "auto_crop",
                             "Should the image be automatically cropped?",
