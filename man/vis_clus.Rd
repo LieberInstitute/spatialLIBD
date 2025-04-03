@@ -17,6 +17,7 @@ vis_clus(
   auto_crop = TRUE,
   na_color = "#CCCCCC40",
   is_stitched = FALSE,
+  guide_point_size = point_size,
   ...
 )
 }
@@ -66,6 +67,9 @@ with \code{visiumStitched::build_spe()}.
 \url{http://research.libd.org/visiumStitched/reference/build_spe.html}; in
 particular, expects a logical colData column \code{exclude_overlapping}
 specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}.}
+
+\item{guide_point_size}{A \code{numeric(1)} specifying the size of the points in
+guide. Defaults to \code{point_size}. Increase to improve visability.}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}
@@ -135,6 +139,20 @@ if (enough_ram()) {
         ... = " LIBD Layers"
     )
     print(p4)
+    
+    ## edit plot point size but keep guide size larger
+    p5 <- vis_clus(
+        spe = spe,
+        clustervar = "layer_guess_reordered",
+        sampleid = "151673",
+        colors = libd_layer_colors,
+        na_color = "white",
+        point_size = 1,
+        guide_point_size = 3,
+        ... = " LIBD Layers"
+    )
+    print(p5)
+         
 }
 }
 \seealso{
