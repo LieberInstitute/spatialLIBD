@@ -89,6 +89,7 @@ gene-level (or any continuous variable) use <code><a href="vis_gene.html">vis_ge
 <span>  auto_crop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  na_color <span class="op">=</span> <span class="st">"#CCCCCC40"</span>,</span>
 <span>  is_stitched <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  guide_point_size <span class="op">=</span> <span class="va">point_size</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -163,6 +164,11 @@ with <code>visiumStitched::build_spe()</code>.
 <a href="http://research.libd.org/visiumStitched/reference/build_spe.html" class="external-link">http://research.libd.org/visiumStitched/reference/build_spe.html</a>; in
 particular, expects a logical colData column <code>exclude_overlapping</code>
 specifying which spots to exclude from the plot. Sets <code>auto_crop = FALSE</code>.</p></dd>
+
+
+<dt id="arg-guide-point-size">guide_point_size<a class="anchor" aria-label="anchor" href="#arg-guide-point-size"></a></dt>
+<dd><p>A <code>numeric(1)</code> specifying the size of the points in
+guide. Defaults to <code>point_size</code>. Increase to improve visability.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -241,12 +247,27 @@ data and title for <code><a href="vis_clus_p.html">vis_clus_p()</a></code>.</p>
 <span class="r-in"><span>        ... <span class="op">=</span> <span class="st">" LIBD Layers"</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    </span></span>
+<span class="r-in"><span>    <span class="co">## edit plot point size but keep guide size larger</span></span></span>
+<span class="r-in"><span>    <span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu">vis_clus</span><span class="op">(</span></span></span>
+<span class="r-in"><span>        spe <span class="op">=</span> <span class="va">spe</span>,</span></span>
+<span class="r-in"><span>        clustervar <span class="op">=</span> <span class="st">"layer_guess_reordered"</span>,</span></span>
+<span class="r-in"><span>        sampleid <span class="op">=</span> <span class="st">"151673"</span>,</span></span>
+<span class="r-in"><span>        colors <span class="op">=</span> <span class="va">libd_layer_colors</span>,</span></span>
+<span class="r-in"><span>        na_color <span class="op">=</span> <span class="st">"white"</span>,</span></span>
+<span class="r-in"><span>        point_size <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>        guide_point_size <span class="op">=</span> <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>        ... <span class="op">=</span> <span class="st">" LIBD Layers"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></span>
+<span class="r-in"><span>         </span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-03-20 21:17:11.307139 loading file /github/home/.cache/R/BiocFileCache/100d6c74764f_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-03 16:16:10.784201 loading file /github/home/.cache/R/BiocFileCache/230b499b8860_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-plt img"><img src="vis_clus-1.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_clus-2.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_clus-3.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_clus-4.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="vis_clus-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
