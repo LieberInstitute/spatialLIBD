@@ -47,23 +47,26 @@
 #'     cowplot::plot_grid(plotlist = p_list, ncol = 2)
 #' }
 vis_grid_clus <-
-    function(spe,
-    clustervar,
-    pdf_file,
-    sort_clust = TRUE,
-    colors = NULL,
-    return_plots = FALSE,
-    spatial = TRUE,
-    height = 24,
-    width = 36,
-    image_id = "lowres",
-    alpha = NA,
-    sample_order = unique(spe$sample_id),
-    point_size = 2,
-    auto_crop = TRUE,
-    na_color = "#CCCCCC40",
-    is_stitched = FALSE,
-    ...) {
+    function(
+        spe,
+        clustervar,
+        pdf_file,
+        sort_clust = TRUE,
+        colors = NULL,
+        return_plots = FALSE,
+        spatial = TRUE,
+        height = 24,
+        width = 36,
+        image_id = "lowres",
+        alpha = NA,
+        sample_order = unique(spe$sample_id),
+        point_size = 2,
+        auto_crop = TRUE,
+        na_color = "#CCCCCC40",
+        is_stitched = FALSE,
+        guide_point_size = point_size,
+        ...
+    ) {
         stopifnot(all(sample_order %in% unique(spe$sample_id)))
 
         if (sort_clust) {
@@ -72,7 +75,8 @@ vis_grid_clus <-
         }
         plots <-
             lapply(sample_order, function(sampleid) {
-                vis_clus(spe,
+                vis_clus(
+                    spe,
                     sampleid,
                     clustervar,
                     colors = colors,
@@ -83,11 +87,11 @@ vis_grid_clus <-
                     auto_crop = auto_crop,
                     na_color = na_color,
                     is_stitched = is_stitched,
+                    guide_point_size = guide_point_size,
                     ...
                 )
             })
         names(plots) <- sample_order
-
 
         if (!return_plots) {
             pdf(pdf_file, height = height, width = width)
