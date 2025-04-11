@@ -1,8 +1,7 @@
-#' Sample spatial cluster visualization
+#' Sample image visualization
 #'
-#' This function visualizes the clusters for one given sample at the spot-level
-#' using (by default) the histology information on the background. To visualize
-#' gene-level (or any continuous variable) use [vis_gene()].
+#' This function visualizes the histology image for selected sample. Matches
+#' crop and settings of [vis_clus()] and [vis_gene()].
 #'
 #' @param spe A
 #' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]

@@ -2,7 +2,7 @@
 % Please edit documentation in R/vis_image.R
 \name{vis_image}
 \alias{vis_image}
-\title{Sample spatial cluster visualization}
+\title{Sample image visualization}
 \usage{
 vis_image(
   spe,
@@ -40,9 +40,8 @@ modify the title of the plot following the \code{sampleid}.}
 A \link[ggplot2:ggplot]{ggplot2} object.
 }
 \description{
-This function visualizes the clusters for one given sample at the spot-level
-using (by default) the histology information on the background. To visualize
-gene-level (or any continuous variable) use \code{\link[=vis_gene]{vis_gene()}}.
+This function visualizes the histology image for selected sample. Matches
+crop and settings of \code{\link[=vis_clus]{vis_clus()}} and \code{\link[=vis_gene]{vis_gene()}}.
 }
 \details{
 This function subsets \code{spe} to the given sample and prepares the
