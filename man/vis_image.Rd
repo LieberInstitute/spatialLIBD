@@ -9,7 +9,6 @@ vis_image(
   sampleid = unique(spe$sample_id)[1],
   image_id = "lowres",
   auto_crop = TRUE,
-  na_color = "#CCCCCC40",
   is_stitched = FALSE,
   title_suffix = NULL
 )
@@ -52,24 +51,23 @@ data and title for \code{\link[=vis_clus_p]{vis_clus_p()}}.
 \examples{
 
 if (enough_ram()) {
-    ## Obtain the necessary data
-    if (!exists("spe")) spe <- fetch_data("spe")
+  ## Obtain the necessary data
+  if (!exists("spe")) spe <- fetch_data("spe")
 
-    ## Use the manual color palette by Lukas M Weber
-    p1 <- vis_image(
-        spe = spe,
-        sampleid = "151673"
-    )
-    print(p1)
+  ## Print the "lowres" image for sample 151673
+  p1 <- vis_image(
+    spe = spe,
+    sampleid = "151673"
+  )
+  print(p1)
 
-    ## Without auto-cropping the image
-    p2 <- vis_image(
-        spe = spe,
-        sampleid = "151673",
-        auto_crop = FALSE
-    )
-    print(p2)
-
+  ## Without auto-cropping the image
+  p2 <- vis_image(
+    spe = spe,
+    sampleid = "151673",
+    auto_crop = FALSE
+  )
+  print(p2)
 }
 }
 \seealso{
