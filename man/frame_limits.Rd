@@ -59,7 +59,8 @@ if (enough_ram()) {
 Other Spatial cluster visualization functions: 
 \code{\link{vis_clus}()},
 \code{\link{vis_clus_p}()},
-\code{\link{vis_grid_clus}()}
+\code{\link{vis_grid_clus}()},
+\code{\link{vis_image}()}
 }
 \author{
 Louise Huuki-Myers and Leonardo Collado-Torres
