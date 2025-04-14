@@ -26,6 +26,10 @@ build your own \code{spe} object.}
 \item{image_id}{A \code{character(1)} with the name of the image ID you want to
 use in the background.}
 
+\item{auto_crop}{A \code{logical(1)} indicating whether to automatically crop
+the image / plotting area, which is useful if the Visium capture area is
+not centered on the image and if the image is not a square.}
+
 \item{is_stitched}{A \code{logical(1)} vector: If \code{TRUE}, expects a
 \link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class} built
 with \code{visiumStitched::build_spe()}.

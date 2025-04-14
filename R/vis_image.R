@@ -3,21 +3,7 @@
 #' This function visualizes the histology image for selected sample. Matches
 #' crop and settings of [vis_clus()] and [vis_gene()].
 #'
-#' @param spe A
-#' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]
-#' object. See [fetch_data()] for how to download some example objects or
-#' [read10xVisiumWrapper()] to read in `spaceranger --count` output files and
-#' build your own `spe` object.
-#' @param sampleid A `character(1)` specifying which sample to plot from
-#' `colData(spe)$sample_id` (formerly `colData(spe)$sample_name`).
-#' @param image_id A `character(1)` with the name of the image ID you want to
-#' use in the background.
-#' @param is_stitched A \code{logical(1)} vector: If `TRUE`, expects a
-#' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class] built
-#' with `visiumStitched::build_spe()`.
-#' <http://research.libd.org/visiumStitched/reference/build_spe.html>; in
-#' particular, expects a logical colData column `exclude_overlapping`
-#' specifying which spots to exclude from the plot. Sets `auto_crop = FALSE`.
+#' @inheritParams vis_clus
 #' @param title_suffix A `character(1)` passed to [paste()][base::paste] to
 #' modify the title of the plot following the `sampleid`.
 #'
