@@ -10,7 +10,8 @@ registration_pseudobulk(
   var_sample_id,
   covars = NULL,
   min_ncells = 10,
-  pseudobulk_rds_file = NULL
+  pseudobulk_rds_file = NULL,
+  filter_expr = TRUE
 )
 }
 \arguments{
@@ -37,6 +38,10 @@ when pseudo-bulking. Pseudo-bulked samples with less than \code{min_ncells} on
 \item{pseudobulk_rds_file}{A \code{character(1)} specifying the path for saving
 an RDS file with the pseudo-bulked object. It's useful to specify this since
 pseudo-bulking can take hours to run on large datasets.}
+
+\item{filter_expr}{A \code{logical(1)} specifying whether to filter pseudobulked
+counts with \code{edgeR::filterByExpr}. Defaults to \code{TRUE}, filtering is recommended for
+spatail registratrion workflow.}
 }
 \value{
 A pseudo-bulked \link[SingleCellExperiment:SingleCellExperiment]{SingleCellExperiment-class} object.

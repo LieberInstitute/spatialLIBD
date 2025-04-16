@@ -21,6 +21,9 @@
 #' number of cells (for scRNA-seq) or spots (for spatial) that are combined
 #' when pseudo-bulking. Pseudo-bulked samples with less than `min_ncells` on
 #' `sce_pseudo$ncells` will be dropped.
+#' @param filter_expr A `logical(1)` specifying whether to filter pseudobulked
+#' counts with `edgeR::filterByExpr`. Defaults to `TRUE`, filtering is recommended for 
+#' spatail registratrion workflow.
 #'
 #' @return A pseudo-bulked [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class] object.
 #' @importFrom SingleCellExperiment logcounts
@@ -62,7 +65,8 @@ registration_pseudobulk <-
     var_sample_id,
     covars = NULL,
     min_ncells = 10,
-    pseudobulk_rds_file = NULL) {
+    pseudobulk_rds_file = NULL,
+    filter_expr = TRUE) {
         ## Check that inputs are correct
         stopifnot(is(sce, "SingleCellExperiment"))
         stopifnot(var_registration %in% colnames(colData(sce)))
@@ -163,11 +167,13 @@ registration_pseudobulk <-
         }
 
         ## Drop lowly-expressed genes
-        message(Sys.time(), " drop lowly expressed genes")
-        keep_expr <-
+        if(filter_expr){
+          message(Sys.time(), " drop lowly expressed genes")
+          keep_expr <-
             edgeR::filterByExpr(sce_pseudo, group = sce_pseudo$registration_variable)
-        sce_pseudo <- sce_pseudo[which(keep_expr), ]
-
+          sce_pseudo <- sce_pseudo[which(keep_expr), ]
+        }
+        
         ## Compute the logcounts
         message(Sys.time(), " normalize expression")
         logcounts(sce_pseudo) <-
