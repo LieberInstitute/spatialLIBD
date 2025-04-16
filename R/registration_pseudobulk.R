@@ -75,9 +75,12 @@ registration_pseudobulk <-
         stopifnot(!var_registration %in% covars)
         stopifnot(!var_sample_id %in% covars)
         stopifnot(var_registration != var_sample_id)
+        
+        ## create var_registration col
+        sce$var_registration <- sce[[var_registration]]
 
         ## Check that the values in the registration variable are numeric
-        if (is.numeric(sce[[var_registration]])) {
+        if (is.numeric(sce[["var_registration"]])) {
             warning(
                 sprintf(
                     "var_registration \"%s\" is numeric, convering to categorical vector...",
@@ -88,7 +91,7 @@ registration_pseudobulk <-
         }
 
         ## check for Non-Syntactic variables - convert with make.names & warn
-        uniq_var_regis <- unique(sce[[var_registration]])
+        uniq_var_regis <- unique(sce[["var_registration"]])
         syntatic <- grepl(
             "^((([[:alpha:]]|[.][._[:alpha:]])[._[:alnum:]]*)|[.])$",
             uniq_var_regis
@@ -103,7 +106,7 @@ registration_pseudobulk <-
                 ),
                 call. = FALSE
             )
-            sce[[var_registration]] <- make.names(sce[[var_registration]])
+            sce[["var_registration"]] <- make.names(sce[["var_registration"]])
         }
 
         ## Pseudo-bulk for our current BayesSpace cluster results
@@ -112,7 +115,7 @@ registration_pseudobulk <-
         sce_pseudo <- scuttle::aggregateAcrossCells(
             sce,
             DataFrame(
-                registration_variable = sce[[var_registration]],
+                registration_variable = sce[["var_registration"]],
                 registration_sample_id = sce[[var_sample_id]]
             )
         )
