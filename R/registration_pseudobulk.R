@@ -50,11 +50,11 @@
 #' rowData(sce)$gene_name <- paste0("gene", seq_len(nrow(sce)))
 #'
 #' ## Pseudo-bulk by Cell Cycle
-# sce_pseudo <- registration_pseudobulk(sce,
-#                                       var_registration  = "Cell_Cycle", 
-#                                       var_sample_id = "sample_id", 
-#                                       covars = c("age"), 
-#                                       min_ncells = NULL)
+#' sce_pseudo <- registration_pseudobulk(sce,
+#'                                       var_registration  = "Cell_Cycle", 
+#'                                       var_sample_id = "sample_id", 
+#'                                       covars = c("age"), 
+#'                                       min_ncells = NULL)
 #' colData(sce_pseudo)
 registration_pseudobulk <-
     function(sce,
