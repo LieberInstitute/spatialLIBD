@@ -24,6 +24,9 @@
 #' @param filter_expr A `logical(1)` specifying whether to filter pseudobulked
 #' counts with `edgeR::filterByExpr`. Defaults to `TRUE`, filtering is recommended for 
 #' spatail registratrion workflow.
+#' @param mito_gene An optional `logical()` vector indicating which genes are 
+#' mitochondrial, used to calculate pseudo bulked mitochondrial expression rate
+#' `expr_chrM` and `pseudo_expr_chrM` .
 #'
 #' @return A pseudo-bulked [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class] object.
 #' @importFrom SingleCellExperiment logcounts
@@ -66,7 +69,8 @@ registration_pseudobulk <-
     covars = NULL,
     min_ncells = 10,
     pseudobulk_rds_file = NULL,
-    filter_expr = TRUE) {
+    filter_expr = TRUE,
+    mito_gene = NULL) {
         ## Check that inputs are correct
         stopifnot(is(sce, "SingleCellExperiment"))
         stopifnot(var_registration %in% colnames(colData(sce)))
@@ -165,7 +169,21 @@ registration_pseudobulk <-
             ## to min_ncells
             sce_pseudo$registration_variable <- droplevels(sce_pseudo$registration_variable)
         }
+        
+        ## compute pseudo QC metrics
+        sce_pseudo$pseudo_sum_umi <- colSums(counts(sce_pseudo))
+        
+        ## if mitochondrial genes are indicated, calculate pseudo mito rate
+        if(!is.null(mito_gene)){
+          if(length(mito_gene) == nrow(sce_pseudo)){
+            sce_pseudo$pseudo_expr_chrM <- colSums(counts(sce_pseudo)[mito_gene, , drop = FALSE])
+            sce_pseudo$pseudo_expr_chrM_ratio <- sce_pseudo$pseudo_expr_chrM / sce_pseudo$pseudo_sum_umi
+          } else {
+            warning("length(mito_gene) != nrow(sce_pseudo) : unable to calc 'pseudo_expr_chrM' metrics")
+          }
 
+        }
+        
         ## Drop lowly-expressed genes
         if(filter_expr){
           message(Sys.time(), " drop lowly expressed genes")

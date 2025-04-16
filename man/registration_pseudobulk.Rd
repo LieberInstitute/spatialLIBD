@@ -11,7 +11,8 @@ registration_pseudobulk(
   covars = NULL,
   min_ncells = 10,
   pseudobulk_rds_file = NULL,
-  filter_expr = TRUE
+  filter_expr = TRUE,
+  mito_gene = NULL
 )
 }
 \arguments{
@@ -42,6 +43,10 @@ pseudo-bulking can take hours to run on large datasets.}
 \item{filter_expr}{A \code{logical(1)} specifying whether to filter pseudobulked
 counts with \code{edgeR::filterByExpr}. Defaults to \code{TRUE}, filtering is recommended for
 spatail registratrion workflow.}
+
+\item{mito_gene}{An optional \code{logical()} vector indicating which genes are
+mitochondrial, used to calculate pseudo bulked mitochondrial expression rate
+\code{expr_chrM} and \code{pseudo_expr_chrM} .}
 }
 \value{
 A pseudo-bulked \link[SingleCellExperiment:SingleCellExperiment]{SingleCellExperiment-class} object.
