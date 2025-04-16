@@ -125,6 +125,9 @@ registration_pseudobulk <-
                 "_",
                 sce_pseudo$registration_variable
             )
+        
+        ## rm sce_pseudo$var_registration - redundant with registration variable
+        sce_pseudo$var_registration <- NULL
 
         ## Check that the covariates are present
         if (!is.null(covars)) {
