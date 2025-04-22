@@ -1,3 +1,15 @@
+# spatialLIBD 1.21.1
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* The documentation of `registration_pseudobulk()` has been expanded to further
+explain the `logcounts()` assay. That is, to highlight that this assay
+contains log2 CPM values computed with `edgeR::cpm()` and not log2 library-size
+normalized counts (as computed with `scuttle::logNormCounts()`).
+See <https://support.bioconductor.org/p/9161754> and 
+<https://github.com/LieberInstitute/spatialLIBD/issues/106> by @kinnaryshah
+for more details.
+
 # spatialLIBD 1.19.12
 
 NEW FEATURES

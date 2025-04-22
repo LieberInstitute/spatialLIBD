@@ -39,7 +39,12 @@ an RDS file with the pseudo-bulked object. It's useful to specify this since
 pseudo-bulking can take hours to run on large datasets.}
 }
 \value{
-A pseudo-bulked \link[SingleCellExperiment:SingleCellExperiment]{SingleCellExperiment-class} object.
+A pseudo-bulked \link[SingleCellExperiment:SingleCellExperiment]{SingleCellExperiment-class} object. The \code{logcounts()} assay are \code{log2-CPM}
+values calculated with \code{edgeR::cpm(log = TRUE)}. See
+\url{https://github.com/LieberInstitute/spatialLIBD/issues/106} and
+\url{https://support.bioconductor.org/p/9161754} for more details about the
+math behind \code{scuttle::logNormFactors()}, \code{edgeR::cpm()}, and their
+differences.
 }
 \description{
 Pseudo-bulk the gene expression, filter lowly-expressed genes, and normalize.
