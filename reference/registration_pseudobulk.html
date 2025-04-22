@@ -18,7 +18,7 @@ This is the first step for spatial registration and for statistical modeling."><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.19.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.1</span>
       </span>
     </div>
 
@@ -126,7 +126,12 @@ pseudo-bulking can take hours to run on large datasets.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A pseudo-bulked <a href="https://rdrr.io/pkg/SingleCellExperiment/man/SingleCellExperiment.html" class="external-link">SingleCellExperiment-class</a> object.</p>
+    <p>A pseudo-bulked <a href="https://rdrr.io/pkg/SingleCellExperiment/man/SingleCellExperiment.html" class="external-link">SingleCellExperiment-class</a> object. The <code>logcounts()</code> assay are <code>log2-CPM</code>
+values calculated with <code>edgeR::cpm(log = TRUE)</code>. See
+<a href="https://github.com/LieberInstitute/spatialLIBD/issues/106" class="external-link">https://github.com/LieberInstitute/spatialLIBD/issues/106</a> and
+<a href="https://support.bioconductor.org/p/9161754" class="external-link">https://support.bioconductor.org/p/9161754</a> for more details about the
+math behind <code>scuttle::logNormFactors()</code>, <code><a href="https://rdrr.io/pkg/edgeR/man/cpm.html" class="external-link">edgeR::cpm()</a></code>, and their
+differences.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -161,9 +166,9 @@ pseudo-bulking can take hours to run on large datasets.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Pseudo-bulk</span></span></span>
 <span class="r-in"><span><span class="va">sce_pseudo</span> <span class="op">&lt;-</span> <span class="fu">registration_pseudobulk</span><span class="op">(</span><span class="va">sce</span>, <span class="st">"Cell_Cycle"</span>, <span class="st">"sample_id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>, min_ncells <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-03 16:47:46.426451 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-03 16:47:46.522424 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-03 16:47:46.567819 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-22 16:21:25.28565 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-22 16:21:25.386168 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-22 16:21:25.431669 normalize expression</span>
 <span class="r-in"><span><span class="fu">colData</span><span class="op">(</span><span class="va">sce_pseudo</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 8 columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Mutation_Status  Cell_Cycle   Treatment   sample_id       age</span>
