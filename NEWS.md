@@ -1,3 +1,10 @@
+# spatialLIBD 1.21.2
+
+NEW FEATURES
+
+* @lahuuki added the `vis_image()` for plotting just the histology image. See 
+<https://github.com/LieberInstitute/spatialLIBD/pull/107> for details.
+
 # spatialLIBD 1.21.1
 
 SIGNIFICANT USER-VISIBLE CHANGES

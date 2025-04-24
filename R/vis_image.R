@@ -41,85 +41,100 @@ vis_image <- function(
     image_id = "lowres",
     auto_crop = TRUE,
     is_stitched = FALSE,
-    title_suffix = NULL) {
-  #   Verify existence and legitimacy of 'sampleid'
-  if (
-    !("sample_id" %in% colnames(colData(spe))) ||
-      !(sampleid %in% spe$sample_id)
-  ) {
-    stop(
-      paste(
-        "'spe$sample_id' must exist and contain the ID", sampleid
-      ),
-      call. = FALSE
+    title_suffix = NULL
+) {
+    #   Verify existence and legitimacy of 'sampleid'
+    if (
+        !("sample_id" %in% colnames(colData(spe))) ||
+            !(sampleid %in% spe$sample_id)
+    ) {
+        stop(
+            paste(
+                "'spe$sample_id' must exist and contain the ID",
+                sampleid
+            ),
+            call. = FALSE
+        )
+    }
+
+    #   Check validity of spatial coordinates
+    if (
+        !setequal(
+            c("pxl_col_in_fullres", "pxl_row_in_fullres"),
+            colnames(spatialCoords(spe))
+        )
+    ) {
+        stop(
+            "Abnormal spatial coordinates: should have 'pxl_row_in_fullres' and 'pxl_col_in_fullres' columns.",
+            call. = FALSE
+        )
+    }
+
+    spe_sub <- spe[, spe$sample_id == sampleid]
+
+    if (is_stitched) {
+        #   Frame limits are poorly defined for stitched data
+        auto_crop <- FALSE
+    }
+
+    d <- as.data.frame(
+        cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)),
+        optional = TRUE
     )
-  }
 
-  #   Check validity of spatial coordinates
-  if (!setequal(c("pxl_col_in_fullres", "pxl_row_in_fullres"), colnames(spatialCoords(spe)))) {
-    stop(
-      "Abnormal spatial coordinates: should have 'pxl_row_in_fullres' and 'pxl_col_in_fullres' columns.",
-      call. = FALSE
+    pxl_row_in_fullres <- pxl_col_in_fullres <- key <- NULL
+
+    img <- SpatialExperiment::imgRaster(
+        spe,
+        sample_id = sampleid,
+        image_id = image_id
     )
-  }
 
-  spe_sub <- spe[, spe$sample_id == sampleid]
+    ## Crop the image if needed
+    if (auto_crop) {
+        frame_lims <-
+            frame_limits(spe, sampleid = sampleid, image_id = image_id)
+        img <-
+            img[
+                frame_lims$y_min:frame_lims$y_max,
+                frame_lims$x_min:frame_lims$x_max
+            ]
+        adjust <-
+            list(x = frame_lims$x_min, y = frame_lims$y_min)
+    } else {
+        adjust <- list(x = 0, y = 0)
+    }
 
-  if (is_stitched) {
-    #   Frame limits are poorly defined for stitched data
-    auto_crop <- FALSE
-  }
+    title <- paste(sampleid, title_suffix)
 
-  d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
-
-  pxl_row_in_fullres <- pxl_col_in_fullres <- key <- NULL
-
-  img <- SpatialExperiment::imgRaster(spe,
-    sample_id = sampleid,
-    image_id = image_id
-  )
-
-  ## Crop the image if needed
-  if (auto_crop) {
-    frame_lims <-
-      frame_limits(spe, sampleid = sampleid, image_id = image_id)
-    img <-
-      img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
-    adjust <-
-      list(x = frame_lims$x_min, y = frame_lims$y_min)
-  } else {
-    adjust <- list(x = 0, y = 0)
-  }
-
-  title <- paste(sampleid, title_suffix)
-
-  grob <- grid::rasterGrob(img,
-    width = grid::unit(1, "npc"),
-    height = grid::unit(1, "npc")
-  )
-
-  p <- ggplot() +
-    geom_spatial(
-      data = tibble::tibble(grob = list(grob)),
-      aes(grob = grob),
-      x = 0.5,
-      y = 0.5
-    ) +
-    xlim(0, ncol(img)) +
-    ylim(nrow(img), 0) +
-    xlab("") +
-    ylab("") +
-    labs(fill = NULL) +
-    ggtitle(title) +
-    theme_set(theme_bw(base_size = 20)) +
-    theme(
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(),
-      panel.background = element_blank(),
-      axis.line = element_blank(),
-      axis.text = element_blank(),
-      axis.ticks = element_blank(),
-      legend.box.spacing = unit(0, "pt")
+    grob <- grid::rasterGrob(
+        img,
+        width = grid::unit(1, "npc"),
+        height = grid::unit(1, "npc")
     )
-  return(p)
+
+    p <- ggplot() +
+        geom_spatial(
+            data = tibble::tibble(grob = list(grob)),
+            aes(grob = grob),
+            x = 0.5,
+            y = 0.5
+        ) +
+        xlim(0, ncol(img)) +
+        ylim(nrow(img), 0) +
+        xlab("") +
+        ylab("") +
+        labs(fill = NULL) +
+        ggtitle(title) +
+        theme_set(theme_bw(base_size = 20)) +
+        theme(
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank(),
+            panel.background = element_blank(),
+            axis.line = element_blank(),
+            axis.text = element_blank(),
+            axis.ticks = element_blank(),
+            legend.box.spacing = unit(0, "pt")
+        )
+    return(p)
 }
