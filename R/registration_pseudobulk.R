@@ -21,6 +21,12 @@
 #' number of cells (for scRNA-seq) or spots (for spatial) that are combined
 #' when pseudo-bulking. Pseudo-bulked samples with less than `min_ncells` on
 #' `sce_pseudo$ncells` will be dropped.
+#' @param filter_expr A `logical(1)` specifying whether to filter pseudobulked
+#' counts with `edgeR::filterByExpr`. Defaults to `TRUE`, filtering is recommended for 
+#' spatail registratrion workflow.
+#' @param mito_gene An optional `logical()` vector indicating which genes are 
+#' mitochondrial, used to calculate pseudo bulked mitochondrial expression rate
+#' `expr_chrM` and `pseudo_expr_chrM` .
 #'
 #' @return A pseudo-bulked [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class] object. The `logcounts()` assay are `log2-CPM`
 #' values calculated with `edgeR::cpm(log = TRUE)`. See
@@ -54,18 +60,22 @@
 #' rowData(sce)$ensembl <- paste0("ENSG", seq_len(nrow(sce)))
 #' rowData(sce)$gene_name <- paste0("gene", seq_len(nrow(sce)))
 #'
-#' ## Pseudo-bulk
-#' sce_pseudo <- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)
+#' ## Pseudo-bulk by Cell Cycle
+#' sce_pseudo <- registration_pseudobulk(sce,
+#'                                       var_registration  = "Cell_Cycle", 
+#'                                       var_sample_id = "sample_id", 
+#'                                       covars = c("age"), 
+#'                                       min_ncells = NULL)
 #' colData(sce_pseudo)
 registration_pseudobulk <-
-    function(
-        sce,
-        var_registration,
-        var_sample_id,
-        covars = NULL,
-        min_ncells = 10,
-        pseudobulk_rds_file = NULL
-    ) {
+    function(sce,
+    var_registration,
+    var_sample_id,
+    covars = NULL,
+    min_ncells = 10,
+    pseudobulk_rds_file = NULL,
+    filter_expr = TRUE,
+    mito_gene = NULL) {
         ## Check that inputs are correct
         stopifnot(is(sce, "SingleCellExperiment"))
         stopifnot(var_registration %in% colnames(colData(sce)))
@@ -79,9 +89,12 @@ registration_pseudobulk <-
         stopifnot(!var_registration %in% covars)
         stopifnot(!var_sample_id %in% covars)
         stopifnot(var_registration != var_sample_id)
+        
+        ## create var_registration col
+        sce$var_registration <- sce[[var_registration]]
 
         ## Check that the values in the registration variable are numeric
-        if (is.numeric(sce[[var_registration]])) {
+        if (is.numeric(sce[["var_registration"]])) {
             warning(
                 sprintf(
                     "var_registration \"%s\" is numeric, convering to categorical vector...",
@@ -92,7 +105,7 @@ registration_pseudobulk <-
         }
 
         ## check for Non-Syntactic variables - convert with make.names & warn
-        uniq_var_regis <- unique(sce[[var_registration]])
+        uniq_var_regis <- unique(sce[["var_registration"]])
         syntatic <- grepl(
             "^((([[:alpha:]]|[.][._[:alpha:]])[._[:alnum:]]*)|[.])$",
             uniq_var_regis
@@ -110,7 +123,7 @@ registration_pseudobulk <-
                 ),
                 call. = FALSE
             )
-            sce[[var_registration]] <- make.names(sce[[var_registration]])
+            sce[["var_registration"]] <- make.names(sce[["var_registration"]])
         }
 
         ## Pseudo-bulk for our current BayesSpace cluster results
@@ -119,7 +132,7 @@ registration_pseudobulk <-
         sce_pseudo <- scuttle::aggregateAcrossCells(
             sce,
             DataFrame(
-                registration_variable = sce[[var_registration]],
+                registration_variable = sce[["var_registration"]],
                 registration_sample_id = sce[[var_sample_id]]
             )
         )
@@ -129,6 +142,9 @@ registration_pseudobulk <-
                 "_",
                 sce_pseudo$registration_variable
             )
+        
+        ## rm sce_pseudo$var_registration - redundant with registration variable
+        sce_pseudo$var_registration <- NULL
 
         ## Check that the covariates are present
         if (!is.null(covars)) {
@@ -164,16 +180,29 @@ registration_pseudobulk <-
                 sce_pseudo$registration_variable
             )
         }
+        
+        ## compute pseudo QC metrics
+        sce_pseudo$pseudo_sum_umi <- colSums(counts(sce_pseudo))
+        
+        ## if mitochondrial genes are indicated, calculate pseudo mito rate
+        if(!is.null(mito_gene)){
+          if(length(mito_gene) == nrow(sce_pseudo)){
+            sce_pseudo$pseudo_expr_chrM <- colSums(counts(sce_pseudo)[mito_gene, , drop = FALSE])
+            sce_pseudo$pseudo_expr_chrM_ratio <- sce_pseudo$pseudo_expr_chrM / sce_pseudo$pseudo_sum_umi
+          } else {
+            warning("length(mito_gene) != nrow(sce_pseudo) : unable to calc 'pseudo_expr_chrM' metrics")
+          }
 
+        }
+        
         ## Drop lowly-expressed genes
-        message(Sys.time(), " drop lowly expressed genes")
-        keep_expr <-
-            edgeR::filterByExpr(
-                sce_pseudo,
-                group = sce_pseudo$registration_variable
-            )
-        sce_pseudo <- sce_pseudo[which(keep_expr), ]
-
+        if(filter_expr){
+          message(Sys.time(), " drop lowly expressed genes")
+          keep_expr <-
+            edgeR::filterByExpr(sce_pseudo, group = sce_pseudo$registration_variable)
+          sce_pseudo <- sce_pseudo[which(keep_expr), ]
+        }
+        
         ## Compute the logcounts
         message(Sys.time(), " normalize expression")
         logcounts(sce_pseudo) <-

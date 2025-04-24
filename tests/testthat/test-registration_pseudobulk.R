@@ -12,6 +12,34 @@ test_that("NA check works", {
     )
 })
 
+## pseudo qc vars
+mito_gene_test <- runif(n = nrow(sce)) < 0.03 ## pick random mito genes
+
+pseudo_test <- registration_pseudobulk(sce,
+                                var_registration = "Cell_Cycle",
+                                var_sample_id = "sample_id",
+                                covars = c("age"),
+                                min_ncells = NULL,
+                                mito_gene = mito_gene_test
+)
+
+colData(pseudo_test)
+
+test_that("pseudo_sum_umi in output",{
+  expect_true(all(c("pseudo_sum_umi", "pseudo_expr_chrM", "pseudo_expr_chrM_ratio") %in% colnames(colData(pseudo_test))))
+})
+
+
+test_that("mito_gene catches work", {
+  expect_warning(registration_pseudobulk(sce,
+                                         var_registration = "Cell_Cycle",
+                                         var_sample_id = "sample_id",
+                                         covars = c("age"),
+                                         min_ncells = NULL,
+                                         mito_gene = c(TRUE, FALSE, FALSE)
+  ))
+})
+
 
 #### Syntactic Variable Test ####
 set.seed(20220907) ## Ensure reproducibility of example data
@@ -53,3 +81,6 @@ test_that(
         min_ncells = NULL
     ))
 )
+
+
+

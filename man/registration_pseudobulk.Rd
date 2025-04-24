@@ -10,7 +10,9 @@ registration_pseudobulk(
   var_sample_id,
   covars = NULL,
   min_ncells = 10,
-  pseudobulk_rds_file = NULL
+  pseudobulk_rds_file = NULL,
+  filter_expr = TRUE,
+  mito_gene = NULL
 )
 }
 \arguments{
@@ -37,6 +39,14 @@ when pseudo-bulking. Pseudo-bulked samples with less than \code{min_ncells} on
 \item{pseudobulk_rds_file}{A \code{character(1)} specifying the path for saving
 an RDS file with the pseudo-bulked object. It's useful to specify this since
 pseudo-bulking can take hours to run on large datasets.}
+
+\item{filter_expr}{A \code{logical(1)} specifying whether to filter pseudobulked
+counts with \code{edgeR::filterByExpr}. Defaults to \code{TRUE}, filtering is recommended for
+spatail registratrion workflow.}
+
+\item{mito_gene}{An optional \code{logical()} vector indicating which genes are
+mitochondrial, used to calculate pseudo bulked mitochondrial expression rate
+\code{expr_chrM} and \code{pseudo_expr_chrM} .}
 }
 \value{
 A pseudo-bulked \link[SingleCellExperiment:SingleCellExperiment]{SingleCellExperiment-class} object. The \code{logcounts()} assay are \code{log2-CPM}
@@ -69,8 +79,12 @@ sce$age <- ages[sce$sample_id]
 rowData(sce)$ensembl <- paste0("ENSG", seq_len(nrow(sce)))
 rowData(sce)$gene_name <- paste0("gene", seq_len(nrow(sce)))
 
-## Pseudo-bulk
-sce_pseudo <- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)
+## Pseudo-bulk by Cell Cycle
+sce_pseudo <- registration_pseudobulk(sce,
+                                      var_registration  = "Cell_Cycle", 
+                                      var_sample_id = "sample_id", 
+                                      covars = c("age"), 
+                                      min_ncells = NULL)
 colData(sce_pseudo)
 }
 \seealso{
