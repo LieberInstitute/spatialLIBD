@@ -28,7 +28,12 @@
 #' mitochondrial, used to calculate pseudo bulked mitochondrial expression rate
 #' `expr_chrM` and `pseudo_expr_chrM` .
 #'
-#' @return A pseudo-bulked [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class] object.
+#' @return A pseudo-bulked [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class] object. The `logcounts()` assay are `log2-CPM`
+#' values calculated with `edgeR::cpm(log = TRUE)`. See
+#' <https://github.com/LieberInstitute/spatialLIBD/issues/106> and
+#' <https://support.bioconductor.org/p/9161754> for more details about the
+#' math behind `scuttle::logNormFactors()`, `edgeR::cpm()`, and their
+#' differences.
 #' @importFrom SingleCellExperiment logcounts
 #' @importFrom scuttle aggregateAcrossCells
 #' @importFrom edgeR filterByExpr calcNormFactors
@@ -76,7 +81,8 @@ registration_pseudobulk <-
         stopifnot(var_registration %in% colnames(colData(sce)))
         stopifnot(var_sample_id %in% colnames(colData(sce)))
         stopifnot(all(
-            !c("registration_sample_id", "registration_variable") %in% colnames(colData(sce))
+            !c("registration_sample_id", "registration_variable") %in%
+                colnames(colData(sce))
         ))
 
         ## Avoid any incorrect inputs that are otherwise hard to detect
@@ -110,7 +116,10 @@ registration_pseudobulk <-
                     "var_registration \"%s\" contains non-syntatic variables: %s\nconverting to %s",
                     var_registration,
                     paste(uniq_var_regis[!syntatic], collapse = ", "),
-                    paste(make.names(uniq_var_regis[!syntatic]), collapse = ", ")
+                    paste(
+                        make.names(uniq_var_regis[!syntatic]),
+                        collapse = ", "
+                    )
                 ),
                 call. = FALSE
             )
@@ -167,7 +176,9 @@ registration_pseudobulk <-
         if (is.factor(sce_pseudo$registration_variable)) {
             ## Drop unused var_registration levels if we had to drop some due
             ## to min_ncells
-            sce_pseudo$registration_variable <- droplevels(sce_pseudo$registration_variable)
+            sce_pseudo$registration_variable <- droplevels(
+                sce_pseudo$registration_variable
+            )
         }
         
         ## compute pseudo QC metrics
@@ -195,7 +206,8 @@ registration_pseudobulk <-
         ## Compute the logcounts
         message(Sys.time(), " normalize expression")
         logcounts(sce_pseudo) <-
-            edgeR::cpm(edgeR::calcNormFactors(sce_pseudo),
+            edgeR::cpm(
+                edgeR::calcNormFactors(sce_pseudo),
                 log = TRUE,
                 prior.count = 1
             )

@@ -49,7 +49,12 @@ mitochondrial, used to calculate pseudo bulked mitochondrial expression rate
 \code{expr_chrM} and \code{pseudo_expr_chrM} .}
 }
 \value{
-A pseudo-bulked \link[SingleCellExperiment:SingleCellExperiment]{SingleCellExperiment-class} object.
+A pseudo-bulked \link[SingleCellExperiment:SingleCellExperiment]{SingleCellExperiment-class} object. The \code{logcounts()} assay are \code{log2-CPM}
+values calculated with \code{edgeR::cpm(log = TRUE)}. See
+\url{https://github.com/LieberInstitute/spatialLIBD/issues/106} and
+\url{https://support.bioconductor.org/p/9161754} for more details about the
+math behind \code{scuttle::logNormFactors()}, \code{edgeR::cpm()}, and their
+differences.
 }
 \description{
 Pseudo-bulk the gene expression, filter lowly-expressed genes, and normalize.
