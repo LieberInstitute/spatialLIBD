@@ -1,3 +1,11 @@
+# spatialLIBD 1.21.3
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* @lahuuki edited `registration_pseudobulk()` to make it more compatible with
+`scran::pseudobulkDGE()`.See 
+<https://github.com/LieberInstitute/spatialLIBD/pull/108> for details.
+
 # spatialLIBD 1.21.2
 
 NEW FEATURES
