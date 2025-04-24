@@ -19,7 +19,7 @@ registration with layer_stat_cor() and related functions."><meta property="og:im
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.2</span>
       </span>
     </div>
 
@@ -169,14 +169,18 @@ similar to <code>fetch_data("modeling_results")$enrichment</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; rowData(sce)$gene_name &lt;- paste0("gene", seq_len(nrow(sce)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Pseudo-bulk</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce_pseudo &lt;- registration_pseudobulk(sce, "Cell_Cycle", "sample_id", c("age"), min_ncells = NULL)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 15:50:35.43421 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 15:50:35.535913 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 15:50:35.582267 normalize expression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Pseudo-bulk by Cell Cycle</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce_pseudo &lt;- registration_pseudobulk(sce,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+                                       var_registration  = "Cell_Cycle", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+                                       var_sample_id = "sample_id", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+                                       covars = c("age"), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+                                       min_ncells = NULL)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 16:06:00.712147 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 16:06:00.832019 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 16:06:00.882344 normalize expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; colData(sce_pseudo)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 8 columns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 9 columns</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Mutation_Status  Cell_Cycle   Treatment   sample_id       age</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;character&gt; &lt;numeric&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_G0              NA          G0          NA           A   19.1872</span>
@@ -190,22 +194,22 @@ similar to <code>fetch_data("modeling_results")$enrichment</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> C_S               NA           S          NA           C   24.1802</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D_S               NA           S          NA           D   15.5211</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> E_S               NA           S          NA           E   20.9701</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variable registration_sample_id    ncells</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;character&gt;            &lt;character&gt; &lt;integer&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0                    G0                      A         8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0                    G0                      B        13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0                    G0                      C         9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0                    G0                      D         7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0                    G0                      E        10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ...                    ...                    ...       ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A_S                      S                      A        12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B_S                      S                      B         8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C_S                      S                      C         7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D_S                      S                      D        14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> E_S                      S                      E        11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variable registration_sample_id    ncells pseudo_sum_umi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;character&gt;            &lt;character&gt; &lt;integer&gt;      &lt;numeric&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_G0                    G0                      A         8        2946915</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_G0                    G0                      B        13        4922867</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_G0                    G0                      C         9        3398888</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_G0                    G0                      D         7        2630651</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_G0                    G0                      E        10        3761710</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...                    ...                    ...       ...            ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A_S                      S                      A        12        4516334</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B_S                      S                      B         8        2960685</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C_S                      S                      C         7        2595774</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D_S                      S                      D        14        5233560</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> E_S                      S                      E        11        4151818</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; registration_mod &lt;- registration_model(sce_pseudo, "age")</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 15:50:35.657335 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 16:06:00.962761 create model matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; head(registration_mod)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variableG0 registration_variableG1 registration_variableG2M</span>
@@ -224,14 +228,14 @@ similar to <code>fetch_data("modeling_results")$enrichment</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_G1                      0 19.18719</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgst__&gt; block_cor &lt;- registration_block_cor(sce_pseudo, registration_mod)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 15:50:35.668405 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 15:50:36.952772 The estimated correlation is: -0.0187869166526901</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 16:06:00.976044 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 16:06:02.307667 The estimated correlation is: -0.0187869166526901</span>
 <span class="r-in"><span><span class="va">results_enrichment</span> <span class="op">&lt;-</span> <span class="fu">registration_stats_enrichment</span><span class="op">(</span><span class="va">sce_pseudo</span>,</span></span>
 <span class="r-in"><span>    <span class="va">block_cor</span>, <span class="st">"age"</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 15:50:36.956266 computing enrichment statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 15:50:37.076069 extract and reformat enrichment results</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 16:06:02.311447 computing enrichment statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 16:06:02.436459 extract and reformat enrichment results</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_enrichment</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            t_stat_G0  t_stat_G1 t_stat_G2M   t_stat_S p_value_G0 p_value_G1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001  0.1482017  0.5610669 -0.3612235 -0.3458508 0.88374480 0.58130631</span>
@@ -260,8 +264,8 @@ similar to <code>fetch_data("modeling_results")$enrichment</code>.</p>
 <span class="r-in"><span>    block_cor <span class="op">=</span> <span class="cn">NaN</span>, <span class="st">"age"</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 15:50:37.108837 computing enrichment statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 15:50:37.212187 extract and reformat enrichment results</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 16:06:02.46992 computing enrichment statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-04-24 16:06:02.579316 extract and reformat enrichment results</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_enrichment_nan</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            t_stat_G0   t_stat_G1 t_stat_G2M   t_stat_S p_value_G0 p_value_G1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001  0.1497747  0.56711100 -0.3650801 -0.3495404 0.88252049 0.57727506</span>
