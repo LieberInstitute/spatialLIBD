@@ -46,7 +46,7 @@ spatail registratrion workflow.}
 
 \item{mito_gene}{An optional \code{logical()} vector indicating which genes are
 mitochondrial, used to calculate pseudo bulked mitochondrial expression rate
-\code{expr_chrM} and \code{pseudo_expr_chrM} .}
+\code{expr_chrM} and \code{pseudo_expr_chrM}. The length has to match the \code{nrow(sce)}.}
 }
 \value{
 A pseudo-bulked \link[SingleCellExperiment:SingleCellExperiment]{SingleCellExperiment-class} object. The \code{logcounts()} assay are \code{log2-CPM}
@@ -80,11 +80,13 @@ rowData(sce)$ensembl <- paste0("ENSG", seq_len(nrow(sce)))
 rowData(sce)$gene_name <- paste0("gene", seq_len(nrow(sce)))
 
 ## Pseudo-bulk by Cell Cycle
-sce_pseudo <- registration_pseudobulk(sce,
-                                      var_registration  = "Cell_Cycle", 
-                                      var_sample_id = "sample_id", 
-                                      covars = c("age"), 
-                                      min_ncells = NULL)
+sce_pseudo <- registration_pseudobulk(
+    sce,
+    var_registration = "Cell_Cycle",
+    var_sample_id = "sample_id",
+    covars = c("age"),
+    min_ncells = NULL
+)
 colData(sce_pseudo)
 }
 \seealso{

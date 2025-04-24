@@ -22,11 +22,11 @@
 #' when pseudo-bulking. Pseudo-bulked samples with less than `min_ncells` on
 #' `sce_pseudo$ncells` will be dropped.
 #' @param filter_expr A `logical(1)` specifying whether to filter pseudobulked
-#' counts with `edgeR::filterByExpr`. Defaults to `TRUE`, filtering is recommended for 
+#' counts with `edgeR::filterByExpr`. Defaults to `TRUE`, filtering is recommended for
 #' spatail registratrion workflow.
-#' @param mito_gene An optional `logical()` vector indicating which genes are 
+#' @param mito_gene An optional `logical()` vector indicating which genes are
 #' mitochondrial, used to calculate pseudo bulked mitochondrial expression rate
-#' `expr_chrM` and `pseudo_expr_chrM` .
+#' `expr_chrM` and `pseudo_expr_chrM`. The length has to match the `nrow(sce)`.
 #'
 #' @return A pseudo-bulked [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class] object. The `logcounts()` assay are `log2-CPM`
 #' values calculated with `edgeR::cpm(log = TRUE)`. See
@@ -61,21 +61,25 @@
 #' rowData(sce)$gene_name <- paste0("gene", seq_len(nrow(sce)))
 #'
 #' ## Pseudo-bulk by Cell Cycle
-#' sce_pseudo <- registration_pseudobulk(sce,
-#'                                       var_registration  = "Cell_Cycle", 
-#'                                       var_sample_id = "sample_id", 
-#'                                       covars = c("age"), 
-#'                                       min_ncells = NULL)
+#' sce_pseudo <- registration_pseudobulk(
+#'     sce,
+#'     var_registration = "Cell_Cycle",
+#'     var_sample_id = "sample_id",
+#'     covars = c("age"),
+#'     min_ncells = NULL
+#' )
 #' colData(sce_pseudo)
 registration_pseudobulk <-
-    function(sce,
-    var_registration,
-    var_sample_id,
-    covars = NULL,
-    min_ncells = 10,
-    pseudobulk_rds_file = NULL,
-    filter_expr = TRUE,
-    mito_gene = NULL) {
+    function(
+        sce,
+        var_registration,
+        var_sample_id,
+        covars = NULL,
+        min_ncells = 10,
+        pseudobulk_rds_file = NULL,
+        filter_expr = TRUE,
+        mito_gene = NULL
+    ) {
         ## Check that inputs are correct
         stopifnot(is(sce, "SingleCellExperiment"))
         stopifnot(var_registration %in% colnames(colData(sce)))
@@ -89,7 +93,7 @@ registration_pseudobulk <-
         stopifnot(!var_registration %in% covars)
         stopifnot(!var_sample_id %in% covars)
         stopifnot(var_registration != var_sample_id)
-        
+
         ## create var_registration col
         sce$var_registration <- sce[[var_registration]]
 
@@ -142,7 +146,7 @@ registration_pseudobulk <-
                 "_",
                 sce_pseudo$registration_variable
             )
-        
+
         ## rm sce_pseudo$var_registration - redundant with registration variable
         sce_pseudo$var_registration <- NULL
 
@@ -180,29 +184,38 @@ registration_pseudobulk <-
                 sce_pseudo$registration_variable
             )
         }
-        
+
         ## compute pseudo QC metrics
         sce_pseudo$pseudo_sum_umi <- colSums(counts(sce_pseudo))
-        
-        ## if mitochondrial genes are indicated, calculate pseudo mito rate
-        if(!is.null(mito_gene)){
-          if(length(mito_gene) == nrow(sce_pseudo)){
-            sce_pseudo$pseudo_expr_chrM <- colSums(counts(sce_pseudo)[mito_gene, , drop = FALSE])
-            sce_pseudo$pseudo_expr_chrM_ratio <- sce_pseudo$pseudo_expr_chrM / sce_pseudo$pseudo_sum_umi
-          } else {
-            warning("length(mito_gene) != nrow(sce_pseudo) : unable to calc 'pseudo_expr_chrM' metrics")
-          }
 
+        ## if mitochondrial genes are indicated, calculate pseudo mito rate
+        if (!is.null(mito_gene)) {
+            if (length(mito_gene) == nrow(sce_pseudo)) {
+                sce_pseudo$pseudo_expr_chrM <- colSums(counts(sce_pseudo)[
+                    mito_gene,
+                    ,
+                    drop = FALSE
+                ])
+                sce_pseudo$pseudo_expr_chrM_ratio <- sce_pseudo$pseudo_expr_chrM /
+                    sce_pseudo$pseudo_sum_umi
+            } else {
+                warning(
+                    "length(mito_gene) != nrow(sce_pseudo) : unable to calc 'pseudo_expr_chrM' metrics"
+                )
+            }
         }
-        
+
         ## Drop lowly-expressed genes
-        if(filter_expr){
-          message(Sys.time(), " drop lowly expressed genes")
-          keep_expr <-
-            edgeR::filterByExpr(sce_pseudo, group = sce_pseudo$registration_variable)
-          sce_pseudo <- sce_pseudo[which(keep_expr), ]
+        if (filter_expr) {
+            message(Sys.time(), " drop lowly expressed genes")
+            keep_expr <-
+                edgeR::filterByExpr(
+                    sce_pseudo,
+                    group = sce_pseudo$registration_variable
+                )
+            sce_pseudo <- sce_pseudo[which(keep_expr), ]
         }
-        
+
         ## Compute the logcounts
         message(Sys.time(), " normalize expression")
         logcounts(sce_pseudo) <-
