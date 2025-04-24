@@ -66,11 +66,6 @@ vis_image <- function(
   spe_sub <- spe[, spe$sample_id == sampleid]
 
   if (is_stitched) {
-    #   Drop excluded spots and calculate an appropriate point size
-    temp <- prep_stitched_data(spe_sub, point_size, image_id)
-    spe_sub <- temp$spe
-    point_size <- temp$point_size
-
     #   Frame limits are poorly defined for stitched data
     auto_crop <- FALSE
   }
