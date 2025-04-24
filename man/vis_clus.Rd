@@ -159,6 +159,7 @@ if (enough_ram()) {
 Other Spatial cluster visualization functions: 
 \code{\link{frame_limits}()},
 \code{\link{vis_clus_p}()},
-\code{\link{vis_grid_clus}()}
+\code{\link{vis_grid_clus}()},
+\code{\link{vis_image}()}
 }
 \concept{Spatial cluster visualization functions}
