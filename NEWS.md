@@ -1,3 +1,11 @@
+# spatialLIBD 1.20.1
+ 
+ BUG FIXES
+ 
+ * @manishabarse fixed a bug in `registration_wrapper()` which led to `NULL`
+ results for `anova`. See
+ <https://github.com/LieberInstitute/spatialLIBD/pull/110> for details.
+ 
 # spatialLIBD 1.19.12
 
 NEW FEATURES
