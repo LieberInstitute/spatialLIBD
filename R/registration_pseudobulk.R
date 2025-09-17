@@ -57,7 +57,7 @@
 #' sce$age <- ages[sce$sample_id]
 #'
 #' ## Add gene-level information
-#' rowData(sce)$ensembl <- paste0("ENSG", seq_len(nrow(sce)))
+#' rowData(sce)$gene_id <- paste0("ENSG", seq_len(nrow(sce)))
 #' rowData(sce)$gene_name <- paste0("gene", seq_len(nrow(sce)))
 #'
 #' ## Pseudo-bulk by Cell Cycle
@@ -69,6 +69,7 @@
 #'     min_ncells = NULL
 #' )
 #' colData(sce_pseudo)
+#' rowData(sce_pseudo)
 registration_pseudobulk <-
     function(
         sce,
@@ -230,6 +231,12 @@ registration_pseudobulk <-
             spatialCoords(sce_pseudo) <- NULL
             imgData(sce_pseudo) <- NULL
         }
+        
+        ## if gene_anme and gene_id cols are available add gene_search to rowData
+        if(all(c("gene_name", "gene_id") %in% colnames(rowData(sce_pseudo)))){
+        rowData(sce_pseudo)$gene_search <- paste0(rowData(sce_pseudo)$gene_name, "; ", rowData(sce_pseudo)$gene_id)
+        }
+
         if (!is.null(pseudobulk_rds_file)) {
             message(Sys.time(), " saving sce_pseudo to ", pseudobulk_rds_file)
             saveRDS(sce_pseudo, file = pseudobulk_rds_file)

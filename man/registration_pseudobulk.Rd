@@ -76,7 +76,7 @@ names(ages) <- LETTERS[1:5]
 sce$age <- ages[sce$sample_id]
 
 ## Add gene-level information
-rowData(sce)$ensembl <- paste0("ENSG", seq_len(nrow(sce)))
+rowData(sce)$gene_id <- paste0("ENSG", seq_len(nrow(sce)))
 rowData(sce)$gene_name <- paste0("gene", seq_len(nrow(sce)))
 
 ## Pseudo-bulk by Cell Cycle
@@ -88,6 +88,7 @@ sce_pseudo <- registration_pseudobulk(
     min_ncells = NULL
 )
 colData(sce_pseudo)
+rowData(sce_pseudo)
 }
 \seealso{
 Other spatial registration and statistical modeling functions: 
