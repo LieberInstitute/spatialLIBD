@@ -142,7 +142,7 @@ your sample-level covariates are being properly modeled.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; sce$age &lt;- ages[sce$sample_id]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; ## Add gene-level information</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; rowData(sce)$ensembl &lt;- paste0("ENSG", seq_len(nrow(sce)))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; rowData(sce)$gene_id &lt;- paste0("ENSG", seq_len(nrow(sce)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; rowData(sce)$gene_name &lt;- paste0("gene", seq_len(nrow(sce)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -154,9 +154,9 @@ your sample-level covariates are being properly modeled.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+     covars = c("age"),</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+     min_ncells = NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+ )</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-17 01:06:37.05896 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-17 01:06:37.238012 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-17 01:06:37.288706 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-17 01:19:00.575462 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-17 01:19:00.748749 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-17 01:19:00.797354 normalize expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; colData(sce_pseudo)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 9 columns</span>
@@ -186,8 +186,24 @@ your sample-level covariates are being properly modeled.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> C_S                      S                      C         7        2595774</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> D_S                      S                      D        14        5233560</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> E_S                      S                      E        11        4151818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; rowData(sce_pseudo)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 2000 rows and 3 columns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               gene_id   gene_name        gene_search</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;character&gt; &lt;character&gt;        &lt;character&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001       ENSG1       gene1       gene1; ENSG1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0002       ENSG2       gene2       gene2; ENSG2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0003       ENSG3       gene3       gene3; ENSG3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0004       ENSG4       gene4       gene4; ENSG4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0005       ENSG5       gene5       gene5; ENSG5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ...               ...         ...                ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_1996    ENSG1996    gene1996 gene1996; ENSG1996</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_1997    ENSG1997    gene1997 gene1997; ENSG1997</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_1998    ENSG1998    gene1998 gene1998; ENSG1998</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_1999    ENSG1999    gene1999 gene1999; ENSG1999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gene_2000    ENSG2000    gene2000 gene2000; ENSG2000</span>
 <span class="r-in"><span><span class="va">registration_mod</span> <span class="op">&lt;-</span> <span class="fu">registration_model</span><span class="op">(</span><span class="va">sce_pseudo</span>, <span class="st">"age"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-17 01:06:37.367574 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-17 01:19:00.900883 create model matrix</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">registration_mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variableG0 registration_variableG1 registration_variableG2M</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_G0                       1                       0                        0</span>
