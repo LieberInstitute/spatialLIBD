@@ -41,9 +41,13 @@ registration_stats_enrichment <-
         var_registration = "registration_variable",
         var_sample_id = "registration_sample_id",
         gene_ensembl = NULL,
-        gene_name = NULL) {
+        gene_name = NULL
+    ) {
         ## For each cluster, test it against the rest
-        cluster_idx <- split(seq(along = sce_pseudo[[var_registration]]), sce_pseudo[[var_registration]])
+        cluster_idx <- split(
+            seq(along = sce_pseudo[[var_registration]]),
+            sce_pseudo[[var_registration]]
+        )
 
         message(Sys.time(), " computing enrichment statistics")
         eb0_list_cluster <- lapply(cluster_idx, function(x) {
@@ -52,7 +56,10 @@ registration_stats_enrichment <-
             if (!is.null(covars)) {
                 res_formula <-
                     eval(str2expression(paste(
-                        "~", "res", "+", paste(covars, collapse = " + ")
+                        "~",
+                        "res",
+                        "+",
+                        paste(covars, collapse = " + ")
                     )))
             } else {
                 res_formula <- eval(str2expression(paste("~", "res")))
@@ -67,13 +74,13 @@ registration_stats_enrichment <-
                     correlation = block_cor
                 ))
             } else {
-                res <- limma::eBayes(limma::lmFit(logcounts(sce_pseudo),
+                res <- limma::eBayes(limma::lmFit(
+                    logcounts(sce_pseudo),
                     design = m
                 ))
             }
             return(res)
         })
-
 
         message(Sys.time(), " extract and reformat enrichment results")
 
@@ -102,7 +109,12 @@ registration_stats_enrichment <-
 
         ## Merge into one data.frame
         results_specificity <-
-            f_merge(p = pvals0_contrasts_cluster, fdr = fdrs0_contrasts_cluster, t = t0_contrasts_cluster, logFC = logFC_contrasts_cluster)
+            f_merge(
+                p = pvals0_contrasts_cluster,
+                fdr = fdrs0_contrasts_cluster,
+                t = t0_contrasts_cluster,
+                logFC = logFC_contrasts_cluster
+            )
 
         ## Add gene info
         results_specificity$ensembl <-
