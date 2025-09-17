@@ -47,9 +47,12 @@ test_that(
         )
 
         #   Trivially check success with legitimate input
-        expect_equal(
-            class(vis_gene(spe, geneid = c("sum_umi", rownames(spe)[1]))),
-            c("gg", "ggplot")
+        expect_true(
+            all(
+                c("gg", "ggplot") %in% class(
+                    vis_gene(spe, geneid = c("sum_umi", rownames(spe)[1]))
+                )
+            )
         )
 
 
