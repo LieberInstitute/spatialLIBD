@@ -1,3 +1,13 @@
+# spatialLIBD 1.21.6
+
+NEW FEATURES
+
+* `registration_pseudobulk()` will now create the `rowData()$gene_search` if
+`rowData()$gene_id` and `rowData()$gene_name` are present. This makes the output
+be more in sync with requirements for `run_app()`. See 
+<https://github.com/LieberInstitute/spatialLIBD/pull/115> for details.
+Implemented by @lahuuki.
+
 # spatialLIBD 1.21.4
 
 BUG FIXES
