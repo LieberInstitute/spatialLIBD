@@ -43,7 +43,7 @@ file. \code{"gene_name"} and \code{"gene_id"} have to be included in \code{gtf_c
 \item{verbose}{A \code{logical(1)} specifying whether to show progress updates.}
 }
 \value{
-A \link[=SpatialExperiment-class]{SpatialExperiment} object with the
+A \link[SpatialExperiment:SpatialExperiment]{SpatialExperiment} object with the
 clustering and dimension reduction (projection) results from SpaceRanger by
 10x Genomics as well as other information used by \code{run_app()} for visualzing
 the gene expression data.

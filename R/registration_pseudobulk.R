@@ -131,7 +131,7 @@ registration_pseudobulk <-
             sce[["var_registration"]] <- make.names(sce[["var_registration"]])
         }
 
-        ## Pseudo-bulk for our current BayesSpace cluster results
+        ## Pseudo-bulk across var_registration and var_sample_id
         message(Sys.time(), " make pseudobulk object")
         ## I think this needs counts assay
         sce_pseudo <- scuttle::aggregateAcrossCells(
@@ -232,7 +232,7 @@ registration_pseudobulk <-
             imgData(sce_pseudo) <- NULL
         }
 
-        ## if gene_anme and gene_id cols are available add gene_search to rowData
+        ## if gene_name and gene_id cols are available add gene_search to rowData
         if (all(c("gene_name", "gene_id") %in% colnames(rowData(sce_pseudo)))) {
             rowData(sce_pseudo)$gene_search <- paste0(
                 rowData(sce_pseudo)$gene_name,
