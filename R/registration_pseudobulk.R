@@ -231,10 +231,14 @@ registration_pseudobulk <-
             spatialCoords(sce_pseudo) <- NULL
             imgData(sce_pseudo) <- NULL
         }
-        
+
         ## if gene_anme and gene_id cols are available add gene_search to rowData
-        if(all(c("gene_name", "gene_id") %in% colnames(rowData(sce_pseudo)))){
-        rowData(sce_pseudo)$gene_search <- paste0(rowData(sce_pseudo)$gene_name, "; ", rowData(sce_pseudo)$gene_id)
+        if (all(c("gene_name", "gene_id") %in% colnames(rowData(sce_pseudo)))) {
+            rowData(sce_pseudo)$gene_search <- paste0(
+                rowData(sce_pseudo)$gene_name,
+                "; ",
+                rowData(sce_pseudo)$gene_id
+            )
         }
 
         if (!is.null(pseudobulk_rds_file)) {
