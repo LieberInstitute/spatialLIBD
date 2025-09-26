@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.6</span>
       </span>
     </div>
 
@@ -66,6 +66,12 @@
       <small>Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/devel/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.21.6" id="spatiallibd-1216">spatialLIBD 1.21.6<a class="anchor" aria-label="anchor" href="#spatiallibd-1216"></a></h2>
+<p>NEW FEATURES</p>
+<ul><li>
+<code><a href="../reference/registration_pseudobulk.html">registration_pseudobulk()</a></code> will now create the <code>rowData()$gene_search</code> if <code>rowData()$gene_id</code> and <code>rowData()$gene_name</code> are present. This makes the output be more in sync with requirements for <code><a href="../reference/run_app.html">run_app()</a></code>. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/115" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/115</a> for details. Implemented by <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a>.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.21.4" id="spatiallibd-1214">spatialLIBD 1.21.4<a class="anchor" aria-label="anchor" href="#spatiallibd-1214"></a></h2>
 <p>BUG FIXES</p>

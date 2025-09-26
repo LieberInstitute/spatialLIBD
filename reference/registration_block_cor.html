@@ -20,7 +20,7 @@ have a sample ID batch effect."><meta property="og:image" content="/logo.png"><!
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.6</span>
       </span>
     </div>
 
@@ -152,9 +152,9 @@ variable with the sample ID.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+     covars = c("age"),</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+     min_ncells = NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+ )</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-17 01:18:58.607165 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-17 01:18:58.749367 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-17 01:18:58.812106 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:24.710193 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:24.846269 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:24.907485 normalize expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; colData(sce_pseudo)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 9 columns</span>
@@ -202,7 +202,7 @@ variable with the sample ID.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_2000    ENSG2000    gene2000 gene2000; ENSG2000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; registration_mod &lt;- registration_model(sce_pseudo, "age")</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-17 01:18:58.918943 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:25.010394 create model matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; head(registration_mod)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variableG0 registration_variableG1 registration_variableG2M</span>
@@ -220,8 +220,8 @@ variable with the sample ID.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> E_G0                      0 20.97006</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_G1                      0 19.18719</span>
 <span class="r-in"><span><span class="va">block_cor</span> <span class="op">&lt;-</span> <span class="fu">registration_block_cor</span><span class="op">(</span><span class="va">sce_pseudo</span>, <span class="va">registration_mod</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-17 01:18:58.932921 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-17 01:19:00.254107 The estimated correlation is: -0.0187869166526901</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:25.023894 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:26.319579 The estimated correlation is: -0.0187869166526901</span>
 </code></pre></div>
     </div>
   </div>
