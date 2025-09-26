@@ -46,11 +46,8 @@ test_that("vis_gene", {
 
     #   Trivially check success with legitimate input
     expect_true(
-        all(
-            c("gg", "ggplot") %in%
-                class(
-                    vis_gene(spe, geneid = c("sum_umi", rownames(spe)[1]))
-                )
+        ggplot2::is_ggplot(
+            vis_gene(spe, geneid = c("sum_umi", rownames(spe)[1]))
         )
     )
 
