@@ -78,16 +78,29 @@ read10xVisiumWrapper <- function(samples = "",
         load = load
     )
 
-    spe <- spe_add_info(
-        spe = spe,
-        samples = samples,
-        sample_id = sample_id,
-        reference_gtf = reference_gtf,
-        chrM = chrM,
-        gtf_cols = gtf_cols,
-        add_analysis = add_analysis,
-        verbose = verbose
-    )
+    if (is.null(reference_gtf)) {
+        spe <- spe_add_info(
+            spe = spe,
+            samples = samples,
+            sample_id = sample_id,
+            chrM = chrM,
+            gtf_cols = gtf_cols,
+            add_analysis = add_analysis,
+            verbose = verbose
+        )
+    } else {
+        spe <- spe_add_info(
+            spe = spe,
+            samples = samples,
+            sample_id = sample_id,
+            reference_gtf = reference_gtf,
+            chrM = chrM,
+            gtf_cols = gtf_cols,
+            add_analysis = add_analysis,
+            verbose = verbose
+        )
+    }
+    
 
     ## Done!
     return(spe)
