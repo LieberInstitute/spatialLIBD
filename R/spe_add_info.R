@@ -8,7 +8,6 @@
 #' @param spe A [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]
 #' object, such as one created by initially running `VisiumIO::TENxVisium()` or
 #' `VisiumIO::TENxVisiumHD()`.
-#' 
 spe_add_info <- function(
         spe,
         samples,
@@ -101,4 +100,42 @@ spe_add_info <- function(
 
     ## Add the gene info to our SPE object
     rowRanges(spe) <- gtf[match_genes]
+
+    #   Add Spaceranger analysis results if applicable
+    if (add_analysis) {
+        if (verbose) {
+            message(
+                Sys.time(),
+                " read10xVisiumAnalysis: reading analysis output from SpaceRanger"
+            )
+        }
+        visium_analysis <- read10xVisiumAnalysis(
+            samples = samples, sample_id = sample_id
+        )
+
+        if (verbose) {
+            message(
+                Sys.time(),
+                " add10xVisiumAnalysis: adding analysis output from SpaceRanger"
+            )
+        }
+        spe <- add10xVisiumAnalysis(spe, visium_analysis)
+    }
+    
+    ## Add information used by spatialLIBD
+    if (verbose) message(Sys.time(), " adding information used by spatialLIBD")
+    spe <- add_key(spe)
+    spe$sum_umi <- colSums(counts(spe))
+    spe$sum_gene <- colSums(counts(spe) > 0)
+    rowData(spe)$gene_search <- paste0(
+        rowData(spe)$gene_name, "; ", rowData(spe)$gene_id
+    )
+    is_mito <- which(seqnames(spe) == chrM)
+    spe$expr_chrM <- colSums(counts(spe)[is_mito, , drop = FALSE])
+    spe$expr_chrM_ratio <- spe$expr_chrM / spe$sum_umi
+    ## Add a variable for saving the manual annotations
+    spe$ManualAnnotation <- "NA"
+
+    ## Done!
+    return(spe)
 }
