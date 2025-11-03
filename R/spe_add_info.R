@@ -8,6 +8,10 @@
 #' @param spe A [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]
 #' object, such as one created by initially running `VisiumIO::TENxVisium()` or
 #' `VisiumIO::TENxVisiumHD()`.
+#' 
+#' @return A [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]
+#' object with gene info, SpaceRanger analysis results, and other information
+#' attached.
 spe_add_info <- function(
         spe,
         samples,

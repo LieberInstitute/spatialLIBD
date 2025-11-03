@@ -14,7 +14,8 @@ read10xVisiumWrapper(
   reference_gtf = NULL,
   chrM = "chrM",
   gtf_cols = c("source", "type", "gene_id", "gene_version", "gene_name", "gene_type"),
-  verbose = TRUE
+  verbose = TRUE,
+  add_analysis = TRUE
 )
 }
 \arguments{
@@ -41,9 +42,12 @@ mitochondrial chromosome. Defaults to \code{chrM}.}
 file. \code{"gene_name"} and \code{"gene_id"} have to be included in \code{gtf_cols}.}
 
 \item{verbose}{A \code{logical(1)} specifying whether to show progress updates.}
+
+\item{add_analysis}{A \code{logical(1)} specifying whether to read and add
+SpaceRanger analysis results.}
 }
 \value{
-A \link[SpatialExperiment:SpatialExperiment]{SpatialExperiment} object with the
+A \link[=SpatialExperiment-class]{SpatialExperiment} object with the
 clustering and dimension reduction (projection) results from SpaceRanger by
 10x Genomics as well as other information used by \code{run_app()} for visualzing
 the gene expression data.
