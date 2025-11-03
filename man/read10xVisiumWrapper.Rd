@@ -58,6 +58,13 @@ analysis results from SpaceRanger by 10x Genomics as well as add information
 needed by \code{run_app()} to visualize the data with the \code{spatialLIBD} shiny
 web application.
 }
+\details{
+This function wraps around \code{\link[SpatialExperiment:read10xVisium]{SpatialExperiment::read10xVisium()}} and
+\code{\link[=spe_add_info]{spe_add_info()}}. As the former is officially deprecated, one
+may opt to manually call functions from \code{VisiumIO}, such as \code{TENxVisium()}
+followed by \code{import()}, and then call \code{spe_add_info()} on the resulting
+\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class} object.
+}
 \examples{
 ## See 'Using spatialLIBD with 10x Genomics public datasets' for
 ## a full example using this function.

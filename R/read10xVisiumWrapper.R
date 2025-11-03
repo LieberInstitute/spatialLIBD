@@ -4,6 +4,12 @@
 #' analysis results from SpaceRanger by 10x Genomics as well as add information
 #' needed by `run_app()` to visualize the data with the `spatialLIBD` shiny
 #' web application.
+#' 
+#' This function wraps around [SpatialExperiment::read10xVisium()] and
+#' [spatialLIBD::spe_add_info()]. As the former is officially deprecated, one
+#' may opt to manually call functions from `VisiumIO`, such as `TENxVisium()`
+#' followed by `import()`, and then call `spe_add_info()` on the resulting
+#' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class] object.
 #'
 #' @param samples Passed to [SpatialExperiment::read10xVisium()].
 #' @param sample_id Passed to [SpatialExperiment::read10xVisium()].
