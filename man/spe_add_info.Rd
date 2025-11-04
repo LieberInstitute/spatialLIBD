@@ -49,3 +49,10 @@ Adds gene info from a reference GTF, SpaceRanger analysis results, and other
 information to make a \link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
 object compatible with \code{spatialLIBD::run_app()}.
 }
+\examples{
+## See 'Using spatialLIBD with 10x Genomics public datasets' for
+## a full example using this function.
+if (interactive()) {
+    browseVignettes(package = "spatialLIBD")
+}
+}

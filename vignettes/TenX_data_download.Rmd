@@ -452,6 +452,8 @@ list.files(docs_path)
 
 # Wrapper functions
 
+## read10xVisiumWrapper
+
 To facilitate reading in the data and preparing it to visualize it interactively using `spatialLIBD::run_app()`, we implemented `read10xVisiumWrapper()` which expands `SpatialExperiment::read10xVisium()` and performs the steps described in this vignette. In this example, we'll load all four images created by SpaceRanger: lowres, hires, detected, and aligned. That way we can toggle between them on the web application.
 
 ```{r wrapper_functions}
@@ -481,6 +483,32 @@ if (interactive()) {
         default_cluster = "10x_graphclust"
     )
 }
+```
+
+## spe_add_info
+
+Alternatively, you may already have a `SpatialExperiment` object, and simply
+want to prepare it for `spatialLIBD::run_app()`. In this case, you may use
+`spatialLIBD::spe_add_info()`, which wraps around the preparation steps
+discussed above.
+
+```{r spe_add_info}
+## Read in as a SpatialExperiment object. You may also consider something like
+## VisiumIO::TENxVisiumList() and VisiumIO::import()
+spe_wrapper2 <- read10xVisium(
+    samples = file.path(tempdir(), "outs"),
+    sample_id = "lymph",
+    type = "sparse", data = "filtered",
+    images = c("lowres", "hires", "detected", "aligned"), load = TRUE
+)
+
+## Here we add the additional info needed by spatialLIBD::run_app()
+spe_wrapper2 <- spe_add_info(
+    spe_wrapper2,
+    samples = file.path(tempdir(), "outs"),
+    sample_id = "lymph",
+    reference_gtf = gtf_cache
+)
 ```
 
 # Publishing your web application

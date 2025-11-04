@@ -12,6 +12,13 @@
 #' @return A [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]
 #' object with gene info, SpaceRanger analysis results, and other information
 #' attached.
+#' 
+#' @examples
+#' ## See 'Using spatialLIBD with 10x Genomics public datasets' for
+#' ## a full example using this function.
+#' if (interactive()) {
+#'     browseVignettes(package = "spatialLIBD")
+#' }
 spe_add_info <- function(
         spe,
         samples,
