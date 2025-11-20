@@ -22,7 +22,7 @@ related functions of sc/snRNA-seq datasets."><meta property="og:image" content="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.0</span>
       </span>
     </div>
 
@@ -169,12 +169,12 @@ to choose the best cutoff.</p>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other spatial registration and statistical modeling functions:
-<code><a href="registration_block_cor.html">registration_block_cor</a>()</code>,
-<code><a href="registration_model.html">registration_model</a>()</code>,
-<code><a href="registration_pseudobulk.html">registration_pseudobulk</a>()</code>,
-<code><a href="registration_stats_anova.html">registration_stats_anova</a>()</code>,
-<code><a href="registration_stats_enrichment.html">registration_stats_enrichment</a>()</code>,
-<code><a href="registration_stats_pairwise.html">registration_stats_pairwise</a>()</code></p></div>
+<code><a href="registration_block_cor.html">registration_block_cor()</a></code>,
+<code><a href="registration_model.html">registration_model()</a></code>,
+<code><a href="registration_pseudobulk.html">registration_pseudobulk()</a></code>,
+<code><a href="registration_stats_anova.html">registration_stats_anova()</a></code>,
+<code><a href="registration_stats_enrichment.html">registration_stats_enrichment()</a></code>,
+<code><a href="registration_stats_pairwise.html">registration_stats_pairwise()</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -207,18 +207,18 @@ to choose the best cutoff.</p>
 <span class="r-in"><span>    gene_name <span class="op">=</span> <span class="st">"gene_name"</span>,</span></span>
 <span class="r-in"><span>    suffix <span class="op">=</span> <span class="st">"wrapper"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:36.527289 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:36.659502 dropping 9 pseudo-bulked samples that are below 'min_ncells'.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:36.680345 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:36.727478 normalize expression</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:36.789052 create model matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:36.800719 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:39.204815 The estimated correlation is: -0.0783081238514531</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:39.207278 computing enrichment statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:39.32981 extract and reformat enrichment results</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:39.355829 running the baseline pairwise model</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:39.374507 computing pairwise statistics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:39.451676 computing F-statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:01.564833 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:01.668499 dropping 9 pseudo-bulked samples that are below 'min_ncells'.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:01.690132 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:01.738471 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:01.800833 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:01.812747 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:04.239658 The estimated correlation is: -0.0783081238514531</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:04.242248 computing enrichment statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:04.366362 extract and reformat enrichment results</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:04.39229 running the baseline pairwise model</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:04.410724 computing pairwise statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:04.488212 computing F-statistics</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Explore the results from registration_wrapper()</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">example_modeling_results</span><span class="op">)</span></span></span>
@@ -311,7 +311,7 @@ to choose the best cutoff.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer></div>

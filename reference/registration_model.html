@@ -21,7 +21,7 @@ to model it as a categorical variable and not a continuous one."><meta property=
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.0</span>
       </span>
     </div>
 
@@ -113,12 +113,12 @@ your sample-level covariates are being properly modeled.</p>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other spatial registration and statistical modeling functions:
-<code><a href="registration_block_cor.html">registration_block_cor</a>()</code>,
-<code><a href="registration_pseudobulk.html">registration_pseudobulk</a>()</code>,
-<code><a href="registration_stats_anova.html">registration_stats_anova</a>()</code>,
-<code><a href="registration_stats_enrichment.html">registration_stats_enrichment</a>()</code>,
-<code><a href="registration_stats_pairwise.html">registration_stats_pairwise</a>()</code>,
-<code><a href="registration_wrapper.html">registration_wrapper</a>()</code></p></div>
+<code><a href="registration_block_cor.html">registration_block_cor()</a></code>,
+<code><a href="registration_pseudobulk.html">registration_pseudobulk()</a></code>,
+<code><a href="registration_stats_anova.html">registration_stats_anova()</a></code>,
+<code><a href="registration_stats_enrichment.html">registration_stats_enrichment()</a></code>,
+<code><a href="registration_stats_pairwise.html">registration_stats_pairwise()</a></code>,
+<code><a href="registration_wrapper.html">registration_wrapper()</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -154,9 +154,9 @@ your sample-level covariates are being properly modeled.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+     covars = c("age"),</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+     min_ncells = NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+ )</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:26.628442 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:26.799021 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:26.845981 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:38:52.790313 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:38:52.93436 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:38:52.982242 normalize expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; colData(sce_pseudo)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 9 columns</span>
@@ -203,7 +203,7 @@ your sample-level covariates are being properly modeled.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_1999    ENSG1999    gene1999 gene1999; ENSG1999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_2000    ENSG2000    gene2000 gene2000; ENSG2000</span>
 <span class="r-in"><span><span class="va">registration_mod</span> <span class="op">&lt;-</span> <span class="fu">registration_model</span><span class="op">(</span><span class="va">sce_pseudo</span>, <span class="st">"age"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:26.944185 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:38:53.082108 create model matrix</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">registration_mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variableG0 registration_variableG1 registration_variableG2M</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_G0                       1                       0                        0</span>
@@ -234,7 +234,7 @@ your sample-level covariates are being properly modeled.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer></div>

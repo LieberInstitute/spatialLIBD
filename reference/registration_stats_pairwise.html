@@ -20,7 +20,7 @@ are more typically used for identifying pairwise-marker genes."><meta property="
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.0</span>
       </span>
     </div>
 
@@ -134,12 +134,12 @@ similar to <code>fetch_data("modeling_results")$pairwise</code>.</p>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other spatial registration and statistical modeling functions:
-<code><a href="registration_block_cor.html">registration_block_cor</a>()</code>,
-<code><a href="registration_model.html">registration_model</a>()</code>,
-<code><a href="registration_pseudobulk.html">registration_pseudobulk</a>()</code>,
-<code><a href="registration_stats_anova.html">registration_stats_anova</a>()</code>,
-<code><a href="registration_stats_enrichment.html">registration_stats_enrichment</a>()</code>,
-<code><a href="registration_wrapper.html">registration_wrapper</a>()</code></p></div>
+<code><a href="registration_block_cor.html">registration_block_cor()</a></code>,
+<code><a href="registration_model.html">registration_model()</a></code>,
+<code><a href="registration_pseudobulk.html">registration_pseudobulk()</a></code>,
+<code><a href="registration_stats_anova.html">registration_stats_anova()</a></code>,
+<code><a href="registration_stats_enrichment.html">registration_stats_enrichment()</a></code>,
+<code><a href="registration_wrapper.html">registration_wrapper()</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -179,9 +179,9 @@ similar to <code>fetch_data("modeling_results")$pairwise</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+     covars = c("age"),</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+     min_ncells = NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_+ )</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:34.41676 make pseudobulk object</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:34.53105 drop lowly expressed genes</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:34.579332 normalize expression</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:38:59.428976 make pseudobulk object</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:38:59.54632 drop lowly expressed genes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:38:59.594292 normalize expression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; colData(sce_pseudo)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DataFrame with 20 rows and 9 columns</span>
@@ -229,7 +229,7 @@ similar to <code>fetch_data("modeling_results")$pairwise</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_2000    ENSG2000    gene2000 gene2000; ENSG2000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; registration_mod &lt;- registration_model(sce_pseudo, "age")</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:34.680057 create model matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:38:59.694037 create model matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgstr_&gt; head(registration_mod)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      registration_variableG0 registration_variableG1 registration_variableG2M</span>
@@ -248,14 +248,14 @@ similar to <code>fetch_data("modeling_results")$pairwise</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A_G1                      0 19.18719</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rgst__&gt; block_cor &lt;- registration_block_cor(sce_pseudo, registration_mod)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:34.692597 run duplicateCorrelation()</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:35.997158 The estimated correlation is: -0.0187869166526901</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:38:59.706538 run duplicateCorrelation()</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:00.99173 The estimated correlation is: -0.0187869166526901</span>
 <span class="r-in"><span><span class="va">results_pairwise</span> <span class="op">&lt;-</span> <span class="fu">registration_stats_pairwise</span><span class="op">(</span><span class="va">sce_pseudo</span>,</span></span>
 <span class="r-in"><span>    <span class="va">registration_mod</span>, <span class="va">block_cor</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:35.999016 running the baseline pairwise model</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:36.015983 computing pairwise statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:00.993615 running the baseline pairwise model</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:01.010843 computing pairwise statistics</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_pairwise</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           t_stat_G0-G1 t_stat_G0-G2M t_stat_G0-S t_stat_G1-G2M t_stat_G1-S</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001   -0.2393683    0.29771391  0.28880637     0.5370822   0.5281747</span>
@@ -299,8 +299,8 @@ similar to <code>fetch_data("modeling_results")$pairwise</code>.</p>
 <span class="r-in"><span>    block_cor <span class="op">=</span> <span class="cn">NaN</span>,</span></span>
 <span class="r-in"><span>    gene_ensembl <span class="op">=</span> <span class="st">"ensembl"</span>, gene_name <span class="op">=</span> <span class="st">"gene_name"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:36.081831 running the baseline pairwise model</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:36.100048 computing pairwise statistics</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:01.119814 running the baseline pairwise model</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:39:01.132645 computing pairwise statistics</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_pairwise_nan</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           t_stat_G0-G1 t_stat_G0-G2M t_stat_G0-S t_stat_G1-G2M t_stat_G1-S</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene_0001   -0.2419770    0.30095840  0.29195379     0.5429354   0.5339308</span>
@@ -351,7 +351,7 @@ similar to <code>fetch_data("modeling_results")$pairwise</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer></div>

@@ -19,7 +19,7 @@ of a given gene and display the modeling results for the given gene."><meta prop
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.0</span>
       </span>
     </div>
 
@@ -174,8 +174,8 @@ https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other Layer modeling functions:
-<code><a href="sig_genes_extract.html">sig_genes_extract</a>()</code>,
-<code><a href="sig_genes_extract_all.html">sig_genes_extract_all</a>()</code></p></div>
+<code><a href="sig_genes_extract.html">sig_genes_extract()</a></code>,
+<code><a href="sig_genes_extract_all.html">sig_genes_extract_all()</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -185,9 +185,9 @@ https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"modeling_results"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:15.770432 loading file /github/home/.cache/R/BiocFileCache/178e4f9e48b1_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:38:40.599262 loading file /github/home/.cache/R/BiocFileCache/d131e2a903f_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-09-26 14:17:16.527121 loading file /github/home/.cache/R/BiocFileCache/178e33f6085a_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-11-20 15:38:41.72237 loading file /github/home/.cache/R/BiocFileCache/d13507e26f3_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Top 2 genes from the enrichment model</span></span></span>
 <span class="r-in"><span><span class="va">sig_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="sig_genes_extract_all.html">sig_genes_extract_all</a></span><span class="op">(</span></span></span>
@@ -280,7 +280,7 @@ https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer></div>
