@@ -12,7 +12,14 @@ fetch_data(
     "Visium_SPG_AD_Visium_wholegenome_spe", "Visium_SPG_AD_Visium_targeted_spe",
     "Visium_SPG_AD_Visium_wholegenome_pseudobulk_spe",
     "Visium_SPG_AD_Visium_wholegenome_modeling_results", "visiumStitched_brain_spe",
-    "visiumStitched_brain_spaceranger", "visiumStitched_brain_Fiji_out"),
+    "visiumStitched_brain_spaceranger", "visiumStitched_brain_Fiji_out", 
+    
+    "LFF_spatial_ERC_SRT", "LFF_spatial_ERC_SRT_pseudobulk",
+    "LFF_spatial_ERC_SRT_modeling_results", "LFF_spatial_ERC_snRNAseq",
+    "LFF_spatial_ERC_snRNAseq_pseudobulk_broad",
+    "LFF_spatial_ERC_snRNAseq_pseudobulk_subcluster",
+    "LFF_spatial_ERC_snRNAseq_modeling_results_broad",
+    "LFF_spatial_ERC_snRNAseq_modeling_results_subcluster", ),
   destdir = tempdir(),
   eh = ExperimentHub::ExperimentHub(),
   bfc = BiocFileCache::BiocFileCache()
