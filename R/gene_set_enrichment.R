@@ -25,6 +25,8 @@
 #' * `ID` name of gene set.
 #' * `model_type` record of input model type from `modeling results`.
 #' * `fdr_cut` record of input `frd_cut`.
+#' * `GeneList` List of gene names from input set with `fdr < fdr_cut` and 
+#' `t_stat > 0`, possible that some gene_names are missing from modeling data.
 #'
 #' @export
 #' @importFrom stats fisher.test
@@ -126,6 +128,14 @@ gene_set_enrichment <-
                         Layer = factor(layer, c(FALSE, TRUE))
                     )
                 })
+                
+                ## get list of genes
+                ensembl_list <- model_results$ensembl[layer]
+                gene_name_list <- model_results$gene[layer]
+                
+                sig_geneList <- lapply(geneList_present, function(g) {
+                  gene_name_list[ensembl_list %in% g]
+                })
 
                 enrichList <-
                     lapply(tabList, fisher.test, alternative = "greater")
@@ -137,6 +147,9 @@ gene_set_enrichment <-
                         x[2, 2]
                     }, integer(1)),
                     SetSize = vapply(geneList_present, length, integer(1)),
+                    GeneList = vapply(sig_geneList, function(x){
+                      paste0(x, collapse = ", ")
+                    }, character(1)),
                     stringsAsFactors = FALSE
                 )
                 o$ID <- gsub(".odds ratio", "", rownames(o))
@@ -149,6 +162,8 @@ gene_set_enrichment <-
             enrichTab$model_type <- "depletion"
         }
         enrichTab$fdr_cut <- fdr_cut
+        
+        enrichTab <- enrichTab[, c('OR', 'Pval', 'test', 'NumSig', 'SetSize', 'ID', 'model_type', 'fdr_cut', 'GeneList')]
 
         return(enrichTab)
     }
