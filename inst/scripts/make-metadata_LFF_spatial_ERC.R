@@ -56,8 +56,8 @@ meta <- data.frame(
             "spe_pseudobulk-SpD.rds",
             "modeling_results-SpD.rds",
             "sce_ERC_subcluster.zip",
-            "sce_pseudo_DGE-cell_type_broad.RDS",
-            "sce_pseudo_DGE-cell_type_anno.RDS",
+            "sce_subcluster_pseudobulk-cell_type_broad.rds",
+            "sce_subcluster_pseudobulk-cell_type_anno.rds",
             "sce_subcluster_pseudobulk-cell_type_broad.rds",
             "sce_subcluster_modeling_results-cell_type_anno.rds"
         )
