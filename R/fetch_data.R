@@ -301,7 +301,7 @@ fetch_data <-
           ## While EH is not set-up
           file_name <- "spe_ERC_annotated.zip"
           url <-
-            "https://www.dropbox.com/TODO"
+            "https://www.dropbox.com/scl/fi/jrfc2tllppk52yqm1zyb3/spe_ERC_annotated.zip?rlkey=shi4pn3acf916dtscin32zjsn&dl=1"
         } else if (type == "LFF_spatial_ERC_SRT_pseudobulk") {
           tag <- "LFF_spatial_ERC"
           hub_title <- type
@@ -309,23 +309,15 @@ fetch_data <-
           ## While EH is not set-up
           file_name <- "spe_pseudobulk-SpD.rds"
           url <-
-            "https://www.dropbox.com/TODO"
-        } else if (type == "LFF_spatial_ERC_SRT") {
-          tag <- "LFF_spatial_ERC"
-          hub_title <- type
-          
-          ## While EH is not set-up
-          file_name <- "spe_pseudobulk-SpD.rds"
-          url <-
-            "https://www.dropbox.com/TODO"
-        } else if (type == "LFF_spatial_ERC_SRT_modeling_results") {
+            "https://www.dropbox.com/scl/fi/2cl002smtcl37vaawodil/spe_pseudobulk-SpD.rds?rlkey=6igag1uggpg7h70ruucbl7leb&dl=1"
+        }else if (type == "LFF_spatial_ERC_SRT_modeling_results") {
           tag <- "LFF_spatial_ERC"
           hub_title <- type
           
           ## While EH is not set-up
           file_name <- "modeling_results-SpD.rds"
           url <-
-            "https://www.dropbox.com/TODO"
+            "https://www.dropbox.com/scl/fi/4emtnag2x2usb8t4njvb9/modeling_results-SpD.rds?rlkey=d2qr82rz6uargnthkkahrs7e1&dl=1"
         } else if (type == "LFF_spatial_ERC_snRNAseq") {
           tag <- "LFF_spatial_ERC"
           hub_title <- type
@@ -333,7 +325,7 @@ fetch_data <-
           ## While EH is not set-up
           file_name <- "sce_ERC_subcluster.zip"
           url <-
-            "https://www.dropbox.com/TODO"
+            "https://www.dropbox.com/scl/fi/plekynuzpb22ii08pcn4j/sce_ERC_subcluster.zip?rlkey=bsgqc5dx4o0memidhs943qdhx&dl=1"
         } else if (type == "LFF_spatial_ERC_snRNAseq_pseudobulk_broad") {
           tag <- "LFF_spatial_ERC"
           hub_title <- type
@@ -341,7 +333,7 @@ fetch_data <-
           ## While EH is not set-up
           file_name <- "sce_subcluster_pseudobulk-cell_type_broad.rds"
           url <-
-            "https://www.dropbox.com/TODO"
+            "https://www.dropbox.com/scl/fi/supihrwunx99ldzztzecm/sce_subcluster_pseudobulk-cell_type_broad.rds?rlkey=uy7zmoifjhetfglrav4i2j0ns&dl=1"
         } else if (type == "LFF_spatial_ERC_snRNAseq_pseudobulk_subcluster") {
           tag <- "LFF_spatial_ERC"
           hub_title <- type
@@ -349,7 +341,7 @@ fetch_data <-
           ## While EH is not set-up
           file_name <- "sce_subcluster_pseudobulk-cell_type_anno.rds"
           url <-
-            "https://www.dropbox.com/TODO"
+            "https://www.dropbox.com/scl/fi/c1n4i90k5pny7lij3gvxv/sce_subcluster_pseudobulk-cell_type_anno.rds?rlkey=v3kyay0p2i3h24u7c8fx2dn7u&dl=1"
         } else if (type == "LFF_spatial_ERC_snRNAseq_modeling_results_broad") {
           tag <- "LFF_spatial_ERC"
           hub_title <- type
@@ -357,7 +349,7 @@ fetch_data <-
           ## While EH is not set-up
           file_name <- "sce_subcluster_pseudobulk-cell_type_broad.rds"
           url <-
-            "https://www.dropbox.com/TODO"
+            "https://www.dropbox.com/scl/fi/eu9z1qp3gx5verdadwpyu/sce_subcluster_modeling_results-cell_type_broad.rds?rlkey=lwd66c7x5vdqeky431unanp45&dl=1"
         } else if (type == "LFF_spatial_ERC_snRNAseq_modeling_results_subcluster") {
           tag <- "LFF_spatial_ERC"
           hub_title <- type
@@ -365,7 +357,7 @@ fetch_data <-
           ## While EH is not set-up
           file_name <- "sce_subcluster_pseudobulk-cell_type_anno.rds"
           url <-
-            "https://www.dropbox.com/TODO"
+            "https://www.dropbox.com/scl/fi/y42pv7k02luvznwqii2rm/sce_subcluster_modeling_results-cell_type_anno.rds?rlkey=17c0ybowjpejdxc71tuxlcfna&dl=1"
         }
 
         file_path <- file.path(destdir, file_name)
