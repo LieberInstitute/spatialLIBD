@@ -111,7 +111,7 @@ fetch_data <-
             "LFF_spatial_ERC_snRNAseq_pseudobulk_broad",
             "LFF_spatial_ERC_snRNAseq_pseudobulk_subcluster",
             "LFF_spatial_ERC_snRNAseq_modeling_results_broad",
-            "LFF_spatial_ERC_snRNAseq_modeling_results_subcluster",
+            "LFF_spatial_ERC_snRNAseq_modeling_results_subcluster"
         ),
         destdir = tempdir(),
         eh = ExperimentHub::ExperimentHub(),
