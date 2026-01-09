@@ -1,3 +1,11 @@
+# spatialLIBD 1.23.2
+
+NEW FEATURES
+
+* `gene_set_enrichment()` now returns a `$GeneList` as implemented by 
+@lahuuki. See details at
+<https://github.com/LieberInstitute/spatialLIBD/pull/119>.
+
 # spatialLIBD 1.23.1
 
 NEW FEATURES
