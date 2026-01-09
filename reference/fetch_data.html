@@ -25,7 +25,7 @@ the data."><meta property="og:image" content="/logo.png"><!-- mathjax --><script
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.1</span>
       </span>
     </div>
 
@@ -131,8 +131,13 @@ purposes. The initial version of <code>spatialLIBD</code> downloaded data only f
 <code>spe</code> downloads a
 <a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html" class="external-link">SpatialExperiment-class</a>  object.
 As of version 1.11.6, this function also allows downloading data from the
-<a href="http://research.libd.org/spatialDLPFC/" class="external-link">http://research.libd.org/spatialDLPFC/</a> project. As of version 1.11.12,
+<a href="http://research.libd.org/spatialDLPFC/" class="external-link">http://research.libd.org/spatialDLPFC/</a> and
+<a href="https://github.com/LieberInstitute/Human_DLPFC_Deconvolution" class="external-link">https://github.com/LieberInstitute/Human_DLPFC_Deconvolution</a> projects. As
+of version 1.11.12,
 data from <a href="https://github.com/LieberInstitute/Visium_SPG_AD" class="external-link">https://github.com/LieberInstitute/Visium_SPG_AD</a> can be
+downloaded. As of version 1.17.3, data from
+<a href="https://research.libd.org/visiumStitched_brain/" class="external-link">https://research.libd.org/visiumStitched_brain/</a> can be downloaded. As of
+version 1.23.1, data from <a href="https://research.libd.org/LFF_spatial_ERC/" class="external-link">https://research.libd.org/LFF_spatial_ERC/</a> can be
 downloaded.</p></dd>
 
 
@@ -166,6 +171,33 @@ re-loading the object by using <code>.Last.value</code>.</p>
 https://github.com/LieberInstitute/HumanPilot and further refined by
 https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-data_spatialLIBD.R.</p>
     </div>
+    <div id="references">
+    <h2>References</h2>
+    <p>Please always cite the <code>spatialLIBD</code> publication whenever you use
+<code>fetch_data()</code> to download data.</p>
+<p>Pardo B, Spangler A, Weber LM, Page SC, Hicks SC, Jaffe AE, Martinowich K, Maynard KR, Collado-Torres L. spatialLIBD: an R/Bioconductor package to visualize spatially-resolved transcriptomics data. BMC Genomics. 2022 Jun 10;23(1):434. doi: 10.1186/s12864-022-08601-w. PubMed PMID: 35689177; PubMed Central PMCID: PMC9188087.</p>
+<p>Additionally, please cite the relevant publication describing the data
+generation and initial data analysis for the dataset you are using.</p><ul><li><p>For "sce", "sce_layer", "modeling_results", "sce_example", and "spe" which
+are files from the <code>HumanPilot</code> study
+<a href="https://github.com/LieberInstitute/HumanPilot" class="external-link">https://github.com/LieberInstitute/HumanPilot</a> please cite:
+Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK, Williams SR, Catallini JL 2nd, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Kleinman JE, Hyde TM, Rao N, Hicks SC, Martinowich K, Jaffe AE. Transcriptome-scale spatial gene expression in the human dorsolateral prefrontal cortex. Nat Neurosci. 2021 Mar;24(3):425-436. doi: 10.1038/s41593-020-00787-0. Epub 2021 Feb 8. PubMed PMID: 33558695; PubMed Central PMCID: PMC8095368.</p></li>
+<li><p>For <code>spatialDLPFC</code> files <a href="http://research.libd.org/spatialDLPFC/" class="external-link">http://research.libd.org/spatialDLPFC/</a> please
+cite:
+Huuki-Myers LA, Spangler A, Eagles NJ, Montgomery KD, Kwon SH, Guo B, Grant-Peters M, Divecha HR, Tippani M, Sriworarat C, Nguyen AB, Ravichandran P, Tran MN, Seyedian A, Hyde TM, Kleinman JE, Battle A, Page SC, Ryten M, Hicks SC, Martinowich K, Collado-Torres L, Maynard KR. A data-driven single-cell and spatial transcriptomic map of the human prefrontal cortex. Science. 2024 May 24;384(6698):eadh1938. doi: 10.1126/science.adh1938. Epub 2024 May 24. PubMed PMID: 38781370; PubMed Central PMCID: PMC11398705.</p></li>
+<li><p>Note that <code>spatialDLPFC_snRNAseq</code> from
+<a href="https://github.com/LieberInstitute/Human_DLPFC_Deconvolution" class="external-link">https://github.com/LieberInstitute/Human_DLPFC_Deconvolution</a> was also
+described in the following publication:
+Huuki-Myers LA, Montgomery KD, Kwon SH, Cinquemani S, Eagles NJ, Gonzalez-Padilla D, Maden SK, Kleinman JE, Hyde TM, Hicks SC, Maynard KR, Collado-Torres L. Benchmark of cellular deconvolution methods using a multi-assay dataset from postmortem human prefrontal cortex. Genome Biol. 2025 Apr 7;26(1):88. doi: 10.1186/s13059-025-03552-3. PubMed PMID: 40197307; PubMed Central PMCID: PMC11978107.</p></li>
+<li><p>For <code>Visium_SPG_AD</code> files <a href="https://research.libd.org/Visium_SPG_AD" class="external-link">https://research.libd.org/Visium_SPG_AD</a> please
+cite:
+Kwon SH, Parthiban S, Tippani M, Divecha HR, Eagles NJ, Lobana JS, Williams SR, Mak M, Bharadwaj RA, Kleinman JE, Hyde TM, Page SC, Hicks SC, Martinowich K, Maynard KR, Collado-Torres L. Influence of Alzheimer's disease related neuropathology on local microenvironment gene expression in the human inferior temporal cortex. GEN Biotechnol. 2023 Oct;2(5):399-417. doi: 10.1089/genbio.2023.0019. Epub 2023 Oct 16. PubMed PMID: 39329069; PubMed Central PMCID: PMC11426291.</p></li>
+<li><p>For <code>visiumStitched_brain</code> files
+<a href="https://research.libd.org/visiumStitched_brain/" class="external-link">https://research.libd.org/visiumStitched_brain/</a> please cite:
+Eagles NJ, Bach SV, Tippani M, Ravichandran P, Du Y, Miller RA, Hyde TM, Page SC, Martinowich K, Collado-Torres L. Integrating gene expression and imaging data across Visium capture areas with visiumStitched. BMC Genomics. 2024 Nov 13;25(1):1077. doi: 10.1186/s12864-024-10991-y. PubMed PMID: 39533203; PubMed Central PMCID: PMC11559125.</p></li>
+<li><p>For <code>LFF_spatial_ERC</code> files <a href="https://research.libd.org/LFF_spatial_ERC/" class="external-link">https://research.libd.org/LFF_spatial_ERC/</a>
+please cite:
+Huuki-Myers LA, Divecha HR, Bach SV, Valentine MR, Eagles NJ, Mulvey B, Bharadwaj RA, Zhang R, Evans JR, Grant-Peters M, Miller RA, Kleinman JE, Han S, Hyde TM, Page SC, Weinberger DR, Martinowich K, Ryten M, Maynard KR, Collado-Torres L. APOE E4 Alzheimer's Risk Converges on an Oligodendrocyte Subtype in the Human Entorhinal Cortex. bioRxiv. 2025 Nov 20;. doi: 10.1101/2025.11.20.689483. PubMed PMID: 41332786; PubMed Central PMCID: PMC12667772.</p></li>
+</ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
@@ -173,7 +205,7 @@ https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-dat
 <span class="r-in"><span><span class="co">## Download the SingleCellExperiment object</span></span></span>
 <span class="r-in"><span><span class="co">## at the layer-level</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu">fetch_data</span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-01-09 16:48:04.652163 loading file /github/home/.cache/R/BiocFileCache/101f35ece1a3_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-01-09 17:19:13.598941 loading file /github/home/.cache/R/BiocFileCache/10203784019c_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Explore the data</span></span></span>
 <span class="r-in"><span><span class="va">sce_layer</span></span></span>
@@ -192,6 +224,11 @@ https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-dat
 <span class="r-out co"><span class="r-pr">#&gt;</span> altExpNames(0):</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## How to download and load "spatialDLPFC_snRNAseq"</span></span></span>
+<span class="r-in"><span><span class="co">## A similar process is needed for downloading and loading other</span></span></span>
+<span class="r-in"><span><span class="co">## HDF5SummarizedExperiment files:</span></span></span>
+<span class="r-in"><span><span class="co">## * "LFF_spatial_ERC_SRT"</span></span></span>
+<span class="r-in"><span><span class="co">## * LFF_spatial_ERC_snRNAseq"</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="va">sce_path_zip</span> <span class="op">&lt;-</span> <span class="fu">fetch_data</span><span class="op">(</span><span class="st">"spatialDLPFC_snRNAseq"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sce_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="va">sce_path_zip</span>, exdir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
