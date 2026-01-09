@@ -42,8 +42,13 @@ purposes. The initial version of \code{spatialLIBD} downloaded data only from
 \code{spe} downloads a
 \link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}  object.
 As of version 1.11.6, this function also allows downloading data from the
-\url{http://research.libd.org/spatialDLPFC/} project. As of version 1.11.12,
+\url{http://research.libd.org/spatialDLPFC/} and
+\url{https://github.com/LieberInstitute/Human_DLPFC_Deconvolution} projects. As
+of version 1.11.12,
 data from \url{https://github.com/LieberInstitute/Visium_SPG_AD} can be
+downloaded. As of version 1.17.3, data from
+\url{https://research.libd.org/visiumStitched_brain/} can be downloaded. As of
+version 1.23.1, data from \url{https://research.libd.org/LFF_spatial_ERC/} can be
 downloaded.}
 
 \item{destdir}{The destination directory to where files will be downloaded
@@ -89,6 +94,11 @@ if (!exists("sce_layer")) sce_layer <- fetch_data("sce_layer")
 sce_layer
 
 ## How to download and load "spatialDLPFC_snRNAseq"
+## A similar process is needed for downloading and loading other
+## HDF5SummarizedExperiment files:
+## * "LFF_spatial_ERC_SRT"
+## * LFF_spatial_ERC_snRNAseq"
+
 \dontrun{
 sce_path_zip <- fetch_data("spatialDLPFC_snRNAseq")
 sce_path <- unzip(sce_path_zip, exdir = tempdir())
@@ -109,5 +119,36 @@ sce
 #> altExpNames(0):
 lobstr::obj_size(sce)
 #> 172.28 MB
+}
+}
+\references{
+Please always cite the \code{spatialLIBD} publication whenever you use
+\code{fetch_data()} to download data.
+
+Pardo B, Spangler A, Weber LM, Page SC, Hicks SC, Jaffe AE, Martinowich K, Maynard KR, Collado-Torres L. spatialLIBD: an R/Bioconductor package to visualize spatially-resolved transcriptomics data. BMC Genomics. 2022 Jun 10;23(1):434. doi: 10.1186/s12864-022-08601-w. PubMed PMID: 35689177; PubMed Central PMCID: PMC9188087.
+
+Additionally, please cite the relevant publication describing the data
+generation and initial data analysis for the dataset you are using.
+\itemize{
+\item For "sce", "sce_layer", "modeling_results", "sce_example", and "spe" which
+are files from the \code{HumanPilot} study
+\url{https://github.com/LieberInstitute/HumanPilot} please cite:
+Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK, Williams SR, Catallini JL 2nd, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Kleinman JE, Hyde TM, Rao N, Hicks SC, Martinowich K, Jaffe AE. Transcriptome-scale spatial gene expression in the human dorsolateral prefrontal cortex. Nat Neurosci. 2021 Mar;24(3):425-436. doi: 10.1038/s41593-020-00787-0. Epub 2021 Feb 8. PubMed PMID: 33558695; PubMed Central PMCID: PMC8095368.
+\item For \code{spatialDLPFC} files \url{http://research.libd.org/spatialDLPFC/} please
+cite:
+Huuki-Myers LA, Spangler A, Eagles NJ, Montgomery KD, Kwon SH, Guo B, Grant-Peters M, Divecha HR, Tippani M, Sriworarat C, Nguyen AB, Ravichandran P, Tran MN, Seyedian A, Hyde TM, Kleinman JE, Battle A, Page SC, Ryten M, Hicks SC, Martinowich K, Collado-Torres L, Maynard KR. A data-driven single-cell and spatial transcriptomic map of the human prefrontal cortex. Science. 2024 May 24;384(6698):eadh1938. doi: 10.1126/science.adh1938. Epub 2024 May 24. PubMed PMID: 38781370; PubMed Central PMCID: PMC11398705.
+\item Note that \code{spatialDLPFC_snRNAseq} from
+\url{https://github.com/LieberInstitute/Human_DLPFC_Deconvolution} was also
+described in the following publication:
+Huuki-Myers LA, Montgomery KD, Kwon SH, Cinquemani S, Eagles NJ, Gonzalez-Padilla D, Maden SK, Kleinman JE, Hyde TM, Hicks SC, Maynard KR, Collado-Torres L. Benchmark of cellular deconvolution methods using a multi-assay dataset from postmortem human prefrontal cortex. Genome Biol. 2025 Apr 7;26(1):88. doi: 10.1186/s13059-025-03552-3. PubMed PMID: 40197307; PubMed Central PMCID: PMC11978107.
+\item For \code{Visium_SPG_AD} files \url{https://research.libd.org/Visium_SPG_AD} please
+cite:
+Kwon SH, Parthiban S, Tippani M, Divecha HR, Eagles NJ, Lobana JS, Williams SR, Mak M, Bharadwaj RA, Kleinman JE, Hyde TM, Page SC, Hicks SC, Martinowich K, Maynard KR, Collado-Torres L. Influence of Alzheimer's disease related neuropathology on local microenvironment gene expression in the human inferior temporal cortex. GEN Biotechnol. 2023 Oct;2(5):399-417. doi: 10.1089/genbio.2023.0019. Epub 2023 Oct 16. PubMed PMID: 39329069; PubMed Central PMCID: PMC11426291.
+\item For \code{visiumStitched_brain} files
+\url{https://research.libd.org/visiumStitched_brain/} please cite:
+Eagles NJ, Bach SV, Tippani M, Ravichandran P, Du Y, Miller RA, Hyde TM, Page SC, Martinowich K, Collado-Torres L. Integrating gene expression and imaging data across Visium capture areas with visiumStitched. BMC Genomics. 2024 Nov 13;25(1):1077. doi: 10.1186/s12864-024-10991-y. PubMed PMID: 39533203; PubMed Central PMCID: PMC11559125.
+\item For \code{LFF_spatial_ERC} files \url{https://research.libd.org/LFF_spatial_ERC/}
+please cite:
+Huuki-Myers LA, Divecha HR, Bach SV, Valentine MR, Eagles NJ, Mulvey B, Bharadwaj RA, Zhang R, Evans JR, Grant-Peters M, Miller RA, Kleinman JE, Han S, Hyde TM, Page SC, Weinberger DR, Martinowich K, Ryten M, Maynard KR, Collado-Torres L. APOE E4 Alzheimer's Risk Converges on an Oligodendrocyte Subtype in the Human Entorhinal Cortex. bioRxiv. 2025 Nov 20;. doi: 10.1101/2025.11.20.689483. PubMed PMID: 41332786; PubMed Central PMCID: PMC12667772.
 }
 }

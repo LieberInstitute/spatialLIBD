@@ -26,8 +26,13 @@
 #' `spe` downloads a
 #' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]  object.
 #' As of version 1.11.6, this function also allows downloading data from the
-#' <http://research.libd.org/spatialDLPFC/> project. As of version 1.11.12,
+#' <http://research.libd.org/spatialDLPFC/> and
+#' <https://github.com/LieberInstitute/Human_DLPFC_Deconvolution> projects. As
+#' of version 1.11.12,
 #' data from <https://github.com/LieberInstitute/Visium_SPG_AD> can be
+#' downloaded. As of version 1.17.3, data from
+#' <https://research.libd.org/visiumStitched_brain/> can be downloaded. As of
+#' version 1.23.1, data from <https://research.libd.org/LFF_spatial_ERC/> can be
 #' downloaded.
 #'
 #' @param destdir The destination directory to where files will be downloaded
@@ -52,6 +57,42 @@
 #' https://github.com/LieberInstitute/HumanPilot and further refined by
 #' https://github.com/LieberInstitute/spatialLIBD/blob/master/inst/scripts/make-data_spatialLIBD.R.
 #'
+#'
+#' @references
+#' Please always cite the `spatialLIBD` publication whenever you use
+#' `fetch_data()` to download data.
+#'
+#' Pardo B, Spangler A, Weber LM, Page SC, Hicks SC, Jaffe AE, Martinowich K, Maynard KR, Collado-Torres L. spatialLIBD: an R/Bioconductor package to visualize spatially-resolved transcriptomics data. BMC Genomics. 2022 Jun 10;23(1):434. doi: 10.1186/s12864-022-08601-w. PubMed PMID: 35689177; PubMed Central PMCID: PMC9188087.
+#'
+#' Additionally, please cite the relevant publication describing the data
+#' generation and initial data analysis for the dataset you are using.
+#'
+#' * For "sce", "sce_layer", "modeling_results", "sce_example", and "spe" which
+#' are files from the `HumanPilot` study
+#' <https://github.com/LieberInstitute/HumanPilot> please cite:
+#' Maynard KR, Collado-Torres L, Weber LM, Uytingco C, Barry BK, Williams SR, Catallini JL 2nd, Tran MN, Besich Z, Tippani M, Chew J, Yin Y, Kleinman JE, Hyde TM, Rao N, Hicks SC, Martinowich K, Jaffe AE. Transcriptome-scale spatial gene expression in the human dorsolateral prefrontal cortex. Nat Neurosci. 2021 Mar;24(3):425-436. doi: 10.1038/s41593-020-00787-0. Epub 2021 Feb 8. PubMed PMID: 33558695; PubMed Central PMCID: PMC8095368.
+#'
+#' * For `spatialDLPFC` files <http://research.libd.org/spatialDLPFC/> please
+#' cite:
+#' Huuki-Myers LA, Spangler A, Eagles NJ, Montgomery KD, Kwon SH, Guo B, Grant-Peters M, Divecha HR, Tippani M, Sriworarat C, Nguyen AB, Ravichandran P, Tran MN, Seyedian A, Hyde TM, Kleinman JE, Battle A, Page SC, Ryten M, Hicks SC, Martinowich K, Collado-Torres L, Maynard KR. A data-driven single-cell and spatial transcriptomic map of the human prefrontal cortex. Science. 2024 May 24;384(6698):eadh1938. doi: 10.1126/science.adh1938. Epub 2024 May 24. PubMed PMID: 38781370; PubMed Central PMCID: PMC11398705.
+#'
+#' * Note that `spatialDLPFC_snRNAseq` from
+#' <https://github.com/LieberInstitute/Human_DLPFC_Deconvolution> was also
+#' described in the following publication:
+#' Huuki-Myers LA, Montgomery KD, Kwon SH, Cinquemani S, Eagles NJ, Gonzalez-Padilla D, Maden SK, Kleinman JE, Hyde TM, Hicks SC, Maynard KR, Collado-Torres L. Benchmark of cellular deconvolution methods using a multi-assay dataset from postmortem human prefrontal cortex. Genome Biol. 2025 Apr 7;26(1):88. doi: 10.1186/s13059-025-03552-3. PubMed PMID: 40197307; PubMed Central PMCID: PMC11978107.
+#'
+#' * For `Visium_SPG_AD` files <https://research.libd.org/Visium_SPG_AD> please
+#' cite:
+#' Kwon SH, Parthiban S, Tippani M, Divecha HR, Eagles NJ, Lobana JS, Williams SR, Mak M, Bharadwaj RA, Kleinman JE, Hyde TM, Page SC, Hicks SC, Martinowich K, Maynard KR, Collado-Torres L. Influence of Alzheimer's disease related neuropathology on local microenvironment gene expression in the human inferior temporal cortex. GEN Biotechnol. 2023 Oct;2(5):399-417. doi: 10.1089/genbio.2023.0019. Epub 2023 Oct 16. PubMed PMID: 39329069; PubMed Central PMCID: PMC11426291.
+#'
+#' * For `visiumStitched_brain` files
+#' <https://research.libd.org/visiumStitched_brain/> please cite:
+#' Eagles NJ, Bach SV, Tippani M, Ravichandran P, Du Y, Miller RA, Hyde TM, Page SC, Martinowich K, Collado-Torres L. Integrating gene expression and imaging data across Visium capture areas with visiumStitched. BMC Genomics. 2024 Nov 13;25(1):1077. doi: 10.1186/s12864-024-10991-y. PubMed PMID: 39533203; PubMed Central PMCID: PMC11559125.
+#'
+#' * For `LFF_spatial_ERC` files <https://research.libd.org/LFF_spatial_ERC/>
+#' please cite:
+#' Huuki-Myers LA, Divecha HR, Bach SV, Valentine MR, Eagles NJ, Mulvey B, Bharadwaj RA, Zhang R, Evans JR, Grant-Peters M, Miller RA, Kleinman JE, Han S, Hyde TM, Page SC, Weinberger DR, Martinowich K, Ryten M, Maynard KR, Collado-Torres L. APOE E4 Alzheimer's Risk Converges on an Oligodendrocyte Subtype in the Human Entorhinal Cortex. bioRxiv. 2025 Nov 20;. doi: 10.1101/2025.11.20.689483. PubMed PMID: 41332786; PubMed Central PMCID: PMC12667772.
+#'
 #' @examples
 #'
 #' ## Download the SingleCellExperiment object
@@ -62,6 +103,11 @@
 #' sce_layer
 #'
 #' ## How to download and load "spatialDLPFC_snRNAseq"
+#' ## A similar process is needed for downloading and loading other
+#' ## HDF5SummarizedExperiment files:
+#' ## * "LFF_spatial_ERC_SRT"
+#' ## * LFF_spatial_ERC_snRNAseq"
+#'
 #' \dontrun{
 #' sce_path_zip <- fetch_data("spatialDLPFC_snRNAseq")
 #' sce_path <- unzip(sce_path_zip, exdir = tempdir())
@@ -115,7 +161,8 @@ fetch_data <-
         ),
         destdir = tempdir(),
         eh = ExperimentHub::ExperimentHub(),
-        bfc = BiocFileCache::BiocFileCache()) {
+        bfc = BiocFileCache::BiocFileCache()
+    ) {
         ## Some variables
         sce <-
             sce_layer <- modeling_results <- sce_sub <- spe <- NULL
@@ -262,7 +309,9 @@ fetch_data <-
             file_name <- "sce_pseudo_pathology_wholegenome.rds"
             url <-
                 "https://www.dropbox.com/s/p8foxj6t6inb8uf/sce_pseudo_pathology_wholegenome.rds?dl=1"
-        } else if (type == "Visium_SPG_AD_Visium_wholegenome_modeling_results") {
+        } else if (
+            type == "Visium_SPG_AD_Visium_wholegenome_modeling_results"
+        ) {
             tag <- "Visium_SPG_AD_Alzheimer_Disease_ITC_spatialLIBD"
             hub_title <- type
 
@@ -295,78 +344,78 @@ fetch_data <-
             url <-
                 "https://www.dropbox.com/scl/fi/bevo52e96f2kdwllf8dkk/visiumStitched_brain_fiji_out.zip?rlkey=ptwal8f5zxakzejwd0oqw0lhj&dl=1"
         } else if (type == "LFF_spatial_ERC_SRT") {
-          tag <- "LFF_spatial_ERC"
-          hub_title <- type
-          
-          ## While EH is not set-up
-          file_name <- "spe_ERC_annotated.zip"
-          url <-
-            "https://www.dropbox.com/scl/fi/jrfc2tllppk52yqm1zyb3/spe_ERC_annotated.zip?rlkey=shi4pn3acf916dtscin32zjsn&dl=1"
+            tag <- "LFF_spatial_ERC"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "spe_ERC_annotated.zip"
+            url <-
+                "https://www.dropbox.com/scl/fi/jrfc2tllppk52yqm1zyb3/spe_ERC_annotated.zip?rlkey=shi4pn3acf916dtscin32zjsn&dl=1"
         } else if (type == "LFF_spatial_ERC_SRT_pseudobulk") {
-          tag <- "LFF_spatial_ERC"
-          hub_title <- type
-          
-          ## While EH is not set-up
-          file_name <- "spe_pseudobulk-SpD.rds"
-          url <-
-            "https://www.dropbox.com/scl/fi/2cl002smtcl37vaawodil/spe_pseudobulk-SpD.rds?rlkey=6igag1uggpg7h70ruucbl7leb&dl=1"
-        }else if (type == "LFF_spatial_ERC_SRT_modeling_results") {
-          tag <- "LFF_spatial_ERC"
-          hub_title <- type
-          
-          ## While EH is not set-up
-          file_name <- "modeling_results-SpD.rds"
-          url <-
-            "https://www.dropbox.com/scl/fi/4emtnag2x2usb8t4njvb9/modeling_results-SpD.rds?rlkey=d2qr82rz6uargnthkkahrs7e1&dl=1"
+            tag <- "LFF_spatial_ERC"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "spe_pseudobulk-SpD.rds"
+            url <-
+                "https://www.dropbox.com/scl/fi/2cl002smtcl37vaawodil/spe_pseudobulk-SpD.rds?rlkey=6igag1uggpg7h70ruucbl7leb&dl=1"
+        } else if (type == "LFF_spatial_ERC_SRT_modeling_results") {
+            tag <- "LFF_spatial_ERC"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "modeling_results-SpD.rds"
+            url <-
+                "https://www.dropbox.com/scl/fi/4emtnag2x2usb8t4njvb9/modeling_results-SpD.rds?rlkey=d2qr82rz6uargnthkkahrs7e1&dl=1"
         } else if (type == "LFF_spatial_ERC_snRNAseq") {
-          tag <- "LFF_spatial_ERC"
-          hub_title <- type
-          
-          ## While EH is not set-up
-          file_name <- "sce_ERC_subcluster.zip"
-          url <-
-            "https://www.dropbox.com/scl/fi/plekynuzpb22ii08pcn4j/sce_ERC_subcluster.zip?rlkey=bsgqc5dx4o0memidhs943qdhx&dl=1"
+            tag <- "LFF_spatial_ERC"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "sce_ERC_subcluster.zip"
+            url <-
+                "https://www.dropbox.com/scl/fi/plekynuzpb22ii08pcn4j/sce_ERC_subcluster.zip?rlkey=bsgqc5dx4o0memidhs943qdhx&dl=1"
         } else if (type == "LFF_spatial_ERC_snRNAseq_pseudobulk_broad") {
-          tag <- "LFF_spatial_ERC"
-          hub_title <- type
-          
-          ## While EH is not set-up
-          file_name <- "sce_subcluster_pseudobulk-cell_type_broad.rds"
-          url <-
-            "https://www.dropbox.com/scl/fi/supihrwunx99ldzztzecm/sce_subcluster_pseudobulk-cell_type_broad.rds?rlkey=uy7zmoifjhetfglrav4i2j0ns&dl=1"
+            tag <- "LFF_spatial_ERC"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "sce_subcluster_pseudobulk-cell_type_broad.rds"
+            url <-
+                "https://www.dropbox.com/scl/fi/supihrwunx99ldzztzecm/sce_subcluster_pseudobulk-cell_type_broad.rds?rlkey=uy7zmoifjhetfglrav4i2j0ns&dl=1"
         } else if (type == "LFF_spatial_ERC_snRNAseq_pseudobulk_subcluster") {
-          tag <- "LFF_spatial_ERC"
-          hub_title <- type
-          
-          ## While EH is not set-up
-          file_name <- "sce_subcluster_pseudobulk-cell_type_anno.rds"
-          url <-
-            "https://www.dropbox.com/scl/fi/c1n4i90k5pny7lij3gvxv/sce_subcluster_pseudobulk-cell_type_anno.rds?rlkey=v3kyay0p2i3h24u7c8fx2dn7u&dl=1"
+            tag <- "LFF_spatial_ERC"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "sce_subcluster_pseudobulk-cell_type_anno.rds"
+            url <-
+                "https://www.dropbox.com/scl/fi/c1n4i90k5pny7lij3gvxv/sce_subcluster_pseudobulk-cell_type_anno.rds?rlkey=v3kyay0p2i3h24u7c8fx2dn7u&dl=1"
         } else if (type == "LFF_spatial_ERC_snRNAseq_modeling_results_broad") {
-          tag <- "LFF_spatial_ERC"
-          hub_title <- type
-          
-          ## While EH is not set-up
-          file_name <- "sce_subcluster_pseudobulk-cell_type_broad.rds"
-          url <-
-            "https://www.dropbox.com/scl/fi/eu9z1qp3gx5verdadwpyu/sce_subcluster_modeling_results-cell_type_broad.rds?rlkey=lwd66c7x5vdqeky431unanp45&dl=1"
-        } else if (type == "LFF_spatial_ERC_snRNAseq_modeling_results_subcluster") {
-          tag <- "LFF_spatial_ERC"
-          hub_title <- type
-          
-          ## While EH is not set-up
-          file_name <- "sce_subcluster_pseudobulk-cell_type_anno.rds"
-          url <-
-            "https://www.dropbox.com/scl/fi/y42pv7k02luvznwqii2rm/sce_subcluster_modeling_results-cell_type_anno.rds?rlkey=17c0ybowjpejdxc71tuxlcfna&dl=1"
+            tag <- "LFF_spatial_ERC"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "sce_subcluster_pseudobulk-cell_type_broad.rds"
+            url <-
+                "https://www.dropbox.com/scl/fi/eu9z1qp3gx5verdadwpyu/sce_subcluster_modeling_results-cell_type_broad.rds?rlkey=lwd66c7x5vdqeky431unanp45&dl=1"
+        } else if (
+            type == "LFF_spatial_ERC_snRNAseq_modeling_results_subcluster"
+        ) {
+            tag <- "LFF_spatial_ERC"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "sce_subcluster_pseudobulk-cell_type_anno.rds"
+            url <-
+                "https://www.dropbox.com/scl/fi/y42pv7k02luvznwqii2rm/sce_subcluster_modeling_results-cell_type_anno.rds?rlkey=17c0ybowjpejdxc71tuxlcfna&dl=1"
         }
 
         file_path <- file.path(destdir, file_name)
         ## Use local data if present
         if (!file.exists(file_path)) {
             q <-
-                AnnotationHub::query(eh,
-                    pattern = c(tag, hub_title)
-                )
+                AnnotationHub::query(eh, pattern = c(tag, hub_title))
 
             if (length(q) == 1) {
                 ## ExperimentHub has the data =)
@@ -391,11 +440,18 @@ fetch_data <-
                 return(.update_sce(sce))
             } else if (type == "sce_layer") {
                 return(.update_sce_layer(sce_layer))
-            } else if (type == "modeling_results" || type == "spatialDLPFC_Visium_modeling_results" || type == "Visium_SPG_AD_Visium_wholegenome_modeling_results") {
+            } else if (
+                type == "modeling_results" ||
+                    type == "spatialDLPFC_Visium_modeling_results" ||
+                    type == "Visium_SPG_AD_Visium_wholegenome_modeling_results"
+            ) {
                 return(modeling_results)
             } else if (type == "sce_example") {
                 return(.update_sce(sce_sub))
-            } else if (type == "Visium_SPG_AD_Visium_wholegenome_spe" || type == "Visium_SPG_AD_Visium_targeted_spe") {
+            } else if (
+                type == "Visium_SPG_AD_Visium_wholegenome_spe" ||
+                    type == "Visium_SPG_AD_Visium_targeted_spe"
+            ) {
                 return(spe)
             }
         } else if (grepl(".rds", file_path)) {
