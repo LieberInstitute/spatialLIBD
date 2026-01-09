@@ -1,3 +1,12 @@
+# spatialLIBD 1.23.1
+
+NEW FEATURES
+
+* `fetch_data()` now provides access to all `LFF_spatial_ERC` project files
+associated with the preprint at <https://doi.org/10.1101/2025.11.20.689483>.
+@lahuuki added this information as part of
+<https://github.com/LieberInstitute/spatialLIBD/pull/118>.
+
 # spatialLIBD 1.21.6
 
 NEW FEATURES
