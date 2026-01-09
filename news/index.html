@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.2</span>
       </span>
     </div>
 
@@ -67,16 +67,23 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.23.2" id="spatiallibd-1232">spatialLIBD 1.23.2<a class="anchor" aria-label="anchor" href="#spatiallibd-1232"></a></h2>
+<p>NEW FEATURES</p>
+<ul><li>
+<code><a href="../reference/gene_set_enrichment.html">gene_set_enrichment()</a></code> now returns a <code>$GeneList</code> as implemented by</li>
+</ul><ol class="example" style="list-style-type: decimal"><li>See details at <a href="https://github.com/LieberInstitute/spatialLIBD/pull/119" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/119</a>.</li>
+</ol></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.23.1" id="spatiallibd-1231">spatialLIBD 1.23.1<a class="anchor" aria-label="anchor" href="#spatiallibd-1231"></a></h2>
 <p>NEW FEATURES</p>
 <ul><li>
-<code><a href="../reference/fetch_data.html">fetch_data()</a></code> now provides access to all <code>LFF_spatial_ERC</code> project files associated with the preprint at <a href="https://doi.org/10.1101/2025.11.20.689483" class="external-link uri">https://doi.org/10.1101/2025.11.20.689483</a>. <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a> added this information as part of <a href="https://github.com/LieberInstitute/spatialLIBD/pull/118" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/118</a>.</li>
+<code><a href="../reference/fetch_data.html">fetch_data()</a></code> now provides access to all <code>LFF_spatial_ERC</code> project files associated with the preprint at <a href="https://doi.org/10.1101/2025.11.20.689483" class="external-link uri">https://doi.org/10.1101/2025.11.20.689483</a>. 1 added this information as part of <a href="https://github.com/LieberInstitute/spatialLIBD/pull/118" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/118</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.21.6" id="spatiallibd-1216">spatialLIBD 1.21.6<a class="anchor" aria-label="anchor" href="#spatiallibd-1216"></a></h2>
 <p>NEW FEATURES</p>
 <ul><li>
-<code><a href="../reference/registration_pseudobulk.html">registration_pseudobulk()</a></code> will now create the <code>rowData()$gene_search</code> if <code>rowData()$gene_id</code> and <code>rowData()$gene_name</code> are present. This makes the output be more in sync with requirements for <code><a href="../reference/run_app.html">run_app()</a></code>. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/115" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/115</a> for details. Implemented by <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a>.</li>
+<code><a href="../reference/registration_pseudobulk.html">registration_pseudobulk()</a></code> will now create the <code>rowData()$gene_search</code> if <code>rowData()$gene_id</code> and <code>rowData()$gene_name</code> are present. This makes the output be more in sync with requirements for <code><a href="../reference/run_app.html">run_app()</a></code>. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/115" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/115</a> for details. Implemented by 1.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.21.4" id="spatiallibd-1214">spatialLIBD 1.21.4<a class="anchor" aria-label="anchor" href="#spatiallibd-1214"></a></h2>
@@ -86,12 +93,12 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.21.3" id="spatiallibd-1213">spatialLIBD 1.21.3<a class="anchor" aria-label="anchor" href="#spatiallibd-1213"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
-<ul><li>@lahuuki edited <code><a href="../reference/registration_pseudobulk.html">registration_pseudobulk()</a></code> to make it more compatible with <code>scran::pseudobulkDGE()</code>.See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/108" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/108</a> for details.</li>
+<ul><li>1 edited <code><a href="../reference/registration_pseudobulk.html">registration_pseudobulk()</a></code> to make it more compatible with <code>scran::pseudobulkDGE()</code>.See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/108" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/108</a> for details.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.21.2" id="spatiallibd-1212">spatialLIBD 1.21.2<a class="anchor" aria-label="anchor" href="#spatiallibd-1212"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>@lahuuki added the <code><a href="../reference/vis_image.html">vis_image()</a></code> for plotting just the histology image. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/107" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/107</a> for details.</li>
+<ul><li>1 added the <code><a href="../reference/vis_image.html">vis_image()</a></code> for plotting just the histology image. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/107" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/107</a> for details.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.21.1" id="spatiallibd-1211">spatialLIBD 1.21.1<a class="anchor" aria-label="anchor" href="#spatiallibd-1211"></a></h2>
@@ -101,37 +108,37 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.19.12" id="spatiallibd-11912">spatialLIBD 1.19.12<a class="anchor" aria-label="anchor" href="#spatiallibd-11912"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>@lahuuki added <code>guide_point_size</code> as a argument to <code><a href="../reference/vis_clus.html">vis_clus()</a></code> and <code><a href="../reference/vis_grid_clus.html">vis_grid_clus()</a></code>, which allows controlling the size of the points in the legends for the discrete variable plots. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/104" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/104</a> for more details.</li>
+<ul><li>1 added <code>guide_point_size</code> as a argument to <code><a href="../reference/vis_clus.html">vis_clus()</a></code> and <code><a href="../reference/vis_grid_clus.html">vis_grid_clus()</a></code>, which allows controlling the size of the points in the legends for the discrete variable plots. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/104" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/104</a> for more details.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.19.11" id="spatiallibd-11911">spatialLIBD 1.19.11<a class="anchor" aria-label="anchor" href="#spatiallibd-11911"></a></h2>
 <p>BUG FIXES</p>
-<ul><li>1 fixed a bug for specifying colors in <code><a href="../reference/vis_clus.html">vis_clus()</a></code> and related functions when <code>NA</code> values are present in the cluster variable. For more details check <a href="https://github.com/LieberInstitute/spatialLIBD/pull/102" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/102</a>.</li>
+<ul><li>2 fixed a bug for specifying colors in <code><a href="../reference/vis_clus.html">vis_clus()</a></code> and related functions when <code>NA</code> values are present in the cluster variable. For more details check <a href="https://github.com/LieberInstitute/spatialLIBD/pull/102" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/102</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.19.10" id="spatiallibd-11910">spatialLIBD 1.19.10<a class="anchor" aria-label="anchor" href="#spatiallibd-11910"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>@lahuuki added the <code>gene_name</code> argument to <code><a href="../reference/sig_genes_extract.html">sig_genes_extract()</a></code> and <code><a href="../reference/sig_genes_extract_all.html">sig_genes_extract_all()</a></code> to make these functions more flexible. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/101" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/101</a> for details.</li>
+<ul><li>1 added the <code>gene_name</code> argument to <code><a href="../reference/sig_genes_extract.html">sig_genes_extract()</a></code> and <code><a href="../reference/sig_genes_extract_all.html">sig_genes_extract_all()</a></code> to make these functions more flexible. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/101" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/101</a> for details.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.19.9" id="spatiallibd-1199">spatialLIBD 1.19.9<a class="anchor" aria-label="anchor" href="#spatiallibd-1199"></a></h2>
 <p>BUG FIXES</p>
-<ul><li>@lahuuki resolved the bug we discovered on a dataset being analyzed by 1 as we documented at <a href="https://github.com/LieberInstitute/spatialLIBD/issues/98" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/98</a>. Basically, an internal function used by <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> was having issues with cluster names that were just numbers such as “1”, “2”, …, “13” where <code><a href="../reference/annotate_registered_clusters.html">annotate_registered_clusters()</a></code> could result in a “9/13” annotation but then that would match with “1”, “3”, “9”, and “13” instead of just “9” and “13”, thus introducing incorrect “X” annotations on <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code>. <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a> resolved this at <a href="https://github.com/LieberInstitute/spatialLIBD/pull/99" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/99</a>.</li>
+<ul><li>1 resolved the bug we discovered on a dataset being analyzed by 2 as we documented at <a href="https://github.com/LieberInstitute/spatialLIBD/issues/98" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/98</a>. Basically, an internal function used by <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> was having issues with cluster names that were just numbers such as “1”, “2”, …, “13” where <code><a href="../reference/annotate_registered_clusters.html">annotate_registered_clusters()</a></code> could result in a “9/13” annotation but then that would match with “1”, “3”, “9”, and “13” instead of just “9” and “13”, thus introducing incorrect “X” annotations on <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code>. 1 resolved this at <a href="https://github.com/LieberInstitute/spatialLIBD/pull/99" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/99</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.19.8" id="spatiallibd-1198">spatialLIBD 1.19.8<a class="anchor" aria-label="anchor" href="#spatiallibd-1198"></a></h2>
 <p>NEW FEATURES</p>
 <ul><li>
 <code><a href="../reference/vis_gene.html">vis_gene()</a></code> now has the <code>cap_percentile</code> argument as implemented by</li>
-</ul><ol class="example" style="list-style-type: decimal"><li>This allows you to cap the expression values at a certain percentiles, which can be useful to exclude super high outlier values which are common with Visium HD data. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/97" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/97</a> for details.</li>
+</ul><ol start="2" class="example" style="list-style-type: decimal"><li>This allows you to cap the expression values at a certain percentiles, which can be useful to exclude super high outlier values which are common with Visium HD data. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/97" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/97</a> for details.</li>
 </ol><p>BUG FIXES</p>
-<ul><li>Fixed colors on <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> thanks to <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a>. Details at <a href="https://github.com/LieberInstitute/spatialLIBD/pull/94" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/94</a>.</li>
+<ul><li>Fixed colors on <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> thanks to 1. Details at <a href="https://github.com/LieberInstitute/spatialLIBD/pull/94" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/94</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.19.7" id="spatiallibd-1197">spatialLIBD 1.19.7<a class="anchor" aria-label="anchor" href="#spatiallibd-1197"></a></h2>
 <p>BUG FIXES</p>
 <ul><li>Removed code that made the app very slow to load using <code>HDF5Array</code> objects. See <a href="https://github.com/LieberInstitute/spatialLIBD/commit/b80d92c3271a6ad92859f79a3bc343f77bad9bf2" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/commit/b80d92c3271a6ad92859f79a3bc343f77bad9bf2</a> for details.</li>
-<li>Fixed a bug on the Z-score calculation in <code><a href="../reference/multi_gene_z_score.html">multi_gene_z_score()</a></code>. See <a href="https://github.com/LieberInstitute/spatialLIBD/commit/2d17ea2c3d1b73b38fbd50503765052c8487b9b1" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/commit/2d17ea2c3d1b73b38fbd50503765052c8487b9b1</a> for details. Implemented by 1.</li>
+<li>Fixed a bug on the Z-score calculation in <code><a href="../reference/multi_gene_z_score.html">multi_gene_z_score()</a></code>. See <a href="https://github.com/LieberInstitute/spatialLIBD/commit/2d17ea2c3d1b73b38fbd50503765052c8487b9b1" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/commit/2d17ea2c3d1b73b38fbd50503765052c8487b9b1</a> for details. Implemented by 2.</li>
 <li>Fix a bug in the documentation of <code><a href="../reference/run_app.html">run_app()</a></code> for the example stitched data.</li>
 <li>No longer point to Twitter, instead point to Bluesky. This is for the package main README file as well as the default app documentation files.</li>
 </ul></div>
@@ -143,22 +150,22 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.19.4" id="spatiallibd-1194">spatialLIBD 1.19.4<a class="anchor" aria-label="anchor" href="#spatiallibd-1194"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>@lahuuki fully re-implemented <code><a href="../reference/gene_set_enrichment_plot.html">gene_set_enrichment_plot()</a></code> using <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">ComplexHeatmap::Heatmap()</a></code>. This new version has several new arguments that allow adding more annotation to the resulting heatmap. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/93" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/93</a> for more details. This also means that <code>layer_matrix_plot()</code> has been removed from the package since it previously served as a helper function for <code><a href="../reference/gene_set_enrichment_plot.html">gene_set_enrichment_plot()</a></code>.</li>
+<ul><li>1 fully re-implemented <code><a href="../reference/gene_set_enrichment_plot.html">gene_set_enrichment_plot()</a></code> using <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">ComplexHeatmap::Heatmap()</a></code>. This new version has several new arguments that allow adding more annotation to the resulting heatmap. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/93" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/93</a> for more details. This also means that <code>layer_matrix_plot()</code> has been removed from the package since it previously served as a helper function for <code><a href="../reference/gene_set_enrichment_plot.html">gene_set_enrichment_plot()</a></code>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.19.3" id="spatiallibd-1193">spatialLIBD 1.19.3<a class="anchor" aria-label="anchor" href="#spatiallibd-1193"></a></h2>
 <p>BUG FIXES</p>
-<ul><li>Resolved <a href="https://github.com/LieberInstitute/spatialLIBD/issues/90" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/90</a> which made <code><a href="../reference/add_key.html">add_key()</a></code> too strict and would create issues with <code>export_cluster()</code>. Reported by <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a> and <a href="https://github.com/manishabarse" class="external-link">@manishabarse</a>.</li>
+<ul><li>Resolved <a href="https://github.com/LieberInstitute/spatialLIBD/issues/90" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/90</a> which made <code><a href="../reference/add_key.html">add_key()</a></code> too strict and would create issues with <code>export_cluster()</code>. Reported by 1 and <a href="https://github.com/manishabarse" class="external-link">@manishabarse</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.19.2" id="spatiallibd-1192">spatialLIBD 1.19.2<a class="anchor" aria-label="anchor" href="#spatiallibd-1192"></a></h2>
 <p>BUG FIXES</p>
-<ul><li>Merged <a href="https://github.com/LieberInstitute/spatialLIBD/pull/92" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/92</a> by <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a>. This fixes <a href="https://github.com/LieberInstitute/spatialLIBD/issues/72" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/72</a> and <a href="https://github.com/LieberInstitute/spatialLIBD/issues/48" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/48</a> by making <code><a href="../reference/registration_pseudobulk.html">registration_pseudobulk()</a></code> more robust. The original issues were reported by <a href="https://github.com/boyiguo1" class="external-link">@boyiguo1</a> and <a href="https://github.com/berniejmulvey" class="external-link">@berniejmulvey</a>.</li>
+<ul><li>Merged <a href="https://github.com/LieberInstitute/spatialLIBD/pull/92" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/92</a> by 1. This fixes <a href="https://github.com/LieberInstitute/spatialLIBD/issues/72" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/72</a> and <a href="https://github.com/LieberInstitute/spatialLIBD/issues/48" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/48</a> by making <code><a href="../reference/registration_pseudobulk.html">registration_pseudobulk()</a></code> more robust. The original issues were reported by <a href="https://github.com/boyiguo1" class="external-link">@boyiguo1</a> and <a href="https://github.com/berniejmulvey" class="external-link">@berniejmulvey</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.19.1" id="spatiallibd-1191">spatialLIBD 1.19.1<a class="anchor" aria-label="anchor" href="#spatiallibd-1191"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>Merged <a href="https://github.com/LieberInstitute/spatialLIBD/pull/91" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/91</a> by <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a>. This pull request fully re-implemented <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> with a version that uses <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">ComplexHeatmap::Heatmap()</a></code> internally. It also adds support for incorporating the automatic annotation results from <code><a href="../reference/annotate_registered_clusters.html">annotate_registered_clusters()</a></code>. NOTE that the <code>max</code> argument was renamed to <code>color_max</code>, as well as <code>min</code> to <code>color_min</code>. Also, the default for <code>min</code> used to be <code>-max</code> and now for <code>color_min</code> the default is the <code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min()</a></code> correlation observed. The default for <code>max</code> was 0.81 and the default for <code>color_max()</code> is the <code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max()</a></code> observed correlation.</li>
+<ul><li>Merged <a href="https://github.com/LieberInstitute/spatialLIBD/pull/91" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/91</a> by 1. This pull request fully re-implemented <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> with a version that uses <code><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">ComplexHeatmap::Heatmap()</a></code> internally. It also adds support for incorporating the automatic annotation results from <code><a href="../reference/annotate_registered_clusters.html">annotate_registered_clusters()</a></code>. NOTE that the <code>max</code> argument was renamed to <code>color_max</code>, as well as <code>min</code> to <code>color_min</code>. Also, the default for <code>min</code> used to be <code>-max</code> and now for <code>color_min</code> the default is the <code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min()</a></code> correlation observed. The default for <code>max</code> was 0.81 and the default for <code>color_max()</code> is the <code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max()</a></code> observed correlation.</li>
 <li>
 <code><a href="../reference/run_app.html">run_app()</a></code> was also updated to match the updated in <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> and now has 2 new inputs for controlling the annotation process with <code><a href="../reference/annotate_registered_clusters.html">annotate_registered_clusters()</a></code>. It also allows downloading a CSV file with the annotation results.</li>
 </ul></div>
@@ -166,7 +173,7 @@
 <h2 class="page-header" data-toc-text="1.17.10" id="spatiallibd-11710">spatialLIBD 1.17.10<a class="anchor" aria-label="anchor" href="#spatiallibd-11710"></a></h2>
 <p>BUG FIXES</p>
 <ul><li>
-<code><a href="../reference/registration_wrapper.html">registration_wrapper()</a></code> now automatically handles the scenario where <code>k = 2</code> by not using <code><a href="../reference/registration_stats_anova.html">registration_stats_anova()</a></code> and providing an apporpriate warning. Implemented by <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a> at <a href="https://github.com/LieberInstitute/spatialLIBD/pull/86" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/86</a>.</li>
+<code><a href="../reference/registration_wrapper.html">registration_wrapper()</a></code> now automatically handles the scenario where <code>k = 2</code> by not using <code><a href="../reference/registration_stats_anova.html">registration_stats_anova()</a></code> and providing an apporpriate warning. Implemented by 1 at <a href="https://github.com/LieberInstitute/spatialLIBD/pull/86" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/86</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.17.9" id="spatiallibd-1179">spatialLIBD 1.17.9<a class="anchor" aria-label="anchor" href="#spatiallibd-1179"></a></h2>
@@ -177,23 +184,23 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.17.6" id="spatiallibd-1176">spatialLIBD 1.17.6<a class="anchor" aria-label="anchor" href="#spatiallibd-1176"></a></h2>
 <p>BUG FIXES</p>
-<ul><li>Fixed the bug reported by <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a> about <code><a href="../reference/vis_grid_clus.html">vis_grid_clus()</a></code> not handling <code><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical()</a></code> cluster variables. See <a href="https://github.com/LieberInstitute/spatialLIBD/issues/80" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/80</a>. To resolve this, <code><a href="../reference/sort_clusters.html">sort_clusters()</a></code> and <code><a href="../reference/get_colors.html">get_colors()</a></code> had to change internally. Examples and documentation for both functions have now been updated to showcase what happens when you provide a <code><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical()</a></code> vector as an input.</li>
+<ul><li>Fixed the bug reported by 1 about <code><a href="../reference/vis_grid_clus.html">vis_grid_clus()</a></code> not handling <code><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical()</a></code> cluster variables. See <a href="https://github.com/LieberInstitute/spatialLIBD/issues/80" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/80</a>. To resolve this, <code><a href="../reference/sort_clusters.html">sort_clusters()</a></code> and <code><a href="../reference/get_colors.html">get_colors()</a></code> had to change internally. Examples and documentation for both functions have now been updated to showcase what happens when you provide a <code><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical()</a></code> vector as an input.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.17.5" id="spatiallibd-1175">spatialLIBD 1.17.5<a class="anchor" aria-label="anchor" href="#spatiallibd-1175"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>Added <code><a href="../reference/add_qc_metrics.html">add_qc_metrics()</a></code> inspired by <a href="https://github.com/LieberInstitute/Visium_SPG_AD/blob/master/code/07_spot_qc/01_qc_metrics_and_segmentation.R" class="external-link uri">https://github.com/LieberInstitute/Visium_SPG_AD/blob/master/code/07_spot_qc/01_qc_metrics_and_segmentation.R</a> which adds seven new columns to the <code>colData(spe)</code> that can be useful when performing quality control of the data. Developed by <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a>.</li>
+<ul><li>Added <code><a href="../reference/add_qc_metrics.html">add_qc_metrics()</a></code> inspired by <a href="https://github.com/LieberInstitute/Visium_SPG_AD/blob/master/code/07_spot_qc/01_qc_metrics_and_segmentation.R" class="external-link uri">https://github.com/LieberInstitute/Visium_SPG_AD/blob/master/code/07_spot_qc/01_qc_metrics_and_segmentation.R</a> which adds seven new columns to the <code>colData(spe)</code> that can be useful when performing quality control of the data. Developed by 1.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.17.3" id="spatiallibd-1173">spatialLIBD 1.17.3<a class="anchor" aria-label="anchor" href="#spatiallibd-1173"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>Added support for <code>SpatialExperiment</code> objects created with <code>visiumStitched::build_spe()</code> <a href="https://research.libd.org/visiumStitched/reference/build_spe.html" class="external-link uri">https://research.libd.org/visiumStitched/reference/build_spe.html</a> that stitch together multiple Visium capture areas. Developed by 1.</li>
+<ul><li>Added support for <code>SpatialExperiment</code> objects created with <code>visiumStitched::build_spe()</code> <a href="https://research.libd.org/visiumStitched/reference/build_spe.html" class="external-link uri">https://research.libd.org/visiumStitched/reference/build_spe.html</a> that stitch together multiple Visium capture areas. Developed by 2.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.15.2" id="spatiallibd-1152">spatialLIBD 1.15.2<a class="anchor" aria-label="anchor" href="#spatiallibd-1152"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
 <ul><li>
-<code><a href="../reference/vis_gene.html">vis_gene()</a></code> now has a <code>multi_gene_method</code> argument which provides 3 methods for combining multiple continuous variables: <code>z_score</code>, <code>pca</code>, and <code>sparsity</code>. These options can now be used with <code><a href="../reference/run_app.html">run_app()</a></code> (the interactive websites). These methods are further illustrated and documented in a new vignette available at <a href="https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html" class="external-link uri">https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html</a>. This work was contributed by 1.</li>
+<code><a href="../reference/vis_gene.html">vis_gene()</a></code> now has a <code>multi_gene_method</code> argument which provides 3 methods for combining multiple continuous variables: <code>z_score</code>, <code>pca</code>, and <code>sparsity</code>. These options can now be used with <code><a href="../reference/run_app.html">run_app()</a></code> (the interactive websites). These methods are further illustrated and documented in a new vignette available at <a href="https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html" class="external-link uri">https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html</a>. This work was contributed by 2.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.13.6" id="spatiallibd-1136">spatialLIBD 1.13.6<a class="anchor" aria-label="anchor" href="#spatiallibd-1136"></a></h2>
@@ -215,7 +222,7 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.13.2" id="spatiallibd-1132">spatialLIBD 1.13.2<a class="anchor" aria-label="anchor" href="#spatiallibd-1132"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>Louise A. Huuki-Myers <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a> added a vignette explaining the spatial registration process and all related functions. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/46" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/46</a> for the full pull request.</li>
+<ul><li>Louise A. Huuki-Myers 1 added a vignette explaining the spatial registration process and all related functions. See <a href="https://github.com/LieberInstitute/spatialLIBD/pull/46" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/46</a> for the full pull request.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.11.13" id="spatiallibd-11113">spatialLIBD 1.11.13<a class="anchor" aria-label="anchor" href="#spatiallibd-11113"></a></h2>
@@ -249,12 +256,12 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.11.4" id="spatiallibd-1114">spatialLIBD 1.11.4<a class="anchor" aria-label="anchor" href="#spatiallibd-1114"></a></h2>
 <p>SIGNIFICANT USER-VISIBLE CHANGES</p>
-<ul><li>Several changes were made to the default plotting aspect of <code><a href="../reference/vis_gene.html">vis_gene()</a></code>, <code><a href="../reference/vis_clus.html">vis_clus()</a></code> and related plotting functions. This was done with input from <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a> and <a href="https://github.com/nick-eagles" class="external-link">@nick-eagles</a> and is described in more detail at <a href="https://github.com/LieberInstitute/spatialLIBD/commit/8fa8459d8fa881d254824d43e52193bf2c3021c0" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/commit/8fa8459d8fa881d254824d43e52193bf2c3021c0</a>. Most noticeably, the aspect ratio is no longer stretched to fill the plotting area, the NA values will be shown with a light grey that has alpha blending, and the position of the legends has been made consistent between the plots.</li>
+<ul><li>Several changes were made to the default plotting aspect of <code><a href="../reference/vis_gene.html">vis_gene()</a></code>, <code><a href="../reference/vis_clus.html">vis_clus()</a></code> and related plotting functions. This was done with input from 1 and <a href="https://github.com/nick-eagles" class="external-link">@nick-eagles</a> and is described in more detail at <a href="https://github.com/LieberInstitute/spatialLIBD/commit/8fa8459d8fa881d254824d43e52193bf2c3021c0" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/commit/8fa8459d8fa881d254824d43e52193bf2c3021c0</a>. Most noticeably, the aspect ratio is no longer stretched to fill the plotting area, the NA values will be shown with a light grey that has alpha blending, and the position of the legends has been made consistent between the plots.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.11.3" id="spatiallibd-1113">spatialLIBD 1.11.3<a class="anchor" aria-label="anchor" href="#spatiallibd-1113"></a></h2>
 <p>NEW FEATURES</p>
-<ul><li>Added the function <code><a href="../reference/frame_limits.html">frame_limits()</a></code> and introduced the <code>auto_crop</code> argument to <code><a href="../reference/vis_clus.html">vis_clus()</a></code>, <code><a href="../reference/vis_gene.html">vis_gene()</a></code> and all related functions. This new function enables automatically cropping the image and thus adjusting the plotting area which is useful in cases where the image is not centered and is not a square. This was based on work by <a href="https://github.com/lahuuki" class="external-link">@lahuuki</a> at <a href="https://github.com/LieberInstitute/spatialDLPFC/blob/2dfb58db728c86875a86cc7b4999680ba1f34c38/code/analysis/99_spatial_plotting/01_get_frame_limits.R" class="external-link uri">https://github.com/LieberInstitute/spatialDLPFC/blob/2dfb58db728c86875a86cc7b4999680ba1f34c38/code/analysis/99_spatial_plotting/01_get_frame_limits.R</a> and <a href="https://github.com/LieberInstitute/spatialDLPFC/blob/ef2952a5a0098a36b09488ebd5e36a902bb11b48/code/analysis/99_spatial_plotting/vis_gene_crop.R" class="external-link uri">https://github.com/LieberInstitute/spatialDLPFC/blob/ef2952a5a0098a36b09488ebd5e36a902bb11b48/code/analysis/99_spatial_plotting/vis_gene_crop.R</a>.</li>
+<ul><li>Added the function <code><a href="../reference/frame_limits.html">frame_limits()</a></code> and introduced the <code>auto_crop</code> argument to <code><a href="../reference/vis_clus.html">vis_clus()</a></code>, <code><a href="../reference/vis_gene.html">vis_gene()</a></code> and all related functions. This new function enables automatically cropping the image and thus adjusting the plotting area which is useful in cases where the image is not centered and is not a square. This was based on work by 1 at <a href="https://github.com/LieberInstitute/spatialDLPFC/blob/2dfb58db728c86875a86cc7b4999680ba1f34c38/code/analysis/99_spatial_plotting/01_get_frame_limits.R" class="external-link uri">https://github.com/LieberInstitute/spatialDLPFC/blob/2dfb58db728c86875a86cc7b4999680ba1f34c38/code/analysis/99_spatial_plotting/01_get_frame_limits.R</a> and <a href="https://github.com/LieberInstitute/spatialDLPFC/blob/ef2952a5a0098a36b09488ebd5e36a902bb11b48/code/analysis/99_spatial_plotting/vis_gene_crop.R" class="external-link uri">https://github.com/LieberInstitute/spatialDLPFC/blob/ef2952a5a0098a36b09488ebd5e36a902bb11b48/code/analysis/99_spatial_plotting/vis_gene_crop.R</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.9.18" id="spatiallibd-1918">spatialLIBD 1.9.18<a class="anchor" aria-label="anchor" href="#spatiallibd-1918"></a></h2>
@@ -281,7 +288,7 @@
 <h2 class="page-header" data-toc-text="1.9.11" id="spatiallibd-1911">spatialLIBD 1.9.11<a class="anchor" aria-label="anchor" href="#spatiallibd-1911"></a></h2>
 <p>BUG FIXES</p>
 <ul><li>Fixed bugs in <code><a href="../reference/gene_set_enrichment.html">gene_set_enrichment()</a></code> for <code>reverse = TRUE</code> reported by</li>
-</ul><ol start="2" class="example" style="list-style-type: decimal"><li>
+</ul><ol start="3" class="example" style="list-style-type: decimal"><li>
 </li></ol><ul><li>Added a <code>reverse</code> option on the shiny app under the gene set enrichment tab, that we tested with the example <code>spe</code> data.</li>
 </ul></div>
     <div class="section level2">
@@ -302,18 +309,18 @@
 <h2 class="page-header" data-toc-text="1.9.5" id="spatiallibd-195">spatialLIBD 1.9.5<a class="anchor" aria-label="anchor" href="#spatiallibd-195"></a></h2>
 <p>BUG FIXES</p>
 <ul><li>Fix <a href="https://github.com/LieberInstitute/spatialLIBD/issues/41" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/41</a>. Reported by</li>
-</ul><ol start="3" class="example" style="list-style-type: decimal"><li>Now the gene selector changes automatically when you change the ‘model results’ (model type) or ‘model test’ inputs. The gene selector is now only shown inside the ‘model boxplots’ panel since it only affects that one.</li>
+</ul><ol start="4" class="example" style="list-style-type: decimal"><li>Now the gene selector changes automatically when you change the ‘model results’ (model type) or ‘model test’ inputs. The gene selector is now only shown inside the ‘model boxplots’ panel since it only affects that one.</li>
 </ol></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.9.4" id="spatiallibd-194">spatialLIBD 1.9.4<a class="anchor" aria-label="anchor" href="#spatiallibd-194"></a></h2>
 <p>BUG FIXES</p>
 <ul><li>Fix <a href="https://github.com/LieberInstitute/spatialLIBD/issues/40" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/40</a>. Reported by</li>
-</ul><ol start="4" class="example" style="list-style-type: decimal"><li>
+</ul><ol start="5" class="example" style="list-style-type: decimal"><li>
 </li></ol></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.9.3" id="spatiallibd-193">spatialLIBD 1.9.3<a class="anchor" aria-label="anchor" href="#spatiallibd-193"></a></h2>
 <p>BUG FIXES</p>
-<ul><li>Added a more informative error message when ‘stats’ does not have ENSEMBL gene IDs as the <code><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames()</a></code>. Reported by 3 and 2 at <a href="https://github.com/LieberInstitute/spatialLIBD/issues/33#issuecomment-1137544893" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/33#issuecomment-1137544893</a>
+<ul><li>Added a more informative error message when ‘stats’ does not have ENSEMBL gene IDs as the <code><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames()</a></code>. Reported by 4 and 3 at <a href="https://github.com/LieberInstitute/spatialLIBD/issues/33#issuecomment-1137544893" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/issues/33#issuecomment-1137544893</a>
 </li>
 </ul></div>
     <div class="section level2">
