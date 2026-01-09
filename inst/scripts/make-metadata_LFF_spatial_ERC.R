@@ -47,7 +47,16 @@ meta <- data.frame(
         "list",
         "list"
     ),
-    DispatchClass = c("FilePath", "Rds", "Rds", "FilePath", "Rds", "Rds", "Rds", "Rds"),
+    DispatchClass = c(
+        "FilePath",
+        "Rds",
+        "Rds",
+        "FilePath",
+        "Rds",
+        "Rds",
+        "Rds",
+        "Rds"
+    ),
     RDataPath = file.path(
         pkgname,
         outdir,
@@ -75,7 +84,10 @@ write.csv(
 
 ## Check
 if (FALSE) {
-    AnnotationHubData::makeAnnotationHubMetadata(here::here(), fileName = "metadata_LFF_spatial_ERC.csv")
+    AnnotationHubData::makeAnnotationHubMetadata(
+        here::here(),
+        fileName = "metadata_LFF_spatial_ERC.csv"
+    )
 }
 
 ## Reproducibility information
