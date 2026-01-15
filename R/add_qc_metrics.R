@@ -71,7 +71,7 @@
 #' ## Visualize scran QC flags
 #'
 #' ## Check the spots with low library size as detected by scran::isOutlier()
-#' vis_clus(spe_qc, sample_id = "Br6432_ant", clustervar = "scran_low_lib_size")
+#' vis_clus(spe_qc, sampleid = "Br6432_ant", clustervar = "scran_low_lib_size")
 #'
 #' ## Violin plot of library size with low library size highlighted in a
 #' ## different color.
