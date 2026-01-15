@@ -25,6 +25,8 @@
 #' * `ID` name of gene set.
 #' * `model_type` record of input model type from `modeling results`.
 #' * `fdr_cut` record of input `frd_cut`.
+#' * `GeneList` List of gene names from input set with `fdr < fdr_cut` and
+#' `t_stat > 0`, possible that some gene_names are missing from modeling data.
 #'
 #' @export
 #' @importFrom stats fisher.test
@@ -68,11 +70,13 @@
 #' ## Explore the results
 #' asd_sfari_enrichment
 gene_set_enrichment <-
-    function(gene_list,
-    fdr_cut = 0.1,
-    modeling_results = fetch_data(type = "modeling_results"),
-    model_type = names(modeling_results)[1],
-    reverse = FALSE) {
+    function(
+        gene_list,
+        fdr_cut = 0.1,
+        modeling_results = fetch_data(type = "modeling_results"),
+        model_type = names(modeling_results)[1],
+        reverse = FALSE
+    ) {
         model_results <- modeling_results[[model_type]]
 
         ## Keep only the genes present
@@ -89,7 +93,10 @@ gene_set_enrichment <-
                 "Gene list with n < ",
                 min_genes,
                 " may have insufficent power for enrichment analysis: ",
-                paste(names(geneList_length)[geneList_length < 200], collapse = " ,")
+                paste(
+                    names(geneList_length)[geneList_length < 200],
+                    collapse = " ,"
+                )
             )
         }
 
@@ -102,9 +109,13 @@ gene_set_enrichment <-
             tstats <- tstats * -1
             if (model_type == "pairwise") {
                 colnames(tstats) <-
-                    vapply(strsplit(colnames(tstats), "-"), function(x) {
-                        paste(rev(x), collapse = "-")
-                    }, character(1))
+                    vapply(
+                        strsplit(colnames(tstats), "-"),
+                        function(x) {
+                            paste(rev(x), collapse = "-")
+                        },
+                        character(1)
+                    )
             } else if (model_type == "anova") {
                 stop(
                     "reverse = TRUE does not work with model_type = anova since F-statistics cannot have negative values.",
@@ -116,39 +127,75 @@ gene_set_enrichment <-
         fdrs <-
             model_results[, grep("fdr_", colnames(model_results))]
 
-
         enrichTab <-
-            do.call(rbind, lapply(seq(along.with = tstats), function(i) {
-                layer <- tstats[, i] > 0 & fdrs[, i] < fdr_cut
-                tabList <- lapply(geneList_present, function(g) {
-                    table(
-                        Set = factor(model_results$ensembl %in% g, c(FALSE, TRUE)),
-                        Layer = factor(layer, c(FALSE, TRUE))
-                    )
-                })
+            do.call(
+                rbind,
+                lapply(seq(along.with = tstats), function(i) {
+                    layer <- tstats[, i] > 0 & fdrs[, i] < fdr_cut
+                    tabList <- lapply(geneList_present, function(g) {
+                        table(
+                            Set = factor(
+                                model_results$ensembl %in% g,
+                                c(FALSE, TRUE)
+                            ),
+                            Layer = factor(layer, c(FALSE, TRUE))
+                        )
+                    })
 
-                enrichList <-
-                    lapply(tabList, fisher.test, alternative = "greater")
-                o <- data.frame(
-                    OR = vapply(enrichList, "[[", numeric(1), "estimate"),
-                    Pval = vapply(enrichList, "[[", numeric(1), "p.value"),
-                    test = colnames(tstats)[i],
-                    NumSig = vapply(tabList, function(x) {
-                        x[2, 2]
-                    }, integer(1)),
-                    SetSize = vapply(geneList_present, length, integer(1)),
-                    stringsAsFactors = FALSE
-                )
-                o$ID <- gsub(".odds ratio", "", rownames(o))
-                rownames(o) <- NULL
-                return(o)
-            }))
+                    ## get list of genes
+                    ensembl_list <- model_results$ensembl[layer]
+                    gene_name_list <- model_results$gene[layer]
+
+                    sig_geneList <- lapply(geneList_present, function(g) {
+                        gene_name_list[ensembl_list %in% g]
+                    })
+
+                    enrichList <-
+                        lapply(tabList, fisher.test, alternative = "greater")
+                    o <- data.frame(
+                        OR = vapply(enrichList, "[[", numeric(1), "estimate"),
+                        Pval = vapply(enrichList, "[[", numeric(1), "p.value"),
+                        test = colnames(tstats)[i],
+                        NumSig = vapply(
+                            tabList,
+                            function(x) {
+                                x[2, 2]
+                            },
+                            integer(1)
+                        ),
+                        SetSize = vapply(geneList_present, length, integer(1)),
+                        GeneList = vapply(
+                            sig_geneList,
+                            function(x) {
+                                paste0(x, collapse = ", ")
+                            },
+                            character(1)
+                        ),
+                        stringsAsFactors = FALSE
+                    )
+                    o$ID <- gsub(".odds ratio", "", rownames(o))
+                    rownames(o) <- NULL
+                    return(o)
+                })
+            )
 
         enrichTab$model_type <- model_type
         if (model_type == "enrichment" && reverse) {
             enrichTab$model_type <- "depletion"
         }
         enrichTab$fdr_cut <- fdr_cut
+
+        enrichTab <- enrichTab[, c(
+            'OR',
+            'Pval',
+            'test',
+            'NumSig',
+            'SetSize',
+            'ID',
+            'model_type',
+            'fdr_cut',
+            'GeneList'
+        )]
 
         return(enrichTab)
     }

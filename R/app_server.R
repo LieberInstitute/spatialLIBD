@@ -27,11 +27,13 @@ app_server <- function(input, output, session) {
     default_cluster <- golem::get_golem_options("default_cluster")
     is_stitched <- golem::get_golem_options("is_stitched")
 
-
     # List the first level callModules here
 
     ## Global variables needed throughout the app
-    rv <- reactiveValues(ManualAnnotation = rep("NA", ncol(spe)), ContCount = data.frame(key = spe$key, COUNT = NA))
+    rv <- reactiveValues(
+        ManualAnnotation = rep("NA", ncol(spe)),
+        ContCount = data.frame(key = spe$key, COUNT = NA)
+    )
 
     ## From /dcs04/lieber/lcolladotor/with10x_LIBD001/HumanPilot/Analysis/rda_scran/clust_10x_layer_maynard_martinowich.Rdata
     # cat(paste0("'", names(cols_layers_martinowich), "' = '", cols_layers_martinowich, "',\n"))
@@ -67,7 +69,10 @@ app_server <- function(input, output, session) {
             current_n <- length(unique(colData(spe)[[isolate(input$cluster)]]))
         }
 
-        preferred_choice <- colnames(colData(spe))[grep(paste0(isolate(input$cluster), "_colors$"), colnames(colData(spe)))]
+        preferred_choice <- colnames(colData(spe))[grep(
+            paste0(isolate(input$cluster), "_colors$"),
+            colnames(colData(spe))
+        )]
 
         choices <- c(
             preferred_choice,
@@ -106,18 +111,29 @@ app_server <- function(input, output, session) {
                 direction = ifelse(input$clustercolor_direction, -1, 1)
             )
             names(colors) <- unique(rv$ManualAnnotation)
-        } else if (input$cluster %in% c("layer_guess", "layer_guess_reordered")) {
+        } else if (
+            input$cluster %in% c("layer_guess", "layer_guess_reordered")
+        ) {
             colors <- cols_layers_paper()
-        } else if (input$cluster %in% c("layer_guess_reordered_short", "spatialLIBD")) {
+        } else if (
+            input$cluster %in% c("layer_guess_reordered_short", "spatialLIBD")
+        ) {
             colors <- cols_layers_paper_short()
-        } else if (input$clustercolor %in% colnames(colData(spe)) &&
-            is.factor(colData(spe)[[input$cluster]])) {
+        } else if (
+            input$clustercolor %in%
+                colnames(colData(spe)) &&
+                is.factor(colData(spe)[[input$cluster]])
+        ) {
             colors <-
-                colData(spe)[[input$clustercolor]][unique(names(colData(spe)[[input$clustercolor]]))]
+                colData(spe)[[input$clustercolor]][unique(names(colData(spe)[[
+                    input$clustercolor
+                ]]))]
             colors <- colors[levels(colData(spe)[[input$cluster]])]
         } else if (input$clustercolor %in% colnames(colData(spe))) {
             colors <-
-                colData(spe)[[input$clustercolor]][unique(names(colData(spe)[[input$clustercolor]]))]
+                colData(spe)[[input$clustercolor]][unique(names(colData(spe)[[
+                    input$clustercolor
+                ]]))]
         } else {
             colors <- paletteer::paletteer_d(
                 palette = input$clustercolor,
@@ -160,7 +176,8 @@ app_server <- function(input, output, session) {
             alpha = input$alphalevel,
             point_size = input$pointsize,
             auto_crop = input$auto_crop,
-            is_stitched = is_stitched,
+            is_stitched = is_stitched,         
+            guide_point_size = input$guidepointsize,
             title_suffix = paste("with", input$cluster)
         )
         if (!input$side_by_side_histology) {
@@ -202,8 +219,9 @@ app_server <- function(input, output, session) {
                 point_size = isolate(input$pointsize),
                 auto_crop = isolate(input$auto_crop),
                 is_stitched = is_stitched,
+                guide_point_size = isolate(input$guidepointsize),
                 title_suffix = paste("with", isolate(input$cluster))
-            )
+                )
         cowplot::plot_grid(
             plotlist = plots,
             nrow = isolate(input$grid_nrow),
@@ -241,7 +259,8 @@ app_server <- function(input, output, session) {
                     p_result <- cowplot::plot_grid(
                         plotlist = list(
                             p_no_spots,
-                            p_no_spatial + ggplot2::theme(legend.position = "none")
+                            p_no_spatial +
+                                ggplot2::theme(legend.position = "none")
                         ),
                         nrow = 1,
                         ncol = 2
@@ -282,7 +301,10 @@ app_server <- function(input, output, session) {
                     )
             },
             warning = function(w) {
-                gene_grid_warnings <<- c(gene_grid_warnings, conditionMessage(w))
+                gene_grid_warnings <<- c(
+                    gene_grid_warnings,
+                    conditionMessage(w)
+                )
                 invokeRestart("muffleWarning")
             }
         )
@@ -368,8 +390,6 @@ app_server <- function(input, output, session) {
         updateNumericInput(inputId = "editImg_median_radius", value = NA)
         updateCheckboxInput(inputId = "editImg_negate", value = FALSE)
     })
-
-
 
     ## Download static plots as PDFs
     output$downloadPlotHistology <- downloadHandler(
@@ -523,7 +543,6 @@ app_server <- function(input, output, session) {
         height = 600
     )
 
-
     output$grid_static <- renderUI({
         input$grid_update
 
@@ -571,7 +590,6 @@ app_server <- function(input, output, session) {
         }
     })
 
-
     output$gene_grid_static <- renderUI({
         input$gene_grid_update
 
@@ -617,7 +635,6 @@ app_server <- function(input, output, session) {
         height = 600
     )
 
-
     ## Plotly versions
     output$histology_plotly <- renderPlotly({
         if (input$cluster == "ManualAnnotation") {
@@ -646,18 +663,19 @@ app_server <- function(input, output, session) {
 
         ## Read in the histology image
         img <-
-            SpatialExperiment::imgRaster(spe,
+            SpatialExperiment::imgRaster(
+                spe,
                 sample_id = sampleid,
                 image_id = input$imageid
             )
         if (input$auto_crop) {
             frame_lims <-
-                frame_limits(spe,
-                    sampleid = sampleid,
-                    image_id = input$imageid
-                )
+                frame_limits(spe, sampleid = sampleid, image_id = input$imageid)
             img <-
-                img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
+                img[
+                    frame_lims$y_min:frame_lims$y_max,
+                    frame_lims$x_min:frame_lims$x_max
+                ]
         }
 
         ## From vis_gene() in global.R
@@ -672,13 +690,17 @@ app_server <- function(input, output, session) {
         }
 
         d <-
-            as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)),
+            as.data.frame(
+                cbind(
+                    colData(spe_sub),
+                    SpatialExperiment::spatialCoords(spe_sub)
+                ),
                 optional = TRUE
             )
         #   Grab any continuous colData columns
         cont_cols <- as.matrix(
-            colData(spe_sub)[
-                , geneid[geneid %in% colnames(colData(spe_sub))],
+            colData(spe_sub)[,
+                geneid[geneid %in% colnames(colData(spe_sub))],
                 drop = FALSE
             ]
         )
@@ -707,11 +729,18 @@ app_server <- function(input, output, session) {
         if (ncol(cont_matrix) == 1) {
             if (!(geneid %in% colnames(colData(spe_sub)))) {
                 plot_title <- sprintf(
-                    "%s %s %s min > %s", sampleid, geneid, assayname, minCount
+                    "%s %s %s min > %s",
+                    sampleid,
+                    geneid,
+                    assayname,
+                    minCount
                 )
             } else {
                 plot_title <- sprintf(
-                    "%s %s min > %s", sampleid, geneid, minCount
+                    "%s %s min > %s",
+                    sampleid,
+                    geneid,
+                    minCount
                 )
             }
             d$COUNT <- cont_matrix[, 1]
@@ -722,7 +751,8 @@ app_server <- function(input, output, session) {
             } else if (input$multi_gene_method == "sparsity") {
                 d$COUNT <- multi_gene_sparsity(cont_matrix)
                 plot_title <- paste(sampleid, "Prop. nonzero min > ", minCount)
-            } else { # must be 'pca'
+            } else {
+                # must be 'pca'
                 d$COUNT <- multi_gene_pca(cont_matrix)
                 plot_title <- paste(sampleid, "PC1 min >", minCount)
             }
@@ -780,12 +810,13 @@ app_server <- function(input, output, session) {
             alpha = input$alphalevel,
             point_size = point_size,
             auto_crop = input$auto_crop
-        ) + geom_point(
-            shape = 21,
-            size = point_size,
-            stroke = 0,
-            alpha = input$alphalevel
-        )
+        ) +
+            geom_point(
+                shape = 21,
+                size = point_size,
+                stroke = 0,
+                alpha = input$alphalevel
+            )
 
         ## Make the reduced dimensions ggplot
         if (reduced_name != "") {
@@ -803,7 +834,12 @@ app_server <- function(input, output, session) {
                     size = point_size,
                     stroke = 0
                 ) +
-                scale_fill_manual(values = get_colors(colors, colData(spe)[[clustervar]][spe$sample_id == sampleid])) +
+                scale_fill_manual(
+                    values = get_colors(
+                        colors,
+                        colData(spe)[[clustervar]][spe$sample_id == sampleid]
+                    )
+                ) +
                 guides(fill = "none") +
                 ggtitle("") +
                 theme_set(theme_bw(base_size = 20)) +
@@ -835,16 +871,17 @@ app_server <- function(input, output, session) {
             p_dim <- p_dim_gene <- ggplot(d_key, aes(key = key))
         }
 
-        p_dim_gene <- p_dim_gene + scale_fill_gradientn(
-            colors = cont_colors(),
-            na.value = "#CCCCCC40",
-            guide = "none"
-        ) + scale_color_gradientn(
-            colors = cont_colors(),
-            na.value = "#CCCCCC40",
-            guide = "none"
-        )
-
+        p_dim_gene <- p_dim_gene +
+            scale_fill_gradientn(
+                colors = cont_colors(),
+                na.value = "#CCCCCC40",
+                guide = "none"
+            ) +
+            scale_color_gradientn(
+                colors = cont_colors(),
+                na.value = "#CCCCCC40",
+                guide = "none"
+            )
 
         p_dim_gene <- p_dim_gene +
             ggtitle("") +
@@ -962,13 +999,14 @@ app_server <- function(input, output, session) {
         ## Restore some axis titles for the reduced dim plot
         plotly_merged$x$layout$xaxis3$title <-
             plotly_merged$x$layout$xaxis4$title <-
-            plotly_dim$x$layout$xaxis$title
+                plotly_dim$x$layout$xaxis$title
         plotly_merged$x$layout$yaxis2$title <-
             plotly_dim$x$layout$yaxis$title
 
         ## Make the linked (client-side) plot
         suppressMessages(suppressWarnings(toWebGL(
-            highlight(plotly_merged,
+            highlight(
+                plotly_merged,
                 on = "plotly_selected",
                 off = "plotly_deselect"
             )
@@ -1003,7 +1041,8 @@ app_server <- function(input, output, session) {
                 rv$ManualAnnotation %in% input$gene_plotly_cluster_subset
         } else {
             cluster_opts <-
-                as.character(colData(spe)[[input$cluster]]) %in% input$gene_plotly_cluster_subset
+                as.character(colData(spe)[[input$cluster]]) %in%
+                input$gene_plotly_cluster_subset
         }
         ## For when you change the input$cluster and no data is available yet
         if (sum(cluster_opts) == 0) {
@@ -1039,18 +1078,23 @@ app_server <- function(input, output, session) {
 
         ## Read in the histology image
         img <-
-            SpatialExperiment::imgRaster(spe,
+            SpatialExperiment::imgRaster(
+                spe,
                 sample_id = input$sample,
                 image_id = input$imageid
             )
         if (input$auto_crop) {
             frame_lims <-
-                frame_limits(spe,
+                frame_limits(
+                    spe,
                     sampleid = input$sample,
                     image_id = input$imageid
                 )
             img <-
-                img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
+                img[
+                    frame_lims$y_min:frame_lims$y_max,
+                    frame_lims$x_min:frame_lims$x_max
+                ]
         }
 
         suppressMessages(suppressWarnings(toWebGL(
@@ -1082,11 +1126,6 @@ app_server <- function(input, output, session) {
             )
         )))
     })
-
-
-
-
-
 
     observeEvent(input$update_manual_ann, {
         event.data <-
@@ -1137,7 +1176,11 @@ app_server <- function(input, output, session) {
 
     output$click_gene <- renderPrint({
         if (!is.null(input$gene_plotly_cluster_subset)) {
-            event.data <- event_data("plotly_click", source = "plotly_gene", priority = "event")
+            event.data <- event_data(
+                "plotly_click",
+                source = "plotly_gene",
+                priority = "event"
+            )
         } else {
             event.data <- NULL
         }
@@ -1158,18 +1201,20 @@ app_server <- function(input, output, session) {
     })
 
     ## Raw summary
-    output$raw_summary <- renderPrint(print(spe),
-        width = 80
-    )
+    output$raw_summary <- renderPrint(print(spe), width = 80)
 
     ## Download results
     output$downloadData <- downloadHandler(
         filename = function() {
-            gsub(":", "-", gsub(
-                " ",
-                "_",
-                paste0("spatialLIBD_ManualAnnotation_", Sys.time(), ".csv")
-            ))
+            gsub(
+                ":",
+                "-",
+                gsub(
+                    " ",
+                    "_",
+                    paste0("spatialLIBD_ManualAnnotation_", Sys.time(), ".csv")
+                )
+            )
         },
         content = function(file) {
             current <- data.frame(
@@ -1216,7 +1261,8 @@ app_server <- function(input, output, session) {
                     )
                 m <- match(previous_work$key, spe$key)
                 if (all(is.na(m))) {
-                    stop("Cannot use previous manual annotations.",
+                    stop(
+                        "Cannot use previous manual annotations.",
                         call. = FALSE
                     )
                 }
@@ -1226,15 +1272,11 @@ app_server <- function(input, output, session) {
         }
     })
 
-
-
     #####################
     ### Layer portion ###
     #####################
 
-    output$layer_raw_summary <- renderPrint(print(sce_layer),
-        width = 80
-    )
+    output$layer_raw_summary <- renderPrint(print(sce_layer), width = 80)
 
     # Set the options based on the model
     observeEvent(input$layer_model, {
@@ -1251,34 +1293,45 @@ app_server <- function(input, output, session) {
     })
 
     # Set the genes based on the model test
-    observeEvent(!is.null(input$layer_model) &&
-        !is.null(input$layer_model_test), {
-        if (!is.null(input$layer_model) &&
-            !is.null(input$layer_model_test)) {
-            model_test_i <-
-                which(
-                    sig_genes$model_type == input$layer_model &
-                        sig_genes$test == input$layer_model_test
+    observeEvent(
+        !is.null(input$layer_model) &&
+            !is.null(input$layer_model_test),
+        {
+            if (
+                !is.null(input$layer_model) &&
+                    !is.null(input$layer_model_test)
+            ) {
+                model_test_i <-
+                    which(
+                        sig_genes$model_type == input$layer_model &
+                            sig_genes$test == input$layer_model_test
+                    )
+                current <- input$layer_geneid
+                if (is.null(current)) {
+                    current <- sort(rowData(sce_layer)$gene_search)[1]
+                }
+                new_gene <- ifelse(
+                    current %in%
+                        rowData(sce_layer)$gene_search[sig_genes$gene_index[
+                            model_test_i
+                        ]],
+                    current,
+                    sort(rowData(sce_layer)$gene_search[sig_genes$gene_index[
+                        model_test_i
+                    ]])[1]
                 )
-            current <- input$layer_geneid
-            if (is.null(current)) {
-                current <- sort(rowData(sce_layer)$gene_search)[1]
+                updatePickerInput(
+                    session,
+                    inputId = "layer_geneid",
+                    choices = sort(rowData(
+                        sce_layer
+                    )$gene_search[sig_genes$gene_index[model_test_i]]),
+                    selected = new_gene,
+                    options = pickerOptions(liveSearch = TRUE)
+                )
             }
-            new_gene <- ifelse(
-                current %in% rowData(sce_layer)$gene_search[sig_genes$gene_index[model_test_i]],
-                current,
-                sort(rowData(sce_layer)$gene_search[sig_genes$gene_index[model_test_i]])[1]
-            )
-            updatePickerInput(
-                session,
-                inputId = "layer_geneid",
-                choices =
-                    sort(rowData(sce_layer)$gene_search[sig_genes$gene_index[model_test_i]]),
-                selected = new_gene,
-                options = pickerOptions(liveSearch = TRUE)
-            )
         }
-    })
+    )
 
     ## layer static plots
     observeEvent(input$layer_which_dim, {
@@ -1286,7 +1339,8 @@ app_server <- function(input, output, session) {
             inputId = "layer_reduced_dim_ncomponents",
             value = 2,
             max = ncol(reducedDim(
-                sce_layer, input$layer_which_dim
+                sce_layer,
+                input$layer_which_dim
             ))
         )
     })
@@ -1301,37 +1355,55 @@ app_server <- function(input, output, session) {
             ncomponents = input$layer_reduced_dim_ncomponents,
             label_format = c("%s %02i", " (%i%%)")
         )
-        if (input$layer_which_dim_color %in% c(
-            "layer_guess",
-            "layer_guess_reordered"
-        )) {
+        if (
+            input$layer_which_dim_color %in%
+                c(
+                    "layer_guess",
+                    "layer_guess_reordered"
+                )
+        ) {
             p <-
-                p + ggplot2::scale_color_manual(
+                p +
+                ggplot2::scale_color_manual(
                     values = cols_layers_paper(),
                     name = "Layer"
                 )
-        } else if (input$layer_which_dim_color %in% "layer_guess_reordered_short") {
+        } else if (
+            input$layer_which_dim_color %in% "layer_guess_reordered_short"
+        ) {
             p <-
-                p + ggplot2::scale_color_manual(
+                p +
+                ggplot2::scale_color_manual(
                     values = cols_layers_paper_short(),
                     name = "Layer"
                 )
-        } else if (paste0(input$layer_which_dim_color, "_colors") %in% colnames(colData(sce_layer))) {
+        } else if (
+            paste0(input$layer_which_dim_color, "_colors") %in%
+                colnames(colData(sce_layer))
+        ) {
             p <-
-                p + ggplot2::scale_color_manual(
-                    values = colData(sce_layer)[[paste0(input$layer_which_dim_color, "_colors")]],
+                p +
+                ggplot2::scale_color_manual(
+                    values = colData(sce_layer)[[paste0(
+                        input$layer_which_dim_color,
+                        "_colors"
+                    )]],
                     name = input$layer_which_dim_color,
-                    labels = levels(colData(sce_layer)[[input$layer_which_dim_color]]),
-                    breaks = levels(colData(sce_layer)[[input$layer_which_dim_color]])
+                    labels = levels(colData(sce_layer)[[
+                        input$layer_which_dim_color
+                    ]]),
+                    breaks = levels(colData(sce_layer)[[
+                        input$layer_which_dim_color
+                    ]])
                 )
         }
         return(p)
     })
 
-
     static_layer_boxplot_i <- reactive({
         which(
-            sig_genes$gene_index == which(rowData(sce_layer)$gene_search == input$layer_geneid) &
+            sig_genes$gene_index ==
+                which(rowData(sce_layer)$gene_search == input$layer_geneid) &
                 sig_genes$test == input$layer_model_test &
                 sig_genes$model_type == input$layer_model
         )
@@ -1400,7 +1472,6 @@ app_server <- function(input, output, session) {
         )
     })
 
-
     static_layer_gene_set_enrichment <- reactive({
         if (!is.null(input$geneSet)) {
             gene_list <-
@@ -1423,8 +1494,12 @@ app_server <- function(input, output, session) {
             )
             asd_sfari_geneList <- list(
                 Gene_SFARI_all = asd_sfari$ensembl.id,
-                Gene_SFARI_high = asd_sfari$ensembl.id[asd_sfari$gene.score < 3],
-                Gene_SFARI_syndromic = asd_sfari$ensembl.id[asd_sfari$syndromic == 1]
+                Gene_SFARI_high = asd_sfari$ensembl.id[
+                    asd_sfari$gene.score < 3
+                ],
+                Gene_SFARI_syndromic = asd_sfari$ensembl.id[
+                    asd_sfari$syndromic == 1
+                ]
             )
             gene_list <- asd_sfari_geneList
         }
@@ -1454,7 +1529,6 @@ app_server <- function(input, output, session) {
             )
         )
     })
-
 
     static_layer_external_tstat <- reactive({
         if (!is.null(input$externalTstat)) {
@@ -1711,7 +1785,6 @@ app_server <- function(input, output, session) {
         height = 600
     )
 
-
     ## interactive tables
     layer_model_table_reactive <- reactive({
         as.data.frame(subset(
@@ -1738,7 +1811,8 @@ app_server <- function(input, output, session) {
         filter = "top",
         options = list(
             columnDefs = list(list(
-                className = "dt-center", targets = 1
+                className = "dt-center",
+                targets = 1
             )),
             pageLength = 10,
             lengthMenu = c(5, 10, 25, 50, 100),
@@ -1753,7 +1827,8 @@ app_server <- function(input, output, session) {
         filter = "top",
         options = list(
             columnDefs = list(list(
-                className = "dt-center", targets = 1
+                className = "dt-center",
+                targets = 1
             )),
             pageLength = 10,
             lengthMenu = c(5, 10, 25, 50, 100),
@@ -1768,7 +1843,8 @@ app_server <- function(input, output, session) {
         filter = "top",
         options = list(
             columnDefs = list(list(
-                className = "dt-center", targets = 1
+                className = "dt-center",
+                targets = 1
             )),
             pageLength = 10,
             lengthMenu = c(5, 10, 25, 50, 100),
@@ -1783,7 +1859,8 @@ app_server <- function(input, output, session) {
         filter = "top",
         options = list(
             columnDefs = list(list(
-                className = "dt-center", targets = 1
+                className = "dt-center",
+                targets = 1
             )),
             pageLength = 10,
             lengthMenu = c(5, 10, 25, 50, 100)
@@ -1909,6 +1986,7 @@ app_server <- function(input, output, session) {
                 )
             )
         },
+
         content = function(file) {
             write.csv(
                 static_layer_external_tstat_annotated_clusters(),
@@ -1918,8 +1996,6 @@ app_server <- function(input, output, session) {
             )
         }
     )
-
-
 
     ## Reproducibility info
     output$session_info <-

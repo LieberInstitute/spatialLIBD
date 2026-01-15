@@ -134,7 +134,7 @@ registration_wrapper <-
 
         ## Bundle results together
         modeling_results <- list(
-            "anova" = NULL,
+            "anova" = results_anova,
             "enrichment" = results_enrichment,
             "pairwise" = results_pairwise
         )

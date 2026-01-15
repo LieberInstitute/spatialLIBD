@@ -135,12 +135,27 @@ if (enough_ram()) {
         title_suffix = " LIBD Layers"
     )
     print(p4)
+    
+    ## edit plot point size but keep guide size larger
+    p5 <- vis_clus(
+        spe = spe,
+        clustervar = "layer_guess_reordered",
+        sampleid = "151673",
+        colors = libd_layer_colors,
+        na_color = "white",
+        point_size = 1,
+        guide_point_size = 3,
+        ... = " LIBD Layers"
+    )
+    print(p5)
+         
 }
 }
 \seealso{
 Other Spatial cluster visualization functions: 
 \code{\link{frame_limits}()},
 \code{\link{vis_clus_p}()},
-\code{\link{vis_grid_clus}()}
+\code{\link{vis_grid_clus}()},
+\code{\link{vis_image}()}
 }
 \concept{Spatial cluster visualization functions}

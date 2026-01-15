@@ -69,8 +69,10 @@ vis_grid_clus <-
     auto_crop = TRUE,
     na_color = "#CCCCCC40",
     is_stitched = FALSE,
+    guide_point_size = point_size,
     guides = c("all", "last", "none"),
-    title_suffix = NULL) {
+    title_suffix = NULL
+    ) {
       
       stopifnot(all(sample_order %in% unique(spe$sample_id)))
       ## check guides selection
@@ -82,7 +84,8 @@ vis_grid_clus <-
         }
         plots <-
             lapply(sample_order, function(sampleid) {
-                vis_clus(spe,
+                vis_clus(
+                    spe,
                     sampleid,
                     clustervar,
                     colors = colors,
@@ -92,7 +95,9 @@ vis_grid_clus <-
                     point_size = point_size,
                     auto_crop = auto_crop,
                     na_color = na_color,
-                    is_stitched = is_stitched
+                    is_stitched = is_stitched,
+                    guide_point_size = guide_point_size,
+                    title_suffix = title_suffix
                 )
             })
         names(plots) <- sample_order

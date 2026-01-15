@@ -1,3 +1,74 @@
+# spatialLIBD 1.23.2
+
+NEW FEATURES
+
+* `gene_set_enrichment()` now returns a `$GeneList` as implemented by 
+@lahuuki. See details at
+<https://github.com/LieberInstitute/spatialLIBD/pull/119>.
+
+# spatialLIBD 1.23.1
+
+NEW FEATURES
+
+* `fetch_data()` now provides access to all `LFF_spatial_ERC` project files
+associated with the preprint at <https://doi.org/10.1101/2025.11.20.689483>.
+@lahuuki added this information as part of
+<https://github.com/LieberInstitute/spatialLIBD/pull/118>.
+
+# spatialLIBD 1.21.6
+
+NEW FEATURES
+
+* `registration_pseudobulk()` will now create the `rowData()$gene_search` if
+`rowData()$gene_id` and `rowData()$gene_name` are present. This makes the output
+be more in sync with requirements for `run_app()`. See 
+<https://github.com/LieberInstitute/spatialLIBD/pull/115> for details.
+Implemented by @lahuuki.
+
+# spatialLIBD 1.21.4
+
+BUG FIXES
+
+* @manishabarse fixed a bug in `registration_wrapper()` which led to `NULL`
+results for `anova`. See
+<https://github.com/LieberInstitute/spatialLIBD/pull/110> for details.
+
+# spatialLIBD 1.21.3
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* @lahuuki edited `registration_pseudobulk()` to make it more compatible with
+`scran::pseudobulkDGE()`.See 
+<https://github.com/LieberInstitute/spatialLIBD/pull/108> for details.
+
+# spatialLIBD 1.21.2
+
+NEW FEATURES
+
+* @lahuuki added the `vis_image()` for plotting just the histology image. See 
+<https://github.com/LieberInstitute/spatialLIBD/pull/107> for details.
+
+# spatialLIBD 1.21.1
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* The documentation of `registration_pseudobulk()` has been expanded to further
+explain the `logcounts()` assay. That is, to highlight that this assay
+contains log2 CPM values computed with `edgeR::cpm()` and not log2 library-size
+normalized counts (as computed with `scuttle::logNormCounts()`).
+See <https://support.bioconductor.org/p/9161754> and 
+<https://github.com/LieberInstitute/spatialLIBD/issues/106> by @kinnaryshah
+for more details.
+
+# spatialLIBD 1.19.12
+
+NEW FEATURES
+
+* @lahuuki added `guide_point_size` as a argument to `vis_clus()` and
+`vis_grid_clus()`, which allows controlling the size of the points in the
+legends for the discrete variable plots. See 
+<https://github.com/LieberInstitute/spatialLIBD/pull/104> for more details.
+
 # spatialLIBD 1.19.11
 
 BUG FIXES

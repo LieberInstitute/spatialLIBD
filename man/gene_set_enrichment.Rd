@@ -54,6 +54,8 @@ modeling results.
 \item \code{ID} name of gene set.
 \item \code{model_type} record of input model type from \verb{modeling results}.
 \item \code{fdr_cut} record of input \code{frd_cut}.
+\item \code{GeneList} List of gene names from input set with \code{fdr < fdr_cut} and
+\code{t_stat > 0}, possible that some gene_names are missing from modeling data.
 }
 }
 \description{

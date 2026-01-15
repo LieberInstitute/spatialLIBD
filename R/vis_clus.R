@@ -39,6 +39,8 @@
 #' <http://research.libd.org/visiumStitched/reference/build_spe.html>; in
 #' particular, expects a logical colData column `exclude_overlapping`
 #' specifying which spots to exclude from the plot. Sets `auto_crop = FALSE`.
+#' @param guide_point_size A `numeric(1)` specifying the size of the points in 
+#' guide. Defaults to `point_size`. Increase to improve visability. 
 #' @param title_suffix A `character(1)` passed to [paste()][base::paste] to 
 #' modify the title of the plot following the `sampleid`.
 #'
@@ -102,6 +104,20 @@
 #'         title_suffix = " LIBD Layers"
 #'     )
 #'     print(p4)
+#'     
+#'     ## edit plot point size but keep guide size larger
+#'     p5 <- vis_clus(
+#'         spe = spe,
+#'         clustervar = "layer_guess_reordered",
+#'         sampleid = "151673",
+#'         colors = libd_layer_colors,
+#'         na_color = "white",
+#'         point_size = 1,
+#'         guide_point_size = 3,
+#'         ... = " LIBD Layers"
+#'     )
+#'     print(p5)
+#'          
 #' }
 vis_clus <- function(
         spe,
@@ -128,6 +144,7 @@ vis_clus <- function(
         auto_crop = TRUE,
         na_color = "#CCCCCC40",
         is_stitched = FALSE,
+        guide_point_size = point_size,
         title_suffix = NULL) {
     #   Verify existence and legitimacy of 'sampleid'
     if (
@@ -177,5 +194,6 @@ vis_clus <- function(
         point_size = point_size,
         auto_crop = auto_crop,
         na_color = na_color
-    )
+    ) + 
+      guides(fill = guide_legend(override.aes = list(size = guide_point_size)))
 }
