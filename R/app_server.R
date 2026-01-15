@@ -220,6 +220,7 @@ app_server <- function(input, output, session) {
                 auto_crop = isolate(input$auto_crop),
                 is_stitched = is_stitched,
                 guide_point_size = isolate(input$guidepointsize),
+                guides = isolate(input$guides),
                 title_suffix = paste("with", isolate(input$cluster))
                 )
         cowplot::plot_grid(

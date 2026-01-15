@@ -419,6 +419,12 @@ app_ui <- function() {
                                         value = 3,
                                         min = 1
                                     ),
+                                    selectInput(
+                                        "guides",
+                                        label = "Show guides",
+                                        choices = c("all", "last", "none"),
+                                        selected = "last"
+                                    ),
                                     actionButton(
                                         "grid_update",
                                         label = "Update grid plot"
