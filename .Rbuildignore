@@ -15,5 +15,6 @@ $run_dev.*
 ^codecov\.yml$
 ^\.github$
 ^spatialLIBD\.Rproj$
+^LICENSE$
 ^doc$
 ^Meta$
