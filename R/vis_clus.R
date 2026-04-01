@@ -41,8 +41,8 @@
 #' specifying which spots to exclude from the plot. Sets `auto_crop = FALSE`.
 #' @param guide_point_size A `numeric(1)` specifying the size of the points in 
 #' guide. Defaults to `point_size`. Increase to improve visability. 
-#' @param ... Passed to [paste0()][base::paste] for making the title of the
-#' plot following the `sampleid`.
+#' @param title_suffix A `character(1)` passed to [paste()][base::paste] to 
+#' modify the title of the plot following the `sampleid`.
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @family Spatial cluster visualization functions
@@ -66,7 +66,7 @@
 #'         clustervar = "layer_guess_reordered",
 #'         sampleid = "151673",
 #'         colors = libd_layer_colors,
-#'         ... = " LIBD Layers"
+#'         title_suffix = "LIBD Layers"
 #'     )
 #'     print(p1)
 #'
@@ -77,7 +77,7 @@
 #'         sampleid = "151673",
 #'         colors = libd_layer_colors,
 #'         auto_crop = FALSE,
-#'         ... = " LIBD Layers"
+#'         title_suffix = "LIBD Layers"
 #'     )
 #'     print(p2)
 #'
@@ -87,7 +87,7 @@
 #'         clustervar = "layer_guess_reordered",
 #'         sampleid = "151673",
 #'         colors = libd_layer_colors,
-#'         ... = " LIBD Layers",
+#'         title_suffix = " LIBD Layers",
 #'         spatial = FALSE
 #'     )
 #'     print(p3)
@@ -101,7 +101,7 @@
 #'         sampleid = "151673",
 #'         colors = libd_layer_colors,
 #'         na_color = "white",
-#'         ... = " LIBD Layers"
+#'         title_suffix = " LIBD Layers"
 #'     )
 #'     print(p4)
 #'     
@@ -145,7 +145,7 @@ vis_clus <- function(
         na_color = "#CCCCCC40",
         is_stitched = FALSE,
         guide_point_size = point_size,
-        ...) {
+        title_suffix = NULL) {
     #   Verify existence and legitimacy of 'sampleid'
     if (
         !("sample_id" %in% colnames(colData(spe))) ||
@@ -187,7 +187,7 @@ vis_clus <- function(
         clustervar = clustervar,
         sampleid = sampleid,
         spatial = spatial,
-        title = paste0(sampleid, ...),
+        title = paste(sampleid, title_suffix),
         colors = get_colors(colors, d[, clustervar]),
         image_id = image_id,
         alpha = alpha,

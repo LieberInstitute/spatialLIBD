@@ -8,7 +8,7 @@ vis_grid_clus(
   spe,
   clustervar,
   pdf_file,
-  sort_clust = TRUE,
+  sort_clust = FALSE,
   colors = NULL,
   return_plots = FALSE,
   spatial = TRUE,
@@ -22,7 +22,8 @@ vis_grid_clus(
   na_color = "#CCCCCC40",
   is_stitched = FALSE,
   guide_point_size = point_size,
-  ...
+  guides = c("all", "last", "none"),
+  title_suffix = NULL
 )
 }
 \arguments{
@@ -38,7 +39,7 @@ column that has the cluster values.}
 \item{pdf_file}{A \code{character(1)} specifying the path for the resulting PDF.}
 
 \item{sort_clust}{A \code{logical(1)} indicating whether you want to sort
-the clusters by frequency using \code{\link[=sort_clusters]{sort_clusters()}}.}
+the clusters by frequency using \code{\link[=sort_clusters]{sort_clusters()}}. Defuault \code{FALSE}.}
 
 \item{colors}{A vector of colors to use for visualizing the clusters
 from \code{clustervar}. If the vector has names, then those should match the
@@ -88,8 +89,13 @@ specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}.}
 \item{guide_point_size}{A \code{numeric(1)} specifying the size of the points in
 guide. Defaults to \code{point_size}. Increase to improve visability.}
 
-\item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
-plot following the \code{sampleid}.}
+\item{guides}{A \code{character(1)} specifying which guides to print. Defaults to
+\code{all} which plots all guides. \code{last} prints a guide for only on the last
+sample. \code{none} prints no guides with the plots, but prints a guide on
+separate page.}
+
+\item{title_suffix}{A \code{character(1)} passed to \link[base:paste]{paste()} to
+modify the title of the plot following the \code{sampleid}.}
 }
 \value{
 A list of \link[ggplot2:ggplot]{ggplot2} objects.

@@ -18,7 +18,7 @@ vis_clus(
   na_color = "#CCCCCC40",
   is_stitched = FALSE,
   guide_point_size = point_size,
-  ...
+  title_suffix = NULL
 )
 }
 \arguments{
@@ -71,8 +71,8 @@ specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}.}
 \item{guide_point_size}{A \code{numeric(1)} specifying the size of the points in
 guide. Defaults to \code{point_size}. Increase to improve visability.}
 
-\item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
-plot following the \code{sampleid}.}
+\item{title_suffix}{A \code{character(1)} passed to \link[base:paste]{paste()} to
+modify the title of the plot following the \code{sampleid}.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2} object.
@@ -101,7 +101,7 @@ if (enough_ram()) {
         clustervar = "layer_guess_reordered",
         sampleid = "151673",
         colors = libd_layer_colors,
-        ... = " LIBD Layers"
+        title_suffix = "LIBD Layers"
     )
     print(p1)
 
@@ -112,7 +112,7 @@ if (enough_ram()) {
         sampleid = "151673",
         colors = libd_layer_colors,
         auto_crop = FALSE,
-        ... = " LIBD Layers"
+        title_suffix = "LIBD Layers"
     )
     print(p2)
 
@@ -122,7 +122,7 @@ if (enough_ram()) {
         clustervar = "layer_guess_reordered",
         sampleid = "151673",
         colors = libd_layer_colors,
-        ... = " LIBD Layers",
+        title_suffix = " LIBD Layers",
         spatial = FALSE
     )
     print(p3)
@@ -136,7 +136,7 @@ if (enough_ram()) {
         sampleid = "151673",
         colors = libd_layer_colors,
         na_color = "white",
-        ... = " LIBD Layers"
+        title_suffix = " LIBD Layers"
     )
     print(p4)
     

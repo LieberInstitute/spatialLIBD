@@ -139,7 +139,8 @@
 #'         sampleid = "151507",
 #'         geneid = white_matter_genes,
 #'         multi_gene_method = "z_score",
-#'         cap_percentile = 0.95
+#'         cap_percentile = 0.95,
+#'         title_suffix = "White Matter Genes"
 #'     )
 #'     print(p6)
 #'
@@ -149,7 +150,8 @@
 #'         spe = spe,
 #'         sampleid = "151507",
 #'         geneid = white_matter_genes,
-#'         multi_gene_method = "sparsity"
+#'         multi_gene_method = "sparsity",
+#'         title_suffix = "White Matter Genes"
 #'     )
 #'     print(p7)
 #'
@@ -159,7 +161,8 @@
 #'         spe = spe,
 #'         sampleid = "151507",
 #'         geneid = white_matter_genes,
-#'         multi_gene_method = "pca"
+#'         multi_gene_method = "pca",
+#'         title_suffix = "White Matter Genes"
 #'     )
 #'     print(p8)
 #' }
@@ -180,7 +183,7 @@ vis_gene <-
     multi_gene_method = c("z_score", "pca", "sparsity"),
     is_stitched = FALSE,
     cap_percentile = 1,
-    ...) {
+    title_suffix = NULL) {
         multi_gene_method <- rlang::arg_match(multi_gene_method)
         #   Verify existence and legitimacy of 'sampleid'
         if (
@@ -274,7 +277,7 @@ vis_gene <-
 
         #   Determine plot and legend titles
         if (ncol(cont_matrix) == 1) {
-            plot_title <- paste(sampleid, geneid, ...)
+            plot_title <- paste(sampleid, geneid, title_suffix)
             d$COUNT <- cont_matrix[, 1]
             if (!(geneid %in% colnames(colData(spe_sub)))) {
                 legend_title <- sprintf("%s\n min > %s", assayname, minCount)
@@ -282,7 +285,7 @@ vis_gene <-
                 legend_title <- sprintf("min > %s", minCount)
             }
         } else {
-            plot_title <- paste(sampleid, ...)
+            plot_title <- paste(sampleid, title_suffix)
             if (multi_gene_method == "z_score") {
                 d$COUNT <- multi_gene_z_score(cont_matrix)
                 legend_title <- paste("Z score\n min > ", minCount)

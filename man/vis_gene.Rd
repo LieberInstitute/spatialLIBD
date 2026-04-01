@@ -22,7 +22,7 @@ vis_gene(
   multi_gene_method = c("z_score", "pca", "sparsity"),
   is_stitched = FALSE,
   cap_percentile = 1,
-  ...
+  title_suffix = NULL
 )
 }
 \arguments{
@@ -107,8 +107,8 @@ of 0.95 sets the top 5\% of expression values to the 95th percentile value.
 This can help make the color scale more dynamic in the presence of high
 outliers. Defaults to \code{1}, which effectively performs no capping.}
 
-\item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
-plot following the \code{sampleid}.}
+\item{title_suffix}{A \code{character(1)} passed to \link[base:paste]{paste()} to
+modify the title of the plot following the \code{sampleid}.}
 }
 \value{
 A \link[ggplot2:ggplot]{ggplot2} object.
@@ -211,7 +211,8 @@ if (enough_ram()) {
         sampleid = "151507",
         geneid = white_matter_genes,
         multi_gene_method = "z_score",
-        cap_percentile = 0.95
+        cap_percentile = 0.95,
+        title_suffix = "White Matter Genes"
     )
     print(p6)
 
@@ -221,7 +222,8 @@ if (enough_ram()) {
         spe = spe,
         sampleid = "151507",
         geneid = white_matter_genes,
-        multi_gene_method = "sparsity"
+        multi_gene_method = "sparsity",
+        title_suffix = "White Matter Genes"
     )
     print(p7)
 
@@ -231,7 +233,8 @@ if (enough_ram()) {
         spe = spe,
         sampleid = "151507",
         geneid = white_matter_genes,
-        multi_gene_method = "pca"
+        multi_gene_method = "pca",
+        title_suffix = "White Matter Genes"
     )
     print(p8)
 }

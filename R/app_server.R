@@ -176,9 +176,9 @@ app_server <- function(input, output, session) {
             alpha = input$alphalevel,
             point_size = input$pointsize,
             auto_crop = input$auto_crop,
-            is_stitched = is_stitched,
+            is_stitched = is_stitched,         
             guide_point_size = input$guidepointsize,
-            ... = paste(" with", input$cluster)
+            title_suffix = paste("with", input$cluster)
         )
         if (!input$side_by_side_histology) {
             return(p)
@@ -220,8 +220,9 @@ app_server <- function(input, output, session) {
                 auto_crop = isolate(input$auto_crop),
                 is_stitched = is_stitched,
                 guide_point_size = isolate(input$guidepointsize),
-                ... = paste(" with", isolate(input$cluster))
-            )
+                guides = isolate(input$guides),
+                title_suffix = paste("with", isolate(input$cluster))
+                )
         cowplot::plot_grid(
             plotlist = plots,
             nrow = isolate(input$grid_nrow),
