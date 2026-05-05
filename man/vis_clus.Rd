@@ -171,11 +171,12 @@ if (enough_ram()) {
     
      p6 <- vis_clus(
         spe = spe_xenium,
-        clustervar = "layer_guess_reordered",
+        clustervar = "x_half",
         sampleid = "sample1",
         colors = c(left = "red", right = "blue"),
         na_color = "white",
         point_size = 1,
+        alpha = 0.5,
         guide_point_size = 3,
         datatype = "Xenium"
     )
