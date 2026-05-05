@@ -157,7 +157,8 @@ fetch_data <-
             "LFF_spatial_ERC_snRNAseq_pseudobulk_broad",
             "LFF_spatial_ERC_snRNAseq_pseudobulk_subcluster",
             "LFF_spatial_ERC_snRNAseq_modeling_results_broad",
-            "LFF_spatial_ERC_snRNAseq_modeling_results_subcluster"
+            "LFF_spatial_ERC_snRNAseq_modeling_results_subcluster",
+            "spe_xenium_example"
         ),
         destdir = tempdir(),
         eh = ExperimentHub::ExperimentHub(),
@@ -409,6 +410,16 @@ fetch_data <-
             file_name <- "sce_subcluster_pseudobulk-cell_type_anno.rds"
             url <-
                 "https://www.dropbox.com/scl/fi/y42pv7k02luvznwqii2rm/sce_subcluster_modeling_results-cell_type_anno.rds?rlkey=17c0ybowjpejdxc71tuxlcfna&dl=1"
+        } else if (
+          type == "spe_xenium_example"
+        ) {
+          tag <- "LFF_spatial_ERC"
+          hub_title <- type
+          
+          ## While EH is not set-up
+          file_name <- "spe_Xenium_test.rds"
+          url <-
+            "https://www.dropbox.com/scl/fi/y42pv7k02luvznwqii2rm/sce_subcluster_modeling_results-cell_type_anno.rds?rlkey=17c0ybowjpejdxc71tuxlcfna&dl=1"
         }
 
         file_path <- file.path(destdir, file_name)
