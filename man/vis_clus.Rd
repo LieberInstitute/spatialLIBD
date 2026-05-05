@@ -18,6 +18,7 @@ vis_clus(
   na_color = "#CCCCCC40",
   is_stitched = FALSE,
   guide_point_size = point_size,
+  datatype = c("Visium", "Xenium"),
   ...
 )
 }
@@ -69,7 +70,17 @@ particular, expects a logical colData column \code{exclude_overlapping}
 specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}.}
 
 \item{guide_point_size}{A \code{numeric(1)} specifying the size of the points in
-guide. Defaults to \code{point_size}. Increase to improve visability.}
+guide. Defaults to \code{point_size}. Increase to improve visibility.}
+
+\item{datatype}{A \code{character(1)} specifying the type of spatial transcriptomics
+data stored in \code{spe}. Supported options are:
+\describe{
+\item{\code{"Visium"}}{(Default) Expects \code{pxl_col_in_fullres} and
+\code{pxl_row_in_fullres} as columns of \code{spatialCoords(spe)}. Enables
+image handling via the \code{spatialData} slot.}
+\item{\code{"Xenium"}}{Expects \code{x_centroid} and \code{y_centroid} as columns
+of \code{spatialCoords(spe)}.}
+}}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}
@@ -158,6 +169,7 @@ if (enough_ram()) {
 \seealso{
 Other Spatial cluster visualization functions: 
 \code{\link{frame_limits}()},
+\code{\link{vis_clus_c}()},
 \code{\link{vis_clus_p}()},
 \code{\link{vis_grid_clus}()},
 \code{\link{vis_image}()}

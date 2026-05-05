@@ -2,7 +2,8 @@
 % Please edit documentation in R/vis_clus_p.R
 \name{vis_clus_p}
 \alias{vis_clus_p}
-\title{Sample spatial cluster visualization workhorse function}
+\title{Sample spatial cluster visualization workhorse function for Visium data with
+pixel based spatailCoords aligned to images.}
 \usage{
 vis_clus_p(
   spe,
@@ -68,10 +69,11 @@ set to a non-\code{NA} value.}
 A \link[ggplot2:ggplot]{ggplot2} object.
 }
 \description{
-This function visualizes the clusters for one given sample at the spot-level
-using (by default) the histology information on the background. This is the
-function that does all the plotting behind \code{\link[=vis_clus]{vis_clus()}}. To visualize
-gene-level (or any continuous variable) use \code{\link[=vis_gene_p]{vis_gene_p()}}.
+This function visualizes the clusters or categorical variables for one given
+sample at the spot-level using (by default) the histology information on the
+background. This is the function that does all the plotting behind
+\code{\link[=vis_clus]{vis_clus()}}. To visualize gene-level (or any continuous variable) use
+\code{\link[=vis_gene_p]{vis_gene_p()}}.
 }
 \examples{
 
@@ -101,6 +103,7 @@ if (enough_ram()) {
 Other Spatial cluster visualization functions: 
 \code{\link{frame_limits}()},
 \code{\link{vis_clus}()},
+\code{\link{vis_clus_c}()},
 \code{\link{vis_grid_clus}()},
 \code{\link{vis_image}()}
 }

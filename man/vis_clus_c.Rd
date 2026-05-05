@@ -2,7 +2,8 @@
 % Please edit documentation in R/vis_clus_c.R
 \name{vis_clus_c}
 \alias{vis_clus_c}
-\title{Sample spatial cluster visualization workhorse function}
+\title{Sample spatial cluster visualization workhorse function for Xenium data with
+centroid based spatailCoords}
 \usage{
 vis_clus_c(
   spe,
@@ -12,7 +13,7 @@ vis_clus_c(
   colors,
   title,
   alpha = NA,
-  point_size = 2,
+  point_size = 1,
   auto_crop = TRUE,
   na_color = "#CCCCCC40"
 )
@@ -59,10 +60,10 @@ set to a non-\code{NA} value.}
 A \link[ggplot2:ggplot]{ggplot2} object.
 }
 \description{
-This function visualizes the clusters for one given sample at the spot-level
-using (by default) the histology information on the background. This is the
-function that does all the plotting behind \code{\link[=vis_clus]{vis_clus()}}. To visualize
-gene-level (or any continuous variable) use \code{\link[=vis_gene_p]{vis_gene_p()}}.
+This function visualizes clusters or categorical variables for one given
+sample at the cell-level. This is the function that does all the plotting
+behind \link{vis_clus(datatype = "Xenium")}. To visualize gene-level
+(or any continuous variable) use \code{\link[=vis_gene_c]{vis_gene_c()}}.
 }
 \examples{
 
@@ -89,7 +90,8 @@ if (enough_ram()) {
        #colors = libd_layer_colors,
        colors = c(east = "red", west = "blue"),
        title = "Xenium test",
-       point_size = 1
+       point_size = 1,
+       alpha = 0.5
    )
     print(p)
 
