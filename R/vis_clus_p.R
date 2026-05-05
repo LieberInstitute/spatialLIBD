@@ -1,9 +1,11 @@
-#' Sample spatial cluster visualization workhorse function
+#' Sample spatial cluster visualization workhorse function for Visium data with
+#' pixel based spatailCoords aligned to images. 
 #'
-#' This function visualizes the clusters for one given sample at the spot-level
-#' using (by default) the histology information on the background. This is the
-#' function that does all the plotting behind [vis_clus()]. To visualize
-#' gene-level (or any continuous variable) use [vis_gene_p()].
+#' This function visualizes the clusters or categorical variables for one given 
+#' sample at the spot-level using (by default) the histology information on the 
+#' background. This is the function that does all the plotting behind 
+#' [vis_clus()]. To visualize gene-level (or any continuous variable) use 
+#' [vis_gene_p()].
 #'
 #' @inheritParams vis_clus
 #' @param d A `data.frame()` with the sample-level information. This is
