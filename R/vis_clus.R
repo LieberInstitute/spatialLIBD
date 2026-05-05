@@ -40,7 +40,16 @@
 #' particular, expects a logical colData column `exclude_overlapping`
 #' specifying which spots to exclude from the plot. Sets `auto_crop = FALSE`.
 #' @param guide_point_size A `numeric(1)` specifying the size of the points in 
-#' guide. Defaults to `point_size`. Increase to improve visability. 
+#' guide. Defaults to `point_size`. Increase to improve visibility. 
+#' @param datatype A `character(1)` specifying the type of spatial transcriptomics
+#'   data stored in `spe`. Supported options are:
+#'   \describe{
+#'     \item{`"Visium"`}{(Default) Expects `pxl_col_in_fullres` and
+#'       `pxl_row_in_fullres` as columns of `spatialCoords(spe)`. Enables
+#'       image handling via the `spatialData` slot.}
+#'     \item{`"Xenium"`}{Expects `x_centroid` and `y_centroid` as columns
+#'       of `spatialCoords(spe)`.}
+#'   }
 #' @param ... Passed to [paste0()][base::paste] for making the title of the
 #' plot following the `sampleid`.
 #'
@@ -145,6 +154,7 @@ vis_clus <- function(
         na_color = "#CCCCCC40",
         is_stitched = FALSE,
         guide_point_size = point_size,
+        datatype = c("Visium", "Xenium"),
         ...) {
     #   Verify existence and legitimacy of 'sampleid'
     if (
@@ -158,11 +168,19 @@ vis_clus <- function(
             call. = FALSE
         )
     }
+  
+  ## Check for valid datatype
+  datatype <- match.arg(datatype)
 
-    #   Check validity of spatial coordinates
-    if (!setequal(c("pxl_col_in_fullres", "pxl_row_in_fullres"), colnames(spatialCoords(spe)))) {
+  #   Check validity of spatial coordinates by datatype
+    if (datatype == "Visium" & !setequal(c("pxl_col_in_fullres", "pxl_row_in_fullres"), colnames(spatialCoords(spe)))) {
         stop(
-            "Abnormal spatial coordinates: should have 'pxl_row_in_fullres' and 'pxl_col_in_fullres' columns.",
+            "Abnormal spatial coordinates for Visium datatype: should have 'pxl_row_in_fullres' and 'pxl_col_in_fullres' columns.",
+            call. = FALSE
+        )
+    } else if (datatype == "Xenium" & !setequal(c("x_centroid", "y_centroid"), colnames(spatialCoords(spe)))) {
+        stop(
+            "Abnormal spatial coordinates for Xisium datatype: should have 'x_centroid' and 'y_centroid' columns.",
             call. = FALSE
         )
     }
