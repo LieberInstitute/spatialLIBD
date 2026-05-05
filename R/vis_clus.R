@@ -134,11 +134,12 @@
 #'     
 #'      p6 <- vis_clus(
 #'         spe = spe_xenium,
-#'         clustervar = "layer_guess_reordered",
+#'         clustervar = "x_half",
 #'         sampleid = "sample1",
 #'         colors = c(left = "red", right = "blue"),
 #'         na_color = "white",
 #'         point_size = 1,
+#'         alpha = 0.5,
 #'         guide_point_size = 3,
 #'         datatype = "Xenium"
 #'     )
@@ -205,9 +206,7 @@ vis_clus <- function(
     }
     
     d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
-    
-    spe_sub <- spe[, spe$sample_id == sampleid]
-    
+
     if (is_stitched) {
       #   Drop excluded spots and calculate an appropriate point size
       temp <- prep_stitched_data(spe_sub, point_size, image_id)
@@ -242,6 +241,8 @@ vis_clus <- function(
         call. = FALSE
       )
     }
+    
+    d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
     
     vis_clus_c(
       spe = spe_sub,
