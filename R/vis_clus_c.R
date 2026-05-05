@@ -112,7 +112,7 @@ vis_clus_c <-
         axis.line = element_blank(),
         axis.text = element_blank(),
         axis.ticks = element_blank(),
-        legend.box.spacing = unit(0, "µm")
+        legend.box.spacing = unit(0, "pt")
       )
     return(p)
   }
