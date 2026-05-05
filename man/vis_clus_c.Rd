@@ -69,17 +69,18 @@ behind \link{vis_clus(datatype = "Xenium")}. To visualize gene-level
 
 if (enough_ram()) {
     ## Obtain the necessary data
-    if (!exists("spe")) spe <- fetch_data("spe")
+    if (!exists("spe")) spe <- fetch_data("spe_Xenium_test")
     
-   spe_sub <- qs2::qs_read("../Xenium/XeniumIO_test/spe_Xenium_test_Br1039.qs2")
-   table(spe_sub$sample_id)
-   head(spatialCoords(spe_sub))
+    # spe <- readRDS("../Xenium/XeniumIO_test/spe_Xenium_test.rds")
+    
+    ## Prepare the data for the plotting function
+    spe_sub <- spe[, spe$sample_id == "sample1"]
    
-   summary(spatialCoords(spe_sub)[,"x_centroid"])
-   summary(spatialCoords(spe_sub)[,"y_centroid"])
+   # summary(spatialCoords(spe_sub)[,"x_centroid"])
+   # summary(spatialCoords(spe_sub)[,"y_centroid"])
    
    ## add catagorical variable
-   spe_sub$x_half <- ifelse(spatialCoords(spe_sub)[,"x_centroid"] < 3088, "west", "east")
+   spe_sub$x_half <- ifelse(spatialCoords(spe_sub)[,"x_centroid"] < 3088, "left", "right")
    table(spe_sub$x_half)
 
    p <- vis_clus_c(
@@ -88,7 +89,7 @@ if (enough_ram()) {
        clustervar = "x_half",
        sampleid = "sample01.1",
        #colors = libd_layer_colors,
-       colors = c(east = "red", west = "blue"),
+       colors = c(left = "red", right = "blue"),
        title = "Xenium test",
        point_size = 1,
        alpha = 0.5
