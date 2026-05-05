@@ -63,7 +63,7 @@
 #' @examples
 #'
 #' if (enough_ram()) {
-#'     ## Obtain the necessary data
+#'     ## Obtain the necessary data: Visium example
 #'     if (!exists("spe")) spe <- fetch_data("spe")
 #'
 #'     ## Check the colors defined by Lukas M Weber
@@ -126,6 +126,25 @@
 #'         ... = " LIBD Layers"
 #'     )
 #'     print(p5)
+#'     
+#'     ## Obtain the necessary data: Xenium example
+#'     if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_Xenium_test")
+#'          
+#'     spe_xenium$x_half <- ifelse(spatialCoords(spe_xenium)[,"x_centroid"] < 3088, "left", "right")
+#'     
+#'      p6 <- vis_clus(
+#'         spe = spe_xenium,
+#'         clustervar = "layer_guess_reordered",
+#'         sampleid = "sample1",
+#'         colors = c(left = "red", right = "blue"),
+#'         na_color = "white",
+#'         point_size = 1,
+#'         guide_point_size = 3,
+#'         datatype = "Xenium"
+#'     )
+#'     print(p6)
+#'     
+#'     
 #'          
 #' }
 vis_clus <- function(
