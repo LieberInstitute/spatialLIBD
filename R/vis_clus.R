@@ -188,49 +188,79 @@ vis_clus <- function(
         )
     }
   
+  ## subset spe to selected sample
+  spe_sub <- spe[, spe$sample_id == sampleid]
+  
   ## Check for valid datatype
   datatype <- match.arg(datatype)
-
-  #   Check validity of spatial coordinates by datatype
-    if (datatype == "Visium" & !setequal(c("pxl_col_in_fullres", "pxl_row_in_fullres"), colnames(spatialCoords(spe)))) {
-        stop(
-            "Abnormal spatial coordinates for Visium datatype: should have 'pxl_row_in_fullres' and 'pxl_col_in_fullres' columns.",
-            call. = FALSE
-        )
-    } else if (datatype == "Xenium" & !setequal(c("x_centroid", "y_centroid"), colnames(spatialCoords(spe)))) {
-        stop(
-            "Abnormal spatial coordinates for Xisium datatype: should have 'x_centroid' and 'y_centroid' columns.",
-            call. = FALSE
-        )
+  
+  if(datatype == "Visium"){
+    
+    #   Check validity of spatial coordinates by datatype
+    if (!setequal(c("pxl_col_in_fullres", "pxl_row_in_fullres"), colnames(spatialCoords(spe)))) {
+      stop(
+        "Abnormal spatial coordinates for Visium datatype: should have 'pxl_row_in_fullres' and 'pxl_col_in_fullres' columns.",
+        call. = FALSE
+      )
     }
-
-    spe_sub <- spe[, spe$sample_id == sampleid]
-
-    if (is_stitched) {
-        #   Drop excluded spots and calculate an appropriate point size
-        temp <- prep_stitched_data(spe_sub, point_size, image_id)
-        spe_sub <- temp$spe
-        point_size <- temp$point_size
-
-        #   Frame limits are poorly defined for stitched data
-        auto_crop <- FALSE
-    }
-
+    
     d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
-
+    
+    spe_sub <- spe[, spe$sample_id == sampleid]
+    
+    if (is_stitched) {
+      #   Drop excluded spots and calculate an appropriate point size
+      temp <- prep_stitched_data(spe_sub, point_size, image_id)
+      spe_sub <- temp$spe
+      point_size <- temp$point_size
+      
+      #   Frame limits are poorly defined for stitched data
+      auto_crop <- FALSE
+    }
+    
     vis_clus_p(
-        spe = spe_sub,
-        d = d,
-        clustervar = clustervar,
-        sampleid = sampleid,
-        spatial = spatial,
-        title = paste0(sampleid, ...),
-        colors = get_colors(colors, d[, clustervar]),
-        image_id = image_id,
-        alpha = alpha,
-        point_size = point_size,
-        auto_crop = auto_crop,
-        na_color = na_color
+      spe = spe_sub,
+      d = d,
+      clustervar = clustervar,
+      sampleid = sampleid,
+      spatial = spatial,
+      title = paste0(sampleid, ...),
+      colors = get_colors(colors, d[, clustervar]),
+      image_id = image_id,
+      alpha = alpha,
+      point_size = point_size,
+      auto_crop = auto_crop,
+      na_color = na_color
     ) + 
       guides(fill = guide_legend(override.aes = list(size = guide_point_size)))
+    
+  } else if(datatype == "Xenium"){
+    
+    if (datatype == "Xenium" & !setequal(c("x_centroid", "y_centroid"), colnames(spatialCoords(spe)))) {
+      stop(
+        "Abnormal spatial coordinates for Xisium datatype: should have 'x_centroid' and 'y_centroid' columns.",
+        call. = FALSE
+      )
+    }
+    
+    vis_clus_c(
+      spe = spe_sub,
+      d = d,
+      clustervar = clustervar,
+      sampleid = sampleid,
+      title = paste0(sampleid, ...),
+      colors = get_colors(colors, d[, clustervar]),
+      alpha = alpha,
+      point_size = point_size,
+      na_color = na_color
+    ) + 
+      guides(fill = guide_legend(override.aes = list(size = guide_point_size)))
+    
+    
+  }
+
+   
+    
+
+
 }
