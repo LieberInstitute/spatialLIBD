@@ -171,6 +171,20 @@
 #'         multi_gene_method = "pca"
 #'     )
 #'     print(p8)
+#'     
+#'     ## Obtain the necessary data: Xenium example
+#'     if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_test")
+#'               
+#'      p9 <- vis_gene(
+#'         spe = spe_xenium,
+#'         sampleid = "sample2",
+#'         geneid = "MBP",
+#'         assayname = "counts",
+#'         point_size = 1,
+#'         datatype = "Xenium"
+#'     )
+#'     print(p9)
+#'     
 #' }
 vis_gene <-
     function(spe,
@@ -442,7 +456,6 @@ vis_gene <-
             alpha = alpha,
             cont_colors = cont_colors,
             point_size = point_size,
-            auto_crop = auto_crop,
             na_color = na_color,
             legend_title = legend_title
           )

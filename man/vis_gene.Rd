@@ -245,6 +245,20 @@ if (enough_ram()) {
         multi_gene_method = "pca"
     )
     print(p8)
+    
+    ## Obtain the necessary data: Xenium example
+    if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_test")
+              
+     p9 <- vis_gene(
+        spe = spe_xenium,
+        sampleid = "sample2",
+        geneid = "MBP",
+        assayname = "counts",
+        point_size = 1,
+        datatype = "Xenium"
+    )
+    print(p9)
+    
 }
 }
 \seealso{
