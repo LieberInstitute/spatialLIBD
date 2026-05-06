@@ -63,14 +63,13 @@ A \link[ggplot2:ggplot]{ggplot2} object.
 This function visualizes clusters or categorical variables for one given
 sample at the cell-level. This is the function that does all the plotting
 behind \link{vis_clus(datatype = "Xenium")}. To visualize gene-level
-(or any continuous variable) use \code{\link[=vis_gene_p]{vis_gene_p()}}
-TODO fix when vis_gene_c is defined.
+(or any continuous variable) use \code{\link[=vis_gene_c]{vis_gene_c()}}.
 }
 \examples{
 
 if (enough_ram()) {
     ## Obtain the necessary data
-    if (!exists("spe")) spe <- fetch_data("spe_Xenium_test")
+    if (!exists("spe")) spe <- fetch_data("spe_xenium_test")
     
     # spe <- readRDS("../Xenium/XeniumIO_test/spe_Xenium_test.rds")
     

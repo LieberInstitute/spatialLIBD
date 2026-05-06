@@ -4,8 +4,7 @@
 #' This function visualizes clusters or categorical variables for one given 
 #' sample at the cell-level. This is the function that does all the plotting 
 #' behind [vis_clus(datatype = "Xenium")]. To visualize gene-level 
-#' (or any continuous variable) use [vis_gene_p()] 
-#' TODO fix when vis_gene_c is defined.
+#' (or any continuous variable) use [vis_gene_c()].
 #'
 #' @inheritParams vis_clus
 #' @param d A `data.frame()` with the sample-level information. This is
@@ -24,7 +23,7 @@
 #'
 #' if (enough_ram()) {
 #'     ## Obtain the necessary data
-#'     if (!exists("spe")) spe <- fetch_data("spe_Xenium_test")
+#'     if (!exists("spe")) spe <- fetch_data("spe_xenium_test")
 #'     
 #'     # spe <- readRDS("../Xenium/XeniumIO_test/spe_Xenium_test.rds")
 #'     

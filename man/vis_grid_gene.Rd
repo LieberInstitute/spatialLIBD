@@ -147,6 +147,7 @@ if (enough_ram()) {
 \seealso{
 Other Spatial gene visualization functions: 
 \code{\link{vis_gene}()},
+\code{\link{vis_gene_c}()},
 \code{\link{vis_gene_p}()}
 }
 \concept{Spatial gene visualization functions}
