@@ -237,7 +237,7 @@ vis_clus <- function(
     
     if (datatype == "Xenium" & !setequal(c("x_centroid", "y_centroid"), colnames(spatialCoords(spe)))) {
       stop(
-        "Abnormal spatial coordinates for Xisium datatype: should have 'x_centroid' and 'y_centroid' columns.",
+        "Abnormal spatial coordinates for Xenium datatype: should have 'x_centroid' and 'y_centroid' columns.",
         call. = FALSE
       )
     }
