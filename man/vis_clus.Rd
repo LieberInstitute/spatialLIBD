@@ -165,7 +165,7 @@ if (enough_ram()) {
     print(p5)
     
     ## Obtain the necessary data: Xenium example
-    if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_Xenium_test")
+    if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_test")
          
     spe_xenium$x_half <- ifelse(spatialCoords(spe_xenium)[,"x_centroid"] < 3088, "left", "right")
     
