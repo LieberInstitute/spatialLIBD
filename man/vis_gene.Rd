@@ -22,6 +22,7 @@ vis_gene(
   multi_gene_method = c("z_score", "pca", "sparsity"),
   is_stitched = FALSE,
   cap_percentile = 1,
+  datatype = c("Visium", "Xenium"),
   ...
 )
 }
@@ -106,6 +107,16 @@ percentile (as a proportion) at which to cap expression. For example, a value
 of 0.95 sets the top 5\% of expression values to the 95th percentile value.
 This can help make the color scale more dynamic in the presence of high
 outliers. Defaults to \code{1}, which effectively performs no capping.}
+
+\item{datatype}{A \code{character(1)} specifying the type of spatial transcriptomics
+data stored in \code{spe}. Supported options are:
+\describe{
+\item{\code{"Visium"}}{(Default) Expects \code{pxl_col_in_fullres} and
+\code{pxl_row_in_fullres} as columns of \code{spatialCoords(spe)}. Enables
+image handling via the \code{spatialData} slot.}
+\item{\code{"Xenium"}}{Expects \code{x_centroid} and \code{y_centroid} as columns
+of \code{spatialCoords(spe)}.}
+}}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}

@@ -41,6 +41,15 @@
 #' of 0.95 sets the top 5% of expression values to the 95th percentile value.
 #' This can help make the color scale more dynamic in the presence of high
 #' outliers. Defaults to `1`, which effectively performs no capping.
+#' @param datatype A `character(1)` specifying the type of spatial transcriptomics
+#'   data stored in `spe`. Supported options are:
+#'   \describe{
+#'     \item{`"Visium"`}{(Default) Expects `pxl_col_in_fullres` and
+#'       `pxl_row_in_fullres` as columns of `spatialCoords(spe)`. Enables
+#'       image handling via the `spatialData` slot.}
+#'     \item{`"Xenium"`}{Expects `x_centroid` and `y_centroid` as columns
+#'       of `spatialCoords(spe)`.}
+#'   }
 #'
 #' @return A [ggplot2][ggplot2::ggplot] object.
 #' @export
@@ -180,6 +189,7 @@ vis_gene <-
     multi_gene_method = c("z_score", "pca", "sparsity"),
     is_stitched = FALSE,
     cap_percentile = 1,
+    datatype = c("Visium", "Xenium"),
     ...) {
         multi_gene_method <- rlang::arg_match(multi_gene_method)
         #   Verify existence and legitimacy of 'sampleid'
