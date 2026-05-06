@@ -95,7 +95,7 @@ gene-level (or any continuous variable) use \code{\link[=vis_gene]{vis_gene()}}.
 }
 \details{
 This function subsets \code{spe} to the given sample and prepares the
-data and title for \code{\link[=vis_clus_p]{vis_clus_p()}}.
+data and title for \code{\link[=vis_clus_p]{vis_clus_p()}} or \code{\link[=vis_clus_c]{vis_clus_c()}}.
 }
 \examples{
 
@@ -172,7 +172,7 @@ if (enough_ram()) {
      p6 <- vis_clus(
         spe = spe_xenium,
         clustervar = "x_half",
-        sampleid = "sample1",
+        sampleid = "sample2",
         colors = c(left = "red", right = "blue"),
         na_color = "white",
         point_size = 1,

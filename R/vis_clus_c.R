@@ -4,7 +4,8 @@
 #' This function visualizes clusters or categorical variables for one given 
 #' sample at the cell-level. This is the function that does all the plotting 
 #' behind [vis_clus(datatype = "Xenium")]. To visualize gene-level 
-#' (or any continuous variable) use [vis_gene_c()].
+#' (or any continuous variable) use [vis_gene_p()] 
+#' TODO fix when vis_gene_c is defined.
 #'
 #' @inheritParams vis_clus
 #' @param d A `data.frame()` with the sample-level information. This is

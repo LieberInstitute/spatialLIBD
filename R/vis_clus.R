@@ -58,7 +58,7 @@
 #' @export
 #' @importFrom SpatialExperiment spatialCoords
 #' @details This function subsets `spe` to the given sample and prepares the
-#' data and title for [vis_clus_p()].
+#' data and title for [vis_clus_p()] or [vis_clus_c()].
 #'
 #' @examples
 #'
@@ -135,7 +135,7 @@
 #'      p6 <- vis_clus(
 #'         spe = spe_xenium,
 #'         clustervar = "x_half",
-#'         sampleid = "sample1",
+#'         sampleid = "sample2",
 #'         colors = c(left = "red", right = "blue"),
 #'         na_color = "white",
 #'         point_size = 1,
