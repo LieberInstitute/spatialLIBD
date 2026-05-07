@@ -23,7 +23,7 @@
 #'
 #' if (enough_ram()) {
 #'     ## Obtain the necessary data
-#'     if (!exists("spe")) spe <- fetch_data("spe_xenium_test")
+#'     if (!exists("spe")) spe <- fetch_data("spe_xenium_example")
 #'     
 #'     # spe <- readRDS("../Xenium/XeniumIO_test/spe_Xenium_test.rds")
 #'     
