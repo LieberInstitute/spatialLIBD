@@ -4,9 +4,9 @@
 #' This function visualizes the gene expression stored in `assays(spe)` or any
 #' continuous variable stored in `colData(spe)` for one given sample at the
 #' spot-level using (by default) the histology information on the background.
-#' This is the function that does all the plotting behind 
-#' [vis_gene(datatype = "Xenium")]
-#' To visualize clusters (or any discrete variable) use [vis_clus_c()].
+#' This is the function that does all the plotting behind [vis_clus()] when 
+#' `datatype = "Xenium"`. To visualize clusters (or any discrete variable) 
+#' use [vis_clus_c()].
 #'
 #' @param d A `data.frame()` with the sample-level information. This is
 #' typically obtained using `cbind(colData(spe), spatialCoords(spe))`.

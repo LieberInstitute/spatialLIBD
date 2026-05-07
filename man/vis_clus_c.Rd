@@ -62,7 +62,7 @@ A \link[ggplot2:ggplot]{ggplot2} object.
 \description{
 This function visualizes clusters or categorical variables for one given
 sample at the cell-level. This is the function that does all the plotting
-behind \link{vis_clus(datatype = "Xenium")}. To visualize gene-level
+behind \code{\link[=vis_clus]{vis_clus()}} when \code{datatype = "Xenium"}. To visualize gene-level
 (or any continuous variable) use \code{\link[=vis_gene_c]{vis_gene_c()}}.
 }
 \examples{

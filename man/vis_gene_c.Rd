@@ -67,9 +67,9 @@ A \link[ggplot2:ggplot]{ggplot2} object.
 This function visualizes the gene expression stored in \code{assays(spe)} or any
 continuous variable stored in \code{colData(spe)} for one given sample at the
 spot-level using (by default) the histology information on the background.
-This is the function that does all the plotting behind
-\link{vis_gene(datatype = "Xenium")}
-To visualize clusters (or any discrete variable) use \code{\link[=vis_clus_c]{vis_clus_c()}}.
+This is the function that does all the plotting behind \code{\link[=vis_clus]{vis_clus()}} when
+\code{datatype = "Xenium"}. To visualize clusters (or any discrete variable)
+use \code{\link[=vis_clus_c]{vis_clus_c()}}.
 }
 \examples{
 

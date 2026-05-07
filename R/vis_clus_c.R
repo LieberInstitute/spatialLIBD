@@ -3,7 +3,7 @@
 #'
 #' This function visualizes clusters or categorical variables for one given 
 #' sample at the cell-level. This is the function that does all the plotting 
-#' behind [vis_clus(datatype = "Xenium")]. To visualize gene-level 
+#' behind [vis_clus()] when `datatype = "Xenium"`. To visualize gene-level 
 #' (or any continuous variable) use [vis_gene_c()].
 #'
 #' @inheritParams vis_clus
