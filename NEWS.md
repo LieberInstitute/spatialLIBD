@@ -1,3 +1,17 @@
+# spatialLIBD 1.25.1
+
+NEW FEATURES
+
+* `fetch_data()` now has example Xenium data you can access
+with `type = "spe_xenium_example"`.
+* `vis_gene()`, `vis_gene_grid()`, `vis_clus()`, `vis_clus_grid()`
+all now support Xenium data. This is partially done through the
+new internal functions `vis_gene_c()` and `vis_clus_c()`.
+* `run_app()` now supports Xenium data. So `shiny`-powered
+apps can now be built for Xenium (10x Genomics) data.
+* These features were added by @lahuuki and @lcolladotor
+as part of <https://github.com/LieberInstitute/spatialLIBD/pull/121>.
+
 # spatialLIBD 1.23.2
 
 NEW FEATURES
