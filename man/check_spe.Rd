@@ -6,7 +6,8 @@
 \usage{
 check_spe(
   spe,
-  variables = c("sum_umi", "sum_gene", "expr_chrM", "expr_chrM_ratio")
+  variables = c("sum_umi", "sum_gene", "expr_chrM", "expr_chrM_ratio"),
+  datatype = c("Visium", "Xenium")
 )
 }
 \arguments{
@@ -18,6 +19,16 @@ build your own \code{spe} object.}
 
 \item{variables}{A \code{character()} vector of variable names expected to
 be present in \code{colData(spe)}.}
+
+\item{datatype}{A \code{character(1)} specifying the type of spatial transcriptomics
+data stored in \code{spe}. Supported options are:
+\describe{
+\item{\code{"Visium"}}{(Default) Expects \code{pxl_col_in_fullres} and
+\code{pxl_row_in_fullres} as columns of \code{spatialCoords(spe)}. Enables
+image handling via the \code{spatialData} slot.}
+\item{\code{"Xenium"}}{Expects \code{x_centroid} and \code{y_centroid} as columns
+of \code{spatialCoords(spe)}.}
+}}
 }
 \value{
 The input object if all checks are passed.
