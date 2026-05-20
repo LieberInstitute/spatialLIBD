@@ -14,8 +14,12 @@ vis_gene(
   viridis = TRUE,
   image_id = "lowres",
   alpha = NA,
-  cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4",
-    "springgreen", "goldenrod", "red"),
+  cont_colors = if (viridis) {
+     viridisLite::viridis(21)
+ } else {
+    
+    c("aquamarine4", "springgreen", "goldenrod", "red")
+ },
   point_size = 2,
   auto_crop = TRUE,
   na_color = "#CCCCCC40",
@@ -245,10 +249,10 @@ if (enough_ram()) {
         multi_gene_method = "pca"
     )
     print(p8)
-    
+
     ## Obtain the necessary data: Xenium example
     if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_test")
-              
+
      p9 <- vis_gene(
         spe = spe_xenium,
         sampleid = "sample2",
@@ -258,7 +262,7 @@ if (enough_ram()) {
         datatype = "Xenium"
     )
     print(p9)
-    
+
 }
 }
 \seealso{

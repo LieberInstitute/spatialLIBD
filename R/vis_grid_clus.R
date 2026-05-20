@@ -65,6 +65,7 @@ vis_grid_clus <-
         na_color = "#CCCCCC40",
         is_stitched = FALSE,
         guide_point_size = point_size,
+        datatype = c("Visium", "Xenium"),
         ...
     ) {
         stopifnot(all(sample_order %in% unique(spe$sample_id)))
@@ -88,6 +89,7 @@ vis_grid_clus <-
                     na_color = na_color,
                     is_stitched = is_stitched,
                     guide_point_size = guide_point_size,
+                    datatype = datatype,
                     ...
                 )
             })
