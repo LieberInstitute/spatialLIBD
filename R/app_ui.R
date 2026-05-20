@@ -69,7 +69,11 @@ app_ui <- function() {
                                 inputId = "imageid",
                                 label = "Image name",
                                 choices = c(
-                                    "edited_imaged",
+                                    if (datatype == "Xenium") {
+                                        NULL
+                                    } else {
+                                        "edited_imaged"
+                                    },
                                     unique(imgData(spe)$image_id)
                                 ),
                                 selected = unique(imgData(spe)$image_id)[1]
@@ -566,183 +570,187 @@ app_ui <- function() {
                                     tags$br(),
                                     tags$br()
                                 ),
-                                tabPanel(
-                                    "Edit image",
-                                    helpText(
-                                        "Edit the selected image by manipulating the colors and apperance, which can be useful when inspecting the selected image from the left menu ('image name'). Once you have a set of edits you like, click the 'update custom image' button below to save your edits. Next, select on the left menu ('image name') the 'edited_image' option to use your new image as the background image in the rest of the visualizations. Most of these image manipulations are explained at",
-                                        HTML(
-                                            "<a href='https://docs.ropensci.org/magick/reference/color.html'>the magick R package documentation</a>."
-                                        )
-                                    ),
-                                    helpText(
-                                        "If you want a uniform colored background, set the brightness to 0 which will make it black, then either proceeed or select the 'negate' checkbox for white, click the 'edit custom image' button, and select the input 'image name' as 'edited image'. Instead of using 'negate' you could use 'transparent (color)' and type 'black' then under 'background (color)' type a valid R color name such as 'purple' or 'lightblue' or a color HEX value such as '#e1eb34'."
-                                    ),
-                                    hr(),
-                                    fluidRow(
-                                        column(
-                                            width = 4,
-                                            selectInput(
-                                                inputId = "editImg_channel",
-                                                label = "Select an image channel such as 'Red' or 'Blue'",
-                                                choices = c(
-                                                    "",
-                                                    magick::channel_types()
+                                if (datatype == "Xenium") {
+                                    NULL
+                                } else {
+                                    tabPanel(
+                                        "Edit image",
+                                        helpText(
+                                            "Edit the selected image by manipulating the colors and apperance, which can be useful when inspecting the selected image from the left menu ('image name'). Once you have a set of edits you like, click the 'update custom image' button below to save your edits. Next, select on the left menu ('image name') the 'edited_image' option to use your new image as the background image in the rest of the visualizations. Most of these image manipulations are explained at",
+                                            HTML(
+                                                "<a href='https://docs.ropensci.org/magick/reference/color.html'>the magick R package documentation</a>."
+                                            )
+                                        ),
+                                        helpText(
+                                            "If you want a uniform colored background, set the brightness to 0 which will make it black, then either proceeed or select the 'negate' checkbox for white, click the 'edit custom image' button, and select the input 'image name' as 'edited image'. Instead of using 'negate' you could use 'transparent (color)' and type 'black' then under 'background (color)' type a valid R color name such as 'purple' or 'lightblue' or a color HEX value such as '#e1eb34'."
+                                        ),
+                                        hr(),
+                                        fluidRow(
+                                            column(
+                                                width = 4,
+                                                selectInput(
+                                                    inputId = "editImg_channel",
+                                                    label = "Select an image channel such as 'Red' or 'Blue'",
+                                                    choices = c(
+                                                        "",
+                                                        magick::channel_types()
+                                                    ),
+                                                    selected = ""
                                                 ),
-                                                selected = ""
+                                                helpText(
+                                                    "Leave this empty if you don't want to select a channel. Note that the definition of channel here is different from a multi-channel image from say VisiumIF."
+                                                ),
+                                                hr(),
+                                                numericInput(
+                                                    "editImg_brightness",
+                                                    label = "Image brightness level",
+                                                    value = 100,
+                                                    min = 0,
+                                                    max = 100
+                                                ),
+                                                numericInput(
+                                                    "editImg_saturation",
+                                                    label = "Image saturation level",
+                                                    value = 100,
+                                                    min = 0,
+                                                    max = 100
+                                                ),
+                                                numericInput(
+                                                    "editImg_hue",
+                                                    label = "Image hue level",
+                                                    value = 100,
+                                                    min = 0,
+                                                    max = 200
+                                                ),
+                                                helpText(
+                                                    "Modulate the colors in the image. Brightness and saturation are in percents while hue has a range of 0 to 200. Use 100 for all 3 options for no change."
+                                                )
                                             ),
-                                            helpText(
-                                                "Leave this empty if you don't want to select a channel. Note that the definition of channel here is different from a multi-channel image from say VisiumIF."
+                                            column(
+                                                width = 4,
+                                                checkboxInput(
+                                                    "editImg_enhance",
+                                                    "enhance: attempt to minimize noise",
+                                                    value = FALSE
+                                                ),
+                                                checkboxInput(
+                                                    "editImg_normalize",
+                                                    "normalize: increases contrast by normalizing the pixel values to span the full range of colors",
+                                                    value = FALSE
+                                                ),
+                                                hr(),
+                                                numericInput(
+                                                    "editImg_contrast_sharpen",
+                                                    label = "contrast (sharpen): enhance intensity differences in image",
+                                                    value = NA,
+                                                    min = -100,
+                                                    max = 100
+                                                ),
+                                                helpText(
+                                                    "Try with 1 to start with."
+                                                ),
+                                                hr(),
+                                                numericInput(
+                                                    "editImg_quantize_max",
+                                                    label = "quantize (max): reduce number of colors in the image",
+                                                    value = NA,
+                                                    min = 1
+                                                ),
+                                                checkboxInput(
+                                                    "editImg_quantize_dither",
+                                                    "quantize (dither): whether to apply Floyd/Steinberg error diffusion to the image: averages intensities of several neighboring pixels",
+                                                    value = TRUE
+                                                ),
+                                                helpText(
+                                                    "You could try 256 colors or a much small number like 25 or 40."
+                                                )
                                             ),
-                                            hr(),
-                                            numericInput(
-                                                "editImg_brightness",
-                                                label = "Image brightness level",
-                                                value = 100,
-                                                min = 0,
-                                                max = 100
-                                            ),
-                                            numericInput(
-                                                "editImg_saturation",
-                                                label = "Image saturation level",
-                                                value = 100,
-                                                min = 0,
-                                                max = 100
-                                            ),
-                                            numericInput(
-                                                "editImg_hue",
-                                                label = "Image hue level",
-                                                value = 100,
-                                                min = 0,
-                                                max = 200
-                                            ),
-                                            helpText(
-                                                "Modulate the colors in the image. Brightness and saturation are in percents while hue has a range of 0 to 200. Use 100 for all 3 options for no change."
+                                            column(
+                                                width = 4,
+                                                checkboxInput(
+                                                    "editImg_equalize",
+                                                    "equalize: whether to use histogram equalization",
+                                                    value = FALSE
+                                                ),
+                                                hr(),
+                                                textInput(
+                                                    "editImg_transparent_color",
+                                                    label = "transparent (color): set pixels approximately matching given color",
+                                                    value = NA
+                                                ),
+                                                numericInput(
+                                                    "editImg_transparent_fuzz",
+                                                    label = "transparent (fuzz): relative color distance (value between 0 and 100) to be considered similar",
+                                                    value = 0,
+                                                    min = 0,
+                                                    max = 100
+                                                ),
+                                                helpText(
+                                                    "Type 'purple' and select a fuzz of 25 to start with."
+                                                ),
+                                                textInput(
+                                                    "editImg_background_color",
+                                                    label = "background (color): sets background color",
+                                                    value = NA
+                                                ),
+                                                hr(),
+                                                numericInput(
+                                                    "editImg_median_radius",
+                                                    label = "median (radius): replace each pixel with the median color in a circular neighborhood",
+                                                    value = NA,
+                                                    min = 0
+                                                ),
+                                                helpText(
+                                                    "Choose a small radius, like 1 or 2 to start. The higher the value, the longer this computation will take."
+                                                ),
+                                                hr(),
+                                                checkboxInput(
+                                                    "editImg_negate",
+                                                    "negate: whether to negate colors",
+                                                    value = FALSE
+                                                )
                                             )
                                         ),
-                                        column(
-                                            width = 4,
-                                            checkboxInput(
-                                                "editImg_enhance",
-                                                "enhance: attempt to minimize noise",
-                                                value = FALSE
-                                            ),
-                                            checkboxInput(
-                                                "editImg_normalize",
-                                                "normalize: increases contrast by normalizing the pixel values to span the full range of colors",
-                                                value = FALSE
-                                            ),
-                                            hr(),
-                                            numericInput(
-                                                "editImg_contrast_sharpen",
-                                                label = "contrast (sharpen): enhance intensity differences in image",
-                                                value = NA,
-                                                min = -100,
-                                                max = 100
-                                            ),
-                                            helpText(
-                                                "Try with 1 to start with."
-                                            ),
-                                            hr(),
-                                            numericInput(
-                                                "editImg_quantize_max",
-                                                label = "quantize (max): reduce number of colors in the image",
-                                                value = NA,
-                                                min = 1
-                                            ),
-                                            checkboxInput(
-                                                "editImg_quantize_dither",
-                                                "quantize (dither): whether to apply Floyd/Steinberg error diffusion to the image: averages intensities of several neighboring pixels",
-                                                value = TRUE
-                                            ),
-                                            helpText(
-                                                "You could try 256 colors or a much small number like 25 or 40."
-                                            )
+                                        actionButton(
+                                            "editImg_reset_menus",
+                                            label = "Reset menus"
                                         ),
-                                        column(
-                                            width = 4,
-                                            checkboxInput(
-                                                "editImg_equalize",
-                                                "equalize: whether to use histogram equalization",
-                                                value = FALSE
-                                            ),
-                                            hr(),
-                                            textInput(
-                                                "editImg_transparent_color",
-                                                label = "transparent (color): set pixels approximately matching given color",
-                                                value = NA
-                                            ),
-                                            numericInput(
-                                                "editImg_transparent_fuzz",
-                                                label = "transparent (fuzz): relative color distance (value between 0 and 100) to be considered similar",
-                                                value = 0,
-                                                min = 0,
-                                                max = 100
-                                            ),
-                                            helpText(
-                                                "Type 'purple' and select a fuzz of 25 to start with."
-                                            ),
-                                            textInput(
-                                                "editImg_background_color",
-                                                label = "background (color): sets background color",
-                                                value = NA
-                                            ),
-                                            hr(),
-                                            numericInput(
-                                                "editImg_median_radius",
-                                                label = "median (radius): replace each pixel with the median color in a circular neighborhood",
-                                                value = NA,
-                                                min = 0
-                                            ),
-                                            helpText(
-                                                "Choose a small radius, like 1 or 2 to start. The higher the value, the longer this computation will take."
-                                            ),
-                                            hr(),
-                                            checkboxInput(
-                                                "editImg_negate",
-                                                "negate: whether to negate colors",
-                                                value = FALSE
-                                            )
+                                        helpText(
+                                            "Reset all image editing menus to their default values."
+                                        ),
+                                        hr(),
+                                        downloadButton(
+                                            "downloadPlotEditImg",
+                                            "Download PDF"
+                                        ),
+                                        plotOutput("editImg_plot"),
+                                        tags$br(),
+                                        tags$br(),
+                                        tags$br(),
+                                        tags$br(),
+                                        tags$br(),
+                                        tags$br(),
+                                        tags$br(),
+                                        tags$br(),
+                                        tags$br(),
+                                        tags$br(),
+                                        actionButton(
+                                            "editImg_update",
+                                            label = "Update custom image"
+                                        ),
+                                        helpText(
+                                            "Click the 'upgrade custom image' button above to save the custom image. You can then select 'edited_image' and use it in other parts of the web application. Note that if you had 'edited_image' already selected, you'll need to re-select or change another input to update the other plots."
+                                        ),
+                                        checkboxInput(
+                                            "editImg_overwrite",
+                                            "Whether to overwrite the 'edited_image'",
+                                            value = FALSE
+                                        ),
+                                        helpText(
+                                            "Select if you want to do sequential image manipulations when you have selected as input the 'edited_image'."
                                         )
-                                    ),
-                                    actionButton(
-                                        "editImg_reset_menus",
-                                        label = "Reset menus"
-                                    ),
-                                    helpText(
-                                        "Reset all image editing menus to their default values."
-                                    ),
-                                    hr(),
-                                    downloadButton(
-                                        "downloadPlotEditImg",
-                                        "Download PDF"
-                                    ),
-                                    plotOutput("editImg_plot"),
-                                    tags$br(),
-                                    tags$br(),
-                                    tags$br(),
-                                    tags$br(),
-                                    tags$br(),
-                                    tags$br(),
-                                    tags$br(),
-                                    tags$br(),
-                                    tags$br(),
-                                    tags$br(),
-                                    actionButton(
-                                        "editImg_update",
-                                        label = "Update custom image"
-                                    ),
-                                    helpText(
-                                        "Click the 'upgrade custom image' button above to save the custom image. You can then select 'edited_image' and use it in other parts of the web application. Note that if you had 'edited_image' already selected, you'll need to re-select or change another input to update the other plots."
-                                    ),
-                                    checkboxInput(
-                                        "editImg_overwrite",
-                                        "Whether to overwrite the 'edited_image'",
-                                        value = FALSE
-                                    ),
-                                    helpText(
-                                        "Select if you want to do sequential image manipulations when you have selected as input the 'edited_image'."
                                     )
-                                )
+                                }
                             )
                         )
                     )

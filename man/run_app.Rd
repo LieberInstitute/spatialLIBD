@@ -276,15 +276,23 @@ run_app(
     is_stitched = TRUE
 )
 
-## Example for Xenium object 
-
+## Example for Xenium object
 if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_example")
 
-   run_app(spe_xenium,
+run_app(spe_xenium,
         sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
         title = "spatialLIBD Xenium without layer info",
-        datatype = "Xenium"
-    )
+    spe_discrete_vars = c(
+        "SpX",
+        "ManualAnnotation"
+    ),
+    spe_continuous_vars = c(
+        "sum_gex",  # "sum_umi",
+        "detected_gex" #"sum_gene",
+    ),
+    default_cluster = "SpX",
+    datatype = "Xenium"
+)
 
 }
 

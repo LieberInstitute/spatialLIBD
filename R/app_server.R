@@ -179,9 +179,10 @@ app_server <- function(input, output, session) {
             auto_crop = input$auto_crop,
             is_stitched = is_stitched,
             guide_point_size = input$guidepointsize,
+            datatype = datatype,
             ... = paste(" with", input$cluster)
         )
-        if (!input$side_by_side_histology) {
+        if (!input$side_by_side_histology || datatype == "Xenium") {
             return(p)
         } else {
             p_no_spots <- p
@@ -221,6 +222,7 @@ app_server <- function(input, output, session) {
                 auto_crop = isolate(input$auto_crop),
                 is_stitched = is_stitched,
                 guide_point_size = isolate(input$guidepointsize),
+                datatype = datatype,
                 ... = paste(" with", isolate(input$cluster))
             )
         cowplot::plot_grid(
@@ -247,9 +249,10 @@ app_server <- function(input, output, session) {
                     point_size = input$pointsize,
                     auto_crop = input$auto_crop,
                     is_stitched = is_stitched,
-                    cap_percentile = input$cap_percentile
+                    cap_percentile = input$cap_percentile,
+                    datatype = datatype
                 )
-                if (!input$side_by_side_gene) {
+                if (!input$side_by_side_gene | datatype == "Xenium") {
                     p_result <- p
                 } else {
                     p_no_spots <- p
@@ -298,7 +301,8 @@ app_server <- function(input, output, session) {
                         sample_order = isolate(input$gene_grid_samples),
                         auto_crop = isolate(input$auto_crop),
                         is_stitched = is_stitched,
-                        cap_percentile = isolate(input$cap_percentile)
+                        cap_percentile = isolate(input$cap_percentile),
+                        datatype = datatype
                     )
             },
             warning = function(w) {
@@ -662,32 +666,40 @@ app_server <- function(input, output, session) {
         # reduced_name <- 'TSNE_perplexity50'
         # genecolor <- "viridis"
 
-        ## Read in the histology image
-        img <-
-            SpatialExperiment::imgRaster(
-                spe,
-                sample_id = sampleid,
-                image_id = input$imageid
-            )
-        if (input$auto_crop) {
-            frame_lims <-
-                frame_limits(spe, sampleid = sampleid, image_id = input$imageid)
-            img <-
-                img[
-                    frame_lims$y_min:frame_lims$y_max,
-                    frame_lims$x_min:frame_lims$x_max
-                ]
-        }
-
         ## From vis_gene() in global.R
         spe_sub <- spe[, spe$sample_id == sampleid]
 
         point_size <- input$pointsize
-        if (is_stitched) {
-            #   Drop excluded spots and calculate an appropriate point size
-            temp <- prep_stitched_data(spe_sub, point_size, input$imageid)
-            spe_sub <- temp$spe
-            point_size <- temp$point_size
+
+        ## Interactive for Visium
+        if (datatype == "Visium") {
+            ## Read in the histology image
+            img <-
+                SpatialExperiment::imgRaster(
+                    spe_sub,
+                    sample_id = sampleid,
+                    image_id = input$imageid
+                )
+            if (input$auto_crop) {
+                frame_lims <-
+                    frame_limits(
+                        spe_sub,
+                        sampleid = sampleid,
+                        image_id = input$imageid
+                    )
+                img <-
+                    img[
+                        frame_lims$y_min:frame_lims$y_max,
+                        frame_lims$x_min:frame_lims$x_max
+                    ]
+            }
+
+            if (is_stitched) {
+                #   Drop excluded spots and calculate an appropriate point size
+                temp <- prep_stitched_data(spe_sub, point_size, input$imageid)
+                spe_sub <- temp$spe
+                point_size <- temp$point_size
+            }
         }
 
         d <-
@@ -708,7 +720,9 @@ app_server <- function(input, output, session) {
 
         #   Get the integer indices of each gene in the SpatialExperiment, since we
         #   aren't guaranteed that rownames are gene names
-        remaining_geneid <- geneid[!(geneid %in% colnames(colData(spe_sub)))]
+        remaining_geneid <- geneid[
+            !(geneid %in% colnames(colData(spe_sub)))
+        ]
         valid_gene_indices <- unique(
             c(
                 match(remaining_geneid, rowData(spe_sub)$gene_search),
@@ -751,7 +765,11 @@ app_server <- function(input, output, session) {
                 plot_title <- paste(sampleid, "Z-score min > ", minCount)
             } else if (input$multi_gene_method == "sparsity") {
                 d$COUNT <- multi_gene_sparsity(cont_matrix)
-                plot_title <- paste(sampleid, "Prop. nonzero min > ", minCount)
+                plot_title <- paste(
+                    sampleid,
+                    "Prop. nonzero min > ",
+                    minCount
+                )
             } else {
                 # must be 'pca'
                 d$COUNT <- multi_gene_pca(cont_matrix)
@@ -763,7 +781,9 @@ app_server <- function(input, output, session) {
         if (input$cap_percentile < 1) {
             sorted_count <- sort(d$COUNT)
             cap <- sorted_count[
-                as.integer(round(length(sorted_count) * input$cap_percentile))
+                as.integer(round(
+                    length(sorted_count) * input$cap_percentile
+                ))
             ]
             d$COUNT[d$COUNT > cap] <- cap
         }
@@ -784,40 +804,71 @@ app_server <- function(input, output, session) {
         ## Use client-side highlighting
         d_key <- highlight_key(d, ~key)
 
-        ## Make the cluster plot
-        p_clus <- vis_clus_p(
-            spe = spe,
-            d = d_key,
-            clustervar = clustervar,
-            sampleid = sampleid,
-            colors = get_colors(colors, d[, clustervar]),
-            spatial = FALSE,
-            title = plot_title,
-            image_id = input$imageid,
-            alpha = input$alphalevel,
-            point_size = point_size,
-            auto_crop = input$auto_crop
-        )
-
-        ## Next the gene plot
-        p_gene <- vis_gene_p(
-            spe = spe,
-            d = d_key,
-            sampleid = sampleid,
-            spatial = FALSE,
-            title = "",
-            cont_colors = cont_colors(),
-            image_id = input$imageid,
-            alpha = input$alphalevel,
-            point_size = point_size,
-            auto_crop = input$auto_crop
-        ) +
-            geom_point(
-                shape = 21,
-                size = point_size,
-                stroke = 0,
-                alpha = input$alphalevel
+        if (datatype == "Visium") {
+            ## Make the cluster plot
+            p_clus <- vis_clus_p(
+                spe = spe_sub,
+                d = d_key,
+                clustervar = clustervar,
+                sampleid = sampleid,
+                colors = get_colors(colors, d[, clustervar]),
+                spatial = FALSE,
+                title = plot_title,
+                image_id = input$imageid,
+                alpha = input$alphalevel,
+                point_size = point_size,
+                auto_crop = input$auto_crop
             )
+
+            ## Next the gene plot
+            p_gene <- vis_gene_p(
+                spe = spe_sub,
+                d = d_key,
+                sampleid = sampleid,
+                spatial = FALSE,
+                title = "",
+                cont_colors = cont_colors(),
+                image_id = input$imageid,
+                alpha = input$alphalevel,
+                point_size = point_size,
+                auto_crop = input$auto_crop
+            ) +
+                geom_point(
+                    shape = 21,
+                    size = point_size,
+                    stroke = 0,
+                    alpha = input$alphalevel
+                )
+        } else if (datatype == "Xenium") {
+            ## Make the cluster plot
+            p_clus <- vis_clus_c(
+                spe = spe_sub,
+                d = d_key,
+                clustervar = clustervar,
+                sampleid = sampleid,
+                title = plot_title,
+                colors = get_colors(colors, d[, clustervar]),
+                alpha = input$alphalevel,
+                point_size = point_size
+            )
+
+            ## Next the gene plot
+            p_gene <- vis_gene_c(
+                spe = spe_sub,
+                d = d_key,
+                sampleid = sampleid,
+                title = "",
+                alpha = input$alphalevel,
+                cont_colors = cont_colors(),
+                point_size = point_size
+            ) +
+                geom_point(
+                    shape = 21,
+                    size = point_size,
+                    stroke = 0,
+                    alpha = input$alphalevel
+                )
+        }
 
         ## Make the reduced dimensions ggplot
         if (reduced_name != "") {
@@ -838,7 +889,9 @@ app_server <- function(input, output, session) {
                 scale_fill_manual(
                     values = get_colors(
                         colors,
-                        colData(spe)[[clustervar]][spe$sample_id == sampleid]
+                        colData(spe)[[clustervar]][
+                            spe$sample_id == sampleid
+                        ]
                     )
                 ) +
                 guides(fill = "none") +
@@ -906,22 +959,26 @@ app_server <- function(input, output, session) {
                 source = "plotly_histology",
                 tooltip = c("fill", "key")
             ),
-            images = list(
+            images = if (datatype == "Xenium") {
+                NULL
+            } else {
                 list(
-                    source = raster2uri(img),
-                    layer = "below",
-                    xanchor = "left",
-                    yanchor = "bottom",
-                    xref = "x",
-                    yref = "y",
-                    sizing = "stretch",
-                    x = 0,
-                    y = -nrow(img),
-                    sizex = ncol(img),
-                    sizey = nrow(img),
-                    opacity = 0.8
+                    list(
+                        source = raster2uri(img),
+                        layer = "below",
+                        xanchor = "left",
+                        yanchor = "bottom",
+                        xref = "x",
+                        yref = "y",
+                        sizing = "stretch",
+                        x = 0,
+                        y = -nrow(img),
+                        sizex = ncol(img),
+                        sizey = nrow(img),
+                        opacity = 0.8
+                    )
                 )
-            ),
+            },
             dragmode = "lasso"
         )
 
@@ -931,22 +988,26 @@ app_server <- function(input, output, session) {
                 source = "plotly_histology",
                 tooltip = c("fill", "key")
             ),
-            images = list(
+            images = if (datatype == "Xenium") {
+                NULL
+            } else {
                 list(
-                    source = raster2uri(img),
-                    layer = "below",
-                    xanchor = "left",
-                    yanchor = "bottom",
-                    xref = "x",
-                    yref = "y",
-                    sizing = "stretch",
-                    x = 0,
-                    y = -nrow(img),
-                    sizex = ncol(img),
-                    sizey = nrow(img),
-                    opacity = 0.8
+                    list(
+                        source = raster2uri(img),
+                        layer = "below",
+                        xanchor = "left",
+                        yanchor = "bottom",
+                        xref = "x",
+                        yref = "y",
+                        sizing = "stretch",
+                        x = 0,
+                        y = -nrow(img),
+                        sizex = ncol(img),
+                        sizey = nrow(img),
+                        opacity = 0.8
+                    )
                 )
-            ),
+            },
             dragmode = "lasso"
         )
 
@@ -1065,7 +1126,8 @@ app_server <- function(input, output, session) {
                 point_size = input$pointsize,
                 auto_crop = input$auto_crop,
                 is_stitched = is_stitched,
-                cap_percentile = input$cap_percentile
+                cap_percentile = input$cap_percentile,
+                datatype = datatype
             ) +
             geom_point(
                 shape = 21,
@@ -1077,25 +1139,27 @@ app_server <- function(input, output, session) {
         ## Update the reactiveValues data
         rv$ContCount <- p$data[, c("key", "COUNT")]
 
-        ## Read in the histology image
-        img <-
-            SpatialExperiment::imgRaster(
-                spe,
-                sample_id = input$sample,
-                image_id = input$imageid
-            )
-        if (input$auto_crop) {
-            frame_lims <-
-                frame_limits(
+        if (datatype == "Visium") {
+            ## Read in the histology image
+            img <-
+                SpatialExperiment::imgRaster(
                     spe,
-                    sampleid = input$sample,
+                    sample_id = input$sample,
                     image_id = input$imageid
                 )
-            img <-
-                img[
-                    frame_lims$y_min:frame_lims$y_max,
-                    frame_lims$x_min:frame_lims$x_max
-                ]
+            if (input$auto_crop) {
+                frame_lims <-
+                    frame_limits(
+                        spe,
+                        sampleid = input$sample,
+                        image_id = input$imageid
+                    )
+                img <-
+                    img[
+                        frame_lims$y_min:frame_lims$y_max,
+                        frame_lims$x_min:frame_lims$x_max
+                    ]
+            }
         }
 
         suppressMessages(suppressWarnings(toWebGL(
@@ -1107,22 +1171,26 @@ app_server <- function(input, output, session) {
                     source = "plotly_gene",
                     tooltip = c("fill", "key")
                 ),
-                images = list(
+                images = if (datatype == "Xenium") {
+                    NULL
+                } else {
                     list(
-                        source = raster2uri(img),
-                        layer = "below",
-                        xanchor = "left",
-                        yanchor = "bottom",
-                        xref = "x",
-                        yref = "y",
-                        sizing = "stretch",
-                        x = 0,
-                        y = -nrow(img),
-                        sizex = ncol(img),
-                        sizey = nrow(img),
-                        opacity = 0.8
+                        list(
+                            source = raster2uri(img),
+                            layer = "below",
+                            xanchor = "left",
+                            yanchor = "bottom",
+                            xref = "x",
+                            yref = "y",
+                            sizing = "stretch",
+                            x = 0,
+                            y = -nrow(img),
+                            sizex = ncol(img),
+                            sizey = nrow(img),
+                            opacity = 0.8
+                        )
                     )
-                ),
+                },
                 dragmode = "lasso"
             )
         )))
