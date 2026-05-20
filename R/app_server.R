@@ -26,6 +26,7 @@ app_server <- function(input, output, session) {
     sig_genes <- golem::get_golem_options("sig_genes")
     default_cluster <- golem::get_golem_options("default_cluster")
     is_stitched <- golem::get_golem_options("is_stitched")
+    datatype <- golem::get_golem_options("datatype")
 
     # List the first level callModules here
 

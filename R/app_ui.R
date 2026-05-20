@@ -15,6 +15,7 @@ app_ui <- function() {
     modeling_results <- golem::get_golem_options("modeling_results")
     sig_genes <- golem::get_golem_options("sig_genes")
     auto_crop_default <- golem::get_golem_options("auto_crop_default")
+    datatype <- golem::get_golem_options("datatype")
 
     red_dim_names <- reducedDimNames(spe)
     if (length(red_dim_names) > 0) {
