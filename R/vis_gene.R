@@ -164,7 +164,7 @@
 #'     print(p8)
 #'
 #'     ## Obtain the necessary data: Xenium example
-#'     if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_test")
+#'     if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_example")
 #'
 #'     p9 <- vis_gene(
 #'         spe = spe_xenium,

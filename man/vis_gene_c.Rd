@@ -79,7 +79,7 @@ use \code{\link[=vis_clus_c]{vis_clus_c()}}.
 
 if (enough_ram()) {
     ## Obtain the necessary data
-    if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_test")
+    if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_example")
 
     ## Prepare the data for the plotting function
     spe_sub <- spe_xenium[, spe_xenium$sample_id == "Br1039"]
