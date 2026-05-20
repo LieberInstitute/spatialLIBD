@@ -25,6 +25,7 @@ run_app(
   default_cluster = "spatialLIBD",
   auto_crop_default = TRUE,
   is_stitched = FALSE,
+  datatype = c("Visium", "Xenium"),
   ...
 )
 }
@@ -83,6 +84,16 @@ with \code{visiumStitched::build_spe()}.
 \url{http://research.libd.org/visiumStitched/reference/build_spe.html}; in
 particular, expects a logical colData column \code{exclude_overlapping}
 specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}.}
+
+\item{datatype}{A \code{character(1)} specifying the type of spatial transcriptomics
+data stored in \code{spe}. Supported options are:
+\describe{
+\item{\code{"Visium"}}{(Default) Expects \code{pxl_col_in_fullres} and
+\code{pxl_row_in_fullres} as columns of \code{spatialCoords(spe)}. Enables
+image handling via the \code{spatialData} slot.}
+\item{\code{"Xenium"}}{Expects \code{x_centroid} and \code{y_centroid} as columns
+of \code{spatialCoords(spe)}.}
+}}
 
 \item{...}{Other arguments passed to the list of golem options for running
 the application.}
@@ -264,5 +275,17 @@ run_app(
     default_cluster = "scran_quick_cluster",
     is_stitched = TRUE
 )
+
+## Example for Xenium object 
+
+if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_example")
+
+   run_app(spe_xenium,
+        sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
+        title = "spatialLIBD Xenium without layer info",
+        datatype = "Xenium"
+    )
+
 }
+
 }

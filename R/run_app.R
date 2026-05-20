@@ -208,7 +208,19 @@
 #'     default_cluster = "scran_quick_cluster",
 #'     is_stitched = TRUE
 #' )
+#' 
+#'## Example for Xenium object 
+#'
+#' if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_example")
+#' 
+#'    run_app(spe_xenium,
+#'         sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
+#'         title = "spatialLIBD Xenium without layer info",
+#'         datatype = "Xenium"
+#'     )
+#' 
 #' }
+#' 
 run_app <- function(
         spe = fetch_data(type = "spe"),
         sce_layer = fetch_data(type = "sce_layer"),
@@ -258,6 +270,7 @@ run_app <- function(
         default_cluster = "spatialLIBD",
         auto_crop_default = TRUE,
         is_stitched = FALSE,
+        datatype = c("Visium", "Xenium"),
         ...) {
     ## Run the checks in the relevant order
     stopifnot(length(default_cluster) == 1)
