@@ -17,14 +17,19 @@ vis_grid_gene(
   width = 36,
   image_id = "lowres",
   alpha = NA,
-  cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4",
-    "springgreen", "goldenrod", "red"),
+  cont_colors = if (viridis) {
+     viridisLite::viridis(21)
+ } else {
+    
+    c("aquamarine4", "springgreen", "goldenrod", "red")
+ },
   sample_order = unique(spe$sample_id),
   point_size = 2,
   auto_crop = TRUE,
   na_color = "#CCCCCC40",
   is_stitched = FALSE,
   cap_percentile = 1,
+  datatype = c("Visium", "Xenium"),
   ...
 )
 }
@@ -108,6 +113,16 @@ of 0.95 sets the top 5\% of expression values to the 95th percentile value.
 This can help make the color scale more dynamic in the presence of high
 outliers. Defaults to \code{1}, which effectively performs no capping.}
 
+\item{datatype}{A \code{character(1)} specifying the type of spatial transcriptomics
+data stored in \code{spe}. Supported options are:
+\describe{
+\item{\code{"Visium"}}{(Default) Expects \code{pxl_col_in_fullres} and
+\code{pxl_row_in_fullres} as columns of \code{spatialCoords(spe)}. Enables
+image handling via the \code{spatialData} slot.}
+\item{\code{"Xenium"}}{Expects \code{x_centroid} and \code{y_centroid} as columns
+of \code{spatialCoords(spe)}.}
+}}
+
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}
 }
@@ -147,6 +162,7 @@ if (enough_ram()) {
 \seealso{
 Other Spatial gene visualization functions: 
 \code{\link{vis_gene}()},
+\code{\link{vis_gene_c}()},
 \code{\link{vis_gene_p}()}
 }
 \concept{Spatial gene visualization functions}

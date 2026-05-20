@@ -18,6 +18,7 @@ vis_clus(
   na_color = "#CCCCCC40",
   is_stitched = FALSE,
   guide_point_size = point_size,
+  datatype = c("Visium", "Xenium"),
   ...
 )
 }
@@ -69,7 +70,17 @@ particular, expects a logical colData column \code{exclude_overlapping}
 specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}.}
 
 \item{guide_point_size}{A \code{numeric(1)} specifying the size of the points in
-guide. Defaults to \code{point_size}. Increase to improve visability.}
+guide. Defaults to \code{point_size}. Increase to improve visibility.}
+
+\item{datatype}{A \code{character(1)} specifying the type of spatial transcriptomics
+data stored in \code{spe}. Supported options are:
+\describe{
+\item{\code{"Visium"}}{(Default) Expects \code{pxl_col_in_fullres} and
+\code{pxl_row_in_fullres} as columns of \code{spatialCoords(spe)}. Enables
+image handling via the \code{spatialData} slot.}
+\item{\code{"Xenium"}}{Expects \code{x_centroid} and \code{y_centroid} as columns
+of \code{spatialCoords(spe)}.}
+}}
 
 \item{...}{Passed to \link[base:paste]{paste0()} for making the title of the
 plot following the \code{sampleid}.}
@@ -84,12 +95,12 @@ gene-level (or any continuous variable) use \code{\link[=vis_gene]{vis_gene()}}.
 }
 \details{
 This function subsets \code{spe} to the given sample and prepares the
-data and title for \code{\link[=vis_clus_p]{vis_clus_p()}}.
+data and title for \code{\link[=vis_clus_p]{vis_clus_p()}} or \code{\link[=vis_clus_c]{vis_clus_c()}}.
 }
 \examples{
 
 if (enough_ram()) {
-    ## Obtain the necessary data
+    ## Obtain the necessary data: Visium example
     if (!exists("spe")) spe <- fetch_data("spe")
 
     ## Check the colors defined by Lukas M Weber
@@ -139,7 +150,7 @@ if (enough_ram()) {
         ... = " LIBD Layers"
     )
     print(p4)
-    
+
     ## edit plot point size but keep guide size larger
     p5 <- vis_clus(
         spe = spe,
@@ -152,12 +163,31 @@ if (enough_ram()) {
         ... = " LIBD Layers"
     )
     print(p5)
-         
+
+    ## Obtain the necessary data: Xenium example
+    if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_example")
+
+    spe_xenium$x_half <- ifelse(spatialCoords(spe_xenium)[,"x_centroid"] < 3088, "left", "right")
+
+    p6 <- vis_clus(
+        spe = spe_xenium,
+        clustervar = "x_half",
+        sampleid = "Br1556",
+        colors = c(left = "red", right = "blue"),
+        na_color = "white",
+        point_size = 1,
+        alpha = 0.5,
+        guide_point_size = 3,
+        datatype = "Xenium"
+    )
+    print(p6)
+
 }
 }
 \seealso{
 Other Spatial cluster visualization functions: 
 \code{\link{frame_limits}()},
+\code{\link{vis_clus_c}()},
 \code{\link{vis_clus_p}()},
 \code{\link{vis_grid_clus}()},
 \code{\link{vis_image}()}

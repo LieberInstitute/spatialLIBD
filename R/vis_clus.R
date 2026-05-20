@@ -39,8 +39,17 @@
 #' <http://research.libd.org/visiumStitched/reference/build_spe.html>; in
 #' particular, expects a logical colData column `exclude_overlapping`
 #' specifying which spots to exclude from the plot. Sets `auto_crop = FALSE`.
-#' @param guide_point_size A `numeric(1)` specifying the size of the points in 
-#' guide. Defaults to `point_size`. Increase to improve visability. 
+#' @param guide_point_size A `numeric(1)` specifying the size of the points in
+#' guide. Defaults to `point_size`. Increase to improve visibility.
+#' @param datatype A `character(1)` specifying the type of spatial transcriptomics
+#'   data stored in `spe`. Supported options are:
+#'   \describe{
+#'     \item{`"Visium"`}{(Default) Expects `pxl_col_in_fullres` and
+#'       `pxl_row_in_fullres` as columns of `spatialCoords(spe)`. Enables
+#'       image handling via the `spatialData` slot.}
+#'     \item{`"Xenium"`}{Expects `x_centroid` and `y_centroid` as columns
+#'       of `spatialCoords(spe)`.}
+#'   }
 #' @param ... Passed to [paste0()][base::paste] for making the title of the
 #' plot following the `sampleid`.
 #'
@@ -49,12 +58,12 @@
 #' @export
 #' @importFrom SpatialExperiment spatialCoords
 #' @details This function subsets `spe` to the given sample and prepares the
-#' data and title for [vis_clus_p()].
+#' data and title for [vis_clus_p()] or [vis_clus_c()].
 #'
 #' @examples
 #'
 #' if (enough_ram()) {
-#'     ## Obtain the necessary data
+#'     ## Obtain the necessary data: Visium example
 #'     if (!exists("spe")) spe <- fetch_data("spe")
 #'
 #'     ## Check the colors defined by Lukas M Weber
@@ -104,7 +113,7 @@
 #'         ... = " LIBD Layers"
 #'     )
 #'     print(p4)
-#'     
+#'
 #'     ## edit plot point size but keep guide size larger
 #'     p5 <- vis_clus(
 #'         spe = spe,
@@ -117,35 +126,55 @@
 #'         ... = " LIBD Layers"
 #'     )
 #'     print(p5)
-#'          
+#'
+#'     ## Obtain the necessary data: Xenium example
+#'     if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_example")
+#'
+#'     spe_xenium$x_half <- ifelse(spatialCoords(spe_xenium)[,"x_centroid"] < 3088, "left", "right")
+#'
+#'     p6 <- vis_clus(
+#'         spe = spe_xenium,
+#'         clustervar = "x_half",
+#'         sampleid = "Br1556",
+#'         colors = c(left = "red", right = "blue"),
+#'         na_color = "white",
+#'         point_size = 1,
+#'         alpha = 0.5,
+#'         guide_point_size = 3,
+#'         datatype = "Xenium"
+#'     )
+#'     print(p6)
+#'
 #' }
 vis_clus <- function(
-        spe,
-        sampleid = unique(spe$sample_id)[1],
-        clustervar,
-        colors = c(
-            "#b2df8a",
-            "#e41a1c",
-            "#377eb8",
-            "#4daf4a",
-            "#ff7f00",
-            "gold",
-            "#a65628",
-            "#999999",
-            "black",
-            "grey",
-            "white",
-            "purple"
-        ),
-        spatial = TRUE,
-        image_id = "lowres",
-        alpha = NA,
-        point_size = 2,
-        auto_crop = TRUE,
-        na_color = "#CCCCCC40",
-        is_stitched = FALSE,
-        guide_point_size = point_size,
-        ...) {
+    spe,
+    sampleid = unique(spe$sample_id)[1],
+    clustervar,
+    colors = c(
+        "#b2df8a",
+        "#e41a1c",
+        "#377eb8",
+        "#4daf4a",
+        "#ff7f00",
+        "gold",
+        "#a65628",
+        "#999999",
+        "black",
+        "grey",
+        "white",
+        "purple"
+    ),
+    spatial = TRUE,
+    image_id = "lowres",
+    alpha = NA,
+    point_size = 2,
+    auto_crop = TRUE,
+    na_color = "#CCCCCC40",
+    is_stitched = FALSE,
+    guide_point_size = point_size,
+    datatype = c("Visium", "Xenium"),
+    ...
+) {
     #   Verify existence and legitimacy of 'sampleid'
     if (
         !("sample_id" %in% colnames(colData(spe))) ||
@@ -153,47 +182,96 @@ vis_clus <- function(
     ) {
         stop(
             paste(
-                "'spe$sample_id' must exist and contain the ID", sampleid
+                "'spe$sample_id' must exist and contain the ID",
+                sampleid
             ),
             call. = FALSE
         )
     }
 
-    #   Check validity of spatial coordinates
-    if (!setequal(c("pxl_col_in_fullres", "pxl_row_in_fullres"), colnames(spatialCoords(spe)))) {
-        stop(
-            "Abnormal spatial coordinates: should have 'pxl_row_in_fullres' and 'pxl_col_in_fullres' columns.",
-            call. = FALSE
-        )
-    }
-
+    ## subset spe to selected sample
     spe_sub <- spe[, spe$sample_id == sampleid]
 
-    if (is_stitched) {
-        #   Drop excluded spots and calculate an appropriate point size
-        temp <- prep_stitched_data(spe_sub, point_size, image_id)
-        spe_sub <- temp$spe
-        point_size <- temp$point_size
+    ## Check for valid datatype
+    datatype <- match.arg(datatype)
 
-        #   Frame limits are poorly defined for stitched data
-        auto_crop <- FALSE
+    d <- as.data.frame(
+        cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)),
+        optional = TRUE
+    )
+
+    if (datatype == "Visium") {
+        #   Check validity of spatial coordinates by datatype
+        if (
+            !setequal(
+                c("pxl_col_in_fullres", "pxl_row_in_fullres"),
+                colnames(spatialCoords(spe_sub))
+            )
+        ) {
+            stop(
+                "Abnormal spatial coordinates for Visium datatype: should have 'pxl_row_in_fullres' and 'pxl_col_in_fullres' columns.",
+                call. = FALSE
+            )
+        }
+
+        if (is_stitched) {
+            #   Drop excluded spots and calculate an appropriate point size
+            temp <- prep_stitched_data(spe_sub, point_size, image_id)
+            spe_sub <- temp$spe
+            point_size <- temp$point_size
+
+            #   Frame limits are poorly defined for stitched data
+            auto_crop <- FALSE
+        }
+
+        vis_clus_p(
+            spe = spe_sub,
+            d = d,
+            clustervar = clustervar,
+            sampleid = sampleid,
+            spatial = spatial,
+            title = paste0(sampleid, ...),
+            colors = get_colors(colors, d[, clustervar]),
+            image_id = image_id,
+            alpha = alpha,
+            point_size = point_size,
+            auto_crop = auto_crop,
+            na_color = na_color
+        ) +
+            guides(
+                fill = guide_legend(
+                    override.aes = list(size = guide_point_size)
+                )
+            )
+    } else if (datatype == "Xenium") {
+        if (
+            datatype == "Xenium" &
+                !setequal(
+                    c("x_centroid", "y_centroid"),
+                    colnames(spatialCoords(spe_sub))
+                )
+        ) {
+            stop(
+                "Abnormal spatial coordinates for Xenium datatype: should have 'x_centroid' and 'y_centroid' columns.",
+                call. = FALSE
+            )
+        }
+
+        vis_clus_c(
+            spe = spe_sub,
+            d = d,
+            clustervar = clustervar,
+            sampleid = sampleid,
+            title = paste0(sampleid, ...),
+            colors = get_colors(colors, d[, clustervar]),
+            alpha = alpha,
+            point_size = point_size,
+            na_color = na_color
+        ) +
+            guides(
+                fill = guide_legend(
+                    override.aes = list(size = guide_point_size)
+                )
+            )
     }
-
-    d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
-
-    vis_clus_p(
-        spe = spe_sub,
-        d = d,
-        clustervar = clustervar,
-        sampleid = sampleid,
-        spatial = spatial,
-        title = paste0(sampleid, ...),
-        colors = get_colors(colors, d[, clustervar]),
-        image_id = image_id,
-        alpha = alpha,
-        point_size = point_size,
-        auto_crop = auto_crop,
-        na_color = na_color
-    ) + 
-      guides(fill = guide_legend(override.aes = list(size = guide_point_size)))
 }

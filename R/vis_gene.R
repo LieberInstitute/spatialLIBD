@@ -162,25 +162,46 @@
 #'         multi_gene_method = "pca"
 #'     )
 #'     print(p8)
+#'
+#'     ## Obtain the necessary data: Xenium example
+#'     if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_test")
+#'
+#'     p9 <- vis_gene(
+#'         spe = spe_xenium,
+#'         sampleid = "Br1556",
+#'         geneid = rownames(spe_xenium)[which(rowData(spe_xenium)$gene_name == "MBP")],
+#'         assayname = "counts",
+#'         point_size = 1,
+#'         datatype = "Xenium"
+#'     )
+#'     print(p9)
+#'
 #' }
 vis_gene <-
-    function(spe,
-    sampleid = unique(spe$sample_id)[1],
-    geneid = rowData(spe)$gene_search[1],
-    spatial = TRUE,
-    assayname = "logcounts",
-    minCount = 0,
-    viridis = TRUE,
-    image_id = "lowres",
-    alpha = NA,
-    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
-    point_size = 2,
-    auto_crop = TRUE,
-    na_color = "#CCCCCC40",
-    multi_gene_method = c("z_score", "pca", "sparsity"),
-    is_stitched = FALSE,
-    cap_percentile = 1,
-    ...) {
+    function(
+        spe,
+        sampleid = unique(spe$sample_id)[1],
+        geneid = rowData(spe)$gene_search[1],
+        spatial = TRUE,
+        assayname = "logcounts",
+        minCount = 0,
+        viridis = TRUE,
+        image_id = "lowres",
+        alpha = NA,
+        cont_colors = if (viridis) {
+            viridisLite::viridis(21)
+        } else {
+            c("aquamarine4", "springgreen", "goldenrod", "red")
+        },
+        point_size = 2,
+        auto_crop = TRUE,
+        na_color = "#CCCCCC40",
+        multi_gene_method = c("z_score", "pca", "sparsity"),
+        is_stitched = FALSE,
+        cap_percentile = 1,
+        datatype = c("Visium", "Xenium"),
+        ...
+    ) {
         multi_gene_method <- rlang::arg_match(multi_gene_method)
         #   Verify existence and legitimacy of 'sampleid'
         if (
@@ -189,7 +210,8 @@ vis_gene <-
         ) {
             stop(
                 paste(
-                    "'spe$sample_id' must exist and contain the ID", sampleid
+                    "'spe$sample_id' must exist and contain the ID",
+                    sampleid
                 ),
                 call. = FALSE
             )
@@ -197,35 +219,68 @@ vis_gene <-
 
         #   Verify 'assayname'
         if (!(assayname %in% names(assays(spe)))) {
-            stop(sprintf("'%s' is not an assay in 'spe'", assayname), call. = FALSE)
-        }
-
-        #   Check validity of spatial coordinates
-        if (!setequal(c("pxl_col_in_fullres", "pxl_row_in_fullres"), colnames(spatialCoords(spe)))) {
             stop(
-                "Abnormal spatial coordinates: should have 'pxl_row_in_fullres' and 'pxl_col_in_fullres' columns.",
+                sprintf("'%s' is not an assay in 'spe'", assayname),
                 call. = FALSE
             )
         }
+
+        ## Check for valid datatype
+        datatype <- match.arg(datatype)
 
         #   Validate 'cap_percentile'
         if (cap_percentile <= 0 || cap_percentile > 1) {
             stop("'cap_percentile' must be in (0, 1]", call. = FALSE)
         }
 
+        ## Subset to current sample
         spe_sub <- spe[, spe$sample_id == sampleid]
 
-        if (is_stitched) {
-            #   Drop excluded spots and calculate an appropriate point size
-            temp <- prep_stitched_data(spe_sub, point_size, image_id)
-            spe_sub <- temp$spe
-            point_size <- temp$point_size
+        if (datatype == "Visium") {
+            #   Check validity of spatial coordinates
+            if (
+                !setequal(
+                    c("pxl_col_in_fullres", "pxl_row_in_fullres"),
+                    colnames(spatialCoords(spe))
+                )
+            ) {
+                stop(
+                    "Abnormal spatial coordinates for Visium datatype: should have 'pxl_row_in_fullres' and 'pxl_col_in_fullres' columns.",
+                    call. = FALSE
+                )
+            }
 
-            #   Frame limits are poorly defined for stitched data
-            auto_crop <- FALSE
+            if (is_stitched) {
+                #   Drop excluded spots and calculate an appropriate point size
+                temp <- prep_stitched_data(spe_sub, point_size, image_id)
+                spe_sub <- temp$spe
+                point_size <- temp$point_size
+
+                #   Frame limits are poorly defined for stitched data
+                auto_crop <- FALSE
+            }
+        } else if (datatype == "Xenium") {
+            #   Check validity of spatial coordinates
+            if (
+                !setequal(
+                    c("x_centroid", "y_centroid"),
+                    colnames(spatialCoords(spe_sub))
+                )
+            ) {
+                stop(
+                    "Abnormal spatial coordinates for Xenium datatype: should have 'x_centroid' and 'y_centroid' columns.",
+                    call. = FALSE
+                )
+            }
         }
 
-        d <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
+        d <- as.data.frame(
+            cbind(
+                colData(spe_sub),
+                SpatialExperiment::spatialCoords(spe_sub)
+            ),
+            optional = TRUE
+        )
 
         #   Verify legitimacy of names in geneid
         geneid_is_valid <- (geneid %in% rowData(spe_sub)$gene_search) |
@@ -240,8 +295,8 @@ vis_gene <-
         }
 
         #   Grab any continuous colData columns and verify they're all numeric
-        cont_cols <- colData(spe_sub)[
-            , geneid[geneid %in% colnames(colData(spe_sub))],
+        cont_cols <- colData(spe_sub)[,
+            geneid[geneid %in% colnames(colData(spe_sub))],
             drop = FALSE
         ]
         if (!all(sapply(cont_cols, class) %in% c("numeric", "integer"))) {
@@ -254,7 +309,9 @@ vis_gene <-
 
         #   Get the integer indices of each gene in the SpatialExperiment, since we
         #   aren't guaranteed that rownames are gene names
-        remaining_geneid <- geneid[!(geneid %in% colnames(colData(spe_sub)))]
+        remaining_geneid <- geneid[
+            !(geneid %in% colnames(colData(spe_sub)))
+        ]
         valid_gene_indices <- unique(
             c(
                 match(remaining_geneid, rowData(spe_sub)$gene_search),
@@ -277,7 +334,11 @@ vis_gene <-
             plot_title <- paste(sampleid, geneid, ...)
             d$COUNT <- cont_matrix[, 1]
             if (!(geneid %in% colnames(colData(spe_sub)))) {
-                legend_title <- sprintf("%s\n min > %s", assayname, minCount)
+                legend_title <- sprintf(
+                    "%s\n min > %s",
+                    assayname,
+                    minCount
+                )
             } else {
                 legend_title <- sprintf("min > %s", minCount)
             }
@@ -289,7 +350,8 @@ vis_gene <-
             } else if (multi_gene_method == "sparsity") {
                 d$COUNT <- multi_gene_sparsity(cont_matrix)
                 legend_title <- paste("Prop. nonzero\n min > ", minCount)
-            } else { # must be 'pca'
+            } else {
+                # must be 'pca'
                 d$COUNT <- multi_gene_pca(cont_matrix)
                 legend_title <- paste("PC1\n min > ", minCount)
             }
@@ -306,20 +368,36 @@ vis_gene <-
 
         d$COUNT[d$COUNT <= minCount] <- NA
 
-        p <- vis_gene_p(
-            spe = spe_sub,
-            d = d,
-            sampleid = sampleid,
-            spatial = spatial,
-            title = plot_title,
-            viridis = viridis,
-            image_id = image_id,
-            alpha = alpha,
-            cont_colors = cont_colors,
-            point_size = point_size,
-            auto_crop = auto_crop,
-            na_color = na_color,
-            legend_title = legend_title
-        )
-        return(p)
+        if (datatype == "Visium") {
+            p <- vis_gene_p(
+                spe = spe_sub,
+                d = d,
+                sampleid = sampleid,
+                spatial = spatial,
+                title = plot_title,
+                viridis = viridis,
+                image_id = image_id,
+                alpha = alpha,
+                cont_colors = cont_colors,
+                point_size = point_size,
+                auto_crop = auto_crop,
+                na_color = na_color,
+                legend_title = legend_title
+            )
+            return(p)
+        } else if (datatype == "Xenium") {
+            p <- vis_gene_c(
+                spe = spe_sub,
+                d = d,
+                sampleid = sampleid,
+                title = plot_title,
+                viridis = viridis,
+                alpha = alpha,
+                cont_colors = cont_colors,
+                point_size = point_size,
+                na_color = na_color,
+                legend_title = legend_title
+            )
+            return(p)
+        }
     }

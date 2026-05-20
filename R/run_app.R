@@ -208,65 +208,93 @@
 #'     default_cluster = "scran_quick_cluster",
 #'     is_stitched = TRUE
 #' )
+#'
+#' ## Example for Xenium object
+#' if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_example")
+#'
+#' run_app(spe_xenium,
+#'         sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
+#'         title = "spatialLIBD Xenium without layer info",
+#'     spe_discrete_vars = c(
+#'         "SpX",
+#'         "ManualAnnotation"
+#'     ),
+#'     spe_continuous_vars = c(
+#'         "sum_gex",  # "sum_umi",
+#'         "detected_gex" #"sum_gene",
+#'     ),
+#'     default_cluster = "SpX",
+#'     datatype = "Xenium"
+#' )
+#'
 #' }
+#'
 run_app <- function(
-        spe = fetch_data(type = "spe"),
-        sce_layer = fetch_data(type = "sce_layer"),
-        modeling_results = fetch_data(type = "modeling_results"),
-        sig_genes = sig_genes_extract_all(
-            n = nrow(sce_layer),
-            modeling_results = modeling_results,
-            sce_layer = sce_layer
-        ),
-        docs_path = system.file("app", "www", package = "spatialLIBD"),
-        title = "spatialLIBD",
-        spe_discrete_vars = c(
-            "spatialLIBD",
-            "GraphBased",
-            "ManualAnnotation",
-            "Maynard",
-            "Martinowich",
-            paste0("SNN_k50_k", 4:28),
-            "SpatialDE_PCA",
-            "SpatialDE_pool_PCA",
-            "HVG_PCA",
-            "pseudobulk_PCA",
-            "markers_PCA",
-            "SpatialDE_UMAP",
-            "SpatialDE_pool_UMAP",
-            "HVG_UMAP",
-            "pseudobulk_UMAP",
-            "markers_UMAP",
-            "SpatialDE_PCA_spatial",
-            "SpatialDE_pool_PCA_spatial",
-            "HVG_PCA_spatial",
-            "pseudobulk_PCA_spatial",
-            "markers_PCA_spatial",
-            "SpatialDE_UMAP_spatial",
-            "SpatialDE_pool_UMAP_spatial",
-            "HVG_UMAP_spatial",
-            "pseudobulk_UMAP_spatial",
-            "markers_UMAP_spatial"
-        ),
-        spe_continuous_vars = c(
-            "cell_count",
-            "sum_umi",
-            "sum_gene",
-            "expr_chrM",
-            "expr_chrM_ratio"
-        ),
-        default_cluster = "spatialLIBD",
-        auto_crop_default = TRUE,
-        is_stitched = FALSE,
-        ...) {
+    spe = fetch_data(type = "spe"),
+    sce_layer = fetch_data(type = "sce_layer"),
+    modeling_results = fetch_data(type = "modeling_results"),
+    sig_genes = sig_genes_extract_all(
+        n = nrow(sce_layer),
+        modeling_results = modeling_results,
+        sce_layer = sce_layer
+    ),
+    docs_path = system.file("app", "www", package = "spatialLIBD"),
+    title = "spatialLIBD",
+    spe_discrete_vars = c(
+        "spatialLIBD",
+        "GraphBased",
+        "ManualAnnotation",
+        "Maynard",
+        "Martinowich",
+        paste0("SNN_k50_k", 4:28),
+        "SpatialDE_PCA",
+        "SpatialDE_pool_PCA",
+        "HVG_PCA",
+        "pseudobulk_PCA",
+        "markers_PCA",
+        "SpatialDE_UMAP",
+        "SpatialDE_pool_UMAP",
+        "HVG_UMAP",
+        "pseudobulk_UMAP",
+        "markers_UMAP",
+        "SpatialDE_PCA_spatial",
+        "SpatialDE_pool_PCA_spatial",
+        "HVG_PCA_spatial",
+        "pseudobulk_PCA_spatial",
+        "markers_PCA_spatial",
+        "SpatialDE_UMAP_spatial",
+        "SpatialDE_pool_UMAP_spatial",
+        "HVG_UMAP_spatial",
+        "pseudobulk_UMAP_spatial",
+        "markers_UMAP_spatial"
+    ),
+    spe_continuous_vars = c(
+        "cell_count",
+        "sum_umi",
+        "sum_gene",
+        "expr_chrM",
+        "expr_chrM_ratio"
+    ),
+    default_cluster = "spatialLIBD",
+    auto_crop_default = TRUE,
+    is_stitched = FALSE,
+    datatype = c("Visium", "Xenium"),
+    ...
+) {
     ## Run the checks in the relevant order
     stopifnot(length(default_cluster) == 1)
     stopifnot(default_cluster %in% spe_discrete_vars)
-    if (is_stitched) auto_crop_default <- FALSE
+    if (is_stitched) {
+        auto_crop_default <- FALSE
+    }
+    ## Check for valid datatype
+    datatype <- match.arg(datatype)
 
     spe <-
-        check_spe(spe,
-            variables = c(spe_discrete_vars, spe_continuous_vars)
+        check_spe(
+            spe,
+            variables = c(spe_discrete_vars, spe_continuous_vars),
+            datatype = datatype
         )
 
     ## Check sce_layer and modeling_results if needed
@@ -290,7 +318,8 @@ run_app <- function(
     if (!is.null(sce_layer)) {
         ## Check required files when sce_layer is present
         stopifnot(file.exists(file.path(
-            docs_path, "documentation_sce_layer.md"
+            docs_path,
+            "documentation_sce_layer.md"
         )))
     }
 
@@ -306,8 +335,13 @@ run_app <- function(
             spe_discrete_vars = spe_discrete_vars,
             spe_continuous_vars = spe_continuous_vars,
             default_cluster = default_cluster,
-            auto_crop_default = auto_crop_default,
+            auto_crop_default = ifelse(
+                datatype == "Visium",
+                auto_crop_default,
+                FALSE
+            ),
             is_stitched = is_stitched,
+            datatype = datatype,
             ...
         )
     )
