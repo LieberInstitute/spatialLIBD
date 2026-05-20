@@ -276,10 +276,13 @@ run_app <- function(
     stopifnot(length(default_cluster) == 1)
     stopifnot(default_cluster %in% spe_discrete_vars)
     if (is_stitched) auto_crop_default <- FALSE
+    ## Check for valid datatype
+    datatype <- match.arg(datatype)
 
     spe <-
         check_spe(spe,
-            variables = c(spe_discrete_vars, spe_continuous_vars)
+            variables = c(spe_discrete_vars, spe_continuous_vars),
+            datatype = datatype
         )
 
     ## Check sce_layer and modeling_results if needed

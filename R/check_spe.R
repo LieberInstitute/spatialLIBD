@@ -31,18 +31,27 @@ check_spe <- function(spe,
         "sum_gene",
         "expr_chrM",
         "expr_chrM_ratio"
-    )) {
+    ),
+    datatype = c("Visium", "Xenium")
+    ) {
     ## Should be a SpatialExperiment object
     stopifnot(is(spe, "SpatialExperiment"))
-
+  
+  ## Check for valid datatype
+  datatype <- match.arg(datatype)
+  
+  if(datatype == "Visium"){
+    
     ## Images data stored under imgData(sce)
     stopifnot(all(c(
-        "sample_id", "image_id", "data",
-        "scaleFactor"
+      "sample_id", "image_id", "data",
+      "scaleFactor"
     ) %in% colnames(imgData(spe))))
-
+    
     ## Check that the images have been loaded
     stopifnot(all(vapply(imgData(spe)$data, is, logical(1), "VirtualSpatialImage")))
+    
+  }
 
     ## Check gene data
     stopifnot(all(
