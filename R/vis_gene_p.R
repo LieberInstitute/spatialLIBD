@@ -47,32 +47,46 @@
 #'     rm(spe_sub)
 #' }
 vis_gene_p <-
-    function(spe,
-    d,
-    sampleid = unique(spe$sample_id)[1],
-    spatial,
-    title,
-    viridis = TRUE,
-    image_id = "lowres",
-    alpha = NA,
-    cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4", "springgreen", "goldenrod", "red"),
-    point_size = 2,
-    auto_crop = TRUE,
-    na_color = "#CCCCCC40",
-    legend_title = "") {
+    function(
+        spe,
+
+        d,
+        sampleid = unique(spe$sample_id)[1],
+        spatial,
+        title,
+        viridis = TRUE,
+        image_id = "lowres",
+        alpha = NA,
+        cont_colors = if (viridis) {
+            viridisLite::viridis(21)
+        } else {
+            c("aquamarine4", "springgreen", "goldenrod", "red")
+        },
+        point_size = 2,
+        auto_crop = TRUE,
+        na_color = "#CCCCCC40",
+        legend_title = ""
+    ) {
         ## Some variables
         pxl_row_in_fullres <-
             pxl_col_in_fullres <- key <- COUNT <- NULL
         # stopifnot(all(c("pxl_col_in_fullres", "pxl_row_in_fullres", "COUNT", "key") %in% colnames(d)))
         img <-
-            SpatialExperiment::imgRaster(spe, sample_id = sampleid, image_id = image_id)
+            SpatialExperiment::imgRaster(
+                spe,
+                sample_id = sampleid,
+                image_id = image_id
+            )
 
         ## Crop the image if needed
         if (auto_crop) {
             frame_lims <-
                 frame_limits(spe, sampleid = sampleid, image_id = image_id)
             img <-
-                img[frame_lims$y_min:frame_lims$y_max, frame_lims$x_min:frame_lims$x_max]
+                img[
+                    frame_lims$y_min:frame_lims$y_max,
+                    frame_lims$x_min:frame_lims$x_max
+                ]
             adjust <-
                 list(x = frame_lims$x_min, y = frame_lims$y_min)
         } else {
@@ -83,8 +97,20 @@ vis_gene_p <-
             ggplot(
                 d,
                 aes(
-                    x = pxl_col_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id) - adjust$x,
-                    y = pxl_row_in_fullres * SpatialExperiment::scaleFactors(spe, sample_id = sampleid, image_id = image_id) - adjust$y,
+                    x = pxl_col_in_fullres *
+                        SpatialExperiment::scaleFactors(
+                            spe,
+                            sample_id = sampleid,
+                            image_id = image_id
+                        ) -
+                        adjust$x,
+                    y = pxl_row_in_fullres *
+                        SpatialExperiment::scaleFactors(
+                            spe,
+                            sample_id = sampleid,
+                            image_id = image_id
+                        ) -
+                        adjust$y,
                     fill = COUNT,
                     color = COUNT,
                     key = key
@@ -93,12 +119,14 @@ vis_gene_p <-
 
         if (spatial) {
             grob <-
-                grid::rasterGrob(img,
+                grid::rasterGrob(
+                    img,
                     width = grid::unit(1, "npc"),
                     height = grid::unit(1, "npc")
                 )
             p <-
-                p + geom_spatial(
+                p +
+                geom_spatial(
                     data = tibble::tibble(grob = list(grob)),
                     aes(grob = grob),
                     x = 0.5,
@@ -116,11 +144,12 @@ vis_gene_p <-
             ) +
             coord_fixed(expand = FALSE)
 
-        p <- p + scale_fill_gradientn(
-            name = legend_title,
-            colors = cont_colors,
-            na.value = na_color
-        ) +
+        p <- p +
+            scale_fill_gradientn(
+                name = legend_title,
+                colors = cont_colors,
+                na.value = na_color
+            ) +
             scale_color_gradientn(
                 name = legend_title,
                 colors = cont_colors,
@@ -130,7 +159,8 @@ vis_gene_p <-
         p <- p +
             xlim(0, ncol(img)) +
             ylim(nrow(img), 0) +
-            xlab("") + ylab("") +
+            xlab("") +
+            ylab("") +
             labs(fill = NULL, color = NULL) +
             ggtitle(title) +
             theme_set(theme_bw(base_size = 20)) +

@@ -253,10 +253,10 @@ if (enough_ram()) {
     ## Obtain the necessary data: Xenium example
     if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_test")
 
-     p9 <- vis_gene(
+    p9 <- vis_gene(
         spe = spe_xenium,
-        sampleid = "sample2",
-        geneid = "MBP",
+        sampleid = "Br1556",
+        geneid = rownames(spe_xenium)[which(rowData(spe_xenium)$gene_name == "MBP")],
         assayname = "counts",
         point_size = 1,
         datatype = "Xenium"

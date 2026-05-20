@@ -166,10 +166,10 @@
 #'     ## Obtain the necessary data: Xenium example
 #'     if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_test")
 #'
-#'      p9 <- vis_gene(
+#'     p9 <- vis_gene(
 #'         spe = spe_xenium,
-#'         sampleid = "sample2",
-#'         geneid = "MBP",
+#'         sampleid = "Br1556",
+#'         geneid = rownames(spe_xenium)[which(rowData(spe_xenium)$gene_name == "MBP")],
 #'         assayname = "counts",
 #'         point_size = 1,
 #'         datatype = "Xenium"
@@ -228,6 +228,14 @@ vis_gene <-
         ## Check for valid datatype
         datatype <- match.arg(datatype)
 
+        #   Validate 'cap_percentile'
+        if (cap_percentile <= 0 || cap_percentile > 1) {
+            stop("'cap_percentile' must be in (0, 1]", call. = FALSE)
+        }
+
+        ## Subset to current sample
+        spe_sub <- spe[, spe$sample_id == sampleid]
+
         if (datatype == "Visium") {
             #   Check validity of spatial coordinates
             if (
@@ -242,13 +250,6 @@ vis_gene <-
                 )
             }
 
-            #   Validate 'cap_percentile'
-            if (cap_percentile <= 0 || cap_percentile > 1) {
-                stop("'cap_percentile' must be in (0, 1]", call. = FALSE)
-            }
-
-            spe_sub <- spe[, spe$sample_id == sampleid]
-
             if (is_stitched) {
                 #   Drop excluded spots and calculate an appropriate point size
                 temp <- prep_stitched_data(spe_sub, point_size, image_id)
@@ -258,101 +259,116 @@ vis_gene <-
                 #   Frame limits are poorly defined for stitched data
                 auto_crop <- FALSE
             }
-
-            d <- as.data.frame(
-                cbind(
-                    colData(spe_sub),
-                    SpatialExperiment::spatialCoords(spe_sub)
-                ),
-                optional = TRUE
-            )
-
-            #   Verify legitimacy of names in geneid
-            geneid_is_valid <- (geneid %in% rowData(spe_sub)$gene_search) |
-                (geneid %in% rownames(spe_sub)) |
-                (geneid %in% colnames(colData(spe_sub)))
-            if (any(!geneid_is_valid)) {
+        } else if (datatype == "Xenium") {
+            #   Check validity of spatial coordinates
+            if (
+                !setequal(
+                    c("x_centroid", "y_centroid"),
+                    colnames(spatialCoords(spe_sub))
+                )
+            ) {
                 stop(
-                    "Could not find the 'geneid'(s) ",
-                    paste(geneid[!geneid_is_valid], collapse = ", "),
+                    "Abnormal spatial coordinates for Xenium datatype: should have 'x_centroid' and 'y_centroid' columns.",
                     call. = FALSE
                 )
             }
+        }
 
-            #   Grab any continuous colData columns and verify they're all numeric
-            cont_cols <- colData(spe_sub)[,
-                geneid[geneid %in% colnames(colData(spe_sub))],
-                drop = FALSE
-            ]
-            if (!all(sapply(cont_cols, class) %in% c("numeric", "integer"))) {
-                stop(
-                    "'geneid' can not contain non-numeric colData columns.",
-                    call. = FALSE
-                )
-            }
-            cont_cols <- as.matrix(cont_cols)
+        d <- as.data.frame(
+            cbind(
+                colData(spe_sub),
+                SpatialExperiment::spatialCoords(spe_sub)
+            ),
+            optional = TRUE
+        )
 
-            #   Get the integer indices of each gene in the SpatialExperiment, since we
-            #   aren't guaranteed that rownames are gene names
-            remaining_geneid <- geneid[
-                !(geneid %in% colnames(colData(spe_sub)))
-            ]
-            valid_gene_indices <- unique(
-                c(
-                    match(remaining_geneid, rowData(spe_sub)$gene_search),
-                    match(remaining_geneid, rownames(spe_sub))
-                )
+        #   Verify legitimacy of names in geneid
+        geneid_is_valid <- (geneid %in% rowData(spe_sub)$gene_search) |
+            (geneid %in% rownames(spe_sub)) |
+            (geneid %in% colnames(colData(spe_sub)))
+        if (any(!geneid_is_valid)) {
+            stop(
+                "Could not find the 'geneid'(s) ",
+                paste(geneid[!geneid_is_valid], collapse = ", "),
+                call. = FALSE
             )
-            valid_gene_indices <- valid_gene_indices[!is.na(valid_gene_indices)]
+        }
 
-            #   Grab any genes
-            gene_cols <- t(
-                as.matrix(assays(spe_sub[valid_gene_indices, ])[[assayname]])
+        #   Grab any continuous colData columns and verify they're all numeric
+        cont_cols <- colData(spe_sub)[,
+            geneid[geneid %in% colnames(colData(spe_sub))],
+            drop = FALSE
+        ]
+        if (!all(sapply(cont_cols, class) %in% c("numeric", "integer"))) {
+            stop(
+                "'geneid' can not contain non-numeric colData columns.",
+                call. = FALSE
             )
+        }
+        cont_cols <- as.matrix(cont_cols)
 
-            #   Combine into one matrix where rows are samples and columns are continuous
-            #   features
-            cont_matrix <- cbind(cont_cols, gene_cols)
+        #   Get the integer indices of each gene in the SpatialExperiment, since we
+        #   aren't guaranteed that rownames are gene names
+        remaining_geneid <- geneid[
+            !(geneid %in% colnames(colData(spe_sub)))
+        ]
+        valid_gene_indices <- unique(
+            c(
+                match(remaining_geneid, rowData(spe_sub)$gene_search),
+                match(remaining_geneid, rownames(spe_sub))
+            )
+        )
+        valid_gene_indices <- valid_gene_indices[!is.na(valid_gene_indices)]
 
-            #   Determine plot and legend titles
-            if (ncol(cont_matrix) == 1) {
-                plot_title <- paste(sampleid, geneid, ...)
-                d$COUNT <- cont_matrix[, 1]
-                if (!(geneid %in% colnames(colData(spe_sub)))) {
-                    legend_title <- sprintf(
-                        "%s\n min > %s",
-                        assayname,
-                        minCount
-                    )
-                } else {
-                    legend_title <- sprintf("min > %s", minCount)
-                }
+        #   Grab any genes
+        gene_cols <- t(
+            as.matrix(assays(spe_sub[valid_gene_indices, ])[[assayname]])
+        )
+
+        #   Combine into one matrix where rows are samples and columns are continuous
+        #   features
+        cont_matrix <- cbind(cont_cols, gene_cols)
+
+        #   Determine plot and legend titles
+        if (ncol(cont_matrix) == 1) {
+            plot_title <- paste(sampleid, geneid, ...)
+            d$COUNT <- cont_matrix[, 1]
+            if (!(geneid %in% colnames(colData(spe_sub)))) {
+                legend_title <- sprintf(
+                    "%s\n min > %s",
+                    assayname,
+                    minCount
+                )
             } else {
-                plot_title <- paste(sampleid, ...)
-                if (multi_gene_method == "z_score") {
-                    d$COUNT <- multi_gene_z_score(cont_matrix)
-                    legend_title <- paste("Z score\n min > ", minCount)
-                } else if (multi_gene_method == "sparsity") {
-                    d$COUNT <- multi_gene_sparsity(cont_matrix)
-                    legend_title <- paste("Prop. nonzero\n min > ", minCount)
-                } else {
-                    # must be 'pca'
-                    d$COUNT <- multi_gene_pca(cont_matrix)
-                    legend_title <- paste("PC1\n min > ", minCount)
-                }
+                legend_title <- sprintf("min > %s", minCount)
             }
-
-            #   Cap the expression values at the given percentile, if applicable
-            if (cap_percentile < 1) {
-                sorted_count <- sort(d$COUNT)
-                cap <- sorted_count[
-                    as.integer(round(length(sorted_count) * cap_percentile))
-                ]
-                d$COUNT[d$COUNT > cap] <- cap
+        } else {
+            plot_title <- paste(sampleid, ...)
+            if (multi_gene_method == "z_score") {
+                d$COUNT <- multi_gene_z_score(cont_matrix)
+                legend_title <- paste("Z score\n min > ", minCount)
+            } else if (multi_gene_method == "sparsity") {
+                d$COUNT <- multi_gene_sparsity(cont_matrix)
+                legend_title <- paste("Prop. nonzero\n min > ", minCount)
+            } else {
+                # must be 'pca'
+                d$COUNT <- multi_gene_pca(cont_matrix)
+                legend_title <- paste("PC1\n min > ", minCount)
             }
+        }
 
-            d$COUNT[d$COUNT <= minCount] <- NA
+        #   Cap the expression values at the given percentile, if applicable
+        if (cap_percentile < 1) {
+            sorted_count <- sort(d$COUNT)
+            cap <- sorted_count[
+                as.integer(round(length(sorted_count) * cap_percentile))
+            ]
+            d$COUNT[d$COUNT > cap] <- cap
+        }
 
+        d$COUNT[d$COUNT <= minCount] <- NA
+
+        if (datatype == "Visium") {
             p <- vis_gene_p(
                 spe = spe_sub,
                 d = d,
@@ -370,120 +386,6 @@ vis_gene <-
             )
             return(p)
         } else if (datatype == "Xenium") {
-            #   Check validity of spatial coordinates
-            if (
-                !setequal(
-                    c("x_centroid", "y_centroid"),
-                    colnames(spatialCoords(spe))
-                )
-            ) {
-                stop(
-                    "Abnormal spatial coordinates for Xenium datatype: should have 'x_centroid' and 'y_centroid' columns.",
-                    call. = FALSE
-                )
-            }
-
-            #   Validate 'cap_percentile'
-            if (cap_percentile <= 0 || cap_percentile > 1) {
-                stop("'cap_percentile' must be in (0, 1]", call. = FALSE)
-            }
-
-            spe_sub <- spe[, spe$sample_id == sampleid]
-
-            d <- as.data.frame(
-                cbind(
-                    colData(spe_sub),
-                    SpatialExperiment::spatialCoords(spe_sub)
-                ),
-                optional = TRUE
-            )
-
-            #   Verify legitimacy of names in geneid
-            geneid_is_valid <- (geneid %in% rowData(spe_sub)$gene_search) |
-                (geneid %in% rownames(spe_sub)) |
-                (geneid %in% colnames(colData(spe_sub)))
-            if (any(!geneid_is_valid)) {
-                stop(
-                    "Could not find the 'geneid'(s) ",
-                    paste(geneid[!geneid_is_valid], collapse = ", "),
-                    call. = FALSE
-                )
-            }
-
-            #   Grab any continuous colData columns and verify they're all numeric
-            cont_cols <- colData(spe_sub)[,
-                geneid[geneid %in% colnames(colData(spe_sub))],
-                drop = FALSE
-            ]
-            if (!all(sapply(cont_cols, class) %in% c("numeric", "integer"))) {
-                stop(
-                    "'geneid' can not contain non-numeric colData columns.",
-                    call. = FALSE
-                )
-            }
-            cont_cols <- as.matrix(cont_cols)
-
-            #   Get the integer indices of each gene in the SpatialExperiment, since we
-            #   aren't guaranteed that rownames are gene names
-            remaining_geneid <- geneid[
-                !(geneid %in% colnames(colData(spe_sub)))
-            ]
-            valid_gene_indices <- unique(
-                c(
-                    match(remaining_geneid, rowData(spe_sub)$gene_search),
-                    match(remaining_geneid, rownames(spe_sub))
-                )
-            )
-            valid_gene_indices <- valid_gene_indices[!is.na(valid_gene_indices)]
-
-            #   Grab any genes
-            gene_cols <- t(
-                as.matrix(assays(spe_sub[valid_gene_indices, ])[[assayname]])
-            )
-
-            #   Combine into one matrix where rows are samples and columns are continuous
-            #   features
-            cont_matrix <- cbind(cont_cols, gene_cols)
-
-            #   Determine plot and legend titles
-            if (ncol(cont_matrix) == 1) {
-                plot_title <- paste(sampleid, geneid, ...)
-                d$COUNT <- cont_matrix[, 1]
-                if (!(geneid %in% colnames(colData(spe_sub)))) {
-                    legend_title <- sprintf(
-                        "%s\n min > %s",
-                        assayname,
-                        minCount
-                    )
-                } else {
-                    legend_title <- sprintf("min > %s", minCount)
-                }
-            } else {
-                plot_title <- paste(sampleid, ...)
-                if (multi_gene_method == "z_score") {
-                    d$COUNT <- multi_gene_z_score(cont_matrix)
-                    legend_title <- paste("Z score\n min > ", minCount)
-                } else if (multi_gene_method == "sparsity") {
-                    d$COUNT <- multi_gene_sparsity(cont_matrix)
-                    legend_title <- paste("Prop. nonzero\n min > ", minCount)
-                } else {
-                    # must be 'pca'
-                    d$COUNT <- multi_gene_pca(cont_matrix)
-                    legend_title <- paste("PC1\n min > ", minCount)
-                }
-            }
-
-            #   Cap the expression values at the given percentile, if applicable
-            if (cap_percentile < 1) {
-                sorted_count <- sort(d$COUNT)
-                cap <- sorted_count[
-                    as.integer(round(length(sorted_count) * cap_percentile))
-                ]
-                d$COUNT[d$COUNT > cap] <- cap
-            }
-
-            d$COUNT[d$COUNT <= minCount] <- NA
-
             p <- vis_gene_c(
                 spe = spe_sub,
                 d = d,

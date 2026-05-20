@@ -69,31 +69,29 @@ behind \code{\link[=vis_clus]{vis_clus()}} when \code{datatype = "Xenium"}. To v
 
 if (enough_ram()) {
     ## Obtain the necessary data
-    if (!exists("spe")) spe <- fetch_data("spe_xenium_example")
-    
-    # spe <- readRDS("../Xenium/XeniumIO_test/spe_Xenium_test.rds")
-    
-    ## Prepare the data for the plotting function
-    spe_sub <- spe[, spe$sample_id == "sample1"]
-   
-   # summary(spatialCoords(spe_sub)[,"x_centroid"])
-   # summary(spatialCoords(spe_sub)[,"y_centroid"])
-   
-   ## add catagorical variable
-   spe_sub$x_half <- ifelse(spatialCoords(spe_sub)[,"x_centroid"] < 3088, "left", "right")
-   table(spe_sub$x_half)
+    if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_example")
 
-   p <- vis_clus_c(
-       spe = spe_sub,
-       d = as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE),
-       clustervar = "x_half",
-       sampleid = "sample01.1",
-       #colors = libd_layer_colors,
-       colors = c(left = "red", right = "blue"),
-       title = "Xenium test",
-       point_size = 1,
-       alpha = 0.5
-   )
+    ## Prepare the data for the plotting function
+    spe_sub <- spe_xenium[, spe_xenium$sample_id == "Br1039"]
+
+    # summary(spatialCoords(spe_sub)[,"x_centroid"])
+    # summary(spatialCoords(spe_sub)[,"y_centroid"])
+
+    ## add catagorical variable
+    spe_sub$x_half <- ifelse(spatialCoords(spe_sub)[,"x_centroid"] < 3088, "left", "right")
+    table(spe_sub$x_half)
+
+    p <- vis_clus_c(
+        spe = spe_sub,
+        d = as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE),
+        clustervar = "x_half",
+        sampleid = "sample01.1",
+        #colors = libd_layer_colors,
+        colors = c(left = "red", right = "blue"),
+        title = "Xenium test",
+        point_size = 1,
+        alpha = 0.5
+    )
     print(p)
 
     ## Clean up

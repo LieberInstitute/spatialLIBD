@@ -12,8 +12,12 @@ vis_gene_c(
   title,
   viridis = TRUE,
   alpha = NA,
-  cont_colors = if (viridis) viridisLite::viridis(21) else c("aquamarine4",
-    "springgreen", "goldenrod", "red"),
+  cont_colors = if (viridis) {
+     viridisLite::viridis(21)
+ } else {
+    
+    c("aquamarine4", "springgreen", "goldenrod", "red")
+ },
   point_size = 2,
   na_color = "#CCCCCC40",
   legend_title = ""
@@ -75,10 +79,10 @@ use \code{\link[=vis_clus_c]{vis_clus_c()}}.
 
 if (enough_ram()) {
     ## Obtain the necessary data
-    if (!exists("spe")) spe <- fetch_data("spe_xenium_test")
+    if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_test")
 
     ## Prepare the data for the plotting function
-    spe_sub <- spe[, spe$sample_id == "sample1"]
+    spe_sub <- spe_xenium[, spe_xenium$sample_id == "Br1039"]
     df <- as.data.frame(cbind(colData(spe_sub), SpatialExperiment::spatialCoords(spe_sub)), optional = TRUE)
     df$COUNT <- df$detected_gex
 
@@ -86,8 +90,8 @@ if (enough_ram()) {
     p <- vis_gene_c(
         spe = spe_sub,
         d = df,
-        sampleid = "sample1",
-        title = "sample1 detected_gex",
+        sampleid = "Br1039",
+        title = "Br1039 detected_gex",
         point_size = 1
     )
     print(p)

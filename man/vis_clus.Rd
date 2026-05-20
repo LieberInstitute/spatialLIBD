@@ -150,7 +150,7 @@ if (enough_ram()) {
         ... = " LIBD Layers"
     )
     print(p4)
-    
+
     ## edit plot point size but keep guide size larger
     p5 <- vis_clus(
         spe = spe,
@@ -163,16 +163,16 @@ if (enough_ram()) {
         ... = " LIBD Layers"
     )
     print(p5)
-    
+
     ## Obtain the necessary data: Xenium example
     if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_example")
-         
+
     spe_xenium$x_half <- ifelse(spatialCoords(spe_xenium)[,"x_centroid"] < 3088, "left", "right")
-    
-     p6 <- vis_clus(
+
+    p6 <- vis_clus(
         spe = spe_xenium,
         clustervar = "x_half",
-        sampleid = "sample2",
+        sampleid = "Br1556",
         colors = c(left = "red", right = "blue"),
         na_color = "white",
         point_size = 1,
@@ -181,9 +181,7 @@ if (enough_ram()) {
         datatype = "Xenium"
     )
     print(p6)
-    
-    
-         
+
 }
 }
 \seealso{
