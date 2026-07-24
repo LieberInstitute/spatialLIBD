@@ -1,3 +1,14 @@
+# spatialLIBD 1.25.2
+
+BUG FIXES
+
+* Fixed `app_server()` to use the `default_cluster` information
+with a `_colors` suffix on the `sce_layer` object for choosing
+colors for the spatial registration and gene set enrichment
+tabs on the layer-level component of `run_app()`. This was 
+done live during a LIBD RStats club session with input from
+@manishabarse, @lahuuki, and @Nick-Eagles.
+
 # spatialLIBD 1.25.1
 
 NEW FEATURES

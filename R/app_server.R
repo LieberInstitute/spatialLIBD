@@ -1593,7 +1593,11 @@ app_server <- function(input, output, session) {
             enriched,
             plot_SetSize_bar = TRUE,
             model_colors = get_colors(
-                spatialLIBD::libd_layer_colors,
+                if (!is.null(sce_layer[[paste0(default_cluster, "_colors")]])) {
+                    sce_layer[[paste0(default_cluster, "_colors")]]
+                } else {
+                    spatialLIBD::libd_layer_colors
+                },
                 clusters = unique(enriched$test)
             )
         )
@@ -1640,7 +1644,11 @@ app_server <- function(input, output, session) {
                 clusters = rownames(static_layer_external_tstat())
             ),
             reference_colors = get_colors(
-                spatialLIBD::libd_layer_colors,
+                if (!is.null(sce_layer[[paste0(default_cluster, "_colors")]])) {
+                    sce_layer[[paste0(default_cluster, "_colors")]]
+                } else {
+                    spatialLIBD::libd_layer_colors
+                },
                 clusters = colnames(static_layer_external_tstat())
             )
         )
