@@ -17,7 +17,7 @@ registration_pseudobulk(
 }
 \arguments{
 \item{sce}{A
-\link[SingleCellExperiment:SingleCellExperiment]{SingleCellExperiment-class}
+\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
 object or one that inherits its properties.}
 
 \item{var_registration}{A \code{character(1)} specifying the \code{colData(sce)}
@@ -49,7 +49,7 @@ mitochondrial, used to calculate pseudo bulked mitochondrial expression rate
 \code{expr_chrM} and \code{pseudo_expr_chrM}. The length has to match the \code{nrow(sce)}.}
 }
 \value{
-A pseudo-bulked \link[SingleCellExperiment:SingleCellExperiment]{SingleCellExperiment-class} object. The \code{logcounts()} assay are \code{log2-CPM}
+A pseudo-bulked \link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class} object. The \code{logcounts()} assay are \code{log2-CPM}
 values calculated with \code{edgeR::cpm(log = TRUE)}. See
 \url{https://github.com/LieberInstitute/spatialLIBD/issues/106} and
 \url{https://support.bioconductor.org/p/9161754} for more details about the
@@ -91,12 +91,12 @@ colData(sce_pseudo)
 rowData(sce_pseudo)
 }
 \seealso{
-Other spatial registration and statistical modeling functions: 
-\code{\link{registration_block_cor}()},
-\code{\link{registration_model}()},
-\code{\link{registration_stats_anova}()},
-\code{\link{registration_stats_enrichment}()},
-\code{\link{registration_stats_pairwise}()},
-\code{\link{registration_wrapper}()}
+Other spatial registration and statistical modeling functions:
+\code{\link[=registration_block_cor]{registration_block_cor()}},
+\code{\link[=registration_model]{registration_model()}},
+\code{\link[=registration_stats_anova]{registration_stats_anova()}},
+\code{\link[=registration_stats_enrichment]{registration_stats_enrichment()}},
+\code{\link[=registration_stats_pairwise]{registration_stats_pairwise()}},
+\code{\link[=registration_wrapper]{registration_wrapper()}}
 }
 \concept{spatial registration and statistical modeling functions}

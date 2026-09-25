@@ -58,102 +58,138 @@ import(plotly, except = last_plot)
 import(shiny)
 importFrom(AnnotationHub,query)
 importFrom(BiocGenerics,which)
-importFrom(ComplexHeatmap,Heatmap)
-importFrom(ComplexHeatmap,anno_barplot)
-importFrom(ComplexHeatmap,columnAnnotation)
-importFrom(ComplexHeatmap,rowAnnotation)
-importFrom(DT,DTOutput)
-importFrom(DT,renderDT)
+importFrom(ComplexHeatmap,
+  Heatmap,
+  anno_barplot,
+  columnAnnotation,
+  rowAnnotation
+)
+importFrom(DT,
+  DTOutput,
+  renderDT
+)
 importFrom(GenomicRanges,seqnames)
-importFrom(IRanges,CharacterList)
-importFrom(IRanges,IntegerList)
-importFrom(S4Vectors,"mcols<-")
-importFrom(S4Vectors,DataFrame)
-importFrom(S4Vectors,mcols)
-importFrom(S4Vectors,metadata)
+importFrom(IRanges,
+  CharacterList,
+  IntegerList
+)
+importFrom(S4Vectors,
+  "mcols<-",
+  DataFrame,
+  mcols,
+  metadata
+)
 importFrom(SingleCellExperiment,logcounts)
-importFrom(SpatialExperiment,"colData<-")
-importFrom(SpatialExperiment,"imgData<-")
-importFrom(SpatialExperiment,"spatialCoords<-")
-importFrom(SpatialExperiment,"spatialCoordsNames<-")
-importFrom(SpatialExperiment,SpatialImage)
-importFrom(SpatialExperiment,addImg)
-importFrom(SpatialExperiment,imgData)
-importFrom(SpatialExperiment,imgRaster)
-importFrom(SpatialExperiment,read10xVisium)
-importFrom(SpatialExperiment,scaleFactors)
-importFrom(SpatialExperiment,spatialCoords)
-importFrom(SummarizedExperiment,"colData<-")
-importFrom(SummarizedExperiment,"rowData<-")
-importFrom(SummarizedExperiment,"rowRanges<-")
-importFrom(SummarizedExperiment,assay)
-importFrom(SummarizedExperiment,assayNames)
-importFrom(SummarizedExperiment,assays)
-importFrom(SummarizedExperiment,colData)
+importFrom(SpatialExperiment,
+  "colData<-",
+  "imgData<-",
+  "spatialCoords<-",
+  "spatialCoordsNames<-",
+  SpatialImage,
+  addImg,
+  imgData,
+  imgRaster,
+  read10xVisium,
+  scaleFactors,
+  spatialCoords
+)
+importFrom(SummarizedExperiment,
+  "colData<-",
+  "rowData<-",
+  "rowRanges<-",
+  assay,
+  assayNames,
+  assays,
+  colData
+)
 importFrom(benchmarkme,get_ram)
 importFrom(circlize,colorRamp2)
 importFrom(cowplot,plot_grid)
-importFrom(dplyr,group_by)
-importFrom(dplyr,left_join)
-importFrom(dplyr,mutate)
-importFrom(dplyr,select)
-importFrom(dplyr,summarize)
-importFrom(edgeR,calcNormFactors)
-importFrom(edgeR,filterByExpr)
+importFrom(dplyr,
+  group_by,
+  left_join,
+  mutate,
+  select,
+  summarize
+)
+importFrom(edgeR,
+  calcNormFactors,
+  filterByExpr
+)
 importFrom(golem,with_golem_options)
-importFrom(grDevices,as.raster)
-importFrom(grDevices,dev.off)
-importFrom(grDevices,pdf)
-importFrom(graphics,boxplot)
-importFrom(graphics,par)
-importFrom(graphics,points)
-importFrom(grid,rasterGrob)
-importFrom(grid,unit)
+importFrom(grDevices,
+  as.raster,
+  dev.off,
+  pdf
+)
+importFrom(graphics,
+  boxplot,
+  par,
+  points
+)
+importFrom(grid,
+  rasterGrob,
+  unit
+)
 importFrom(jsonlite,read_json)
-importFrom(limma,contrasts.fit)
-importFrom(limma,duplicateCorrelation)
-importFrom(limma,eBayes)
-importFrom(limma,lmFit)
-importFrom(limma,makeContrasts)
-importFrom(limma,topTable)
-importFrom(magick,image_background)
-importFrom(magick,image_channel)
-importFrom(magick,image_contrast)
-importFrom(magick,image_enhance)
-importFrom(magick,image_equalize)
-importFrom(magick,image_median)
-importFrom(magick,image_modulate)
-importFrom(magick,image_negate)
-importFrom(magick,image_quantize)
-importFrom(magick,image_read)
-importFrom(magick,image_transparent)
-importFrom(methods,is)
-importFrom(methods,new)
+importFrom(limma,
+  contrasts.fit,
+  duplicateCorrelation,
+  eBayes,
+  lmFit,
+  makeContrasts,
+  topTable
+)
+importFrom(magick,
+  image_background,
+  image_channel,
+  image_contrast,
+  image_enhance,
+  image_equalize,
+  image_median,
+  image_modulate,
+  image_negate,
+  image_quantize,
+  image_read,
+  image_transparent
+)
+importFrom(methods,
+  is,
+  new
+)
 importFrom(png,readPNG)
 importFrom(rlang,arg_match)
 importFrom(rtracklayer,import)
 importFrom(scater,plotReducedDim)
-importFrom(scuttle,aggregateAcrossCells)
-importFrom(scuttle,isOutlier)
+importFrom(scuttle,
+  aggregateAcrossCells,
+  isOutlier
+)
 importFrom(sessioninfo,session_info)
 importFrom(shiny,shinyApp)
-importFrom(shinyWidgets,pickerInput)
-importFrom(shinyWidgets,pickerOptions)
-importFrom(shinyWidgets,updatePickerInput)
+importFrom(shinyWidgets,
+  pickerInput,
+  pickerOptions,
+  updatePickerInput
+)
 importFrom(statmod,mixedModel2Fit)
-importFrom(stats,cor)
-importFrom(stats,dist)
-importFrom(stats,fisher.test)
-importFrom(stats,hclust)
-importFrom(stats,median)
-importFrom(stats,model.matrix)
-importFrom(stats,p.adjust)
-importFrom(stats,prcomp)
-importFrom(stats,reshape)
-importFrom(stats,setNames)
+importFrom(stats,
+  cor,
+  dist,
+  fisher.test,
+  hclust,
+  median,
+  model.matrix,
+  p.adjust,
+  prcomp,
+  reshape,
+  setNames
+)
 importFrom(tibble,tibble)
-importFrom(utils,combn)
-importFrom(utils,read.csv)
-importFrom(utils,write.csv)
+importFrom(utils,
+  combn,
+  read.csv,
+  write.csv
+)
 importFrom(viridisLite,viridis)
 importMethodsFrom(Matrix,colSums)

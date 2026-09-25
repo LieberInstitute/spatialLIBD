@@ -21,6 +21,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Leonardo Collado-Torres \email{lcolladotor@gmail.com} (\href{https://orcid.org/0000-0003-2140-308X}{ORCID})
 
+Authors:
+\itemize{
+  \item Leonardo Collado-Torres \email{lcolladotor@gmail.com} (\href{https://orcid.org/0000-0003-2140-308X}{ORCID})
+}
+
 Other contributors:
 \itemize{
   \item Kristen R. Maynard \email{Kristen.Maynard@libd.org} (\href{https://orcid.org/0000-0003-0031-8468}{ORCID}) [contributor]

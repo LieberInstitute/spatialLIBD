@@ -63,8 +63,8 @@ annotate_registered_clusters(cor_stats_layer)
 annotate_registered_clusters(cor_stats_layer, cutoff_merge_ratio = 1)
 }
 \seealso{
-Other Layer correlation functions: 
-\code{\link{layer_stat_cor}()},
-\code{\link{layer_stat_cor_plot}()}
+Other Layer correlation functions:
+\code{\link[=layer_stat_cor]{layer_stat_cor()}},
+\code{\link[=layer_stat_cor_plot]{layer_stat_cor_plot()}}
 }
 \concept{Layer correlation functions}

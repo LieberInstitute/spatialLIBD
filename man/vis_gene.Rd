@@ -32,7 +32,7 @@ vis_gene(
 }
 \arguments{
 \item{spe}{A
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class}
 object. See \code{\link[=fetch_data]{fetch_data()}} for how to download some example objects or
 \code{\link[=read10xVisiumWrapper]{read10xVisiumWrapper()}} to read in \code{spaceranger --count} output files and
 build your own \code{spe} object.}
@@ -100,7 +100,7 @@ computed. For more details, check the multi gene vignette at
 \url{https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html}.}
 
 \item{is_stitched}{A \code{logical(1)} vector: If \code{TRUE}, expects a
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class} built
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class} built
 with \code{visiumStitched::build_spe()}.
 \url{http://research.libd.org/visiumStitched/reference/build_spe.html}; in
 particular, expects a logical colData column \code{exclude_overlapping}
@@ -266,9 +266,9 @@ if (enough_ram()) {
 }
 }
 \seealso{
-Other Spatial gene visualization functions: 
-\code{\link{vis_gene_c}()},
-\code{\link{vis_gene_p}()},
-\code{\link{vis_grid_gene}()}
+Other Spatial gene visualization functions:
+\code{\link[=vis_gene_c]{vis_gene_c()}},
+\code{\link[=vis_gene_p]{vis_gene_p()}},
+\code{\link[=vis_grid_gene]{vis_grid_gene()}}
 }
 \concept{Spatial gene visualization functions}

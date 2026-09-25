@@ -42,8 +42,8 @@
 #' @return A `magick` image object such as the one returned by
 #' [magick::image_read][magick::editing].
 #' @importFrom magick image_read image_modulate image_enhance image_contrast
-#' image_quantize image_equalize image_transparent image_median image_negate
-#' image_background image_channel
+#'     image_quantize image_equalize image_transparent image_median image_negate
+#'     image_background image_channel
 #' @importFrom SpatialExperiment imgRaster
 #' @export
 #' @family Image editing functions

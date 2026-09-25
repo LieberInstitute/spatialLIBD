@@ -7,7 +7,7 @@
 add_qc_metrics(spe, overwrite = FALSE)
 }
 \arguments{
-\item{spe}{a \link[SpatialExperiment:SpatialExperiment]{SpatialExperiment}
+\item{spe}{a \link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment}
 object that has \code{sum_umi}, \code{sum_gene}, \code{expr_chrM_ratio}, and \code{in_tissue}
 variables in the \code{colData(spe)}. Note that these are automatically created
 when you build your \code{spe} object with \code{spatialLIBD::read10xVisiumWrapper()}.}
@@ -17,7 +17,7 @@ when you build your \code{spe} object with \code{spatialLIBD::read10xVisiumWrapp
 of them are present, the function will return an error.}
 }
 \value{
-A \link[SpatialExperiment:SpatialExperiment]{SpatialExperiment}
+A \link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment}
 with added quality control information added to the \code{colData()}.
 \describe{
 \item{\code{scran_low_lib_size}}{shows spots that have a low library size.}
@@ -35,7 +35,7 @@ are an edge spot.}
 }
 \description{
 This function identify spots in a
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class} (SPE)
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class} (SPE)
 with outlier quality control values: low \code{sum_umi} or \code{sum_gene}, or high
 \code{expr_chrM_ratio}, utilizing \link[scuttle:isOutlier]{scuttle::isOutlier}. Also identifies in-tissue
 edge spots and distance to the edge for each spot.

@@ -24,7 +24,7 @@
 #' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]  object.
 #' @export
 #' @importFrom SpatialExperiment "imgData<-" "spatialCoordsNames<-"
-#' "colData<-" SpatialImage
+#'     "colData<-" SpatialImage
 #' @importFrom jsonlite read_json
 #' @importFrom methods new
 #' @family SpatialExperiment-related functions

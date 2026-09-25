@@ -8,18 +8,18 @@ add_key(spe, overwrite = TRUE)
 }
 \arguments{
 \item{spe}{A
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class} object.}
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class} object.}
 
 \item{overwrite}{A \code{logical(1)} indicating whether to overwrite the \code{spe$key}.}
 }
 \value{
 A
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class} object
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class} object
 with \code{key} added to the \code{colData(spe)} that is unique across all spots.
 }
 \description{
 This function adds \code{spe$key} to a
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class} object
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class} object
 which is unique across all spots.
 }
 \examples{

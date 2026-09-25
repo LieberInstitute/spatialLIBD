@@ -14,7 +14,7 @@ img_update_all(
 }
 \arguments{
 \item{spe}{A
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class}
 object. See \code{\link[=fetch_data]{fetch_data()}} for how to download some example objects or
 \code{\link[=read10xVisiumWrapper]{read10xVisiumWrapper()}} to read in \code{spaceranger --count} output files and
 build your own \code{spe} object.}
@@ -31,7 +31,7 @@ use in the background.}
 }
 \value{
 A
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}  object
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class}  object
 with an updated \code{imgData()} slot.
 }
 \description{
@@ -50,8 +50,8 @@ if (enough_ram()) {
 }
 }
 \seealso{
-Other Image editing functions: 
-\code{\link{img_edit}()},
-\code{\link{img_update}()}
+Other Image editing functions:
+\code{\link[=img_edit]{img_edit()}},
+\code{\link[=img_update]{img_update()}}
 }
 \concept{Image editing functions}

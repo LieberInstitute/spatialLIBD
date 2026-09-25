@@ -13,7 +13,7 @@ cluster_export(
 }
 \arguments{
 \item{spe}{A
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class}
 object. See \code{\link[=fetch_data]{fetch_data()}} for how to download some example objects or
 \code{\link[=read10xVisiumWrapper]{read10xVisiumWrapper()}} to read in \code{spaceranger --count} output files and
 build your own \code{spe} object.}
@@ -47,7 +47,7 @@ if (enough_ram()) {
 }
 }
 \seealso{
-Other cluster export/import utility functions: 
-\code{\link{cluster_import}()}
+Other cluster export/import utility functions:
+\code{\link[=cluster_import]{cluster_import()}}
 }
 \concept{cluster export/import utility functions}

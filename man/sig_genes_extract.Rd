@@ -85,8 +85,8 @@ Adapted from
 https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/layer_specificity_functions.R
 }
 \seealso{
-Other Layer modeling functions: 
-\code{\link{layer_boxplot}()},
-\code{\link{sig_genes_extract_all}()}
+Other Layer modeling functions:
+\code{\link[=layer_boxplot]{layer_boxplot()}},
+\code{\link[=sig_genes_extract_all]{sig_genes_extract_all()}}
 }
 \concept{Layer modeling functions}

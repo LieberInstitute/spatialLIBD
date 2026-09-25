@@ -15,7 +15,7 @@ vis_image(
 }
 \arguments{
 \item{spe}{A
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class}
 object. See \code{\link[=fetch_data]{fetch_data()}} for how to download some example objects or
 \code{\link[=read10xVisiumWrapper]{read10xVisiumWrapper()}} to read in \code{spaceranger --count} output files and
 build your own \code{spe} object.}
@@ -31,7 +31,7 @@ the image / plotting area, which is useful if the Visium capture area is
 not centered on the image and if the image is not a square.}
 
 \item{is_stitched}{A \code{logical(1)} vector: If \code{TRUE}, expects a
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class} built
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class} built
 with \code{visiumStitched::build_spe()}.
 \url{http://research.libd.org/visiumStitched/reference/build_spe.html}; in
 particular, expects a logical colData column \code{exclude_overlapping}
@@ -74,11 +74,11 @@ if (enough_ram()) {
 }
 }
 \seealso{
-Other Spatial cluster visualization functions: 
-\code{\link{frame_limits}()},
-\code{\link{vis_clus}()},
-\code{\link{vis_clus_c}()},
-\code{\link{vis_clus_p}()},
-\code{\link{vis_grid_clus}()}
+Other Spatial cluster visualization functions:
+\code{\link[=frame_limits]{frame_limits()}},
+\code{\link[=vis_clus]{vis_clus()}},
+\code{\link[=vis_clus_c]{vis_clus_c()}},
+\code{\link[=vis_clus_p]{vis_clus_p()}},
+\code{\link[=vis_grid_clus]{vis_grid_clus()}}
 }
 \concept{Spatial cluster visualization functions}

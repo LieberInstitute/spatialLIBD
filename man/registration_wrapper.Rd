@@ -18,7 +18,7 @@ registration_wrapper(
 }
 \arguments{
 \item{sce}{A
-\link[SingleCellExperiment:SingleCellExperiment]{SingleCellExperiment-class}
+\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
 object or one that inherits its properties.}
 
 \item{var_registration}{A \code{character(1)} specifying the \code{colData(sce)}
@@ -109,12 +109,12 @@ names(example_modeling_results)
 lapply(example_modeling_results, head)
 }
 \seealso{
-Other spatial registration and statistical modeling functions: 
-\code{\link{registration_block_cor}()},
-\code{\link{registration_model}()},
-\code{\link{registration_pseudobulk}()},
-\code{\link{registration_stats_anova}()},
-\code{\link{registration_stats_enrichment}()},
-\code{\link{registration_stats_pairwise}()}
+Other spatial registration and statistical modeling functions:
+\code{\link[=registration_block_cor]{registration_block_cor()}},
+\code{\link[=registration_model]{registration_model()}},
+\code{\link[=registration_pseudobulk]{registration_pseudobulk()}},
+\code{\link[=registration_stats_anova]{registration_stats_anova()}},
+\code{\link[=registration_stats_enrichment]{registration_stats_enrichment()}},
+\code{\link[=registration_stats_pairwise]{registration_stats_pairwise()}}
 }
 \concept{spatial registration and statistical modeling functions}

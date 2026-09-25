@@ -19,9 +19,9 @@ To summarize multiple features, each is normalized to represent a Z-score.
 Scores are averaged to return a single vector.
 }
 \seealso{
-Other functions for summarizing expression of multiple continuous variables simultaneously: 
-\code{\link{multi_gene_pca}()},
-\code{\link{multi_gene_sparsity}()}
+Other functions for summarizing expression of multiple continuous variables simultaneously:
+\code{\link[=multi_gene_pca]{multi_gene_pca()}},
+\code{\link[=multi_gene_sparsity]{multi_gene_sparsity()}}
 }
 \author{
 Nicholas J. Eagles

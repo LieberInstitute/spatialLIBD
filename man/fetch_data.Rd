@@ -19,7 +19,12 @@ fetch_data(
     "LFF_spatial_ERC_snRNAseq_pseudobulk_broad",
     "LFF_spatial_ERC_snRNAseq_pseudobulk_subcluster",
     "LFF_spatial_ERC_snRNAseq_modeling_results_broad",
-    "LFF_spatial_ERC_snRNAseq_modeling_results_subcluster", "spe_xenium_example"),
+    "LFF_spatial_ERC_snRNAseq_modeling_results_subcluster", "spe_xenium_example",
+    "habenula_atlas_HD_spe_cell", "habenula_atlas_HD_spe_cell_pseudobulk",
+    "habenula_atlas_visium_spe", "habenula_atlas_visium_spe_pseudobulk",
+    "habenula_atlas_snMultiome_seurat_cell", 
+    
+    "habenula_atlas_snMultiome_seurat_metacell"),
   destdir = tempdir(),
   eh = ExperimentHub::ExperimentHub(),
   bfc = BiocFileCache::BiocFileCache()
@@ -40,7 +45,7 @@ be \code{sce_example} which is a reduced version of \code{sce} just for example
 purposes. The initial version of \code{spatialLIBD} downloaded data only from
 \url{https://github.com/LieberInstitute/HumanPilot}. As of BioC version 3.13
 \code{spe} downloads a
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}  object.
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class}  object.
 As of version 1.11.6, this function also allows downloading data from the
 \url{http://research.libd.org/spatialDLPFC/} and
 \url{https://github.com/LieberInstitute/Human_DLPFC_Deconvolution} projects. As
@@ -73,7 +78,7 @@ This function downloads from \code{ExperimentHub} Visium, Visium Spatial
 Proteogenomics (Visium-SPG), or single nucleus RNA-seq (snRNA-seq) data
 and results analyzed by LIBD from multiple projects.
 If \code{ExperimentHub} is not available, this function will
-download the files from Dropbox using \code{\link[BiocFileCache:BiocFileCache-class]{BiocFileCache::bfcrpath()}} unless the
+download the files from Dropbox using \code{\link[BiocFileCache:bfcrpath]{BiocFileCache::bfcrpath()}} unless the
 files are present already at \code{destdir}. Note that \code{ExperimentHub} and
 \code{BiocFileCache} will cache the data and automatically detect if you have
 previously downloaded it, thus making it the preferred way to interact with

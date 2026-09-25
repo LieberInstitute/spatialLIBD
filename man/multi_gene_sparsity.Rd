@@ -19,9 +19,9 @@ To summarize multiple features, the proportion of features with positive
 values for each spot is computed.
 }
 \seealso{
-Other functions for summarizing expression of multiple continuous variables simultaneously: 
-\code{\link{multi_gene_pca}()},
-\code{\link{multi_gene_z_score}()}
+Other functions for summarizing expression of multiple continuous variables simultaneously:
+\code{\link[=multi_gene_pca]{multi_gene_pca()}},
+\code{\link[=multi_gene_z_score]{multi_gene_z_score()}}
 }
 \author{
 Nicholas J. Eagles

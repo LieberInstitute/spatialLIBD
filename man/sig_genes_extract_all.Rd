@@ -57,8 +57,8 @@ sig_genes_extract_all(
 )
 }
 \seealso{
-Other Layer modeling functions: 
-\code{\link{layer_boxplot}()},
-\code{\link{sig_genes_extract}()}
+Other Layer modeling functions:
+\code{\link[=layer_boxplot]{layer_boxplot()}},
+\code{\link[=sig_genes_extract]{sig_genes_extract()}}
 }
 \concept{Layer modeling functions}

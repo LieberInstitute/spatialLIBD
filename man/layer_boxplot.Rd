@@ -152,8 +152,8 @@ Adapted from
 https://github.com/LieberInstitute/HumanPilot/blob/master/Analysis/Layer_Guesses/layer_specificity.R
 }
 \seealso{
-Other Layer modeling functions: 
-\code{\link{sig_genes_extract}()},
-\code{\link{sig_genes_extract_all}()}
+Other Layer modeling functions:
+\code{\link[=sig_genes_extract]{sig_genes_extract()}},
+\code{\link[=sig_genes_extract_all]{sig_genes_extract_all()}}
 }
 \concept{Layer modeling functions}

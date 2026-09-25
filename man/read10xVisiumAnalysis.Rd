@@ -39,9 +39,9 @@ if (interactive()) {
 }
 \seealso{
 Other Utility functions for reading data from SpaceRanger output by 10x
-Genomics: 
-\code{\link{add10xVisiumAnalysis}()},
-\code{\link{read10xVisiumWrapper}()}
+Genomics:
+\code{\link[=add10xVisiumAnalysis]{add10xVisiumAnalysis()}},
+\code{\link[=read10xVisiumWrapper]{read10xVisiumWrapper()}}
 }
 \concept{Utility functions for reading data from SpaceRanger output by 10x
 Genomics}

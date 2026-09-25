@@ -158,7 +158,13 @@ fetch_data <-
             "LFF_spatial_ERC_snRNAseq_pseudobulk_subcluster",
             "LFF_spatial_ERC_snRNAseq_modeling_results_broad",
             "LFF_spatial_ERC_snRNAseq_modeling_results_subcluster",
-            "spe_xenium_example"
+            "spe_xenium_example",
+            "habenula_atlas_HD_spe_cell",
+            "habenula_atlas_HD_spe_cell_pseudobulk",
+            "habenula_atlas_visium_spe",
+            "habenula_atlas_visium_spe_pseudobulk",
+            "habenula_atlas_snMultiome_seurat_cell",
+            "habenula_atlas_snMultiome_seurat_metacell"
         ),
         destdir = tempdir(),
         eh = ExperimentHub::ExperimentHub(),
@@ -418,6 +424,49 @@ fetch_data <-
             file_name <- "spe_Xenium_test.rds"
             url <-
                 "https://www.dropbox.com/scl/fi/os4wz0kkbtmbpvnju4bxi/spe_Xenium_test.rds?rlkey=0ql1pu5d9qe448sjmkh3ja3o8&st=npwqxtdk&dl=1"
+        } else if (type == "habenula_atlas_HD_spe_cell") {
+            tag <- "habenula_atlas"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "spe_cell_habenula_atlas.rds"
+            url <- "https://www.dropbox.com/scl/fi/mdtdc2ae2clp9halqw5mu/spe_cell_habenula_atlas.rds?rlkey=vdiyjflw8vu3evkcy3b7jig5b&dl=1"
+        } else if (type == "habenula_atlas_HD_spe_cell_pseudobulk") {
+            tag <- "habenula_atlas"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "spe_cell_habenula_atlas.rds"
+            # TODO: this is the wrong URL!!
+            url <- "https://www.dropbox.com/scl/fi/mdtdc2ae2clp9halqw5mu/spe_cell_habenula_atlas.rds?rlkey=vdiyjflw8vu3evkcy3b7jig5b&dl=1"
+        } else if (type == "habenula_atlas_visium_spe") {
+            tag <- "habenula_atlas"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "spe_visium_habenula_atlas.rds"
+            url <- "https://www.dropbox.com/scl/fi/6lzyoi303hqc90ob2h1z4/spe_visium_habenula_atlas.rds?rlkey=r6cstcrfnd020dhlhjymk60bi&st=qlriuki9&dl=1"
+        } else if (type == "habenula_atlas_visium_spe_pseudobulk") {
+            tag <- "habenula_atlas"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "sce_pb_visium_habenula_atlas.rds"
+            url <- "https://www.dropbox.com/scl/fi/rd2r1j24e4j3xqn37moft/sce_pb_visium_habenula_atlas.rds?rlkey=kxjtpnt7l4t1agn8xegiyo9tg&st=14jgmk2b&dl=1"
+        } else if (type == "habenula_atlas_snMultiome_seurat_cell") {
+            tag <- "habenula_atlas"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "seur_cell_snMultiome_habenula_atlas.rds"
+            url <- "https://www.dropbox.com/scl/fi/59cc4c82wxkbb7z4k7fs1/seur_cell_snMultiome_habenula_atlas.rds?rlkey=xscksexgxieuvx5z2l0l7d4ca&dl=1"
+        } else if (type == "habenula_atlas_snMultiome_seurat_metacell") {
+            tag <- "habenula_atlas"
+            hub_title <- type
+
+            ## While EH is not set-up
+            file_name <- "seur_metacell_snMultiome_habenula_atlas.rds"
+            url <- "https://www.dropbox.com/scl/fi/zua4c0rjb0rr0tejz2rpl/seur_metacell_snMultiome_habenula_atlas.rds?rlkey=r1t5jt92y7t1olz27eq1ii1sl&dl=1"
         }
 
         file_path <- file.path(destdir, file_name)
