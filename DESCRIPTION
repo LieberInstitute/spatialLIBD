@@ -79,7 +79,8 @@ Imports:
     rlang,
     dplyr,
     ComplexHeatmap,
-    circlize
+    circlize,
+    scrapper
 RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/LieberInstitute/spatialLIBD

@@ -35,7 +35,7 @@
 #' math behind `scuttle::logNormFactors()`, `edgeR::cpm()`, and their
 #' differences.
 #' @importFrom SingleCellExperiment logcounts
-#' @importFrom scuttle aggregateAcrossCells
+#' @importFrom scrapper aggregateAcrossCells
 #' @importFrom edgeR filterByExpr calcNormFactors
 #' @importFrom SpatialExperiment "spatialCoords<-"
 #' @export
