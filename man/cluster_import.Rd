@@ -13,7 +13,7 @@ cluster_import(
 }
 \arguments{
 \item{spe}{A
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class}
 object. See \code{\link[=fetch_data]{fetch_data()}} for how to download some example objects or
 \code{\link[=read10xVisiumWrapper]{read10xVisiumWrapper()}} to read in \code{spaceranger --count} output files and
 build your own \code{spe} object.}
@@ -28,13 +28,13 @@ these new cluster variables.}
 }
 \value{
 A
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class} object
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class} object
 with the imported clusters appended on the \code{colData()}.
 }
 \description{
 This function imports previously exported clustering results with
 \code{cluster_export()} and adds them to the \code{colData()} slot of your
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class}
 object.
 }
 \examples{
@@ -51,7 +51,7 @@ if (enough_ram()) {
 }
 }
 \seealso{
-Other cluster export/import utility functions: 
-\code{\link{cluster_export}()}
+Other cluster export/import utility functions:
+\code{\link[=cluster_export]{cluster_export()}}
 }
 \concept{cluster export/import utility functions}

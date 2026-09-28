@@ -8,20 +8,20 @@ add10xVisiumAnalysis(spe, visium_analysis)
 }
 \arguments{
 \item{spe}{A
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class} object.}
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class} object.}
 
 \item{visium_analysis}{The output from \code{read10xVisiumAnalysis()}.}
 }
 \value{
 A
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class} object
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class} object
 with the clustering results from SpaceRanger added to \code{colData(spe)} and
 the dimension reduction results added to \code{reducedDims(spe)}. Added data
 starts with the \verb{10x_} prefix to make them easy to differentiate.
 }
 \description{
 This function adds to a SPE
-(\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class})
+(\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class})
 object the output from \code{read10xVisiumAnalysis()}.
 }
 \details{
@@ -40,9 +40,9 @@ if (interactive()) {
 }
 \seealso{
 Other Utility functions for reading data from SpaceRanger output by 10x
-Genomics: 
-\code{\link{read10xVisiumAnalysis}()},
-\code{\link{read10xVisiumWrapper}()}
+Genomics:
+\code{\link[=read10xVisiumAnalysis]{read10xVisiumAnalysis()}},
+\code{\link[=read10xVisiumWrapper]{read10xVisiumWrapper()}}
 }
 \concept{Utility functions for reading data from SpaceRanger output by 10x
 Genomics}

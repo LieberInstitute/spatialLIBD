@@ -8,7 +8,7 @@ locate_images(spe, image_dir, image_pattern)
 }
 \arguments{
 \item{spe}{A
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class}
 object. See \code{\link[=fetch_data]{fetch_data()}} for how to download some example objects or
 \code{\link[=read10xVisiumWrapper]{read10xVisiumWrapper()}} to read in \code{spaceranger --count} output files and
 build your own \code{spe} object.}
@@ -33,7 +33,7 @@ locate_images(spe, tempdir(), "testImage")
 }
 }
 \seealso{
-Other Functions for adding non-standard images: 
-\code{\link{add_images}()}
+Other Functions for adding non-standard images:
+\code{\link[=add_images]{add_images()}}
 }
 \concept{Functions for adding non-standard images}

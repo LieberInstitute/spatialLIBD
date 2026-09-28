@@ -90,9 +90,9 @@ summary(layer_stat_cor(
 ))
 }
 \seealso{
-Other Layer correlation functions: 
-\code{\link{annotate_registered_clusters}()},
-\code{\link{layer_stat_cor_plot}()}
+Other Layer correlation functions:
+\code{\link[=annotate_registered_clusters]{annotate_registered_clusters()}},
+\code{\link[=layer_stat_cor_plot]{layer_stat_cor_plot()}}
 }
 \author{
 Andrew E Jaffe, Leonardo Collado-Torres

@@ -14,7 +14,7 @@ frame_limits(
 }
 \arguments{
 \item{spe}{A
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class}
 object. See \code{\link[=fetch_data]{fetch_data()}} for how to download some example objects or
 \code{\link[=read10xVisiumWrapper]{read10xVisiumWrapper()}} to read in \code{spaceranger --count} output files and
 build your own \code{spe} object.}
@@ -56,12 +56,12 @@ if (enough_ram()) {
 
 }
 \seealso{
-Other Spatial cluster visualization functions: 
-\code{\link{vis_clus}()},
-\code{\link{vis_clus_c}()},
-\code{\link{vis_clus_p}()},
-\code{\link{vis_grid_clus}()},
-\code{\link{vis_image}()}
+Other Spatial cluster visualization functions:
+\code{\link[=vis_clus]{vis_clus()}},
+\code{\link[=vis_clus_c]{vis_clus_c()}},
+\code{\link[=vis_clus_p]{vis_clus_p()}},
+\code{\link[=vis_grid_clus]{vis_grid_clus()}},
+\code{\link[=vis_image]{vis_image()}}
 }
 \author{
 Louise Huuki-Myers and Leonardo Collado-Torres

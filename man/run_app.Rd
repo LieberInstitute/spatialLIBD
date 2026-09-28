@@ -32,7 +32,7 @@ run_app(
 \arguments{
 \item{spe}{Defaults to the output of
 \code{fetch_data(type = 'spe')}. This is a
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class}
 object with the spot-level Visium data and information required for
 visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 
@@ -79,7 +79,7 @@ follow the Visium grid size expectations, which are key for enabling
 auto-cropping.}
 
 \item{is_stitched}{A \code{logical(1)} vector: If \code{TRUE}, expects a
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class} built
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class} built
 with \code{visiumStitched::build_spe()}.
 \url{http://research.libd.org/visiumStitched/reference/build_spe.html}; in
 particular, expects a logical colData column \code{exclude_overlapping}

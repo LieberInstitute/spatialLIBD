@@ -32,12 +32,12 @@ example("registration_model", package = "spatialLIBD")
 block_cor <- registration_block_cor(sce_pseudo, registration_mod)
 }
 \seealso{
-Other spatial registration and statistical modeling functions: 
-\code{\link{registration_model}()},
-\code{\link{registration_pseudobulk}()},
-\code{\link{registration_stats_anova}()},
-\code{\link{registration_stats_enrichment}()},
-\code{\link{registration_stats_pairwise}()},
-\code{\link{registration_wrapper}()}
+Other spatial registration and statistical modeling functions:
+\code{\link[=registration_model]{registration_model()}},
+\code{\link[=registration_pseudobulk]{registration_pseudobulk()}},
+\code{\link[=registration_stats_anova]{registration_stats_anova()}},
+\code{\link[=registration_stats_enrichment]{registration_stats_enrichment()}},
+\code{\link[=registration_stats_pairwise]{registration_stats_pairwise()}},
+\code{\link[=registration_wrapper]{registration_wrapper()}}
 }
 \concept{spatial registration and statistical modeling functions}

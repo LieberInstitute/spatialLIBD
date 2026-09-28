@@ -33,7 +33,7 @@ The input object if all checks are passed.
 \description{
 This function checks that the \code{sce} object has the appropriate structure.
 This is a legacy function and we highly encourage you to use
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class}
 objects and check them with \code{check_spe()}.
 }
 \examples{
@@ -47,9 +47,9 @@ if (enough_ram()) {
 }
 }
 \seealso{
-Other Check input functions: 
-\code{\link{check_modeling_results}()},
-\code{\link{check_sce_layer}()},
-\code{\link{check_spe}()}
+Other Check input functions:
+\code{\link[=check_modeling_results]{check_modeling_results()}},
+\code{\link[=check_sce_layer]{check_sce_layer()}},
+\code{\link[=check_spe]{check_spe()}}
 }
 \concept{Check input functions}

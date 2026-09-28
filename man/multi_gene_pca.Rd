@@ -23,9 +23,9 @@ are highly correlated, this encourages spots with higher values to
 represent areas of higher expression of the features).
 }
 \seealso{
-Other functions for summarizing expression of multiple continuous variables simultaneously: 
-\code{\link{multi_gene_sparsity}()},
-\code{\link{multi_gene_z_score}()}
+Other functions for summarizing expression of multiple continuous variables simultaneously:
+\code{\link[=multi_gene_sparsity]{multi_gene_sparsity()}},
+\code{\link[=multi_gene_z_score]{multi_gene_z_score()}}
 }
 \author{
 Nicholas J. Eagles

@@ -33,9 +33,9 @@ if (!exists("sce_layer")) sce_layer <- fetch_data("sce_layer")
 check_sce_layer(sce_layer)
 }
 \seealso{
-Other Check input functions: 
-\code{\link{check_modeling_results}()},
-\code{\link{check_sce}()},
-\code{\link{check_spe}()}
+Other Check input functions:
+\code{\link[=check_modeling_results]{check_modeling_results()}},
+\code{\link[=check_sce]{check_sce()}},
+\code{\link[=check_spe]{check_spe()}}
 }
 \concept{Check input functions}

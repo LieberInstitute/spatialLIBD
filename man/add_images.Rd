@@ -15,7 +15,7 @@ add_images(
 }
 \arguments{
 \item{spe}{A
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class}
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class}
 object. See \code{\link[=fetch_data]{fetch_data()}} for how to download some example objects or
 \code{\link[=read10xVisiumWrapper]{read10xVisiumWrapper()}} to read in \code{spaceranger --count} output files and
 build your own \code{spe} object.}
@@ -41,7 +41,7 @@ default \code{locate_images()} is used but you can alternatively specify
 }
 \value{
 A
-\link[SpatialExperiment:SpatialExperiment]{SpatialExperiment-class} object
+\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class} object
 with the additional image data in \code{imgData(spe)}.
 }
 \description{
@@ -70,7 +70,7 @@ if (enough_ram()) {
 }
 }
 \seealso{
-Other Functions for adding non-standard images: 
-\code{\link{locate_images}()}
+Other Functions for adding non-standard images:
+\code{\link[=locate_images]{locate_images()}}
 }
 \concept{Functions for adding non-standard images}

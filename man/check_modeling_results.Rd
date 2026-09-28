@@ -32,9 +32,9 @@ if (!exists("modeling_results")) {
 xx <- check_modeling_results(modeling_results)
 }
 \seealso{
-Other Check input functions: 
-\code{\link{check_sce}()},
-\code{\link{check_sce_layer}()},
-\code{\link{check_spe}()}
+Other Check input functions:
+\code{\link[=check_sce]{check_sce()}},
+\code{\link[=check_sce_layer]{check_sce_layer()}},
+\code{\link[=check_spe]{check_spe()}}
 }
 \concept{Check input functions}

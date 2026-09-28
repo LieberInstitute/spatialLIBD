@@ -106,8 +106,8 @@ asd_sfari_enrichment <- gene_set_enrichment(
 asd_sfari_enrichment
 }
 \seealso{
-Other Gene set enrichment functions: 
-\code{\link{gene_set_enrichment_plot}()}
+Other Gene set enrichment functions:
+\code{\link[=gene_set_enrichment_plot]{gene_set_enrichment_plot()}}
 }
 \author{
 Andrew E Jaffe, Leonardo Collado-Torres

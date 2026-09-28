@@ -175,8 +175,8 @@ gene_set_enrichment_plot(
 
 }
 \seealso{
-Other Gene set enrichment functions: 
-\code{\link{gene_set_enrichment}()}
+Other Gene set enrichment functions:
+\code{\link[=gene_set_enrichment]{gene_set_enrichment()}}
 }
 \author{
 Andrew E Jaffe, Leonardo Collado-Torres, Louise Huuki-Myers

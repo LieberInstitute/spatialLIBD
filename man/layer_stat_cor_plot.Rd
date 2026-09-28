@@ -126,9 +126,9 @@ layer_stat_cor_plot(
 
 }
 \seealso{
-Other Layer correlation functions: 
-\code{\link{annotate_registered_clusters}()},
-\code{\link{layer_stat_cor}()}
+Other Layer correlation functions:
+\code{\link[=annotate_registered_clusters]{annotate_registered_clusters()}},
+\code{\link[=layer_stat_cor]{layer_stat_cor()}}
 }
 \author{
 Louise Huuki-Myers
