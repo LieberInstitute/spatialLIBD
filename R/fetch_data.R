@@ -437,8 +437,7 @@ fetch_data <-
 
             ## While EH is not set-up
             file_name <- "spe_cell_habenula_atlas.rds"
-            # TODO: this is the wrong URL!!
-            url <- "https://www.dropbox.com/scl/fi/mdtdc2ae2clp9halqw5mu/spe_cell_habenula_atlas.rds?rlkey=vdiyjflw8vu3evkcy3b7jig5b&dl=1"
+            url <- "https://www.dropbox.com/scl/fi/jphkec3uphqd29jjtj7nm/sce_pb_habenula_atlas.rds?rlkey=bjrli8vrd40aomsbr0ocn9e0l&st=17ym04gg&dl=1"
         } else if (type == "habenula_atlas_visium_spe") {
             tag <- "habenula_atlas"
             hub_title <- type
