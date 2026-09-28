@@ -19,7 +19,7 @@ any other data that you have shaped according to our object structure."><meta pr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.25.2</span>
       </span>
     </div>
 
@@ -97,6 +97,7 @@ any other data that you have shaped according to our object structure.</p>
 <span>  default_cluster <span class="op">=</span> <span class="st">"spatialLIBD"</span>,</span>
 <span>  auto_crop_default <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  is_stitched <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  datatype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Visium"</span>, <span class="st">"Xenium"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -180,6 +181,21 @@ with <code>visiumStitched::build_spe()</code>.
 <a href="http://research.libd.org/visiumStitched/reference/build_spe.html" class="external-link">http://research.libd.org/visiumStitched/reference/build_spe.html</a>; in
 particular, expects a logical colData column <code>exclude_overlapping</code>
 specifying which spots to exclude from the plot. Sets <code>auto_crop = FALSE</code>.</p></dd>
+
+
+<dt id="arg-datatype">datatype<a class="anchor" aria-label="anchor" href="#arg-datatype"></a></dt>
+<dd><p>A <code>character(1)</code> specifying the type of spatial transcriptomics
+data stored in <code>spe</code>. Supported options are:</p><dl><dt><code>"Visium"</code></dt>
+<dd><p>(Default) Expects <code>pxl_col_in_fullres</code> and
+<code>pxl_row_in_fullres</code> as columns of <code>spatialCoords(spe)</code>. Enables
+image handling via the <code>spatialData</code> slot.</p></dd>
+
+<dt><code>"Xenium"</code></dt>
+<dd><p>Expects <code>x_centroid</code> and <code>y_centroid</code> as columns
+of <code>spatialCoords(spe)</code>.</p></dd>
+
+
+</dl></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -363,7 +379,27 @@ That vignette is available at
 <span class="r-in"><span>    default_cluster <span class="op">=</span> <span class="st">"scran_quick_cluster"</span>,</span></span>
 <span class="r-in"><span>    is_stitched <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Example for Xenium object</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"spe_xenium"</span><span class="op">)</span><span class="op">)</span> <span class="va">spe_xenium</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spe_xenium_example"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">run_app</span><span class="op">(</span><span class="va">spe_xenium</span>,</span></span>
+<span class="r-in"><span>        sce_layer <span class="op">=</span> <span class="cn">NULL</span>, modeling_results <span class="op">=</span> <span class="cn">NULL</span>, sig_genes <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>        title <span class="op">=</span> <span class="st">"spatialLIBD Xenium without layer info"</span>,</span></span>
+<span class="r-in"><span>    spe_discrete_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"SpX"</span>,</span></span>
+<span class="r-in"><span>        <span class="st">"ManualAnnotation"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>,</span></span>
+<span class="r-in"><span>    spe_continuous_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="st">"sum_gex"</span>,  <span class="co"># "sum_umi",</span></span></span>
+<span class="r-in"><span>        <span class="st">"detected_gex"</span> <span class="co">#"sum_gene",</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>,</span></span>
+<span class="r-in"><span>    default_cluster <span class="op">=</span> <span class="st">"SpX"</span>,</span></span>
+<span class="r-in"><span>    datatype <span class="op">=</span> <span class="st">"Xenium"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -378,7 +414,7 @@ That vignette is available at
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer></div>

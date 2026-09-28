@@ -19,7 +19,7 @@ gene-level (or any continuous variable) use vis_gene()."><meta property="og:imag
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.25.2</span>
       </span>
     </div>
 
@@ -90,6 +90,7 @@ gene-level (or any continuous variable) use <code><a href="vis_gene.html">vis_ge
 <span>  na_color <span class="op">=</span> <span class="st">"#CCCCCC40"</span>,</span>
 <span>  is_stitched <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  guide_point_size <span class="op">=</span> <span class="va">point_size</span>,</span>
+<span>  datatype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Visium"</span>, <span class="st">"Xenium"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -168,7 +169,22 @@ specifying which spots to exclude from the plot. Sets <code>auto_crop = FALSE</c
 
 <dt id="arg-guide-point-size">guide_point_size<a class="anchor" aria-label="anchor" href="#arg-guide-point-size"></a></dt>
 <dd><p>A <code>numeric(1)</code> specifying the size of the points in
-guide. Defaults to <code>point_size</code>. Increase to improve visability.</p></dd>
+guide. Defaults to <code>point_size</code>. Increase to improve visibility.</p></dd>
+
+
+<dt id="arg-datatype">datatype<a class="anchor" aria-label="anchor" href="#arg-datatype"></a></dt>
+<dd><p>A <code>character(1)</code> specifying the type of spatial transcriptomics
+data stored in <code>spe</code>. Supported options are:</p><dl><dt><code>"Visium"</code></dt>
+<dd><p>(Default) Expects <code>pxl_col_in_fullres</code> and
+<code>pxl_row_in_fullres</code> as columns of <code>spatialCoords(spe)</code>. Enables
+image handling via the <code>spatialData</code> slot.</p></dd>
+
+<dt><code>"Xenium"</code></dt>
+<dd><p>Expects <code>x_centroid</code> and <code>y_centroid</code> as columns
+of <code>spatialCoords(spe)</code>.</p></dd>
+
+
+</dl></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -183,12 +199,13 @@ plot following the <code>sampleid</code>.</p></dd>
     <div id="details">
     <h2>Details</h2>
     <p>This function subsets <code>spe</code> to the given sample and prepares the
-data and title for <code><a href="vis_clus_p.html">vis_clus_p()</a></code>.</p>
+data and title for <code><a href="vis_clus_p.html">vis_clus_p()</a></code> or <code><a href="vis_clus_c.html">vis_clus_c()</a></code>.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other Spatial cluster visualization functions:
 <code><a href="frame_limits.html">frame_limits()</a></code>,
+<code><a href="vis_clus_c.html">vis_clus_c()</a></code>,
 <code><a href="vis_clus_p.html">vis_clus_p()</a></code>,
 <code><a href="vis_grid_clus.html">vis_grid_clus()</a></code>,
 <code><a href="vis_image.html">vis_image()</a></code></p></div>
@@ -198,7 +215,7 @@ data and title for <code><a href="vis_clus_p.html">vis_clus_p()</a></code>.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="enough_ram.html">enough_ram</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>    <span class="co">## Obtain the necessary data</span></span></span>
+<span class="r-in"><span>    <span class="co">## Obtain the necessary data: Visium example</span></span></span>
 <span class="r-in"><span>    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span><span class="op">)</span> <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>    <span class="co">## Check the colors defined by Lukas M Weber</span></span></span>
@@ -248,7 +265,7 @@ data and title for <code><a href="vis_clus_p.html">vis_clus_p()</a></code>.</p>
 <span class="r-in"><span>        ... <span class="op">=</span> <span class="st">" LIBD Layers"</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></span>
-<span class="r-in"><span>    </span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span>    <span class="co">## edit plot point size but keep guide size larger</span></span></span>
 <span class="r-in"><span>    <span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu">vis_clus</span><span class="op">(</span></span></span>
 <span class="r-in"><span>        spe <span class="op">=</span> <span class="va">spe</span>,</span></span>
@@ -261,14 +278,34 @@ data and title for <code><a href="vis_clus_p.html">vis_clus_p()</a></code>.</p>
 <span class="r-in"><span>        ... <span class="op">=</span> <span class="st">" LIBD Layers"</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></span>
-<span class="r-in"><span>         </span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Obtain the necessary data: Xenium example</span></span></span>
+<span class="r-in"><span>    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"spe_xenium"</span><span class="op">)</span><span class="op">)</span> <span class="va">spe_xenium</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spe_xenium_example"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="va">spe_xenium</span><span class="op">$</span><span class="va">x_half</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-methods.html" class="external-link">spatialCoords</a></span><span class="op">(</span><span class="va">spe_xenium</span><span class="op">)</span><span class="op">[</span>,<span class="st">"x_centroid"</span><span class="op">]</span> <span class="op">&lt;</span> <span class="fl">3088</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu">vis_clus</span><span class="op">(</span></span></span>
+<span class="r-in"><span>        spe <span class="op">=</span> <span class="va">spe_xenium</span>,</span></span>
+<span class="r-in"><span>        clustervar <span class="op">=</span> <span class="st">"x_half"</span>,</span></span>
+<span class="r-in"><span>        sampleid <span class="op">=</span> <span class="st">"Br1556"</span>,</span></span>
+<span class="r-in"><span>        colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>left <span class="op">=</span> <span class="st">"red"</span>, right <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        na_color <span class="op">=</span> <span class="st">"white"</span>,</span></span>
+<span class="r-in"><span>        point_size <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>        alpha <span class="op">=</span> <span class="fl">0.5</span>,</span></span>
+<span class="r-in"><span>        guide_point_size <span class="op">=</span> <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>        datatype <span class="op">=</span> <span class="st">"Xenium"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-27 00:07:26.421737 loading file /github/home/.cache/R/BiocFileCache/1a6c5ad86da_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-09-28 13:56:50.309437 loading file /github/home/.cache/R/BiocFileCache/22cf1dac8e88_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-plt img"><img src="vis_clus-1.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_clus-2.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_clus-3.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_clus-4.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="vis_clus-5.png" alt="" width="700" height="433"></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-09-28 13:57:02.924182 loading file /github/home/.cache/R/BiocFileCache/22cf7a01d802_spe_Xenium_test.rds%3Frlkey%3D0ql1pu5d9qe448sjmkh3ja3o8%26st%3Dnpwqxtdk%26dl%3D1</span>
+<span class="r-plt img"><img src="vis_clus-6.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
@@ -283,7 +320,7 @@ data and title for <code><a href="vis_clus_p.html">vis_clus_p()</a></code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.25.2</span>
       </span>
     </div>
 
@@ -66,6 +66,22 @@
       <small>Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/devel/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.25.2" id="spatiallibd-1252">spatialLIBD 1.25.2<a class="anchor" aria-label="anchor" href="#spatiallibd-1252"></a></h2>
+<p>BUG FIXES</p>
+<ul><li>Fixed <code>app_server()</code> to use the <code>default_cluster</code> information with a <code>_colors</code> suffix on the <code>sce_layer</code> object for choosing colors for the spatial registration and gene set enrichment tabs on the layer-level component of <code><a href="../reference/run_app.html">run_app()</a></code>. This was done live during a LIBD RStats club session with input from <a href="https://github.com/manishabarse" class="external-link">@manishabarse</a>, 1, and 2.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.25.1" id="spatiallibd-1251">spatialLIBD 1.25.1<a class="anchor" aria-label="anchor" href="#spatiallibd-1251"></a></h2>
+<p>NEW FEATURES</p>
+<ul><li>
+<code><a href="../reference/fetch_data.html">fetch_data()</a></code> now has example Xenium data you can access with <code>type = "spe_xenium_example"</code>.</li>
+<li>
+<code><a href="../reference/vis_gene.html">vis_gene()</a></code>, <code>vis_gene_grid()</code>, <code><a href="../reference/vis_clus.html">vis_clus()</a></code>, <code>vis_clus_grid()</code> all now support Xenium data. This is partially done through the new internal functions <code><a href="../reference/vis_gene_c.html">vis_gene_c()</a></code> and <code><a href="../reference/vis_clus_c.html">vis_clus_c()</a></code>.</li>
+<li>
+<code><a href="../reference/run_app.html">run_app()</a></code> now supports Xenium data. So <code>shiny</code>-powered apps can now be built for Xenium (10x Genomics) data.</li>
+<li>These features were added by 1 and <a href="https://github.com/lcolladotor" class="external-link">@lcolladotor</a> as part of <a href="https://github.com/LieberInstitute/spatialLIBD/pull/121" class="external-link uri">https://github.com/LieberInstitute/spatialLIBD/pull/121</a>.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.23.2" id="spatiallibd-1232">spatialLIBD 1.23.2<a class="anchor" aria-label="anchor" href="#spatiallibd-1232"></a></h2>
 <p>NEW FEATURES</p>
@@ -577,7 +593,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer></div>

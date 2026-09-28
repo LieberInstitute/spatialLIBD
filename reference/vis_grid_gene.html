@@ -20,7 +20,7 @@ To visualize clusters (or any discrete variable) use vis_grid_clus()."><meta pro
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.25.2</span>
       </span>
     </div>
 
@@ -91,14 +91,19 @@ To visualize clusters (or any discrete variable) use <code><a href="vis_grid_clu
 <span>  width <span class="op">=</span> <span class="fl">36</span>,</span>
 <span>  image_id <span class="op">=</span> <span class="st">"lowres"</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  cont_colors <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">viridis</span><span class="op">)</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span> <span class="kw">else</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aquamarine4"</span>,</span>
-<span>    <span class="st">"springgreen"</span>, <span class="st">"goldenrod"</span>, <span class="st">"red"</span><span class="op">)</span>,</span>
+<span>  cont_colors <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">viridis</span><span class="op">)</span> <span class="op">{</span></span>
+<span>     <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">21</span><span class="op">)</span></span>
+<span> <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aquamarine4"</span>, <span class="st">"springgreen"</span>, <span class="st">"goldenrod"</span>, <span class="st">"red"</span><span class="op">)</span></span>
+<span> <span class="op">}</span>,</span>
 <span>  sample_order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">spe</span><span class="op">$</span><span class="va">sample_id</span><span class="op">)</span>,</span>
 <span>  point_size <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  auto_crop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  na_color <span class="op">=</span> <span class="st">"#CCCCCC40"</span>,</span>
 <span>  is_stitched <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  cap_percentile <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  datatype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Visium"</span>, <span class="st">"Xenium"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -224,6 +229,21 @@ This can help make the color scale more dynamic in the presence of high
 outliers. Defaults to <code>1</code>, which effectively performs no capping.</p></dd>
 
 
+<dt id="arg-datatype">datatype<a class="anchor" aria-label="anchor" href="#arg-datatype"></a></dt>
+<dd><p>A <code>character(1)</code> specifying the type of spatial transcriptomics
+data stored in <code>spe</code>. Supported options are:</p><dl><dt><code>"Visium"</code></dt>
+<dd><p>(Default) Expects <code>pxl_col_in_fullres</code> and
+<code>pxl_row_in_fullres</code> as columns of <code>spatialCoords(spe)</code>. Enables
+image handling via the <code>spatialData</code> slot.</p></dd>
+
+<dt><code>"Xenium"</code></dt>
+<dd><p>Expects <code>x_centroid</code> and <code>y_centroid</code> as columns
+of <code>spatialCoords(spe)</code>.</p></dd>
+
+
+</dl></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Passed to <a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0()</a> for making the title of the
 plot following the <code>sampleid</code>.</p></dd>
@@ -243,6 +263,7 @@ objects.</p>
     <h2>See also</h2>
     <div class="dont-index"><p>Other Spatial gene visualization functions:
 <code><a href="vis_gene.html">vis_gene()</a></code>,
+<code><a href="vis_gene_c.html">vis_gene_c()</a></code>,
 <code><a href="vis_gene_p.html">vis_gene_p()</a></code></p></div>
     </div>
 
@@ -265,7 +286,7 @@ objects.</p>
 <span class="r-in"><span>    <span class="co">## for subject 3</span></span></span>
 <span class="r-in"><span>    <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html" class="external-link">plot_grid</a></span><span class="op">(</span>plotlist <span class="op">=</span> <span class="va">p_list</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-27 00:08:31.133522 loading file /github/home/.cache/R/BiocFileCache/1a6c5ad86da_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-09-28 13:58:09.436966 loading file /github/home/.cache/R/BiocFileCache/22cf1dac8e88_Human_DLPFC_Visium_processedData_sce_scran_spatialLIBD.Rdata%3Fdl%3D1</span>
 <span class="r-plt img"><img src="vis_grid_gene-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -281,7 +302,7 @@ objects.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer></div>
