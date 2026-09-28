@@ -155,5 +155,7 @@ Eagles NJ, Bach SV, Tippani M, Ravichandran P, Du Y, Miller RA, Hyde TM, Page SC
 \item For \code{LFF_spatial_ERC} files \url{https://research.libd.org/LFF_spatial_ERC/}
 please cite:
 Huuki-Myers LA, Divecha HR, Bach SV, Valentine MR, Eagles NJ, Mulvey B, Bharadwaj RA, Zhang R, Evans JR, Grant-Peters M, Miller RA, Kleinman JE, Han S, Hyde TM, Page SC, Weinberger DR, Martinowich K, Ryten M, Maynard KR, Collado-Torres L. APOE E4 Alzheimer's Risk Converges on an Oligodendrocyte Subtype in the Human Entorhinal Cortex. bioRxiv. 2025 Nov 20;. doi: 10.1101/2025.11.20.689483. PubMed PMID: 41332786; PubMed Central PMCID: PMC12667772.
+\item \code{habenula_atlas} files \url{https://research.libd.org/Hb_multiome/} will have
+an associated publication soon. Files are accessible using spatialLIBD version >= 1.25.4.
 }
 }
