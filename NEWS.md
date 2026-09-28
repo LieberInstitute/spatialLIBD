@@ -1,3 +1,14 @@
+# spatialLIBD 1.25.3
+
+NEW FEATURES
+
+* `spatialLIBD` now uses `scrapper` internally for
+pseudobulking the data. This was implemented by
+@manishabarse at as part of
+<https://github.com/LieberInstitute/spatialLIBD/pull/123>.
+* `fetch_data()` was updated to release the `habenulaAtlas`
+project data. Implemented by @Nick-Eagles.
+
 # spatialLIBD 1.25.2
 
 BUG FIXES
