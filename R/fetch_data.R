@@ -452,7 +452,7 @@ fetch_data <-
 
             ## While EH is not set-up
             file_name <- "sce_pb_visium_habenula_atlas.rds"
-            url <- "https://www.dropbox.com/scl/fi/rd2r1j24e4j3xqn37moft/sce_pb_visium_habenula_atlas.rds?rlkey=kxjtpnt7l4t1agn8xegiyo9tg&st=14jgmk2b&dl=1"
+            url <- "https://www.dropbox.com/scl/fi/jphkec3uphqd29jjtj7nm/sce_pb_habenula_atlas.rds?rlkey=bjrli8vrd40aomsbr0ocn9e0l&st=17ym04gg&dl=1"
         } else if (type == "habenula_atlas_snMultiome_seurat_cell") {
             tag <- "habenula_atlas"
             hub_title <- type
