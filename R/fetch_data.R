@@ -94,7 +94,7 @@
 #' Huuki-Myers LA, Divecha HR, Bach SV, Valentine MR, Eagles NJ, Mulvey B, Bharadwaj RA, Zhang R, Evans JR, Grant-Peters M, Miller RA, Kleinman JE, Han S, Hyde TM, Page SC, Weinberger DR, Martinowich K, Ryten M, Maynard KR, Collado-Torres L. APOE E4 Alzheimer's Risk Converges on an Oligodendrocyte Subtype in the Human Entorhinal Cortex. bioRxiv. 2025 Nov 20;. doi: 10.1101/2025.11.20.689483. PubMed PMID: 41332786; PubMed Central PMCID: PMC12667772.
 #'
 #' * `habenula_atlas` files <https://research.libd.org/Hb_multiome/> will have
-#' an associated publication soon. Files are accessible using spatialLIBD version >= 1.25.4.
+#' an associated publication soon. Files are accessible using spatialLIBD version >= 1.25.5.
 #' 
 #' @examples
 #'
@@ -439,7 +439,7 @@ fetch_data <-
             hub_title <- type
 
             ## While EH is not set-up
-            file_name <- "spe_cell_habenula_atlas.rds"
+            file_name <- "sce_pb_habenula_atlas.rds"
             url <- "https://www.dropbox.com/scl/fi/jphkec3uphqd29jjtj7nm/sce_pb_habenula_atlas.rds?rlkey=bjrli8vrd40aomsbr0ocn9e0l&st=17ym04gg&dl=1"
         } else if (type == "habenula_atlas_visium_spe") {
             tag <- "habenula_atlas"
@@ -454,7 +454,7 @@ fetch_data <-
 
             ## While EH is not set-up
             file_name <- "sce_pb_visium_habenula_atlas.rds"
-            url <- "https://www.dropbox.com/scl/fi/jphkec3uphqd29jjtj7nm/sce_pb_habenula_atlas.rds?rlkey=bjrli8vrd40aomsbr0ocn9e0l&st=17ym04gg&dl=1"
+            url <- "https://www.dropbox.com/scl/fi/rd2r1j24e4j3xqn37moft/sce_pb_visium_habenula_atlas.rds?rlkey=kxjtpnt7l4t1agn8xegiyo9tg&st=14jgmk2b&dl=1"
         } else if (type == "habenula_atlas_snMultiome_seurat_cell") {
             tag <- "habenula_atlas"
             hub_title <- type

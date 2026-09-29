@@ -1,3 +1,9 @@
+# spatialLIBD 1.25.5
+
+BUG FIXES
+
+* An incorrect link for an object pulled by `fetch_data()` was corrected.
+
 # spatialLIBD 1.25.4
 
 BUG FIXES
