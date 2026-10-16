@@ -1540,7 +1540,16 @@ app_server <- function(input, output, session) {
             assayname = input$layer_model_assayname
         )
     })
-
+    
+    # handle anova single colum issue
+    modeling_results_app <- modeling_results
+    
+    # check anova col names, those ending with '_all" unchanged
+    if ("anova" %in% names(modeling_results_app)) {
+        colnames(modeling_results_app$anova) <-
+            sub("_$", "_all", colnames(modeling_results_app$anova))
+    }
+    
     static_layer_gene_set_enrichment <- reactive({
         if (!is.null(input$geneSet)) {
             gene_list <-
@@ -1572,12 +1581,13 @@ app_server <- function(input, output, session) {
             )
             gene_list <- asd_sfari_geneList
         }
-
+        
+        ## single-column ANOVA results being dropped to vectors
         ## Run the enrichment
         gene_set_enrichment(
             gene_list,
             input$layer_gene_fdrcut,
-            modeling_results,
+            modeling_results_app,
             input$layer_model,
             reverse = ifelse(
                 input$layer_model != "anova",
@@ -1589,18 +1599,51 @@ app_server <- function(input, output, session) {
 
     static_layer_gene_set_enrichment_plot <- reactive({
         enriched <- static_layer_gene_set_enrichment()
+        
+        # Convert SetSize from a list column to numeric
+        enriched$SetSize <- as.numeric(unlist(
+            enriched$SetSize, use.names = FALSE)
+            )
+
+        # Original domain colors
+        model_colors <- sce_layer[[paste0(default_cluster, "_colors")]]
+        if (is.null(model_colors)) {
+            model_colors <- spatialLIBD::libd_layer_colors
+        }
+        
+        # Add colors for pairwise tests
+        pairwise_tests <- unique(
+            enriched$test[enriched$model_type == "pairwise"]
+            )
+        
+        for (test in pairwise_tests) {
+            if (!test %in% names(model_colors)) {
+                groups <- strsplit(test, "-", fixed = TRUE)[[1]]
+                
+                if (all(groups %in% names(model_colors))) {
+                    model_colors[test] <- scales::colour_ramp(
+                        model_colors[groups]
+                        )(0.5) #midpoint between 2 input colors
+                } else {
+                    model_colors[test] <- "grey60"
+                }
+            }
+        }
+        
+        # ANOVA has one overall test, not a spatial-domain-specific test
+        if (input$layer_model == "anova") {
+            model_colors <- "grey60" 
+            names(model_colors) <- unique(as.character(enriched$test))
+            
+        }
         gene_set_enrichment_plot(
             enriched,
             plot_SetSize_bar = TRUE,
             model_colors = get_colors(
-                if (!is.null(sce_layer[[paste0(default_cluster, "_colors")]])) {
-                    sce_layer[[paste0(default_cluster, "_colors")]]
-                } else {
-                    spatialLIBD::libd_layer_colors
-                },
-                clusters = unique(enriched$test)
-            )
+                model_colors, clusters = unique(enriched$test)
+                )
         )
+        
     })
 
     static_layer_external_tstat <- reactive({
@@ -1620,8 +1663,24 @@ app_server <- function(input, output, session) {
                 spatialLIBD::tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer
         }
 
+        cor_results <- modeling_results_app
+        
+        ## single-column ANOVA results being dropped to vectors
+        if (input$layer_model == "anova") {
+            cor_results$anova$f_stat_tmp <-
+                cor_results$anova$f_stat_all
+        }
+        
         ## Compute the correlations
-        layer_stat_cor(input_stat, modeling_results, input$layer_model)
+        cor_mat <- layer_stat_cor(input_stat, cor_results, input$layer_model)
+        
+        ## Remove the temporary duplicate column from the output
+        if (input$layer_model == "anova") {
+            cor_mat <- cor_mat[, colnames(cor_mat) != "tmp", drop = FALSE]
+        }
+        
+        cor_mat
+
     })
 
     static_layer_external_tstat_annotated_clusters <- reactive({
@@ -1633,26 +1692,49 @@ app_server <- function(input, output, session) {
     })
 
     static_layer_external_tstat_plot <- reactive({
+        cor_mat <- static_layer_external_tstat()
+        
+        # Get colors for individual spatial domains
+        model_colors <- sce_layer[[paste0(default_cluster, "_colors")]]
+        if (is.null(model_colors)) {
+            model_colors <- spatialLIBD::libd_layer_colors
+        }
+        
+        # Add colors for pairwise comparisons, like L1-L2
+        pairwise_tests <- colnames(cor_mat)[grepl("-", colnames(cor_mat), fixed = TRUE)]
+        
+        for (test in pairwise_tests) {
+            if (!test %in% names(model_colors)) {
+                groups <- strsplit(test, "-", fixed = TRUE)[[1]]
+                
+                if (all(groups %in% names(model_colors))) {
+                    model_colors[test] <- scales::colour_ramp(
+                        model_colors[groups]
+                        )(0.5) ## midpoint between the two input colors
+                } else {
+                    model_colors[test] <- "grey60"
+                }
+            }
+        }
+        
+        # ANOVA has one overall test, not a spatial-domain-specific test
+        if (input$layer_model == "anova") {
+            model_colors <- "grey60"
+            names(model_colors) <- colnames(cor_mat)
+        }
+        
         layer_stat_cor_plot(
-            static_layer_external_tstat(),
+            cor_mat,
             max(c(0.1, input$layer_tstat_max)),
             -max(c(0.1, input$layer_tstat_max)),
             cluster_rows = FALSE,
             cluster_columns = FALSE,
             annotation = static_layer_external_tstat_annotated_clusters(),
-            query_colors = get_colors(
-                clusters = rownames(static_layer_external_tstat())
-            ),
-            reference_colors = get_colors(
-                if (!is.null(sce_layer[[paste0(default_cluster, "_colors")]])) {
-                    sce_layer[[paste0(default_cluster, "_colors")]]
-                } else {
-                    spatialLIBD::libd_layer_colors
-                },
-                clusters = colnames(static_layer_external_tstat())
-            )
+            query_colors = get_colors(clusters = rownames(cor_mat)),
+            reference_colors = get_colors(model_colors, clusters = colnames(cor_mat))
         )
     })
+    
 
     ## layer download PDF buttons
     output$layer_downloadReducedDim <- downloadHandler(
