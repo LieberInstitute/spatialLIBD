@@ -212,7 +212,7 @@ gene_set_enrichment_plot <-
             colnames(res) <-
                 gsub(".*_mypattern_", "", colnames(res))
             rownames(res) <- unique(enrichment$ID)
-            res <- res[, levels(as.factor(enrichment$test))]
+            res <- res[, levels(as.factor(enrichment$test)), drop=FALSE]
             t(res)
         }
         wide_or <- make_wide("OR_char")

@@ -101,7 +101,7 @@ gene_set_enrichment <-
         }
 
         tstats <-
-            model_results[, grep("[f|t]_stat_", colnames(model_results))]
+            model_results[, grep("[f|t]_stat_", colnames(model_results)), drop=FALSE]
         colnames(tstats) <-
             gsub("[f|t]_stat_", "", colnames(tstats))
 
@@ -125,7 +125,7 @@ gene_set_enrichment <-
         }
 
         fdrs <-
-            model_results[, grep("fdr_", colnames(model_results))]
+            model_results[, grep("fdr_", colnames(model_results)), drop=FALSE]
 
         enrichTab <-
             do.call(
