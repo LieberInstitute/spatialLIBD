@@ -86,6 +86,8 @@ URL: https://github.com/LieberInstitute/spatialLIBD
 BugReports: https://support.bioconductor.org/tag/spatialLIBD
 Suggests: 
     knitr,
+    htmltools,
+    xml2,
     RefManageR,
     rmarkdown,
     BiocStyle,

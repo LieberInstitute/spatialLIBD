@@ -3,7 +3,9 @@
 `test-app-features.R` contains exactly 29 small tests, numbered to match the
 feature inventory discussed before the app refactor. They describe intended
 behavior, not a snapshot contract that every current behavior must be retained.
-No app implementation changes accompany these tests.
+The original 29 tests remain the feature contract during the app refactor.
+Their internal access paths were updated to use the feature servers; their
+behavioral assertions were retained.
 
 Run just this suite from the repository root:
 
@@ -118,6 +120,23 @@ or unsuppressed test warnings. The failing expectations are retained:
   (`app_cluster` in the fixture), while the PDF uses `layer_which_dim_color`
   (`sample_id` after changing the color selection in this test).
 
-Neither app behavior is corrected in this branch. Initial setup also reported
+Both behaviors were subsequently corrected by the refactor. Initial setup also reported
 that some installed Bioconductor packages were built under a later R patch
 version; these were startup warnings, not failures in the suite.
+
+
+## Refactor integration checks
+
+`test-app-integration.R` adds checks for the new dependency/state boundaries:
+UI controls/defaults, grid update snapshots, applied image refresh and reset,
+expression-filtered annotation, CSV/display agreement, supported data modes,
+missing embeddings, all model-family boxplot downloads, and fresh-session state.
+`fixtures/app-ui-controls.rds` captures the original UI's 66 input/select controls
+and their choices/defaults on the same fixture; it is not an approved snapshot
+of the new implementation. Tab IDs were added for stable browser navigation.
+
+The UI contract fixture was generated from `R/app_ui.R` at commit
+`2c4b400922e4c0918c252d20c43abb02533ce73a`, using `app_test_options()` and the
+same expression fixture. Each entry records its tag/type, value/checked state,
+limits/step, multi-select flag, options, and selected options. No screenshots or
+random tab IDs are included.
