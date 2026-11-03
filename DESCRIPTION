@@ -38,7 +38,7 @@ License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    shiny,
+    shiny (>= 1.5.0),
     golem,
     ggplot2,
     cowplot,
@@ -89,7 +89,7 @@ Suggests:
     RefManageR,
     rmarkdown,
     BiocStyle,
-    testthat (>= 2.1.0),
+    testthat (>= 3.2.0),
     covr,
     here,
     BiocManager,
