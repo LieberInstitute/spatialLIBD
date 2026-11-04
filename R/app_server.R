@@ -1607,8 +1607,13 @@ app_server <- function(input, output, session) {
 
         # Original domain colors
         model_colors <- sce_layer[[paste0(default_cluster, "_colors")]]
+
+        # if no default_cluster colors- use colors from spatialLIBD::get_colors()
         if (is.null(model_colors)) {
-            model_colors <- spatialLIBD::libd_layer_colors
+            model_colors <- spatialLIBD::get_colors(
+                clusters = unique(enriched$test),
+                use_libd_layer_colors = TRUE
+                )
         }
         
         # Add colors for pairwise tests
@@ -1639,9 +1644,7 @@ app_server <- function(input, output, session) {
         gene_set_enrichment_plot(
             enriched,
             plot_SetSize_bar = TRUE,
-            model_colors = get_colors(
-                model_colors, clusters = unique(enriched$test)
-                )
+            model_colors = model_colors[unique(enriched$test)]
         )
         
     })
@@ -1696,10 +1699,14 @@ app_server <- function(input, output, session) {
         
         # Get colors for individual spatial domains
         model_colors <- sce_layer[[paste0(default_cluster, "_colors")]]
+
         if (is.null(model_colors)) {
-            model_colors <- spatialLIBD::libd_layer_colors
+            model_colors <- spatialLIBD::get_colors(
+                clusters = colnames(cor_mat),
+                use_libd_layer_colors = TRUE
+                )
         }
-        
+
         # Add colors for pairwise comparisons, like L1-L2
         pairwise_tests <- colnames(cor_mat)[grepl("-", colnames(cor_mat), fixed = TRUE)]
         
@@ -1731,7 +1738,7 @@ app_server <- function(input, output, session) {
             cluster_columns = FALSE,
             annotation = static_layer_external_tstat_annotated_clusters(),
             query_colors = get_colors(clusters = rownames(cor_mat)),
-            reference_colors = get_colors(model_colors, clusters = colnames(cor_mat))
+            reference_colors = model_colors
         )
     })
     
