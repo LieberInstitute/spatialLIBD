@@ -80,7 +80,8 @@ Imports:
     dplyr,
     ComplexHeatmap,
     circlize,
-    scrapper
+    scrapper,
+    scales
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/LieberInstitute/spatialLIBD
 BugReports: https://support.bioconductor.org/tag/spatialLIBD

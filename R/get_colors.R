@@ -9,6 +9,8 @@
 #' generate up to 36 unique colors. If the number of unique clusters is beyond
 #' 36 then this function will fail.
 #' @param clusters A vector of cluster names.
+#' @param use_libd_layer_colors Logical. If `TRUE` and `colors` is `NULL`,
+#' use `libd_layer_colors` when all cluster names match its names.
 #'
 #' @return A named vector where the values are the colors to use for
 #' displaying them different clusters. For some use cases, you might have to
@@ -41,9 +43,19 @@
 #' )
 #' log_var_sorted <- sort_clusters(log_var)
 #' get_colors(colors = NULL, clusters = log_var_sorted)
-get_colors <- function(colors = NULL, clusters) {
+get_colors <- function(colors = NULL, clusters, use_libd_layer_colors = FALSE) {
     n_clus <- length(unique(clusters[!is.na(clusters)]))
 
+    # Use predefined spatialLIBD layer colors when requested
+    if (
+        use_libd_layer_colors &&
+        is.null(colors) &&
+        all(unique(clusters) %in% names(libd_layer_colors))
+    ) {
+        colors <- libd_layer_colors
+    }
+    
+    ## if colors is NULL or user supplies insufficent colors
     if (is.null(colors) | n_clus > length(colors)) {
         ## Original ones
         # colors <- c("#b2df8a","#e41a1c","#377eb8","#4daf4a","#ff7f00","gold",
