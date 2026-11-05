@@ -4,7 +4,7 @@
 \alias{get_colors}
 \title{Obtain the colors for a set of cluster names}
 \usage{
-get_colors(colors = NULL, clusters)
+get_colors(colors = NULL, clusters, use_libd_layer_colors = FALSE)
 }
 \arguments{
 \item{colors}{A vector of colors. If \code{NULL} then a set of default colors will
@@ -14,6 +14,9 @@ generate up to 36 unique colors. If the number of unique clusters is beyond
 36 then this function will fail.}
 
 \item{clusters}{A vector of cluster names.}
+
+\item{use_libd_layer_colors}{Logical. If \code{TRUE} and \code{colors} is \code{NULL},
+use \code{libd_layer_colors} when all cluster names match its names.}
 }
 \value{
 A named vector where the values are the colors to use for
