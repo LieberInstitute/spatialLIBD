@@ -10,6 +10,23 @@
 #' will disable the pseudo-bulked portion of the web application. See the
 #' examples for one such case as well as the vignette that describes how
 #' you can use `spatialLIBD` with public data sets provided by 10x Genomics.
+#' 
+#'  ---- Optional: Add custom cluster colors ----
+#'
+#' Custom colors can be specified by adding a color column to the
+#' `colData` of the input objects. The column name must be the cluster
+#' variable name followed by `_colors` (for example, `BayesSpace_colors`
+#' when `default_cluster = "BayesSpace"`).
+#'
+#' Define a named vector mapping cluster labels to colors, then assign
+#' the corresponding colors to each observation. Retain the cluster
+#' labels as names in the color vector.
+#'
+#' When using layer-level data (`sce_layer`), the same color column
+#' can be added to that object. Colors should correspond to the
+#' cluster labels in the selected `default_cluster` variable.
+#' If no custom colors are provided, the app uses `spatialLIBD::get_colors()`.
+#' 
 #' That vignette is available at
 #' <http://research.libd.org/spatialLIBD/articles/TenX_data_download.html>.
 #'
