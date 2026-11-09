@@ -102,21 +102,6 @@ devtools::load_all()
 testthat::test_dir("tests/testthat", filter = "^app-(features|integration)$")
 ```
 
-The original 29 feature assertions retain their intended behaviors; only accesses
-to former server-local variables changed to the feature interfaces. Integration
-checks cover the extracted state boundaries, all original UI control defaults,
-mode branches, downloads, and session isolation. See
-`tests/testthat/README-app-features.md` for fixture provenance and limits.
-
 These small tests do not cover every mouse gesture or prove equivalence for every
 possible dataset. Keep browser checks for linked selection, image alignment, and
 custom-widget behavior when changing those features.
-
-
-For a direct comparison with the pre-refactor server, run
-`Rscript dev/compare_app_refactor.R`. It loads the original server from its Git
-commit and compares 48 results (two samples, three summary methods, eight result
-categories), normalizing only generated raster-grob names. It requires that the
-baseline commit be present in the local Git history. Its fixture uses genes with
-variation in both samples so PCA is defined, and matching uploaded statistics so
-registration has enough overlapping genes.
