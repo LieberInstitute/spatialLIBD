@@ -1,3 +1,7 @@
+# Build the pseudobulk reduced-dimension view and its PDF download.
+# Manage embedding/component selections and metadata coloring, applying supplied
+# or historical layer palettes when appropriate.
+
 app_layer_dimensions_ui <- function(sce_layer, default_reduced_dim, default_cluster) {
     tabPanel(
         "Reduced Dim",

@@ -1,3 +1,7 @@
+# Build the spatial-registration view for example or uploaded query statistics.
+# Match query genes to the reference model results, compute correlations and
+# cluster annotations, and share them across the heatmap, table, and exports.
+
 app_layer_registration_ui <- function() {
     tabPanel(
         "Spatial registration",

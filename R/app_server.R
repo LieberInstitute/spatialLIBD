@@ -1,3 +1,7 @@
+# Connect the feature servers and establish each session's reactive dependencies.
+# Combine edited images and manual labels into the SPE consumed by plots, then
+# register spot-level features and the optional pseudobulk features.
+
 #' @import shiny
 #' @import SingleCellExperiment
 #' @import ggplot2

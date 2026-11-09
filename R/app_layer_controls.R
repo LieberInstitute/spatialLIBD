@@ -1,3 +1,7 @@
+# Build the pseudobulk sidebar, documentation, and object summary.
+# Coordinate model, test, and gene choices so dependent selections remain valid
+# as the user moves between the supplied statistical results.
+
 app_layer_controls_ui <- function(modeling_results, default_model_type) {
     sidebarPanel(
         selectInput(

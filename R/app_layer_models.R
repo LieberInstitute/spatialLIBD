@@ -1,3 +1,7 @@
+# Build pseudobulk model boxplots and gene/test result tables with their exports.
+# Use one drawing function for screen and PDF, keeping the modeled grouping and
+# display settings consistent while preserving reproducible jitter.
+
 app_layer_models_ui <- function(sce_layer, sig_genes, default_model_type) {
     tabPanel(
         "Model boxplots",

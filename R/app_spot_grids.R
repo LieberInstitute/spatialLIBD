@@ -1,3 +1,7 @@
+# Build multi-sample cluster and expression grids with their PDF downloads.
+# Capture each grid's plot, layout, and export labels when Update is pressed so
+# subsequent control edits do not make the displayed and downloaded results diverge.
+
 app_cluster_grid_ui <- function(spe) {
     tabPanel(
         "Clusters grid (static)",

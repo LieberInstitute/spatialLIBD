@@ -1,3 +1,7 @@
+# Build spot-level documentation and static cluster/expression views.
+# Prepare their plots from shared settings, handle expression warnings and optional
+# side-by-side backgrounds, and reuse the results in the PDF downloads.
+
 app_spot_documentation_ui <- function(docs_path) {
     tabPanel(
         "Documentation",

@@ -1,4 +1,7 @@
-# Small app-only helpers. Scientific calculations remain in the public helpers.
+# Provide small shared helpers for plot composition, warnings, table presentation,
+# downloads, example gene sets, and common plotting arguments. Feature files supply
+# their own data and settings; scientific calculations remain in the public helpers.
+
 app_preferred <- function(choices, preferred) {
     if (length(preferred) == 1 && preferred %in% choices) preferred else if (length(choices)) choices[[1]] else ""
 }

@@ -1,3 +1,7 @@
+# Build linked spatial/embedding panels and the standalone interactive gene view.
+# Reuse expression preparation, compose Plotly panels with shared spot keys and
+# backgrounds, and expose thresholded expression data to annotation handling.
+
 app_cluster_interactive_ui <- function() {
     tabPanel(
         "Clusters (interactive)",

@@ -1,3 +1,7 @@
+# Build the image editor and manage its session-local image state.
+# Share defaults and editing arguments across UI initialization, reset, preview,
+# and application to all samples. Expose updated images reactively to other views.
+
 app_image_editor_ui <- function() {
     defaults <- app_image_defaults()
     tabPanel(

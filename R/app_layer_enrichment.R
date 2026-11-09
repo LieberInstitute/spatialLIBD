@@ -1,3 +1,7 @@
+# Build the gene-set enrichment view using uploaded sets or the example sets.
+# Connect model, direction, and FDR controls to shared enrichment results, then
+# present those results as a heatmap, table, and PDF/CSV downloads.
+
 app_layer_enrichment_ui <- function() {
     tabPanel(
         "Gene Set Enrichment",

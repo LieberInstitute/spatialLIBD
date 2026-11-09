@@ -1,4 +1,7 @@
-# Historical dataset palettes are kept here, outside the reactive/plotting code.
+# Define the app's palette policy separately from plotting and reactive wiring.
+# Keep historical dataset palettes, available discrete palette choices, category
+# color mapping, and model-boxplot colors together.
+
 app_paper_colors <- function(short = FALSE) {
     colors <- spatialLIBD::libd_layer_colors[-length(spatialLIBD::libd_layer_colors)]
     if (short) names(colors) <- gsub("ayer", "", names(colors))

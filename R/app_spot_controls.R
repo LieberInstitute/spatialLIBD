@@ -1,3 +1,7 @@
+# Build the shared spot-level sidebar for data selections and display settings.
+# Update discrete palette choices as the selected annotation changes, and expose
+# reactive discrete/continuous colors to the plotting features.
+
 app_spot_controls_ui <- function(
   spe, spe_discrete_vars, spe_continuous_vars,
   default_cluster, auto_crop_default, datatype

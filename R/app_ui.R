@@ -1,3 +1,7 @@
+# Compose the app's navigation, spot-level and pseudobulk pages, help, and resources.
+# Read launch options here and pass them to the feature UI functions; individual
+# controls and layouts live alongside their feature's server code.
+
 #' @import shiny
 #' @importFrom shinyWidgets pickerInput pickerOptions updatePickerInput
 #' @import SingleCellExperiment

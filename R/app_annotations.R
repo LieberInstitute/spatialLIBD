@@ -1,5 +1,7 @@
-# One owner for manual labels. Selection is resolved by stable keys, never row
-# positions from the filtered plot. The expression tab excludes masked values.
+# Own the session's manual spot labels and handle click/lasso annotation actions.
+# Import and export labels by stable spot identity. Expression-tab annotation uses
+# the current expression subset and threshold mask supplied by the interactive view.
+
 app_annotations_server <- function(input, output, session, spe, gene_data) {
     labels <- reactiveVal(rep("NA", ncol(spe)))
     apply_labels <- function(keys, label) {
