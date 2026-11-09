@@ -1,6 +1,6 @@
 # Build pseudobulk model boxplots and gene/test result tables with their exports.
-# Use one drawing function for screen and PDF, keeping the modeled grouping and
-# display settings consistent while preserving reproducible jitter.
+# Share one plot object between screen and PDF, keeping the modeled grouping
+# and display settings consistent with reproducible jitter.
 
 app_layer_models_ui <- function(sce_layer, sig_genes, default_model_type) {
     tabPanel(
@@ -93,7 +93,7 @@ app_layer_models_ui <- function(sce_layer, sig_genes, default_model_type) {
             "layer_downloadBoxplot",
             "Download PDF"
         ),
-        plotOutput("layer_boxplot"),
+        plotOutput("layer_boxplot", height = 600),
         div(class = "app-plot-spacing"),
         hr(),
         tags$h2(
@@ -130,17 +130,11 @@ app_layer_models_server <- function(input, output, sce, sig_genes, group_var) {
         which(sig_genes$gene_index == match(input$layer_geneid, rowData(sce)$gene_search) &
             sig_genes$test == input$layer_model_test & sig_genes$model_type == input$layer_model)
     })
-    # Base graphics must be drawn again on the destination device. Cache arguments,
-    # not the result of a drawing call, and use this same function for PDF and screen.
-    draw_boxplot <- function() {
+    # Cache one plot object for both display and download. Jitter has its own
+    # reproducible seed, so neither path needs to modify the session's RNG state.
+    plot <- reactive({
         i <- selected_row()
-        if (!length(i)) {
-            return(invisible(NULL))
-        }
-        seed_exists <- exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
-        if (seed_exists) seed <- get(".Random.seed", envir = .GlobalEnv)
-        on.exit(if (seed_exists) assign(".Random.seed", seed, envir = .GlobalEnv) else if (exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) rm(".Random.seed", envir = .GlobalEnv))
-        set.seed(20200206)
+        req(length(i) == 1L)
         do.call(layer_boxplot, c(
             list(
                 i = i, sig_genes = sig_genes, sce_layer = sce,
@@ -149,7 +143,7 @@ app_layer_models_server <- function(input, output, sce, sig_genes, group_var) {
             ),
             app_boxplot_colors(input$layer_boxcolor)
         ))
-    }
+    })
     table <- sig_genes[, seq_len(match("ensembl", colnames(sig_genes)))]
     gene_table <- reactive(as.data.frame(table[
         table$model_type == input$layer_model & table$ensembl == sub(".*; ", "", input$layer_geneid),
@@ -158,14 +152,14 @@ app_layer_models_server <- function(input, output, sce, sig_genes, group_var) {
         table$model_type == input$layer_model & table$test == input$layer_model_test,
     ]))
     stem <- function() paste("layer", input$layer_model, input$layer_model_test, sep = "_")
-    output$layer_boxplot <- renderPlot(draw_boxplot(), width = 600, height = 600)
+    output$layer_boxplot <- renderPlot(print(plot()), width = 600, height = "auto")
     output$layer_downloadBoxplot <- app_pdf_download(
         function() {
             paste("layer_boxplot", input$layer_model, input$layer_model_test,
                 input$layer_geneid,
                 sep = "_"
             )
-        }, draw_boxplot
+        }, function() print(plot())
     )
     output$layer_model_table <- app_table(gene_table, direction = "asc")
     output$layer_model_table_full <- app_table(test_table, direction = "asc")
@@ -173,5 +167,5 @@ app_layer_models_server <- function(input, output, sce, sig_genes, group_var) {
         function() paste(stem(), input$layer_geneid, sep = "_"), gene_table
     )
     output$layer_downloadModelTable_full <- app_csv_download(stem, test_table)
-    list(draw_boxplot = draw_boxplot, gene_table = gene_table, test_table = test_table)
+    list(plot = plot, gene_table = gene_table, test_table = test_table)
 }

@@ -83,11 +83,7 @@ app_layer_dimensions_ui <- function(sce_layer, default_reduced_dim, default_clus
             "layer_downloadReducedDim",
             "Download PDF"
         ),
-        plotOutput(
-            "layer_reduced_dim",
-            width = "auto",
-            height = "auto"
-        ),
+        uiOutput("layer_reduced_dim_ui"),
         div(class = "app-plot-spacing"),
     )
 }
@@ -127,9 +123,16 @@ app_layer_dimensions_server <- function(input, output, session, sce) {
         }
         p
     })
+    # Reserve the full plot height before placing subsequent content. The number
+    # of component pairs changes this height, so the container is reactive too.
+    output$layer_reduced_dim_ui <- renderUI({
+        req(input$layer_reduced_dim_ncomponents)
+        plotOutput("layer_reduced_dim", width = "auto",
+            height = 500 + 100 * input$layer_reduced_dim_ncomponents %/% 2)
+    })
     output$layer_reduced_dim <- renderPlot(print(plot()),
         width = function() 600 + 100 * input$layer_reduced_dim_ncomponents %/% 2,
-        height = function() 500 + 100 * input$layer_reduced_dim_ncomponents %/% 2
+        height = "auto"
     )
     output$layer_downloadReducedDim <- app_pdf_download(
         function() paste0("layer_reducedDim_", input$layer_which_dim), function() print(plot()),

@@ -1,5 +1,5 @@
-# One small test for each feature in the manual-review inventory.
-# Assertions express intended behavior, not snapshots of the current code.
+# One small test for each conceptual feature the app implements. Not intended
+# to be comprehensive or replace manual testing
 
 test_that("01 sample selection restricts plot data to the chosen sample", {
     f <- app_fixture()
@@ -272,15 +272,17 @@ test_that("26 boxplot display and PDF use the same grouping variable", {
     with_app({
         # Record the actual calls; do not compare PDF bytes or jitter positions.
         groups <- character()
+        original <- layer_boxplot
         testthat::local_mocked_bindings(layer_boxplot = function(..., group_var) {
             groups <<- c(groups, group_var)
-            invisible(NULL) # This test checks wiring; other tests exercise real plots.
+            original(..., group_var = group_var)
         }, .package = "spatialLIBD")
         # A valid color variable distinct from the modeled grouping variable.
         session$setInputs(layer_which_dim_color = "sample_id", layer_box_cex = 1.1)
-        models$draw_boxplot()
+        before <- models$plot()
         invisible(output$layer_downloadBoxplot)
-        expect_gte(length(groups), 2L)
+        expect_equal(length(groups), 1L)
+        expect_identical(models$plot(), before)
         expect_equal(unique(groups), "app_cluster")
     })
 })

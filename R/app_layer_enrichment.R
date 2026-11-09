@@ -52,7 +52,7 @@ app_layer_enrichment_ui <- function() {
             "layer_downloadGeneSet",
             "Download PDF"
         ),
-        plotOutput("layer_gene_set_plot"),
+        plotOutput("layer_gene_set_plot", height = 600),
         div(class = "app-plot-spacing"),
         hr(),
         downloadButton(
@@ -87,7 +87,7 @@ app_layer_enrichment_server <- function(input, output, sce, models, group_var) {
             "_fdrcut", input$layer_gene_fdrcut
         )
     }
-    output$layer_gene_set_plot <- renderPlot(print(plot()), width = 600, height = 600)
+    output$layer_gene_set_plot <- renderPlot(print(plot()), width = 600, height = "auto")
     output$layer_gene_set_table <- app_table(result, direction = "desc")
     output$layer_downloadGeneSet <- app_pdf_download(stem, function() print(plot()))
     output$layer_downloadGeneSetTable <- app_csv_download(stem, result)

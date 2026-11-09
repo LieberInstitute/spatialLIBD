@@ -154,7 +154,7 @@ app_image_editor_ui <- function() {
             "downloadPlotEditImg",
             "Download PDF"
         ),
-        plotOutput("editImg_plot"),
+        plotOutput("editImg_plot", height = 600),
         div(class = "app-plot-spacing"),
         actionButton(
             "editImg_update",
@@ -221,7 +221,7 @@ app_image_editor_server <- function(input, output, session, initial_spe, datatyp
                 }
             }
         })
-        output$editImg_plot <- renderPlot(plot(preview()), width = 600, height = 600)
+        output$editImg_plot <- renderPlot(plot(preview()), width = 600, height = "auto")
         output$downloadPlotEditImg <- app_pdf_download(
             function() paste("editedImage", input$imageid, input$sample, sep = "_"),
             function() plot(preview())

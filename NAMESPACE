@@ -122,11 +122,6 @@ importFrom(grDevices,
   dev.off,
   pdf
 )
-importFrom(graphics,
-  boxplot,
-  par,
-  points
-)
 importFrom(grid,
   rasterGrob,
   unit

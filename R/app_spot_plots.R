@@ -37,7 +37,7 @@ app_cluster_plot_ui <- function() {
             "downloadPlotHistology",
             "Download PDF"
         ),
-        plotOutput("histology"),
+        plotOutput("histology", height = 600),
         div(class = "app-plot-spacing"),
     )
 }
@@ -55,7 +55,7 @@ app_gene_plot_ui <- function() {
             "downloadPlotGene",
             "Download PDF"
         ),
-        plotOutput("gene"),
+        plotOutput("gene", height = 600),
         div(class = "app-plot-spacing"),
         textOutput("gene_warnings")
     )
@@ -83,11 +83,11 @@ app_spot_plots_server <- function(input, output, spe, colors, settings) {
     })
     output$raw_summary <- renderPrint(print(spe()), width = 80)
     output$histology <- renderPlot(histology(),
-        height = 600,
+        height = "auto",
         width = function() 600 * if (isTRUE(input$side_by_side_histology)) 2 else 1
     )
     output$gene <- renderPlot(gene()$p,
-        height = 600,
+        height = "auto",
         width = function() 600 * if (isTRUE(input$side_by_side_gene)) 2 else 1
     )
     output$gene_warnings <- renderText(app_warning_text(gene))

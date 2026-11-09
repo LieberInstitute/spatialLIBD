@@ -66,7 +66,7 @@ app_layer_registration_ui <- function() {
             "layer_downloadTstatCor",
             "Download PDF"
         ),
-        plotOutput("layer_tstat_cor_plot"),
+        plotOutput("layer_tstat_cor_plot", height = 600),
         div(class = "app-plot-spacing"),
         hr(),
         downloadButton(
@@ -118,7 +118,7 @@ app_layer_registration_server <- function(input, output, sce, models, group_var)
         )
     })
     stem <- function() paste0("layer_TstatCor_", input$layer_model)
-    output$layer_tstat_cor_plot <- renderPlot(print(plot()), width = 800, height = 600)
+    output$layer_tstat_cor_plot <- renderPlot(print(plot()), width = 800, height = "auto")
     output$layer_tstat_cor_table <- app_table(correlations, row_names = TRUE)
     output$layer_downloadTstatCor <- app_pdf_download(
         function() paste0("layer_TstatCorHeatmap_", input$layer_model), function() print(plot()),

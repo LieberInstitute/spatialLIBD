@@ -29,7 +29,7 @@ UI and server functions for a feature are adjacent in its file. These are ordina
 Shiny registration functions rather than namespaced modules: keeping the existing
 input/output IDs avoids breaking downstream customizations and recorded workflows.
 The functions still establish explicit dependency boundaries and return named
-reactives or drawing functions for testing and communication. Do not pass the
+reactives for testing and communication. Do not pass the
 entire parent server environment into a feature.
 
 ## Data and state
@@ -55,9 +55,9 @@ the callback is evaluated only after the features have been registered.
 ## Display and export
 
 GGplot and heatmap outputs share their calculation reactive with downloads.
-Base-graphics boxplots instead share a drawing function: drawing must run on each
-destination graphics device, even if the selected data has not changed. It restores
-R's random seed after drawing reproducible jitter. PDF devices close on error.
+Layer boxplots return a ggplot object whose axes participate in automatic layout.
+Long labels wrap for display, and jitter uses a fixed seed without altering the
+session's random state. PDF devices close on error.
 
 `app_table()` defines common table options; each feature supplies its own data,
 row-name setting, and ordering. CSV downloads retain the original whole-result
