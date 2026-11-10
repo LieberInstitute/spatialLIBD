@@ -31,7 +31,7 @@ or not.}
 
 \item{sce_layer}{Defaults to the output of
 \code{fetch_data(type = 'sce_layer')}. This is a
-\linkS4class{SingleCellExperiment}
+\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
 object with the spot-level Visium data compressed via pseudo-bulking to the
 layer-level (group-level) resolution. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 

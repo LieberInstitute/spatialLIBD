@@ -103,11 +103,12 @@ test_that("11 linked panels expose the same spot keys for spatial and reduced vi
         widget <- jsonlite::fromJSON(output$histology_plotly, simplifyVector = FALSE)
         traces <- widget$x$data
         keys <- lapply(traces, function(x) unlist(x$key, use.names = FALSE))
+        panels <- split(keys, vapply(traces, function(x) paste(x$xaxis, x$yaxis), character(1)))
         expected <- f$spe$key[f$spe$sample_id == input$sample]
-        expect_true(length(keys) > 0)
-        expect_true(all(expected %in% unlist(keys)))
-        # A key must appear in more than one panel to support linked selection.
-        expect_true(all(table(unlist(keys))[expected] >= 2))
+        expect_length(panels, 4)
+        for (panel in panels) {
+            expect_setequal(unlist(panel, use.names = FALSE), expected)
+        }
     })
 })
 

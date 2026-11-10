@@ -201,6 +201,9 @@ app_linked_spot_plot <- function(spe, sample, cluster, reduced_name, colors, set
         expression <- do.call(vis_gene_c, c(common, list(title = "", cont_colors = gene$cont_colors)))
     }
     expression <- expression + geom_point(shape = 21, size = point_size, stroke = 0, alpha = settings$alpha)
+    # Plotly supplies keys from highlight_key() for every layer. Keeping the
+    # workhorse's explicit mapping as well duplicates that aesthetic in ggplot2.
+    clusters$mapping$key <- expression$mapping$key <- NULL
     dimension_theme <- theme_bw(base_size = 20) + theme(
         panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_blank(),
@@ -210,15 +213,15 @@ app_linked_spot_plot <- function(spe, sample, cluster, reduced_name, colors, set
         axes <- list(x = rlang::sym(colnames(dimensions)[1]), y = rlang::sym(colnames(dimensions)[2]))
         dim_clusters <- ggplot(linked, aes(
             x = !!axes$x, y = !!axes$y,
-            fill = factor(!!rlang::sym(cluster)), key = key
+            fill = factor(!!rlang::sym(cluster))
         )) +
             geom_point(shape = 21, size = point_size, stroke = 0) +
             scale_fill_manual(values = get_colors(colors, spe[[cluster]][spe$sample_id == sample])) +
             guides(fill = "none")
-        dim_expression <- ggplot(linked, aes(x = !!axes$x, y = !!axes$y, fill = COUNT, color = COUNT, key = key)) +
+        dim_expression <- ggplot(linked, aes(x = !!axes$x, y = !!axes$y, fill = COUNT, color = COUNT)) +
             geom_point(shape = 21, size = point_size, stroke = 0)
     } else {
-        dim_clusters <- dim_expression <- ggplot(linked, aes(key = key))
+        dim_clusters <- dim_expression <- ggplot(linked)
     }
     dim_clusters <- dim_clusters + ggtitle("") + dimension_theme
     dim_expression <- dim_expression + ggtitle("") + dimension_theme +

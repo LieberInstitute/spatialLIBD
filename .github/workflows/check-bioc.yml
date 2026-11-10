@@ -275,7 +275,7 @@ jobs:
 
       ## Might need an to add this to the if:  && runner.os == 'Linux'
       - name: Reveal testthat details
-        if:  env.has_testthat == 'true'
+        if: always() && env.has_testthat == 'true'
         run: find . -name testthat.Rout -exec cat '{}' ';'
 
       - name: Run RUnit tests

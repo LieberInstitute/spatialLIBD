@@ -36,10 +36,10 @@ test_that("repeated plot builds have identical jitter and preserve the random se
     f <- app_fixture()
     p <- layer_boxplot(sig_genes = f$sig, sce_layer = f$pb, group_var = "app_cluster")
     set.seed(7)
-    seed <- .Random.seed
+    seed <- .GlobalEnv$.Random.seed
     first <- ggplot2::ggplot_build(p)$data[[2]]
     second <- ggplot2::ggplot_build(p)$data[[2]]
     expect_identical(first$x, second$x)
-    expect_identical(.Random.seed, seed)
+    expect_identical(.GlobalEnv$.Random.seed, seed)
     expect_equal(first$y, p$data$expression)
 })

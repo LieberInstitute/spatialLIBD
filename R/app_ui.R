@@ -3,6 +3,7 @@
 # controls and layouts live alongside their feature's server code.
 
 #' @import shiny
+#' @importFrom markdown markdownToHTML
 #' @importFrom shinyWidgets pickerInput pickerOptions updatePickerInput
 #' @import SingleCellExperiment
 #' @importFrom DT DTOutput

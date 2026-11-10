@@ -9,7 +9,7 @@ sce_to_spe(sce = fetch_data("sce"), imageData = NULL)
 \arguments{
 \item{sce}{Defaults to the output of
 \code{fetch_data(type = 'sce')}. This is a
-\linkS4class{SingleCellExperiment}
+\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment-class}
 object with the spot-level Visium data and information required for
 visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
 

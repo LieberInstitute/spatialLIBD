@@ -12,11 +12,11 @@
 #'
 #' @param type A `character(1)` specifying which file you want to download. It
 #' can either be: `sce` for the
-#' \linkS4class{SingleCellExperiment}
+#' [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class]
 #' object containing the spot-level data that includes the information for
 #' visualizing the clusters/genes on top of the Visium histology, `sce_layer`
 #' for the
-#' \linkS4class{SingleCellExperiment}
+#' [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class]
 #' object containing the layer-level data (pseudo-bulked from the spot-level),
 #' or `modeling_results` for the list of tables with the `enrichment`,
 #' `pairwise`, and `anova` model results from the layer-level data. It can also

@@ -12,7 +12,7 @@
 #'
 #' @param sce Defaults to the output of
 #' `fetch_data(type = 'sce')`. This is a
-#' \linkS4class{SingleCellExperiment}
+#' [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class]
 #' object with the spot-level Visium data and information required for
 #' visualizing the histology. See [fetch_data()] for more details.
 #' @param imageData A `DataFrame()` with image data. Will be used with

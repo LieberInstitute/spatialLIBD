@@ -1,5 +1,10 @@
 # spatialLIBD 1.25.5
 
+* Reorganized the Shiny app into feature-focused files, added app regression
+  tests, and corrected image editing, annotation, grid, and plot-layout issues.
+  Layer boxplots now use ggplot2, including its box-summary conventions, and
+  wrap long labels for display.
+
 BUG FIXES
 
 * An incorrect link for an object pulled by `fetch_data()` was corrected.

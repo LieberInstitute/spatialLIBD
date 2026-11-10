@@ -136,6 +136,7 @@ test_that("blank reduced-dimension selections still allow linked spatial panels"
 })
 
 test_that("all model families can draw and download their selected gene", {
+    set.seed(7)
     with_app({
         for (type in c("enrichment", "pairwise", "anova")) {
             row <- which(f$sig$model_type == type)[1]
@@ -144,12 +145,12 @@ test_that("all model families can draw and download their selected gene", {
                 layer_geneid = rowData(f$pb)$gene_search[f$sig$gene_index[row]]
             )
             device <- grDevices::dev.cur()
-            seed <- .Random.seed
+            seed <- .GlobalEnv$.Random.seed
             path <- output$layer_downloadBoxplot
             expect_equal(readChar(path, 4), "%PDF")
             expect_gt(file.info(path)$size, 100)
             expect_identical(grDevices::dev.cur(), device)
-            expect_identical(.Random.seed, seed)
+            expect_identical(.GlobalEnv$.Random.seed, seed)
         }
     })
 })

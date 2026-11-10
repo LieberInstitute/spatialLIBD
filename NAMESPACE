@@ -148,6 +148,7 @@ importFrom(magick,
   image_read,
   image_transparent
 )
+importFrom(markdown,markdownToHTML)
 importFrom(methods,
   is,
   new
