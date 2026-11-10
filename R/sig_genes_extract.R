@@ -27,7 +27,7 @@
 #' into `layerB-layerA`.
 #' @param sce_layer Defaults to the output of
 #' `fetch_data(type = 'sce_layer')`. This is a
-#' [SingleCellExperiment-class][SingleCellExperiment::SingleCellExperiment-class]
+#' \linkS4class{SingleCellExperiment}
 #' object with the spot-level Visium data compressed via pseudo-bulking to the
 #' layer-level (group-level) resolution. See [fetch_data()] for more details.
 #' @param gene_name A `character(1)` specifying the `rowData(sce_layer)`
