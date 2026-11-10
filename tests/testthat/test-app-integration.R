@@ -20,6 +20,18 @@ test_that("all original UI controls, choices, and defaults are preserved", {
     })
     names(actual) <- xml2::xml_attr(nodes, "id")
     expected <- readRDS(test_path("fixtures", "app-ui-controls.rds"))
+    # The palette catalog can grow independently of the app. Check its policy,
+    # rather than freezing the catalog from the machine that made the snapshot.
+    catalog <- paletteer::palettes_d_names
+    usable <- catalog$length >= length(unique(opts$spe[[opts$default_cluster]]))
+    supplied <- grep("_colors$", colnames(colData(opts$spe)), value = TRUE)
+    expect_setequal(actual$clustercolor$options, c(
+        supplied, paste0(catalog$package[usable], "::", catalog$palette[usable])
+    ))
+    actual$clustercolor$options <- expected$clustercolor$options <- NULL
+    # Alphabetical ordering depends on the operating system's collation locale.
+    expect_setequal(actual$layer_which_dim_color$options, expected$layer_which_dim_color$options)
+    actual$layer_which_dim_color$options <- expected$layer_which_dim_color$options <- NULL
     expect_equal(actual, expected)
 })
 
