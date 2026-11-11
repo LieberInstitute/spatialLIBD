@@ -38,7 +38,8 @@ License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    shiny,
+    shiny (>= 1.5.0),
+    markdown,
     golem,
     ggplot2,
     cowplot,
@@ -57,7 +58,6 @@ Imports:
     ExperimentHub,
     SummarizedExperiment,
     stats,
-    graphics,
     S4Vectors,
     IRanges,
     benchmarkme,
@@ -86,10 +86,12 @@ URL: https://github.com/LieberInstitute/spatialLIBD
 BugReports: https://support.bioconductor.org/tag/spatialLIBD
 Suggests: 
     knitr,
+    htmltools,
+    xml2,
     RefManageR,
     rmarkdown,
     BiocStyle,
-    testthat (>= 2.1.0),
+    testthat (>= 3.2.0),
     covr,
     here,
     BiocManager,
@@ -102,4 +104,4 @@ biocViews: Homo_sapiens_Data, ExperimentHub, SequencingData, SingleCellData,
 Depends:
     SpatialExperiment (>= 1.3.3),
     R (>= 4.1)
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1

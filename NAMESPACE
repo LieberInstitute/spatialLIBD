@@ -122,11 +122,6 @@ importFrom(grDevices,
   dev.off,
   pdf
 )
-importFrom(graphics,
-  boxplot,
-  par,
-  points
-)
 importFrom(grid,
   rasterGrob,
   unit
@@ -153,6 +148,7 @@ importFrom(magick,
   image_read,
   image_transparent
 )
+importFrom(markdown,markdownToHTML)
 importFrom(methods,
   is,
   new

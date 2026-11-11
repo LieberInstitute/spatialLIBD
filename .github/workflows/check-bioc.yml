@@ -275,8 +275,11 @@ jobs:
 
       ## Might need an to add this to the if:  && runner.os == 'Linux'
       - name: Reveal testthat details
-        if:  env.has_testthat == 'true'
-        run: find . -name testthat.Rout -exec cat '{}' ';'
+        if: always() && env.has_testthat == 'true'
+        run: |
+          logs <- list.files("check", pattern = "^testthat\\.Rout(\\.fail)?$", recursive = TRUE, full.names = TRUE)
+          for (log in logs) cat(readLines(log, warn = FALSE), sep = "\n")
+        shell: Rscript {0}
 
       - name: Run RUnit tests
         if:  env.has_RUnit == 'true'
