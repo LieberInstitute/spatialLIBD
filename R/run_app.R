@@ -302,6 +302,17 @@ run_app <- function(
         sce_layer <-
             check_sce_layer(sce_layer, variables = default_cluster)
         modeling_results <- check_modeling_results(modeling_results)
+        ## Give an overall ANOVA test with an empty suffix a usable app label.
+        colnames(modeling_results$anova) <-
+            sub("_$", "_all", colnames(modeling_results$anova))
+        ## Keep explicitly supplied gene tables consistent with the model labels.
+        anova_empty_test <- which(
+            sig_genes$model_type == "anova" & sig_genes$test == ""
+        )
+        if (length(anova_empty_test)) {
+            sig_genes$test <- as.character(sig_genes$test)
+            sig_genes$test[anova_empty_test] <- "all"
+        }
         ## No need to check sig_genes since sig_genes_extract_all() will fail
     }
 
