@@ -78,7 +78,7 @@ app_layer_enrichment_server <- function(input, output, sce, models, group_var) {
         enriched <- result()
         gene_set_enrichment_plot(enriched,
             plot_SetSize_bar = TRUE,
-            model_colors = app_model_colors(sce, group_var, unique(enriched$test))
+            model_colors = app_model_colors(sce, group_var, unique(enriched$test), input$layer_model)
         )
     })
     stem <- function() {

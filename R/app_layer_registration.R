@@ -114,7 +114,7 @@ app_layer_registration_server <- function(input, output, sce, models, group_var)
             cluster_rows = FALSE,
             cluster_columns = FALSE, annotation = annotations(),
             query_colors = get_colors(clusters = rownames(matrix)),
-            reference_colors = app_model_colors(sce, group_var, colnames(matrix))
+            reference_colors = app_model_colors(sce, group_var, colnames(matrix), input$layer_model)
         )
     })
     stem <- function() paste0("layer_TstatCor_", input$layer_model)

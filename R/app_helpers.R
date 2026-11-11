@@ -73,10 +73,35 @@ app_side_by_side <- function(plot, enabled, datatype) {
     cowplot::plot_grid(background, points + theme(legend.position = "none"), nrow = 1)
 }
 
-app_model_colors <- function(sce, group_var, groups) {
+app_model_colors <- function(sce, group_var, groups, model_type) {
+    if (model_type == "anova") {
+        return(setNames(rep("grey60", length(groups)), groups))
+    }
     colors <- sce[[paste0(group_var, "_colors")]]
     if (is.null(colors)) colors <- spatialLIBD::libd_layer_colors
-    get_colors(colors, groups)
+    if (model_type != "pairwise") return(get_colors(colors, groups))
+
+    # Resolve domain colors before assigning colors to comparisons. Keep explicit
+    # comparison colors, and use grey when either domain has no supplied color.
+    # Preserve support for short LIBD labels such as L1 and L2.
+    short_colors <- colors
+    names(short_colors) <- gsub("ayer", "", names(short_colors))
+    result <- setNames(rep("grey60", length(groups)), groups)
+    for (test in groups) {
+        if (test %in% names(colors) && !is.na(colors[[test]])) {
+            result[test] <- colors[[test]]
+            next
+        }
+        domains <- strsplit(test, "-", fixed = TRUE)[[1]]
+        if (length(domains) != 2L) next
+        domain_colors <- colors[domains]
+        missing <- is.na(domain_colors)
+        domain_colors[missing] <- short_colors[domains[missing]]
+        if (!anyNA(domain_colors)) {
+            result[test] <- scales::colour_ramp(domain_colors)(0.5)
+        }
+    }
+    result
 }
 
 app_example_gene_sets <- function() {
