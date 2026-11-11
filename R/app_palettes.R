@@ -8,6 +8,20 @@ app_paper_colors <- function(short = FALSE) {
     colors
 }
 
+app_layer_colors <- function(sce, group_var) {
+    colors <- sce[[paste0(group_var, "_colors")]]
+    if (!is.null(colors)) return(colors)
+
+    groups <- unique(as.character(sce[[group_var]]))
+    groups <- groups[!is.na(groups)]
+    libd_colors <- spatialLIBD::libd_layer_colors
+    short_names <- gsub("ayer", "", names(libd_colors))
+    if (all(groups %in% names(libd_colors)) || all(groups %in% short_names)) {
+        return(get_colors(libd_colors, groups))
+    }
+    get_colors(colors = NULL, clusters = groups)
+}
+
 app_legacy_colors <- function(variable) {
     if (variable %in% c("Maynard", "Martinowich")) {
         return(c(

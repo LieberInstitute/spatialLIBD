@@ -77,8 +77,7 @@ app_model_colors <- function(sce, group_var, groups, model_type) {
     if (model_type == "anova") {
         return(setNames(rep("grey60", length(groups)), groups))
     }
-    colors <- sce[[paste0(group_var, "_colors")]]
-    if (is.null(colors)) colors <- spatialLIBD::libd_layer_colors
+    colors <- app_layer_colors(sce, group_var)
     if (model_type != "pairwise") return(get_colors(colors, groups))
 
     # Resolve domain colors before assigning colors to comparisons. Keep explicit

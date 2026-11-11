@@ -106,19 +106,16 @@ app_layer_dimensions_server <- function(input, output, session, sce) {
             label_format = c("%s %02i", " (%i%%)")
         )
         variable <- input$layer_which_dim_color
-        # Preserve the original layer palettes without changing global ggplot themes.
-        colors <- if (variable %in% c("layer_guess", "layer_guess_reordered")) {
-            app_paper_colors()
-        } else if (variable == "layer_guess_reordered_short") {
-            app_paper_colors(TRUE)
-        } else {
-            sce[[paste0(variable, "_colors")]]
-        }
-        if (!is.null(colors)) {
+        labels <- sce[[variable]]
+        if (is.factor(labels) || is.character(labels) || is.logical(labels)) {
+            colors <- app_layer_colors(sce, variable)
+            breaks <- if (is.factor(labels)) levels(labels) else {
+                sort(unique(as.character(labels[!is.na(labels)])))
+            }
             p <- p + scale_color_manual(
                 values = colors,
                 name = if (startsWith(variable, "layer_guess")) "Layer" else variable,
-                labels = levels(sce[[variable]]), breaks = levels(sce[[variable]])
+                labels = breaks, breaks = breaks
             )
         }
         p
