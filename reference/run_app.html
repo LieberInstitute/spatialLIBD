@@ -217,6 +217,22 @@ examples for one such case as well as the vignette that describes how
 you can use <code>spatialLIBD</code> with public data sets provided by 10x Genomics.
 That vignette is available at
 <a href="http://research.libd.org/spatialLIBD/articles/TenX_data_download.html" class="external-link">http://research.libd.org/spatialLIBD/articles/TenX_data_download.html</a>.</p>
+<p>—- Optional: Add custom cluster colors —-</p>
+<p>Custom colors can be specified by adding a color column to the
+<code>colData</code> of the input objects. The column name must be the cluster
+variable name followed by <code>_colors</code> (for example, <code>BayesSpace_colors</code>
+when <code>default_cluster = "BayesSpace"</code>).</p>
+<p>Define a named vector mapping cluster labels to colors, then assign
+the corresponding colors to each observation. Retain the cluster
+labels as names in the color vector.</p>
+<p>When using layer-level data (<code>sce_layer</code>), the same color column
+can be added to that object. Colors should correspond to the
+cluster labels in the selected <code>default_cluster</code> variable.
+In the layer-level tab, custom colors take precedence. Otherwise, the app
+uses <code><a href="libd_layer_colors.html">spatialLIBD::libd_layer_colors</a></code> when all cluster labels match its
+names (including short labels such as <code>L1</code>), or generates a discrete
+palette using <code><a href="get_colors.html">spatialLIBD::get_colors()</a></code>. Spot-level plots retain their
+palette controls.</p>
     </div>
 
     <div id="ref-examples">

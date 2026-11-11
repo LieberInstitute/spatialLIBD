@@ -413,7 +413,7 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Download the small example sce data</span></span>
 <span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_example"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2026-11-11 19:22:53.30036 loading file /github/home/.cache/R/BiocFileCache/18fc113cfca6_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2026-11-11 21:43:12.37823 loading file /github/home/.cache/R/BiocFileCache/2ee224b04da_sce_sub_for_vignette.Rdata%3Fdl%3D1</span></span>
 <span></span>
 <span><span class="co">## Convert to a SpatialExperiment object</span></span>
 <span><span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sce_to_spe.html">sce_to_spe</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
@@ -425,9 +425,9 @@ does not cache the files <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4<
 <span></span>
 <span><span class="co">## Query ExperimentHub and download the data</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"sce_layer"</span><span class="op">)</span><span class="op">)</span> <span class="va">sce_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2026-11-11 19:22:57.449824 loading file /github/home/.cache/R/BiocFileCache/18fc7f6edc57_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
+<span><span class="co">#&gt; 2026-11-11 21:43:16.642542 loading file /github/home/.cache/R/BiocFileCache/2ee29285075_Human_DLPFC_Visium_processedData_sce_scran_sce_layer_spatialLIBD.Rdata%3Fdl%3D1</span></span>
 <span><span class="va">modeling_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"modeling_results"</span>, eh <span class="op">=</span> <span class="va">ehub</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2026-11-11 19:22:57.837246 loading file /github/home/.cache/R/BiocFileCache/18fc3d1feccb_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
+<span><span class="co">#&gt; 2026-11-11 21:43:16.929596 loading file /github/home/.cache/R/BiocFileCache/2ee1f04b8ee_Human_DLPFC_Visium_modeling_results.Rdata%3Fdl%3D1</span></span></code></pre></div>
 <p>Once you have downloaded the objects, we can explore them a little
 bit</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -500,7 +500,7 @@ long format and add some useful information. Let’s do so below.</p>
 <span>        <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;  10.763   0.685  11.449</span></span>
+<span><span class="co">#&gt;   9.627   0.640  10.267</span></span>
 <span></span>
 <span><span class="co">## Explore the result</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span></span>
@@ -520,7 +520,84 @@ Cheng, Allaire, Sievert, Schloerke, Aden-Buie, Xie, Allen, McPherson,
 Dipert, and Borges, 2026) web application contained within <em><a href="https://bioconductor.org/packages/3.23/spatialLIBD" class="external-link">spatialLIBD</a></em>
 (Pardo, Spangler, Weber et al., 2022). To do so, use the
 <code><a href="../reference/run_app.html">run_app()</a></code> function as shown below:</p>
+<div class="section level4">
+<h4 id="customizing-cluster-colors">Customizing cluster colors<a class="anchor" aria-label="anchor" href="#customizing-cluster-colors"></a>
+</h4>
+<p>The <code>spatialLIBD</code> application supports custom colors for
+spatial domains or clusters in both the spot-level (<code>spe</code>)
+and layer-level (<code>sce_layer</code>) data.</p>
+<p>To specify custom colors, add a color column to the
+<code><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData()</a></code> of the corresponding input object. The column
+name must be the name of the cluster variable followed by
+<code>_colors</code>. For example, if the cluster variable is
+<code>layer_guess</code>, the corresponding color column must be named
+<code>layer_guess_colors</code>.</p>
+<p>Each color column contains one color value per observation in the
+corresponding object:</p>
+<ul>
+<li>In <code>spe</code>, the colors are assigned to individual spots
+according to their cluster labels.</li>
+<li>In <code>sce_layer</code>, the colors are assigned to the
+layer-level groups according to their cluster labels.</li>
+</ul>
+<p>The colors can be specified using a named vector, where the names
+correspond to the cluster labels and the values are valid R colors.
+Retain the cluster labels as names when assigning colors to each
+observation.</p>
+<p>For example, the following code assigns custom colors to the clusters
+in both objects. Replace the example cluster labels and
+<code>my_cluster</code> with labels and a cluster variable present in
+your objects:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Define a named vector of colors for each cluster</span></span>
+<span><span class="va">my_cluster_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    Cluster1 <span class="op">=</span> <span class="st">"#4E79A7"</span>,</span>
+<span>    Cluster2 <span class="op">=</span> <span class="st">"#F28E2B"</span>,</span>
+<span>    Cluster3 <span class="op">=</span> <span class="st">"#E15759"</span>,</span>
+<span>    Cluster4 <span class="op">=</span> <span class="st">"#76B7B2"</span>,</span>
+<span>    Cluster5 <span class="op">=</span> <span class="st">"#59A14F"</span>,</span>
+<span>    Cluster6 <span class="op">=</span> <span class="st">"#EDC948"</span>,</span>
+<span>    Cluster7 <span class="op">=</span> <span class="st">"#B07AA1"</span>,</span>
+<span>    Cluster8 <span class="op">=</span> <span class="st">"#FF9DA7"</span>,</span>
+<span>    Cluster9 <span class="op">=</span> <span class="st">"#9C755F"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Specify the cluster variable used by the application</span></span>
+<span><span class="va">cluster_var</span> <span class="op">&lt;-</span> <span class="st">"my_cluster"</span></span>
+<span></span>
+<span><span class="co">## Add the corresponding color column to the spot-level object</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">cluster_var</span>, <span class="st">"_colors"</span><span class="op">)</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span></span>
+<span>    <span class="va">my_cluster_colors</span><span class="op">[</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span><span class="op">[[</span><span class="va">cluster_var</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="op">]</span></span>
+<span></span>
+<span><span class="co">## Add the corresponding color column to the layer-level object</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">sce_layer</span><span class="op">)</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">cluster_var</span>, <span class="st">"_colors"</span><span class="op">)</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span></span>
+<span>    <span class="va">my_cluster_colors</span><span class="op">[</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">sce_layer</span><span class="op">)</span><span class="op">[[</span><span class="va">cluster_var</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="op">]</span></span></code></pre></div>
+<p>Custom color columns are optional. In the layer-level tab, custom
+colors take precedence. If they are not provided, the application uses
+the predefined <code><a href="../reference/libd_layer_colors.html">spatialLIBD::libd_layer_colors</a></code> palette when
+all cluster labels match its names, including short labels such as
+<code>L1</code> through <code>L6</code>. This palette contains colors
+for <code>Layer1</code> through <code>Layer6</code>, <code>WM</code>,
+<code>NA</code>, and <code>WM2</code>. For cluster labels that do not
+match these predefined names, the application generates a palette using
+<code><a href="../reference/get_colors.html">spatialLIBD::get_colors()</a></code>, with one color assigned to each
+cluster. The fallback uses a fixed palette for up to 12 clusters and
+<code>Polychrome::palette36</code> for 13 through 36 clusters.
+Spot-level plots retain their ordinary palette controls.</p>
+<p>In the layer-level tab, the application uses the corresponding colors
+in categorical reduced-dimension plots, gene set enrichment results and
+the reference domains of spatial registration plots. Enrichment model
+results use the domain colors; pairwise results use midpoint colors
+derived from the two domains, unless an explicit comparison color is
+supplied. Pairwise results with missing domain colors and overall ANOVA
+results use <code>grey60</code>. Continuous reduced-dimension coloring,
+model-boxplot colors and spatial registration query colors retain their
+separate behavior.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/run_app.html">run_app</a></span><span class="op">(</span></span>
 <span>        spe <span class="op">=</span> <span class="va">spe</span>,</span>
@@ -542,6 +619,7 @@ visualizations as PDF files or all interactive visualizations as PNG
 files, as well as all result table as CSV files. This is what produces
 the version you can access without any R use from your side at <a href="http://spatial.libd.org/spatialLIBD/" class="external-link">spatial.libd.org/spatialLIBD/</a>.</p>
 </div>
+</div>
 <div class="section level2">
 <h2 id="spatiallibd-functions">
 <code>spatialLIBD</code> functions<a class="anchor" aria-label="anchor" href="#spatiallibd-functions"></a>
@@ -556,7 +634,7 @@ colleagues (Maynard, Collado-Torres, Weber et al., 2021).</p>
 we can visualize any discrete variable such as the layers using
 <code><a href="../reference/vis_clus.html">vis_clus()</a></code> and related functions. These functions know
 where to extract and how to visualize the histology information.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## View our LIBD layers for one sample</span></span>
 <span><span class="fu"><a href="../reference/vis_clus.html">vis_clus</a></span><span class="op">(</span></span>
 <span>    spe <span class="op">=</span> <span class="va">spe</span>,</span>
@@ -570,7 +648,7 @@ where to extract and how to visualize the histology information.</p>
 variables and as such, you can visualize them using
 <code><a href="../reference/vis_clus.html">vis_clus()</a></code> and <code><a href="../reference/vis_grid_clus.html">vis_grid_clus()</a></code> for one or more
 than one sample respectively.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## This is not fully precise, but gives you a rough idea</span></span>
 <span><span class="co">## Some integer columns are actually continuous variables</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span>, <span class="va">class</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"factor"</span>, <span class="st">"integer"</span><span class="op">)</span><span class="op">)</span></span>
@@ -590,7 +668,7 @@ visualize the data without the histology information provided by
 particular, this is useful if you then want to use
 <code><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">plotly::ggplotly()</a></code> or other similar functions on the
 resulting <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code> object.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## View our LIBD layers for one sample</span></span>
 <span><span class="co">## without spatial information</span></span>
 <span><span class="fu"><a href="../reference/vis_clus.html">vis_clus</a></span><span class="op">(</span></span>
@@ -606,7 +684,7 @@ resulting <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" cl
 <code><a href="../reference/sort_clusters.html">sort_clusters()</a></code> as well as the
 <code>libd_layer_colors</code> object included in <em><a href="https://bioconductor.org/packages/3.23/spatialLIBD" class="external-link">spatialLIBD</a></em>
 (Pardo, Spangler, Weber et al., 2022).</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Color palette designed by Lukas M. Weber with feedback from the team.</span></span>
 <span><span class="va">libd_layer_colors</span></span>
 <span><span class="co">#&gt;        Layer1        Layer2        Layer3        Layer4        Layer5 </span></span>
@@ -628,7 +706,7 @@ instead. And just like <code><a href="../reference/vis_clus.html">vis_clus()</a>
 has a <code>spatial</code> <code>logical(1)</code> argument to turn off
 the custom spatial <code><a href="https://ggplot2.tidyverse.org/reference/layer.html" class="external-link">ggplot2::layer()</a></code> produced by
 <code><a href="../reference/geom_spatial.html">geom_spatial()</a></code>.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Available gene expression assays</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assayNames</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "counts"    "logcounts"</span></span>
@@ -679,7 +757,7 @@ the custom spatial <code><a href="https://ggplot2.tidyverse.org/reference/layer.
 <span>    viridis <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="spatialLIBD_files/figure-html/vis_gene-1.png" class="r-plt" alt="" width="700"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## Visualize the estimated number of cells per spot</span></span>
 <span><span class="fu"><a href="../reference/vis_gene.html">vis_gene</a></span><span class="op">(</span></span>
@@ -688,7 +766,7 @@ the custom spatial <code><a href="https://ggplot2.tidyverse.org/reference/layer.
 <span>    geneid <span class="op">=</span> <span class="st">"cell_count"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="spatialLIBD_files/figure-html/vis_gene-2.png" class="r-plt" alt="" width="700"></p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## Visualize the fraction of chrM expression per spot</span></span>
 <span><span class="co">## without the spatial layer</span></span>
@@ -715,7 +793,7 @@ more details, check the internal code of <code><a href="../reference/vis_gene_p.
 run the <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em> web
 application. However, we didn’t explain the output. If you explore it,
 you’ll notice that it’s a very long table with several columns.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sig_genes</span><span class="op">)</span></span>
 <span><span class="co">#&gt; DataFrame with 6 rows and 12 columns</span></span>
 <span><span class="co">#&gt;         top  model_type        test        gene      stat        pval</span></span>
@@ -800,7 +878,7 @@ application provided by <em><a href="https://bioconductor.org/packages/3.23/spat
 (Pardo, Spangler, Weber et al., 2022). The last example has the long
 title version that uses more information from the <code>sig_genes</code>
 object we created earlier.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Note that we recommend setting the random seed so the jittering of the</span></span>
 <span><span class="co">## points will be reproducible. Given the requirements by BiocCheck this</span></span>
 <span><span class="co">## cannot be done inside the layer_boxplot() function.</span></span>
@@ -809,7 +887,7 @@ object we created earlier.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/layer_boxplot.html">layer_boxplot</a></span><span class="op">(</span>sig_genes <span class="op">=</span> <span class="va">sig_genes</span>, sce_layer <span class="op">=</span> <span class="va">sce_layer</span><span class="op">)</span></span></code></pre></div>
 <p><img src="spatialLIBD_files/figure-html/layer_boxplot-1.png" class="r-plt" alt="" width="700"></p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## Viridis colors displayed in the shiny app</span></span>
 <span><span class="co">## showing the first pairwise model result</span></span>
@@ -826,7 +904,7 @@ object we created earlier.</p>
 <span>    col_high_point <span class="op">=</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="spatialLIBD_files/figure-html/layer_boxplot-2.png" class="r-plt" alt="" width="700"></p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## Paper colors displayed in the shiny app</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20200206</span><span class="op">)</span></span>
@@ -855,7 +933,7 @@ Human DLPFC snRNA-seq data generated by Matthew N Tran et al <a href="#fn6" clas
 (Pardo, Spangler, Weber et al., 2022) we include a small set of these
 statistics for the 31 cell clusters identified by Matthew N Tran et
 al.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Explore the enrichment t-statistics derived from Tran et al's snRNA-seq</span></span>
 <span><span class="co">## DLPFC data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">tstats_Human_DLPFC_snRNAseq_Nguyen_topLayer</span><span class="op">)</span></span>
@@ -873,7 +951,7 @@ al.</p>
 such matrix of statistics and correlate them against our layer
 enrichment results (or other model types) using the subset of Ensembl
 gene IDs that are observed in both tables.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Compute the correlation matrix of enrichment t-statistics between our data</span></span>
 <span><span class="co">## and Tran et al's snRNA-seq data</span></span>
 <span><span class="va">cor_stats_layer</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/layer_stat_cor.html">layer_stat_cor</a></span><span class="op">(</span></span>
@@ -893,7 +971,7 @@ gene IDs that are observed in both tables.</p>
 <span><span class="co">#&gt; 7 (4)  0.1850724 -0.197283175 -0.2716890</span></span></code></pre></div>
 <p>Once we have computed this correlation matrix, we can then visualize
 it using <code><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot()</a></code> as shown below.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Visualize the correlation matrix</span></span>
 <span><span class="fu"><a href="../reference/layer_stat_cor_plot.html">layer_stat_cor_plot</a></span><span class="op">(</span><span class="va">cor_stats_layer</span><span class="op">)</span></span></code></pre></div>
 <p><img src="spatialLIBD_files/figure-html/layer_stat_cor_plot-1.png" class="r-plt" alt="" width="700"></p>
@@ -939,7 +1017,7 @@ Foundation Autism Research Initiative <a href="https://www.sfari.org/" class="ex
 Collado-Torres, Weber et al., 2021) we used more gene lists. Below, we
 read in the data and create a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> object with the
 Ensembl gene IDs that SFARI has provided that are related to autism.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Read in the SFARI gene sets included in the package</span></span>
 <span><span class="va">asd_sfari</span> <span class="op">&lt;-</span> <span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
@@ -959,7 +1037,7 @@ Ensembl gene IDs that SFARI has provided that are related to autism.</p>
 <p>After reading the list of genes, we can then compute the enrichment
 odds ratios and p-values for a given FDR threshold in our
 statistics.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Compute the gene set enrichment results</span></span>
 <span><span class="va">asd_sfari_enrichment</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gene_set_enrichment.html">gene_set_enrichment</a></span><span class="op">(</span></span>
 <span>    gene_list <span class="op">=</span> <span class="va">asd_sfari_geneList</span>,</span>
@@ -995,7 +1073,7 @@ ratios on a heatmap as shown below. Note that we use the thresholded
 p-values at <code>-log10(p) = 12</code> for visualization purposes and
 only show the odds ratios for <code>-log10(p) &gt; 3</code> by
 default.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Visualize gene set enrichment results</span></span>
 <span><span class="fu"><a href="../reference/gene_set_enrichment_plot.html">gene_set_enrichment_plot</a></span><span class="op">(</span></span>
 <span>    <span class="va">asd_sfari_enrichment</span>,</span>
@@ -1054,7 +1132,7 @@ documentation.</p>
 <p>If you want to check the key characteristics required by <em><a href="https://bioconductor.org/packages/3.23/spatialLIBD" class="external-link">spatialLIBD</a></em>’s
 functions or the <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em>
 application, use the <code>check_*</code> family of functions.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/check_spe.html">check_spe</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span></span>
 <span><span class="co">#&gt; class: SpatialExperiment </span></span>
 <span><span class="co">#&gt; dim: 33538 47681 </span></span>
@@ -1380,7 +1458,7 @@ and Smyth, 1996)</li>
 Marco, Scherer, and Cédric, 2026)</li>
 </ul>
 <p>Code for creating the vignette</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create the vignette</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/rmarkdown" class="external-link">"rmarkdown"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"spatialLIBD.Rmd"</span><span class="op">)</span><span class="op">)</span></span>
@@ -1389,9 +1467,9 @@ Marco, Scherer, and Cédric, 2026)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"spatialLIBD.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2026-11-11 19:23:17 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2026-11-11 21:43:33 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 36.886 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 31.228 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
