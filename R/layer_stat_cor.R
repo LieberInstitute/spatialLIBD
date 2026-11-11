@@ -62,7 +62,7 @@ layer_stat_cor <-
         model_results <- modeling_results[[model_type]]
 
         tstats <-
-            model_results[, grep("[f|t]_stat_", colnames(model_results))]
+            model_results[, grep("[f|t]_stat_", colnames(model_results)), drop = FALSE]
         colnames(tstats) <-
             gsub("[f|t]_stat_", "", colnames(tstats))
 
@@ -74,7 +74,7 @@ layer_stat_cor <-
         ## Do the same for stats
         if (any(grepl("[f|t]_stat_", colnames(stats)))) {
             stats <-
-                stats[, grep("[f|t]_stat_", colnames(stats))]
+                stats[, grep("[f|t]_stat_", colnames(stats)), drop = FALSE]
             colnames(stats) <-
                 gsub("[f|t]_stat_", "", colnames(stats))
         }
@@ -106,8 +106,8 @@ layer_stat_cor <-
             stop("It looks like 'stats' does not have ENSEMBL gene names on the rownames or none of the genes are matching.", call. = FALSE)
         }
 
-        tstats <- tstats[!is.na(mm), ]
-        external_stats <- stats[mm[!is.na(mm)], ]
+        tstats <- tstats[!is.na(mm), , drop = FALSE]
+        external_stats <- stats[mm[!is.na(mm)], , drop = FALSE]
 
         ## Compute correlation
         cor_res <- cor(external_stats, tstats)
