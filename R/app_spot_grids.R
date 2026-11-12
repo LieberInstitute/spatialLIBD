@@ -1,176 +1,117 @@
-# Build multi-sample cluster and expression grids with their PDF downloads.
-# Capture each grid's plot, layout, and export labels when Update is pressed so
-# subsequent control edits do not make the displayed and downloaded results diverge.
-
-app_cluster_grid_ui <- function(spe) {
-    tabPanel(
-        "Clusters grid (static)",
-        checkboxInput(
-            "grid_spatial_clus",
-            "Use spatial image?",
-            value = FALSE
+# Static exports share the viewer's measurements, geometry, filters and palettes.
+app_spot_grid_ui <- function(spe) {
+    tabPanel("Static grid", value = "grid",
+        fluidRow(
+            column(3, radioButtons("grid_kind", "Color by", c("Continuous" = "continuous", "Discrete" = "discrete"), inline = TRUE)),
+            column(3, checkboxInput("grid_spatial", "Show histology", TRUE),
+                checkboxInput("grid_side_by_side", "Image beside features", FALSE)),
+            column(3, numericInput("grid_nrow", "Rows", 1, min = 1, step = 1)),
+            column(3, numericInput("grid_ncol", "Columns", 3, min = 1, step = 1))
         ),
-        checkboxGroupInput(
-            "grid_samples",
-            label = "Select samples to show in the grid",
-            choices = unique(spe$sample_id),
-            selected = unique(spe$sample_id)[seq(
-                1,
-                length(unique(spe$sample_id)),
-                by = 4
-            )],
-            inline = TRUE
+        fluidRow(
+            column(4, selectInput("grid_units", "Spatial units",
+                choices = c("Points (overview)" = "points", "Boundaries (when available)" = "boundaries"))),
+            column(4, numericInput("grid_pointsize", "Point size (mm)",
+                if (methods::is(spe, "SpatialFeatureExperiment")) 0.35 else 2, min = 0.01, max = 10, step = 0.05))
         ),
-        numericInput(
-            "grid_nrow",
-            label = "N rows",
-            value = round(
-                length(unique(spe$sample_id)) /
-                    (3 * 4) +
-                    0.5
-            ),
-            min = 1
-        ),
-        numericInput(
-            "grid_ncol",
-            label = "N columns",
-            value = 3,
-            min = 1
-        ),
-        actionButton(
-            "grid_update",
-            label = "Update grid plot"
-        ),
-        downloadButton(
-            "downloadPlotHistologyGrid",
-            "Download PDF"
-        ),
-        uiOutput("grid_static"),
-        helpText(
-            "Click the 'Update grid plot' button above to re-make this plot."
-        ),
-        div(class = "app-plot-spacing"),
+        shiny::selectizeInput("grid_samples", "Samples (remove and add to change order)",
+            choices = unique(spe$sample_id), selected = unique(spe$sample_id), multiple = TRUE,
+            options = list(plugins = list("remove_button"))),
+        actionButton("grid_update", "Update grid"), downloadButton("downloadPlotGrid", "Download PDF"),
+        helpText("Choose samples and click Update grid. Wide grids scroll horizontally. Points provide an overview; boundaries retain their true spatial size. The PDF uses the displayed grid and its saved settings."),
+        textOutput("grid_counts"), uiOutput("grid_static"), textOutput("grid_warnings"), div(class = "app-plot-spacing")
     )
 }
 
-app_gene_grid_ui <- function(spe) {
-    tabPanel(
-        "Gene grid (static)",
-        checkboxInput(
-            "grid_spatial_gene",
-            "Use spatial image?",
-            value = FALSE
-        ),
-        checkboxGroupInput(
-            "gene_grid_samples",
-            label = "Select samples to show in the grid",
-            choices = unique(spe$sample_id),
-            selected = unique(spe$sample_id)[seq(
-                1,
-                length(unique(spe$sample_id)),
-                by = 4
-            )],
-            inline = TRUE
-        ),
-        numericInput(
-            "gene_grid_nrow",
-            label = "N rows",
-            value = round(
-                length(unique(spe$sample_id)) /
-                    (3 * 4) +
-                    0.5
-            ),
-            min = 1
-        ),
-        numericInput(
-            "gene_grid_ncol",
-            label = "N columns",
-            value = 3,
-            min = 1
-        ),
-        actionButton(
-            "gene_grid_update",
-            label = "Update grid plot"
-        ),
-        downloadButton(
-            "downloadPlotGeneGrid",
-            "Download PDF"
-        ),
-        uiOutput("gene_grid_static"),
-        textOutput("gene_grid_warnings"),
-        helpText(
-            "Click the 'Update grid plot' button above to re-make this plot."
-        ),
-        div(class = "app-plot-spacing"),
-    )
+app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, colors,
+    catalog, image_id, spatial, point_size, guide_size, opacity, side_by_side, units = "points") {
+    d <- app_spot_frame(spe, sample, cluster, gene, clusters)
+    source <- app_image_source(catalog, sample, image_id)
+    image <- app_image_raster(spe, sample, app_image_source(catalog, sample, image_id, thumbnail = TRUE))
+    geometry <- if (identical(units, "boundaries")) app_spot_geometry(spe, d$i) else NULL
+    # Native SFE geometries use Cartesian Y-up unless an image registration says otherwise.
+    y_down <- app_spot_y_down(spe, if (is.null(source)) app_image_source(catalog, sample) else source)
+    xy_extent <- c(range(d$x), range(d$y))
+    extent <- if (is.null(image)) c(xy_extent[1], xy_extent[3], xy_extent[2], xy_extent[4]) else image$extent
+    background <- ggplot() + coord_fixed(
+        xlim = extent[c(1, 3)], ylim = if (y_down) rev(extent[c(2, 4)]) else extent[c(2, 4)], expand = FALSE)
+    if (!is.null(image)) {
+        # annotation_raster follows the plot's axis direction; use explicit Y scale
+        # below so images and geometry share a single full-resolution frame.
+        background <- background + annotation_raster(image$image,
+            xmin = extent[1], xmax = extent[3], ymin = extent[2], ymax = extent[4])
+    }
+    plot <- if (spatial && !side_by_side) background else ggplot() + coord_fixed(
+        xlim = extent[c(1, 3)], ylim = if (y_down) rev(extent[c(2, 4)]) else extent[c(2, 4)], expand = FALSE)
+    keep <- d$eligible
+    values <- if (kind == "continuous") d$value else d$labels
+    alpha <- if (is.finite(opacity)) opacity else 1
+    if (is.null(geometry)) {
+        df <- data.frame(x = d$x[keep], y = d$y[keep], value = values[keep])
+        plot <- plot + geom_point(data = df, aes(x = x, y = y, fill = value),
+            shape = 21, stroke = 0, size = point_size, alpha = alpha)
+    } else if (any(keep)) {
+        # ggplot's subgroup paths support polygon holes and multipart cells,
+        # without reprojecting pixel coordinates through a geographic CRS.
+        g <- sf::st_cast(sf::st_geometry(geometry[keep, ]), "MULTIPOLYGON")
+        coords <- sf::st_coordinates(g)
+        ids <- which(keep)
+        df <- data.frame(x = coords[, "X"], y = coords[, "Y"],
+            cell = coords[, "L3"], ring = interaction(coords[, "L3"], coords[, "L2"], coords[, "L1"]),
+            value = values[ids[coords[, "L3"]]])
+        plot <- plot + geom_polygon(data = df, aes(x = x, y = y, group = cell, subgroup = ring, fill = value),
+            rule = "evenodd", colour = NA, alpha = alpha)
+    }
+    if (kind == "continuous") {
+        plot <- plot + scale_fill_gradientn(colours = colors$continuous,
+            limits = app_spot_domain(d$value), name = paste(gene$geneid, collapse = ", "))
+    } else {
+        plot <- plot + scale_fill_manual(values = get_colors(colors$discrete, d$labels),
+            name = cluster, drop = FALSE) + guides(fill = guide_legend(override.aes = list(size = guide_size)))
+    }
+    theme <- theme_void(base_size = 12) + theme(plot.title = element_text(hjust = 0.5))
+    plot <- plot + theme + ggtitle(sample)
+    if (spatial && side_by_side && !is.null(image)) plot <- cowplot::plot_grid(background + theme, plot, nrow = 1)
+    list(p = plot, warnings = d$warnings, shown = sum(keep), total = length(keep))
 }
 
-# Each grid stores the plot AND its layout/labels at the Update event. Downloads
-# therefore describe the displayed grid even when controls have since changed.
-app_spot_grids_server <- function(input, output, spe, colors, settings) {
-    clusters <- eventReactive(input$grid_update,
-        {
-            req(length(input$grid_samples) > 0)
-            plots <- do.call(vis_grid_clus, c(list(
-                spe = spe(), clustervar = input$cluster, colors = colors$discrete(),
-                guide_point_size = input$guidepointsize, sort_clust = FALSE,
-                return_plots = TRUE, spatial = isTRUE(input$grid_spatial_clus),
-                sample_order = input$grid_samples, ... = paste(" with", input$cluster)
-            ), settings()))
-            list(
-                p = cowplot::plot_grid(
-                    plotlist = plots, nrow = input$grid_nrow,
-                    ncol = input$grid_ncol
-                ),
-                rows = input$grid_nrow, cols = input$grid_ncol,
-                stem = paste("static_cluster_grid", input$cluster,
-                    paste(input$grid_samples, collapse = "_"),
-                    sep = "_"
-                )
-            )
-        },
-        ignoreNULL = FALSE
-    )
-    genes <- eventReactive(input$gene_grid_update,
-        {
-            req(length(input$gene_grid_samples) > 0)
-            result <- app_capture_warnings({
-                plots <- do.call(vis_grid_gene, c(list(
-                    spe = spe(), return_plots = TRUE, spatial = isTRUE(input$grid_spatial_gene),
-                    sample_order = input$gene_grid_samples
-                ), settings(), app_gene_settings(input, colors$continuous)))
-                cowplot::plot_grid(
-                    plotlist = plots, nrow = input$gene_grid_nrow,
-                    ncol = input$gene_grid_ncol
-                )
-            })
-            c(result, list(
-                rows = input$gene_grid_nrow, cols = input$gene_grid_ncol,
-                stem = paste("static_gene_grid", paste(input$geneid, collapse = "_"),
-                    paste(input$gene_grid_samples, collapse = "_"),
-                    sep = "_"
-                )
-            ))
-        },
-        ignoreNULL = FALSE
-    )
-
-    output$grid_static <- renderUI(plotOutput("histology_grid",
-        width = 600 * clusters()$cols, height = 600 * clusters()$rows
-    ))
-    output$histology_grid <- renderPlot(print(clusters()$p), width = "auto", height = "auto")
-    output$gene_grid_static <- renderUI(plotOutput("gene_grid",
-        width = 600 * genes()$cols, height = 600 * genes()$rows
-    ))
-    output$gene_grid <- renderPlot(print(genes()$p), width = "auto", height = "auto")
-    output$gene_grid_warnings <- renderText(app_warning_text(genes))
-    output$downloadPlotHistologyGrid <- app_pdf_download(
-        function() clusters()$stem, function() print(clusters()$p),
-        width = function() 9 * clusters()$cols, height = function() 8 * clusters()$rows
-    )
-    output$downloadPlotGeneGrid <- app_pdf_download(
-        function() genes()$stem, function() print(genes()$p),
-        width = function() 8 * genes()$cols, height = function() 8 * genes()$rows
-    )
-    list(clusters = clusters, genes = genes)
+app_spot_grids_server <- function(input, output, spe, colors, catalog) {
+    grid <- eventReactive(input$grid_update, {
+        req(length(input$grid_samples) > 0, input$cluster, length(input$geneid) > 0)
+        rows <- max(1L, as.integer(input$grid_nrow))
+        cols <- max(1L, as.integer(input$grid_ncol))
+        validate(need(is.finite(rows) && is.finite(cols), "Enter positive grid dimensions."))
+        validate(need(length(input$grid_pointsize) == 1L && is.finite(input$grid_pointsize) && input$grid_pointsize > 0,
+            "Enter a positive point size."))
+        rows <- max(rows, ceiling(length(input$grid_samples) / cols))
+        gene <- app_gene_settings(input, colors$continuous)
+        plots <- lapply(input$grid_samples, function(sample) app_static_spatial(
+            spe(), sample, input$cluster, gene, as.character(input$cluster_subset), input$grid_kind,
+            list(discrete = colors$discrete(), continuous = colors$continuous()), catalog(),
+            input$imageid, isTRUE(input$grid_spatial), input$grid_pointsize, input$guidepointsize,
+            input$alphalevel, isTRUE(input$grid_side_by_side), input$grid_units))
+        list(p = cowplot::plot_grid(plotlist = lapply(plots, `[[`, "p"), nrow = rows, ncol = cols),
+            warnings = unique(unlist(lapply(plots, `[[`, "warnings"))), rows = rows, cols = cols,
+            counts = paste(vapply(seq_along(plots), function(j) paste0(input$grid_samples[j], ": ",
+                format(plots[[j]]$shown, big.mark = ","), " / ", format(plots[[j]]$total, big.mark = ","), " shown"),
+                character(1)), collapse = " · "),
+            side_by_side = isTRUE(input$grid_spatial) && isTRUE(input$grid_side_by_side),
+            width = 8 * cols * if (isTRUE(input$grid_spatial) && isTRUE(input$grid_side_by_side)) 2 else 1,
+            stem = paste("static_grid", input$grid_kind,
+                if (input$grid_kind == "continuous") paste(input$geneid, collapse = "_") else input$cluster,
+                paste(input$grid_samples, collapse = "_"), sep = "_"))
+    }, ignoreNULL = FALSE)
+    output$grid_static <- renderUI({
+        settings <- grid()
+        min_width <- 360 * settings$cols * if (settings$side_by_side) 2 else 1
+        div(style = "overflow-x: auto; max-width: 100%;",
+            div(style = paste0("min-width: ", min_width, "px;"),
+                plotOutput("spot_grid", width = "100%", height = 500 * settings$rows)))
+    })
+    output$spot_grid <- renderPlot(print(grid()$p), res = 96)
+    output$grid_counts <- renderText(grid()$counts)
+    output$grid_warnings <- renderText(app_warning_text(grid))
+    output$downloadPlotGrid <- app_pdf_download(function() grid()$stem, function() print(grid()$p),
+        width = function() grid()$width, height = function() 8 * grid()$rows)
+    list(grid = grid)
 }

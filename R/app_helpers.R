@@ -125,15 +125,7 @@ app_read_gene_sets <- function(upload) {
     )
 }
 
-# One source of arguments for static plots, grids, and interactive preparation.
-app_spot_settings <- function(input, is_stitched, datatype) {
-    list(
-        image_id = input$imageid, alpha = input$alphalevel,
-        point_size = input$pointsize, auto_crop = input$auto_crop && !is_stitched,
-        is_stitched = is_stitched, datatype = datatype
-    )
-}
-
+# Shared feature settings for the interactive viewer and static exports.
 app_gene_settings <- function(input, colors) {
     req(length(input$geneid) > 0)
     list(

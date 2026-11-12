@@ -20,16 +20,12 @@ app_ui <- function() {
                     options$spe, options$spe_discrete_vars, options$spe_continuous_vars,
                     options$default_cluster, options$auto_crop_default, options$datatype
                 ),
-                mainPanel(tabsetPanel(
+                mainPanel(width = 9, tabsetPanel(
                     id = "spot_tabs",
                     app_spot_documentation_ui(options$docs_path),
-                    app_cluster_plot_ui(),
-                    app_cluster_interactive_ui(),
-                    app_cluster_grid_ui(options$spe),
-                    app_gene_plot_ui(),
-                    app_gene_interactive_ui(),
-                    app_gene_grid_ui(options$spe),
-                    if (options$datatype != "Xenium") app_image_editor_ui()
+                    app_spot_interactive_ui(),
+                    app_spot_grid_ui(options$spe),
+                    if (length(app_image_choices(app_image_catalog(options$spe), "image"))) app_image_editor_ui()
                 ))
             )),
             if (!is.null(options$sce_layer)) app_layer_ui(options),
@@ -76,9 +72,17 @@ app_document <- function(docs_path, name) file.path(docs_path, name)
 #' @import shiny
 golem_add_external_resources <- function(docs_path) {
     addResourcePath("www", docs_path)
+    viewer_path <- system.file("app", "viewer", package = "spatialLIBD")
+    # Development rebuilds must not reuse a browser's cached renderer bundle.
+    viewer_hash <- tools::md5sum(file.path(viewer_path, "viewer.js"))
+    viewer_version <- paste(utils::packageVersion("spatialLIBD"),
+        strtoi(substr(unname(viewer_hash), 1L, 7L), base = 16L), sep = ".")
     tags$head(
         golem::activate_js(),
         golem::favicon(),
+        htmltools::htmlDependency("spatiallibd-viewer", viewer_version,
+            src = c(file = viewer_path),
+            script = "viewer.js", stylesheet = "viewer.css"),
         tags$style(HTML(".app-plot-spacing { height: 2rem; }"))
     )
 }

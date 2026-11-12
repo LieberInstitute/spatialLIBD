@@ -18,24 +18,25 @@
 #' @importFrom utils read.csv write.csv
 #' @importFrom SummarizedExperiment assays
 
-# Feature servers receive their data explicitly. IDs stay at app scope so existing
-# bookmarks, automation, and downstream app integrations keep their names.
+# Feature servers receive their data explicitly; controls stay at app scope.
 app_server <- function(input, output, session) {
     options <- golem::get_golem_options()
     images <- app_image_editor_server(input, output, session, options$spe, options$datatype)
     annotations <- app_annotations_server(input, output, session, options$spe,
-        gene_data = function() interactive$gene_data()
+        gene_data = function() interactive$gene_data(),
+        revision = function() interactive$revision()
     )
     spe <- reactive({
         current <- images$spe()
         current$ManualAnnotation <- annotations()
         current
     })
-    colors <- app_spot_controls_server(input, session, spe)
-    settings <- reactive(app_spot_settings(input, options$is_stitched, options$datatype))
-    plots <- app_spot_plots_server(input, output, spe, colors, settings)
-    grids <- app_spot_grids_server(input, output, spe, colors, settings)
-    interactive <- app_spot_interactive_server(input, output, spe, colors, settings)
+    resources <- app_viewer_resources(session)
+    catalog <- reactive(app_image_catalog(spe()))
+    colors <- app_spot_controls_server(input, session, spe, catalog)
+    output$raw_summary <- renderPrint(print(spe()), width = 80)
+    grids <- app_spot_grids_server(input, output, spe, colors, catalog)
+    interactive <- app_spot_interactive_server(input, output, session, spe, colors, resources, catalog)
 
     if (!is.null(options$sce_layer)) {
         sce <- options$sce_layer
@@ -48,7 +49,7 @@ app_server <- function(input, output, session) {
     output$session_info <- renderPrint(sessioninfo::session_info(), width = 120)
     invisible(list(
         images = images, annotations = annotations, colors = colors,
-        plots = plots, grids = grids, interactive = interactive,
+        grids = grids, interactive = interactive,
         layers = if (!is.null(options$sce_layer)) {
             list(
                 dimensions = dimensions, models = models,

@@ -6,8 +6,10 @@ app_image_editor_ui <- function() {
     defaults <- app_image_defaults()
     tabPanel(
         "Edit image",
+        selectInput("editImg_imageid", "Low-resolution image to edit", choices = character()),
+        helpText("Edits create a low-resolution image variant. Full-resolution image pyramids remain unchanged."),
         helpText(
-            "Edit the selected image by manipulating the colors and apperance, which can be useful when inspecting the selected image from the left menu ('image name'). Once you have a set of edits you like, click the 'update custom image' button below to save your edits. Next, select on the left menu ('image name') the 'edited_imaged' option to use your new image as the background image in the rest of the visualizations. Most of these image manipulations are explained at",
+            "Adjust the colors and appearance of the selected low-resolution image. Click 'Update custom image' to apply the edits, then select 'edited_imaged' under Histology image to use the result in other plots. Most of these image manipulations are explained at",
             HTML(
                 "<a href='https://docs.ropensci.org/magick/reference/color.html'>the magick R package documentation</a>."
             )
@@ -192,40 +194,88 @@ app_image_arguments <- function(input) {
 
 app_image_editor_server <- function(input, output, session, initial_spe, datatype) {
     current_spe <- reactiveVal(initial_spe)
-    preview <- reactive({
-        req(datatype != "Xenium", input$sample, input$imageid)
-        as.raster(do.call(img_edit, c(list(
-            spe = current_spe(), sampleid = input$sample,
-            image_id = input$imageid
-        ), app_image_arguments(input))))
+    catalog <- reactive(app_image_catalog(current_spe()))
+    observeEvent(list(input$sample, catalog()), {
+        sources <- catalog()[[input$sample]]$sources
+        choices <- names(Filter(function(s) s$type == "image", sources))
+        old <- isolate(input$editImg_imageid)
+        selected <- if (length(old) == 1 && old %in% choices) old else app_preferred(choices, "lowres")
+        updateSelectInput(session, "editImg_imageid", choices = choices, selected = selected)
     })
-    if (datatype != "Xenium") {
-        observeEvent(input$editImg_update, {
-            current_spe(do.call(img_update_all, c(list(
-                spe = current_spe(), image_id = input$imageid,
-                new_image_id = "edited_imaged", overwrite = isTRUE(input$editImg_overwrite)
-            ), app_image_arguments(input))))
-        })
-        observeEvent(input$editImg_reset_menus, {
-            for (name in names(app_image_defaults())) {
-                value <- app_image_defaults()[[name]]
-                id <- paste0("editImg_", name)
-                if (name == "channel") {
-                    updateSelectInput(session, id, selected = value)
-                } else if (is.logical(value)) {
-                    updateCheckboxInput(session, id, value = value)
-                } else if (is.character(value)) {
-                    updateTextInput(session, id, value = value)
-                } else {
-                    updateNumericInput(session, id, value = value)
-                }
-            }
-        })
-        output$editImg_plot <- renderPlot(plot(preview()), width = 600, height = "auto")
-        output$downloadPlotEditImg <- app_pdf_download(
-            function() paste("editedImage", input$imageid, input$sample, sep = "_"),
-            function() plot(preview())
-        )
+    edit <- function(spe, sample) {
+        source <- app_image_source(app_image_catalog(spe), sample, input$editImg_imageid)
+        if (is.null(source) || source$type != "image") stop("Select a low-resolution image to edit.")
+        raster <- app_image_raster(spe, sample, source)
+        # img_edit only consumes a raster, so provide one small image without
+        # subsetting the SFE or exposing the full-resolution image handles.
+        tmp <- spe
+        imgData(tmp) <- S4Vectors::DataFrame(sample_id = sample, image_id = "app_edit",
+            data = I(list(SpatialExperiment::SpatialImage(raster$image))), scaleFactor = 1)
+        pixels <- as.raster(do.call(img_edit, c(list(spe = tmp, sampleid = sample,
+            image_id = "app_edit"), app_image_arguments(input))))
+        list(pixels = pixels, scale = source$scale_factor, extent = raster$extent,
+            y_direction = if (app_spot_y_down(spe, source)) "down" else "up")
     }
+    preview <- reactive({
+        req(input$sample, nzchar(input$editImg_imageid))
+        edit(current_spe(), input$sample)$pixels
+    })
+    observeEvent(input$editImg_update, {
+        tryCatch({
+            spe <- current_spe()
+            images <- imgData(spe)
+            if (any(images$image_id == "edited_imaged") && !isTRUE(input$editImg_overwrite)) {
+                stop("Enable overwrite to replace the existing edited image.")
+            }
+            # Build all results before changing session state.
+            samples <- unique(spe$sample_id)
+            edits <- setNames(lapply(samples, function(sample) edit(spe, sample)), samples)
+            rows <- lapply(samples, function(sample) {
+                image <- edits[[sample]]
+                S4Vectors::DataFrame(sample_id = sample, image_id = "edited_imaged",
+                    data = I(list(SpatialExperiment::SpatialImage(image$pixels))),
+                    scaleFactor = if (is.null(image$scale)) 1 else image$scale)
+            })
+            images <- images[images$image_id != "edited_imaged", ]
+            imgData(spe) <- do.call(rbind, c(list(images), rows))
+            # Keep the exact scene registration, including native SFE image
+            # extents, when the edited pixels become a separate image source.
+            registered <- S4Vectors::metadata(spe)$viewer_images
+            for (sample in samples) {
+                at <- which(vapply(registered, function(x) identical(as.character(x$sample_id), sample), logical(1)))
+                if (!length(at)) {
+                    at <- length(registered) + 1L
+                    registered[[at]] <- list(sample_id = sample,
+                        default_image_id = catalog()[[sample]]$default, sources = list())
+                }
+                entry <- registered[[at[1]]]
+                entry$sources <- Filter(function(s) s$image_id != "edited_imaged", entry$sources)
+                image <- edits[[sample]]
+                entry$sources[[length(entry$sources) + 1L]] <- list(image_id = "edited_imaged",
+                    type = "image", scale_factor = image$scale, extent = image$extent,
+                    y_direction = image$y_direction)
+                registered[[at[1]]] <- entry
+            }
+            S4Vectors::metadata(spe)$viewer_images <- registered
+            revision <- S4Vectors::metadata(spe)$app_image_revision
+            S4Vectors::metadata(spe)$app_image_revision <- if (is.null(revision)) 1L else revision + 1L
+            current_spe(spe)
+            showNotification("Edited low-resolution images are ready. Select edited_imaged to display them.")
+        }, error = function(e) showNotification(conditionMessage(e), type = "error", duration = NULL))
+    })
+    observeEvent(input$editImg_reset_menus, {
+        for (name in names(app_image_defaults())) {
+            value <- app_image_defaults()[[name]]
+            id <- paste0("editImg_", name)
+            if (name == "channel") updateSelectInput(session, id, selected = value)
+            else if (is.logical(value)) updateCheckboxInput(session, id, value = value)
+            else if (is.character(value)) updateTextInput(session, id, value = value)
+            else updateNumericInput(session, id, value = value)
+        }
+    })
+    output$editImg_plot <- renderPlot(plot(preview()), width = 600, height = "auto")
+    output$downloadPlotEditImg <- app_pdf_download(
+        function() paste("editedImage", input$editImg_imageid, input$sample, sep = "_"),
+        function() plot(preview()))
     list(spe = reactive(current_spe()), preview = preview)
 }

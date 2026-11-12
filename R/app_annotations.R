@@ -1,84 +1,80 @@
-# Own the session's manual spot labels and handle click/lasso annotation actions.
-# Import and export labels by stable spot identity. Expression-tab annotation uses
-# the current expression subset and threshold mask supplied by the interactive view.
-
-app_annotations_server <- function(input, output, session, spe, gene_data) {
-    labels <- reactiveVal(rep("NA", ncol(spe)))
+# The renderer sends stable keys. Validate them against the current eligible set
+# on the server, rather than trusting browser indices or stale hidden units.
+app_annotations_server <- function(input, output, session, spe, gene_data, revision) {
+    initial <- as.character(spe$ManualAnnotation)
+    if (length(initial) != ncol(spe)) initial <- rep("NA", ncol(spe))
+    labels <- reactiveVal(initial)
+    undo <- reactiveVal(NULL)
+    eligible <- function() gene_data()$key
     apply_labels <- function(keys, label) {
+        if (!nzchar(trimws(label))) {
+            showNotification("Enter an annotation label.", type = "message")
+            return(invisible(NULL))
+        }
+        index <- which(spe$key %in% keys)
+        if (!length(index)) return(invisible(NULL))
         current <- labels()
-        current[spe$key %in% keys] <- label
+        undo(list(index = index, labels = current[index]))
+        current[index] <- label
         labels(current)
     }
-    selection <- function(event, source, expression = FALSE) {
-        data <- plotly::event_data(event, source = source, session = session, priority = "event")
-        if (is.null(data)) {
-            return(character())
-        }
-        keys <- data$key
-        if (expression) {
-            counts <- gene_data()
-            keys <- intersect(keys, counts$key[!is.na(counts$COUNT)])
-        }
-        keys
+    event_keys <- function(event) {
+        if (is.null(event) || !identical(event$sample, input$sample)) return(character())
+        intersect(unlist(event$keys, use.names = FALSE), eligible())
     }
     observeEvent(input$update_manual_ann, {
-        apply_labels(selection("plotly_selected", "plotly_histology"), input$label_manual_ann)
+        keys <- event_keys(input$viewer_selection)
+        if (!length(keys)) {
+            showNotification("Select visible units before assigning a label.", type = "message")
+        } else apply_labels(keys, input$label_manual_ann)
     })
-    observeEvent(input$update_manual_ann_gene, {
-        apply_labels(selection("plotly_selected", "plotly_gene", TRUE), input$label_manual_ann_gene)
-    })
-    # Mutations are observers, not side effects of rendering the click text.
-    observeEvent(plotly::event_data("plotly_click",
-        source = "plotly_histology",
-        session = session, priority = "event"
-    ), {
-        if (isTRUE(input$label_click)) {
-            apply_labels(selection("plotly_click", "plotly_histology"), input$label_manual_ann)
+    observeEvent(input$viewer_click, {
+        if (isTRUE(input$label_click) && isTRUE(input$viewer_click$revision == revision())) {
+            apply_labels(event_keys(input$viewer_click), input$label_manual_ann)
         }
     })
-    observeEvent(plotly::event_data("plotly_click",
-        source = "plotly_gene",
-        session = session, priority = "event"
-    ), {
-        if (isTRUE(input$label_click_gene)) {
-            apply_labels(selection("plotly_click", "plotly_gene", TRUE), input$label_manual_ann_gene)
-        }
+    observeEvent(input$undo_manual_ann, {
+        previous <- undo()
+        if (is.null(previous)) return()
+        current <- labels()
+        current[previous$index] <- previous$labels
+        labels(current)
+        undo(NULL)
     })
-    click_text <- function(source) {
-        renderPrint({
-            event <- plotly::event_data("plotly_click",
-                source = source,
-                session = session, priority = "event"
-            )
-            if (is.null(event)) "Clicked spot IDs appear here (double-click to clear)." else event$key
-        })
-    }
-    output$click <- click_text("plotly_histology")
-    output$click_gene <- click_text("plotly_gene")
+    output$click <- renderPrint({
+        event <- input$viewer_click
+        if (is.null(event)) "Click a unit to inspect its ID." else unlist(event$keys)
+    })
     export <- reactive({
-        data <- data.frame(
-            sample_id = spe$sample_id, spot_name = colnames(spe),
-            ManualAnnotation = labels(), stringsAsFactors = FALSE
-        )
+        data <- data.frame(sample_id = spe$sample_id, spot_name = colnames(spe),
+            ManualAnnotation = labels(), stringsAsFactors = FALSE)
         if (isTRUE(input$dropNA)) data <- data[!is.na(data$ManualAnnotation) & data$ManualAnnotation != "NA", ]
         data
     })
     output$downloadData <- app_csv_download(function() "ManualAnnotation", export, quote = TRUE)
     observeEvent(input$priorGuesses, {
-        previous <- utils::read.csv(input$priorGuesses$datapath,
-            stringsAsFactors = FALSE, na.strings = ""
-        )
-        req(all(c("sample_id", "spot_name", "ManualAnnotation") %in% names(previous)))
-        previous <- previous[!is.na(previous$ManualAnnotation) & previous$ManualAnnotation != "NA", ]
-        keys <- paste0(previous$spot_name, "_", previous$sample_id)
-        index <- match(keys, spe$key)
-        if (all(is.na(index))) {
-            index <- match(paste0(previous$sample_id, "_", previous$spot_name), spe$key)
-        }
-        if (all(is.na(index))) stop("Cannot use previous manual annotations.", call. = FALSE)
-        current <- labels()
-        current[index[!is.na(index)]] <- previous$ManualAnnotation[!is.na(index)]
-        labels(current)
+        tryCatch({
+            current <- labels()
+            matched <- 0L
+            for (path in input$priorGuesses$datapath) {
+                previous <- utils::read.csv(path, stringsAsFactors = FALSE, na.strings = "")
+                if (!all(c("sample_id", "spot_name", "ManualAnnotation") %in% names(previous))) {
+                    stop("Annotation CSV requires sample_id, spot_name, and ManualAnnotation columns.")
+                }
+                previous <- previous[!is.na(previous$ManualAnnotation) & previous$ManualAnnotation != "NA", ]
+                index <- match(paste(previous$sample_id, previous$spot_name, sep = "\034"),
+                    paste(spe$sample_id, colnames(spe), sep = "\034"))
+                missing <- is.na(index)
+                index[missing] <- match(paste0(previous$spot_name[missing], "_", previous$sample_id[missing]), spe$key)
+                good <- which(!is.na(index))
+                # Sequential assignment also gives the last row precedence.
+                for (j in good) current[index[j]] <- previous$ManualAnnotation[j]
+                matched <- matched + length(good)
+            }
+            if (!matched) stop("No annotation rows match these sample and unit IDs.")
+            undo(list(index = seq_len(ncol(spe)), labels = labels()))
+            labels(current)
+        }, error = function(e) showNotification(conditionMessage(e), type = "error", duration = NULL))
     })
     labels
 }
