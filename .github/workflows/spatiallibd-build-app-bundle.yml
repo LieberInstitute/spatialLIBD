@@ -1,0 +1,228 @@
+# spatialLIBD app-layer bundle builder for the ShinyApps store (Route A).
+# Place at  fentouxungui/spatialLIBD/.github/workflows/spatiallibd-build-app-bundle.yml
+#           on the DEFAULT branch = devel.  No shell rebuild is required.
+#
+# Produces, per platform:  spatiallibd-<store-version>-<platform>.zip
+#   bundle/  +- manifest.json  +- app/app.R  +- rlib/<Pkg>/
+#
+# Contract check (same as the iSEE / UCSCXenaShiny onboarding):
+#   * Entry returns a shiny.appobj and never calls shiny::runApp().
+#     R/run_app.R -> golem::with_golem_options(app = shinyApp(app_ui, app_server), ...)
+#     and its documented @return is "A shiny.appobj that contains the input data".
+#   * Standard R source package; R CMD build works; NeedsCompilation: no
+#     (spatialLIBD is pure R; its compiled deps ship as CRAN/Bioc binaries).
+#   * run_app() asserts on inst/app/www doc files
+#     (documentation_spe.md, documentation_sce_layer.md, favicon.ico,
+#      footer.html, README.md) -> the docs_path default resolves in the install.
+#
+# Notes / gotchas handled here:
+#   * Upstream DESCRIPTION version (e.g. 1.25.5) is DECOUPLED from the store
+#     version (the Release tag, e.g. v0.1.0); the tarball is located by glob.
+#   * The Shiny app uses a few runtime packages that are NOT declared in
+#     DESCRIPTION; they are added explicitly (all CRAN). spatialLIBD has NO
+#     GitHub-only dependency: everything else (SpatialExperiment, scater,
+#     scuttle, edgeR, limma, scrapper, ExperimentHub, rtracklayer, ...)
+#     resolves from CRAN + Bioconductor.
+#   * The closure excludes only R *base*-priority packages, keeping
+#     *recommended* ones (Matrix, ...) so the bundle is self-contained
+#     (the iSEE `mgcv` fix, carried over).
+#   * First launch of run_app() downloads the LIBD Visium data through
+#     ExperimentHub/BiocFileCache (GBs, cached afterwards); only package
+#     installation is offline, runtime data access is not.
+
+name: Build app bundle
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag to attach bundles to"
+        required: false
+        type: string
+        default: "v0.1.0"
+
+permissions:
+  contents: write
+
+env:
+  APP_ID: spatiallibd
+  APP_NAME: spatialLIBD
+  APP_AUTHOR: "Leonardo Collado-Torres, Brenda Pardo, Abby Spangler, Lukas M. Weber, Andrew E. Jaffe, Kristen R. Maynard, and the spatialLIBD contributors"
+  APP_DESC: "Interactive visualization of spatially-resolved transcriptomics data (10x Genomics Visium) from the LIBD human DLPFC project"
+  APP_HOMEPAGE: "https://github.com/fentouxungui/spatialLIBD"
+  APP_LICENSE: "Artistic-2.0"
+  R_VERSION: "4.6.1"
+
+jobs:
+  bundle:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, platform: "win-x64" }
+          - { os: macos-14,       platform: "mac-arm64" }
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ env.R_VERSION }}
+          use-public-rspm: true
+
+      - name: Install build helpers
+        shell: bash
+        run: Rscript -e 'install.packages(c("jsonlite","zip","digest","BiocManager","remotes"), repos="https://cloud.r-project.org")'
+
+      - name: Resolve store version
+        shell: bash
+        run: |
+          V="${{ github.event.release.tag_name }}${{ inputs.tag }}"
+          V="${V#v}"
+          if [ -z "$V" ]; then V=$(grep '^Version:' DESCRIPTION | awk '{print $2}'); fi
+          echo "VERSION=$V" >> "$GITHUB_ENV"
+
+      - name: Build source tarball
+        shell: bash
+        run: R CMD build --no-build-vignettes --no-manual .
+
+      - name: Install app + dependency closure into bundle/rlib
+        shell: Rscript {0}
+        env:
+          # Authenticate remotes' GitHub API calls (avoids HTTP 403 rate limits).
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bundle <- file.path(getwd(), "bundle")
+          unlink(bundle, recursive = TRUE); dir.create(bundle, recursive = TRUE)
+          lib <- file.path(bundle, "rlib"); dir.create(lib, recursive = TRUE)
+          repos <- BiocManager::repositories()
+          options(repos = repos)
+
+          tb <- list.files(".", pattern = "^spatialLIBD_.*[.]tar[.]gz$", full.names = TRUE)
+          if (length(tb) == 0) stop("no spatialLIBD_*.tar.gz found -- did R CMD build run?")
+          tb <- tb[which.max(file.mtime(tb))]
+          cat("source tarball:", basename(tb), "\n")
+          cat("store bundle version (from tag):", Sys.getenv("VERSION"), "\n")
+          local_paths <- normalizePath(tb, winslash = "/", mustWork = TRUE)
+
+          read_desc <- function(p) {
+            td <- tempfile(); dir.create(td)
+            utils::untar(p, exdir = td)
+            dd <- list.files(td, pattern = "^DESCRIPTION$", recursive = TRUE, full.names = TRUE)[1]
+            read.dcf(dd)
+          }
+          dcfs <- lapply(local_paths, read_desc)
+          loc_names <- vapply(dcfs, function(d) d[1, "Package"], character(1))
+          declared <- unique(unlist(lapply(dcfs, function(d) {
+            fields <- intersect(c("Depends", "Imports", "LinkingTo"), colnames(d))
+            vals <- unlist(lapply(fields, function(f) if (is.na(d[1, f])) "" else d[1, f]))
+            parts <- trimws(unlist(strsplit(paste(vals, collapse = ","), ",")))
+            parts <- trimws(sub("[(].*[)]$", "", parts))
+            parts[nzchar(parts) & parts != "R"]
+          })))
+
+          # Runtime packages used by the shipped Shiny app but absent from
+          # DESCRIPTION (all CRAN). Without them the app fails at launch:
+          #  * Polychrome   -> palettes via paletteer "Polychrome::palette36"
+          #                    (app_ui.R choices, app_server.R, get_colors.R)
+          #  * RColorBrewer -> default palettes in layer_stat_cor_plot() and
+          #                    gene_set_enrichment_plot()
+          #  * markdown     -> shiny::includeMarkdown() rendering the in-app docs
+          #  * BiocManager  -> options(repos = BiocManager::repositories()) entry
+          extra_cran <- c("Polychrome", "RColorBrewer", "markdown", "BiocManager")
+
+          db <- available.packages(repos = repos)
+          cat("available packages:", nrow(db), "\n")
+          seed <- unique(c(loc_names, declared, extra_cran))
+          closure <- unique(c(unlist(tools::package_dependencies(seed, db = db, recursive = TRUE)), declared, extra_cran))
+          base_pkgs <- rownames(installed.packages(priority = "base"))
+          closure <- setdiff(closure, c(loc_names, base_pkgs, basename(list.dirs(lib, recursive = FALSE))))
+          closure <- closure[closure %in% rownames(db)]
+          cat("closure packages to install:", length(closure), "\n")
+          if (length(closure)) {
+            install.packages(closure, lib = lib, repos = repos, type = "binary",
+                             dependencies = FALSE, Ncpus = 2)
+          }
+
+          install.packages(local_paths, lib = lib, repos = NULL, type = "source", dependencies = FALSE)
+
+          present <- basename(list.dirs(lib, recursive = FALSE))
+          required <- unique(c(loc_names, setdiff(declared, base_pkgs),
+                               setdiff(extra_cran, base_pkgs)))
+          missing <- setdiff(required, present)
+          if (length(missing)) stop("packages missing from rlib: ", paste(missing, collapse = ", "))
+          cat("rlib packages:", length(present), "\n")
+
+      - name: Assemble app + manifest.json
+        shell: Rscript {0}
+        run: |
+          bundle <- file.path(getwd(), "bundle")
+          lib <- file.path(bundle, "rlib")
+          dir.create(file.path(bundle, "app"), recursive = TRUE, showWarnings = FALSE)
+          writeLines(c(
+            'library(spatialLIBD)',
+            'options("golem.app.prod" = TRUE,',
+            '        shiny.launch.browser = FALSE,',
+            '        shiny.deprecation.messages = FALSE,',
+            '        repos = BiocManager::repositories())',
+            'spatialLIBD::run_app()'
+          ), file.path(bundle, "app", "app.R"))
+
+          pkgs <- as.data.frame(installed.packages(lib.loc = lib))
+          man <- list(
+            schema = 1L,
+            id = Sys.getenv("APP_ID"), name = Sys.getenv("APP_NAME"), version = Sys.getenv("VERSION"),
+            author = Sys.getenv("APP_AUTHOR"), description = Sys.getenv("APP_DESC"),
+            homepage = Sys.getenv("APP_HOMEPAGE"), license = Sys.getenv("APP_LICENSE"),
+            runtime = "r-shiny", entry = "app/app.R",
+            platform = "${{ matrix.platform }}",
+            r_version = Sys.getenv("R_VERSION"), min_shell_version = "0.1.0",
+            notes = "Bundles the DESCRIPTION closure plus the app's undeclared runtime packages (Polychrome, RColorBrewer, markdown). First launch downloads the LIBD Visium data via ExperimentHub/BiocFileCache.",
+            packages = lapply(seq_len(nrow(pkgs)), function(i) list(
+              name = pkgs$Package[i], version = pkgs$Version[i],
+              path = file.path("rlib", pkgs$Package[i]), source = "cran"))
+          )
+          jsonlite::write_json(man, file.path(bundle, "manifest.json"), pretty = TRUE, auto_unbox = TRUE)
+
+      - name: Zip + sha256
+        shell: Rscript {0}
+        run: |
+          out <- sprintf("%s-%s-%s.zip", Sys.getenv("APP_ID"), Sys.getenv("VERSION"), "${{ matrix.platform }}")
+          bundle <- file.path(getwd(), "bundle")
+          old <- setwd(bundle); on.exit(setwd(old))
+          zip::zipr(out, files = list.files(".", all.files = TRUE, no.. = TRUE))
+          entries <- utils::unzip(out, list = TRUE)$Name
+          if (!any(grepl("^rlib/", entries))) stop("zip is missing rlib/ -- aborting")
+          setwd(old)
+          file.rename(file.path(bundle, out), out)
+          sha <- digest::digest(out, algo = "sha256", file = TRUE)
+          writeLines(sprintf('{"platform":"%s","file":"%s","sha256":"%s","size":%d}',
+                     "${{ matrix.platform }}", out, sha, file.size(out)),
+                     sprintf("meta-%s.json", "${{ matrix.platform }}"))
+          cat("bundle zip size:", file.size(out), "\n")
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bundle-${{ matrix.platform }}
+          path: |
+            *.zip
+            meta-*.json
+
+  release:
+    needs: bundle
+    if: github.event_name == 'release' || startsWith(github.ref, 'refs/tags/v') || inputs.tag != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag || github.ref_name }}
+          files: artifacts/*.zip
