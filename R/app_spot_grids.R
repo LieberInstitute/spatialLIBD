@@ -10,15 +10,15 @@ app_spot_grid_ui <- function(spe) {
         ),
         fluidRow(
             column(4, numericInput("grid_pointsize", app_control_label("grid_pointsize", "Point size (mm)",
-                "Controls point size in the static grid and its PDF export. Smaller values help separate densely packed cells; larger values make sparse units easier to see. Use Interactive for detailed inspection of cell or spot boundaries."),
+                "Controls point size in the static grid and its downloaded plot. Smaller values help separate densely packed cells; larger values make sparse units easier to see. Use Interactive for detailed inspection of cell or spot boundaries."),
                 if (methods::is(spe, "SpatialFeatureExperiment")) 0.35 else 2, min = 0.01, max = 10, step = 0.05))
         ),
         shiny::selectizeInput("grid_samples", app_control_label("grid_samples", "Samples",
             "Choose the samples and their display order. Remove and add sample IDs to change their order, then click Update grid. This selection is independent of the Sample selector in the sidebar."),
             choices = unique(spe$sample_id), selected = unique(spe$sample_id), multiple = TRUE,
             options = list(plugins = list("remove_button"))),
-        actionButton("grid_update", "Update grid"), downloadButton("downloadPlotGrid", "Download PDF"),
-        helpText("Choose samples and click Update grid. Wide grids scroll horizontally. Points provide a quick overview; use Interactive for detailed inspection. The PDF uses the displayed grid and its saved settings."),
+        actionButton("grid_update", "Update grid"), downloadButton("downloadPlotGrid", "Download plot"),
+        helpText("Choose samples and click Update grid. Wide grids scroll horizontally. Points provide a quick overview; use Interactive for detailed inspection. Downloads use the displayed grid and its saved settings: PDF for smaller datasets, or a 300 dpi PNG for dense datasets."),
         uiOutput("grid_static"), textOutput("grid_warnings"), div(class = "app-plot-spacing")
     )
 }
@@ -60,7 +60,7 @@ app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, color
     theme <- theme_void(base_size = 12) + theme(plot.title = element_text(hjust = 0.5))
     plot <- plot + theme + ggtitle(sample)
     if (spatial && side_by_side && !is.null(image)) plot <- cowplot::plot_grid(background + theme, plot, nrow = 1)
-    list(p = plot, warnings = d$warnings)
+    list(p = plot, warnings = d$warnings, points = sum(keep))
 }
 
 app_spot_grids_server <- function(input, output, spe, colors, catalog) {
@@ -80,6 +80,9 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog) {
             input$alphalevel, isTRUE(input$grid_side_by_side)))
         list(p = cowplot::plot_grid(plotlist = lapply(plots, `[[`, "p"), nrow = rows, ncol = cols),
             warnings = unique(unlist(lapply(plots, `[[`, "warnings"))), rows = rows, cols = cols,
+            # Choose from the points actually drawn in this saved grid. The
+            # threshold approximates the PDF / 300 dpi PNG file-size crossover.
+            format = if (mean(vapply(plots, `[[`, numeric(1), "points")) < 50000) "pdf" else "png",
             side_by_side = isTRUE(input$grid_spatial) && isTRUE(input$grid_side_by_side),
             width = 8 * cols * if (isTRUE(input$grid_spatial) && isTRUE(input$grid_side_by_side)) 2 else 1,
             stem = paste("static_grid", input$grid_kind,
@@ -95,7 +98,19 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog) {
     })
     output$spot_grid <- renderPlot(print(grid()$p), res = 96)
     output$grid_warnings <- renderText(app_warning_text(grid))
-    output$downloadPlotGrid <- app_pdf_download(function() grid()$stem, function() print(grid()$p),
-        width = function() grid()$width, height = function() 8 * grid()$rows)
+    output$downloadPlotGrid <- downloadHandler(
+        filename = function() app_filename(grid()$stem, grid()$format),
+        content = function(file) {
+            settings <- grid()
+            if (settings$format == "pdf") {
+                grDevices::pdf(file, width = settings$width, height = 8 * settings$rows, useDingbats = FALSE)
+            } else {
+                grDevices::png(file, width = settings$width, height = 8 * settings$rows,
+                    units = "in", res = 300, bg = "white")
+            }
+            on.exit(grDevices::dev.off(), add = TRUE)
+            print(settings$p)
+        }
+    )
     list(grid = grid)
 }
