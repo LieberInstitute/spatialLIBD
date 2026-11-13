@@ -35,7 +35,7 @@ app_server <- function(input, output, session) {
     catalog <- reactive(app_image_catalog(spe()))
     colors <- app_spot_controls_server(input, session, spe, catalog)
     output$raw_summary <- renderPrint(print(spe()), width = 80)
-    grids <- app_spot_grids_server(input, output, spe, colors, catalog)
+    grids <- app_spot_grids_server(input, output, spe, colors, catalog, session)
     interactive <- app_spot_interactive_server(input, output, session, spe, colors, resources, catalog)
 
     if (!is.null(options$sce_layer)) {

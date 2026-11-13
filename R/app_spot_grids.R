@@ -18,7 +18,7 @@ app_spot_grid_ui <- function(spe) {
             choices = unique(spe$sample_id), selected = unique(spe$sample_id), multiple = TRUE,
             options = list(plugins = list("remove_button"))),
         actionButton("grid_update", "Update grid"), downloadButton("downloadPlotGrid", "Download plot"),
-        helpText("Choose samples and click Update grid. Wide grids scroll horizontally. Points provide a quick overview; use Interactive for detailed inspection. Downloads use the displayed grid and its saved settings: PDF for smaller datasets, or a 300 dpi PNG for dense datasets."),
+        helpText("Choose samples and click Update grid. Wide grids scroll horizontally. Points provide a quick overview; use Interactive for detailed inspection. Downloads match the displayed grid’s dimensions and saved settings: PDF for smaller datasets, or a 300 dpi PNG for dense datasets."),
         uiOutput("grid_static"), textOutput("grid_warnings"), div(class = "app-plot-spacing")
     )
 }
@@ -63,7 +63,7 @@ app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, color
     list(p = plot, warnings = d$warnings, points = sum(keep))
 }
 
-app_spot_grids_server <- function(input, output, spe, colors, catalog) {
+app_spot_grids_server <- function(input, output, spe, colors, catalog, session) {
     grid <- eventReactive(input$grid_update, {
         req(length(input$grid_samples) > 0, input$cluster, length(input$geneid) > 0)
         rows <- max(1L, as.integer(input$grid_nrow))
@@ -84,7 +84,6 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog) {
             # threshold approximates the PDF / 300 dpi PNG file-size crossover.
             format = if (mean(vapply(plots, `[[`, numeric(1), "points")) < 50000) "pdf" else "png",
             side_by_side = isTRUE(input$grid_spatial) && isTRUE(input$grid_side_by_side),
-            width = 8 * cols * if (isTRUE(input$grid_spatial) && isTRUE(input$grid_side_by_side)) 2 else 1,
             stem = paste("static_grid", input$grid_kind,
                 if (input$grid_kind == "continuous") paste(input$geneid, collapse = "_") else input$cluster,
                 paste(input$grid_samples, collapse = "_"), sep = "_"))
@@ -96,16 +95,24 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog) {
             div(style = paste0("min-width: ", min_width, "px;"),
                 plotOutput("spot_grid", width = "100%", height = 500 * settings$rows)))
     })
-    output$spot_grid <- renderPlot(print(grid()$p), res = 96)
+    output$spot_grid <- renderPlot(print(grid()$p), res = 96, execOnResize = TRUE)
     output$grid_warnings <- renderText(app_warning_text(grid))
     output$downloadPlotGrid <- downloadHandler(
         filename = function() app_filename(grid()$stem, grid()$format),
         content = function(file) {
             settings <- grid()
+            # renderPlot uses 96 CSS pixels per inch. Match the full displayed
+            # canvas (including horizontally scrolled columns), then increase
+            # only raster resolution so point sizes and layout stay in sync.
+            width <- session$clientData$output_spot_grid_width
+            height <- session$clientData$output_spot_grid_height
+            req(is.finite(width), width > 0, is.finite(height), height > 0)
+            width <- width / 96
+            height <- height / 96
             if (settings$format == "pdf") {
-                grDevices::pdf(file, width = settings$width, height = 8 * settings$rows, useDingbats = FALSE)
+                grDevices::pdf(file, width = width, height = height, useDingbats = FALSE)
             } else {
-                grDevices::png(file, width = settings$width, height = 8 * settings$rows,
+                grDevices::png(file, width = width, height = height,
                     units = "in", res = 300, bg = "white")
             }
             on.exit(grDevices::dev.off(), add = TRUE)
