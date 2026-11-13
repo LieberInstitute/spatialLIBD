@@ -22,7 +22,7 @@ const inside = (x, y, poly) => {
 class SpatialViewer {
   constructor(el) {
     this.el = el; this.tool = 'pan'; this.selected = new Set();
-    this.states = {}; this.dataCache = new Map(); this.imageCache = new Map();
+    this.states = {}; this.fitted = {}; this.dataCache = new Map(); this.imageCache = new Map();
     this.ticket = 0; this.selectedIndices = []; this.selectedFeatures = [];
     this.error = el.querySelector('.sl-viewer-error');
     this.status = document.querySelector('.sl-viewer-status');
@@ -39,7 +39,7 @@ class SpatialViewer {
         zoom.textContent = symbol; zoom.setAttribute('aria-label', `Zoom ${name} ${id === 'sc' ? 'spatial continuous' : id === 'sd' ? 'spatial discrete' : id === 'ec' ? 'embedding continuous' : 'embedding discrete'}`);
         zoom.onclick = () => {
           const pair = id[0] === 's' ? ['sc','sd'] : ['ec','ed'];
-          for (const p of pair) this.states[p] = {...this.states[p], zoom: this.states[p].zoom + delta};
+          for (const p of pair) this.states[p] = this.constrain(p, {...this.states[p], zoom: this.states[p].zoom + delta});
           this.draw();
         };
         label.append(zoom);
@@ -53,7 +53,7 @@ class SpatialViewer {
         layerFilter: ({layer, viewport}) => layer.id.includes(`${viewport.id}:`),
         onViewStateChange: ({viewId, viewState}) => {
           const pair = viewId[0] === 's' ? ['sc', 'sd'] : ['ec', 'ed'];
-          for (const id of pair) this.states[id] = {...viewState};
+          for (const id of pair) this.states[id] = this.constrain(id, viewState);
           this.draw();
         },
         getTooltip: info => this.tooltip(info),
@@ -120,13 +120,13 @@ class SpatialViewer {
       // Pyramid metadata is opened here; its image chunks are fetched by Viv
       // only as needed by the viewport. Recoloring never reopens the image.
       const source = message.image;
-      if (!source) { this.image = null; this.draw(); }
+      if (!source) { this.image = null; this.fit(true, false, true); this.draw(); }
       else {
         if (!this.imageCache.has(source.url)) this.imageCache.set(source.url, this.openImage(source));
         this.imageCache.get(source.url).then(im => {
           if (ticket !== this.ticket) return;
           this.image = {...im, source};
-          if (!old || old.sample !== meta.sample) this.fit(true, false);
+          this.fit(true, false, old?.sample === meta.sample);
           this.draw();
         }).catch(e => { this.imageCache.delete(source.url); if (ticket === this.ticket) this.fail(`Unable to load histology: ${e.message}`); });
       }
@@ -180,29 +180,44 @@ class SpatialViewer {
     this.deck.setProps({width: this.el.clientWidth, height: this.el.clientHeight,
       views: rects.map(r => new OrthographicView({...r, flipY: r.id[0] === 's' ? this.meta.yDown : false,
         controller: {dragPan: this.tool === 'pan', scrollZoom: true, doubleClickZoom: this.tool === 'pan', keyboard: true}}))});
-    if (!this.states.sc) this.fit();
+    this.fit(true, true, true);
     this.draw();
   }
-  fit(spatial = true, embedding = true) {
+  constrain(id, state) {
+    const full = this.fitted[id];
+    if (!full) return {...state};
+    if (state.zoom <= full.zoom + 1e-6) return {...state, ...full};
+    return {...state, minZoom: full.zoom};
+  }
+  fit(spatial = true, embedding = true, preserve = false) {
     if (!this.positions || !this.el.clientWidth || !this.el.clientHeight) return;
     const bounds = points => {
       let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
       for (const p of points) if (p && p.every(Number.isFinite)) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }
       return Number.isFinite(x0) ? [x0, y0, x1, y1] : [0, 0, 1, 1];
     };
-    const rect = this.rects()[0] || {width: 500, height: 400};
     const set = (ids, b) => {
+      const rect = this.rects().find(r => ids.includes(r.id)) || this.rects()[0] || {width: 500, height: 400};
+      const zoom = Math.log2(Math.min(rect.width / Math.max(1, b[2]-b[0]), rect.height / Math.max(1, b[3]-b[1]))) - 0.1;
       const view = {target: [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2, 0],
-        zoom: Math.log2(Math.min(Math.max(100, rect.width) / Math.max(1, b[2]-b[0]), Math.max(100, rect.height) / Math.max(1, b[3]-b[1]))) - 0.1,
-        minZoom: -30, maxZoom: 12};
-      for (const id of ids) this.states[id] = {...view};
+        zoom, minZoom: zoom, maxZoom: 12};
+      for (const id of ids) {
+        const old = this.states[id];
+        const atFit = old && old.zoom <= old.minZoom + 1e-6;
+        this.fitted[id] = view;
+        this.states[id] = preserve && old && !atFit ? this.constrain(id, old) : {...view};
+      }
     };
-    if (spatial) set(['sc','sd'], this.message?.image?.extent || this.image?.extent || bounds(this.positions));
+    if (spatial) set(['sc','sd'], this.message?.image ? this.message.image.extent || this.image?.extent || bounds(this.positions) : bounds(this.positions));
     if (embedding) set(['ec','ed'], bounds(this.embeddings));
   }
   draw() {
     if (!this.deck || !this.message || !this.states.sc || !this.el.clientWidth) return;
     const m = this.message, layers = [];
+    for (const id of panels) {
+      const out = this.labels[id].querySelector('.sl-viewer-zoom');
+      out.disabled = !this.states[id] || this.states[id].zoom <= this.states[id].minZoom + 1e-6;
+    }
     for (const id of panels.filter(id => id[0] === 's' || this.meta.hasEmbedding)) {
       const spatial = id[0] === 's', continuous = id[1] === 'c';
       const positions = spatial ? this.positions : this.embeddings;

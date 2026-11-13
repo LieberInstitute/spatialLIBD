@@ -6,6 +6,7 @@
 .sl-viewer-label {position:absolute;height:30px;padding:4px 8px;display:flex;gap:10px;align-items:center;background:#edf1f5;border:1px solid #dce2e7;color:#263f50;font-size:12px;pointer-events:none}
 .sl-viewer-label span {overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sl-viewer-zoom {pointer-events:auto;border:0;background:transparent;padding:0 5px;font-size:16px;color:#285976}
+.sl-viewer-zoom:disabled {opacity:0.35;cursor:default}
 .sl-viewer-expand {margin-left:auto;border:0;background:transparent;color:#285976;pointer-events:auto;font-size:12px}
 .sl-viewer-lasso {position:absolute;inset:0;width:100%;height:100%;pointer-events:none;touch-action:none}
 .sl-viewer-lasso polygon {fill:#3191bc30;stroke:#237ea6;stroke-width:2}
@@ -16,7 +17,16 @@
 .sl-discrete-legend {display:flex;flex-wrap:wrap;gap:5px 12px;max-height:120px;overflow:auto}
 .sl-discrete-legend span {white-space:nowrap}
 .sl-discrete-legend i {display:inline-block;width:11px;height:11px;margin-right:4px;border-radius:2px}
-.sidebar details {margin-top:15px}.sidebar details summary {cursor:pointer;font-weight:600;margin-bottom:12px}
+.sl-appearance {margin-top:15px}
+.sl-appearance summary {display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:600;margin-bottom:12px;padding:10px 12px;border:1px solid #a9bbc8;border-radius:5px;background:#e9f0f5;color:#263f50;list-style:none}
+.sl-appearance summary::-webkit-details-marker {display:none}
+.sl-appearance summary:hover {background:#dce8f0;border-color:#6d8da4}
+.sl-appearance summary:focus-visible {outline:2px solid #285976;outline-offset:2px}
+.sl-appearance summary::after {content:'▸';font-size:16px}
+.sl-appearance[open] summary::after {content:'▾'}
+.sl-appearance-show,.sl-appearance-hide {margin-left:auto;font-size:12px;font-weight:normal}
+.sl-appearance-hide,.sl-appearance[open] .sl-appearance-show {display:none}
+.sl-appearance[open] .sl-appearance-hide {display:inline}
 .sl-control-info {border:0;background:transparent;color:#526e82;padding:0 3px;cursor:pointer;font-size:12px;vertical-align:baseline}
 .sl-control-info:hover {color:#173a50}
 .sl-control-info:focus-visible {outline:2px solid #285976;outline-offset:2px;border-radius:3px}
