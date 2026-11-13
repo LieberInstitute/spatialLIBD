@@ -9,12 +9,15 @@ app_spot_grid_ui <- function(spe) {
             column(3, numericInput("grid_ncol", "Columns", 3, min = 1, step = 1))
         ),
         fluidRow(
-            column(4, selectInput("grid_units", "Spatial units",
+            column(4, selectInput("grid_units", app_control_label("grid_units", "Spatial units",
+                "Points provide a visible overview of every retained unit at its centroid. Boundaries use the supplied cell or spot shapes at their true spatial size, which can be very small in a whole-sample grid. If boundaries are unavailable, points are used."),
                 choices = c("Points (overview)" = "points", "Boundaries (when available)" = "boundaries"))),
-            column(4, numericInput("grid_pointsize", "Point size (mm)",
+            column(4, numericInput("grid_pointsize", app_control_label("grid_pointsize", "Point size (mm)",
+                "Controls point size in the static grid and its PDF export. Smaller values help separate densely packed cells; larger values make sparse units easier to see. This does not resize boundary shapes."),
                 if (methods::is(spe, "SpatialFeatureExperiment")) 0.35 else 2, min = 0.01, max = 10, step = 0.05))
         ),
-        shiny::selectizeInput("grid_samples", "Samples (remove and add to change order)",
+        shiny::selectizeInput("grid_samples", app_control_label("grid_samples", "Samples",
+            "Choose the samples and their display order. Remove and add sample IDs to change their order, then click Update grid. This selection is independent of the Sample selector in the sidebar."),
             choices = unique(spe$sample_id), selected = unique(spe$sample_id), multiple = TRUE,
             options = list(plugins = list("remove_button"))),
         actionButton("grid_update", "Update grid"), downloadButton("downloadPlotGrid", "Download PDF"),

@@ -17,4 +17,11 @@
 .sl-discrete-legend span {white-space:nowrap}
 .sl-discrete-legend i {display:inline-block;width:11px;height:11px;margin-right:4px;border-radius:2px}
 .sidebar details {margin-top:15px}.sidebar details summary {cursor:pointer;font-weight:600;margin-bottom:12px}
+.sl-control-info {border:0;background:transparent;color:#526e82;padding:0 3px;cursor:pointer;font-size:12px;vertical-align:baseline}
+.sl-control-info:hover {color:#173a50}
+.sl-control-info:focus-visible {outline:2px solid #285976;outline-offset:2px;border-radius:3px}
+.popover.sl-control-help {width:340px;max-width:calc(100vw - 24px);font-weight:normal;line-height:1.5}
+.sl-control-help .popover-content {max-height:calc(50vh - 64px);overflow-y:auto}
+.sl-control-help .popover-title {font-weight:600}
+.sl-control-help .popover-content p:last-child {margin-bottom:0}
 @media(max-width:700px) {.sl-viewer{height:1250px;max-height:none}.sl-viewer-legends{grid-template-columns:1fr}.sl-viewer-status{width:100%;margin:6px 0}}

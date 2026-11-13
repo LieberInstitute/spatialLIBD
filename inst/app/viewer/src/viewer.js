@@ -1,4 +1,5 @@
 // Bundled with deck.gl 9.4.1 and Viv 0.23.0; see build.mjs for the entry point.
+import './help.js';
 import {Deck, OrthographicView, COORDINATE_SYSTEM} from '@deck.gl/core';
 import {ScatterplotLayer, GeoJsonLayer, BitmapLayer} from '@deck.gl/layers';
 import {DataFilterExtension} from '@deck.gl/extensions';

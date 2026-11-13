@@ -2,6 +2,17 @@
 # downloads, example gene sets, and common plotting arguments. Feature files supply
 # their own data and settings; scientific calculations remain in the public helpers.
 
+# Keep labels compact while making their explanations available on demand.
+app_control_label <- function(id, label, ...) {
+    help_id <- paste0(id, "-help")
+    tagList(label, " ",
+        tags$button(type = "button", class = "sl-control-info",
+            `data-help-id` = help_id, `data-help-title` = label,
+            `aria-label` = paste("About", label), `aria-expanded` = "false",
+            icon("circle-info")),
+        tags$span(id = help_id, style = "display: none;", ...))
+}
+
 app_preferred <- function(choices, preferred) {
     if (length(preferred) == 1 && preferred %in% choices) preferred else if (length(choices)) choices[[1]] else ""
 }
