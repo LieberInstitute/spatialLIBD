@@ -245,7 +245,7 @@ class SpatialViewer {
       const boundaries = spatial && this.geometry && (this.states[id]?.zoom ?? -20) > -2.5;
       if (boundaries) {
         layers.push(new GeoJsonLayer({...common, id: `${id}:units:polygons`, data: this.geometry,
-          filled: m.boundaryStyle !== 'outline', stroked: ['outline','both'].includes(m.boundaryStyle),
+          filled: m.boundaryStyle === 'fill', stroked: m.boundaryStyle !== 'fill',
           getFillColor: f => color(f.properties.unit_index), getLineColor: f => color(f.properties.unit_index),
           lineWidthUnits: 'pixels', getLineWidth: 1,
           extensions: [filterExtension], filterRange: [1,1],
