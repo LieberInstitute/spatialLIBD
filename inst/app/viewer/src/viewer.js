@@ -1,5 +1,7 @@
 // Bundled with deck.gl 9.4.1 and Viv 0.23.0; see build.mjs for the entry point.
 import './help.js';
+import './grid-controls.js';
+import {pointSpacing, pointRadius} from './point-size.js';
 import {Deck, OrthographicView, COORDINATE_SYSTEM} from '@deck.gl/core';
 import {ScatterplotLayer, GeoJsonLayer, BitmapLayer} from '@deck.gl/layers';
 import {DataFilterExtension} from '@deck.gl/extensions';
@@ -23,6 +25,7 @@ class SpatialViewer {
   constructor(el) {
     this.el = el; this.tool = 'pan'; this.selected = new Set();
     this.states = {}; this.fitted = {}; this.dataCache = new Map(); this.imageCache = new Map();
+    this.spacingCache = new Map();
     this.ticket = 0; this.selectedIndices = []; this.selectedFeatures = [];
     this.error = el.querySelector('.sl-viewer-error');
     this.status = document.querySelector('.sl-viewer-status');
@@ -98,6 +101,11 @@ class SpatialViewer {
         this.indices = Array.from({length: this.data.keys.length}, (_, i) => i);
         this.positions = this.indices.map(i => [array(data.x)[i], array(data.y)[i]]);
         this.embeddings = Array.isArray(data.embedding) ? data.embedding : [];
+        const spatialKey = `spatial:${meta.sample}`, embeddingKey = `embedding:${meta.id}`;
+        if (!this.spacingCache.has(spatialKey)) this.spacingCache.set(spatialKey, pointSpacing(this.positions));
+        if (meta.hasEmbedding && !this.spacingCache.has(embeddingKey)) this.spacingCache.set(embeddingKey, pointSpacing(this.embeddings));
+        this.spatialSpacing = this.spacingCache.get(spatialKey);
+        this.embeddingSpacing = this.spacingCache.get(embeddingKey);
         if (old?.geometry !== meta.geometry) this.geometry = null;
         if (old?.sample !== meta.sample) this.selected.clear();
       }
@@ -221,6 +229,8 @@ class SpatialViewer {
     for (const id of panels.filter(id => id[0] === 's' || this.meta.hasEmbedding)) {
       const spatial = id[0] === 's', continuous = id[1] === 'c';
       const positions = spatial ? this.positions : this.embeddings;
+      const radius = pointRadius(spatial ? this.spatialSpacing : this.embeddingSpacing,
+        this.fitted[id]?.zoom, m.pointSizeScale);
       const rgba = continuous ? this.continuous : this.discrete;
       const color = i => rgba.subarray(i * 4, i * 4 + 4);
       const eligible = i => this.eligible[i] && positions[i]?.every(Number.isFinite) ? 1 : 0;
@@ -256,14 +266,14 @@ class SpatialViewer {
           getLineColor: [255,255,255,255], lineWidthUnits: 'pixels', getLineWidth: 2, pickable: false}));
       } else {
         layers.push(new ScatterplotLayer({...common, id: `${id}:units:points`, data: this.indices,
-          getPosition: i => positions[i] || [0,0], getRadius: m.pointSize * 1.4,
+          getPosition: i => positions[i] || [0,0], getRadius: radius,
           radiusUnits: 'pixels', getFillColor: color,
           extensions: [filterExtension], filterRange: [1,1], getFilterValue: eligible,
           updateTriggers: {getFillColor: m.revision, getFilterValue: m.revision}}));
       }
       if (this.selectedIndices.length) layers.push(new ScatterplotLayer({...common, id: `${id}:selection`,
         data: this.selectedIndices, getPosition: i => positions[i] || [0,0],
-        getRadius: m.pointSize * 1.4 + 2, radiusUnits: 'pixels', filled: false,
+        getRadius: radius + 2, radiusUnits: 'pixels', filled: false,
         stroked: true, getLineColor: [255,255,255,255], lineWidthUnits: 'pixels', getLineWidth: 2, pickable: false,
         extensions: [filterExtension], filterRange: [1,1], getFilterValue: eligible,
         updateTriggers: {getFilterValue: m.revision}}));

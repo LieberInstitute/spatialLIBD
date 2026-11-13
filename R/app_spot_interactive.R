@@ -115,7 +115,8 @@ app_spot_interactive_server <- function(input, output, session, spe, colors, res
                 continuousTitle = paste(input$geneid, collapse = ", "), discreteTitle = input$cluster,
                 discreteLegend = lapply(legend_labels, function(l) list(label = l,
                     color = unname(get_colors(palette, d$labels)[l]))),
-                pointSize = input$pointsize, opacity = if (is.finite(input$alphalevel)) input$alphalevel else 1,
+                pointSizeScale = input$pointsize_scale,
+                opacity = if (is.finite(input$alphalevel)) input$alphalevel else 1,
                 imageOpacity = input$image_opacity,
                 boundaryStyle = input$boundary_style,
                 shown = sum(d$eligible), total = length(d$key)))

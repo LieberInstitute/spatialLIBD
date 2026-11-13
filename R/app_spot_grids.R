@@ -66,9 +66,12 @@ app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, color
 app_spot_grids_server <- function(input, output, spe, colors, catalog, session) {
     grid <- eventReactive(input$grid_update, {
         req(length(input$grid_samples) > 0, input$cluster, length(input$geneid) > 0)
-        rows <- max(1L, as.integer(input$grid_nrow))
-        cols <- max(1L, as.integer(input$grid_ncol))
-        validate(need(is.finite(rows) && is.finite(cols), "Enter positive grid dimensions."))
+        dimensions <- c(input$grid_nrow, input$grid_ncol)
+        validate(need(length(dimensions) == 2L && all(is.finite(dimensions)) &&
+            all(dimensions >= 1 & dimensions <= .Machine$integer.max & dimensions == floor(dimensions)),
+            "Rows and columns must be positive whole numbers."))
+        rows <- as.integer(input$grid_nrow)
+        cols <- as.integer(input$grid_ncol)
         validate(need(length(input$grid_pointsize) == 1L && is.finite(input$grid_pointsize) && input$grid_pointsize > 0,
             "Enter a positive point size."))
         rows <- max(rows, ceiling(length(input$grid_samples) / cols))
