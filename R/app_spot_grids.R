@@ -1,4 +1,4 @@
-# Static exports share the viewer's measurements, geometry, filters and palettes.
+# Static overviews share the viewer's measurements, filters and palettes.
 app_spot_grid_ui <- function(spe) {
     tabPanel("Static grid", value = "grid",
         fluidRow(
@@ -9,11 +9,8 @@ app_spot_grid_ui <- function(spe) {
             column(3, numericInput("grid_ncol", "Columns", 3, min = 1, step = 1))
         ),
         fluidRow(
-            column(4, selectInput("grid_units", app_control_label("grid_units", "Spatial units",
-                "Points provide a visible overview of every retained unit at its centroid. Boundaries use the supplied cell or spot shapes at their true spatial size, which can be very small in a whole-sample grid. If boundaries are unavailable, points are used."),
-                choices = c("Points (overview)" = "points", "Boundaries (when available)" = "boundaries"))),
             column(4, numericInput("grid_pointsize", app_control_label("grid_pointsize", "Point size (mm)",
-                "Controls point size in the static grid and its PDF export. Smaller values help separate densely packed cells; larger values make sparse units easier to see. This does not resize boundary shapes."),
+                "Controls point size in the static grid and its PDF export. Smaller values help separate densely packed cells; larger values make sparse units easier to see. Use Interactive for detailed inspection of cell or spot boundaries."),
                 if (methods::is(spe, "SpatialFeatureExperiment")) 0.35 else 2, min = 0.01, max = 10, step = 0.05))
         ),
         shiny::selectizeInput("grid_samples", app_control_label("grid_samples", "Samples",
@@ -21,17 +18,16 @@ app_spot_grid_ui <- function(spe) {
             choices = unique(spe$sample_id), selected = unique(spe$sample_id), multiple = TRUE,
             options = list(plugins = list("remove_button"))),
         actionButton("grid_update", "Update grid"), downloadButton("downloadPlotGrid", "Download PDF"),
-        helpText("Choose samples and click Update grid. Wide grids scroll horizontally. Points provide an overview; boundaries retain their true spatial size. The PDF uses the displayed grid and its saved settings."),
-        textOutput("grid_counts"), uiOutput("grid_static"), textOutput("grid_warnings"), div(class = "app-plot-spacing")
+        helpText("Choose samples and click Update grid. Wide grids scroll horizontally. Points provide a quick overview; use Interactive for detailed inspection. The PDF uses the displayed grid and its saved settings."),
+        uiOutput("grid_static"), textOutput("grid_warnings"), div(class = "app-plot-spacing")
     )
 }
 
 app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, colors,
-    catalog, image_id, spatial, point_size, guide_size, opacity, side_by_side, units = "points") {
+    catalog, image_id, spatial, point_size, guide_size, opacity, side_by_side) {
     d <- app_spot_frame(spe, sample, cluster, gene, clusters)
     source <- app_image_source(catalog, sample, image_id)
     image <- app_image_raster(spe, sample, app_image_source(catalog, sample, image_id, thumbnail = TRUE))
-    geometry <- if (identical(units, "boundaries")) app_spot_geometry(spe, d$i) else NULL
     # Native SFE geometries use Cartesian Y-up unless an image registration says otherwise.
     y_down <- app_spot_y_down(spe, if (is.null(source)) app_image_source(catalog, sample) else source)
     xy_extent <- c(range(d$x), range(d$y))
@@ -49,22 +45,11 @@ app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, color
     keep <- d$eligible
     values <- if (kind == "continuous") d$value else d$labels
     alpha <- if (is.finite(opacity)) opacity else 1
-    if (is.null(geometry)) {
-        df <- data.frame(x = d$x[keep], y = d$y[keep], value = values[keep])
-        plot <- plot + geom_point(data = df, aes(x = x, y = y, fill = value),
-            shape = 21, stroke = 0, size = point_size, alpha = alpha)
-    } else if (any(keep)) {
-        # ggplot's subgroup paths support polygon holes and multipart cells,
-        # without reprojecting pixel coordinates through a geographic CRS.
-        g <- sf::st_cast(sf::st_geometry(geometry[keep, ]), "MULTIPOLYGON")
-        coords <- sf::st_coordinates(g)
-        ids <- which(keep)
-        df <- data.frame(x = coords[, "X"], y = coords[, "Y"],
-            cell = coords[, "L3"], ring = interaction(coords[, "L3"], coords[, "L2"], coords[, "L1"]),
-            value = values[ids[coords[, "L3"]]])
-        plot <- plot + geom_polygon(data = df, aes(x = x, y = y, group = cell, subgroup = ring, fill = value),
-            rule = "evenodd", colour = NA, alpha = alpha)
-    }
+    df <- data.frame(x = d$x[keep], y = d$y[keep], value = values[keep])
+    # A zero-width stroke can become a black hairline in PDF viewers. Remove
+    # the outline explicitly so dense overview points retain their fill colors.
+    plot <- plot + geom_point(data = df, aes(x = x, y = y, fill = value),
+        shape = 21, colour = "transparent", stroke = 0, size = point_size, alpha = alpha)
     if (kind == "continuous") {
         plot <- plot + scale_fill_gradientn(colours = colors$continuous,
             limits = app_spot_domain(d$value), name = paste(gene$geneid, collapse = ", "))
@@ -75,7 +60,7 @@ app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, color
     theme <- theme_void(base_size = 12) + theme(plot.title = element_text(hjust = 0.5))
     plot <- plot + theme + ggtitle(sample)
     if (spatial && side_by_side && !is.null(image)) plot <- cowplot::plot_grid(background + theme, plot, nrow = 1)
-    list(p = plot, warnings = d$warnings, shown = sum(keep), total = length(keep))
+    list(p = plot, warnings = d$warnings)
 }
 
 app_spot_grids_server <- function(input, output, spe, colors, catalog) {
@@ -92,12 +77,9 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog) {
             spe(), sample, input$cluster, gene, as.character(input$cluster_subset), input$grid_kind,
             list(discrete = colors$discrete(), continuous = colors$continuous()), catalog(),
             input$imageid, isTRUE(input$grid_spatial), input$grid_pointsize, input$guidepointsize,
-            input$alphalevel, isTRUE(input$grid_side_by_side), input$grid_units))
+            input$alphalevel, isTRUE(input$grid_side_by_side)))
         list(p = cowplot::plot_grid(plotlist = lapply(plots, `[[`, "p"), nrow = rows, ncol = cols),
             warnings = unique(unlist(lapply(plots, `[[`, "warnings"))), rows = rows, cols = cols,
-            counts = paste(vapply(seq_along(plots), function(j) paste0(input$grid_samples[j], ": ",
-                format(plots[[j]]$shown, big.mark = ","), " / ", format(plots[[j]]$total, big.mark = ","), " shown"),
-                character(1)), collapse = " · "),
             side_by_side = isTRUE(input$grid_spatial) && isTRUE(input$grid_side_by_side),
             width = 8 * cols * if (isTRUE(input$grid_spatial) && isTRUE(input$grid_side_by_side)) 2 else 1,
             stem = paste("static_grid", input$grid_kind,
@@ -112,7 +94,6 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog) {
                 plotOutput("spot_grid", width = "100%", height = 500 * settings$rows)))
     })
     output$spot_grid <- renderPlot(print(grid()$p), res = 96)
-    output$grid_counts <- renderText(grid()$counts)
     output$grid_warnings <- renderText(app_warning_text(grid))
     output$downloadPlotGrid <- app_pdf_download(function() grid()$stem, function() print(grid()$p),
         width = function() grid()$width, height = function() 8 * grid()$rows)
