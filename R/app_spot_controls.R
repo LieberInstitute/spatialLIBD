@@ -5,7 +5,7 @@ app_spot_controls_ui <- function(spe, spe_discrete_vars, spe_continuous_vars,
     samples <- unique(spe$sample_id)
     images <- app_image_choices(catalog)
     dimensions <- sort(reducedDimNames(spe))
-    features <- c(spe_continuous_vars, sort(rowData(spe)$gene_search))
+    features <- if (length(spe_continuous_vars)) spe_continuous_vars[1] else sort(rowData(spe)$gene_search)[1]
     palette <- app_palette_choices(spe, default_cluster)
     cluster_labels <- as.character(spe[[default_cluster]])
     cluster_labels[is.na(cluster_labels)] <- "(missing)"
@@ -21,9 +21,10 @@ app_spot_controls_ui <- function(spe, spe_discrete_vars, spe_continuous_vars,
         shinyWidgets::pickerInput("cluster", app_control_label("cluster", "Discrete variable",
             "Typically cluster labels or any other discrete variable. Colors show its categories in the spatial and embedding discrete panels, or the discrete static grid."), choices = spe_discrete_vars,
             selected = default_cluster, options = shinyWidgets::pickerOptions(liveSearch = TRUE)),
-        shinyWidgets::pickerInput("geneid", app_control_label("geneid", "Continuous feature(s)",
+        selectizeInput("geneid", app_control_label("geneid", "Continuous feature(s)",
             "Typically genes or other continuous variables. Select one feature to show its values, or several to summarize using Combine features. The resulting values also determine which units pass the shared filters."), choices = features,
-            selected = features[1], multiple = TRUE, options = shinyWidgets::pickerOptions(liveSearch = TRUE)),
+            selected = features[1], multiple = TRUE,
+            options = list(plugins = list("remove_button"), maxOptions = 100, placeholder = "Search genes or metadata")),
         selectInput("multi_gene_method", app_control_label("multi_gene_method", "Combine features",
             tags$p("When several continuous features are selected, choose how to combine them within each sample:"),
             tags$ul(tags$li("Mean Z-score: standardize each feature and average its Z-scores."),
@@ -82,6 +83,9 @@ app_spot_controls_ui <- function(spe, spe_discrete_vars, spe_continuous_vars,
 }
 
 app_spot_controls_server <- function(input, session, spe, catalog) {
+    initial <- isolate(spe())
+    features <- c(golem::get_golem_options("spe_continuous_vars"), sort(rowData(initial)$gene_search))
+    updateSelectizeInput(session, "geneid", choices = features, selected = features[1], server = TRUE)
     previous_variable <- reactiveVal(NULL)
     previous_choices <- character()
     observeEvent({req(input$cluster); list(input$cluster, spe()[[input$cluster]])}, {

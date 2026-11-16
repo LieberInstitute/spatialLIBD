@@ -26,7 +26,7 @@ class SpatialViewer {
     this.el = el; this.tool = 'pan'; this.selected = new Set();
     this.states = {}; this.fitted = {}; this.dataCache = new Map(); this.imageCache = new Map();
     this.spacingCache = new Map();
-    this.ticket = 0; this.selectedIndices = []; this.selectedFeatures = [];
+    this.ticket = 0; this.selectedIndices = []; this.selectedPaths = []; this.boundaryPaths = [];
     this.error = el.querySelector('.sl-viewer-error');
     this.status = document.querySelector('.sl-viewer-status');
     this.svg = el.querySelector('svg');
@@ -95,7 +95,8 @@ class SpatialViewer {
       const [data, bytes] = await Promise.all([this.dataCache.get(meta.id), featurePromise]);
       if (ticket !== this.ticket) return;
       const old = this.meta, changed = old?.id !== meta.id;
-      this.meta = meta; this.message = message;
+      this.meta = meta;
+      this.message = {...message, ...(this.appearance?.sample === meta.sample ? this.appearance : {})};
       if (changed) {
         this.data = data; this.data.keys = array(data.keys);
         this.indices = Array.from({length: this.data.keys.length}, (_, i) => i);
@@ -106,7 +107,7 @@ class SpatialViewer {
         if (meta.hasEmbedding && !this.spacingCache.has(embeddingKey)) this.spacingCache.set(embeddingKey, pointSpacing(this.embeddings));
         this.spatialSpacing = this.spacingCache.get(spatialKey);
         this.embeddingSpacing = this.spacingCache.get(embeddingKey);
-        if (old?.geometry !== meta.geometry) this.geometry = null;
+        if (old?.geometry !== meta.geometry) { this.geometry = null; this.boundaryPaths = []; }
         if (old?.sample !== meta.sample) this.selected.clear();
       }
       const n = this.indices.length;
@@ -118,28 +119,48 @@ class SpatialViewer {
       this.eligible = new Uint8Array(bytes, 16 * n, n);
       for (const i of this.selected) if (!this.eligible[i]) this.selected.delete(i);
       this.rebuildSelection();
-      if (!old || old.sample !== meta.sample) { this.image = null; this.states = {}; this.fit(); }
+      if (!old || old.sample !== meta.sample) { this.image = null; this.imageKey = null; this.states = {}; this.fit(); }
       else if (old.embeddingName !== meta.embeddingName) this.fit(false, true);
       this.renderLegends(); this.resize(); this.emitSelection();
       if (changed && meta.geometry && !this.geometry) json(meta.geometry).then(g => {
         if (this.meta?.id !== meta.id) return;
-        this.geometry = g; this.rebuildSelection(); this.draw();
+        this.geometry = g;
+        // Rings reference the original coordinates and unit IDs, including holes
+        // and multipolygons. Outlines need no filled-polygon triangulation.
+        this.boundaryPaths = g.features.flatMap(f => {
+          const polygons = f.geometry.type === 'MultiPolygon' ? f.geometry.coordinates : [f.geometry.coordinates];
+          return polygons.flatMap(polygon => polygon.map(path => ({type: 'Feature', geometry: {type: 'LineString', coordinates: path}, properties: f.properties})));
+        });
+        this.rebuildSelection(); this.draw();
       }).catch(e => { if (this.meta?.id === meta.id) this.fail(`Unable to load cell boundaries: ${e.message}`); });
-      // Pyramid metadata is opened here; its image chunks are fetched by Viv
-      // only as needed by the viewport. Recoloring never reopens the image.
-      const source = message.image;
-      if (!source) { this.image = null; this.fit(true, false, true); this.draw(); }
-      else {
-        if (!this.imageCache.has(source.url)) this.imageCache.set(source.url, this.openImage(source));
-        this.imageCache.get(source.url).then(im => {
-          if (ticket !== this.ticket) return;
-          this.image = {...im, source};
-          this.fit(true, false, old?.sample === meta.sample);
-          this.draw();
-        }).catch(e => { this.imageCache.delete(source.url); if (ticket === this.ticket) this.fail(`Unable to load histology: ${e.message}`); });
-      }
+      this.refreshImage(old?.sample === meta.sample);
       if (this.dataCache.size > 2) this.dataCache.delete(this.dataCache.keys().next().value);
     } catch (e) { this.dataCache.delete(message.dataset.id); if (ticket === this.ticket) this.fail(e.message); }
+  }
+  applyAppearance(message) {
+    this.appearance = message;
+    if (!this.message || this.meta?.sample !== message.sample) return;
+    this.message = {...this.message, ...message};
+    this.refreshImage(true); this.draw();
+  }
+  refreshImage(preserve) {
+    const source = this.message.image ? {...this.message.image,
+      yDirection: this.message.image.yDirection || (this.meta.yDown ? 'down' : 'up')} : null;
+    const key = `${this.meta.sample}:${JSON.stringify(source)}`;
+    if (key === this.imageKey) return;
+    this.imageKey = key; this.image = null;
+    this.fit(true, false, preserve); this.draw();
+    if (!source) return;
+    // Opening image metadata is independent of recoloring and appearance
+    // changes. Stale image completions must not replace a newer source.
+    if (!this.imageCache.has(source.url)) this.imageCache.set(source.url, this.openImage(source));
+    this.imageCache.get(source.url).then(im => {
+      if (key !== this.imageKey) return;
+      this.image = {...im, source}; this.fit(true, false, true); this.draw();
+    }).catch(e => {
+      this.imageCache.delete(source.url);
+      if (key === this.imageKey) this.fail(`Unable to load histology: ${e.message}`);
+    });
   }
   async openImage(source) {
     if (source.type === 'image') return {bitmap: true};
@@ -253,24 +274,30 @@ class SpatialViewer {
           onTileError: e => this.fail(`Image tile could not load: ${e.message}`), parameters: common.parameters}));
       }
       const boundaries = spatial && this.geometry && (this.states[id]?.zoom ?? -20) > -2.5;
-      if (boundaries) {
-        layers.push(new GeoJsonLayer({...common, id: `${id}:units:polygons`, data: this.geometry,
-          filled: m.boundaryStyle === 'fill', stroked: m.boundaryStyle !== 'fill',
-          getFillColor: f => color(f.properties.unit_index), getLineColor: f => color(f.properties.unit_index),
-          lineWidthUnits: 'pixels', getLineWidth: 1,
+      // Keep both representations mounted. Removing a layer at the zoom cutoff
+      // discards its GPU buffers and repeats geometry preparation on the next crossing.
+      if (spatial && this.geometry) {
+        layers.push(new GeoJsonLayer({...common, id: `${id}:units:outlines`, data: this.boundaryPaths,
+          visible: Boolean(boundaries && m.boundaryStyle !== 'fill'),
+          getLineColor: f => color(f.properties.unit_index), lineWidthUnits: 'pixels', getLineWidth: 1,
           extensions: [filterExtension], filterRange: [1,1],
           getFilterValue: f => eligible(f.properties.unit_index),
-          updateTriggers: {getFillColor: m.revision, getLineColor: m.revision, getFilterValue: m.revision}}));
-        if (this.selectedFeatures.length) layers.push(new GeoJsonLayer({...common, id: `${id}:selected`,
-          data: this.selectedFeatures, filled: false, stroked: true,
-          getLineColor: [255,255,255,255], lineWidthUnits: 'pixels', getLineWidth: 2, pickable: false}));
-      } else {
-        layers.push(new ScatterplotLayer({...common, id: `${id}:units:points`, data: this.indices,
-          getPosition: i => positions[i] || [0,0], getRadius: radius,
-          radiusUnits: 'pixels', getFillColor: color,
-          extensions: [filterExtension], filterRange: [1,1], getFilterValue: eligible,
+          updateTriggers: {getLineColor: m.revision, getFilterValue: m.revision}}));
+        if (m.boundaryStyle === 'fill') layers.push(new GeoJsonLayer({...common,
+          id: `${id}:units:polygons`, data: this.geometry, visible: Boolean(boundaries),
+          filled: true, stroked: false, getFillColor: f => color(f.properties.unit_index),
+          extensions: [filterExtension], filterRange: [1,1],
+          getFilterValue: f => eligible(f.properties.unit_index),
           updateTriggers: {getFillColor: m.revision, getFilterValue: m.revision}}));
+        if (this.selectedPaths.length) layers.push(new GeoJsonLayer({...common, id: `${id}:selected`,
+          data: this.selectedPaths, visible: Boolean(boundaries),
+          getLineColor: [255,255,255,255], lineWidthUnits: 'pixels', getLineWidth: 2, pickable: false}));
       }
+      layers.push(new ScatterplotLayer({...common, id: `${id}:units:points`, data: this.indices,
+        visible: !boundaries, getPosition: i => positions[i] || [0,0], getRadius: radius,
+        radiusUnits: 'pixels', getFillColor: color,
+        extensions: [filterExtension], filterRange: [1,1], getFilterValue: eligible,
+        updateTriggers: {getFillColor: m.revision, getFilterValue: m.revision}}));
       if (this.selectedIndices.length) layers.push(new ScatterplotLayer({...common, id: `${id}:selection`,
         data: this.selectedIndices, getPosition: i => positions[i] || [0,0],
         getRadius: radius + 2, radiusUnits: 'pixels', filled: false,
@@ -299,7 +326,7 @@ class SpatialViewer {
   }
   rebuildSelection() {
     this.selectedIndices = [...this.selected];
-    this.selectedFeatures = this.geometry ? this.geometry.features.filter(f => this.selected.has(f.properties.unit_index)) : [];
+    this.selectedPaths = this.boundaryPaths.filter(f => this.selected.has(f.properties.unit_index));
   }
   select(indices, operation = 'replace') {
     if (operation === 'replace') this.selected.clear();
@@ -378,6 +405,7 @@ function register() {
   if (typeof window.Shiny?.setInputValue !== 'function' || typeof window.Shiny?.addCustomMessageHandler !== 'function' || window.__spatialLIBDRegistered) return;
   window.__spatialLIBDRegistered = true;
   window.Shiny.addCustomMessageHandler('spatiallibd:viewer', message => { mount(); document.getElementById('spot_viewer')?.spatialViewer.apply(message); });
+  window.Shiny.addCustomMessageHandler('spatiallibd:appearance', message => { mount(); document.getElementById('spot_viewer')?.spatialViewer.applyAppearance(message); });
   window.Shiny.addCustomMessageHandler('spatiallibd:error', message => { mount(); document.getElementById('spot_viewer')?.spatialViewer.fail(message.message); });
   mount();
 }

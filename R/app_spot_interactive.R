@@ -34,7 +34,7 @@ app_spot_interactive_server <- function(input, output, session, spe, colors, res
         req(input$sample, input$cluster, length(input$geneid) > 0,
             input$assayname, input$multi_gene_method, input$cap_percentile, !is.null(input$minCount))
         app_spot_frame(spe(), input$sample, input$cluster,
-            app_gene_settings(input, colors$continuous), as.character(input$cluster_subset))
+            app_gene_settings(input, function() NULL), as.character(input$cluster_subset))
     })
     gene_data <- reactive({
         d <- frame()
@@ -81,48 +81,60 @@ app_spot_interactive_server <- function(input, output, session, spe, colors, res
         answer
     })
     feature_files <- character()
+    features <- reactive({
+        d <- frame()
+        meta <- dataset()
+        domain <- app_spot_domain(d$value)
+        continuous <- scales::col_numeric(colors$continuous(), domain = domain, na.color = "#CCCCCC40")(d$value)
+        palette <- colors$discrete()
+        legend_labels <- unique(d$labels)
+        color_map <- get_colors(palette, d$labels)
+        discrete <- color_map[d$labels]
+        discrete[is.na(discrete)] <- "#CCCCCC40"
+        path <- tempfile("features-", resources$root, ".bin")
+        con <- file(path, "wb")
+        tryCatch({
+            writeBin(as.numeric(d$value), con, size = 4L, endian = "little")
+            writeBin(as.integer(match(d$labels, legend_labels) - 1L), con, size = 4L, endian = "little")
+            writeBin(as.raw(app_spot_rgba(continuous)), con)
+            writeBin(as.raw(app_spot_rgba(discrete)), con)
+            writeBin(as.raw(d$eligible), con)
+        }, finally = close(con))
+        feature_files <<- c(feature_files, path)
+        if (length(feature_files) > 6L) {
+            unlink(feature_files[seq_len(length(feature_files) - 6L)])
+            feature_files <<- tail(feature_files, 6L)
+        }
+        revision <<- revision + 1L
+        list(
+            dataset = meta, features = resources$url(path), revision = revision,
+            domain = domain, palette = I(colors$continuous()),
+            continuousTitle = paste(input$geneid, collapse = ", "), discreteTitle = input$cluster,
+            discreteLegend = lapply(legend_labels, function(l) list(label = l,
+                color = unname(color_map[l]))),
+            shown = sum(d$eligible), total = length(d$key))
+    })
+    appearance <- reactive({
+        req(input$sample)
+        source <- app_image_source(catalog(), input$sample, input$imageid)
+        list(sample = input$sample, pointSizeScale = input$pointsize_scale,
+            opacity = if (is.finite(input$alphalevel)) input$alphalevel else 1,
+            imageOpacity = input$image_opacity, boundaryStyle = input$boundary_style,
+            image = app_image_browser(spe(), input$sample, source, resources))
+    })
     observe({
         req(isTRUE(input$viewer_ready))
         tryCatch({
-            d <- frame()
-            meta <- dataset()
-            domain <- app_spot_domain(d$value)
-            continuous <- scales::col_numeric(colors$continuous(), domain = domain, na.color = "#CCCCCC40")(d$value)
-            palette <- colors$discrete()
-            legend_labels <- unique(d$labels)
-            discrete <- get_colors(palette, d$labels)[d$labels]
-            discrete[is.na(discrete)] <- "#CCCCCC40"
-            path <- tempfile("features-", resources$root, ".bin")
-            con <- file(path, "wb")
-            tryCatch({
-                writeBin(as.numeric(d$value), con, size = 4L, endian = "little")
-                writeBin(as.integer(match(d$labels, legend_labels) - 1L), con, size = 4L, endian = "little")
-                writeBin(as.raw(app_spot_rgba(continuous)), con)
-                writeBin(as.raw(app_spot_rgba(discrete)), con)
-                writeBin(as.raw(d$eligible), con)
-            }, finally = close(con))
-            feature_files <<- c(feature_files, path)
-            if (length(feature_files) > 6L) {
-                unlink(feature_files[seq_len(length(feature_files) - 6L)])
-                feature_files <<- tail(feature_files, 6L)
-            }
-            revision <<- revision + 1L
-            source <- app_image_source(catalog(), input$sample, input$imageid)
-            image <- app_image_browser(spe(), input$sample, source, resources)
-            session$sendCustomMessage("spatiallibd:viewer", list(
-                dataset = meta, features = resources$url(path), revision = revision,
-                image = image, domain = domain, palette = I(colors$continuous()),
-                continuousTitle = paste(input$geneid, collapse = ", "), discreteTitle = input$cluster,
-                discreteLegend = lapply(legend_labels, function(l) list(label = l,
-                    color = unname(get_colors(palette, d$labels)[l]))),
-                pointSizeScale = input$pointsize_scale,
-                opacity = if (is.finite(input$alphalevel)) input$alphalevel else 1,
-                imageOpacity = input$image_opacity,
-                boundaryStyle = input$boundary_style,
-                shown = sum(d$eligible), total = length(d$key)))
+            payload <- features()
+            session$sendCustomMessage("spatiallibd:viewer", c(payload, isolate(appearance())))
         }, error = function(e) {
             session$sendCustomMessage("spatiallibd:error", list(message = conditionMessage(e)))
         })
+    }, priority = 10)
+    observe({
+        req(isTRUE(input$viewer_ready))
+        tryCatch(session$sendCustomMessage("spatiallibd:appearance", appearance()),
+            error = function(e) session$sendCustomMessage("spatiallibd:error", list(message = conditionMessage(e))))
     })
     list(gene_data = gene_data, frame = frame, revision = function() revision)
 }
