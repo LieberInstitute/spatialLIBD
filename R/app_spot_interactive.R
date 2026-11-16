@@ -68,9 +68,8 @@ app_spot_interactive_server <- function(input, output, session, spe, colors, res
         if (!exists(input$sample, geometry_files, inherits = FALSE)) {
             g <- app_spot_geometry(initial, i)
             geometry_files[[input$sample]] <- if (is.null(g)) "" else {
-                gp <- tempfile("boundaries-", resources$root, ".geojson")
-                sf::st_write(g, gp, driver = "GeoJSON", quiet = TRUE,
-                    layer_options = "COORDINATE_PRECISION=8")
+                gp <- tempfile("boundaries-", resources$root, ".bin")
+                app_spot_write_geometry(g, gp)
                 resources$url(gp)
             }
         }

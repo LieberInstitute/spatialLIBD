@@ -33,13 +33,19 @@ app_spot_geometry <- function(spe, i) {
         stop("SpatialFeatureExperiment and sf are required to display SFE geometries.", call. = FALSE)
     }
     geometries <- SpatialFeatureExperiment::colGeometries(spe)
-    polygonal <- vapply(geometries, function(g) {
-        all(as.character(sf::st_geometry_type(g)) %in% c("POLYGON", "MULTIPOLYGON"))
-    }, logical(1))
-    choices <- names(geometries)[polygonal]
-    if (!length(choices)) return(NULL)
-    name <- app_preferred(choices, "cellSeg")
-    if (!"cellSeg" %in% choices) name <- app_preferred(choices, "spotPoly")
+    # Inspect the preferred column first. Classifying every geometry column can
+    # otherwise traverse all cells, including unused centroid geometries.
+    candidates <- intersect(unique(c("cellSeg", "spotPoly", names(geometries))), names(geometries))
+    name <- NULL
+    for (candidate in candidates) {
+        geometry <- sf::st_geometry(geometries[[candidate]])
+        polygonal <- inherits(geometry, "sfc_POLYGON") || inherits(geometry, "sfc_MULTIPOLYGON")
+        if (!polygonal && inherits(geometry, "sfc_GEOMETRY")) {
+            polygonal <- all(as.character(sf::st_geometry_type(geometry)) %in% c("POLYGON", "MULTIPOLYGON"))
+        }
+        if (polygonal) { name <- candidate; break }
+    }
+    if (is.null(name)) return(NULL)
     g <- geometries[[name]][i, , drop = FALSE]
     if (any(sf::st_is_empty(g)) || any(!sf::st_is_valid(g))) {
         stop("The selected column geometry contains empty or invalid boundaries: ", name, call. = FALSE)
@@ -47,6 +53,42 @@ app_spot_geometry <- function(spe, i) {
     # Only column geometries are eligible for expression coloring. Annotation
     # geometries need not correspond to columns of the expression matrix.
     sf::st_sf(unit_index = seq_along(i) - 1L, geometry = sf::st_geometry(g))
+}
+
+# Private little-endian boundary format: eight uint32 header words, ring vertex
+# offsets, polygon ring offsets, polygon unit IDs, ring unit IDs, padding to an
+# eight-byte boundary, then interleaved float64 XY. Preserve coordinate precision
+# and polygon/hole membership while avoiding expensive GeoJSON text formatting.
+app_spot_write_geometry <- function(g, path) {
+    geometry <- sf::st_geometry(g)
+    counts <- vapply(geometry, function(unit) if (inherits(unit, "POLYGON")) 1L else length(unit), integer(1))
+    polygons <- unlist(lapply(geometry, function(unit) {
+        if (inherits(unit, "POLYGON")) list(unclass(unit)) else unclass(unit)
+    }), recursive = FALSE)
+    ring_counts <- lengths(polygons)
+    rings <- unlist(polygons, recursive = FALSE)
+    dimensions <- vapply(rings, function(ring) dim(ring)[2L], integer(1))
+    vertices <- lengths(rings) %/% dimensions
+    polygon_units <- rep.int(g$unit_index, counts)
+    ring_units <- rep.int(polygon_units, ring_counts)
+    ring_offsets <- c(0, cumsum(vertices))
+    polygon_offsets <- c(0, cumsum(ring_counts))
+    # Flatten in one native operation, then interleave XY with vectorized indices.
+    # A separate transpose/subset for each cell is costly on large datasets.
+    coordinates <- unlist(rings, use.names = FALSE)
+    scalar_offsets <- c(0, cumsum(lengths(rings)))
+    x_index <- seq_len(sum(vertices)) + rep.int(utils::head(scalar_offsets, -1L) - utils::head(ring_offsets, -1L), vertices)
+    xy <- as.vector(rbind(coordinates[x_index], coordinates[x_index + rep.int(vertices, vertices)]))
+    header <- c(1397506628L, 1L, length(rings), sum(vertices), length(polygons), 8L, nrow(g), 0L)
+    stopifnot(all(header <= .Machine$integer.max), length(xy) == 2 * sum(vertices))
+    indices <- as.integer(c(header, ring_offsets, polygon_offsets, polygon_units, ring_units))
+    if (length(indices) %% 2L) indices <- c(indices, 0L)
+    con <- file(path, "wb")
+    tryCatch({
+        writeBin(indices, con, size = 4L, endian = "little")
+        writeBin(xy, con, size = 8L, endian = "little")
+    }, finally = close(con))
+    invisible(path)
 }
 
 app_spot_values <- function(spe, i, gene) {

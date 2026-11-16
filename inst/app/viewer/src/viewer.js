@@ -1,9 +1,10 @@
 // Bundled with deck.gl 9.4.1 and Viv 0.23.0; see build.mjs for the entry point.
 import './help.js';
 import './grid-controls.js';
+import {loadGeometry} from './geometry.js';
 import {pointSpacing, pointRadius} from './point-size.js';
 import {Deck, OrthographicView, COORDINATE_SYSTEM} from '@deck.gl/core';
-import {ScatterplotLayer, GeoJsonLayer, BitmapLayer} from '@deck.gl/layers';
+import {ScatterplotLayer, PathLayer, PolygonLayer, BitmapLayer} from '@deck.gl/layers';
 import {DataFilterExtension} from '@deck.gl/extensions';
 import {MultiscaleImageLayer, loadOmeZarr, loadOmeTiff, getImageSize, isInterleaved} from '@hms-dbmi/viv';
 import {Matrix4} from '@math.gl/core';
@@ -26,7 +27,7 @@ class SpatialViewer {
     this.el = el; this.tool = 'pan'; this.selected = new Set();
     this.states = {}; this.fitted = {}; this.dataCache = new Map(); this.imageCache = new Map();
     this.spacingCache = new Map();
-    this.ticket = 0; this.selectedIndices = []; this.selectedPaths = []; this.boundaryPaths = [];
+    this.ticket = 0; this.selectedIndices = []; this.selectedPaths = [];
     this.error = el.querySelector('.sl-viewer-error');
     this.status = document.querySelector('.sl-viewer-status');
     this.svg = el.querySelector('svg');
@@ -90,6 +91,13 @@ class SpatialViewer {
     try {
       this.clearError(); this.status.textContent = 'Loading spatial data…';
       const meta = message.dataset;
+      // Download boundaries alongside coordinates/features, not after their
+      // first frame. Share an in-flight request across initial feature updates.
+      if (meta.geometry && this.geometryLoad?.url !== meta.geometry) {
+        this.geometryLoad = {url: meta.geometry, promise: loadGeometry(meta.geometry, message.total)
+          .then(geometry => ({geometry}), error => ({error}))};
+      } else if (!meta.geometry) this.geometryLoad = null;
+      const geometryPromise = this.geometryLoad?.promise;
       if (!this.dataCache.has(meta.id)) this.dataCache.set(meta.id, json(meta.url));
       const featurePromise = fetch(message.features).then(r => { if (!r.ok) throw Error('Cannot load feature values.'); return r.arrayBuffer(); });
       const [data, bytes] = await Promise.all([this.dataCache.get(meta.id), featurePromise]);
@@ -107,7 +115,7 @@ class SpatialViewer {
         if (meta.hasEmbedding && !this.spacingCache.has(embeddingKey)) this.spacingCache.set(embeddingKey, pointSpacing(this.embeddings));
         this.spatialSpacing = this.spacingCache.get(spatialKey);
         this.embeddingSpacing = this.spacingCache.get(embeddingKey);
-        if (old?.geometry !== meta.geometry) { this.geometry = null; this.boundaryPaths = []; }
+        if (old?.geometry !== meta.geometry) this.geometry = null;
         if (old?.sample !== meta.sample) this.selected.clear();
       }
       const n = this.indices.length;
@@ -122,16 +130,10 @@ class SpatialViewer {
       if (!old || old.sample !== meta.sample) { this.image = null; this.imageKey = null; this.states = {}; this.fit(); }
       else if (old.embeddingName !== meta.embeddingName) this.fit(false, true);
       this.renderLegends(); this.resize(); this.emitSelection();
-      if (changed && meta.geometry && !this.geometry) json(meta.geometry).then(g => {
+      if (changed && meta.geometry && !this.geometry) geometryPromise.then(({geometry, error}) => {
         if (this.meta?.id !== meta.id) return;
-        this.geometry = g;
-        // Rings reference the original coordinates and unit IDs, including holes
-        // and multipolygons. Outlines need no filled-polygon triangulation.
-        this.boundaryPaths = g.features.flatMap(f => {
-          const polygons = f.geometry.type === 'MultiPolygon' ? f.geometry.coordinates : [f.geometry.coordinates];
-          return polygons.flatMap(polygon => polygon.map(path => ({type: 'Feature', geometry: {type: 'LineString', coordinates: path}, properties: f.properties})));
-        });
-        this.rebuildSelection(); this.draw();
+        if (error) throw error;
+        this.geometry = geometry; this.rebuildSelection(); this.draw();
       }).catch(e => { if (this.meta?.id === meta.id) this.fail(`Unable to load cell boundaries: ${e.message}`); });
       this.refreshImage(old?.sample === meta.sample);
       if (this.dataCache.size > 2) this.dataCache.delete(this.dataCache.keys().next().value);
@@ -277,21 +279,23 @@ class SpatialViewer {
       // Keep both representations mounted. Removing a layer at the zoom cutoff
       // discards its GPU buffers and repeats geometry preparation on the next crossing.
       if (spatial && this.geometry) {
-        layers.push(new GeoJsonLayer({...common, id: `${id}:units:outlines`, data: this.boundaryPaths,
+        layers.push(new PathLayer({...common, id: `${id}:units:outlines`, data: this.geometry.paths,
           visible: Boolean(boundaries && m.boundaryStyle !== 'fill'),
-          getLineColor: f => color(f.properties.unit_index), lineWidthUnits: 'pixels', getLineWidth: 1,
+          positionFormat: 'XY', getColor: (_, {index}) => color(this.geometry.ringUnits[index]),
+          widthUnits: 'pixels', getWidth: 1,
           extensions: [filterExtension], filterRange: [1,1],
-          getFilterValue: f => eligible(f.properties.unit_index),
-          updateTriggers: {getLineColor: m.revision, getFilterValue: m.revision}}));
-        if (m.boundaryStyle === 'fill') layers.push(new GeoJsonLayer({...common,
-          id: `${id}:units:polygons`, data: this.geometry, visible: Boolean(boundaries),
-          filled: true, stroked: false, getFillColor: f => color(f.properties.unit_index),
+          getFilterValue: (_, {index}) => eligible(this.geometry.ringUnits[index]),
+          updateTriggers: {getColor: m.revision, getFilterValue: m.revision}}));
+        if (m.boundaryStyle === 'fill') layers.push(new PolygonLayer({...common,
+          id: `${id}:units:polygons`, data: this.geometry.polygons(), visible: Boolean(boundaries),
+          filled: true, stroked: false, positionFormat: 'XY', getPolygon: f => f, getFillColor: f => color(f.properties.unit_index),
           extensions: [filterExtension], filterRange: [1,1],
           getFilterValue: f => eligible(f.properties.unit_index),
           updateTriggers: {getFillColor: m.revision, getFilterValue: m.revision}}));
-        if (this.selectedPaths.length) layers.push(new GeoJsonLayer({...common, id: `${id}:selected`,
+        if (this.selectedPaths.length) layers.push(new PathLayer({...common, id: `${id}:selected`,
           data: this.selectedPaths, visible: Boolean(boundaries),
-          getLineColor: [255,255,255,255], lineWidthUnits: 'pixels', getLineWidth: 2, pickable: false}));
+          getPath: r => this.geometry.path(r), positionFormat: 'XY',
+          getColor: [255,255,255,255], widthUnits: 'pixels', getWidth: 2, pickable: false}));
       }
       layers.push(new ScatterplotLayer({...common, id: `${id}:units:points`, data: this.indices,
         visible: !boundaries, getPosition: i => positions[i] || [0,0], getRadius: radius,
@@ -308,7 +312,10 @@ class SpatialViewer {
     this.deck.setProps({layers, viewState: {...this.states}});
     this.status.textContent = `${Number(m.shown).toLocaleString()} / ${Number(m.total).toLocaleString()} shown · ${this.selected.size.toLocaleString()} selected`;
   }
-  index(info) { return typeof info.object === 'number' ? info.object : info.object?.properties?.unit_index; }
+  index(info) {
+    if (info.layer?.id.includes(':units:outlines')) return this.geometry?.ringUnits[info.index];
+    return typeof info.object === 'number' ? info.object : info.object?.properties?.unit_index;
+  }
   tooltip(info) {
     const i = this.index(info);
     if (i == null || !this.eligible?.[i]) return null;
@@ -326,7 +333,10 @@ class SpatialViewer {
   }
   rebuildSelection() {
     this.selectedIndices = [...this.selected];
-    this.selectedPaths = this.boundaryPaths.filter(f => this.selected.has(f.properties.unit_index));
+    this.selectedPaths = [];
+    if (this.geometry && this.selected.size) {
+      for (let r = 0; r < this.geometry.ringUnits.length; r++) if (this.selected.has(this.geometry.ringUnits[r])) this.selectedPaths.push(r);
+    }
   }
   select(indices, operation = 'replace') {
     if (operation === 'replace') this.selected.clear();
