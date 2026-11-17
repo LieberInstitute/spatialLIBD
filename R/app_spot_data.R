@@ -20,9 +20,13 @@ app_spot_coordinates <- function(spe, i) {
     unname(xy)
 }
 
+app_spot_is_sfe <- function(spe) {
+    methods::is(spe, "SpatialFeatureExperiment") || isTRUE(S4Vectors::metadata(spe)$app_is_sfe)
+}
+
 app_spot_y_down <- function(spe, source) {
     if (!is.null(source$y_direction)) return(source$y_direction == "down")
-    !methods::is(spe, "SpatialFeatureExperiment") &&
+    !app_spot_is_sfe(spe) &&
         all(c("pxl_col_in_fullres", "pxl_row_in_fullres") %in% colnames(spatialCoords(spe)))
 }
 
@@ -103,7 +107,8 @@ app_spot_values <- function(spe, i, gene) {
     rows <- rows[!is.na(rows)]
     if (!gene$assayname %in% SummarizedExperiment::assayNames(spe)) stop("Unknown assay.", call. = FALSE)
     # Subset the assay, not the SFE. Only selected features are materialized.
-    mat <- cbind(as.matrix(cd), t(as.matrix(SummarizedExperiment::assay(spe, gene$assayname)[rows, i, drop = FALSE])))
+    mat <- as.matrix(cd)
+    if (length(rows)) mat <- cbind(mat, t(as.matrix(SummarizedExperiment::assay(spe, gene$assayname)[rows, i, drop = FALSE])))
     if (!ncol(mat)) stop("Select a continuous feature.", call. = FALSE)
     value <- if (ncol(mat) == 1L) mat[, 1] else switch(gene$multi_gene_method,
         z_score = multi_gene_z_score(mat), pca = multi_gene_pca(mat),

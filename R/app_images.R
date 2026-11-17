@@ -46,7 +46,7 @@ app_image_catalog <- function(spe) {
                 scale_factor = images$scaleFactor[j], image_row = j,
                 extent = if (is.null(native_extent)) extent else native_extent,
                 y_direction = if (!is.null(scene_direction)) scene_direction else
-                    if (methods::is(spe, "SpatialFeatureExperiment")) "up" else NULL)
+                    if (app_spot_is_sfe(spe)) "up" else NULL)
         }
         if (length(sources)) {
             names(sources) <- vapply(sources, function(x) x$image_id, character(1))
@@ -90,10 +90,10 @@ app_image_raster <- function(spe, sample, source) {
         image <- SpatialExperiment::imgRaster(spe, sample_id = sample, image_id = source$image_id)
     }
     scale <- source$scale_factor
-    if (is.null(scale) || !is.finite(scale) || scale <= 0) {
+    extent <- source$extent
+    if (is.null(extent) && (is.null(scale) || !is.finite(scale) || scale <= 0)) {
         stop("Image registration requires a positive scale factor: ", source$image_id, call. = FALSE)
     }
-    extent <- source$extent
     if (is.null(extent)) extent <- c(0, 0, ncol(image) / scale, nrow(image) / scale)
     list(image = image, extent = extent)
 }

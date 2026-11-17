@@ -11,7 +11,7 @@ app_spot_grid_ui <- function(spe) {
         fluidRow(
             column(4, numericInput("grid_pointsize", app_control_label("grid_pointsize", "Point size (mm)",
                 "Controls point size in the static grid and its downloaded plot. Smaller values help separate densely packed cells; larger values make sparse units easier to see. Use Interactive for detailed inspection of cell or spot boundaries."),
-                if (methods::is(spe, "SpatialFeatureExperiment")) 0.35 else 2, min = 0.01, max = 10, step = 0.05))
+                if (app_spot_is_sfe(spe)) 0.35 else 2, min = 0.01, max = 10, step = 0.05))
         ),
         shiny::selectizeInput("grid_samples", app_control_label("grid_samples", "Samples",
             "Choose the samples and their display order. Remove and add sample IDs to change their order, then click Update grid. This selection is independent of the Sample selector in the sidebar."),

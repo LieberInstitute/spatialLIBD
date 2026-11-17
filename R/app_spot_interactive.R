@@ -66,12 +66,8 @@ app_spot_interactive_server <- function(input, output, session, spe, colors, res
         jsonlite::write_json(list(keys = I(initial$key[i]), x = I(xy[, 1]), y = I(xy[, 2]),
             embedding = embedding, embeddingName = reduced), path, auto_unbox = TRUE, digits = 12, na = "null")
         if (!exists(input$sample, geometry_files, inherits = FALSE)) {
-            g <- app_spot_geometry(initial, i)
-            geometry_files[[input$sample]] <- if (is.null(g)) "" else {
-                gp <- tempfile("boundaries-", resources$root, ".bin")
-                app_spot_write_geometry(g, gp)
-                resources$url(gp)
-            }
+            prepared <- S4Vectors::metadata(initial)$app_boundaries[[input$sample]]
+            geometry_files[[input$sample]] <- if (is.null(prepared)) "" else resources$asset(prepared)
         }
         answer <- list(id = key, sample = input$sample, url = resources$url(path),
             geometry = geometry_files[[input$sample]], yDown = y_down,

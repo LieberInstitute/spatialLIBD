@@ -33,12 +33,8 @@
 #' palette using `spatialLIBD::get_colors()`. Spot-level plots retain their
 #' palette controls.
 #'
-#' @param spe Defaults to the output of
-#' `fetch_data(type = 'spe')`. This is a
-#' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]
-#' object with the spot-level Visium data and information required for
-#' visualizing the histology. See [fetch_data()] for more details.
-#' @inheritParams sig_genes_extract
+#' @param dataset Prepared spot-level inputs returned by [open_app_dataset()].
+#'   Create these once with [prepare_app_inputs()] from an ordinary SPE/SFE.
 #' @param sig_genes The output of [sig_genes_extract_all()] which is a table
 #' in long format with the modeling results. You can subset this if the object
 #' requires too much memory.
@@ -250,7 +246,7 @@
 #' }
 #'
 run_app <- function(
-    spe = fetch_data(type = "spe"),
+    dataset,
     sce_layer = fetch_data(type = "sce_layer"),
     modeling_results = fetch_data(type = "modeling_results"),
     sig_genes = sig_genes_extract_all(
@@ -301,6 +297,11 @@ run_app <- function(
     datatype = c("Visium", "Xenium"),
     ...
 ) {
+    if (!inherits(dataset, "spatialLIBD_app_dataset") ||
+        !isTRUE(S4Vectors::metadata(dataset$spe)$app_prepared)) {
+        stop("Use prepare_app_inputs() once, then pass open_app_dataset() to run_app().", call. = FALSE)
+    }
+    spe <- dataset$spe
     ## Run the checks in the relevant order
     stopifnot(length(default_cluster) == 1)
     stopifnot(default_cluster %in% spe_discrete_vars)
@@ -310,12 +311,10 @@ run_app <- function(
     ## Check for valid datatype
     datatype <- match.arg(datatype)
 
-    spe <-
-        check_spe(
-            spe,
-            variables = c(spe_discrete_vars, spe_continuous_vars),
-            datatype = datatype
-        )
+    variables <- unique(c(spe_discrete_vars, spe_continuous_vars))
+    missing <- setdiff(variables, colnames(SummarizedExperiment::colData(spe)))
+    if (length(missing)) stop("Variables missing from prepared inputs: ",
+        paste(missing, collapse = ", "), call. = FALSE)
 
     ## Check sce_layer and modeling_results if needed
     if (!is.null(sce_layer)) {

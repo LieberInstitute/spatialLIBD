@@ -38,6 +38,7 @@ License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true
 Imports: 
+    BPCells (>= 0.3.1),
     tools,
     htmltools,
     shiny (>= 1.5.0),
@@ -87,6 +88,7 @@ Imports:
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/LieberInstitute/spatialLIBD
 BugReports: https://support.bioconductor.org/tag/spatialLIBD
+Additional_repositories: https://bnprks.r-universe.dev
 Suggests: 
     sf,
     SpatialFeatureExperiment,
