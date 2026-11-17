@@ -4,6 +4,11 @@ app_fixture <- local({
     function() {
         if (is.null(fixture)) {
             fixture <<- readRDS(testthat::test_path("fixtures", "app-spatialDLPFC.rds"))
+            fixture$source <<- fixture$spe
+            path <- tempfile("app-fixture-")
+            app_prepare(fixture$source, path)
+            fixture$dataset <<- open_app_dataset(path)
+            fixture$spe <<- fixture$dataset$spe
             fixture$sig <<- sig_genes_extract_all(
                 n = nrow(fixture$pb), modeling_results = fixture$models,
                 sce_layer = fixture$pb
@@ -20,19 +25,16 @@ app_inputs <- function(f) {
         clustercolor_direction = FALSE, geneid = rowData(f$spe)$gene_search[1],
         assayname = "logcounts", multi_gene_method = "z_score",
         minCount = -Inf, cap_percentile = 1, genecolor = "viridis",
-        genecolor_direction = TRUE, alphalevel = 1, pointsize = 2,
-        guidepointsize = 2, auto_crop = FALSE,
-        reduced_name = reducedDimNames(f$spe)[1],
-        side_by_side_histology = FALSE, side_by_side_gene = FALSE,
-        grid_update = 0, gene_grid_update = 0,
-        grid_samples = unique(f$spe$sample_id),
-        gene_grid_samples = unique(f$spe$sample_id),
-        grid_nrow = 1, grid_ncol = 2, gene_grid_nrow = 1, gene_grid_ncol = 2,
-        grid_spatial_clus = FALSE, grid_spatial_gene = FALSE,
-        gene_plotly_cluster_subset = levels(f$spe$app_cluster),
-        label_click = FALSE, label_click_gene = FALSE,
-        label_manual_ann = "reviewed", label_manual_ann_gene = "reviewed",
-        update_manual_ann = 0, update_manual_ann_gene = 0, dropNA = TRUE,
+        genecolor_direction = TRUE, alphalevel = 1, pointsize_scale = 1,
+        image_opacity = 0.8, boundary_style = "outline", viewer_ready = TRUE,
+        guidepointsize = 2, reduced_name = reducedDimNames(f$spe)[1],
+        cluster_subset = levels(f$spe$app_cluster),
+        grid_update = 0, grid_samples = unique(f$spe$sample_id),
+        grid_nrow = 1, grid_ncol = 2, grid_pointsize = 2,
+        grid_kind = "continuous", grid_spatial = FALSE, grid_side_by_side = FALSE,
+        label_click = FALSE, label_manual_ann = "reviewed",
+        update_manual_ann = 0, undo_manual_ann = 0, dropNA = TRUE,
+        editImg_imageid = "lowres",
         layer_model = "enrichment", layer_model_test = f$sig$test[1],
         layer_geneid = rowData(f$pb)$gene_search[1],
         layer_which_dim = reducedDimNames(f$pb)[1],
@@ -62,45 +64,67 @@ with_app <- function(code, options = list(), inputs = list()) {
         }, .package = "golem"
     )
     body <- substitute(code)
-    withCallingHandlers(shiny::testServer(app_server, {
-        # Register expected events without requiring a browser to render a plot.
-        session$userData$plotlyShinyEventIDs <- c(
-            "plotly_click-plotly_histology", "plotly_selected-plotly_histology",
-            "plotly_click-plotly_gene", "plotly_selected-plotly_gene"
-        )
+    shiny::testServer(app_server, {
+        # Capture the real binary-viewer protocol, without requiring WebGL.
+        session$userData$viewer_messages <- list()
+        session$sendCustomMessage <- function(type, message) {
+            session$userData$viewer_messages <- c(session$userData$viewer_messages,
+                list(list(type = type, payload = message)))
+        }
         do.call(session$setInputs, modifyList(
-            c(
-                app_inputs(f),
-                list(geneSet = app_csv(data.frame(fixture_set = rownames(f$pb)[1:30])))
-            ),
-            inputs,
-            keep.null = TRUE
+            c(app_inputs(f), list(geneSet = app_csv(data.frame(fixture_set = rownames(f$pb)[1:30])))),
+            inputs, keep.null = TRUE
         ))
         eval(body)
-    }), warning = function(w) {
-        # Plotly emits this once per trace on every redraw in the installed version.
-        # Ignore only this known widget compatibility warning, not app warnings.
-        if (startsWith(
-            conditionMessage(w),
-            "'scattergl' objects don't have these attributes: 'hoveron'"
-        )) {
-            invokeRestart("muffleWarning")
-        }
     })
 }
 
-# A real Plotly payload; this tests server wiring, not mouse hit testing.
-app_event <- function(session, event, keys, source = "plotly_histology") {
-    payload <- jsonlite::toJSON(data.frame(key = keys), dataframe = "rows")
-    do.call(session$setInputs, setNames(list(payload), paste(event, source, sep = "-")))
+app_viewer_message <- function(session, type = "spatiallibd:viewer") {
+    messages <- Filter(function(x) identical(x$type, type), session$userData$viewer_messages)
+    if (!length(messages)) {
+        errors <- Filter(function(x) identical(x$type, "spatiallibd:error"), session$userData$viewer_messages)
+        if (length(errors)) stop("Viewer error: ", tail(errors, 1)[[1]]$payload$message)
+        stop("No viewer message of type ", type)
+    }
+    tail(messages, 1)[[1]]$payload
 }
 
-app_gene_plot <- function(f = app_fixture(), ...) {
-    args <- modifyList(list(
-        spe = f$spe, geneid = rownames(f$spe)[1],
-        minCount = -Inf, auto_crop = FALSE
-    ), list(...))
-    do.call(vis_gene, args)
+# Browser selection/click payloads contain stable IDs, sample and feature revision.
+# This tests server validation and annotation wiring, not geometric hit testing.
+app_event <- function(session, event, keys, sample = NULL, revision = NULL) {
+    payload <- app_viewer_message(session)
+    if (is.null(sample)) sample <- payload$dataset$sample
+    if (is.null(revision)) revision <- payload$revision
+    do.call(session$setInputs, setNames(list(list(keys = keys, sample = sample,
+        revision = revision)), event))
+}
+
+app_frame <- function(f = app_fixture(), sampleid = unique(f$spe$sample_id)[1],
+    geneid = rownames(f$spe)[1], assayname = "logcounts", minCount = -Inf,
+    cap_percentile = 1, multi_gene_method = "z_score", clusters = NULL) {
+    app_spot_frame(f$spe, sampleid, "app_cluster", list(geneid = geneid,
+        assayname = assayname, minCount = minCount, cap_percentile = cap_percentile,
+        multi_gene_method = multi_gene_method), clusters)
+}
+
+app_static_plot <- function(f = app_fixture(), sample = unique(f$spe$sample_id)[1],
+    geneid = rownames(f$spe)[1], kind = "continuous") {
+    app_static_spatial(f$spe, sample, "app_cluster",
+        list(geneid = geneid, assayname = "logcounts", minCount = -Inf,
+            cap_percentile = 1, multi_gene_method = "z_score"), NULL, kind,
+        list(continuous = viridisLite::viridis(21), discrete = paletteer::paletteer_d("Polychrome::palette36")),
+        app_image_catalog(f$spe), "lowres", FALSE, 2, 2, 1, FALSE)
+}
+
+# Suppress only known upstream preparation warnings, not application warnings.
+app_prepare <- function(...) app_upstream(suppressMessages(prepare_app_inputs(...)))
+
+app_upstream <- function(code) {
+    withCallingHandlers(code, warning = function(w) {
+        if (grepl("S4Vectors:::anyMissing|Matrix compression performs poorly with non-integers", conditionMessage(w))) {
+            invokeRestart("muffleWarning")
+        }
+    })
 }
 
 app_csv <- function(x) {

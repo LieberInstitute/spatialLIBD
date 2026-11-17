@@ -1,35 +1,32 @@
-# One small test for each conceptual feature the app implements. Not intended
-# to be comprehensive or replace manual testing
+# Numbered behavior coverage follows the app's current data and event paths.
+# Layer-level checks 23--29 retain the same functionality as before.
 
-test_that("01 sample selection restricts plot data to the chosen sample", {
+test_that("01 sample selection restricts viewer data to the chosen sample", {
     f <- app_fixture()
     id <- unique(f$spe$sample_id)[2]
-    p <- app_gene_plot(sampleid = id)
-    expect_setequal(p$data$key, f$spe$key[f$spe$sample_id == id])
+    d <- app_frame(sampleid = id)
+    expect_setequal(d$key, f$spe$key[f$spe$sample_id == id])
 })
 
-test_that("02 background image selection can display a custom image", {
-    f <- app_fixture()
-    edited <- img_update_all(f$spe,
-        image_id = "lowres", new_image_id = "custom",
-        brightness = 0
-    )
-    p <- vis_clus(edited,
-        clustervar = "app_cluster", image_id = "custom",
-        auto_crop = FALSE
-    )
-    expect_setequal(p$data$key, f$spe$key[f$spe$sample_id == unique(f$spe$sample_id)[1]])
-    expect_true(all(as.raster(img_edit(edited,
-        sampleid = unique(edited$sample_id)[1],
-        image_id = "custom"
-    )) %in% c("#000000", "#000000ff")))
+test_that("02 background selection can display an edited low-resolution image", {
+    with_app({
+        session$setInputs(editImg_brightness = 0, editImg_update = 1)
+        source <- app_image_source(catalog(), input$sample, "edited_imaged")
+        expect_identical(source$type, "image")
+        expect_true(all(app_image_raster(spe(), input$sample, source)$image %in% c("#000000", "#000000ff")))
+        session$setInputs(imageid = "edited_imaged")
+        expect_identical(app_viewer_message(session, "spatiallibd:appearance")$image$type, "image")
+    })
 })
 
-test_that("03 discrete plots retain the chosen annotation labels", {
-    f <- app_fixture()
-    p <- vis_clus(f$spe, clustervar = "app_cluster", auto_crop = FALSE)
-    i <- match(p$data$key, f$spe$key)
-    expect_equal(as.character(p$data$app_cluster), as.character(f$spe$app_cluster[i]))
+test_that("03 discrete payloads describe the chosen annotation variable", {
+    with_app({
+        payload <- app_viewer_message(session)
+        expect_identical(payload$discreteTitle, "app_cluster")
+        expect_identical(as.character(interactive$frame()$labels), as.character(f$spe$app_cluster[interactive$frame()$i]))
+        expect_setequal(vapply(payload$discreteLegend, `[[`, character(1), "label"),
+            unique(as.character(f$spe$app_cluster[interactive$frame()$i])))
+    })
 })
 
 test_that("04 reversing a discrete palette reverses category colors", {
@@ -41,129 +38,141 @@ test_that("04 reversing a discrete palette reverses category colors", {
     })
 })
 
-test_that("05 gene and assay selection determine expression values", {
+test_that("05 gene and assay selection determine disk-backed expression values", {
     f <- app_fixture()
-    for (assay in c("counts", "logcounts")) {
-        p <- app_gene_plot(assayname = assay)
-        i <- match(p$data$key, f$spe$key)
-        expect_equal(p$data$COUNT, as.numeric(assay(f$spe, assay)[1, i]))
+    for (name in c("counts", "logcounts")) {
+        d <- app_frame(assayname = name)
+        expect_equal(d$value, as.numeric(assay(f$source, name)[1, d$i]))
     }
 })
 
-test_that("06 continuous metadata is independent of the gene assay", {
-    f <- app_fixture()
-    p <- vis_gene(f$spe,
-        geneid = "sum_umi", assayname = "counts",
-        minCount = -Inf, auto_crop = FALSE
-    )
-    expect_equal(p$data$COUNT, f$spe$sum_umi[match(p$data$key, f$spe$key)])
+test_that("06 continuous metadata is independent of the selected assay", {
+    for (name in c("counts", "logcounts")) {
+        d <- app_frame(geneid = "sum_umi", assayname = name)
+        expect_equal(d$value, as.numeric(app_fixture()$source$sum_umi[d$i]))
+    }
 })
 
-test_that("07 multiple-feature sparsity is the proportion of positive values", {
+test_that("07 multi-feature methods preserve sample-wise scores", {
     f <- app_fixture()
-    p <- vis_gene(f$spe,
-        geneid = rownames(f$spe)[1:3], multi_gene_method = "sparsity",
-        minCount = -Inf, auto_crop = FALSE
-    )
-    i <- match(p$data$key, f$spe$key)
-    expected <- colMeans(as.matrix(logcounts(f$spe)[1:3, i]) > 0)
-    expect_equal(p$data$COUNT, unname(expected))
+    for (method in c("sparsity", "z_score", "pca")) {
+        d <- app_frame(geneid = rownames(f$spe)[1:3], multi_gene_method = method)
+        m <- t(as.matrix(logcounts(f$source)[1:3, d$i]))
+        expected <- switch(method, sparsity = rowMeans(m > 0),
+            z_score = rowMeans(scale(m)), pca = {
+                fit <- stats::prcomp(m, center = TRUE, scale. = TRUE)
+                fit$x[, 1] * if (mean(fit$rotation[, 1] > 0) < 0.5) -1 else 1
+            })
+        expect_equal(d$value, as.numeric(expected), tolerance = 1e-10)
+    }
 })
 
-test_that("08 filtering masks low values and percentile capping limits high ones", {
-    original <- app_gene_plot()$data$COUNT
-    filtered <- app_gene_plot(minCount = median(original))$data$COUNT
+test_that("08 thresholds mask low values and percentile capping uses sample values", {
+    original <- app_frame()$value
+    filtered <- app_frame(minCount = median(original))$value
     expect_equal(is.na(filtered), original <= median(original))
-    capped <- app_gene_plot(cap_percentile = 0.5)$data$COUNT
-    expect_lte(max(capped), median(original))
-    expect_equal(capped[original <= min(capped)], original[original <= min(capped)])
+    capped <- app_frame(cap_percentile = 0.5)$value
+    cap <- sort(original)[max(1L, round(length(original) / 2))]
+    expect_equal(capped, pmin(original, cap))
 })
 
-test_that("09 presentation settings do not change plotted measurements", {
-    before <- app_gene_plot(point_size = 1, alpha = 0.3)
-    after <- app_gene_plot(
-        point_size = 3, alpha = 1,
-        cont_colors = rev(viridisLite::viridis(21))
-    )
-    expect_equal(after$data[, c("key", "COUNT")], before$data[, c("key", "COUNT")])
-    expect_equal(after$layers[[2]]$aes_params$size, 3)
-})
-
-test_that("10 a static plot can be downloaded as a nonempty PDF", {
+test_that("09 appearance changes preserve measurements and do not regenerate features", {
     with_app({
-        path <- output$downloadPlotGene
+        before <- app_viewer_message(session)
+        values <- interactive$frame()$value
+        session$setInputs(pointsize_scale = 2, alphalevel = 0.3, image_opacity = 0.4, boundary_style = "fill")
+        expect_identical(app_viewer_message(session), before)
+        expect_identical(interactive$frame()$value, values)
+        appearance <- app_viewer_message(session, "spatiallibd:appearance")
+        expect_equal(appearance$pointSizeScale, 2)
+        expect_equal(appearance$opacity, 0.3)
+        expect_equal(appearance$imageOpacity, 0.4)
+        session$setInputs(genecolor_direction = FALSE)
+        expect_identical(interactive$frame()$value, values)
+    })
+})
+
+test_that("10 small static grids download a nonempty PDF", {
+    with_app({
+        path <- output$downloadPlotGrid
         expect_true(file.exists(path))
         expect_gt(file.info(path)$size, 100)
         expect_equal(readChar(path, 4), "%PDF")
     })
 })
 
-test_that("11 linked panels expose the same spot keys for spatial and reduced views", {
+test_that("11 linked views share one cell order across coordinates, embeddings and features", {
     with_app({
-        widget <- jsonlite::fromJSON(output$histology_plotly, simplifyVector = FALSE)
-        traces <- widget$x$data
-        keys <- lapply(traces, function(x) unlist(x$key, use.names = FALSE))
-        panels <- split(keys, vapply(traces, function(x) paste(x$xaxis, x$yaxis), character(1)))
-        expected <- f$spe$key[f$spe$sample_id == input$sample]
-        expect_length(panels, 4)
-        for (panel in panels) {
-            expect_setequal(unlist(panel, use.names = FALSE), expected)
-        }
+        payload <- app_viewer_message(session)
+        units <- jsonlite::fromJSON(file.path(resources$root, basename(payload$dataset$url)))
+        i <- interactive$frame()$i
+        expect_identical(units$keys, as.character(f$spe$key[i]))
+        expect_equal(units$x, unname(spatialCoords(f$spe)[i, "pxl_col_in_fullres"]))
+        expect_equal(units$y, unname(spatialCoords(f$spe)[i, "pxl_row_in_fullres"]))
+        expect_equal(units$embedding, unname(reducedDim(f$spe, input$reduced_name)[i, 1:2]), tolerance = 1e-10)
+        con <- file(file.path(resources$root, basename(payload$features)), "rb")
+        on.exit(close(con), add = TRUE)
+        values <- readBin(con, numeric(), n = length(i), size = 4, endian = "little")
+        labels <- readBin(con, integer(), n = length(i), size = 4, endian = "little")
+        expect_equal(values, interactive$frame()$value, tolerance = 1e-6)
+        legend <- vapply(payload$discreteLegend, `[[`, character(1), "label")
+        expect_identical(legend[labels + 1L], as.character(f$spe$app_cluster[i]))
+        expect_equal(file.info(file.path(resources$root, basename(payload$features)))$size, 17 * length(i))
     })
 })
 
-test_that("12 interactive gene cluster subsets exclude other clusters", {
+test_that("12 cluster filters apply to all linked views without refitting scores", {
     with_app({
+        before <- interactive$frame()$value
         chosen <- as.character(f$spe$app_cluster[1])
-        session$setInputs(gene_plotly_cluster_subset = chosen)
-        invisible(output$gene_plotly)
+        session$setInputs(cluster_subset = chosen)
         expected <- f$spe$key[f$spe$sample_id == input$sample & f$spe$app_cluster == chosen]
         expect_setequal(interactive$gene_data()$key, expected)
+        expect_identical(interactive$frame()$value, before)
+        expect_equal(app_viewer_message(session)$shown, length(expected))
     })
 })
 
-test_that("13 clicking identifies a spot without annotating when disabled", {
+test_that("13 clicking identifies a cell without annotating when disabled", {
     with_app({
         key <- f$spe$key[1]
-        app_event(session, "plotly_click", key)
+        app_event(session, "viewer_click", key)
         expect_match(output$click, key, fixed = TRUE)
         expect_true(all(annotations() == "NA"))
     })
 })
 
-test_that("14 enabled click annotation changes exactly the clicked spot", {
+test_that("14 enabled click annotation changes exactly the clicked cell", {
     with_app({
         session$setInputs(label_click = TRUE)
-        app_event(session, "plotly_click", f$spe$key[1])
-        invisible(output$click)
+        app_event(session, "viewer_click", f$spe$key[1])
         expect_equal(which(annotations() == "reviewed"), 1L)
     })
 })
 
-test_that("15 lasso annotation changes exactly the selected spots", {
+test_that("15 selection annotation changes exactly the selected cells and supports undo", {
     with_app({
-        app_event(session, "plotly_selected", f$spe$key[1:2])
+        app_event(session, "viewer_selection", f$spe$key[1:2])
         session$setInputs(update_manual_ann = 1)
         expect_equal(which(annotations() == "reviewed"), 1:2)
+        session$setInputs(undo_manual_ann = 1)
+        expect_true(all(annotations() == "NA"))
     })
 })
 
-test_that("16 annotations survive sample and gene changes", {
+test_that("16 annotations survive sample and feature changes", {
     with_app({
-        app_event(session, "plotly_selected", f$spe$key[1])
+        app_event(session, "viewer_selection", f$spe$key[1])
         session$setInputs(update_manual_ann = 1)
-        session$setInputs(
-            sample = unique(f$spe$sample_id)[2],
-            geneid = rowData(f$spe)$gene_search[2]
-        )
+        session$setInputs(sample = unique(f$spe$sample_id)[2], geneid = rowData(f$spe)$gene_search[2])
         session$setInputs(sample = unique(f$spe$sample_id)[1])
         expect_equal(which(annotations() == "reviewed"), 1L)
     })
 })
 
-test_that("17 annotation export can include or omit unlabeled spots", {
+test_that("17 annotation export can include or omit unlabeled cells", {
     with_app({
-        app_event(session, "plotly_selected", f$spe$key[1])
+        app_event(session, "viewer_selection", f$spe$key[1])
         session$setInputs(update_manual_ann = 1)
         labeled <- read.csv(output$downloadData, na.strings = "")
         expect_equal(labeled$spot_name, colnames(f$spe)[1])
@@ -173,70 +182,61 @@ test_that("17 annotation export can include or omit unlabeled spots", {
     })
 })
 
-test_that("18 annotation import matches spot identity and later labels overwrite", {
+test_that("18 annotation import matches identity and later labels overwrite", {
     with_app({
-        rows <- data.frame(
-            sample_id = f$spe$sample_id[2:1],
-            spot_name = colnames(f$spe)[2:1], ManualAnnotation = c("B", "A")
-        )
+        rows <- data.frame(sample_id = f$spe$sample_id[2:1], spot_name = colnames(f$spe)[2:1], ManualAnnotation = c("B", "A"))
         session$setInputs(priorGuesses = app_csv(rows))
         expect_equal(annotations()[1:2], c("A", "B"))
-        rows <- rows[2, ]
-        rows$ManualAnnotation <- "replacement"
+        rows <- rows[2, ]; rows$ManualAnnotation <- "replacement"
         session$setInputs(priorGuesses = app_csv(rows))
         expect_equal(annotations()[1:2], c("replacement", "B"))
     })
 })
 
-test_that("19 cluster grids follow the requested sample order", {
+test_that("19 unified static grids follow the requested sample order", {
+    with_app({
+        calls <- character()
+        original <- app_static_spatial
+        testthat::local_mocked_bindings(app_static_spatial = function(spe, sample, ...) {
+            calls <<- c(calls, sample)
+            original(spe, sample, ...)
+        }, .package = "spatialLIBD")
+        order <- rev(unique(f$spe$sample_id))
+        session$setInputs(grid_samples = order, grid_kind = "discrete", grid_update = 1)
+        invisible(grids$grid())
+        expect_identical(calls, order)
+    })
+})
+
+test_that("20 continuous static grids show the chosen gene in each sample", {
     f <- app_fixture()
-    order <- rev(unique(f$spe$sample_id))
-    plots <- vis_grid_clus(f$spe,
-        clustervar = "app_cluster", sample_order = order,
-        return_plots = TRUE, auto_crop = FALSE
-    )
-    expect_equal(names(plots), order)
-    for (i in seq_along(plots)) {
-        expect_setequal(plots[[i]]$data$key, f$spe$key[f$spe$sample_id == order[i]])
+    for (sample in unique(f$spe$sample_id)) {
+        result <- app_static_plot(sample = sample, geneid = rownames(f$spe)[2])
+        points <- result$p$layers[[1]]$data
+        i <- which(f$spe$sample_id == sample)
+        expect_equal(points$value, as.numeric(logcounts(f$source)[2, i]))
+        expect_equal(points$x, unname(spatialCoords(f$spe)[i, "pxl_col_in_fullres"]))
+        expect_equal(result$points, length(i))
     }
 })
 
-test_that("20 expression grids show the chosen gene in each sample", {
-    f <- app_fixture()
-    plots <- vis_grid_gene(f$spe,
-        geneid = rownames(f$spe)[2], minCount = -Inf,
-        return_plots = TRUE, auto_crop = FALSE
-    )
-    for (p in plots) {
-        i <- match(p$data$key, f$spe$key)
-        expect_equal(p$data$COUNT, as.numeric(logcounts(f$spe)[2, i]))
-    }
-})
-
-test_that("21 image preview uses the currently selected sample", {
+test_that("21 image preview uses the selected sample", {
     with_app({
         session$setInputs(sample = unique(f$spe$sample_id)[2], editImg_brightness = 0)
         preview <- images$preview()
         expect_true(all(preview %in% c("#000000", "#000000ff")))
-        expected <- imgRaster(f$spe, sample_id = input$sample, image_id = "lowres")
-        expect_equal(dim(preview), dim(expected))
+        expect_equal(dim(preview), dim(imgRaster(f$spe, sample_id = input$sample, image_id = "lowres")))
     })
 })
 
-test_that("22 applying edited images preserves originals and adds images for all samples", {
-    f <- app_fixture()
-    edited <- img_update_all(f$spe,
-        image_id = "lowres", new_image_id = "edited_imaged",
-        brightness = 0
-    )
-    for (id in unique(f$spe$sample_id)) {
-        expect_equal(
-            imgRaster(edited, sample_id = id, image_id = "lowres"),
-            imgRaster(f$spe, sample_id = id, image_id = "lowres")
-        )
-        expect_true(all(imgRaster(edited, sample_id = id, image_id = "edited_imaged")
-        %in% c("#000000", "#000000ff")))
-    }
+test_that("22 applying image edits preserves originals for every sample", {
+    with_app({
+        session$setInputs(editImg_brightness = 0, editImg_update = 1)
+        for (id in unique(f$spe$sample_id)) {
+            expect_equal(imgRaster(images$spe(), sample_id = id, image_id = "lowres"), imgRaster(f$spe, sample_id = id, image_id = "lowres"))
+            expect_true(all(imgRaster(images$spe(), sample_id = id, image_id = "edited_imaged") %in% c("#000000", "#000000ff")))
+        }
+    })
 })
 
 test_that("23 pseudobulk overview describes the supplied object", {

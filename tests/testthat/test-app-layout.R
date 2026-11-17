@@ -6,7 +6,7 @@ test_that("static plot containers reserve their full display height", {
         if (is.null(which)) opts else opts[[which]]
     }, .package = "golem")
     doc <- xml2::read_html(htmltools::renderTags(app_ui())$html)
-    for (id in c("histology", "gene", "editImg_plot", "layer_boxplot",
+    for (id in c("editImg_plot", "layer_boxplot",
                  "layer_gene_set_plot", "layer_tstat_cor_plot")) {
         node <- xml2::xml_find_first(doc, paste0("//*[@id='", id, "']"))
         expect_match(xml2::xml_attr(node, "style"), "height:600px", fixed = TRUE,
@@ -20,5 +20,15 @@ test_that("embedding containers grow with the requested number of components", {
         expect_match(output$layer_reduced_dim_ui$html, "height:600px", fixed = TRUE)
         session$setInputs(layer_reduced_dim_ncomponents = 6)
         expect_match(output$layer_reduced_dim_ui$html, "height:800px", fixed = TRUE)
+    })
+})
+
+
+test_that("static overview containers grow with the saved grid row count", {
+    with_app({
+        session$setInputs(grid_nrow = 3, grid_ncol = 1, grid_update = 1)
+        expect_match(output$grid_static$html, "height:1500px", fixed = TRUE)
+        session$setInputs(grid_nrow = 1, grid_update = 2)
+        expect_match(output$grid_static$html, "height:1000px", fixed = TRUE)
     })
 })
