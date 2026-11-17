@@ -50,7 +50,8 @@ with higher expression.}
 
 \item{col_high_point}{Similar to \code{col_high_box} but for the points.}
 
-\item{cex}{Controls the size of the text, points and axis legends.}
+\item{cex}{Positive size multiplier for text and point size. The theme's base
+text size is \code{12 * cex} points.}
 
 \item{group_var}{A \code{character(1)} specifying a \code{colData(sce_layer)} column
 name to use for the x-axis.}
@@ -59,9 +60,10 @@ name to use for the x-axis.}
 \code{assays(sce_layer)}.}
 }
 \value{
-This function creates a boxplot of the layer-level data
-(group-level) separated by layer and colored based on the model type from row
-\code{i} of \code{sig_genes}.
+A \link[ggplot2:ggplot]{ggplot2::ggplot} object showing layer-level (group-level) expression,
+colored based on the model type from row \code{i} of \code{sig_genes}. Box summaries use
+\code{\link[ggplot2:geom_boxplot]{ggplot2::geom_boxplot()}} conventions. Long axis labels are wrapped for display;
+group identities and model statistics are unchanged.
 }
 \description{
 This function uses the output of \code{\link[=sig_genes_extract_all]{sig_genes_extract_all()}} as well as the

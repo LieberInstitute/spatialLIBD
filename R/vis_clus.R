@@ -218,6 +218,7 @@ vis_clus <- function(
             #   Drop excluded spots and calculate an appropriate point size
             temp <- prep_stitched_data(spe_sub, point_size, image_id)
             spe_sub <- temp$spe
+            d <- d[!d$exclude_overlapping, , drop = FALSE]
             point_size <- temp$point_size
 
             #   Frame limits are poorly defined for stitched data

@@ -263,6 +263,55 @@ dim(sig_genes)
 
 Now that you have downloaded the data, you can interactively explore the data using a `r CRANpkg('shiny')` `r Citep(bib[['shiny']])` web application contained within `r Biocpkg('spatialLIBD')` `r Citep(bib[['spatialLIBD']])`. To do so, use the `run_app()` function as shown below:
 
+### Customizing cluster colors
+
+The `spatialLIBD` application supports custom colors for spatial domains or clusters in both the spot-level (`spe`) and layer-level (`sce_layer`) data.
+
+To specify custom colors, add a color column to the `colData()` of the corresponding input object. The column name must be the name of the cluster variable followed by `_colors`. For example, if the cluster variable is `layer_guess`, the corresponding color column must be named `layer_guess_colors`.
+
+Each color column contains one color value per observation in the corresponding object:
+
+- In `spe`, the colors are assigned to individual spots according to their cluster labels.
+- In `sce_layer`, the colors are assigned to the layer-level groups according to their cluster labels.
+
+The colors can be specified using a named vector, where the names correspond to the cluster labels and the values are valid R colors. Retain the cluster labels as names when assigning colors to each observation.
+
+For example, the following code assigns custom colors to the clusters in both objects. Replace the example cluster labels and `my_cluster` with labels and a cluster variable present in your objects:
+
+```{r custom_cluster_colors, eval = FALSE}
+## Define a named vector of colors for each cluster
+my_cluster_colors <- c(
+    Cluster1 = "#4E79A7",
+    Cluster2 = "#F28E2B",
+    Cluster3 = "#E15759",
+    Cluster4 = "#76B7B2",
+    Cluster5 = "#59A14F",
+    Cluster6 = "#EDC948",
+    Cluster7 = "#B07AA1",
+    Cluster8 = "#FF9DA7",
+    Cluster9 = "#9C755F"
+)
+
+## Specify the cluster variable used by the application
+cluster_var <- "my_cluster"
+
+## Add the corresponding color column to the spot-level object
+colData(spe)[[paste0(cluster_var, "_colors")]] <-
+    my_cluster_colors[
+        as.character(colData(spe)[[cluster_var]])
+    ]
+
+## Add the corresponding color column to the layer-level object
+colData(sce_layer)[[paste0(cluster_var, "_colors")]] <-
+    my_cluster_colors[
+        as.character(colData(sce_layer)[[cluster_var]])
+    ]
+```
+
+Custom color columns are optional. In the layer-level tab, custom colors take precedence. If they are not provided, the application uses the predefined `spatialLIBD::libd_layer_colors` palette when all cluster labels match its names, including short labels such as `L1` through `L6`. This palette contains colors for `Layer1` through `Layer6`, `WM`, `NA`, and `WM2`. For cluster labels that do not match these predefined names, the application generates a palette using `spatialLIBD::get_colors()`, with one color assigned to each cluster. The fallback uses a fixed palette for up to 12 clusters and `Polychrome::palette36` for 13 through 36 clusters. Spot-level plots retain their ordinary palette controls.
+
+In the layer-level tab, the application uses the corresponding colors in categorical reduced-dimension plots, gene set enrichment results and the reference domains of spatial registration plots. Enrichment model results use the domain colors; pairwise results use midpoint colors derived from the two domains, unless an explicit comparison color is supplied. Pairwise results with missing domain colors and overall ANOVA results use `grey60`. Continuous reduced-dimension coloring, model-boxplot colors and spatial registration query colors retain their separate behavior.
+
 ```{r}
 if (interactive()) {
     run_app(

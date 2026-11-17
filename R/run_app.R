@@ -13,6 +13,26 @@
 #' That vignette is available at
 #' <http://research.libd.org/spatialLIBD/articles/TenX_data_download.html>.
 #'
+#'  ---- Optional: Add custom cluster colors ----
+#'
+#' Custom colors can be specified by adding a color column to the
+#' `colData` of the input objects. The column name must be the cluster
+#' variable name followed by `_colors` (for example, `BayesSpace_colors`
+#' when `default_cluster = "BayesSpace"`).
+#'
+#' Define a named vector mapping cluster labels to colors, then assign
+#' the corresponding colors to each observation. Retain the cluster
+#' labels as names in the color vector.
+#'
+#' When using layer-level data (`sce_layer`), the same color column
+#' can be added to that object. Colors should correspond to the
+#' cluster labels in the selected `default_cluster` variable.
+#' In the layer-level tab, custom colors take precedence. Otherwise, the app
+#' uses `spatialLIBD::libd_layer_colors` when all cluster labels match its
+#' names (including short labels such as `L1`), or generates a discrete
+#' palette using `spatialLIBD::get_colors()`. Spot-level plots retain their
+#' palette controls.
+#'
 #' @param spe Defaults to the output of
 #' `fetch_data(type = 'spe')`. This is a
 #' [SpatialExperiment-class][SpatialExperiment::SpatialExperiment-class]
@@ -302,6 +322,17 @@ run_app <- function(
         sce_layer <-
             check_sce_layer(sce_layer, variables = default_cluster)
         modeling_results <- check_modeling_results(modeling_results)
+        ## Give an overall ANOVA test with an empty suffix a usable app label.
+        colnames(modeling_results$anova) <-
+            sub("_$", "_all", colnames(modeling_results$anova))
+        ## Keep explicitly supplied gene tables consistent with the model labels.
+        anova_empty_test <- which(
+            sig_genes$model_type == "anova" & sig_genes$test == ""
+        )
+        if (length(anova_empty_test)) {
+            sig_genes$test <- as.character(sig_genes$test)
+            sig_genes$test[anova_empty_test] <- "all"
+        }
         ## No need to check sig_genes since sig_genes_extract_all() will fail
     }
 
