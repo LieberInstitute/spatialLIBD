@@ -18,7 +18,7 @@ app_spot_grid_ui <- function(spe) {
             choices = unique(spe$sample_id), selected = unique(spe$sample_id), multiple = TRUE,
             options = list(plugins = list("remove_button"))),
         actionButton("grid_update", "Update grid"), downloadButton("downloadPlotGrid", "Download plot"),
-        helpText("Choose samples and click Update grid. Wide grids scroll horizontally. Points provide a quick overview; use Interactive for detailed inspection. Downloads match the displayed grid’s dimensions and saved settings: PDF for smaller datasets, or a 300 dpi PNG for dense datasets."),
+        helpText("Choose samples and click Update grid. Wide grids scroll horizontally. Points provide a quick overview; use Interactive for detailed inspection. Downloads match the displayed grid\u2019s dimensions and saved settings: PDF for smaller datasets, or a 300 dpi PNG for dense datasets."),
         uiOutput("grid_static"), textOutput("grid_warnings"), div(class = "app-plot-spacing")
     )
 }
@@ -58,6 +58,7 @@ app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, color
     df <- data.frame(x = d$x[keep], y = d$y[keep], value = values[keep])
     # A zero-width stroke can become a black hairline in PDF viewers. Remove
     # the outline explicitly so dense overview points retain their fill colors.
+    x <- y <- value <- NULL # ggplot2 data-mask bindings
     plot <- plot + geom_point(data = df, aes(x = x, y = y, fill = value),
         shape = 21, colour = "transparent", stroke = 0, size = point_size, alpha = alpha)
     if (kind == "continuous") {

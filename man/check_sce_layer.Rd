@@ -7,6 +7,12 @@
 check_sce_layer(sce_layer, variables = "spatialLIBD")
 }
 \arguments{
+\item{sce_layer}{Defaults to the output of
+\code{fetch_data(type = 'sce_layer')}. This is a
+\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment}
+object with the spot-level Visium data compressed via pseudo-bulking to the
+layer-level (group-level) resolution. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
+
 \item{variables}{A \code{character()} vector of variable names expected to
 be present in \code{colData(sce_layer)}.}
 }

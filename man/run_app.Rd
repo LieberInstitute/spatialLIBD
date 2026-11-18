@@ -33,6 +33,20 @@ run_app(
 \item{dataset}{Prepared spot-level inputs returned by \code{\link[=open_app_dataset]{open_app_dataset()}}.
 Create these once with \code{\link[=prepare_app_inputs]{prepare_app_inputs()}} from an ordinary SPE/SFE.}
 
+\item{sce_layer}{Defaults to the output of
+\code{fetch_data(type = 'sce_layer')}. This is a
+\link[SingleCellExperiment:SingleCellExperiment-class]{SingleCellExperiment}
+object with the spot-level Visium data compressed via pseudo-bulking to the
+layer-level (group-level) resolution. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
+
+\item{modeling_results}{Defaults to the output of
+\code{fetch_data(type = 'modeling_results')}. This is a list of tables with the
+columns \verb{f_stat_*} or \verb{t_stat_*} as well as \verb{p_value_*} and \verb{fdr_*} plus
+\code{ensembl}. The column name is used to extract the statistic results, the
+p-values, and the FDR adjusted p-values. Then the \code{ensembl} column is used
+for matching in some cases. See \code{\link[=fetch_data]{fetch_data()}} for more details. Typically
+this is the set of reference statistics used in \code{layer_stat_cor()}.}
+
 \item{sig_genes}{The output of \code{\link[=sig_genes_extract_all]{sig_genes_extract_all()}} which is a table
 in long format with the modeling results. You can subset this if the object
 requires too much memory.}

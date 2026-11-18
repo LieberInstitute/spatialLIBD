@@ -7,7 +7,7 @@ app_spot_interactive_ui <- function() {
             tags$button(type = "button", class = "btn btn-default", `data-viewer-tool` = "lasso", "Lasso"),
             tags$button(type = "button", class = "btn btn-default", `data-viewer-action` = "reset", "Reset view"),
             tags$button(type = "button", class = "btn btn-default", `data-viewer-action` = "clear", "Clear selection"),
-            tags$span(class = "sl-viewer-status", role = "status", "Loading spatial data…")
+            tags$span(class = "sl-viewer-status", role = "status", "Loading spatial data\u2026")
         ),
         div(id = "spot_viewer", class = "sl-viewer", tabindex = "0", `aria-label` = "Linked spatial and embedding plots",
             div(class = "sl-viewer-canvas"), tags$svg(class = "sl-viewer-lasso", `aria-hidden` = "true"),
@@ -43,8 +43,8 @@ app_spot_interactive_server <- function(input, output, session, spe, colors, res
     output$viewer_filter_summary <- renderText({
         d <- frame()
         paste0(format(sum(d$eligible), big.mark = ","), " of ", format(length(d$key), big.mark = ","),
-            " units shown · value > ", input$minCount,
-            if (input$cap_percentile < 1) paste0(" · capped at ", 100 * input$cap_percentile, "th percentile"))
+            " units shown \u00b7 value > ", input$minCount,
+            if (input$cap_percentile < 1) paste0(" \u00b7 capped at ", 100 * input$cap_percentile, "th percentile"))
     })
     output$viewer_warnings <- renderText(paste(frame()$warnings, collapse = "; "))
     dataset <- reactive({
@@ -98,7 +98,7 @@ app_spot_interactive_server <- function(input, output, session, spe, colors, res
         feature_files <<- c(feature_files, path)
         if (length(feature_files) > 6L) {
             unlink(feature_files[seq_len(length(feature_files) - 6L)])
-            feature_files <<- tail(feature_files, 6L)
+            feature_files <<- utils::tail(feature_files, 6L)
         }
         revision <<- revision + 1L
         list(

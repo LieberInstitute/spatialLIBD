@@ -56,6 +56,7 @@
 #' automatically cropping the images. Set this to `FALSE` if your images do not
 #' follow the Visium grid size expectations, which are key for enabling
 #' auto-cropping.
+#' @inheritParams sig_genes_extract
 #' @inheritParams vis_clus
 #' @param ... Other arguments passed to the list of golem options for running
 #' the application.
