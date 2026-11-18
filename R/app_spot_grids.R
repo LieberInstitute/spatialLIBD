@@ -23,6 +23,18 @@ app_spot_grid_ui <- function(spe) {
     )
 }
 
+# ggplot2 4.x controls reversal explicitly; older versions reverse descending
+# coordinate limits. Detect the API so development releases work as well.
+app_static_coord <- function(extent, y_down) {
+    args <- list(xlim = extent[c(1, 3)], ylim = extent[c(2, 4)], expand = FALSE)
+    if ("reverse" %in% names(formals(ggplot2::coord_cartesian))) {
+        args$reverse <- if (y_down) "y" else "none"
+    } else if (y_down) {
+        args$ylim <- rev(args$ylim)
+    }
+    do.call(ggplot2::coord_fixed, args)
+}
+
 app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, colors,
     catalog, image_id, spatial, point_size, guide_size, opacity, side_by_side) {
     d <- app_spot_frame(spe, sample, cluster, gene, clusters)
@@ -32,16 +44,14 @@ app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, color
     y_down <- app_spot_y_down(spe, if (is.null(source)) app_image_source(catalog, sample) else source)
     xy_extent <- c(range(d$x), range(d$y))
     extent <- if (is.null(image)) c(xy_extent[1], xy_extent[3], xy_extent[2], xy_extent[4]) else image$extent
-    background <- ggplot() + coord_fixed(
-        xlim = extent[c(1, 3)], ylim = if (y_down) rev(extent[c(2, 4)]) else extent[c(2, 4)], expand = FALSE)
+    background <- ggplot() + app_static_coord(extent, y_down)
     if (!is.null(image)) {
-        # annotation_raster follows the plot's axis direction; use explicit Y scale
-        # below so images and geometry share a single full-resolution frame.
+        # Keep raster rows upright; the coordinate system places image-space
+        # points with increasing Y toward the bottom of the same extent.
         background <- background + annotation_raster(image$image,
             xmin = extent[1], xmax = extent[3], ymin = extent[2], ymax = extent[4])
     }
-    plot <- if (spatial && !side_by_side) background else ggplot() + coord_fixed(
-        xlim = extent[c(1, 3)], ylim = if (y_down) rev(extent[c(2, 4)]) else extent[c(2, 4)], expand = FALSE)
+    plot <- if (spatial && !side_by_side) background else ggplot() + app_static_coord(extent, y_down)
     keep <- d$eligible
     values <- if (kind == "continuous") d$value else d$labels
     alpha <- if (is.finite(opacity)) opacity else 1
