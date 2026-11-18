@@ -56,10 +56,17 @@ Throughout the rest of this document, we'll refer to this object by the name `sp
 
 ## Appearance-related options
 
-* `Cell/spot boundaries`: when spatial geometries are enabled during app creation, you may select "Outlines" (default) to display just the boundaries of the geometries (e.g. cell segmentation polygons) or "Filled" to fill in those geometries with colors for the continuous or discrete values. Applicable only to the `Interactive` tab.
-* `Spot transparency level`: the transparency of the spots in the visualizations. It can be useful if the spot colors are blocking the background image.
-* `Gene color scale`: Whether to use the color blind friendly palette (`viridis`) or to use a custom palette that we used for our `paper`. Other options from the [viridisLite R package](https://sjmgarnier.github.io/viridisLite/reference/viridis.html#details) are also supported.
-* `Gene color direction`: whether colors should be ordered from darkest to lightest or in the reverse direction.
+Click `Appearance` / `Show settings` in the sidebar to reveal these controls. Changes apply immediately in `Interactive`; click `Update grid` to apply shared appearance settings to the `Static grid` and its download.
+
+* `Cell/spot boundaries`: when boundaries were included in the prepared inputs, choose `Outlines` (default) to show their edges or `Filled` to color their interiors using the continuous or discrete values. Boundaries appear as you zoom into the spatial panels; at wider views, units are shown as points. This setting applies only to the spatial panels in `Interactive`. Static grids always use points.
+* `Discrete palette`: choose colors for the categories of the selected `Discrete variable`, in both `Interactive` and `Static grid`. Choices include supplied colors from a matching metadata column (for example, `BayesSpace_colors` for `BayesSpace`) and palettes with enough colors for the categories. Historical LIBD layer annotations retain their established colors.
+* `Reverse discrete palette`: reverse the order of colors assigned from a generated discrete palette. This does not reverse supplied colors or the fixed colors for historical LIBD annotations.
+* `Continuous palette`: choose the color scale for the selected continuous feature or combined score, in both `Interactive` and `Static grid`. The default is the color-blind-friendly `viridis` palette; other options include `magma`, `inferno`, `plasma`, `cividis`, `rocket`, `mako`, `turbo`, and the custom `paper` scale.
+* `Dark to light`: control the direction of the continuous palette. Checked by default, this maps lower values toward the dark end and higher values toward the light end of the default `viridis` scale. Unchecking it reverses the selected scale, including the custom `paper` scale.
+* `Unit opacity`: set the opacity of spatial units (e.g. spots or cells) and embedding points from 0 (transparent) to 1 (opaque, the default). Lower values can help reveal the histology beneath spatial units. This setting applies to `Interactive` and `Static grid`; units excluded by filters remain hidden.
+* `Image opacity`: set the histology background opacity in the spatial panels of `Interactive`, from 0 (hidden) to 1 (opaque). The default is 0.8. This is independent of `Unit opacity` and does not change the static grid's background.
+* `Point size adjustment`: multiply the automatically chosen point radius in `Interactive`. A value of 1 (default) uses the suggested radius, 2 doubles it, and 0.5 halves it. Automatic sizing uses the sample's local point spacing and the panel dimensions, with separate estimates for spatial and embedding panels. Filtering does not change the suggested size. This control does not resize segmentation boundaries. The `Static grid` has its own `Point size (mm)` control.
+* `Legend point size`: change the size of point symbols in the discrete legend of the `Static grid`. This does not change the plotted spatial units or the interactive legends.
 
 We will cover the download button and upload CSV options at the end of this document.
 
