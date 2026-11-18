@@ -68,63 +68,24 @@ Click `Appearance` / `Show settings` in the sidebar to reveal these controls. Ch
 * `Point size adjustment`: multiply the automatically chosen point radius in `Interactive`. A value of 1 (default) uses the suggested radius, 2 doubles it, and 0.5 halves it. Automatic sizing uses the sample's local point spacing and the panel dimensions, with separate estimates for spatial and embedding panels. Filtering does not change the suggested size. This control does not resize segmentation boundaries. The `Static grid` has its own `Point size (mm)` control.
 * `Legend point size`: change the size of point symbols in the discrete legend of the `Static grid`. This does not change the plotted spatial units or the interactive legends.
 
-We will cover the download button and upload CSV options at the end of this document.
+Annotation download and import are covered under `Interactive` below.
 
-## Clusters (static)
+## Interactive
 
-Displays the selected cluster variable (from `discrete variable to plot`) for the given sample (from `samples to plot`). You can also choose to see the background image and clusters side to side.
+Explore one sample in linked panels: spatial views above and the selected embedding below, with continuous values on the left and discrete categories on the right. Choose `None` under `Embedding` to hide the lower panels. Sidebar filters apply to all panels.
 
-```{r}
-## Reproduce locally with
-spatialLIBD::vis_clus()
-```
+* **Navigate:** use `Pan` to drag, scroll or use the +/− buttons to zoom, and expand a panel for a closer look. Spatial panels share one view; embedding panels share another. `Reset view` fits the data again. Full-resolution histology reveals more detail as you zoom, and segmentation boundaries appear when available.
+* **Inspect and select:** hover for unit details; click a unit, drag a rectangle with `Select`, or draw a region with `Lasso`. Selections highlight the same units across all panels. Hold Shift to add or Alt to remove units; use `Clear selection` to start over. The status shows visible and selected unit counts.
+* **Annotate:** enter a `Manual annotation label` and click `Label selected units`, or enable `Annotate individual units on click`. `Undo last annotation` reverses the latest label change or annotation import. Choose `ManualAnnotation` as the discrete variable to see your labels.
+* **Save and restore:** annotations belong to your current session, so use `Download annotations` before closing it. `Omit unlabeled units from CSV` is enabled by default. Restore labels with `Import annotations`; CSV files require `sample_id`, `spot_name`, and `ManualAnnotation` columns. Later imported files overwrite earlier labels for matching units.
 
-## Clusters (interactive)
+## Static grid
 
-Displays a 1,200 by 1,200 pixels interactive plot area with a matrix of 2 by 2 plots. The top row shows the data at the spot-level with the histology information in the background. The bottom row shows the spot-level data at a reduced dimension space (PCA, TSNE, UMAP). The left column shows the selected gene or continuous variable, while the right column shows the selected cluster or discrete variable. The four plots are linked to each other such that if you use the lasso selector (mouse over to the top right of the interactive area to select it) in a single plot, the other 3 will get updated to highlight the same selection of points. 
+Compare selected samples in a grid of spatial plots, colored by continuous values or discrete categories. Units are always shown as points; use `Interactive` for zooming, selection, and segmentation boundaries.
 
-This panel allows you to look at the results from a given clustering approach and combine that information with the expression of a given gene to visualize the spot-level data both in the spatial resolution as well as a reduced dimensionality space from the expression of the most variable genes. 
-
-Once you have selected spots of interest, at the bottom of the tab there is a text box where you can enter your manual annotations. This overwrites `spe$ManualAnnotation` which is why you need to confirm doing so by clicking the button `Label selected points (from lasso) with manual annotation`. You can then change the `clusters to plot` option to `ManualAnnotation` to see your new spot labels.
-
-Given the amount of data being displayed, this tab consumes quite a bit of resources.
-
-Note that there can be a maximum of 36 unique manual annotations (unique values in `spe$ManualAnnotation`) before we run out of colors to visualize them.
-
-## Clusters grid (static)
-
-This tab is similar to `clusters (static)` with the difference being that you can visualize a subset or even all samples at once. Select the samples you want to visualize, then specify the grid on which they will be plotted (the number of rows and columns), and click the `upgrade grid plot` button. We ask that you use this button every time you want to update the plot as it can take a few seconds for this update to complete.
-
-This particular tab is useful if you have computationally defined some clusters using the data of all your samples and you want to visualize the resulting clusters across multiple (or even all the) samples at the same time.
-
-```{r}
-## Reproduce locally with
-spatialLIBD::vis_grid_clus()
-```
-
-## Gene (static)
-
-This tab is similar to `clusters (static)` but instead of displaying discrete values (like clusters), it displays continuous values such as the gene expression of a given gene or the number of cells per spot. By default, spots whose value is below or at 0 are not shown, which makes it easier for you to distinguish points with low values from those below the threshold of your interest (controlled by `minimum count value`). The points can be colored in two different color scales. You can also choose to see the background image and continuous values side to side.
-
-```{r}
-## Reproduce locally with
-spatialLIBD::vis_gene()
-```
-
-## Gene (interactive)
-
-This tab shows a single interactive plot. It is similar to `clusters (interactive)` as in you can use the lasso selector (mouse over top right to find it) to select spots and them label them using the text box at the bottom with the corresponding button. Unlike `clusters (interactive)`, this version includes checkboxes at the top for each of the unique values of the selected `discrete variable to plot` such that you can subset the spots to those present on a given cluster.
-
-Note that if you have `discrete variable to plot` toggled to the `ManualAnnotation` option and update the spot-level information with the text box and button at the bottom of the tab, then it will re-load the interactive visualization and you will lose your selection of points.
-
-## Gene grid (static)
-
-This is the equivalent of `clusters grid (static)` but for continuous variables, just like `gene (static)` was the equivalent of `clusters (static)`.
-
-```{r}
-## Reproduce locally with
-spatialLIBD::vis_grid_gene()
-```
+* **Choose and arrange:** set `Color by` to `Continuous` or `Discrete`, choose `Samples` in the desired display order, and set positive whole numbers for `Rows` and `Columns`. Extra rows are added if needed; wide grids scroll horizontally. The grid's sample selection is independent of the sidebar's `Sample` selector.
+* **Style:** toggle `Show histology` or `Image beside features`, and adjust `Point size (mm)`. Histology uses low-resolution images, even when a full-resolution pyramid is selected. Sidebar features, filters, palettes, unit opacity, and legend point size also apply.
+* **Update and download:** click `Update grid` after changing settings. `Download plot` exports the displayed grid using its saved settings, dimensions, and point sizes. The format is PDF when the average number of displayed units per sample is below 50,000, or a 300 dpi PNG otherwise.
 
 ## Edit image
 
@@ -134,20 +95,3 @@ This panel shows you all the options we have for manipulating the colors and pro
 ## Reproduce locally with
 spatialLIBD::img_update_all()
 ```
-
-## Saving and uploading your `spe$ManualAnnotation` results
-
-Beyond visualizing the data, the main goal of this section of `spatialLIBD` is to enable you to label spots. That is done only through the `interactive` tabs as previously described. Your manual annotations are saved under `spe$ManualAnnotation` and you can save them for future use using the main menu download button. If you click this button, it will prompt you to save a CSV file. We recommend that you keep selected the checkbox `Drop NA layer entries in the CSV file?` which means that your CSV file will be smaller and will potentially lead to less conflicts with other CSV files you make. That is, you will likely avoid re-labeling the same spot with different values in two or more of these CSV files. This is particularly useful if you plan to work on one sample at a time, save your results, and then merge them all into a single CSV file.
-
-These CSV files with your manual annotations can be re-uploaded to `spatialLIBD`. You can notice this by choosing `ManualAnnotation` under `clusters to plot` and using any of the `clusters` tabs. If you upload more than one CSV, any values you have under `spe$ManualAnnotation` will be overwritten if the spot is present in your CSV file. Thus, if you followed the recommended workflow of saving one CSV file per sample, you can then upload them all sequentially and merge them together into a single CSV file to simplify your work later.
-
-In summary, the order in which you re-upload the CSV files matters as newer uploads will overwrite any duplicated spots from previous CSV files.
-
-We also recommend saving your work often in case you lose connection to `spatialLIBD`. Though you could always run this website locally by using the following command:
-
-```{r}
-## Reproduce locally with
-spatialLIBD::run_app()
-```
-
-This will require about 3GB of RAM to run on the server side, though potentially more, specially when using the `clusters (interactive)` tab.
