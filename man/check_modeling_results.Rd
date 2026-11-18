@@ -6,15 +6,6 @@
 \usage{
 check_modeling_results(modeling_results)
 }
-\arguments{
-\item{modeling_results}{Defaults to the output of
-\code{fetch_data(type = 'modeling_results')}. This is a list of tables with the
-columns \verb{f_stat_*} or \verb{t_stat_*} as well as \verb{p_value_*} and \verb{fdr_*} plus
-\code{ensembl}. The column name is used to extract the statistic results, the
-p-values, and the FDR adjusted p-values. Then the \code{ensembl} column is used
-for matching in some cases. See \code{\link[=fetch_data]{fetch_data()}} for more details. Typically
-this is the set of reference statistics used in \code{layer_stat_cor()}.}
-}
 \value{
 The input object if all checks are passed.
 }

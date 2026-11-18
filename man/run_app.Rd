@@ -5,7 +5,7 @@
 \title{Run the spatialLIBD Shiny Application}
 \usage{
 run_app(
-  spe = fetch_data(type = "spe"),
+  dataset,
   sce_layer = fetch_data(type = "sce_layer"),
   modeling_results = fetch_data(type = "modeling_results"),
   sig_genes = sig_genes_extract_all(n = nrow(sce_layer), modeling_results =
@@ -30,25 +30,8 @@ run_app(
 )
 }
 \arguments{
-\item{spe}{Defaults to the output of
-\code{fetch_data(type = 'spe')}. This is a
-\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class}
-object with the spot-level Visium data and information required for
-visualizing the histology. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
-
-\item{sce_layer}{Defaults to the output of
-\code{fetch_data(type = 'sce_layer')}. This is a
-\linkS4class{SingleCellExperiment}
-object with the spot-level Visium data compressed via pseudo-bulking to the
-layer-level (group-level) resolution. See \code{\link[=fetch_data]{fetch_data()}} for more details.}
-
-\item{modeling_results}{Defaults to the output of
-\code{fetch_data(type = 'modeling_results')}. This is a list of tables with the
-columns \verb{f_stat_*} or \verb{t_stat_*} as well as \verb{p_value_*} and \verb{fdr_*} plus
-\code{ensembl}. The column name is used to extract the statistic results, the
-p-values, and the FDR adjusted p-values. Then the \code{ensembl} column is used
-for matching in some cases. See \code{\link[=fetch_data]{fetch_data()}} for more details. Typically
-this is the set of reference statistics used in \code{layer_stat_cor()}.}
+\item{dataset}{Prepared spot-level inputs returned by \code{\link[=open_app_dataset]{open_app_dataset()}}.
+Create these once with \code{\link[=prepare_app_inputs]{prepare_app_inputs()}} from an ordinary SPE/SFE.}
 
 \item{sig_genes}{The output of \code{\link[=sig_genes_extract_all]{sig_genes_extract_all()}} which is a table
 in long format with the modeling results. You can subset this if the object
@@ -138,33 +121,37 @@ palette controls.
 }
 \examples{
 \dontrun{
-## The default arguments will download the data from the web
-## using fetch_data(). If this is the first time you have run this,
-## the files will need to be cached by ExperimentHub. Otherwise it
-## will re-use the files you have previously downloaded.
-if (enough_ram(4e9)) {
-    ## Obtain the necessary data
-    if (!exists("spe")) spe <- fetch_data("spe")
+## Prepare spot-level inputs once, outside app.R / deployment startup.
+## fetch_data() downloads and caches the source SPE through ExperimentHub.
+## Preparation needs the source object in memory and writes a new directory;
+## output_dir must not already exist.
+spe <- fetch_data("spe")
+## Optional aligned full-resolution pyramids can be supplied at preparation:
+## fullres_images is named by sample_id. Low-resolution SPE images are kept.
+# prepare_app_inputs(
+#     spe,
+#     output_dir = "app-inputs-fullres",
+#     fullres_images = list(
+#         sample_1 = "/path/to/sample_1.ome.tif",
+#         sample_2 = "/path/to/sample_2.ome.zarr"
+#     )
+# )
 
-    ## Create the interactive website
-    run_app(spe)
+inputs_dir <- tempfile("spatialLIBD-inputs-")
+prepare_app_inputs(spe, output_dir = inputs_dir)
 
-    ## You can also run a custom version without the pseudo-bulked
-    ## layer information. This is useful if you are only interested
-    ## in the spatial transcriptomics features.
-    run_app(spe,
-        sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
-        title = "spatialLIBD without layer info"
-    )
+## On subsequent launches, only open the prepared directory. For deployment,
+## keep its complete contents together and use a persistent path in app.R.
+dataset <- open_app_dataset(inputs_dir)
 
-    ## When using shinyapps.io aim for less than 3 GB of RAM with your
-    ## objects. Check each input object with:
-    ## lobstr::obj_size(x)
-    ## Do not create the large input objects on the app.R script before
-    ## subsetting them. Do this outside app.R since the app.R script is
-    ## run at shinyapps.io, so subsetting on that script to reduce the
-    ## memory load is pointless. You have to do it outside of app.R.
-}
+## Include the default pseudo-bulked layer data (downloaded on first use).
+run_app(dataset = dataset)
+
+## Or disable the layer-level portion to show only spot-level data.
+run_app(dataset = dataset,
+    sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
+    title = "spatialLIBD without layer info"
+)
 
 ## How to run locally the spatialDLPFC Sp09 spatialLIBD app. That is,
 ## from http://research.libd.org/spatialDLPFC/#interactive-websites
@@ -234,9 +221,14 @@ if (enough_ram(9e9)) {
     )
     list.files(temp_www)
 
-    ## Run the app locally
+    ## Prepare once, after adding the cluster labels and custom colors.
+    dlpfc_inputs <- tempfile("spatialDLPFC-inputs-")
+    prepare_app_inputs(spe, output_dir = dlpfc_inputs)
+
+    ## Run the app locally. On later launches, reuse dlpfc_inputs and load
+    ## only the layer-level objects above, without fetching the source SPE.
     run_app(
-        spe,
+        dataset = open_app_dataset(dlpfc_inputs),
         sce_layer = sce_pseudo,
         modeling_results = modeling_results,
         sig_genes = sig_genes,
@@ -285,9 +277,12 @@ spe_stitched
 ## Notice the use of "exclude_overlapping"
 table(spe_stitched$exclude_overlapping, useNA = "ifany")
 
-## Run the app with this stitched data
+## Prepare once, then reuse the prepared directory for later launches.
+stitched_inputs <- tempfile("visiumStitched-inputs-")
+prepare_app_inputs(spe_stitched, output_dir = stitched_inputs)
+
 run_app(
-    spe = spe_stitched,
+    dataset = open_app_dataset(stitched_inputs),
     sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
     title = "visiumStitched example data",
     spe_discrete_vars = c("capture_area", "scran_quick_cluster", "ManualAnnotation"),
@@ -299,9 +294,13 @@ run_app(
 ## Example for Xenium object
 if (!exists("spe_xenium")) spe_xenium <- fetch_data("spe_xenium_example")
 
-run_app(spe_xenium,
-        sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
-        title = "spatialLIBD Xenium without layer info",
+xenium_inputs <- tempfile("Xenium-inputs-")
+prepare_app_inputs(spe_xenium, output_dir = xenium_inputs)
+
+run_app(
+    dataset = open_app_dataset(xenium_inputs),
+    sce_layer = NULL, modeling_results = NULL, sig_genes = NULL,
+    title = "spatialLIBD Xenium without layer info",
     spe_discrete_vars = c(
         "SpX",
         "ManualAnnotation"
