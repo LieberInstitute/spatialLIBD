@@ -1,3 +1,20 @@
+# spatialLIBD 1.25.6
+
+NEW FEATURES
+
+* Implement consistent colors in layer-level tabs, including supporting custom
+colors. Pairwise comparisons use color midpoints and ANOVA uses gray. Custom
+colors are respected everywhere the default cluster shows up. Implemented by
+@manishabarse.
+* App code is refactored for easier maintenance, also introducing bug fixes
+
+BUG FIXES
+
+* Model boxplots exported to PDF from the layer-level tab now match the in-app
+corresponding plots.
+* Selecting a non-default sample now works correctly when editing the histology
+image
+
 # spatialLIBD 1.25.5
 
 BUG FIXES
