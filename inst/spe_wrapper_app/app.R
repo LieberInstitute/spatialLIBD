@@ -8,12 +8,12 @@ options("golem.app.prod" = TRUE)
 options(repos = BiocManager::repositories())
 
 ## Load the data (all paths are relative to this script's location)
-spe_wrapper <- readRDS("spe_wrapper.rds")
-vars <- colnames(colData(spe_wrapper))
+app_dataset <- open_app_dataset('app_inputs')
+vars <- colnames(colData(app_dataset$spe))
 
 ## Deploy the website
 run_app(
-    spe_wrapper,
+    app_dataset,
     sce_layer = NULL,
     modeling_results = NULL,
     sig_genes = NULL,
