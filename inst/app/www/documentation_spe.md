@@ -34,25 +34,30 @@ Throughout the rest of this document, we'll refer to this object by the name `sp
 
 ## Common options
 
-* `Samples to plot`: which sample to plot on the tabs that do not have _grid_ on their name.
-* `Discrete variable to plot`: which discrete variable (typically with the cluster labels) to visualize. We include the clusters:
+* `Sample`: which sample to plot on the `Interactive` tab.
+* `Histology image`: which image resolution to use in the `Interactive` tab.
+* `Discrete variable`: which discrete variable (typically with the cluster labels) to visualize. We include the clusters:
   - the official manual annotation used extensively in our pilot study (DOI: [10.1038/s41593-020-00787-0](https://doi.org/10.1038/s41593-020-00787-0))
   - from the graph based clustering results produced by `spaceranger` one Visium slide at a time. These clusters are saved as `GraphBased`.
   - from your own manual annotation of the spots under `ManualAnnotation`.
   - resulting the manual annotation by Kristen R Maynard and Keri Martinowich using known markers and histology features. This was an initial exploration and was not analyzed in more detail.
   - resulting from using a shared nearest neighbors approach with 50 neighbors cut at 4 up to 28 clusters. These are `SNN_k50_k4` up to `SNN_k50_k28`.
   - described in Figure 7 from our paper (DOI: [10.1038/s41593-020-00787-0](https://doi.org/10.1038/s41593-020-00787-0)) such as `SpatialDE_PCA`, `SpatialDE_pool_PCA` and others.
-* `Reduced dimensions`: which reduced dimension to visualize on the `clusters (interactive)` tab. Only the first two dimensions will be shown.
-* `Continuous variable(s) to plot`: which gene(s) or continuous variable(s) (such as the cell count, the ratio of the mitochondrial chromosome expression) to visualize in the gene tabs as well as on the `clusters (interactive)` tab. Multiple choices may be selected, in which case "Multi-gene method" controls the method used to combine information from all selected variables.
-* `Multi-gene method`: when selecting more than one continuous variable, the method used to combine information from all selected variables. See [the multi gene plots vignette](https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html) for more information about these methods for combining multiple continuous variables.
+* `Continuous feature(s)`: which gene(s) or continuous variable(s) (such as the cell count, the ratio of the mitochondrial chromosome expression) to visualize in the `Interactive` and `Static grid` tabs. Multiple choices may be selected, in which case `Combine features` controls the method used to combine information from all selected variables.
+* `Combine features`: when selecting more than one continuous variable, the method used to combine information from all selected variables. See [the multi gene plots vignette](https://research.libd.org/spatialLIBD/articles/multi_gene_plots.html) for more information about these methods for combining multiple continuous variables.
   * `z_score`: to summarize multiple continuous variables, each is normalized to represent a Z-score. The multiple scores are then averaged.
   * `pca`: PCA dimension reduction is conducted on the matrix formed by the continuous variables, and the first PC is then used and multiplied by -1 if needed to have the majority of the values for PC1 to be positive. 
   * `sparsity`: the proportion of continuous variables with positive values for each spot is computed.
-* `Gene scale`: whether to use the raw expression values (`counts`) or the scaled and log transformed values (`logcounts`).
-* `Image name`: the name of the background image to use. You can edit this image on the `Edit image` tab.
+* `Assay`: typically counts or logcounts: the gene expression assay to use.
+* `Embedding`: which reduced dimension to visualize on the `Interactive` tab. Only the first two dimensions will be shown.
+* `Clusters to show`: optional filters on the discrete variable's values shown in the `Interactive` and `Static grid` tabs.
+* `Show values greater than`: Values from the selected `Continuous feature(s)` at or below this threshold will not be displayed.
+* `Maximum percentile`: Sets the maximum count to display based on percentile, with acceptable values in (0, 1]. For example, a value of 0.95 sets the top 5% of counts to the value at the 95th percentile. This can be useful to make the color scale more dynamic in the presence of a small set of high outliers. This setting applies to plots of continuous variables only.
+
+## Appearance-related options
+
+* `Cell/spot boundaries`: when spatial geometries are enabled during app creation, you may select "Outlines" (default) to display just the boundaries of the geometries (e.g. cell segmentation polygons) or "Filled" to fill in those geometries with colors for the continuous or discrete values. Applicable only to the `Interactive` tab.
 * `Spot transparency level`: the transparency of the spots in the visualizations. It can be useful if the spot colors are blocking the background image.
-* `Minimum count value`: Values from the selected `continuous variable to plot` at or below this threshold will not be displayed.
-* `Maximum count percentile`: Sets the maximum count to display based on percentile, with acceptable values in (0, 1]. For example, a value of 0.95 sets the top 5% of counts to the value at the 95th percentile. This can be useful to make the color scale more dynamic in the presence of a small set of high outliers. This setting applies to plots of continuous variables only.
 * `Gene color scale`: Whether to use the color blind friendly palette (`viridis`) or to use a custom palette that we used for our `paper`. Other options from the [viridisLite R package](https://sjmgarnier.github.io/viridisLite/reference/viridis.html#details) are also supported.
 * `Gene color direction`: whether colors should be ordered from darkest to lightest or in the reverse direction.
 
