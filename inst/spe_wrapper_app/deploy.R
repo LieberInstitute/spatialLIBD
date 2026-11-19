@@ -25,7 +25,7 @@ rsconnect::deployApp(
     appDir = app_dir,
     appFiles = c(
         "app.R",
-        "spe_wrapper.rds",
+        dir(file.path(app_dir, "app_inputs"), full.names = TRUE),
         gsub(file.path(app_dir, "www"), "www", dir(file.path(app_dir, "www"), full.names = TRUE))
     ),
     appName = "spatialLIBD_Human_Lymph_Node_10x",

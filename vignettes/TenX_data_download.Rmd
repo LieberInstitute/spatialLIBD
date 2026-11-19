@@ -493,7 +493,7 @@ if (interactive()) {
     vars <- colnames(colData(spe_wrapper))
 
     run_app(
-        spe_wrapper,
+        open_app_dataset(inputs_dir),
         sce_layer = NULL,
         modeling_results = NULL,
         sig_genes = NULL,
