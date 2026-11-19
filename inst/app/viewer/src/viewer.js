@@ -43,7 +43,12 @@ class SpatialViewer {
         zoom.textContent = symbol; zoom.setAttribute('aria-label', `Zoom ${name} ${id === 'sc' ? 'spatial continuous' : id === 'sd' ? 'spatial discrete' : id === 'ec' ? 'embedding continuous' : 'embedding discrete'}`);
         zoom.onclick = () => {
           const pair = id[0] === 's' ? ['sc','sd'] : ['ec','ed'];
-          for (const p of pair) this.states[p] = this.constrain(p, {...this.states[p], zoom: this.states[p].zoom + delta});
+          for (const p of pair) {
+            const state = this.states[p];
+            if (!state) continue;
+            const next = state.zoom + delta;
+            this.states[p] = this.constrain(p, {...state, zoom: next, zoomX: next, zoomY: next});
+          }
           this.draw();
         };
         label.append(zoom);
@@ -216,9 +221,14 @@ class SpatialViewer {
   }
   constrain(id, state) {
     const full = this.fitted[id];
-    if (!full) return {...state};
-    if (state.zoom <= full.zoom + 1e-6) return {...state, ...full};
-    return {...state, minZoom: full.zoom};
+    // deck.gl's axis-specific zoom overrides zoom after controller gestures.
+    // Keep all three values and their limits in sync for buttons, fit and scroll.
+    const zoom = Math.min(state.maxZoom ?? 12,
+      Math.max(full?.zoom ?? -Infinity, state.zoomX ?? (Array.isArray(state.zoom) ? state.zoom[0] : state.zoom)));
+    const constrained = {...state, zoom, zoomX: zoom, zoomY: zoom};
+    if (!full) return constrained;
+    if (zoom <= full.zoom + 1e-6) return {...constrained, ...full};
+    return {...constrained, minZoom: full.zoom, minZoomX: full.zoom, minZoomY: full.zoom};
   }
   fit(spatial = true, embedding = true, preserve = false) {
     if (!this.positions || !this.el.clientWidth || !this.el.clientHeight) return;
@@ -231,7 +241,7 @@ class SpatialViewer {
       const rect = this.rects().find(r => ids.includes(r.id)) || this.rects()[0] || {width: 500, height: 400};
       const zoom = Math.log2(Math.min(rect.width / Math.max(1, b[2]-b[0]), rect.height / Math.max(1, b[3]-b[1]))) - 0.1;
       const view = {target: [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2, 0],
-        zoom, minZoom: zoom, maxZoom: 12};
+        zoom, zoomX: zoom, zoomY: zoom, minZoom: zoom, minZoomX: zoom, minZoomY: zoom, maxZoom: 12};
       for (const id of ids) {
         const old = this.states[id];
         const atFit = old && old.zoom <= old.minZoom + 1e-6;
@@ -314,7 +324,14 @@ class SpatialViewer {
   }
   index(info) {
     if (info.layer?.id.includes(':units:outlines')) return this.geometry?.ringUnits[info.index];
-    return typeof info.object === 'number' ? info.object : info.object?.properties?.unit_index;
+    const picked = typeof info.object === 'number' ? info.object : info.object?.properties?.unit_index;
+    if (picked != null) return picked;
+    const panel = info.viewport?.id;
+    if (panel?.startsWith('s') && this.geometry && this.message.boundaryStyle !== 'fill' &&
+        this.states[panel]?.zoom > -2.5 && info.coordinate) {
+      return this.geometry.pick(info.coordinate[0], info.coordinate[1], i => Boolean(this.eligible[i]));
+    }
+    return null;
   }
   tooltip(info) {
     const i = this.index(info);
@@ -374,7 +391,13 @@ class SpatialViewer {
     if (!this.lasso) return;
     const {points, rect} = this.lasso; this.lasso = null; this.svg.replaceChildren();
     if (points.length < 3) {
-      if (this.tool === 'select') this.click(this.deck.pickObject({x:points[0][0],y:points[0][1],radius:4}) || {}, {srcEvent:e});
+      if (this.tool === 'select') {
+        const [x, y] = points[0];
+        const viewport = this.deck.getViewports().find(v => v.id === rect.id);
+        const info = this.deck.pickObject({x,y,radius:4}) ||
+          {viewport, coordinate: viewport.unproject([x - rect.x, y - rect.y])};
+        this.click(info, {srcEvent:e});
+      }
       return;
     }
     const viewport = this.deck.getViewports().find(v => v.id === rect.id);
