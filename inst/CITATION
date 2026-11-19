@@ -78,7 +78,7 @@ c(
         url = "https://doi.org/10.1126/science.adh1938"
     ),
     bibentry(bibtype="article",
-        title = "Influence of Alzheimer’s disease related neuropathology on local microenvironment gene expression in the human inferior temporal cortex",
+        title = "Influence of Alzheimer's disease related neuropathology on local microenvironment gene expression in the human inferior temporal cortex",
         author = personList(
             as.person("Sang Ho Kwon"),
             as.person("Sowmya Parthiban"),
