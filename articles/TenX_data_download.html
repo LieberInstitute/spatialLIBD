@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.25.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.25.6</span>
       </span>
     </div>
 
@@ -116,7 +116,7 @@ CampusCenter for Computational Biology, Johns Hopkins
 University<br><a class="author_email" href="mailto:#"></a><a href="mailto:lcolladotor@gmail.com" class="email">lcolladotor@gmail.com</a>
       </address>
                   
-            <h4 data-toc-skip class="date">11 November 2026</h4>
+            <h4 data-toc-skip class="date">19 November 2026</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/devel/vignettes/TenX_data_download.Rmd" class="external-link"><code>vignettes/TenX_data_download.Rmd</code></a></small>
       <div class="hidden name"><code>TenX_data_download.Rmd</code></div>
@@ -207,7 +207,7 @@ to cite the package and the overall approach. Thank you!</p>
 <span><span class="co">#&gt;   Kwon SH, Parthiban S, Tippani M, Divecha HR, Eagles NJ, Lobana JS,</span></span>
 <span><span class="co">#&gt;   Williams SR, Mark M, Bharadwaj RA, Kleinman JE, Hyde TM, Page SC,</span></span>
 <span><span class="co">#&gt;   Hicks SC, Martinowich K, Maynard KR, Collado-Torres L (2023).</span></span>
-<span><span class="co">#&gt;   "Influence of Alzheimer’s disease related neuropathology on local</span></span>
+<span><span class="co">#&gt;   "Influence of Alzheimer's disease related neuropathology on local</span></span>
 <span><span class="co">#&gt;   microenvironment gene expression in the human inferior temporal</span></span>
 <span><span class="co">#&gt;   cortex." _GEN Biotechnology_. doi:10.1089/genbio.2023.0019</span></span>
 <span><span class="co">#&gt;   &lt;https://doi.org/10.1089/genbio.2023.0019&gt;.</span></span>
@@ -534,7 +534,7 @@ add it back into the <code>spe</code> object.</p>
 <span><span class="co">## Show the GTF cache location</span></span>
 <span><span class="va">gtf_cache</span></span>
 <span><span class="co">#&gt;                                                                            BFC4 </span></span>
-<span><span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/2ee3f6df989_gencode.v32.annotation.gtf.gz"</span></span>
+<span><span class="co">#&gt; "/github/home/.cache/R/BiocFileCache/94856a03d11_gencode.v32.annotation.gtf.gz"</span></span>
 <span></span>
 <span><span class="co">## Import into R (takes ~1 min)</span></span>
 <span><span class="va">gtf</span> <span class="op">&lt;-</span> <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span><span class="va">gtf_cache</span><span class="op">)</span></span>
@@ -741,12 +741,11 @@ or <a href="https://bioconductor.org/packages/spatialLIBD" class="external-link"
 </h3>
 <p>We are now ready to create our interactive website for the human
 lymph node data. The interactive website is a <em><a href="https://CRAN.R-project.org/package=shiny" class="external-link">shiny</a></em> web
-application that uses <em><a href="https://CRAN.R-project.org/package=plotly" class="external-link">plotly</a></em> to
-power several of the interactive features. We can create the interactive
-website using the <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code> function. The
-default arguments of that function are customized for the data from our
-initial study (Maynard, Collado-Torres, Weber et al., 2021), so we will
-need to make some adjustments:</p>
+application. We can create the interactive website using the
+<code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code> function. The default arguments of
+that function are customized for the data from our initial study
+(Maynard, Collado-Torres, Weber et al., 2021), so we will need to make
+some adjustments:</p>
 <ul>
 <li>
 <code>sce_layer</code>, <code>modeling_results</code> and
@@ -756,13 +755,14 @@ have any pseudo-bulk results for this example data.</li>
 <code>title</code>: we will use a custom title that reflect our
 data</li>
 <li>
-<code>spe_discreate_vars</code>: we don’t have really any discrete
+<code>spe_discrete_vars</code>: we don’t have really any discrete
 variables to show beyond <code>ManualAnnotation</code> which is used for
 the manual annotations and <code>random_cluster</code> that we created
 in the previous section.</li>
 <li>
-<code>spe_continous_vars</code>: we have computed several continuous
-variables while adapting our <code>spe</code> object for <em><a href="https://bioconductor.org/packages/3.23/spatialLIBD" class="external-link">spatialLIBD</a></em>,
+<code>spe_continuous_vars</code>: we have computed several
+continuous variables while adapting our <code>spe</code> object for
+<em><a href="https://bioconductor.org/packages/3.23/spatialLIBD" class="external-link">spatialLIBD</a></em>,
 so we’ll list these variables below in order to visually inspect
 them.</li>
 <li>
@@ -770,11 +770,29 @@ them.</li>
 default discrete variable and for now we’ll set it to our
 <code>random_cluster</code>.</li>
 </ul>
+<p>While we will be using a <code>SpatialExperiment</code> object with
+attached low-resolution images, the interactive website performantly
+supports optional full-resolution images and optional spatial geometries
+(via <code>SpatialFeatureExperiment</code>) like cell segmentations. To
+bundle together these potential inputs and enable fast app load times
+when deployed, we’ll need to prepare app inputs once in advance.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">inputs_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="st">"spatialLIBD-inputs1-"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#   If we had full-resolution images, we could supply them to the</span></span>
+<span><span class="co">#   `fullres_images` argument of `prepare_app_inputs()` (as a vector named by</span></span>
+<span><span class="co">#   sample IDs). We could also have supplied a `SpatialFeatureExperiment` object</span></span>
+<span><span class="co">#   with spatial geometries instead of `spe`.</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/prepare_app_inputs.html">prepare_app_inputs</a></span><span class="op">(</span><span class="va">spe</span>, output_dir <span class="op">=</span> <span class="va">inputs_dir</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Subsequent invocations of <code><a href="../reference/run_app.html">run_app()</a></code> quickly load the
+prepared app inputs.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Run our shiny app</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/run_app.html">run_app</a></span><span class="op">(</span></span>
-<span>        <span class="va">spe</span>,</span>
+<span>        <span class="fu"><a href="../reference/open_app_dataset.html">open_app_dataset</a></span><span class="op">(</span><span class="va">inputs_dir</span><span class="op">)</span>,</span>
 <span>        sce_layer <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>        modeling_results <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>        sig_genes <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -790,7 +808,7 @@ Those documentation files will help you describe your project to your
 users in a more personalized way. The easiest way to start is to copy
 our documentation files to a new location and adapt them. You can locate
 them at the following path.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Locate our documentation files</span></span>
 <span><span class="va">docs_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"app"</span>, <span class="st">"www"</span>, package <span class="op">=</span> <span class="st">"spatialLIBD"</span><span class="op">)</span></span>
 <span><span class="va">docs_path</span></span>
@@ -811,7 +829,7 @@ interactively using <code><a href="../reference/run_app.html">spatialLIBD::run_a
 described in this vignette. In this example, we’ll load all four images
 created by SpaceRanger: lowres, hires, detected, and aligned. That way
 we can toggle between them on the web application.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Import the data as a SpatialExperiment object</span></span>
 <span><span class="va">spe_wrapper</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read10xVisiumWrapper.html">read10xVisiumWrapper</a></span><span class="op">(</span></span>
 <span>    samples <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"outs"</span><span class="op">)</span>,</span>
@@ -820,14 +838,14 @@ we can toggle between them on the web application.</p>
 <span>    images <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lowres"</span>, <span class="st">"hires"</span>, <span class="st">"detected"</span>, <span class="st">"aligned"</span><span class="op">)</span>, load <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    reference_gtf <span class="op">=</span> <span class="va">gtf_cache</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; 2026-11-11 21:44:16.603548 SpatialExperiment::read10xVisium: reading basic data from SpaceRanger</span></span>
+<span><span class="co">#&gt; 2026-11-19 17:12:25.130016 SpatialExperiment::read10xVisium: reading basic data from SpaceRanger</span></span>
 <span><span class="co">#&gt; Warning in SpatialExperiment::read10xVisium(samples = samples, sample_id = sample_id, : 'SpatialExperiment::read10xVisium' is deprecated.</span></span>
 <span><span class="co">#&gt; Use 'VisiumIO::TENxVisium(List)' instead.</span></span>
 <span><span class="co">#&gt; See help("Deprecated")</span></span>
-<span><span class="co">#&gt; 2026-11-11 21:44:19.489366 read10xVisiumAnalysis: reading analysis output from SpaceRanger</span></span>
-<span><span class="co">#&gt; 2026-11-11 21:44:19.554355 add10xVisiumAnalysis: adding analysis output from SpaceRanger</span></span>
-<span><span class="co">#&gt; 2026-11-11 21:44:19.646443 rtracklayer::import: reading the reference GTF file</span></span>
-<span><span class="co">#&gt; 2026-11-11 21:44:36.97602 adding gene information to the SPE object</span></span>
+<span><span class="co">#&gt; 2026-11-19 17:12:30.165089 read10xVisiumAnalysis: reading analysis output from SpaceRanger</span></span>
+<span><span class="co">#&gt; 2026-11-19 17:12:30.269052 add10xVisiumAnalysis: adding analysis output from SpaceRanger</span></span>
+<span><span class="co">#&gt; 2026-11-19 17:12:30.423463 rtracklayer::import: reading the reference GTF file</span></span>
+<span><span class="co">#&gt; 2026-11-19 17:12:56.566835 adding gene information to the SPE object</span></span>
 <span><span class="co">#&gt; Warning: Gene IDs did not match. This typically happens when you are not using</span></span>
 <span><span class="co">#&gt; the same GTF file as the one that was used by SpaceRanger. For example, one</span></span>
 <span><span class="co">#&gt; file uses GENCODE IDs and the other one ENSEMBL IDs. read10xVisiumWrapper()</span></span>
@@ -835,14 +853,19 @@ we can toggle between them on the web application.</p>
 <span><span class="co">#&gt; Warning: Dropping 29 out of 36601 genes for which we don't have information on</span></span>
 <span><span class="co">#&gt; the reference GTF file. This typically happens when you are not using the same</span></span>
 <span><span class="co">#&gt; GTF file as the one that was used by SpaceRanger.</span></span>
-<span><span class="co">#&gt; 2026-11-11 21:44:37.373141 adding information used by spatialLIBD</span></span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Run our shiny app</span></span>
+<span><span class="co">#&gt; 2026-11-19 17:12:57.080024 adding information used by spatialLIBD</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Run our shiny app after a one-time preparation step</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="co">#   Prepare and load app inputs</span></span>
+<span>    <span class="va">inputs_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="st">"spatialLIBD-inputs2-"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/prepare_app_inputs.html">prepare_app_inputs</a></span><span class="op">(</span><span class="va">spe_wrapper</span>, output_dir <span class="op">=</span> <span class="va">inputs_dir</span><span class="op">)</span></span>
+<span>    <span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/open_app_dataset.html">open_app_dataset</a></span><span class="op">(</span><span class="va">inputs_dir</span><span class="op">)</span></span>
+<span></span>
 <span>    <span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">spe_wrapper</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span>    <span class="fu"><a href="../reference/run_app.html">run_app</a></span><span class="op">(</span></span>
-<span>        <span class="va">spe_wrapper</span>,</span>
+<span>        <span class="fu"><a href="../reference/open_app_dataset.html">open_app_dataset</a></span><span class="op">(</span><span class="va">inputs_dir</span><span class="op">)</span>,</span>
 <span>        sce_layer <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>        modeling_results <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>        sig_genes <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -863,8 +886,11 @@ if our data is small enough. To do, you will need to:</p>
 <ul>
 <li>create a directory <code>app_dir</code> which will contain the
 script for loading the data and running the web application</li>
-<li>save the <code>spe_wrapper</code> object into that directory such as
-<code>app_dir/spe_wrapper.rds</code>
+<li>prepare app inputs in advance of deployment by calling
+<code><a href="../reference/prepare_app_inputs.html">prepare_app_inputs()</a></code> with a
+<code>SpatialExperiment</code>/<code>SpatialFeatureExperiment</code>
+object and optional full-resolution images. Its output directory could
+be placed in <code>app_dir/app_inputs</code>
 </li>
 <li>create an <code>app.R</code> script and save it at
 <code>app_dir/app.R</code>
@@ -878,14 +904,14 @@ and deploy the app, which we usually do with a
 <code>app_dir/deploy.R</code> script</li>
 </ul>
 <p>Below we illustrate these steps</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Directory we created to host the data for the web application</span></span>
 <span><span class="co">## Use a directory of your preference instead of copy-pasting this code</span></span>
 <span><span class="va">app_dir</span> <span class="op">&lt;-</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org/reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst"</span>, <span class="st">"spe_wrapper_app"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">app_dir</span>, showWarnings <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">## Code we used to save the data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">saveRDS</a></span><span class="op">(</span><span class="va">spe_wrapper</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">app_dir</span>, <span class="st">"spe_wrapper.rds"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">## Code we used to compute and save the bundled inputs</span></span>
+<span><span class="fu"><a href="../reference/prepare_app_inputs.html">prepare_app_inputs</a></span><span class="op">(</span><span class="va">spe_wrapper</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">app_dir</span>, <span class="st">"app_inputs"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Copy the contents of system.file("app", "www", package = "spatialLIBD")</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"app"</span>, <span class="st">"www"</span>, package <span class="op">=</span> <span class="st">"spatialLIBD"</span><span class="op">)</span>, <span class="va">app_dir</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -902,12 +928,12 @@ contents.</p>
 <span><span class="co">#&gt;  options(repos = BiocManager::repositories())</span></span>
 <span><span class="co">#&gt;  </span></span>
 <span><span class="co">#&gt;  ## Load the data (all paths are relative to this script's location)</span></span>
-<span><span class="co">#&gt;  spe_wrapper &lt;- readRDS("spe_wrapper.rds")</span></span>
-<span><span class="co">#&gt;  vars &lt;- colnames(colData(spe_wrapper))</span></span>
+<span><span class="co">#&gt;  app_dataset &lt;- open_app_dataset('app_inputs')</span></span>
+<span><span class="co">#&gt;  vars &lt;- colnames(colData(app_dataset$spe))</span></span>
 <span><span class="co">#&gt;  </span></span>
 <span><span class="co">#&gt;  ## Deploy the website</span></span>
 <span><span class="co">#&gt;  run_app(</span></span>
-<span><span class="co">#&gt;      spe_wrapper,</span></span>
+<span><span class="co">#&gt;      app_dataset,</span></span>
 <span><span class="co">#&gt;      sce_layer = NULL,</span></span>
 <span><span class="co">#&gt;      modeling_results = NULL,</span></span>
 <span><span class="co">#&gt;      sig_genes = NULL,</span></span>
@@ -947,7 +973,7 @@ exact authentication details for your access token.</p>
 <span><span class="co">#&gt;      appDir = app_dir,</span></span>
 <span><span class="co">#&gt;      appFiles = c(</span></span>
 <span><span class="co">#&gt;          "app.R",</span></span>
-<span><span class="co">#&gt;          "spe_wrapper.rds",</span></span>
+<span><span class="co">#&gt;          dir(file.path(app_dir, "app_inputs"), full.names = TRUE),</span></span>
 <span><span class="co">#&gt;          gsub(file.path(app_dir, "www"), "www", dir(file.path(app_dir, "www"), full.names = TRUE))</span></span>
 <span><span class="co">#&gt;      ),</span></span>
 <span><span class="co">#&gt;      appName = "spatialLIBD_Human_Lymph_Node_10x",</span></span>
@@ -973,9 +999,11 @@ to one helps reduce the memory burden.</li>
 <code>Instance Size</code>. So this this value to
 <code>8 / (lobstr::obj_size(spe_wrapper) / 1024^3)</code> or lower.</li>
 <li>
-<em>Advanced</em> <code>Startup Timeout</code>: 300. This one is
-important otherwise your app might error out before even loading since
-the default is 5 seconds, which is typically too short.</li>
+<em>Advanced</em> <code>Startup Timeout</code>: 300 (though after
+recent performance improvements, this can generally be set much lower;
+around 30 or so). This one is important otherwise your app might error
+out before even loading since the default is 5 seconds, which is
+typically too short.</li>
 <li>
 <em>Advanced</em> <code>Idle Timeout</code>: 60. This is useful
 since you might want to give users as much time for their manual
@@ -983,40 +1011,32 @@ annotations as possible.</li>
 </ul>
 </div>
 <div class="section level2">
-<h2 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
+<h2 id="limitations-and-performance">Limitations and performance<a class="anchor" aria-label="anchor" href="#limitations-and-performance"></a>
 </h2>
 <p><code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code> has limitations that are inherent
 to the methods used to implement it, such as:</p>
 <ol style="list-style-type: decimal">
-<li>the memory per user required by a server for hosting the web
-application,</li>
-<li>response speeds for the interactive views due to the number of
-spots,</li>
-<li>the resolution of the images displayed limiting the usefulness to
-magnify specific spots,</li>
+<li>the total memory required by a server to host the web application
+for multiple users simultaneously,</li>
 <li>and customization of the web application by the end user.</li>
 </ol>
 <div class="section level3">
 <h3 id="memory">Memory<a class="anchor" aria-label="anchor" href="#memory"></a>
 </h3>
-<p>Regarding the memory limitation, you can estimate how much memory you
-need per user by considering the memory required for the
-<code>spe</code> and <code>sce_layer</code> objects.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/obj_size.html" class="external-link">obj_size</a></span><span class="op">(</span><span class="va">spe</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1024</span><span class="op">^</span><span class="fl">2</span> <span class="co">## Convert to MB</span></span>
-<span><span class="co">#&gt; 283.88 B</span></span></code></pre></div>
-<p>In our pilot data (Maynard, Collado-Torres, Weber et al., 2021) our
-object uses about 2.1 GB of RAM since it contains the data for 12 Visium
-slides and we considered using about 3 GB of RAM per user. You could
-filter the genes more aggressively to drop lowly expressed genes or if
-you have many Visium slides, you could consider making multiple websites
-for different sets of slides. You could also have multiple mirrors to
-support several users, though in that case, we recommend linking users
-to a stable website instead of one that might not be available if you
-have too many users: for us our stable website is <a href="http://research.libd.org/spatialLIBD/" class="external-link uri">http://research.libd.org/spatialLIBD/</a> which includes the
-links to all the mirrors.</p>
-<p>Given these memory limitations, we chose to deploy our main web
-application at <a href="http://spatial.libd.org/spatialLIBD/" class="external-link uri">http://spatial.libd.org/spatialLIBD/</a> using an Amazon EC2
+<p><code>spatialLIBD</code> apps have been heavily optimized to keep app
+server memory manageable, even with multi-sample datasets spanning
+millions of cells, thousands of genes, and multiple full-resolution
+images. For a quick idea of memory use, a 3-sample Illumina StrataMap
+dataset with 400,000 cells, 51,000 genes, 3 full-resolution images, and
+cell segmentations requires about 2 GB of RAM to host for one concurrent
+user. <code>prepare_app_dataset()</code> produces app inputs whose
+assays are never realized in memory (except for chunks of actively
+requested genes), and small tiles or chunks of full-resolution images
+are served and held in memory as needed by users’ browsers rather than
+the app server. Cell metadata, including <code><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData()</a></code> and
+<code><a href="https://rdrr.io/pkg/SingleCellExperiment/man/reducedDims.html" class="external-link">reducedDims()</a></code>, typically dominate memory consumption.</p>
+<p>Before implementing many of these substantial memory optimizations,
+we chose to deploy our original main web application at <a href="http://spatial.libd.org/spatialLIBD/" class="external-link uri">http://spatial.libd.org/spatialLIBD/</a> using an Amazon EC2
 instance: an ‘r5.4xlarge’ EC2 instance with 16 vCPUs, 128 GB DRAM, 10 Gb
 max network, 1.008 USD/Hour. We also have deployed mirrors at <a href="https://www.shinyapps.io/" class="external-link uri">https://www.shinyapps.io/</a> using the “3X-Large (8 GB)”
 instances they provide.</p>
@@ -1024,34 +1044,20 @@ instances they provide.</p>
 <div class="section level3">
 <h3 id="response-speeds">Response speeds<a class="anchor" aria-label="anchor" href="#response-speeds"></a>
 </h3>
-<p>This limitation is mostly due to the number of spots shown under the
-“clusters (interactive)” section of the interactive website powered by
-<em><a href="https://CRAN.R-project.org/package=plotly" class="external-link">plotly</a></em>.
-Each spot is shown four times which is about 16 thousand spots for one
-Visium slide (depending on any filter steps you applied). The response
-time will depend on your own computer RAM memory, that is, the
-<em>client</em> side. This limitation might be more noticeable if you
-have a computer with 8GB of RAM or lower, as well as if you have other
-high-memory software open. Furthermore, if you are running web
-application locally through <code><a href="../reference/run_app.html">spatialLIBD::run_app()</a></code> then you
-also need to consider the required memory for the R objects. That is,
-the <em>server</em> side memory use.</p>
-<p>Thanks to <a href="http://orcid.org/0000-0001-5128-3838" class="external-link">Jesús Vélez
-Santiago</a>, the app is more responsive as of version 1.3.15 by using
-<code><a href="https://rdrr.io/pkg/plotly/man/toWebGL.html" class="external-link">plotly::toWebGL()</a></code>.</p>
-</div>
-<div class="section level3">
-<h3 id="image-resolution">Image resolution<a class="anchor" aria-label="anchor" href="#image-resolution"></a>
-</h3>
-<p>When you construct the SpatialExperiment <code>spe</code> object with
-<em><a href="https://bioconductor.org/packages/3.23/SpatialExperiment" class="external-link">SpatialExperiment</a></em>,
-you can read in higher resolution images. However, the benefit of
-loading the raw histology images (500 MB to 20 GB per image) is likely
-non-existent in this web application. The memory required would likely
-become prohibitive. Other solutions load these raw histology images in
-chunks and display the chunks necessary for a given visualization area.
-We thus recommend using other software if you want to zoom in at the
-spot and/or cell resolution.</p>
+<p>While substantial work has been put into making apps responsive,
+there is room for improvement particularly when switching samples and
+regenerating static grids. Some performance choices help keep most of
+the app fairly responsive:</p>
+<ul>
+<li>Zooming/panning in the <code>Interactive</code> tab happen in users’
+browsers, not the server</li>
+<li>Appearance changes don’t repeat expensive calculations</li>
+<li>Feature changes re-use spatial information</li>
+<li>Gene-oriented <code>BPCells</code> storage keeps assays out of
+memory while still enabling efficient retrieval of genes</li>
+<li>Spatial geometries are prepared in advance and use a compact binary
+format</li>
+</ul>
 </div>
 <div class="section level3">
 <h3 id="customization">Customization<a class="anchor" aria-label="anchor" href="#customization"></a>
@@ -1081,6 +1087,9 @@ to:</p>
 <li>
 <em><a href="https://bioconductor.org/packages/3.23/BiocStyle" class="external-link">BiocStyle</a></em>
 (Oleś, 2026)</li>
+<li>
+<em><a href="https://github.com/bnprks/BPCells" class="external-link">BPCells</a></em>
+(Parks and Abdi, 2026)</li>
 <li>
 <em><a href="https://CRAN.R-project.org/package=knitr" class="external-link">knitr</a></em> (Xie,
 2026)</li>
@@ -1119,9 +1128,9 @@ and Risso, 2022)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"TenX_data_download.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2026-11-11 21:44:38 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2026-11-19 17:12:58 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 1.02 mins</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 1.461 mins</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -1133,7 +1142,7 @@ and Risso, 2022)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2026-11-11</span></span>
+<span><span class="co">#&gt;  date     2026-11-19</span></span>
 <span><span class="co">#&gt;  pandoc   3.10 @ /usr/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt;  quarto   1.9.38 @ /usr/local/bin/quarto</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -1203,7 +1212,7 @@ and Risso, 2022)</li>
 <span><span class="co">#&gt;  GenomicRanges        * 1.64.0    <span style="color: #555555;">2026-04-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.23 (R 4.6.1)</span></span></span>
 <span><span class="co">#&gt;  GetoptLong             1.1.1     <span style="color: #555555;">2026-04-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  ggbeeswarm             0.7.3     <span style="color: #555555;">2025-11-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
-<span><span class="co">#&gt;  ggplot2                4.0.3     <span style="color: #555555;">2026-04-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
+<span><span class="co">#&gt;  ggplot2                4.0.4     <span style="color: #555555;">2026-11-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  ggrepel                0.9.8     <span style="color: #555555;">2026-03-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  GlobalOptions          0.1.4     <span style="color: #555555;">2026-04-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  glue                   1.8.1     <span style="color: #555555;">2026-04-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
@@ -1291,12 +1300,12 @@ and Risso, 2022)</li>
 <span><span class="co">#&gt;  SparseArray            1.12.3    <span style="color: #555555;">2026-09-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.23 (R 4.6.1)</span></span></span>
 <span><span class="co">#&gt;  sparseMatrixStats      1.24.0    <span style="color: #555555;">2026-04-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.23 (R 4.6.1)</span></span></span>
 <span><span class="co">#&gt;  SpatialExperiment    * 1.22.0    <span style="color: #555555;">2026-04-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.23 (R 4.6.1)</span></span></span>
-<span><span class="co">#&gt;  spatialLIBD          * 1.25.5    <span style="color: #555555;">2026-11-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  spatialLIBD          * 1.25.6    <span style="color: #555555;">2026-11-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  statmod                1.5.2     <span style="color: #555555;">2026-05-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  stringi                1.8.9     <span style="color: #555555;">2026-08-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  stringr                1.6.0     <span style="color: #555555;">2025-11-04</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  SummarizedExperiment * 1.42.0    <span style="color: #555555;">2026-04-28</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor 3.23 (R 4.6.1)</span></span></span>
-<span><span class="co">#&gt;  systemfonts            1.3.2     <span style="color: #555555;">2026-03-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
+<span><span class="co">#&gt;  systemfonts            1.3.3     <span style="color: #555555;">2026-11-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  textshaping            1.0.5     <span style="color: #555555;">2026-03-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  tibble                 3.3.1     <span style="color: #555555;">2026-01-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
 <span><span class="co">#&gt;  tidyr                  1.3.2     <span style="color: #555555;">2025-12-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.6.0)</span></span></span>
@@ -1379,7 +1388,13 @@ URL:
 <a href="https://doi.org/10.1186/s12864-022-08601-w" class="external-link">https://doi.org/10.1186/s12864-022-08601-w</a>.</cite>
 </p>
 <p>
-<a id="bib-2026language"></a><a href="#cite-2026language">[7]</a><cite>
+<a id="bib-parks2026bpcells"></a><a href="#cite-parks2026bpcells">[7]</a><cite>
+B. Parks and I. Abdi. <em>BPCells: Single Cell Counts Matrices to
+PCA</em>. R package version 0.3.1. 2026. URL:
+<a href="https://bnprks.github.io/BPCells" class="external-link">https://bnprks.github.io/BPCells</a>.</cite>
+</p>
+<p>
+<a id="bib-2026language"></a><a href="#cite-2026language">[8]</a><cite>
 R Core Team. <em>R: A Language and Environment for Statistical
 Computing</em>. R Foundation for Statistical Computing (ROR: &lt;<a href="https://ror.org/05qewa988%3E" class="external-link uri">https://ror.org/05qewa988&gt;</a>;). Vienna, Austria, 2026.
 DOI:
@@ -1388,14 +1403,14 @@ URL:
 <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>.</cite>
 </p>
 <p>
-<a id="bib-righelli2022spatialexperiment"></a><a href="#cite-righelli2022spatialexperiment">[8]</a><cite>
+<a id="bib-righelli2022spatialexperiment"></a><a href="#cite-righelli2022spatialexperiment">[9]</a><cite>
 D. Righelli, L. M. Weber, H. L. Crowell, et al. “SpatialExperiment:
 infrastructure for spatially-resolved transcriptomics data in R using
 Bioconductor”. In: <em>Bioinformatics</em> 38.11 (2022), pp. -3. DOI:
 <a href="https://doi.org/https://doi.org/10.1093/bioinformatics/btac299" class="external-link">https://doi.org/10.1093/bioinformatics/btac299</a>.</cite>
 </p>
 <p>
-<a id="bib-shepherd2026biocfilecache"></a><a href="#cite-shepherd2026biocfilecache">[9]</a><cite>
+<a id="bib-shepherd2026biocfilecache"></a><a href="#cite-shepherd2026biocfilecache">[10]</a><cite>
 L. Shepherd and M. Morgan. <em>BiocFileCache: Manage Files Across
 Sessions</em>. R package version 3.2.0. 2026. DOI:
 <a href="https://doi.org/10.18129/B9.bioc.BiocFileCache" class="external-link">10.18129/B9.bioc.BiocFileCache</a>.
@@ -1403,25 +1418,25 @@ URL:
 <a href="https://bioconductor.org/packages/BiocFileCache" class="external-link">https://bioconductor.org/packages/BiocFileCache</a>.</cite>
 </p>
 <p>
-<a id="bib-wickham2026lobstr"></a><a href="#cite-wickham2026lobstr">[10]</a><cite>
+<a id="bib-wickham2026lobstr"></a><a href="#cite-wickham2026lobstr">[11]</a><cite>
 H. Wickham. <em>lobstr: Visualize R Data Structures with Trees</em>. R
 package version 1.2.2. 2026. URL:
 <a href="https://lobstr.r-lib.org/" class="external-link">https://lobstr.r-lib.org/</a>.</cite>
 </p>
 <p>
-<a id="bib-wickham2011testthat"></a><a href="#cite-wickham2011testthat">[11]</a><cite>
+<a id="bib-wickham2011testthat"></a><a href="#cite-wickham2011testthat">[12]</a><cite>
 H. Wickham. “testthat: Get Started with Testing”. In: <em>The R
 Journal</em> 3 (2011), pp. 5–10. URL:
 <a href="https://journal.r-project.org/articles/RJ-2011-002/" class="external-link">https://journal.r-project.org/articles/RJ-2011-002/</a>.</cite>
 </p>
 <p>
-<a id="bib-wickham2026sessioninfo"></a><a href="#cite-wickham2026sessioninfo">[12]</a><cite>
+<a id="bib-wickham2026sessioninfo"></a><a href="#cite-wickham2026sessioninfo">[13]</a><cite>
 H. Wickham, W. Chang, R. Flight, et al. <em>sessioninfo: R Session
 Information</em>. R package version 1.2.4. 2026. URL:
 <a href="https://sessioninfo.r-lib.org" class="external-link">https://sessioninfo.r-lib.org</a>.</cite>
 </p>
 <p>
-<a id="bib-xie2026knitr"></a><a href="#cite-xie2026knitr">[13]</a><cite>
+<a id="bib-xie2026knitr"></a><a href="#cite-xie2026knitr">[14]</a><cite>
 Y. Xie. <em>knitr: A General-Purpose Package for Dynamic Report
 Generation in R</em>. R package version 1.52. 2026. URL:
 <a href="https://yihui.org/knitr/" class="external-link">https://yihui.org/knitr/</a>.</cite>

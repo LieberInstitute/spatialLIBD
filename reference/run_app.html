@@ -19,7 +19,7 @@ any other data that you have shaped according to our object structure."><meta pr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.25.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.25.6</span>
       </span>
     </div>
 
@@ -77,7 +77,7 @@ any other data that you have shaped according to our object structure.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">run_app</span><span class="op">(</span></span>
-<span>  spe <span class="op">=</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"spe"</span><span class="op">)</span>,</span>
+<span>  <span class="va">dataset</span>,</span>
 <span>  sce_layer <span class="op">=</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"sce_layer"</span><span class="op">)</span>,</span>
 <span>  modeling_results <span class="op">=</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"modeling_results"</span><span class="op">)</span>,</span>
 <span>  sig_genes <span class="op">=</span> <span class="fu"><a href="sig_genes_extract_all.html">sig_genes_extract_all</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sce_layer</span><span class="op">)</span>, modeling_results <span class="op">=</span></span>
@@ -106,18 +106,15 @@ any other data that you have shaped according to our object structure.</p>
     <h2>Arguments</h2>
 
 
-<dl><dt id="arg-spe">spe<a class="anchor" aria-label="anchor" href="#arg-spe"></a></dt>
-<dd><p>Defaults to the output of
-<code>fetch_data(type = 'spe')</code>. This is a
-<a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment.html" class="external-link">SpatialExperiment-class</a>
-object with the spot-level Visium data and information required for
-visualizing the histology. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details.</p></dd>
+<dl><dt id="arg-dataset">dataset<a class="anchor" aria-label="anchor" href="#arg-dataset"></a></dt>
+<dd><p>Prepared spot-level inputs returned by <code><a href="open_app_dataset.html">open_app_dataset()</a></code>.
+Create these once with <code><a href="prepare_app_inputs.html">prepare_app_inputs()</a></code> from an ordinary SPE/SFE.</p></dd>
 
 
 <dt id="arg-sce-layer">sce_layer<a class="anchor" aria-label="anchor" href="#arg-sce-layer"></a></dt>
 <dd><p>Defaults to the output of
 <code>fetch_data(type = 'sce_layer')</code>. This is a
-SingleCellExperiment
+<a href="https://rdrr.io/pkg/SingleCellExperiment/man/SingleCellExperiment.html" class="external-link">SingleCellExperiment</a>
 object with the spot-level Visium data compressed via pseudo-bulking to the
 layer-level (group-level) resolution. See <code><a href="fetch_data.html">fetch_data()</a></code> for more details.</p></dd>
 
@@ -238,33 +235,37 @@ palette controls.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co">## The default arguments will download the data from the web</span></span></span>
-<span class="r-in"><span><span class="co">## using fetch_data(). If this is the first time you have run this,</span></span></span>
-<span class="r-in"><span><span class="co">## the files will need to be cached by ExperimentHub. Otherwise it</span></span></span>
-<span class="r-in"><span><span class="co">## will re-use the files you have previously downloaded.</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="enough_ram.html">enough_ram</a></span><span class="op">(</span><span class="fl">4e9</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>    <span class="co">## Obtain the necessary data</span></span></span>
-<span class="r-in"><span>    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span><span class="op">)</span> <span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Prepare spot-level inputs once, outside app.R / deployment startup.</span></span></span>
+<span class="r-in"><span><span class="co">## fetch_data() downloads and caches the source SPE through ExperimentHub.</span></span></span>
+<span class="r-in"><span><span class="co">## Preparation needs the source object in memory and writes a new directory;</span></span></span>
+<span class="r-in"><span><span class="co">## output_dir must not already exist.</span></span></span>
+<span class="r-in"><span><span class="va">spe</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spe"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Optional aligned full-resolution pyramids can be supplied at preparation:</span></span></span>
+<span class="r-in"><span><span class="co">## fullres_images is named by sample_id. Low-resolution SPE images are kept.</span></span></span>
+<span class="r-in"><span><span class="co"># prepare_app_inputs(</span></span></span>
+<span class="r-in"><span><span class="co">#     spe,</span></span></span>
+<span class="r-in"><span><span class="co">#     output_dir = "app-inputs-fullres",</span></span></span>
+<span class="r-in"><span><span class="co">#     fullres_images = list(</span></span></span>
+<span class="r-in"><span><span class="co">#         sample_1 = "/path/to/sample_1.ome.tif",</span></span></span>
+<span class="r-in"><span><span class="co">#         sample_2 = "/path/to/sample_2.ome.zarr"</span></span></span>
+<span class="r-in"><span><span class="co">#     )</span></span></span>
+<span class="r-in"><span><span class="co"># )</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>    <span class="co">## Create the interactive website</span></span></span>
-<span class="r-in"><span>    <span class="fu">run_app</span><span class="op">(</span><span class="va">spe</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">inputs_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="st">"spatialLIBD-inputs-"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="prepare_app_inputs.html">prepare_app_inputs</a></span><span class="op">(</span><span class="va">spe</span>, output_dir <span class="op">=</span> <span class="va">inputs_dir</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>    <span class="co">## You can also run a custom version without the pseudo-bulked</span></span></span>
-<span class="r-in"><span>    <span class="co">## layer information. This is useful if you are only interested</span></span></span>
-<span class="r-in"><span>    <span class="co">## in the spatial transcriptomics features.</span></span></span>
-<span class="r-in"><span>    <span class="fu">run_app</span><span class="op">(</span><span class="va">spe</span>,</span></span>
-<span class="r-in"><span>        sce_layer <span class="op">=</span> <span class="cn">NULL</span>, modeling_results <span class="op">=</span> <span class="cn">NULL</span>, sig_genes <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
-<span class="r-in"><span>        title <span class="op">=</span> <span class="st">"spatialLIBD without layer info"</span></span></span>
-<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## On subsequent launches, only open the prepared directory. For deployment,</span></span></span>
+<span class="r-in"><span><span class="co">## keep its complete contents together and use a persistent path in app.R.</span></span></span>
+<span class="r-in"><span><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="open_app_dataset.html">open_app_dataset</a></span><span class="op">(</span><span class="va">inputs_dir</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>    <span class="co">## When using shinyapps.io aim for less than 3 GB of RAM with your</span></span></span>
-<span class="r-in"><span>    <span class="co">## objects. Check each input object with:</span></span></span>
-<span class="r-in"><span>    <span class="co">## lobstr::obj_size(x)</span></span></span>
-<span class="r-in"><span>    <span class="co">## Do not create the large input objects on the app.R script before</span></span></span>
-<span class="r-in"><span>    <span class="co">## subsetting them. Do this outside app.R since the app.R script is</span></span></span>
-<span class="r-in"><span>    <span class="co">## run at shinyapps.io, so subsetting on that script to reduce the</span></span></span>
-<span class="r-in"><span>    <span class="co">## memory load is pointless. You have to do it outside of app.R.</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="co">## Include the default pseudo-bulked layer data (downloaded on first use).</span></span></span>
+<span class="r-in"><span><span class="fu">run_app</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Or disable the layer-level portion to show only spot-level data.</span></span></span>
+<span class="r-in"><span><span class="fu">run_app</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset</span>,</span></span>
+<span class="r-in"><span>    sce_layer <span class="op">=</span> <span class="cn">NULL</span>, modeling_results <span class="op">=</span> <span class="cn">NULL</span>, sig_genes <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>    title <span class="op">=</span> <span class="st">"spatialLIBD without layer info"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## How to run locally the spatialDLPFC Sp09 spatialLIBD app. That is,</span></span></span>
 <span class="r-in"><span><span class="co">## from http://research.libd.org/spatialDLPFC/#interactive-websites</span></span></span>
@@ -334,9 +335,14 @@ palette controls.</p>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">temp_www</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>    <span class="co">## Run the app locally</span></span></span>
+<span class="r-in"><span>    <span class="co">## Prepare once, after adding the cluster labels and custom colors.</span></span></span>
+<span class="r-in"><span>    <span class="va">dlpfc_inputs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="st">"spatialDLPFC-inputs-"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="prepare_app_inputs.html">prepare_app_inputs</a></span><span class="op">(</span><span class="va">spe</span>, output_dir <span class="op">=</span> <span class="va">dlpfc_inputs</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="co">## Run the app locally. On later launches, reuse dlpfc_inputs and load</span></span></span>
+<span class="r-in"><span>    <span class="co">## only the layer-level objects above, without fetching the source SPE.</span></span></span>
 <span class="r-in"><span>    <span class="fu">run_app</span><span class="op">(</span></span></span>
-<span class="r-in"><span>        <span class="va">spe</span>,</span></span>
+<span class="r-in"><span>        dataset <span class="op">=</span> <span class="fu"><a href="open_app_dataset.html">open_app_dataset</a></span><span class="op">(</span><span class="va">dlpfc_inputs</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>        sce_layer <span class="op">=</span> <span class="va">sce_pseudo</span>,</span></span>
 <span class="r-in"><span>        modeling_results <span class="op">=</span> <span class="va">modeling_results</span>,</span></span>
 <span class="r-in"><span>        sig_genes <span class="op">=</span> <span class="va">sig_genes</span>,</span></span>
@@ -385,9 +391,12 @@ palette controls.</p>
 <span class="r-in"><span><span class="co">## Notice the use of "exclude_overlapping"</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">spe_stitched</span><span class="op">$</span><span class="va">exclude_overlapping</span>, useNA <span class="op">=</span> <span class="st">"ifany"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## Run the app with this stitched data</span></span></span>
+<span class="r-in"><span><span class="co">## Prepare once, then reuse the prepared directory for later launches.</span></span></span>
+<span class="r-in"><span><span class="va">stitched_inputs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="st">"visiumStitched-inputs-"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="prepare_app_inputs.html">prepare_app_inputs</a></span><span class="op">(</span><span class="va">spe_stitched</span>, output_dir <span class="op">=</span> <span class="va">stitched_inputs</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">run_app</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    spe <span class="op">=</span> <span class="va">spe_stitched</span>,</span></span>
+<span class="r-in"><span>    dataset <span class="op">=</span> <span class="fu"><a href="open_app_dataset.html">open_app_dataset</a></span><span class="op">(</span><span class="va">stitched_inputs</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    sce_layer <span class="op">=</span> <span class="cn">NULL</span>, modeling_results <span class="op">=</span> <span class="cn">NULL</span>, sig_genes <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span>    title <span class="op">=</span> <span class="st">"visiumStitched example data"</span>,</span></span>
 <span class="r-in"><span>    spe_discrete_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"capture_area"</span>, <span class="st">"scran_quick_cluster"</span>, <span class="st">"ManualAnnotation"</span><span class="op">)</span>,</span></span>
@@ -399,9 +408,13 @@ palette controls.</p>
 <span class="r-in"><span><span class="co">## Example for Xenium object</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists</a></span><span class="op">(</span><span class="st">"spe_xenium"</span><span class="op">)</span><span class="op">)</span> <span class="va">spe_xenium</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_data.html">fetch_data</a></span><span class="op">(</span><span class="st">"spe_xenium_example"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">run_app</span><span class="op">(</span><span class="va">spe_xenium</span>,</span></span>
-<span class="r-in"><span>        sce_layer <span class="op">=</span> <span class="cn">NULL</span>, modeling_results <span class="op">=</span> <span class="cn">NULL</span>, sig_genes <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
-<span class="r-in"><span>        title <span class="op">=</span> <span class="st">"spatialLIBD Xenium without layer info"</span>,</span></span>
+<span class="r-in"><span><span class="va">xenium_inputs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="st">"Xenium-inputs-"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="prepare_app_inputs.html">prepare_app_inputs</a></span><span class="op">(</span><span class="va">spe_xenium</span>, output_dir <span class="op">=</span> <span class="va">xenium_inputs</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">run_app</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    dataset <span class="op">=</span> <span class="fu"><a href="open_app_dataset.html">open_app_dataset</a></span><span class="op">(</span><span class="va">xenium_inputs</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    sce_layer <span class="op">=</span> <span class="cn">NULL</span>, modeling_results <span class="op">=</span> <span class="cn">NULL</span>, sig_genes <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>    title <span class="op">=</span> <span class="st">"spatialLIBD Xenium without layer info"</span>,</span></span>
 <span class="r-in"><span>    spe_discrete_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>        <span class="st">"SpX"</span>,</span></span>
 <span class="r-in"><span>        <span class="st">"ManualAnnotation"</span></span></span>

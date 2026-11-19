@@ -42,7 +42,9 @@
 <url><loc>/reference/multi_gene_pca.html</loc></url>
 <url><loc>/reference/multi_gene_sparsity.html</loc></url>
 <url><loc>/reference/multi_gene_z_score.html</loc></url>
+<url><loc>/reference/open_app_dataset.html</loc></url>
 <url><loc>/reference/prep_stitched_data.html</loc></url>
+<url><loc>/reference/prepare_app_inputs.html</loc></url>
 <url><loc>/reference/read10xVisiumAnalysis.html</loc></url>
 <url><loc>/reference/read10xVisiumWrapper.html</loc></url>
 <url><loc>/reference/registration_block_cor.html</loc></url>
