@@ -1,3 +1,14 @@
+# spatialLIBD 1.25.7
+
+NEW FEATURES
+
+* Redesigned spot-level exploration in `run_app()` apps, reducing the existing tabs to new `Interactive` and `Static grid` panels. Full-resolution histology images and spatial geometries (e.g. cell segmentations) are now supported, with interactive zooming and panning
+* Substantial improvements to app first-load times, in-app responsiveness, and panel organization
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* Introduced `prepare_app_inputs()` and `open_app_dataset()` to efficiently bundle app `SpatialExperiment`/`SpatialFeatureExperiment` inputs with optional full-resolution histology images. This enables disk backing of assays with efficient gene-oriented retrieval and other significant memory optimizations. App RAM use is now much more scalable to larger Visium HD and StrataMap datasets, for exmaple.
+
 # spatialLIBD 1.25.6
 
 NEW FEATURES
