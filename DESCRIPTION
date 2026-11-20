@@ -1,11 +1,11 @@
 Package: spatialLIBD
 Title: spatialLIBD: an R/Bioconductor package to visualize spatially-resolved
     transcriptomics data
-Version: 1.25.7
+Version: 1.25.8
 Date: 2026-11-20
 Authors@R:
     c(
-    person("Leonardo", "Collado-Torres", role = c("aut", "cre"), 
+    person("Leonardo", "Collado-Torres", role = "aut", 
     email = "lcolladotor@gmail.com", comment = c(ORCID = "0000-0003-2140-308X")),
     person(c("Kristen", "R."), "Maynard",
     role = "ctb", email = "Kristen.Maynard@libd.org",
@@ -27,7 +27,7 @@ Authors@R:
     comment = c(ORCID = "0000-0002-3282-1730")),
     person("Louise", "Huuki-Myers", role = "ctb", email = "lahuuki@gmail.com",
     comment = c(ORCID = "0000-0001-5148-3602")),
-    person("Nicholas", "Eagles", role = "ctb", email = "nickeagles77@gmail.com",
+    person("Nicholas", "Eagles", role = "aut", "cre", email = "nickeagles77@gmail.com",
     comment = c(ORCID = "0000-0002-9808-5254"))
     )
 Description: Inspect interactively the spatially-resolved transcriptomics data

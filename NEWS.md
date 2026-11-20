@@ -1,3 +1,9 @@
+# spatialLIBD 1.25.8
+
+NEW FEATURES
+
+* List @nick-eagles as the maintainer of the package.
+
 # spatialLIBD 1.25.7
 
 NEW FEATURES
