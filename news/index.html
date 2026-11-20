@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialLIBD</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.25.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.25.7</span>
       </span>
     </div>
 
@@ -66,6 +66,14 @@
       <small>Source: <a href="https://github.com/LieberInstitute/spatialLIBD/blob/devel/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.25.7" id="spatiallibd-1257">spatialLIBD 1.25.7<a class="anchor" aria-label="anchor" href="#spatiallibd-1257"></a></h2>
+<p>NEW FEATURES</p>
+<ul><li>Redesigned spot-level exploration in <code><a href="../reference/run_app.html">run_app()</a></code> apps, reducing the existing tabs to new <code>Interactive</code> and <code>Static grid</code> panels. Full-resolution histology images and spatial geometries (e.g. cell segmentations) are now supported, with interactive zooming and panning</li>
+<li>Substantial improvements to app first-load times, in-app responsiveness, and panel organization</li>
+</ul><p>SIGNIFICANT USER-VISIBLE CHANGES</p>
+<ul><li>Introduced <code><a href="../reference/prepare_app_inputs.html">prepare_app_inputs()</a></code> and <code><a href="../reference/open_app_dataset.html">open_app_dataset()</a></code> to efficiently bundle app <code>SpatialExperiment</code>/<code>SpatialFeatureExperiment</code> inputs with optional full-resolution histology images. This enables disk backing of assays with efficient gene-oriented retrieval and other significant memory optimizations. App RAM use is now much more scalable to larger Visium HD and StrataMap datasets, for exmaple.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.25.6" id="spatiallibd-1256">spatialLIBD 1.25.6<a class="anchor" aria-label="anchor" href="#spatiallibd-1256"></a></h2>
 <p>NEW FEATURES</p>
