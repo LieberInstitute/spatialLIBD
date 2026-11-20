@@ -2,12 +2,14 @@
 # Keep historical dataset palettes, available discrete palette choices, category
 # color mapping, and model-boxplot colors together.
 
+# Return the historical paper palette, optionally using abbreviated layer names.
 app_paper_colors <- function(short = FALSE) {
     colors <- spatialLIBD::libd_layer_colors[-length(spatialLIBD::libd_layer_colors)]
     if (short) names(colors) <- gsub("ayer", "", names(colors))
     colors
 }
 
+# Prefer supplied domain colors, then matching LIBD colors, then a discrete palette.
 app_layer_colors <- function(sce, group_var) {
     colors <- sce[[paste0(group_var, "_colors")]]
     if (!is.null(colors)) return(colors)
@@ -22,6 +24,7 @@ app_layer_colors <- function(sce, group_var) {
     get_colors(colors = NULL, clusters = groups)
 }
 
+# Keep established spot-level annotations tied to their historical color mappings.
 app_legacy_colors <- function(variable) {
     if (variable %in% c("Maynard", "Martinowich")) {
         return(c(
@@ -39,6 +42,7 @@ app_legacy_colors <- function(variable) {
     NULL
 }
 
+# Offer supplied colors and discrete palettes large enough for the selected variable.
 app_palette_choices <- function(spe, variable) {
     labels <- spe[[variable]]
     supplied <- paste0(variable, "_colors")
@@ -53,6 +57,7 @@ app_palette_choices <- function(spe, variable) {
     })
 }
 
+# Resolve spot-level category colors from historical, supplied, or selected palettes.
 app_discrete_colors <- function(spe, variable, palette, reverse = FALSE) {
     legacy <- app_legacy_colors(variable)
     if (!is.null(legacy)) {
@@ -73,6 +78,7 @@ app_discrete_colors <- function(spe, variable, palette, reverse = FALSE) {
     colors
 }
 
+# Translate a palette choice into the background, low, and high expression colors.
 app_boxplot_colors <- function(palette) {
     colors <- switch(palette,
         viridis = c(

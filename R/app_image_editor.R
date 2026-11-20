@@ -2,6 +2,7 @@
 # Share defaults and editing arguments across UI initialization, reset, preview,
 # and application to all samples. Expose updated images reactively to other views.
 
+# Build low-resolution editing controls and the preview, reset, and apply actions.
 app_image_editor_ui <- function() {
     defaults <- app_image_defaults()
     tabPanel(
@@ -187,14 +188,17 @@ app_image_defaults <- function() {
     )
 }
 
+# Collect the current editor inputs under the argument names expected by img_edit().
 app_image_arguments <- function(input) {
     names <- names(app_image_defaults())
     setNames(lapply(names, function(name) input[[paste0("editImg_", name)]]), names)
 }
 
+# Preview low-resolution edits and publish registered image variants within this session.
 app_image_editor_server <- function(input, output, session, initial_spe, datatype) {
     current_spe <- reactiveVal(initial_spe)
     catalog <- reactive(app_image_catalog(current_spe()))
+    # Editing is limited to low-resolution images available for the current sample.
     observeEvent(list(input$sample, catalog()), {
         sources <- catalog()[[input$sample]]$sources
         choices <- names(Filter(function(s) s$type == "image", sources))
@@ -202,6 +206,7 @@ app_image_editor_server <- function(input, output, session, initial_spe, datatyp
         selected <- if (length(old) == 1 && old %in% choices) old else app_preferred(choices, "lowres")
         updateSelectInput(session, "editImg_imageid", choices = choices, selected = selected)
     })
+    # Edit a small raster while retaining the scene registration for the resulting variant.
     edit <- function(spe, sample) {
         source <- app_image_source(app_image_catalog(spe), sample, input$editImg_imageid)
         if (is.null(source) || source$type != "image") stop("Select a low-resolution image to edit.")
@@ -216,6 +221,7 @@ app_image_editor_server <- function(input, output, session, initial_spe, datatyp
         list(pixels = pixels, scale = source$scale_factor, extent = raster$extent,
             y_direction = if (app_spot_y_down(spe, source)) "down" else "up")
     }
+    # Preview changes immediately; applying them to all samples requires an explicit action.
     preview <- reactive({
         req(input$sample, nzchar(input$editImg_imageid))
         edit(current_spe(), input$sample)$pixels
@@ -263,6 +269,7 @@ app_image_editor_server <- function(input, output, session, initial_spe, datatyp
             showNotification("Edited low-resolution images are ready. Select edited_imaged to display them.")
         }, error = function(e) showNotification(conditionMessage(e), type = "error", duration = NULL))
     })
+    # Reset each widget through its matching Shiny update API using the shared defaults.
     observeEvent(input$editImg_reset_menus, {
         for (name in names(app_image_defaults())) {
             value <- app_image_defaults()[[name]]

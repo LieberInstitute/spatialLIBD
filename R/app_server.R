@@ -18,6 +18,7 @@
 #' @importFrom utils read.csv write.csv
 #' @importFrom SummarizedExperiment assays
 
+# Wire session-local images, annotations, and shared spot data into each feature server.
 # Feature servers receive their data explicitly; controls stay at app scope.
 app_server <- function(input, output, session) {
     options <- golem::get_golem_options()
@@ -26,11 +27,13 @@ app_server <- function(input, output, session) {
         gene_data = function() interactive$gene_data(),
         revision = function() interactive$revision()
     )
+    # Combine edited images and current labels without mutating the launch-time object.
     spe <- reactive({
         current <- images$spe()
         current$ManualAnnotation <- annotations()
         current
     })
+    # Share resource lifetimes, image registration, and controls across spot-level views.
     resources <- app_viewer_resources(session)
     catalog <- reactive(app_image_catalog(spe()))
     colors <- app_spot_controls_server(input, session, spe, catalog)
@@ -38,6 +41,7 @@ app_server <- function(input, output, session) {
     grids <- app_spot_grids_server(input, output, spe, colors, catalog, session)
     interactive <- app_spot_interactive_server(input, output, session, spe, colors, resources, catalog)
 
+    # Only initialize pseudobulk features when layer-level inputs were supplied.
     if (!is.null(options$sce_layer)) {
         sce <- options$sce_layer
         app_layer_controls_server(input, output, session, sce, options$sig_genes)

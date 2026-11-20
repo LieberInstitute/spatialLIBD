@@ -36,6 +36,7 @@ app_ui <- function() {
     )
 }
 
+# Compose the optional pseudobulk tabs with valid initial model and embedding choices.
 app_layer_ui <- function(options) {
     default_model <- app_preferred(names(options$modeling_results), "enrichment")
     default_dim <- app_preferred(reducedDimNames(options$sce_layer), "PCA")
@@ -52,6 +53,7 @@ app_layer_ui <- function(options) {
     ))
 }
 
+# Show support channels and the session information needed to reproduce problems.
 app_help_ui <- function() {
     tabPanel("Help or feedback", tagList(
         HTML(paste0(
@@ -67,8 +69,10 @@ app_help_ui <- function() {
     ))
 }
 
+# Resolve a documentation asset within the directory selected at launch.
 app_document <- function(docs_path, name) file.path(docs_path, name)
 
+# Register documentation assets and the browser viewer dependencies.
 #' @import shiny
 golem_add_external_resources <- function(docs_path) {
     addResourcePath("www", docs_path)

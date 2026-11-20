@@ -2,6 +2,7 @@
 # Match query genes to the reference model results, compute correlations and
 # cluster annotations, and share them across the heatmap, table, and exports.
 
+# Provide query-statistic upload, correlation and annotation controls, and exports.
 app_layer_registration_ui <- function() {
     tabPanel(
         "Spatial registration",
@@ -85,7 +86,9 @@ app_layer_registration_ui <- function() {
     )
 }
 
+# Correlate query statistics with reference models and share annotations across outputs.
 app_layer_registration_server <- function(input, output, sce, models, group_var) {
+    # Resolve query statistics and require sufficient gene overlap with the reference.
     correlations <- reactive({
         req(input$layer_model)
         query <- if (is.null(input$externalTstat)) {
@@ -103,6 +106,7 @@ app_layer_registration_server <- function(input, output, sce, models, group_var)
         ))
         layer_stat_cor(query, models, input$layer_model)
     })
+    # Apply confidence and merging rules to the shared correlation matrix.
     annotations <- reactive(annotate_registered_clusters(
         correlations(),
         input$layer_confidence_threshold, input$layer_cutoff_merge_ratio
@@ -117,6 +121,7 @@ app_layer_registration_server <- function(input, output, sce, models, group_var)
             reference_colors = app_model_colors(sce, group_var, colnames(matrix), input$layer_model)
         )
     })
+    # Reuse the plotted matrix and annotations for the corresponding CSV/PDF exports.
     stem <- function() paste0("layer_TstatCor_", input$layer_model)
     output$layer_tstat_cor_plot <- renderPlot(print(plot()), width = 800, height = "auto")
     output$layer_tstat_cor_table <- app_table(correlations, row_names = TRUE)

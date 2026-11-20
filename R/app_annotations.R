@@ -1,3 +1,4 @@
+# Maintain session-local annotations, one-step undo, and CSV import/export.
 # The renderer sends stable keys. Validate them against the current eligible set
 # on the server, rather than trusting browser indices or stale hidden units.
 app_annotations_server <- function(input, output, session, spe, gene_data, revision) {
@@ -5,7 +6,9 @@ app_annotations_server <- function(input, output, session, spe, gene_data, revis
     if (length(initial) != ncol(spe)) initial <- rep("NA", ncol(spe))
     labels <- reactiveVal(initial)
     undo <- reactiveVal(NULL)
+    # Restrict annotation actions to the currently visible, eligible units.
     eligible <- function() gene_data()$key
+    # Save the affected labels before applying an edit so the action can be undone.
     apply_labels <- function(keys, label) {
         if (!nzchar(trimws(label))) {
             showNotification("Enter an annotation label.", type = "message")
@@ -18,6 +21,7 @@ app_annotations_server <- function(input, output, session, spe, gene_data, revis
         current[index] <- label
         labels(current)
     }
+    # Reject another sample's events and intersect browser keys with server eligibility.
     event_keys <- function(event) {
         if (is.null(event) || !identical(event$sample, input$sample)) return(character())
         intersect(unlist(event$keys, use.names = FALSE), eligible())
@@ -28,6 +32,7 @@ app_annotations_server <- function(input, output, session, spe, gene_data, revis
             showNotification("Select visible units before assigning a label.", type = "message")
         } else apply_labels(keys, input$label_manual_ann)
     })
+    # Ignore clicks from an older feature payload after filters or values have changed.
     observeEvent(input$viewer_click, {
         if (isTRUE(input$label_click) && isTRUE(input$viewer_click$revision == revision())) {
             apply_labels(event_keys(input$viewer_click), input$label_manual_ann)
@@ -45,6 +50,7 @@ app_annotations_server <- function(input, output, session, spe, gene_data, revis
         event <- input$viewer_click
         if (is.null(event)) "Click a unit to inspect its ID." else unlist(event$keys)
     })
+    # Export sample/unit identities so labels can be restored independently of row order.
     export <- reactive({
         data <- data.frame(sample_id = spe$sample_id, spot_name = colnames(spe),
             ManualAnnotation = labels(), stringsAsFactors = FALSE)
@@ -52,6 +58,7 @@ app_annotations_server <- function(input, output, session, spe, gene_data, revis
         data
     })
     output$downloadData <- app_csv_download(function() "ManualAnnotation", export, quote = TRUE)
+    # Stage all imported labels before publishing them; later matching rows take precedence.
     observeEvent(input$priorGuesses, {
         tryCatch({
             current <- labels()

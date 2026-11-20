@@ -2,6 +2,7 @@
 # Coordinate model, test, and gene choices so dependent selections remain valid
 # as the user moves between the supplied statistical results.
 
+# Expose the statistical model family shared by the layer-level result tabs.
 app_layer_controls_ui <- function(modeling_results, default_model_type) {
     sidebarPanel(
         selectInput(
@@ -15,6 +16,7 @@ app_layer_controls_ui <- function(modeling_results, default_model_type) {
     )
 }
 
+# Show the pseudobulk object summary and the layer-level usage documentation.
 app_layer_documentation_ui <- function(docs_path) {
     tabPanel(
         "Documentation",
@@ -38,8 +40,10 @@ app_layer_documentation_ui <- function(docs_path) {
     )
 }
 
+# Keep test and gene choices valid as the selected model or comparison changes.
 app_layer_controls_server <- function(input, output, session, sce, sig_genes) {
     output$layer_raw_summary <- renderPrint(print(sce), width = 80)
+    # Derive available comparisons from the selected model's gene-result table.
     tests <- reactive({
         req(input$layer_model)
         sort(unique(sig_genes$test[sig_genes$model_type == input$layer_model]))
@@ -52,6 +56,7 @@ app_layer_controls_server <- function(input, output, session, sce, sig_genes) {
             options = pickerOptions(liveSearch = TRUE)
         )
     })
+    # Preserve the chosen gene when possible, otherwise select a valid replacement.
     observeEvent(list(input$layer_model, input$layer_model_test), {
         req(input$layer_model, input$layer_model_test)
         rows <- sig_genes$model_type == input$layer_model & sig_genes$test == input$layer_model_test

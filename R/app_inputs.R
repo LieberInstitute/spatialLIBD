@@ -24,6 +24,7 @@ prepare_app_inputs <- function(spe, output_dir, fullres_images = NULL) {
         stop("Provide one output directory.", call. = FALSE)
     }
     if (file.exists(output_dir)) stop("output_dir already exists; choose a new directory.", call. = FALSE)
+    # Normalize feature and unit identities before creating any backing files.
     cd <- SummarizedExperiment::colData(spe)
     rd <- SummarizedExperiment::rowData(spe)
     samples <- as.character(cd$sample_id)
@@ -64,6 +65,7 @@ prepare_app_inputs <- function(spe, output_dir, fullres_images = NULL) {
     colnames(shell) <- cells
     for (sample in unique(samples)) app_spot_coordinates(shell, which(samples == sample))
     catalog <- app_prepare_image_catalog(spe, fullres_images)
+    # Stage the complete dataset beside its destination; failures remove only staged files.
     parent <- dirname(output_dir)
     if (!dir.exists(parent)) stop("The parent of output_dir must exist.", call. = FALSE)
     stage <- tempfile(".spatialLIBD-prepare-", parent)
@@ -72,6 +74,7 @@ prepare_app_inputs <- function(spe, output_dir, fullres_images = NULL) {
     for (dir in c("assays", "boundaries", "images")) dir.create(file.path(stage, dir))
     assay_paths <- character(length(assay_names))
     names(assay_paths) <- assay_names
+    # Arrange assays on disk for gene-wise reads without materializing the full matrix.
     for (j in seq_along(assay_names)) {
         message("Preparing assay ", assay_names[j], " (gene-oriented, double precision)")
         a <- SummarizedExperiment::assay(spe, assay_names[j], withDimnames = FALSE)
@@ -95,6 +98,7 @@ prepare_app_inputs <- function(spe, output_dir, fullres_images = NULL) {
         assay_paths[j] <- path
         rm(a); gc(verbose = FALSE)
     }
+    # Serialize boundaries per sample using the same unit order as its expression values.
     message("Preparing sample boundaries")
     boundaries <- setNames(vector("list", length(unique(samples))), unique(samples))
     for (j in seq_along(boundaries)) {
@@ -106,6 +110,7 @@ prepare_app_inputs <- function(spe, output_dir, fullres_images = NULL) {
             boundaries[[j]] <- path
         }
     }
+    # Copy image assets with relative paths so the prepared folder can be relocated intact.
     message("Copying registered image assets")
     assets <- character()
     for (j in seq_along(catalog)) for (k in seq_along(catalog[[j]]$sources)) {
@@ -132,6 +137,7 @@ prepare_app_inputs <- function(spe, output_dir, fullres_images = NULL) {
         source$companion_ome_tiff <- NULL
         catalog[[j]]$sources[[k]] <- source
     }
+    # Publish only after the experiment, assets, and manifest have all been written.
     S4Vectors::metadata(shell) <- list(app_is_sfe = methods::is(spe, "SpatialFeatureExperiment"))
     saveRDS(shell, file.path(stage, "experiment.rds"), compress = FALSE)
     manifest <- list(format = "spatialLIBD-app", version = 1L,
@@ -172,6 +178,7 @@ open_app_dataset <- function(path) {
     if (!identical(manifest$format, "spatialLIBD-app") || !identical(manifest$version, 1L)) {
         stop("Unsupported prepared app dataset format/version.", call. = FALSE)
     }
+    # Reject absolute paths and parent traversal in the portable dataset manifest.
     resolve <- function(p) {
         if (length(p) != 1L || is.na(p) || grepl("^(/|[A-Za-z]:)|(^|[/\\\\])\\.\\.([/\\\\]|$)", p)) {
             stop("Invalid relative path in prepared inputs.", call. = FALSE)
@@ -183,6 +190,7 @@ open_app_dataset <- function(path) {
     if (!methods::is(spe, "SpatialExperiment") || !identical(dim(spe), manifest$dimensions)) {
         stop("Prepared experiment dimensions do not match the manifest.", call. = FALSE)
     }
+    # Reopen assays lazily and verify their physical order and logical dimensions.
     assays <- lapply(manifest$assays, function(p) {
         a <- BPCells::t(BPCells::open_matrix_dir(resolve(p)))
         if (!identical(dim(a), dim(spe)) || !identical(BPCells::storage_order(a), "row")) {
@@ -191,6 +199,7 @@ open_app_dataset <- function(path) {
         a
     })
     SummarizedExperiment::assays(spe, withDimnames = FALSE) <- assays
+    # Restore absolute asset locations relative to the dataset's current directory.
     catalog <- manifest$catalog
     for (j in seq_along(catalog)) for (k in seq_along(catalog[[j]]$sources)) {
         catalog[[j]]$sources[[k]]$path <- resolve(catalog[[j]]$sources[[k]]$path)
@@ -205,6 +214,7 @@ open_app_dataset <- function(path) {
             scaleFactor = source$scale_factor)
     }
     if (length(images)) SpatialExperiment::imgData(spe) <- do.call(rbind, images)
+    # Reattach viewer registration and boundary metadata without decoding full-size images.
     registered <- lapply(names(catalog), function(sample) list(sample_id = sample,
         default_image_id = catalog[[sample]]$default, extent_pixels = catalog[[sample]]$extent,
         sources = unname(catalog[[sample]]$sources)))
@@ -214,8 +224,10 @@ open_app_dataset <- function(path) {
     structure(list(spe = spe, path = path), class = "spatialLIBD_app_dataset")
 }
 
+# Merge supplied pyramids with existing images and validate their shared registration.
 app_prepare_image_catalog <- function(spe, fullres_images) {
     catalog <- app_image_catalog(spe)
+    # Accept one or multiple pyramids per sample, inheriting low-resolution registration.
     if (!is.null(fullres_images)) {
         if (is.character(fullres_images)) fullres_images <- as.list(fullres_images)
         if (is.null(names(fullres_images)) || anyNA(names(fullres_images)) ||
@@ -251,6 +263,7 @@ app_prepare_image_catalog <- function(spe, fullres_images) {
             }
         }
     }
+    # Check every merged source before any prepared dataset is written.
     for (sample in names(catalog)) for (source in catalog[[sample]]$sources) {
         if (!source$type %in% c("image", "ome-tiff", "ome-zarr") ||
             length(source$image_id) != 1L || is.na(source$image_id) || !nzchar(source$image_id)) stop("Invalid image type/ID.", call. = FALSE)

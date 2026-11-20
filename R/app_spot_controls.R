@@ -1,4 +1,5 @@
 # Shared selections; filters operate on one eligible set for all four panels.
+# Build the shared sample, feature, filter, appearance, and annotation controls.
 app_spot_controls_ui <- function(spe, spe_discrete_vars, spe_continuous_vars,
     default_cluster, auto_crop_default, datatype) {
     catalog <- app_image_catalog(spe)
@@ -82,10 +83,12 @@ app_spot_controls_ui <- function(spe, spe_discrete_vars, spe_continuous_vars,
     )
 }
 
+# Maintain valid feature, palette, category, and image selections as the data change.
 app_spot_controls_server <- function(input, session, spe, catalog) {
     initial <- isolate(spe())
     features <- c(golem::get_golem_options("spe_continuous_vars"), sort(rowData(initial)$gene_search))
     updateSelectizeInput(session, "geneid", choices = features, selected = features[1], server = TRUE)
+    # Keep deliberate category subsets across updates, but reset them for a new variable.
     previous_variable <- reactiveVal(NULL)
     previous_choices <- character()
     observeEvent({req(input$cluster); list(input$cluster, spe()[[input$cluster]])}, {
@@ -110,6 +113,7 @@ app_spot_controls_server <- function(input, session, spe, catalog) {
         updateNumericInput(session, "cap_percentile", value = 1)
         updatePickerInput(session, "cluster_subset", selected = previous_choices)
     })
+    # Retain a valid image selection, including an explicit request to hide histology.
     observeEvent(list(input$sample, catalog()), {
         entry <- catalog()[[input$sample]]
         ids <- names(entry$sources)
@@ -117,6 +121,7 @@ app_spot_controls_server <- function(input, session, spe, catalog) {
         selected <- if (!is.null(current) && (identical(current, "") || current %in% ids)) current else entry$default
         updateSelectInput(session, "imageid", choices = c("None" = "", ids), selected = selected)
     })
+    # Expose palette values independently of the controls so both renderers can share them.
     discrete <- reactive({
         req(input$cluster, input$clustercolor)
         app_discrete_colors(spe(), input$cluster, input$clustercolor, isTRUE(input$clustercolor_direction))

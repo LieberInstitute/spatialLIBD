@@ -2,6 +2,7 @@
 # Manage embedding/component selections and metadata coloring, applying supplied
 # or historical layer palettes when appropriate.
 
+# Offer pseudobulk embeddings, component counts, and metadata coloring controls.
 app_layer_dimensions_ui <- function(sce_layer, default_reduced_dim, default_cluster) {
     tabPanel(
         "Reduced Dim",
@@ -88,7 +89,9 @@ app_layer_dimensions_ui <- function(sce_layer, default_reduced_dim, default_clus
     )
 }
 
+# Share one embedding plot between display and export, with categorical palette selection.
 app_layer_dimensions_server <- function(input, output, session, sce) {
+    # Reset component choices to match the newly selected embedding.
     observeEvent(input$layer_which_dim, {
         req(input$layer_which_dim %in% reducedDimNames(sce))
         updateNumericInput(session, "layer_reduced_dim_ncomponents",
@@ -107,6 +110,7 @@ app_layer_dimensions_server <- function(input, output, session, sce) {
         )
         variable <- input$layer_which_dim_color
         labels <- sce[[variable]]
+        # Override categorical colors only; let scater retain continuous numeric scales.
         if (is.factor(labels) || is.character(labels) || is.logical(labels)) {
             colors <- app_layer_colors(sce, variable)
             breaks <- if (is.factor(labels)) levels(labels) else {

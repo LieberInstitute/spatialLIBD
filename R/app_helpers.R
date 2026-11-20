@@ -13,14 +13,17 @@ app_control_label <- function(id, label, ...) {
         tags$span(id = help_id, style = "display: none;", ...))
 }
 
+# Choose a usable default, falling back to the first available choice or none.
 app_preferred <- function(choices, preferred) {
     if (length(preferred) == 1 && preferred %in% choices) preferred else if (length(choices)) choices[[1]] else ""
 }
 
+# Give downloads a timestamped name without spaces or path separators.
 app_filename <- function(stem, extension) {
     gsub("[ :/]", "_", paste0("spatialLIBD_", stem, "_", Sys.time(), ".", extension))
 }
 
+# Wrap a drawing callback in a PDF download and always close its device.
 app_pdf_download <- function(stem, draw, width = function() 8, height = function() 8) {
     downloadHandler(
         filename = function() app_filename(stem(), "pdf"),
@@ -32,6 +35,7 @@ app_pdf_download <- function(stem, draw, width = function() 8, height = function
     )
 }
 
+# Export the current data with consistent naming and caller-selected CSV options.
 app_csv_download <- function(stem, data, row_names = FALSE, quote = FALSE) {
     downloadHandler(
         filename = function() app_filename(stem(), "csv"),
@@ -41,6 +45,7 @@ app_csv_download <- function(stem, data, row_names = FALSE, quote = FALSE) {
     )
 }
 
+# Render reactive results with shared filtering, pagination, and optional sorting.
 app_table <- function(data, row_names = FALSE, direction = NULL) {
     options <- list(
         columnDefs = list(list(className = "dt-center", targets = 1)),
@@ -53,6 +58,7 @@ app_table <- function(data, row_names = FALSE, direction = NULL) {
     )
 }
 
+# Return a calculation and its distinct warnings for display beside the result.
 app_capture_warnings <- function(code) {
     warnings <- character()
     value <- withCallingHandlers(code, warning = function(w) {
@@ -62,6 +68,7 @@ app_capture_warnings <- function(code) {
     list(p = value, warnings = unique(warnings))
 }
 
+# Format captured warnings without duplicating errors already shown by the plot.
 app_warning_text <- function(result) {
     # The plot itself displays errors; the companion warning output needn't repeat them.
     tryCatch(
@@ -73,6 +80,7 @@ app_warning_text <- function(result) {
     )
 }
 
+# Separate the image and point layers of a spatial plot into adjacent panels.
 app_side_by_side <- function(plot, enabled, datatype) {
     if (!enabled || datatype == "Xenium") {
         return(plot)
@@ -84,6 +92,7 @@ app_side_by_side <- function(plot, enabled, datatype) {
     cowplot::plot_grid(background, points + theme(legend.position = "none"), nrow = 1)
 }
 
+# Map model tests to domain colors, pairwise midpoints, or neutral ANOVA grey.
 app_model_colors <- function(sce, group_var, groups, model_type) {
     if (model_type == "anova") {
         return(setNames(rep("grey60", length(groups)), groups))
@@ -114,6 +123,7 @@ app_model_colors <- function(sce, group_var, groups, model_type) {
     result
 }
 
+# Build the default SFARI gene sets from the bundled gene annotations.
 app_example_gene_sets <- function() {
     sfari <- utils::read.csv(system.file("extdata",
         "SFARI-Gene_genes_01-03-2020release_02-04-2020export.csv",
@@ -126,6 +136,7 @@ app_example_gene_sets <- function() {
     )
 }
 
+# Use uploaded gene-set columns when present, otherwise the bundled examples.
 app_read_gene_sets <- function(upload) {
     if (is.null(upload)) {
         return(app_example_gene_sets())

@@ -2,6 +2,7 @@
 # Share one plot object between screen and PDF, keeping the modeled grouping
 # and display settings consistent with reproducible jitter.
 
+# Build the selected-gene boxplot controls and the gene/test result tables.
 app_layer_models_ui <- function(sce_layer, sig_genes, default_model_type) {
     tabPanel(
         "Model boxplots",
@@ -125,7 +126,9 @@ app_layer_models_ui <- function(sce_layer, sig_genes, default_model_type) {
     )
 }
 
+# Link the selected gene and comparison to a shared boxplot and filtered result tables.
 app_layer_models_server <- function(input, output, sce, sig_genes, group_var) {
+    # Match all three identifiers so the plot uses exactly one gene/comparison result.
     selected_row <- reactive({
         which(sig_genes$gene_index == match(input$layer_geneid, rowData(sce)$gene_search) &
             sig_genes$test == input$layer_model_test & sig_genes$model_type == input$layer_model)
@@ -144,6 +147,7 @@ app_layer_models_server <- function(input, output, sce, sig_genes, group_var) {
             app_boxplot_colors(input$layer_boxcolor)
         ))
     })
+    # Present complementary slices: all tests for this gene, and all genes for this test.
     table <- sig_genes[, seq_len(match("ensembl", colnames(sig_genes)))]
     gene_table <- reactive(as.data.frame(table[
         table$model_type == input$layer_model & table$ensembl == sub(".*; ", "", input$layer_geneid),

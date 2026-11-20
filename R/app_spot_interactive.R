@@ -1,4 +1,5 @@
 # One linked viewer: two spatial colorings and, when available, two embeddings.
+# Build linked viewer panels, navigation tools, and the manual annotation actions.
 app_spot_interactive_ui <- function() {
     tabPanel("Interactive", value = "interactive",
         div(class = "sl-viewer-toolbar", role = "toolbar", `aria-label` = "Spatial viewer tools",
@@ -25,11 +26,13 @@ app_spot_interactive_ui <- function() {
     )
 }
 
+# Cache sample geometry and send reactive feature and appearance updates to the viewer.
 app_spot_interactive_server <- function(input, output, session, spe, colors, resources, catalog) {
     initial <- isolate(spe())
     datasets <- new.env(parent = emptyenv())
     revision <- 0L
     geometry_files <- new.env(parent = emptyenv())
+    # Share one eligible set between browser rendering, summaries, and annotation actions.
     frame <- reactive({
         req(input$sample, input$cluster, length(input$geneid) > 0,
             input$assayname, input$multi_gene_method, input$cap_percentile, !is.null(input$minCount))
@@ -47,6 +50,7 @@ app_spot_interactive_server <- function(input, output, session, spe, colors, res
             if (input$cap_percentile < 1) paste0(" \u00b7 capped at ", 100 * input$cap_percentile, "th percentile"))
     })
     output$viewer_warnings <- renderText(paste(frame()$warnings, collapse = "; "))
+    # Cache positions and embeddings by sample; gene or palette changes reuse these files.
     dataset <- reactive({
         req(input$sample)
         reduced <- input$reduced_name
@@ -75,6 +79,7 @@ app_spot_interactive_server <- function(input, output, session, spe, colors, res
         datasets[[key]] <- answer
         answer
     })
+    # Write only changing scores, category IDs, colors, and visibility to the binary payload.
     feature_files <- character()
     features <- reactive({
         d <- frame()
@@ -96,10 +101,12 @@ app_spot_interactive_server <- function(input, output, session, spe, colors, res
             writeBin(as.raw(d$eligible), con)
         }, finally = close(con))
         feature_files <<- c(feature_files, path)
+        # Keep a small recent history for in-flight browser requests without growing indefinitely.
         if (length(feature_files) > 6L) {
             unlink(feature_files[seq_len(length(feature_files) - 6L)])
             feature_files <<- utils::tail(feature_files, 6L)
         }
+        # Tag each payload so annotation clicks can be checked against the current view.
         revision <<- revision + 1L
         list(
             dataset = meta, features = resources$url(path), revision = revision,
@@ -109,6 +116,7 @@ app_spot_interactive_server <- function(input, output, session, spe, colors, res
                 color = unname(color_map[l]))),
             shown = sum(d$eligible), total = length(d$key))
     })
+    # Keep image and styling updates separate so they do not rewrite feature data.
     appearance <- reactive({
         req(input$sample)
         source <- app_image_source(catalog(), input$sample, input$imageid)
@@ -117,6 +125,7 @@ app_spot_interactive_server <- function(input, output, session, spe, colors, res
             imageOpacity = input$image_opacity, boundaryStyle = input$boundary_style,
             image = app_image_browser(spe(), input$sample, source, resources))
     })
+    # Wait for browser initialization before sending data or exposing rendering errors.
     observe({
         req(isTRUE(input$viewer_ready))
         tryCatch({

@@ -1,4 +1,4 @@
-# Discover external pyramids automatically; no new run_app image-path argument.
+# Discover registered pyramids and ordinary images in a shared per-sample catalog.
 app_image_catalog <- function(spe) {
     registered <- S4Vectors::metadata(spe)$viewer_images
     images <- SpatialExperiment::imgData(spe)
@@ -7,6 +7,7 @@ app_image_catalog <- function(spe) {
         tryCatch(SpatialExperiment::imgSource(im), error = function(e) NULL)
     }), use.names = FALSE)
     anchors <- anchors[!grepl("^https?://", anchors)]
+    # Resolve relative registrations beside existing images while retaining remote URLs.
     resolve <- function(path) {
         if (is.null(path)) return(NULL)
         if (grepl("^https?://", path)) return(path)
@@ -17,6 +18,7 @@ app_image_catalog <- function(spe) {
         if (!length(found)) stop("Cannot locate registered image source: ", path, call. = FALSE)
         normalizePath(found[1], mustWork = TRUE)
     }
+    # Start with explicit registrations, then add ordinary images not already represented.
     for (sample in names(result)) {
         entry <- Filter(function(x) identical(as.character(x$sample_id), sample), registered)
         sources <- if (length(entry)) entry[[1]]$sources else list()
@@ -48,6 +50,7 @@ app_image_catalog <- function(spe) {
                 y_direction = if (!is.null(scene_direction)) scene_direction else
                     if (app_spot_is_sfe(spe)) "up" else NULL)
         }
+        # Keep a valid default image for each sample after merging both source lists.
         if (length(sources)) {
             names(sources) <- vapply(sources, function(x) x$image_id, character(1))
             default <- if (length(entry)) entry[[1]]$default_image_id else names(sources)[1]
@@ -58,6 +61,7 @@ app_image_catalog <- function(spe) {
     result
 }
 
+# List image IDs across samples, optionally restricted to selected source types.
 app_image_choices <- function(catalog, type = NULL) {
     unique(unlist(lapply(catalog, function(s) {
         sources <- s$sources
@@ -66,6 +70,7 @@ app_image_choices <- function(catalog, type = NULL) {
     }), use.names = FALSE))
 }
 
+# Resolve a sample image or its low-resolution substitute without loading pyramid pixels.
 app_image_source <- function(catalog, sample, id = NULL, thumbnail = FALSE) {
     if (identical(id, "")) return(NULL)
     entry <- catalog[[sample]]
@@ -81,6 +86,7 @@ app_image_source <- function(catalog, sample, id = NULL, thumbnail = FALSE) {
     source
 }
 
+# Load a low-resolution raster and express its extent in the sample coordinate frame.
 app_image_raster <- function(spe, sample, source) {
     if (is.null(source)) return(NULL)
     if (source$type != "image") stop("A low-resolution image is required for this operation.", call. = FALSE)
@@ -98,6 +104,7 @@ app_image_raster <- function(spe, sample, source) {
     list(image = image, extent = extent)
 }
 
+# Describe a browser image source, caching raster exports and serving pyramids lazily.
 app_image_browser <- function(spe, sample, source, resources) {
     if (is.null(source)) return(NULL)
     if (source$type == "image") {

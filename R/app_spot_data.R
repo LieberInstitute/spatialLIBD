@@ -1,5 +1,6 @@
 # Shared measurements and spatial units for the interactive viewer and exports.
 # Do not subset SFE images with [, j]: some SFE releases crop or realize them.
+# Select sample units while excluding overlaps and units with unknown overlap status.
 app_spot_indices <- function(spe, sample) {
     i <- which(spe$sample_id == sample)
     if ("exclude_overlapping" %in% colnames(colData(spe))) {
@@ -8,6 +9,7 @@ app_spot_indices <- function(spe, sample) {
     i
 }
 
+# Resolve supported XY column conventions and require finite coordinates for plotting.
 app_spot_coordinates <- function(spe, i) {
     xy <- SpatialExperiment::spatialCoords(spe)
     preferred <- list(c("pxl_col_in_fullres", "pxl_row_in_fullres"),
@@ -20,16 +22,19 @@ app_spot_coordinates <- function(spe, i) {
     unname(xy)
 }
 
+# Recognize native SFE inputs and prepared datasets that retain SFE coordinate semantics.
 app_spot_is_sfe <- function(spe) {
     methods::is(spe, "SpatialFeatureExperiment") || isTRUE(S4Vectors::metadata(spe)$app_is_sfe)
 }
 
+# Use explicit image orientation when supplied, otherwise infer it from the data convention.
 app_spot_y_down <- function(spe, source) {
     if (!is.null(source$y_direction)) return(source$y_direction == "down")
     !app_spot_is_sfe(spe) &&
         all(c("pxl_col_in_fullres", "pxl_row_in_fullres") %in% colnames(spatialCoords(spe)))
 }
 
+# Extract valid polygon boundaries aligned to the selected expression-matrix columns.
 app_spot_geometry <- function(spe, i) {
     if (!methods::is(spe, "SpatialFeatureExperiment")) return(NULL)
     if (!requireNamespace("SpatialFeatureExperiment", quietly = TRUE) ||
@@ -95,10 +100,12 @@ app_spot_write_geometry <- function(g, path) {
     invisible(path)
 }
 
+# Read selected features, combine them if needed, and apply sample-wide value limits.
 app_spot_values <- function(spe, i, gene) {
     ids <- unique(gene$geneid)
     valid <- ids %in% c(colnames(colData(spe)), rowData(spe)$gene_search, rownames(spe))
     if (any(!valid)) stop("Unknown continuous feature: ", paste(ids[!valid], collapse = ", "), call. = FALSE)
+    # Align numeric metadata and requested assay rows into one sample-level feature matrix.
     columns <- ids[ids %in% colnames(colData(spe))]
     cd <- colData(spe)[i, columns, drop = FALSE]
     if (!all(vapply(cd, is.numeric, logical(1)))) stop("Continuous metadata must be numeric.", call. = FALSE)
@@ -125,6 +132,7 @@ app_spot_values <- function(spe, i, gene) {
     as.numeric(value)
 }
 
+# Align coordinates, labels, scores, and eligibility by stable unit key for both renderers.
 app_spot_frame <- function(spe, sample, cluster, gene, clusters = NULL) {
     i <- app_spot_indices(spe, sample)
     if (!length(i)) stop("No spatial units available for this sample.", call. = FALSE)
@@ -138,6 +146,7 @@ app_spot_frame <- function(spe, sample, cluster, gene, clusters = NULL) {
         value = result$p, labels = labels, eligible = eligible, warnings = result$warnings)
 }
 
+# Provide a finite, nonzero color-scale range even for empty or constant measurements.
 app_spot_domain <- function(value) {
     value <- value[is.finite(value)]
     if (!length(value)) return(c(0, 1))
@@ -146,6 +155,7 @@ app_spot_domain <- function(value) {
     r
 }
 
+# Convert R color specifications to RGBA bytes for the browser feature payload.
 app_spot_rgba <- function(colors) {
     unname(grDevices::col2rgb(colors, alpha = TRUE))
 }
@@ -164,6 +174,7 @@ app_viewer_resources <- function(session) {
         for (p in mounts) shiny::removeResourcePath(p)
         unlink(root, recursive = TRUE)
     })
+    # Reuse mounted image assets and serve TIFF pyramids through bounded byte-range reads.
     asset <- function(path) {
         path <- normalizePath(path, mustWork = TRUE)
         key <- paste0("asset:", path)
@@ -179,6 +190,7 @@ app_viewer_resources <- function(session) {
                         headers[["Content-Length"]] <- as.character(size)
                         return(list(status = 200L, headers = headers, body = raw()))
                     }
+                    # Normalize suffix and open-ended ranges, rejecting requests outside the file.
                     range <- req$HTTP_RANGE
                     invalid <- function() {
                         headers[["Content-Range"]] <- paste0("bytes */", size)

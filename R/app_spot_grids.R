@@ -1,4 +1,5 @@
 # Static overviews share the viewer's measurements, filters and palettes.
+# Build sample-grid layout controls and the explicit update/download actions.
 app_spot_grid_ui <- function(spe) {
     tabPanel("Static grid", value = "grid",
         fluidRow(
@@ -35,6 +36,7 @@ app_static_coord <- function(extent, y_down) {
     do.call(ggplot2::coord_fixed, args)
 }
 
+# Draw one sample using the shared scores and filters, with optional registered histology.
 app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, colors,
     catalog, image_id, spatial, point_size, guide_size, opacity, side_by_side) {
     d <- app_spot_frame(spe, sample, cluster, gene, clusters)
@@ -74,9 +76,11 @@ app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, color
     list(p = plot, warnings = d$warnings, points = sum(keep))
 }
 
+# Snapshot grid settings on Update so the displayed plot and its download stay consistent.
 app_spot_grids_server <- function(input, output, spe, colors, catalog, session) {
     grid <- eventReactive(input$grid_update, {
         req(length(input$grid_samples) > 0, input$cluster, length(input$geneid) > 0)
+        # Validate the requested layout and expand its rows to fit every selected sample.
         dimensions <- c(input$grid_nrow, input$grid_ncol)
         validate(need(length(dimensions) == 2L && all(is.finite(dimensions)) &&
             all(dimensions >= 1 & dimensions <= .Machine$integer.max & dimensions == floor(dimensions)),
@@ -86,6 +90,7 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog, session) 
         validate(need(length(input$grid_pointsize) == 1L && is.finite(input$grid_pointsize) && input$grid_pointsize > 0,
             "Enter a positive point size."))
         rows <- max(rows, ceiling(length(input$grid_samples) / cols))
+        # Build all sample panels from one saved set of feature and appearance settings.
         gene <- app_gene_settings(input, colors$continuous)
         plots <- lapply(input$grid_samples, function(sample) app_static_spatial(
             spe(), sample, input$cluster, gene, as.character(input$cluster_subset), input$grid_kind,

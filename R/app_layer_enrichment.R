@@ -2,6 +2,7 @@
 # Connect model, direction, and FDR controls to shared enrichment results, then
 # present those results as a heatmap, table, and PDF/CSV downloads.
 
+# Provide gene-set upload, significance and direction controls, and result downloads.
 app_layer_enrichment_ui <- function() {
     tabPanel(
         "Gene Set Enrichment",
@@ -66,7 +67,9 @@ app_layer_enrichment_ui <- function() {
     )
 }
 
+# Compute enrichment once per input change and reuse it in the heatmap, table, and exports.
 app_layer_enrichment_server <- function(input, output, sce, models, group_var) {
+    # Resolve gene sets and direction before running the selected model's enrichment.
     result <- reactive({
         req(input$layer_model)
         gene_set_enrichment(app_read_gene_sets(input$geneSet), input$layer_gene_fdrcut,
@@ -81,6 +84,7 @@ app_layer_enrichment_server <- function(input, output, sce, models, group_var) {
             model_colors = app_model_colors(sce, group_var, unique(enriched$test), input$layer_model)
         )
     })
+    # Use the same results and settings for on-screen outputs and downloaded files.
     stem <- function() {
         paste0(
             "layer_GeneSetEnrichment_", input$layer_model,
