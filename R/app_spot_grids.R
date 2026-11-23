@@ -5,7 +5,9 @@ app_spot_grid_ui <- function(spe) {
         fluidRow(
             column(3, radioButtons("grid_kind", "Color by", c("Continuous" = "continuous", "Discrete" = "discrete"), inline = TRUE)),
             column(3, checkboxInput("grid_spatial", "Show histology", TRUE),
-                checkboxInput("grid_side_by_side", "Image beside features", FALSE)),
+                checkboxInput("grid_side_by_side", "Image beside features", FALSE),
+                checkboxInput("grid_fit_to_units", app_control_label("grid_fit_to_units", "Fit to cells/spots",
+                    "With histology shown, fit each sample to all retained cells or spots with a small margin. Uncheck to show the full histology image. Without histology, the grid always fits the cells or spots. Expression and category filters do not change the framing. Click Update grid to apply."), TRUE)),
             column(3, numericInput("grid_nrow", "Rows", 1, min = 1, step = 1)),
             column(3, numericInput("grid_ncol", "Columns", 3, min = 1, step = 1))
         ),
@@ -24,6 +26,17 @@ app_spot_grid_ui <- function(spe) {
     )
 }
 
+# Fit all retained units with padding in spatial coordinates, independent of platform or filters.
+app_static_extent <- function(x, y, fallback = NULL, padding = 0.05) {
+    extent <- c(min(x), min(y), max(x), max(y))
+    span <- max(extent[3:4] - extent[1:2])
+    if (span == 0) {
+        if (!is.null(fallback)) return(fallback)
+        span <- 1
+    }
+    extent + c(-1, -1, 1, 1) * span * padding
+}
+
 # ggplot2 4.x controls reversal explicitly; older versions reverse descending
 # coordinate limits. Detect the API so development releases work as well.
 app_static_coord <- function(extent, y_down) {
@@ -38,20 +51,25 @@ app_static_coord <- function(extent, y_down) {
 
 # Draw one sample using the shared scores and filters, with optional registered histology.
 app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, colors,
-    catalog, image_id, spatial, point_size, guide_size, opacity, side_by_side) {
+    catalog, image_id, spatial, point_size, guide_size, opacity, side_by_side, fit_to_units = TRUE) {
     d <- app_spot_frame(spe, sample, cluster, gene, clusters)
     source <- app_image_source(catalog, sample, image_id)
-    image <- app_image_raster(spe, sample, app_image_source(catalog, sample, image_id, thumbnail = TRUE))
+    # Hidden histology should neither load a raster nor determine the plot's framing.
+    image <- if (spatial) app_image_raster(spe, sample,
+        app_image_source(catalog, sample, image_id, thumbnail = TRUE)) else NULL
     # Native SFE geometries use Cartesian Y-up unless an image registration says otherwise.
     y_down <- app_spot_y_down(spe, if (is.null(source)) app_image_source(catalog, sample) else source)
-    xy_extent <- c(range(d$x), range(d$y))
-    extent <- if (is.null(image)) c(xy_extent[1], xy_extent[3], xy_extent[2], xy_extent[4]) else image$extent
+    # Change only the viewport; the raster stays anchored in its original coordinate frame.
+    image_extent <- if (is.null(image)) NULL else image$extent
+    extent <- if (fit_to_units || is.null(image)) {
+        app_static_extent(d$x, d$y, fallback = image_extent)
+    } else image_extent
     background <- ggplot() + app_static_coord(extent, y_down)
     if (!is.null(image)) {
         # Keep raster rows upright; the coordinate system places image-space
         # points with increasing Y toward the bottom of the same extent.
         background <- background + annotation_raster(image$image,
-            xmin = extent[1], xmax = extent[3], ymin = extent[2], ymax = extent[4])
+            xmin = image_extent[1], xmax = image_extent[3], ymin = image_extent[2], ymax = image_extent[4])
     }
     plot <- if (spatial && !side_by_side) background else ggplot() + app_static_coord(extent, y_down)
     keep <- d$eligible
@@ -96,13 +114,14 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog, session) 
             spe(), sample, input$cluster, gene, as.character(input$cluster_subset), input$grid_kind,
             list(discrete = colors$discrete(), continuous = colors$continuous()), catalog(),
             input$imageid, isTRUE(input$grid_spatial), input$grid_pointsize, input$guidepointsize,
-            input$alphalevel, isTRUE(input$grid_side_by_side)))
+            input$alphalevel, isTRUE(input$grid_side_by_side), fit_to_units = isTRUE(input$grid_fit_to_units)))
         list(p = cowplot::plot_grid(plotlist = lapply(plots, `[[`, "p"), nrow = rows, ncol = cols),
             warnings = unique(unlist(lapply(plots, `[[`, "warnings"))), rows = rows, cols = cols,
             # Choose from the points actually drawn in this saved grid. The
             # threshold approximates the PDF / 300 dpi PNG file-size crossover.
             format = if (mean(vapply(plots, `[[`, numeric(1), "points")) < 50000) "pdf" else "png",
             side_by_side = isTRUE(input$grid_spatial) && isTRUE(input$grid_side_by_side),
+            fit_to_units = isTRUE(input$grid_fit_to_units),
             stem = paste("static_grid", input$grid_kind,
                 if (input$grid_kind == "continuous") paste(input$geneid, collapse = "_") else input$cluster,
                 paste(input$grid_samples, collapse = "_"), sep = "_"))
