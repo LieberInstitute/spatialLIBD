@@ -18,7 +18,7 @@ app_ui <- function() {
             tabPanel("spot-level data", sidebarLayout(
                 app_spot_controls_ui(
                     options$spe, options$spe_discrete_vars, options$spe_continuous_vars,
-                    options$default_cluster, options$auto_crop_default, options$datatype
+                    options$default_cluster, options$datatype
                 ),
                 mainPanel(width = 9, tabsetPanel(
                     id = "spot_tabs",

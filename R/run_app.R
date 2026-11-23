@@ -13,6 +13,10 @@
 #' That vignette is available at
 #' <http://research.libd.org/spatialLIBD/articles/TenX_data_download.html>.
 #'
+#' If the prepared data contain a logical `exclude_overlapping` column, the
+#' Interactive and Static grid views only include units where it is `FALSE`.
+#' Units marked `TRUE` or `NA` are omitted automatically.
+#'
 #'  ---- Optional: Add custom cluster colors ----
 #'
 #' Custom colors can be specified by adding a color column to the
@@ -52,10 +56,6 @@
 #' @param default_cluster A `character(1)` with the name of the main cluster
 #' (discrete) variable to use. It will have to be present in both `colData(spe)`
 #' and `colData(sce_layer)`.
-#' @param auto_crop_default A `logical(1)` specifying the default value for
-#' automatically cropping the images. Set this to `FALSE` if your images do not
-#' follow the Visium grid size expectations, which are key for enabling
-#' auto-cropping.
 #' @inheritParams sig_genes_extract
 #' @inheritParams vis_clus
 #' @param ... Other arguments passed to the list of golem options for running
@@ -221,7 +221,7 @@
 #' ## Inspect this object
 #' spe_stitched
 #'
-#' ## Notice the use of "exclude_overlapping"
+#' ## The app automatically omits units marked TRUE or NA in "exclude_overlapping".
 #' table(spe_stitched$exclude_overlapping, useNA = "ifany")
 #'
 #' ## Prepare once, then reuse the prepared directory for later launches.
@@ -234,8 +234,7 @@
 #'     title = "visiumStitched example data",
 #'     spe_discrete_vars = c("capture_area", "scran_quick_cluster", "ManualAnnotation"),
 #'     spe_continuous_vars = c("sum_umi", "sum_gene", "expr_chrM", "expr_chrM_ratio"),
-#'     default_cluster = "scran_quick_cluster",
-#'     is_stitched = TRUE
+#'     default_cluster = "scran_quick_cluster"
 #' )
 #'
 #' ## Example for Xenium object
@@ -309,8 +308,6 @@ run_app <- function(
         "expr_chrM_ratio"
     ),
     default_cluster = "spatialLIBD",
-    auto_crop_default = TRUE,
-    is_stitched = FALSE,
     datatype = c("Visium", "Xenium"),
     ...
 ) {
@@ -322,9 +319,6 @@ run_app <- function(
     ## Run the checks in the relevant order
     stopifnot(length(default_cluster) == 1)
     stopifnot(default_cluster %in% spe_discrete_vars)
-    if (is_stitched) {
-        auto_crop_default <- FALSE
-    }
     ## Check for valid datatype
     datatype <- match.arg(datatype)
 
@@ -382,12 +376,6 @@ run_app <- function(
             spe_discrete_vars = spe_discrete_vars,
             spe_continuous_vars = spe_continuous_vars,
             default_cluster = default_cluster,
-            auto_crop_default = ifelse(
-                datatype == "Visium",
-                auto_crop_default,
-                FALSE
-            ),
-            is_stitched = is_stitched,
             datatype = datatype,
             ...
         )

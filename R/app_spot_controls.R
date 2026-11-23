@@ -1,7 +1,7 @@
 # Shared selections; filters operate on one eligible set for all four panels.
 # Build the shared sample, feature, filter, appearance, and annotation controls.
 app_spot_controls_ui <- function(spe, spe_discrete_vars, spe_continuous_vars,
-    default_cluster, auto_crop_default, datatype) {
+    default_cluster, datatype) {
     catalog <- app_image_catalog(spe)
     samples <- unique(spe$sample_id)
     images <- app_image_choices(catalog)

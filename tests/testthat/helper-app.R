@@ -140,9 +140,9 @@ app_test_options <- function(f = app_fixture()) {
     list(
         spe = f$spe, sce_layer = f$pb, modeling_results = f$models,
         sig_genes = f$sig, default_cluster = "app_cluster",
-        is_stitched = FALSE, datatype = "Visium", title = "Test app",
+        datatype = "Visium", title = "Test app",
         docs_path = system.file("app", "www", package = "spatialLIBD"),
         spe_discrete_vars = c("app_cluster", "ManualAnnotation"),
-        spe_continuous_vars = "sum_umi", auto_crop_default = FALSE
+        spe_continuous_vars = "sum_umi"
     )
 }
