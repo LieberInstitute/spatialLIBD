@@ -1,180 +1,55 @@
-# Build the image editor and manage its session-local image state.
-# Share defaults and editing arguments across UI initialization, reset, preview,
-# and application to all samples. Expose updated images reactively to other views.
-
-# Build low-resolution editing controls and the preview, reset, and apply actions.
-app_image_editor_ui <- function() {
+# Keep editing settings beside the preview; detailed guidance lives in info icons.
+app_image_editor_ui <- function(spe) {
     defaults <- app_image_defaults()
-    tabPanel(
-        "Edit image",
-        selectInput("editImg_imageid", "Low-resolution image to edit", choices = character()),
-        helpText("Edits create a low-resolution image variant. Full-resolution image pyramids remain unchanged."),
-        helpText(
-            "Adjust the colors and appearance of the selected low-resolution image. Click 'Update custom image' to apply the edits, then select 'edited_imaged' under Histology image to use the result in other plots. Most of these image manipulations are explained at",
-            HTML(
-                "<a href='https://docs.ropensci.org/magick/reference/color.html'>the magick R package documentation</a>."
-            )
-        ),
-        helpText(
-            "If you want a uniform colored background, set the brightness to 0 which will make it black, then either proceeed or select the 'negate' checkbox for white, click the 'edit custom image' button, and select the input 'image name' as 'edited image'. Instead of using 'negate' you could use 'transparent (color)' and type 'black' then under 'background (color)' type a valid R color name such as 'purple' or 'lightblue' or a color HEX value such as '#e1eb34'."
-        ),
-        hr(),
-        fluidRow(
-            column(
-                width = 4,
-                selectInput(
-                    inputId = "editImg_channel",
-                    label = "Select an image channel such as 'Red' or 'Blue'",
-                    choices = c(
-                        "",
-                        magick::channel_types()
-                    ),
-                    selected = defaults$channel
-                ),
-                helpText(
-                    "Leave this empty if you don't want to select a channel. Note that the definition of channel here is different from a multi-channel image from say VisiumIF."
-                ),
-                hr(),
-                numericInput(
-                    "editImg_brightness",
-                    label = "Image brightness level",
-                    value = defaults$brightness,
-                    min = 0,
-                    max = 100
-                ),
-                numericInput(
-                    "editImg_saturation",
-                    label = "Image saturation level",
-                    value = defaults$saturation,
-                    min = 0,
-                    max = 100
-                ),
-                numericInput(
-                    "editImg_hue",
-                    label = "Image hue level",
-                    value = defaults$hue,
-                    min = 0,
-                    max = 200
-                ),
-                helpText(
-                    "Modulate the colors in the image. Brightness and saturation are in percents while hue has a range of 0 to 200. Use 100 for all 3 options for no change."
-                )
-            ),
-            column(
-                width = 4,
-                checkboxInput(
-                    "editImg_enhance",
-                    "enhance: attempt to minimize noise",
-                    value = defaults$enhance
-                ),
-                checkboxInput(
-                    "editImg_normalize",
-                    "normalize: increases contrast by normalizing the pixel values to span the full range of colors",
-                    value = defaults$normalize
-                ),
-                hr(),
-                numericInput(
-                    "editImg_contrast_sharpen",
-                    label = "contrast (sharpen): enhance intensity differences in image",
-                    value = defaults$contrast_sharpen,
-                    min = -100,
-                    max = 100
-                ),
-                helpText(
-                    "Try with 1 to start with."
-                ),
-                hr(),
-                numericInput(
-                    "editImg_quantize_max",
-                    label = "quantize (max): reduce number of colors in the image",
-                    value = defaults$quantize_max,
-                    min = 1
-                ),
-                checkboxInput(
-                    "editImg_quantize_dither",
-                    "quantize (dither): whether to apply Floyd/Steinberg error diffusion to the image: averages intensities of several neighboring pixels",
-                    value = defaults$quantize_dither
-                ),
-                helpText(
-                    "You could try 256 colors or a much small number like 25 or 40."
-                )
-            ),
-            column(
-                width = 4,
-                checkboxInput(
-                    "editImg_equalize",
-                    "equalize: whether to use histogram equalization",
-                    value = defaults$equalize
-                ),
-                hr(),
-                textInput(
-                    "editImg_transparent_color",
-                    label = "transparent (color): set pixels approximately matching given color",
-                    value = defaults$transparent_color
-                ),
-                numericInput(
-                    "editImg_transparent_fuzz",
-                    label = "transparent (fuzz): relative color distance (value between 0 and 100) to be considered similar",
-                    value = defaults$transparent_fuzz,
-                    min = 0,
-                    max = 100
-                ),
-                helpText(
-                    "Type 'purple' and select a fuzz of 25 to start with."
-                ),
-                textInput(
-                    "editImg_background_color",
-                    label = "background (color): sets background color",
-                    value = defaults$background_color
-                ),
-                hr(),
-                numericInput(
-                    "editImg_median_radius",
-                    label = "median (radius): replace each pixel with the median color in a circular neighborhood",
-                    value = defaults$median_radius,
-                    min = 0
-                ),
-                helpText(
-                    "Choose a small radius, like 1 or 2 to start. The higher the value, the longer this computation will take."
-                ),
-                hr(),
-                checkboxInput(
-                    "editImg_negate",
-                    "negate: whether to negate colors",
-                    value = defaults$negate
-                )
-            )
-        ),
-        actionButton(
-            "editImg_reset_menus",
-            label = "Reset menus"
-        ),
-        helpText(
-            "Reset all image editing menus to their default values."
-        ),
-        hr(),
-        downloadButton(
-            "downloadPlotEditImg",
-            "Download PDF"
-        ),
-        plotOutput("editImg_plot", height = 600),
-        div(class = "app-plot-spacing"),
-        actionButton(
-            "editImg_update",
-            label = "Update custom image"
-        ),
-        helpText(
-            "Click 'Update custom image' to apply these edits to every sample. Select 'edited_imaged' as the background image to use the result in other plots."
-        ),
-        checkboxInput(
-            "editImg_overwrite",
-            "Whether to overwrite the 'edited_imaged'",
-            value = FALSE
-        ),
-        helpText(
-            "Select if you want to do sequential image manipulations when you have selected as input the 'edited_imaged'."
-        )
-    )
+    label <- function(name, title, ...) app_control_label(paste0("editImg_", name), title, ...)
+    tabPanel("Edit image", value = "edit_image", sidebarLayout(
+        sidebarPanel(width = 3,
+            shinyWidgets::pickerInput("editImg_sample", label("sample", "Preview sample",
+                "Choose the sample to preview. Apply edits to all samples processes every sample, independently of this selection."),
+                choices = unique(spe$sample_id), options = shinyWidgets::pickerOptions(liveSearch = TRUE)),
+            selectInput("editImg_imageid", label("imageid", "Low-resolution image",
+                tags$p("Choose the low-resolution image to edit. The preview updates immediately. Applying edits creates an edited_imaged variant for every sample; full-resolution pyramids remain unchanged."),
+                tags$p("Adjustment details: ", tags$a(href = "https://docs.ropensci.org/magick/reference/color.html",
+                    target = "_blank", rel = "noopener", "magick image editing documentation"), ".")), choices = character()),
+            numericInput("editImg_brightness", label("brightness", "Brightness (%)",
+                "100 leaves brightness unchanged; 0 makes the image black. For a white background, use 0 and enable Invert colors."), defaults$brightness, min = 0, max = 100),
+            numericInput("editImg_saturation", label("saturation", "Saturation (%)",
+                "100 leaves saturation unchanged; 0 removes color."), defaults$saturation, min = 0, max = 100),
+            numericInput("editImg_hue", label("hue", "Hue",
+                "Shift image hues on a scale from 0 to 200. The default of 100 leaves hues unchanged."), defaults$hue, min = 0, max = 200),
+            tags$details(tags$summary("Channels and contrast"),
+                selectInput("editImg_channel", label("channel", "Channel",
+                    "Choose a color channel, such as Red or Blue, or leave blank to use all channels. These are image color channels, not separate experimental channels such as VisiumIF markers."),
+                    choices = c("", magick::channel_types()), selected = defaults$channel),
+                checkboxInput("editImg_enhance", label("enhance", "Reduce noise",
+                    "Apply image enhancement to attempt to reduce noise."), defaults$enhance),
+                checkboxInput("editImg_normalize", label("normalize", "Normalize contrast",
+                    "Stretch pixel values across the full color range to increase contrast."), defaults$normalize),
+                numericInput("editImg_contrast_sharpen", label("contrast_sharpen", "Contrast adjustment",
+                    "Enhance intensity differences. Leave blank to skip this adjustment; try 1 to start."), defaults$contrast_sharpen, min = -100, max = 100),
+                checkboxInput("editImg_equalize", label("equalize", "Equalize histogram",
+                    "Redistribute intensities using histogram equalization to adjust contrast."), defaults$equalize)),
+            tags$details(tags$summary("Colors and smoothing"),
+                numericInput("editImg_quantize_max", label("quantize_max", "Maximum colors",
+                    "Reduce the number of colors. Leave blank to retain the current colors; try 256, or a smaller value such as 25 or 40."), defaults$quantize_max, min = 1),
+                checkboxInput("editImg_quantize_dither", label("quantize_dither", "Dither reduced colors",
+                    "When reducing colors, use Floyd–Steinberg error diffusion to spread quantization error across neighboring pixels."), defaults$quantize_dither),
+                textInput("editImg_transparent_color", label("transparent_color", "Transparent color",
+                    "Make pixels matching this R color name or hex value transparent. Leave blank to skip. Color tolerance includes nearby colors; for example, try purple with a tolerance of 25."), defaults$transparent_color),
+                numericInput("editImg_transparent_fuzz", label("transparent_fuzz", "Color tolerance (%)",
+                    "Set how similar a pixel must be to Transparent color. 0 requires an exact match; larger values include more nearby colors."), defaults$transparent_fuzz, min = 0, max = 100),
+                textInput("editImg_background_color", label("background_color", "Background color",
+                    "Replace transparency with an R color name or hex value, such as lightblue or #e1eb34. To create a uniform background, set brightness to 0, make black transparent, then choose this color. Leave blank to skip."), defaults$background_color),
+                numericInput("editImg_median_radius", label("median_radius", "Median filter radius",
+                    "Replace each pixel with the median color in a circular neighborhood. Leave blank to skip; start with 1 or 2. Larger radii take longer to compute."), defaults$median_radius, min = 0),
+                checkboxInput("editImg_negate", label("negate", "Invert colors",
+                    "Invert the image colors; for example, black becomes white."), defaults$negate)),
+            tags$hr(), actionButton("editImg_reset_menus", "Reset adjustments"),
+            checkboxInput("editImg_overwrite", label("overwrite", "Replace existing edited images",
+                "Allow applying edits to replace existing edited_imaged variants. To make sequential edits, select edited_imaged as the input image and enable replacement."), FALSE),
+            actionButton("editImg_update", "Apply edits to all samples"),
+            downloadButton("downloadPlotEditImg", "Download preview PDF")),
+        mainPanel(width = 9, plotOutput("editImg_plot", height = 600), div(class = "app-plot-spacing"))))
 }
 
 # UI creation, reset, preview, and apply share these defaults/argument names.
@@ -199,8 +74,8 @@ app_image_editor_server <- function(input, output, session, initial_spe, datatyp
     current_spe <- reactiveVal(initial_spe)
     catalog <- reactive(app_image_catalog(current_spe()))
     # Editing is limited to low-resolution images available for the current sample.
-    observeEvent(list(input$sample, catalog()), {
-        sources <- catalog()[[input$sample]]$sources
+    observeEvent(list(input$editImg_sample, catalog()), {
+        sources <- catalog()[[input$editImg_sample]]$sources
         choices <- names(Filter(function(s) s$type == "image", sources))
         old <- isolate(input$editImg_imageid)
         selected <- if (length(old) == 1 && old %in% choices) old else app_preferred(choices, "lowres")
@@ -223,8 +98,8 @@ app_image_editor_server <- function(input, output, session, initial_spe, datatyp
     }
     # Preview changes immediately; applying them to all samples requires an explicit action.
     preview <- reactive({
-        req(input$sample, nzchar(input$editImg_imageid))
-        edit(current_spe(), input$sample)$pixels
+        req(input$editImg_sample, nzchar(input$editImg_imageid))
+        edit(current_spe(), input$editImg_sample)$pixels
     })
     observeEvent(input$editImg_update, {
         tryCatch({
@@ -282,7 +157,7 @@ app_image_editor_server <- function(input, output, session, initial_spe, datatyp
     })
     output$editImg_plot <- renderPlot(plot(preview()), width = 600, height = "auto")
     output$downloadPlotEditImg <- app_pdf_download(
-        function() paste("editedImage", input$editImg_imageid, input$sample, sep = "_"),
+        function() paste("editedImage", input$editImg_imageid, input$editImg_sample, sep = "_"),
         function() plot(preview()))
     list(spe = reactive(current_spe()), preview = preview)
 }

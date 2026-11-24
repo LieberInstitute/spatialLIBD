@@ -15,18 +15,14 @@ app_ui <- function() {
         navbarPage(
             title = options$title,
             tabPanel("Overview", includeMarkdown(app_document(options$docs_path, "README.md"))),
-            tabPanel("spot-level data", sidebarLayout(
-                app_spot_controls_ui(
-                    options$spe, options$spe_discrete_vars, options$spe_continuous_vars,
-                    options$default_cluster, options$datatype
-                ),
-                mainPanel(width = 9, tabsetPanel(
-                    id = "spot_tabs",
-                    app_spot_documentation_ui(options$docs_path),
-                    app_spot_interactive_ui(),
-                    app_spot_grid_ui(options$spe),
-                    if (length(app_image_choices(app_image_catalog(options$spe), "image"))) app_image_editor_ui()
-                ))
+            tabPanel("spot-level data", tabsetPanel(
+                id = "spot_tabs",
+                app_spot_documentation_ui(options$docs_path),
+                app_spot_interactive_ui(app_spot_controls_ui("interactive_controls",
+                    options$spe, options$spe_discrete_vars, options$spe_continuous_vars, options$default_cluster)),
+                app_spot_grid_ui(options$spe, app_spot_controls_ui("grid_controls",
+                    options$spe, options$spe_discrete_vars, options$spe_continuous_vars, options$default_cluster, "grid")),
+                if (length(app_image_choices(app_image_catalog(options$spe), "image"))) app_image_editor_ui(options$spe)
             )),
             if (!is.null(options$sce_layer)) app_layer_ui(options),
             app_help_ui(),

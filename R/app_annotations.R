@@ -1,7 +1,19 @@
+# Annotation settings and actions belong only to the Interactive sidebar.
+app_annotations_ui <- function() {
+    tagList(tags$hr(),
+        textInput("label_manual_ann", "Manual annotation label", "Your Guess"),
+        checkboxInput("label_click", "Annotate individual units on click", FALSE),
+        actionButton("update_manual_ann", "Label selected units"), actionButton("undo_manual_ann", "Undo last annotation"),
+        tags$hr(), checkboxInput("dropNA", "Omit unlabeled units from CSV", TRUE),
+        downloadButton("downloadData", "Download annotations"),
+        fileInput("priorGuesses", app_control_label("priorGuesses", "Import annotations",
+            "CSV columns: sample_id, spot_name, ManualAnnotation. Later files overwrite earlier labels."), accept = ".csv", multiple = TRUE))
+}
+
 # Maintain session-local annotations, one-step undo, and CSV import/export.
 # The renderer sends stable keys. Validate them against the current eligible set
 # on the server, rather than trusting browser indices or stale hidden units.
-app_annotations_server <- function(input, output, session, spe, gene_data, revision) {
+app_annotations_server <- function(input, output, session, spe, gene_data, revision, sample) {
     initial <- as.character(spe$ManualAnnotation)
     if (length(initial) != ncol(spe)) initial <- rep("NA", ncol(spe))
     labels <- reactiveVal(initial)
@@ -23,7 +35,7 @@ app_annotations_server <- function(input, output, session, spe, gene_data, revis
     }
     # Reject another sample's events and intersect browser keys with server eligibility.
     event_keys <- function(event) {
-        if (is.null(event) || !identical(event$sample, input$sample)) return(character())
+        if (is.null(event) || !identical(event$sample, sample())) return(character())
         intersect(unlist(event$keys, use.names = FALSE), eligible())
     }
     observeEvent(input$update_manual_ann, {

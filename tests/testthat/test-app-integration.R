@@ -7,13 +7,16 @@ test_that("the concise UI exposes current controls, defaults and help", {
         if (is.null(which)) opts else opts[[which]]
     }, .package = "golem")
     doc <- xml2::read_html(htmltools::renderTags(app_ui())$html)
-    node <- function(id) xml2::xml_find_first(doc, paste0("//*[@id='", id, "']"))
+    node <- function(id) {
+        key <- if (id %in% c("geneid", "cluster_subset", "pointsize_scale", "alphalevel", "image_opacity", "boundary_style", "cluster", "clustercolor")) paste0("interactive_controls-", id) else id
+        xml2::xml_find_first(doc, paste0("//*[@id='", key, "']"))
+    }
     choices <- function(id) xml2::xml_attr(xml2::xml_find_all(node(id), ".//option"), "value")
     selected <- function(id) xml2::xml_attr(xml2::xml_find_all(node(id), ".//option[@selected]"), "value")
     tabs <- xml2::xml_text(xml2::xml_find_all(doc, "//ul[@id='spot_tabs']//a"))
     expect_identical(tabs, c("Documentation", "Interactive", "Static grid", "Edit image"))
     ids <- xml2::xml_attr(xml2::xml_find_all(doc, "//*[@id]"), "id")
-    expect_true(all(c("geneid", "cluster_subset", "pointsize_scale", "alphalevel", "image_opacity", "boundary_style", "grid_kind") %in% ids))
+    expect_true(all(c(paste0("interactive_controls-", c("geneid", "cluster_subset", "pointsize_scale", "alphalevel", "image_opacity", "boundary_style")), "grid_kind") %in% ids))
     expect_false(any(c("pointsize", "auto_crop", "gene_grid_samples", "gene_plotly_cluster_subset", "grid_nrow") %in% ids))
     expect_identical(choices("boundary_style"), c("outline", "fill"))
     expect_identical(selected("boundary_style"), "outline")
@@ -39,19 +42,19 @@ test_that("the concise UI exposes current controls, defaults and help", {
     expect_identical(xml2::xml_attr(node("alphalevel"), "data-from"), "1")
     expect_identical(xml2::xml_attr(node("image_opacity"), "data-from"), "0.8")
     expect_gt(length(xml2::xml_find_all(doc, "//button[contains(@aria-label, 'About ')]")), 10)
-    expect_length(xml2::xml_find_all(doc, "//details[contains(@class, 'sl-appearance')]/summary"), 1)
+    expect_length(xml2::xml_find_all(doc, "//details[contains(@class, 'sl-appearance')]/summary"), 2)
 })
 
 test_that("grid plots and download settings wait together for Update", {
     with_app({
         before <- grids$grid()
-        session$setInputs(
+        app_set_inputs(session, target = "grid_controls",
             geneid = rowData(f$spe)$gene_search[2], grid_ncol = 1,
             grid_samples = unique(f$spe$sample_id)[2], multi_gene_method = "pca", grid_fit_to_units = FALSE,
             grid_shared_legend = FALSE
         )
         expect_identical(grids$grid(), before)
-        session$setInputs(grid_update = 1)
+        app_set_inputs(session, grid_update = 1)
         expect_equal(grids$grid()$cols, 1)
         expect_false(grids$grid()$fit_to_units)
         expect_true(before$shared_legend)
@@ -66,7 +69,7 @@ test_that("grid layouts omit unused columns for fewer selected samples", {
         samples <- unique(f$spe$sample_id)
         for (n in 1:2) {
             for (shared in c(TRUE, FALSE)) {
-                session$setInputs(grid_samples = samples[seq_len(n)], grid_ncol = 3,
+                app_set_inputs(session, grid_samples = samples[seq_len(n)], grid_ncol = 3,
                     grid_shared_legend = shared, grid_update = paste(n, shared))
                 expect_equal(grids$grid()$cols, n)
                 expect_equal(grids$grid()$rows, 1)
@@ -77,12 +80,12 @@ test_that("grid layouts omit unused columns for fewer selected samples", {
 
 test_that("applied image changes invalidate spatial plots within the session", {
     with_app({
-        original <- imgRaster(images$spe(), sample_id = input$sample, image_id = "lowres")
-        session$setInputs(editImg_brightness = 0, editImg_update = 1)
+        original <- imgRaster(images$spe(), sample_id = interactive_controls$input$sample, image_id = "lowres")
+        app_set_inputs(session, editImg_brightness = 0, editImg_update = 1)
         updated <- images$spe()
-        expect_equal(imgRaster(updated, sample_id = input$sample, image_id = "lowres"), original)
+        expect_equal(imgRaster(updated, sample_id = interactive_controls$input$sample, image_id = "lowres"), original)
         expect_true("edited_imaged" %in% imgData(updated)$image_id)
-        session$setInputs(imageid = "edited_imaged")
+        app_set_inputs(session, imageid = "edited_imaged")
         expect_true(all(images$preview() %in% c("#000000", "#000000ff")))
         image <- app_viewer_message(session, "spatiallibd:appearance")$image
         expect_true(file.exists(file.path(resources$root, basename(image$url))))
@@ -93,7 +96,7 @@ test_that("image reset sends the same defaults used to construct the UI", {
     with_app({
         messages <- list()
         session$sendInputMessage <- function(inputId, message) messages[[inputId]] <<- message
-        session$setInputs(editImg_reset_menus = 1)
+        app_set_inputs(session, editImg_reset_menus = 1)
         expect_setequal(names(messages), paste0("editImg_", names(app_image_defaults())))
         expect_equal(as.numeric(messages$editImg_brightness$value), 100)
         expect_equal(messages$editImg_enhance$value, FALSE)
@@ -102,13 +105,13 @@ test_that("image reset sends the same defaults used to construct the UI", {
 
 test_that("selection annotation excludes cells masked by the expression threshold", {
     with_app({
-        session$setInputs(minCount = Inf)
-        keys <- f$spe$key[f$spe$sample_id == input$sample][1:2]
+        app_set_inputs(session, minCount = Inf)
+        keys <- f$spe$key[f$spe$sample_id == interactive_controls$input$sample][1:2]
         app_event(session, "viewer_selection", keys)
-        session$setInputs(update_manual_ann = 1)
+        app_set_inputs(session, update_manual_ann = 1)
         expect_true(all(annotations() == "NA"))
-        session$setInputs(minCount = -Inf)
-        session$setInputs(update_manual_ann = 2)
+        app_set_inputs(session, minCount = -Inf)
+        app_set_inputs(session, update_manual_ann = 2)
         expect_setequal(f$spe$key[annotations() == "reviewed"], keys)
     })
 })
@@ -145,8 +148,8 @@ test_that("prepared point-only inputs work without a background image", {
     on.exit(unlink(path, recursive = TRUE), add = TRUE)
     app_prepare(cells, path)
     with_app({
-        expect_equal(length(interactive$frame()$key), sum(f$spe$sample_id == input$sample))
-        expect_null(app_image_source(catalog(), input$sample))
+        expect_equal(length(interactive$frame()$key), sum(f$spe$sample_id == interactive_controls$input$sample))
+        expect_null(app_image_source(catalog(), interactive_controls$input$sample))
         expect_null(app_viewer_message(session, "spatiallibd:appearance")$image)
         expect_identical(app_viewer_message(session)$dataset$geometry, "")
     }, options = list(spe = open_app_dataset(path)$spe, datatype = "Xenium"))
@@ -162,18 +165,18 @@ test_that("overlap exclusions apply to viewer and static overview", {
     with_app({
         expect_false(f$spe$key[1] %in% interactive$frame()$key)
         p <- app_static_plot(f = modifyList(f, list(spe = spe())))
-        expect_equal(p$points, sum(f$spe$sample_id == input$sample) - 1L)
+        expect_equal(p$points, sum(f$spe$sample_id == interactive_controls$input$sample) - 1L)
     }, options = list(spe = open_app_dataset(path)$spe))
 })
 
 test_that("blank reduced-dimension selections retain spatial data without embeddings", {
     with_app({
-        session$setInputs(reduced_name = "")
+        app_set_inputs(session, reduced_name = "")
         payload <- app_viewer_message(session)
         expect_false(payload$dataset$hasEmbedding)
         units <- jsonlite::fromJSON(file.path(resources$root, basename(payload$dataset$url)))
         expect_length(units$embedding, 0L)
-        expect_setequal(units$keys, f$spe$key[f$spe$sample_id == input$sample])
+        expect_setequal(units$keys, f$spe$key[f$spe$sample_id == interactive_controls$input$sample])
     })
 })
 
@@ -182,7 +185,7 @@ test_that("all model families can draw and download their selected gene", {
     with_app({
         for (type in c("enrichment", "pairwise", "anova")) {
             row <- which(f$sig$model_type == type)[1]
-            session$setInputs(
+            app_set_inputs(session,
                 layer_model = type, layer_model_test = f$sig$test[row],
                 layer_geneid = rowData(f$pb)$gene_search[f$sig$gene_index[row]]
             )
@@ -200,7 +203,7 @@ test_that("all model families can draw and download their selected gene", {
 test_that("annotation and image changes do not leak into a fresh session", {
     with_app({
         app_event(session, "viewer_selection", f$spe$key[1])
-        session$setInputs(update_manual_ann = 1, editImg_brightness = 0, editImg_update = 1)
+        app_set_inputs(session, update_manual_ann = 1, editImg_brightness = 0, editImg_update = 1)
         expect_equal(annotations()[1], "reviewed")
         expect_true("edited_imaged" %in% imgData(images$spe())$image_id)
     })
@@ -213,11 +216,11 @@ test_that("annotation and image changes do not leak into a fresh session", {
 
 test_that("stale clicks and selections from another sample cannot annotate cells", {
     with_app({
-        session$setInputs(label_click = TRUE)
+        app_set_inputs(session, label_click = TRUE)
         app_event(session, "viewer_click", f$spe$key[1], revision = -1)
         expect_true(all(annotations() == "NA"))
         app_event(session, "viewer_selection", f$spe$key[1], sample = unique(f$spe$sample_id)[2])
-        session$setInputs(update_manual_ann = 1)
+        app_set_inputs(session, update_manual_ann = 1)
         expect_true(all(annotations() == "NA"))
         app_event(session, "viewer_click", f$spe$key[1])
         expect_equal(which(annotations() == "reviewed"), 1L)
@@ -233,7 +236,7 @@ test_that("dense grids download PNG and retain their saved format until Update",
             value$points <- drawn # Exercise export policy without drawing 50k points.
             value
         }, .package = "spatialLIBD")
-        session$setInputs(grid_update = 1)
+        app_set_inputs(session, grid_update = 1)
         expect_identical(grids$grid()$format, "png")
         path <- output$downloadPlotGrid
         expect_identical(readBin(path, "raw", 8), as.raw(c(137, 80, 78, 71, 13, 10, 26, 10)))
@@ -243,9 +246,9 @@ test_that("dense grids download PNG and retain their saved format until Update",
         close(con)
         expect_equal(dimensions, floor(c(grids$grid()$width, grids$grid()$height) / 96 * 300))
         drawn <- 10
-        session$setInputs(grid_kind = "discrete")
+        app_set_inputs(session, grid_kind = "discrete")
         expect_identical(grids$grid()$format, "png")
-        session$setInputs(grid_update = 2)
+        app_set_inputs(session, grid_update = 2)
         expect_identical(grids$grid()$format, "pdf")
         expect_identical(readChar(output$downloadPlotGrid, 4), "%PDF")
     })
@@ -253,7 +256,7 @@ test_that("dense grids download PNG and retain their saved format until Update",
 
 test_that("fractional grid dimensions are rejected by the server", {
     with_app({
-        session$setInputs(grid_ncol = 0.5, grid_update = 1)
+        app_set_inputs(session, grid_ncol = 0.5, grid_update = 1)
         expect_error(grids$grid(), "positive whole numbers")
     })
 })

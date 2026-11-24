@@ -19,7 +19,7 @@ app_fixture <- local({
 })
 
 app_inputs <- function(f) {
-    list(
+    values <- list(
         sample = unique(f$spe$sample_id)[1], imageid = "lowres",
         cluster = "app_cluster", clustercolor = "Polychrome::palette36",
         clustercolor_direction = FALSE, geneid = rowData(f$spe)$gene_search[1],
@@ -54,6 +54,27 @@ app_inputs <- function(f) {
         editImg_background_color = NA_character_, editImg_median_radius = NA_real_,
         editImg_negate = FALSE, editImg_overwrite = FALSE
     )
+    shared <- c("cluster", "clustercolor", "clustercolor_direction", "geneid", "assayname", "multi_gene_method",
+        "minCount", "cap_percentile", "genecolor", "genecolor_direction", "alphalevel", "cluster_subset")
+    interactive <- c(shared, "sample", "imageid", "reduced_name", "pointsize_scale", "image_opacity", "boundary_style")
+    grid <- c(shared, "guidepointsize")
+    c(values[setdiff(names(values), union(interactive, grid))],
+        app_namespace_inputs(values[interactive]), app_namespace_inputs(values[grid], "grid_controls"),
+        list(editImg_sample = values$sample, grid_imageid = "lowres"))
+
+}
+
+app_namespace_inputs <- function(values, target = "interactive_controls") {
+    controls <- c("sample", "imageid", "cluster", "geneid", "assayname", "multi_gene_method", "reduced_name",
+        "cluster_subset", "minCount", "cap_percentile", "reset_filters", "clustercolor", "clustercolor_direction",
+        "genecolor", "genecolor_direction", "alphalevel", "boundary_style", "image_opacity", "pointsize_scale", "guidepointsize")
+    at <- names(values) %in% controls
+    names(values)[at] <- paste0(target, "-", names(values)[at])
+    values
+}
+
+app_set_inputs <- function(session, ..., target = "interactive_controls") {
+    do.call(session$setInputs, app_namespace_inputs(list(...), target))
 }
 
 with_app <- function(code, options = list(), inputs = list()) {
@@ -74,7 +95,7 @@ with_app <- function(code, options = list(), inputs = list()) {
         }
         do.call(session$setInputs, modifyList(
             c(app_inputs(f), list(geneSet = app_csv(data.frame(fixture_set = rownames(f$pb)[1:30])))),
-            inputs, keep.null = TRUE
+            app_namespace_inputs(inputs), keep.null = TRUE
         ))
         eval(body)
     })

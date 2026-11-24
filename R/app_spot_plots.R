@@ -3,6 +3,7 @@
 app_spot_documentation_ui <- function(docs_path) {
     tabPanel(
         "Documentation",
+        value = "documentation",
         tags$br(),
         HTML(
             'Basic information overview about the spot-level SingleCellExperiment object. You can download it using <code>spatialLIBD::fetch_data(type = "spe")</code>.'

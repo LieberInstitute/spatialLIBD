@@ -10,11 +10,11 @@ test_that("01 sample selection restricts viewer data to the chosen sample", {
 
 test_that("02 background selection can display an edited low-resolution image", {
     with_app({
-        session$setInputs(editImg_brightness = 0, editImg_update = 1)
-        source <- app_image_source(catalog(), input$sample, "edited_imaged")
+        app_set_inputs(session, editImg_brightness = 0, editImg_update = 1)
+        source <- app_image_source(catalog(), interactive_controls$input$sample, "edited_imaged")
         expect_identical(source$type, "image")
-        expect_true(all(app_image_raster(spe(), input$sample, source)$image %in% c("#000000", "#000000ff")))
-        session$setInputs(imageid = "edited_imaged")
+        expect_true(all(app_image_raster(spe(), interactive_controls$input$sample, source)$image %in% c("#000000", "#000000ff")))
+        app_set_inputs(session, imageid = "edited_imaged")
         expect_identical(app_viewer_message(session, "spatiallibd:appearance")$image$type, "image")
     })
 })
@@ -31,10 +31,10 @@ test_that("03 discrete payloads describe the chosen annotation variable", {
 
 test_that("04 reversing a discrete palette reverses category colors", {
     with_app({
-        before <- colors$discrete()
-        session$setInputs(clustercolor_direction = TRUE)
-        expect_equal(unname(colors$discrete()), rev(unname(before)))
-        expect_equal(names(colors$discrete()), names(before))
+        before <- interactive_controls$discrete()
+        app_set_inputs(session, clustercolor_direction = TRUE)
+        expect_equal(unname(interactive_controls$discrete()), rev(unname(before)))
+        expect_equal(names(interactive_controls$discrete()), names(before))
     })
 })
 
@@ -80,14 +80,14 @@ test_that("09 appearance changes preserve measurements and do not regenerate fea
     with_app({
         before <- app_viewer_message(session)
         values <- interactive$frame()$value
-        session$setInputs(pointsize_scale = 2, alphalevel = 0.3, image_opacity = 0.4, boundary_style = "fill")
+        app_set_inputs(session, pointsize_scale = 2, alphalevel = 0.3, image_opacity = 0.4, boundary_style = "fill")
         expect_identical(app_viewer_message(session), before)
         expect_identical(interactive$frame()$value, values)
         appearance <- app_viewer_message(session, "spatiallibd:appearance")
         expect_equal(appearance$pointSizeScale, 2)
         expect_equal(appearance$opacity, 0.3)
         expect_equal(appearance$imageOpacity, 0.4)
-        session$setInputs(genecolor_direction = FALSE)
+        app_set_inputs(session, genecolor_direction = FALSE)
         expect_identical(interactive$frame()$value, values)
     })
 })
@@ -109,7 +109,7 @@ test_that("11 linked views share one cell order across coordinates, embeddings a
         expect_identical(units$keys, as.character(f$spe$key[i]))
         expect_equal(units$x, unname(spatialCoords(f$spe)[i, "pxl_col_in_fullres"]))
         expect_equal(units$y, unname(spatialCoords(f$spe)[i, "pxl_row_in_fullres"]))
-        expect_equal(units$embedding, unname(reducedDim(f$spe, input$reduced_name)[i, 1:2]), tolerance = 1e-10)
+        expect_equal(units$embedding, unname(reducedDim(f$spe, interactive_controls$input$reduced_name)[i, 1:2]), tolerance = 1e-10)
         con <- file(file.path(resources$root, basename(payload$features)), "rb")
         on.exit(close(con), add = TRUE)
         values <- readBin(con, numeric(), n = length(i), size = 4, endian = "little")
@@ -125,8 +125,8 @@ test_that("12 cluster filters apply to all linked views without refitting scores
     with_app({
         before <- interactive$frame()$value
         chosen <- as.character(f$spe$app_cluster[1])
-        session$setInputs(cluster_subset = chosen)
-        expected <- f$spe$key[f$spe$sample_id == input$sample & f$spe$app_cluster == chosen]
+        app_set_inputs(session, cluster_subset = chosen)
+        expected <- f$spe$key[f$spe$sample_id == interactive_controls$input$sample & f$spe$app_cluster == chosen]
         expect_setequal(interactive$gene_data()$key, expected)
         expect_identical(interactive$frame()$value, before)
         expect_equal(app_viewer_message(session)$shown, length(expected))
@@ -144,7 +144,7 @@ test_that("13 clicking identifies a cell without annotating when disabled", {
 
 test_that("14 enabled click annotation changes exactly the clicked cell", {
     with_app({
-        session$setInputs(label_click = TRUE)
+        app_set_inputs(session, label_click = TRUE)
         app_event(session, "viewer_click", f$spe$key[1])
         expect_equal(which(annotations() == "reviewed"), 1L)
     })
@@ -153,9 +153,9 @@ test_that("14 enabled click annotation changes exactly the clicked cell", {
 test_that("15 selection annotation changes exactly the selected cells and supports undo", {
     with_app({
         app_event(session, "viewer_selection", f$spe$key[1:2])
-        session$setInputs(update_manual_ann = 1)
+        app_set_inputs(session, update_manual_ann = 1)
         expect_equal(which(annotations() == "reviewed"), 1:2)
-        session$setInputs(undo_manual_ann = 1)
+        app_set_inputs(session, undo_manual_ann = 1)
         expect_true(all(annotations() == "NA"))
     })
 })
@@ -163,9 +163,9 @@ test_that("15 selection annotation changes exactly the selected cells and suppor
 test_that("16 annotations survive sample and feature changes", {
     with_app({
         app_event(session, "viewer_selection", f$spe$key[1])
-        session$setInputs(update_manual_ann = 1)
-        session$setInputs(sample = unique(f$spe$sample_id)[2], geneid = rowData(f$spe)$gene_search[2])
-        session$setInputs(sample = unique(f$spe$sample_id)[1])
+        app_set_inputs(session, update_manual_ann = 1)
+        app_set_inputs(session, sample = unique(f$spe$sample_id)[2], geneid = rowData(f$spe)$gene_search[2])
+        app_set_inputs(session, sample = unique(f$spe$sample_id)[1])
         expect_equal(which(annotations() == "reviewed"), 1L)
     })
 })
@@ -173,11 +173,11 @@ test_that("16 annotations survive sample and feature changes", {
 test_that("17 annotation export can include or omit unlabeled cells", {
     with_app({
         app_event(session, "viewer_selection", f$spe$key[1])
-        session$setInputs(update_manual_ann = 1)
+        app_set_inputs(session, update_manual_ann = 1)
         labeled <- read.csv(output$downloadData, na.strings = "")
         expect_equal(labeled$spot_name, colnames(f$spe)[1])
         expect_equal(labeled$ManualAnnotation, "reviewed")
-        session$setInputs(dropNA = FALSE)
+        app_set_inputs(session, dropNA = FALSE)
         expect_equal(nrow(read.csv(output$downloadData)), ncol(f$spe))
     })
 })
@@ -185,10 +185,10 @@ test_that("17 annotation export can include or omit unlabeled cells", {
 test_that("18 annotation import matches identity and later labels overwrite", {
     with_app({
         rows <- data.frame(sample_id = f$spe$sample_id[2:1], spot_name = colnames(f$spe)[2:1], ManualAnnotation = c("B", "A"))
-        session$setInputs(priorGuesses = app_csv(rows))
+        app_set_inputs(session, priorGuesses = app_csv(rows))
         expect_equal(annotations()[1:2], c("A", "B"))
         rows <- rows[2, ]; rows$ManualAnnotation <- "replacement"
-        session$setInputs(priorGuesses = app_csv(rows))
+        app_set_inputs(session, priorGuesses = app_csv(rows))
         expect_equal(annotations()[1:2], c("replacement", "B"))
     })
 })
@@ -202,7 +202,7 @@ test_that("19 unified static grids follow the requested sample order", {
             original(spe, sample, ...)
         }, .package = "spatialLIBD")
         order <- rev(unique(f$spe$sample_id))
-        session$setInputs(grid_samples = order, grid_kind = "discrete", grid_update = 1)
+        app_set_inputs(session, grid_samples = order, grid_kind = "discrete", grid_update = 1)
         invisible(grids$grid())
         expect_identical(calls, order)
     })
@@ -222,16 +222,16 @@ test_that("20 continuous static grids show the chosen gene in each sample", {
 
 test_that("21 image preview uses the selected sample", {
     with_app({
-        session$setInputs(sample = unique(f$spe$sample_id)[2], editImg_brightness = 0)
+        app_set_inputs(session, editImg_sample = unique(f$spe$sample_id)[2], editImg_brightness = 0)
         preview <- images$preview()
         expect_true(all(preview %in% c("#000000", "#000000ff")))
-        expect_equal(dim(preview), dim(imgRaster(f$spe, sample_id = input$sample, image_id = "lowres")))
+        expect_equal(dim(preview), dim(imgRaster(f$spe, sample_id = input$editImg_sample, image_id = "lowres")))
     })
 })
 
 test_that("22 applying image edits preserves originals for every sample", {
     with_app({
-        session$setInputs(editImg_brightness = 0, editImg_update = 1)
+        app_set_inputs(session, editImg_brightness = 0, editImg_update = 1)
         for (id in unique(f$spe$sample_id)) {
             expect_equal(imgRaster(images$spe(), sample_id = id, image_id = "lowres"), imgRaster(f$spe, sample_id = id, image_id = "lowres"))
             expect_true(all(imgRaster(images$spe(), sample_id = id, image_id = "edited_imaged") %in% c("#000000", "#000000ff")))
@@ -263,7 +263,7 @@ test_that("25 model test changes refresh the available gene choices", {
             messages[[inputId]] <<- message
         }
         tests <- unique(f$sig$test[f$sig$model_type == "enrichment"])
-        session$setInputs(layer_model_test = tests[2])
+        app_set_inputs(session, layer_model_test = tests[2])
         expect_true("layer_geneid" %in% names(messages))
         expect_true(length(messages$layer_geneid) > 0)
     })
@@ -279,7 +279,7 @@ test_that("26 boxplot display and PDF use the same grouping variable", {
             original(..., group_var = group_var)
         }, .package = "spatialLIBD")
         # A valid color variable distinct from the modeled grouping variable.
-        session$setInputs(layer_which_dim_color = "sample_id", layer_box_cex = 1.1)
+        app_set_inputs(session, layer_which_dim_color = "sample_id", layer_box_cex = 1.1)
         before <- models$plot()
         invisible(output$layer_downloadBoxplot)
         expect_equal(length(groups), 1L)
@@ -302,7 +302,7 @@ test_that("27 model tables restrict rows by selected gene or selected test", {
 
 test_that("28 uploaded gene sets replace example sets in enrichment results", {
     with_app({
-        session$setInputs(geneSet = app_csv(data.frame(my_set = rownames(f$pb)[1:30])))
+        app_set_inputs(session, geneSet = app_csv(data.frame(my_set = rownames(f$pb)[1:30])))
         result <- enrichment$result()
         expect_true(nrow(result) > 0)
         expect_equal(unique(result$ID), "my_set")
@@ -317,7 +317,7 @@ test_that("29 registration matches uploaded genes by ID rather than row order", 
         rownames(stats) <- tab$ensembl
         path <- tempfile(fileext = ".csv")
         write.csv(stats[nrow(stats):1, ], path)
-        session$setInputs(externalTstat = list(datapath = path, name = basename(path)))
+        app_set_inputs(session, externalTstat = list(datapath = path, name = basename(path)))
         result <- registration$correlations()
         # Each reference compared to itself should correlate perfectly.
         expect_equal(unname(diag(result[match(colnames(result), rownames(result)), , drop = FALSE])),

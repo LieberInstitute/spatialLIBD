@@ -19,13 +19,14 @@
 #' @importFrom SummarizedExperiment assays
 
 # Wire session-local images, annotations, and shared spot data into each feature server.
-# Feature servers receive their data explicitly; controls stay at app scope.
+# Feature servers receive their data explicitly; each plotting tab owns an independent controls module.
 app_server <- function(input, output, session) {
     options <- golem::get_golem_options()
     images <- app_image_editor_server(input, output, session, options$spe, options$datatype)
     annotations <- app_annotations_server(input, output, session, options$spe,
         gene_data = function() interactive$gene_data(),
-        revision = function() interactive$revision()
+        revision = function() interactive$revision(),
+        sample = function() interactive_controls$input$sample
     )
     # Combine edited images and current labels without mutating the launch-time object.
     spe <- reactive({
@@ -33,13 +34,14 @@ app_server <- function(input, output, session) {
         current$ManualAnnotation <- annotations()
         current
     })
-    # Share resource lifetimes, image registration, and controls across spot-level views.
+    # Share data and image registration while keeping plotting controls independent.
     resources <- app_viewer_resources(session)
     catalog <- reactive(app_image_catalog(spe()))
-    colors <- app_spot_controls_server(input, session, spe, catalog)
+    interactive_controls <- app_spot_controls_server("interactive_controls", spe, catalog)
+    grid_controls <- app_spot_controls_server("grid_controls", spe, catalog, "grid")
     output$raw_summary <- renderPrint(print(spe()), width = 80)
-    grids <- app_spot_grids_server(input, output, spe, colors, catalog, session)
-    interactive <- app_spot_interactive_server(input, output, session, spe, colors, resources, catalog)
+    grids <- app_spot_grids_server(input, output, spe, grid_controls, catalog, session)
+    interactive <- app_spot_interactive_server(input, output, session, spe, interactive_controls, resources, catalog)
 
     # Only initialize pseudobulk features when layer-level inputs were supplied.
     if (!is.null(options$sce_layer)) {

@@ -1,32 +1,31 @@
 # Static overviews share the viewer's measurements, filters and palettes.
 # Build sample-grid layout controls and the explicit update/download actions.
-app_spot_grid_ui <- function(spe) {
-    tabPanel("Static grid", value = "grid",
-        fluidRow(
-            column(3, radioButtons("grid_kind", "Color by", c("Continuous" = "continuous", "Discrete" = "discrete"), inline = TRUE)),
-            column(3, checkboxInput("grid_spatial", "Show histology", TRUE),
+app_spot_grid_ui <- function(spe, controls) {
+    tabPanel("Static grid", value = "grid", sidebarLayout(
+        sidebarPanel(width = 3,
+            shiny::selectizeInput("grid_samples", app_control_label("grid_samples", "Samples",
+                "Choose the samples and their display order. Remove and add IDs to reorder them, then click Update grid."),
+                choices = unique(spe$sample_id), selected = unique(spe$sample_id), multiple = TRUE,
+                options = list(plugins = list("remove_button"))),
+            numericInput("grid_ncol", app_control_label("grid_ncol", "Columns",
+                "Rows are calculated automatically. Each spatial panel keeps a fixed 300 by 300 pixel area; wide grids scroll horizontally."),
+                min(3, length(unique(spe$sample_id))), min = 1, max = length(unique(spe$sample_id)), step = 1),
+            radioButtons("grid_kind", "Color by", c("Continuous" = "continuous", "Discrete" = "discrete"), inline = TRUE),
+            controls,
+            tags$hr(), checkboxInput("grid_spatial", "Show histology", TRUE),
+            conditionalPanel("input.grid_spatial", selectInput("grid_imageid", app_control_label("grid_imageid", "Histology image",
+                "Choose a low-resolution image for the selected samples. If that image is unavailable in a sample, its default low-resolution image is used."), choices = character()),
                 checkboxInput("grid_side_by_side", "Image beside features", FALSE),
                 checkboxInput("grid_fit_to_units", app_control_label("grid_fit_to_units", "Fit to cells/spots",
-                    "With histology shown, fit each sample to all retained cells or spots with a small margin. Uncheck to show the full histology image. Without histology, the grid always fits the cells or spots. Expression and category filters do not change the framing. Click Update grid to apply."), TRUE)),
-            column(3, numericInput("grid_ncol", app_control_label("grid_ncol", "Columns",
-                "Arrange samples in this many columns. Rows are calculated automatically. Each spatial panel keeps the same size; wide grids scroll horizontally. Click Update grid to apply."),
-                min(3, length(unique(spe$sample_id))), min = 1, max = length(unique(spe$sample_id)), step = 1))
-        ),
-        fluidRow(
-            column(4, numericInput("grid_pointsize", app_control_label("grid_pointsize", "Point size (mm)",
-                "Controls point size in the static grid and its downloaded plot. Smaller values help separate densely packed cells; larger values make sparse units easier to see. Use Interactive for detailed inspection of cell or spot boundaries."),
-                if (app_spot_is_sfe(spe)) 0.35 else 2, min = 0.01, max = 10, step = 0.05)),
-            column(4, checkboxInput("grid_shared_legend", app_control_label("grid_shared_legend", "One shared legend",
-                "Use one legend covering all selected samples, or uncheck for sample-specific legends. A shared discrete legend includes all displayed categories; a shared continuous legend uses one color range. Click Update grid to apply."), TRUE))
-        ),
-        shiny::selectizeInput("grid_samples", app_control_label("grid_samples", "Samples",
-            "Choose the samples and their display order. Remove and add sample IDs to change their order, then click Update grid. This selection is independent of the Sample selector in the sidebar."),
-            choices = unique(spe$sample_id), selected = unique(spe$sample_id), multiple = TRUE,
-            options = list(plugins = list("remove_button"))),
-        actionButton("grid_update", "Update grid"), downloadButton("downloadPlotGrid", "Download plot"),
-        helpText("Choose samples and columns, then click Update grid. Rows are calculated automatically. Each spatial panel has a fixed 300 \u00d7 300 pixel area; wide grids scroll horizontally. Points provide a quick overview; use Interactive for detailed inspection. Downloads match the displayed grid\u2019s dimensions and saved settings: PDF for smaller datasets, or a 300 dpi PNG for dense datasets."),
-        uiOutput("grid_static"), textOutput("grid_warnings"), div(class = "app-plot-spacing")
-    )
+                    "Fit each sample to retained cells or spots with a small margin. Uncheck to show the full histology image. Without histology, the grid always fits cells or spots. Expression and category filters do not change framing."), TRUE)),
+            numericInput("grid_pointsize", app_control_label("grid_pointsize", "Point size (mm)",
+                "Set the size of plotted cells or spots in the grid and its download."),
+                if (app_spot_is_sfe(spe)) 0.35 else 2, min = 0.01, max = 10, step = 0.05),
+            checkboxInput("grid_shared_legend", app_control_label("grid_shared_legend", "One shared legend",
+                "Use one legend covering all selected samples, or uncheck for sample-specific legends. Shared legends include all displayed categories or one continuous color range."), TRUE),
+            actionButton("grid_update", "Update grid"), downloadButton("downloadPlotGrid", "Download plot"),
+            helpText("Click Update grid to apply settings. Downloads use the displayed grid's saved settings: PDF for smaller datasets, or a 300 dpi PNG for dense datasets.")),
+        mainPanel(width = 9, uiOutput("grid_static"), textOutput("grid_warnings"), div(class = "app-plot-spacing"))))
 }
 
 # Fit all retained units with padding in spatial coordinates, independent of platform or filters.
@@ -195,7 +194,16 @@ app_static_grid <- function(plots, cols, shared_legend, kind) {
 }
 
 # Snapshot grid settings on Update so the displayed plot and its download stay consistent.
-app_spot_grids_server <- function(input, output, spe, colors, catalog, session) {
+app_spot_grids_server <- function(input, output, spe, controls, catalog, session) {
+    view <- controls$input
+    # Grid images are independent of Interactive and never select a pyramid.
+    observeEvent(list(input$grid_samples, catalog()), {
+        entries <- catalog()[input$grid_samples]
+        choices <- app_image_choices(entries, "image")
+        old <- isolate(input$grid_imageid)
+        selected <- if (length(old) == 1L && old %in% choices) old else app_preferred(choices, "lowres")
+        updateSelectInput(session, "grid_imageid", choices = choices, selected = selected)
+    }, ignoreNULL = FALSE)
     observeEvent(input$grid_samples, {
         maximum <- max(1L, length(input$grid_samples))
         value <- isolate(input$grid_ncol)
@@ -203,7 +211,7 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog, session) 
         updateNumericInput(session, "grid_ncol", value = value, max = maximum)
     }, ignoreNULL = FALSE)
     grid <- eventReactive(input$grid_update, {
-        req(length(input$grid_samples) > 0, input$cluster, length(input$geneid) > 0)
+        req(length(input$grid_samples) > 0, view$cluster, length(view$geneid) > 0)
         # Columns determine the occupied layout; there are no empty extra rows.
         cols <- input$grid_ncol
         validate(need(length(cols) == 1L && is.finite(cols) && cols >= 1 &&
@@ -213,12 +221,12 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog, session) 
         validate(need(length(input$grid_pointsize) == 1L && is.finite(input$grid_pointsize) && input$grid_pointsize > 0,
             "Enter a positive point size."))
         # Build all sample panels from one saved set of feature and appearance settings.
-        gene <- app_gene_settings(input, colors$continuous)
+        gene <- controls$gene()
         plots <- lapply(input$grid_samples, function(sample) app_static_spatial(
-            spe(), sample, input$cluster, gene, as.character(input$cluster_subset), input$grid_kind,
-            list(discrete = colors$discrete(), continuous = colors$continuous()), catalog(),
-            input$imageid, isTRUE(input$grid_spatial), input$grid_pointsize, input$guidepointsize,
-            input$alphalevel, isTRUE(input$grid_side_by_side), fit_to_units = isTRUE(input$grid_fit_to_units)))
+            spe(), sample, view$cluster, gene, as.character(view$cluster_subset), input$grid_kind,
+            list(discrete = controls$discrete(), continuous = controls$continuous()), catalog(),
+            input$grid_imageid, isTRUE(input$grid_spatial), input$grid_pointsize, view$guidepointsize,
+            view$alphalevel, isTRUE(input$grid_side_by_side), fit_to_units = isTRUE(input$grid_fit_to_units)))
         shared_legend <- isTRUE(input$grid_shared_legend)
         layout <- app_static_grid(plots, cols, shared_legend, input$grid_kind)
         c(layout, list(warnings = unique(unlist(lapply(plots, `[[`, "warnings"))),
@@ -229,7 +237,7 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog, session) 
             fit_to_units = isTRUE(input$grid_fit_to_units),
             shared_legend = shared_legend,
             stem = paste("static_grid", input$grid_kind,
-                if (input$grid_kind == "continuous") paste(input$geneid, collapse = "_") else input$cluster,
+                if (input$grid_kind == "continuous") paste(view$geneid, collapse = "_") else view$cluster,
                 paste(input$grid_samples, collapse = "_"), sep = "_")))
     }, ignoreNULL = FALSE)
     output$grid_static <- renderUI({
