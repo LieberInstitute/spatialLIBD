@@ -14,7 +14,9 @@ app_spot_grid_ui <- function(spe) {
         fluidRow(
             column(4, numericInput("grid_pointsize", app_control_label("grid_pointsize", "Point size (mm)",
                 "Controls point size in the static grid and its downloaded plot. Smaller values help separate densely packed cells; larger values make sparse units easier to see. Use Interactive for detailed inspection of cell or spot boundaries."),
-                if (app_spot_is_sfe(spe)) 0.35 else 2, min = 0.01, max = 10, step = 0.05))
+                if (app_spot_is_sfe(spe)) 0.35 else 2, min = 0.01, max = 10, step = 0.05)),
+            column(4, checkboxInput("grid_shared_legend", app_control_label("grid_shared_legend", "One shared legend",
+                "Use one legend covering all selected samples, or uncheck for sample-specific legends. A shared discrete legend includes all displayed categories; a shared continuous legend uses one color range. Click Update grid to apply."), TRUE))
         ),
         shiny::selectizeInput("grid_samples", app_control_label("grid_samples", "Samples",
             "Choose the samples and their display order. Remove and add sample IDs to change their order, then click Update grid. This selection is independent of the Sample selector in the sidebar."),
@@ -80,7 +82,7 @@ app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, color
     # border on fillable circles white, producing hairlines in PDF exports.
     x <- y <- value <- NULL # ggplot2 data-mask bindings
     plot <- plot + geom_point(data = df, aes(x = x, y = y, colour = value),
-        shape = 16, stroke = 0, size = point_size, alpha = alpha)
+        shape = 16, stroke = 0, size = point_size, alpha = alpha, show.legend = TRUE)
     if (kind == "continuous") {
         plot <- plot + scale_colour_gradientn(colours = colors$continuous,
             limits = app_spot_domain(d$value), name = paste(gene$geneid, collapse = ", "))
@@ -90,8 +92,32 @@ app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, color
     }
     theme <- theme_void(base_size = 12) + theme(plot.title = element_text(hjust = 0.5))
     plot <- plot + theme + ggtitle(sample)
-    if (spatial && side_by_side && !is.null(image)) plot <- cowplot::plot_grid(background + theme, plot, nrow = 1)
-    list(p = plot, warnings = d$warnings, points = sum(keep))
+    image_plot <- if (spatial && side_by_side && !is.null(image)) background + theme else NULL
+    panel <- if (is.null(image_plot)) plot else cowplot::plot_grid(image_plot, plot, nrow = 1)
+    list(p = panel, features = plot, image = image_plot, domain = app_spot_domain(d$value),
+        warnings = d$warnings, points = sum(keep))
+}
+
+# Share the scale before extracting a legend so every panel uses its full range.
+# Keep image/feature pairs separate until their individual legends are removed.
+app_static_grid <- function(plots, rows, cols, shared_legend, kind) {
+    if (!shared_legend) {
+        return(cowplot::plot_grid(plotlist = lapply(plots, `[[`, "p"), nrow = rows, ncol = cols))
+    }
+    scale <- plots[[1]]$features$scales$get_scales("colour")$clone()
+    scale$limits <- if (kind == "discrete") {
+        sort(unique(unlist(lapply(plots, function(p) p$features$layers[[1]]$data$value))))
+    } else range(unlist(lapply(plots, `[[`, "domain")))
+    # Replacing the sample scales is intentional; retain their palettes and titles.
+    features <- lapply(plots, function(p) suppressMessages(p$features + scale))
+    legend <- cowplot::get_legend(features[[1]])
+    panels <- lapply(seq_along(plots), function(i) {
+        feature <- features[[i]] + theme(legend.position = "none")
+        image <- plots[[i]]$image
+        if (is.null(image)) feature else cowplot::plot_grid(image, feature, nrow = 1)
+    })
+    grid <- cowplot::plot_grid(plotlist = panels, nrow = rows, ncol = cols)
+    if (is.null(legend)) grid else cowplot::plot_grid(grid, legend, nrow = 1, rel_widths = c(cols, 0.5))
 }
 
 # Snapshot grid settings on Update so the displayed plot and its download stay consistent.
@@ -104,7 +130,9 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog, session) 
             all(dimensions >= 1 & dimensions <= .Machine$integer.max & dimensions == floor(dimensions)),
             "Rows and columns must be positive whole numbers."))
         rows <- as.integer(input$grid_nrow)
-        cols <- as.integer(input$grid_ncol)
+        # Do not reserve empty columns when fewer samples are selected. Use the
+        # same effective width for the plots, shared legend and download canvas.
+        cols <- min(as.integer(input$grid_ncol), length(input$grid_samples))
         validate(need(length(input$grid_pointsize) == 1L && is.finite(input$grid_pointsize) && input$grid_pointsize > 0,
             "Enter a positive point size."))
         rows <- max(rows, ceiling(length(input$grid_samples) / cols))
@@ -115,13 +143,15 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog, session) 
             list(discrete = colors$discrete(), continuous = colors$continuous()), catalog(),
             input$imageid, isTRUE(input$grid_spatial), input$grid_pointsize, input$guidepointsize,
             input$alphalevel, isTRUE(input$grid_side_by_side), fit_to_units = isTRUE(input$grid_fit_to_units)))
-        list(p = cowplot::plot_grid(plotlist = lapply(plots, `[[`, "p"), nrow = rows, ncol = cols),
+        shared_legend <- isTRUE(input$grid_shared_legend)
+        list(p = app_static_grid(plots, rows, cols, shared_legend, input$grid_kind),
             warnings = unique(unlist(lapply(plots, `[[`, "warnings"))), rows = rows, cols = cols,
             # Choose from the points actually drawn in this saved grid. The
             # threshold approximates the PDF / 300 dpi PNG file-size crossover.
             format = if (mean(vapply(plots, `[[`, numeric(1), "points")) < 50000) "pdf" else "png",
             side_by_side = isTRUE(input$grid_spatial) && isTRUE(input$grid_side_by_side),
             fit_to_units = isTRUE(input$grid_fit_to_units),
+            shared_legend = shared_legend,
             stem = paste("static_grid", input$grid_kind,
                 if (input$grid_kind == "continuous") paste(input$geneid, collapse = "_") else input$cluster,
                 paste(input$grid_samples, collapse = "_"), sep = "_"))

@@ -18,6 +18,7 @@ test_that("the concise UI exposes current controls, defaults and help", {
     expect_identical(choices("boundary_style"), c("outline", "fill"))
     expect_identical(selected("boundary_style"), "outline")
     expect_false(is.na(xml2::xml_attr(node("grid_fit_to_units"), "checked")))
+    expect_false(is.na(xml2::xml_attr(node("grid_shared_legend"), "checked")))
     expect_identical(choices("geneid"), "sum_umi") # Other genes use server-side search.
     expect_identical(choices("cluster"), opts$spe_discrete_vars)
     palettes <- paletteer::palettes_d_names
@@ -46,14 +47,31 @@ test_that("grid plots and download settings wait together for Update", {
         before <- grids$grid()
         session$setInputs(
             geneid = rowData(f$spe)$gene_search[2], grid_ncol = 1,
-            grid_samples = unique(f$spe$sample_id)[2], multi_gene_method = "pca", grid_fit_to_units = FALSE
+            grid_samples = unique(f$spe$sample_id)[2], multi_gene_method = "pca", grid_fit_to_units = FALSE,
+            grid_shared_legend = FALSE
         )
         expect_identical(grids$grid(), before)
         session$setInputs(grid_update = 1)
         expect_equal(grids$grid()$cols, 1)
         expect_false(grids$grid()$fit_to_units)
+        expect_true(before$shared_legend)
+        expect_false(grids$grid()$shared_legend)
         expect_match(grids$grid()$stem, unique(f$spe$sample_id)[2], fixed = TRUE)
         expect_false(identical(grids$grid()$stem, before$stem))
+    })
+})
+
+test_that("grid layouts omit unused columns for fewer selected samples", {
+    with_app({
+        samples <- unique(f$spe$sample_id)
+        for (n in 1:2) {
+            for (shared in c(TRUE, FALSE)) {
+                session$setInputs(grid_samples = samples[seq_len(n)], grid_ncol = 3,
+                    grid_shared_legend = shared, grid_update = paste(n, shared))
+                expect_equal(grids$grid()$cols, n)
+                expect_equal(grids$grid()$rows, 1)
+            }
+        }
     })
 })
 
