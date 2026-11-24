@@ -83,8 +83,8 @@ Explore one sample in linked panels: spatial views above and the selected embedd
 
 Compare selected samples in a grid of spatial plots, colored by continuous values or discrete categories. Units are always shown as points; use `Interactive` for zooming, selection, and segmentation boundaries.
 
-* **Choose and arrange:** set `Color by` to `Continuous` or `Discrete`, choose `Samples` in the desired display order, and set positive whole numbers for `Rows` and `Columns`. Extra rows are added if needed; wide grids scroll horizontally. The grid's sample selection is independent of the sidebar's `Sample` selector.
-* **Style:** toggle `Show histology` or `Image beside features`, and adjust `Point size (mm)`. Histology uses low-resolution images, even when a full-resolution pyramid is selected. Sidebar features, filters, palettes, unit opacity, and legend point size also apply.
+* **Choose and arrange:** set `Color by` to `Continuous` or `Discrete`, choose `Samples` in the desired display order, and choose the number of `Columns`. Rows are calculated automatically. Each spatial panel has a fixed 300 × 300 pixel area, so rearranging samples does not resize their maps; wide grids scroll horizontally. The grid's sample selection is independent of the sidebar's `Sample` selector.
+* **Style:** toggle `Show histology` or `Image beside features`, and adjust `Point size (mm)`. Image-beside-feature mode gives each sample two full-size spatial panels. Titles and legends occupy separate space. `One shared legend` (checked by default) uses all displayed categories or one continuous color range across the selected samples; uncheck for sample-specific legends and ranges. Histology uses low-resolution images, even when a full-resolution pyramid is selected. Sidebar features, filters, palettes, unit opacity, and legend point size also apply.
 * **Update and download:** click `Update grid` after changing settings. `Download plot` exports the displayed grid using its saved settings, dimensions, and point sizes. The format is PDF when the average number of displayed units per sample is below 50,000, or a 300 dpi PNG otherwise.
 
 ## Edit image

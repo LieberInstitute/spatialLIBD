@@ -14,7 +14,7 @@ test_that("the concise UI exposes current controls, defaults and help", {
     expect_identical(tabs, c("Documentation", "Interactive", "Static grid", "Edit image"))
     ids <- xml2::xml_attr(xml2::xml_find_all(doc, "//*[@id]"), "id")
     expect_true(all(c("geneid", "cluster_subset", "pointsize_scale", "alphalevel", "image_opacity", "boundary_style", "grid_kind") %in% ids))
-    expect_false(any(c("pointsize", "auto_crop", "gene_grid_samples", "gene_plotly_cluster_subset") %in% ids))
+    expect_false(any(c("pointsize", "auto_crop", "gene_grid_samples", "gene_plotly_cluster_subset", "grid_nrow") %in% ids))
     expect_identical(choices("boundary_style"), c("outline", "fill"))
     expect_identical(selected("boundary_style"), "outline")
     expect_false(is.na(xml2::xml_attr(node("grid_fit_to_units"), "checked")))
@@ -27,7 +27,7 @@ test_that("the concise UI exposes current controls, defaults and help", {
     expect_setequal(choices("clustercolor"), c(supplied,
         paste0(palettes$package[usable], "::", palettes$palette[usable])))
     expect_identical(xml2::xml_attr(node("pointsize_scale"), "value"), "1")
-    for (id in c("grid_nrow", "grid_ncol")) {
+    for (id in "grid_ncol") {
         expect_identical(xml2::xml_attr(node(id), "min"), "1")
         expect_identical(xml2::xml_attr(node(id), "step"), "1")
     }
@@ -237,6 +237,11 @@ test_that("dense grids download PNG and retain their saved format until Update",
         expect_identical(grids$grid()$format, "png")
         path <- output$downloadPlotGrid
         expect_identical(readBin(path, "raw", 8), as.raw(c(137, 80, 78, 71, 13, 10, 26, 10)))
+        con <- file(path, "rb")
+        seek(con, 16)
+        dimensions <- readBin(con, integer(), n = 2, size = 4, endian = "big")
+        close(con)
+        expect_equal(dimensions, floor(c(grids$grid()$width, grids$grid()$height) / 96 * 300))
         drawn <- 10
         session$setInputs(grid_kind = "discrete")
         expect_identical(grids$grid()$format, "png")
@@ -248,7 +253,7 @@ test_that("dense grids download PNG and retain their saved format until Update",
 
 test_that("fractional grid dimensions are rejected by the server", {
     with_app({
-        session$setInputs(grid_nrow = 0.5, grid_update = 1)
+        session$setInputs(grid_ncol = 0.5, grid_update = 1)
         expect_error(grids$grid(), "positive whole numbers")
     })
 })

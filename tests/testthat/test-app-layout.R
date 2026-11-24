@@ -26,9 +26,9 @@ test_that("embedding containers grow with the requested number of components", {
 
 test_that("static overview containers grow with the saved grid row count", {
     with_app({
-        session$setInputs(grid_nrow = 3, grid_ncol = 1, grid_update = 1)
-        expect_match(output$grid_static$html, "height:1500px", fixed = TRUE)
-        session$setInputs(grid_nrow = 1, grid_update = 2)
-        expect_match(output$grid_static$html, "height:1000px", fixed = TRUE)
+        session$setInputs(grid_ncol = 1, grid_update = 1)
+        expect_match(output$grid_static$html, "height:664px", fixed = TRUE)
+        session$setInputs(grid_ncol = 2, grid_update = 2)
+        expect_match(output$grid_static$html, "height:332px", fixed = TRUE)
     })
 })

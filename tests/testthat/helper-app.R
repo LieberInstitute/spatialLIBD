@@ -30,7 +30,7 @@ app_inputs <- function(f) {
         guidepointsize = 2, reduced_name = reducedDimNames(f$spe)[1],
         cluster_subset = levels(f$spe$app_cluster),
         grid_update = 0, grid_samples = unique(f$spe$sample_id),
-        grid_nrow = 1, grid_ncol = 2, grid_pointsize = 2,
+        grid_ncol = 2, grid_pointsize = 2,
         grid_kind = "continuous", grid_spatial = FALSE, grid_side_by_side = FALSE, grid_fit_to_units = TRUE,
         grid_shared_legend = TRUE,
         label_click = FALSE, label_manual_ann = "reviewed",

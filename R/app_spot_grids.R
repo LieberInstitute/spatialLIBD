@@ -8,8 +8,9 @@ app_spot_grid_ui <- function(spe) {
                 checkboxInput("grid_side_by_side", "Image beside features", FALSE),
                 checkboxInput("grid_fit_to_units", app_control_label("grid_fit_to_units", "Fit to cells/spots",
                     "With histology shown, fit each sample to all retained cells or spots with a small margin. Uncheck to show the full histology image. Without histology, the grid always fits the cells or spots. Expression and category filters do not change the framing. Click Update grid to apply."), TRUE)),
-            column(3, numericInput("grid_nrow", "Rows", 1, min = 1, step = 1)),
-            column(3, numericInput("grid_ncol", "Columns", 3, min = 1, step = 1))
+            column(3, numericInput("grid_ncol", app_control_label("grid_ncol", "Columns",
+                "Arrange samples in this many columns. Rows are calculated automatically. Each spatial panel keeps the same size; wide grids scroll horizontally. Click Update grid to apply."),
+                min(3, length(unique(spe$sample_id))), min = 1, max = length(unique(spe$sample_id)), step = 1))
         ),
         fluidRow(
             column(4, numericInput("grid_pointsize", app_control_label("grid_pointsize", "Point size (mm)",
@@ -23,7 +24,7 @@ app_spot_grid_ui <- function(spe) {
             choices = unique(spe$sample_id), selected = unique(spe$sample_id), multiple = TRUE,
             options = list(plugins = list("remove_button"))),
         actionButton("grid_update", "Update grid"), downloadButton("downloadPlotGrid", "Download plot"),
-        helpText("Choose samples and click Update grid. Wide grids scroll horizontally. Points provide a quick overview; use Interactive for detailed inspection. Downloads match the displayed grid\u2019s dimensions and saved settings: PDF for smaller datasets, or a 300 dpi PNG for dense datasets."),
+        helpText("Choose samples and columns, then click Update grid. Rows are calculated automatically. Each spatial panel has a fixed 300 \u00d7 300 pixel area; wide grids scroll horizontally. Points provide a quick overview; use Interactive for detailed inspection. Downloads match the displayed grid\u2019s dimensions and saved settings: PDF for smaller datasets, or a 300 dpi PNG for dense datasets."),
         uiOutput("grid_static"), textOutput("grid_warnings"), div(class = "app-plot-spacing")
     )
 }
@@ -95,47 +96,122 @@ app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, color
     image_plot <- if (spatial && side_by_side && !is.null(image)) background + theme else NULL
     panel <- if (is.null(image_plot)) plot else cowplot::plot_grid(image_plot, plot, nrow = 1)
     list(p = panel, features = plot, image = image_plot, domain = app_spot_domain(d$value),
-        warnings = d$warnings, points = sum(keep))
+        values = df$value, guide_size = guide_size, warnings = d$warnings, points = sum(keep))
 }
 
-# Share the scale before extracting a legend so every panel uses its full range.
-# Keep image/feature pairs separate until their individual legends are removed.
-app_static_grid <- function(plots, rows, cols, shared_legend, kind) {
-    if (!shared_legend) {
-        return(cowplot::plot_grid(plotlist = lapply(plots, `[[`, "p"), nrow = rows, ncol = cols))
+# Measure legends outside the map area, wrapping long discrete legends to fit.
+app_static_legend <- function(plot, guide_size, values, max_height = 300) {
+    measure <- function(grob) {
+        if (is.null(grob)) return(c(width = 0, height = 0))
+        ceiling(c(width = grid::convertWidth(sum(grob$widths), "inches", valueOnly = TRUE),
+            height = grid::convertHeight(sum(grob$heights), "inches", valueOnly = TRUE)) * 96)
     }
-    scale <- plots[[1]]$features$scales$get_scales("colour")$clone()
-    scale$limits <- if (kind == "discrete") {
-        sort(unique(unlist(lapply(plots, function(p) p$features$layers[[1]]$data$value))))
-    } else range(unlist(lapply(plots, `[[`, "domain")))
-    # Replacing the sample scales is intentional; retain their palettes and titles.
-    features <- lapply(plots, function(p) suppressMessages(p$features + scale))
-    legend <- cowplot::get_legend(features[[1]])
-    panels <- lapply(seq_along(plots), function(i) {
-        feature <- features[[i]] + theme(legend.position = "none")
-        image <- plots[[i]]$image
-        if (is.null(image)) feature else cowplot::plot_grid(image, feature, nrow = 1)
-    })
-    grid <- cowplot::plot_grid(plotlist = panels, nrow = rows, ncol = cols)
-    if (is.null(legend)) grid else cowplot::plot_grid(grid, legend, nrow = 1, rel_widths = c(cols, 0.5))
+    legend <- cowplot::get_legend(plot)
+    size <- measure(legend)
+    scale <- plot$scales$get_scales("colour")
+    if (!is.null(legend) && scale$is_discrete() && size[["height"]] > max_height) {
+        keys <- length(unique(c(scale$limits, values)))
+        columns <- 1L
+        while (size[["height"]] > max_height && columns < keys) {
+            columns <- min(keys, max(columns + 1L, ceiling(columns * size[["height"]] / max_height)))
+            legend <- cowplot::get_legend(plot + guides(colour = guide_legend(
+                ncol = columns, override.aes = list(size = guide_size))))
+            size <- measure(legend)
+        }
+    }
+    list(grob = legend, width = size[["width"]], height = size[["height"]])
+}
+
+# Arrange fixed physical map viewports; titles and measured legends add space
+# outside those viewports rather than taking space away from the spatial data.
+app_static_grid <- function(plots, cols, shared_legend, kind) {
+    # Grid text measurements need a device, including when a grid is built
+    # outside renderPlot(). A null PDF avoids creating an Rplots.pdf file.
+    if (grDevices::dev.cur() == 1L) {
+        grDevices::pdf(NULL)
+        on.exit(grDevices::dev.off(), add = TRUE)
+    }
+    cols <- min(cols, length(plots))
+    rows <- ceiling(length(plots) / cols)
+    side <- 300
+    gap <- 8
+    legend_gap <- 12
+    padding <- 4
+    title_height <- 24
+    features <- lapply(plots, `[[`, "features")
+    if (shared_legend) {
+        scale <- features[[1]]$scales$get_scales("colour")$clone()
+        scale$limits <- if (kind == "discrete") {
+            sort(unique(unlist(lapply(plots, `[[`, "values"))))
+        } else range(unlist(lapply(plots, `[[`, "domain")))
+        # Replacing the sample scales is intentional; retain palettes and titles.
+        features <- lapply(features, function(p) suppressMessages(p + scale))
+    }
+    legends <- if (shared_legend) {
+        list(app_static_legend(features[[1]], plots[[1]]$guide_size, scale$limits))
+    } else lapply(seq_along(plots), function(i) app_static_legend(features[[i]], plots[[i]]$guide_size, plots[[i]]$values))
+    legend_width <- max(vapply(legends, `[[`, numeric(1), "width"))
+    legend_height <- max(vapply(legends, `[[`, numeric(1), "height"))
+    paired <- any(vapply(plots, function(p) !is.null(p$image), logical(1)))
+    map_width <- if (paired) 2 * side + gap else side
+    block_width <- map_width + if (!shared_legend && legend_width > 0) legend_gap + legend_width else 0
+    block_height <- title_height + if (shared_legend) side else max(side, legend_height)
+    grid_width <- cols * block_width + (cols - 1) * gap
+    grid_height <- rows * block_height + (rows - 1) * gap
+    width <- 2 * padding + grid_width + if (shared_legend && legend_width > 0) legend_gap + legend_width else 0
+    height <- 2 * padding + if (shared_legend) max(grid_height, title_height + legend_height) else grid_height
+    grobs <- list()
+    # Positions and sizes are CSS pixels converted to inches at 96 dpi. The
+    # device uses this exact canvas in both Shiny and downloaded PDF/PNG files.
+    place <- function(grob, x, y, w, h, name) {
+        if (is.null(grob)) return(invisible(NULL))
+        grobs[[length(grobs) + 1L]] <<- grid::grobTree(grob, name = name,
+            vp = grid::viewport(x = grid::unit(x / 96, "inches"),
+                y = grid::unit((height - y) / 96, "inches"),
+                width = grid::unit(w / 96, "inches"), height = grid::unit(h / 96, "inches"),
+                just = c("left", "top"), clip = "on"))
+    }
+    map_grob <- function(plot) ggplot2::ggplotGrob(plot + labs(title = NULL) +
+        theme(legend.position = "none", plot.margin = margin(0, 0, 0, 0)))
+    for (i in seq_along(plots)) {
+        x <- padding + ((i - 1) %% cols) * (block_width + gap)
+        y <- padding + ((i - 1) %/% cols) * (block_height + gap)
+        place(grid::textGrob(features[[i]]$labels$title, gp = grid::gpar(fontsize = 12)),
+            x, y, map_width, title_height, paste0("title-", i))
+        if (paired) {
+            image <- plots[[i]]$image
+            image <- if (is.null(image)) grid::textGrob("No histology image", gp = grid::gpar(col = "grey50")) else map_grob(image)
+            place(image, x, y + title_height, side, side, paste0("map-image-", i))
+        }
+        feature_x <- x + if (paired) side + gap else 0
+        place(map_grob(features[[i]]), feature_x, y + title_height, side, side, paste0("map-feature-", i))
+        if (!shared_legend) place(legends[[i]]$grob, x + map_width + legend_gap,
+            y + title_height, legend_width, legends[[i]]$height, paste0("legend-", i))
+    }
+    if (shared_legend) place(legends[[1]]$grob, padding + grid_width + legend_gap,
+        padding + title_height, legend_width, legend_height, "legend-shared")
+    list(p = grid::grobTree(children = do.call(grid::gList, grobs)),
+        width = width, height = height, rows = rows, cols = cols)
 }
 
 # Snapshot grid settings on Update so the displayed plot and its download stay consistent.
 app_spot_grids_server <- function(input, output, spe, colors, catalog, session) {
+    observeEvent(input$grid_samples, {
+        maximum <- max(1L, length(input$grid_samples))
+        value <- isolate(input$grid_ncol)
+        if (length(value) == 1L && is.finite(value)) value <- min(value, maximum)
+        updateNumericInput(session, "grid_ncol", value = value, max = maximum)
+    }, ignoreNULL = FALSE)
     grid <- eventReactive(input$grid_update, {
         req(length(input$grid_samples) > 0, input$cluster, length(input$geneid) > 0)
-        # Validate the requested layout and expand its rows to fit every selected sample.
-        dimensions <- c(input$grid_nrow, input$grid_ncol)
-        validate(need(length(dimensions) == 2L && all(is.finite(dimensions)) &&
-            all(dimensions >= 1 & dimensions <= .Machine$integer.max & dimensions == floor(dimensions)),
-            "Rows and columns must be positive whole numbers."))
-        rows <- as.integer(input$grid_nrow)
-        # Do not reserve empty columns when fewer samples are selected. Use the
-        # same effective width for the plots, shared legend and download canvas.
-        cols <- min(as.integer(input$grid_ncol), length(input$grid_samples))
+        # Columns determine the occupied layout; there are no empty extra rows.
+        cols <- input$grid_ncol
+        validate(need(length(cols) == 1L && is.finite(cols) && cols >= 1 &&
+            cols <= .Machine$integer.max && cols == floor(cols),
+            "Columns must be positive whole numbers."))
+        cols <- min(as.integer(cols), length(input$grid_samples))
         validate(need(length(input$grid_pointsize) == 1L && is.finite(input$grid_pointsize) && input$grid_pointsize > 0,
             "Enter a positive point size."))
-        rows <- max(rows, ceiling(length(input$grid_samples) / cols))
         # Build all sample panels from one saved set of feature and appearance settings.
         gene <- app_gene_settings(input, colors$continuous)
         plots <- lapply(input$grid_samples, function(sample) app_static_spatial(
@@ -144,8 +220,8 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog, session) 
             input$imageid, isTRUE(input$grid_spatial), input$grid_pointsize, input$guidepointsize,
             input$alphalevel, isTRUE(input$grid_side_by_side), fit_to_units = isTRUE(input$grid_fit_to_units)))
         shared_legend <- isTRUE(input$grid_shared_legend)
-        list(p = app_static_grid(plots, rows, cols, shared_legend, input$grid_kind),
-            warnings = unique(unlist(lapply(plots, `[[`, "warnings"))), rows = rows, cols = cols,
+        layout <- app_static_grid(plots, cols, shared_legend, input$grid_kind)
+        c(layout, list(warnings = unique(unlist(lapply(plots, `[[`, "warnings"))),
             # Choose from the points actually drawn in this saved grid. The
             # threshold approximates the PDF / 300 dpi PNG file-size crossover.
             format = if (mean(vapply(plots, `[[`, numeric(1), "points")) < 50000) "pdf" else "png",
@@ -154,29 +230,25 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog, session) 
             shared_legend = shared_legend,
             stem = paste("static_grid", input$grid_kind,
                 if (input$grid_kind == "continuous") paste(input$geneid, collapse = "_") else input$cluster,
-                paste(input$grid_samples, collapse = "_"), sep = "_"))
+                paste(input$grid_samples, collapse = "_"), sep = "_")))
     }, ignoreNULL = FALSE)
     output$grid_static <- renderUI({
         settings <- grid()
-        min_width <- 360 * settings$cols * if (settings$side_by_side) 2 else 1
         div(style = "overflow-x: auto; max-width: 100%;",
-            div(style = paste0("min-width: ", min_width, "px;"),
-                plotOutput("spot_grid", width = "100%", height = 500 * settings$rows)))
+            plotOutput("spot_grid", width = paste0(settings$width, "px"), height = settings$height))
     })
-    output$spot_grid <- renderPlot(print(grid()$p), res = 96, execOnResize = TRUE)
+    output$spot_grid <- renderPlot({
+        grid::grid.newpage()
+        grid::grid.draw(grid()$p)
+    }, res = 96)
     output$grid_warnings <- renderText(app_warning_text(grid))
     output$downloadPlotGrid <- downloadHandler(
         filename = function() app_filename(grid()$stem, grid()$format),
         content = function(file) {
             settings <- grid()
-            # renderPlot uses 96 CSS pixels per inch. Match the full displayed
-            # canvas (including horizontally scrolled columns), then increase
-            # only raster resolution so point sizes and layout stay in sync.
-            width <- session$clientData$output_spot_grid_width
-            height <- session$clientData$output_spot_grid_height
-            req(is.finite(width), width > 0, is.finite(height), height > 0)
-            width <- width / 96
-            height <- height / 96
+            # Use saved physical dimensions, independent of browser width.
+            width <- settings$width / 96
+            height <- settings$height / 96
             if (settings$format == "pdf") {
                 grDevices::pdf(file, width = width, height = height, useDingbats = FALSE)
             } else {
@@ -184,7 +256,8 @@ app_spot_grids_server <- function(input, output, spe, colors, catalog, session) 
                     units = "in", res = 300, bg = "white")
             }
             on.exit(grDevices::dev.off(), add = TRUE)
-            print(settings$p)
+            grid::grid.newpage()
+            grid::grid.draw(settings$p)
         }
     )
     list(grid = grid)
