@@ -76,17 +76,17 @@ app_static_spatial <- function(spe, sample, cluster, gene, clusters, kind, color
     values <- if (kind == "continuous") d$value else d$labels
     alpha <- if (is.finite(opacity)) opacity else 1
     df <- data.frame(x = d$x[keep], y = d$y[keep], value = values[keep])
-    # A zero-width stroke can become a black hairline in PDF viewers. Remove
-    # the outline explicitly so dense overview points retain their fill colors.
+    # Solid circles avoid a separate outline: alpha can turn a "transparent"
+    # border on fillable circles white, producing hairlines in PDF exports.
     x <- y <- value <- NULL # ggplot2 data-mask bindings
-    plot <- plot + geom_point(data = df, aes(x = x, y = y, fill = value),
-        shape = 21, colour = "transparent", stroke = 0, size = point_size, alpha = alpha)
+    plot <- plot + geom_point(data = df, aes(x = x, y = y, colour = value),
+        shape = 16, stroke = 0, size = point_size, alpha = alpha)
     if (kind == "continuous") {
-        plot <- plot + scale_fill_gradientn(colours = colors$continuous,
+        plot <- plot + scale_colour_gradientn(colours = colors$continuous,
             limits = app_spot_domain(d$value), name = paste(gene$geneid, collapse = ", "))
     } else {
-        plot <- plot + scale_fill_manual(values = get_colors(colors$discrete, d$labels),
-            name = cluster, drop = FALSE) + guides(fill = guide_legend(override.aes = list(size = guide_size)))
+        plot <- plot + scale_colour_manual(values = get_colors(colors$discrete, d$labels),
+            name = cluster, drop = FALSE) + guides(colour = guide_legend(override.aes = list(size = guide_size)))
     }
     theme <- theme_void(base_size = 12) + theme(plot.title = element_text(hjust = 0.5))
     plot <- plot + theme + ggtitle(sample)
