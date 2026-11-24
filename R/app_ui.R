@@ -77,10 +77,10 @@ app_document <- function(docs_path, name) file.path(docs_path, name)
 golem_add_external_resources <- function(docs_path) {
     addResourcePath("www", docs_path)
     viewer_path <- system.file("app", "viewer", package = "spatialLIBD")
-    # Development rebuilds must not reuse a browser's cached renderer bundle.
-    viewer_hash <- tools::md5sum(file.path(viewer_path, "viewer.js"))
-    viewer_version <- paste(utils::packageVersion("spatialLIBD"),
-        strtoi(substr(unname(viewer_hash), 1L, 7L), base = 16L), sep = ".")
+    # Invalidate cached assets when either the renderer or its stylesheet changes.
+    viewer_hash <- tools::md5sum(file.path(viewer_path, c("viewer.js", "viewer.css")))
+    viewer_version <- paste(c(as.character(utils::packageVersion("spatialLIBD")),
+        strtoi(substr(unname(viewer_hash), 1L, 7L), base = 16L)), collapse = ".")
     tags$head(
         golem::activate_js(),
         golem::favicon(),
