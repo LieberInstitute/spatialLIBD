@@ -23,9 +23,11 @@ app_spot_grid_ui <- function(spe, controls) {
                 if (app_spot_is_sfe(spe)) 0.35 else 2, min = 0.01, max = 10, step = 0.05),
             checkboxInput("grid_shared_legend", app_control_label("grid_shared_legend", "One shared legend",
                 "Use one legend covering all selected samples, or uncheck for sample-specific legends. Shared legends include all displayed categories or one continuous color range."), TRUE),
-            actionButton("grid_update", "Update grid"), downloadButton("downloadPlotGrid", "Download plot"),
             helpText("Click Update grid to apply settings. Downloads use the displayed grid's saved settings: PDF for smaller datasets, or a 300 dpi PNG for dense datasets.")),
-        mainPanel(width = 9, uiOutput("grid_static"), textOutput("grid_warnings"), div(class = "app-plot-spacing"))))
+        mainPanel(width = 9,
+            div(class = "sl-grid-actions", role = "toolbar", `aria-label` = "Static grid actions",
+                actionButton("grid_update", "Update grid"), downloadButton("downloadPlotGrid", "Download plot")),
+            uiOutput("grid_static"), textOutput("grid_warnings"), div(class = "app-plot-spacing"))))
 }
 
 # Fit all retained units with padding in spatial coordinates, independent of platform or filters.

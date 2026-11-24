@@ -13,6 +13,13 @@ app_control_label <- function(id, label, ...) {
         tags$span(id = help_id, style = "display: none;", ...))
 }
 
+# Give expandable settings groups a consistent button-like summary and state cue.
+app_control_section <- function(title, ...) {
+    tags$details(class = "sl-appearance", tags$summary(tags$span(title),
+        tags$span(class = "sl-appearance-show", "Show settings"),
+        tags$span(class = "sl-appearance-hide", "Hide settings")), ...)
+}
+
 # Choose a usable default, falling back to the first available choice or none.
 app_preferred <- function(choices, preferred) {
     if (length(preferred) == 1 && preferred %in% choices) preferred else if (length(choices)) choices[[1]] else ""

@@ -35,3 +35,5 @@
 .sl-control-help .popover-title {font-weight:600}
 .sl-control-help .popover-content p:last-child {margin-bottom:0}
 @media(max-width:700px) {.sl-viewer{height:1250px;max-height:none}.sl-viewer-legends{grid-template-columns:1fr}.sl-viewer-status{width:100%;margin:6px 0}}
+
+.sl-grid-actions {display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}

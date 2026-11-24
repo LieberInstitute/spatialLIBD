@@ -24,9 +24,7 @@ app_spot_controls_ui <- function(id, spe, spe_discrete_vars, spe_continuous_vars
             choices = c("None" = "", dimensions), selected = if (length(dimensions)) utils::tail(dimensions, 1) else "",
             options = list(allowEmptyOption = TRUE)),
         tags$hr(), app_spot_filters_ui(ns, sort(unique(labels))),
-        tags$details(class = "sl-appearance", tags$summary(tags$span("Appearance"),
-            tags$span(class = "sl-appearance-show", "Show settings"),
-            tags$span(class = "sl-appearance-hide", "Hide settings")),
+        app_control_section("Appearance",
             app_spot_appearance_ui(ns, spe, default_cluster, mode)))
 }
 

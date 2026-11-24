@@ -2,16 +2,14 @@
 # Build linked viewer panels, navigation tools, and the manual annotation actions.
 app_spot_interactive_ui <- function(controls) {
     tabPanel("Interactive", value = "interactive", sidebarLayout(
-        sidebarPanel(width = 3, controls,
-            tags$hr(),
+        sidebarPanel(width = 3, controls),
+        mainPanel(width = 9,
             div(class = "sl-viewer-toolbar", role = "toolbar", `aria-label` = "Spatial viewer tools",
                 tags$button(type = "button", class = "btn btn-default active", `data-viewer-tool` = "pan", "Pan"),
                 tags$button(type = "button", class = "btn btn-default", `data-viewer-tool` = "select", "Select"),
                 tags$button(type = "button", class = "btn btn-default", `data-viewer-tool` = "lasso", "Lasso"),
                 tags$button(type = "button", class = "btn btn-default", `data-viewer-action` = "reset", "Reset view"),
                 tags$button(type = "button", class = "btn btn-default", `data-viewer-action` = "clear", "Clear selection")),
-            app_annotations_ui()),
-        mainPanel(width = 9,
             div(class = "sl-viewer-status", role = "status", "Loading spatial data\u2026"),
             div(id = "spot_viewer", class = "sl-viewer", tabindex = "0", `aria-label` = "Linked spatial and embedding plots",
                 div(class = "sl-viewer-canvas"), tags$svg(class = "sl-viewer-lasso", `aria-hidden` = "true"),
@@ -19,7 +17,7 @@ app_spot_interactive_ui <- function(controls) {
             div(class = "sl-viewer-legends"),
             textOutput("viewer_filter_summary"), textOutput("viewer_warnings"),
             helpText("Spatial panels share a view; embedding panels share a separate view. Selections link all panels. Shift adds to a selection; Alt removes. Boundaries appear as you zoom in."),
-            verbatimTextOutput("click"), div(class = "app-plot-spacing"))))
+            app_annotations_ui(), verbatimTextOutput("click"), div(class = "app-plot-spacing"))))
 }
 
 # Cache sample geometry and send reactive feature and appearance updates to the viewer.

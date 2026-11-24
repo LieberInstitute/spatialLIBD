@@ -42,7 +42,7 @@ test_that("the concise UI exposes current controls, defaults and help", {
     expect_identical(xml2::xml_attr(node("alphalevel"), "data-from"), "1")
     expect_identical(xml2::xml_attr(node("image_opacity"), "data-from"), "0.8")
     expect_gt(length(xml2::xml_find_all(doc, "//button[contains(@aria-label, 'About ')]")), 10)
-    expect_length(xml2::xml_find_all(doc, "//details[contains(@class, 'sl-appearance')]/summary"), 2)
+    expect_length(xml2::xml_find_all(doc, "//details[contains(@class, 'sl-appearance')]/summary"), 4)
 })
 
 test_that("grid plots and download settings wait together for Update", {

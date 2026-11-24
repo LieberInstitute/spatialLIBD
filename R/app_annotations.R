@@ -1,4 +1,4 @@
-# Annotation settings and actions belong only to the Interactive sidebar.
+# Annotation settings and actions sit below the linked Interactive panels.
 app_annotations_ui <- function() {
     tagList(tags$hr(),
         textInput("label_manual_ann", "Manual annotation label", "Your Guess"),
