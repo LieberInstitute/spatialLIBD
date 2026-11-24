@@ -19,10 +19,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Leonardo Collado-Torres \email{lcolladotor@gmail.com} (\href{https://orcid.org/0000-0003-2140-308X}{ORCID})
+\strong{Maintainer}: Nicholas Eagles \email{nickeagles77@gmail.com} (\href{https://orcid.org/0000-0002-9808-5254}{ORCID})
 
 Authors:
 \itemize{
+  \item Nicholas Eagles \email{nickeagles77@gmail.com} (\href{https://orcid.org/0000-0002-9808-5254}{ORCID})
   \item Leonardo Collado-Torres \email{lcolladotor@gmail.com} (\href{https://orcid.org/0000-0003-2140-308X}{ORCID})
 }
 
@@ -35,7 +36,6 @@ Other contributors:
   \item Jesús Vélez Santiago \email{jvelezmagic@gmail.com} (\href{https://orcid.org/0000-0001-5128-3838}{ORCID}) [contributor]
   \item Lukas M. Weber \email{lukas.weber.edu@gmail.com} (\href{https://orcid.org/0000-0002-3282-1730}{ORCID}) [contributor]
   \item Louise Huuki-Myers \email{lahuuki@gmail.com} (\href{https://orcid.org/0000-0001-5148-3602}{ORCID}) [contributor]
-  \item Nicholas Eagles \email{nickeagles77@gmail.com} (\href{https://orcid.org/0000-0002-9808-5254}{ORCID}) [contributor]
 }
 
 }

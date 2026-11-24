@@ -1,3 +1,20 @@
+# spatialLIBD 1.25.9
+
+NEW FEATURES
+
+* Added "fit to cells/spots" option to static-grid app plots. It achieves functionality like `auto_crop` in functions like `vis_gene()` while being agnostic to dataset (Visium, Visium HD, StrataMap, Xenium, etc)
+* Added an option for static-grid plots in apps to share a single legend across multiple samples
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* Greatly improved spot-level control organization. Each tab retains only the controls that are respected by that tab, reducing confusion and apparently duplicated or non-functional controls
+* Substantially improved static-grid plot layout, reducing wasted whitespace, producing plots of predictable size, and automatically calculating number of appropriate rows
+* Removed `is_stitched` parameter in `run_app()`, as it isn't currently used. Stitched data is implicitly supported by providing `exclude_overlapping` as a `colData()` column to handle overlapping spots/cells
+
+BUG FIXES
+
+* Fixed static-grid PDF exports having white stroke on each point. Exported plots now appear identical to in-app ones
+
 # spatialLIBD 1.25.8
 
 NEW FEATURES

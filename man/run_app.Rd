@@ -23,8 +23,6 @@ run_app(
   spe_continuous_vars = c("cell_count", "sum_umi", "sum_gene", "expr_chrM",
     "expr_chrM_ratio"),
   default_cluster = "spatialLIBD",
-  auto_crop_default = TRUE,
-  is_stitched = FALSE,
   datatype = c("Visium", "Xenium"),
   ...
 )
@@ -70,18 +68,6 @@ as genes. They will have to be present in \code{colData(sce)}.}
 (discrete) variable to use. It will have to be present in both \code{colData(spe)}
 and \code{colData(sce_layer)}.}
 
-\item{auto_crop_default}{A \code{logical(1)} specifying the default value for
-automatically cropping the images. Set this to \code{FALSE} if your images do not
-follow the Visium grid size expectations, which are key for enabling
-auto-cropping.}
-
-\item{is_stitched}{A \code{logical(1)} vector: If \code{TRUE}, expects a
-\link[SpatialExperiment:SpatialExperiment-class]{SpatialExperiment-class} built
-with \code{visiumStitched::build_spe()}.
-\url{http://research.libd.org/visiumStitched/reference/build_spe.html}; in
-particular, expects a logical colData column \code{exclude_overlapping}
-specifying which spots to exclude from the plot. Sets \code{auto_crop = FALSE}.}
-
 \item{datatype}{A \code{character(1)} specifying the type of spatial transcriptomics
 data stored in \code{spe}. Supported options are:
 \describe{
@@ -112,6 +98,10 @@ examples for one such case as well as the vignette that describes how
 you can use \code{spatialLIBD} with public data sets provided by 10x Genomics.
 That vignette is available at
 \url{http://research.libd.org/spatialLIBD/articles/TenX_data_download.html}.
+
+If the prepared data contain a logical \code{exclude_overlapping} column, the
+Interactive and Static grid views only include units where it is \code{FALSE}.
+Units marked \code{TRUE} or \code{NA} are omitted automatically.
 
 ---- Optional: Add custom cluster colors ----
 
@@ -288,7 +278,7 @@ spe_stitched <- fetch_data("visiumStitched_brain_spe")
 ## Inspect this object
 spe_stitched
 
-## Notice the use of "exclude_overlapping"
+## The app automatically omits units marked TRUE or NA in "exclude_overlapping".
 table(spe_stitched$exclude_overlapping, useNA = "ifany")
 
 ## Prepare once, then reuse the prepared directory for later launches.
@@ -301,8 +291,7 @@ run_app(
     title = "visiumStitched example data",
     spe_discrete_vars = c("capture_area", "scran_quick_cluster", "ManualAnnotation"),
     spe_continuous_vars = c("sum_umi", "sum_gene", "expr_chrM", "expr_chrM_ratio"),
-    default_cluster = "scran_quick_cluster",
-    is_stitched = TRUE
+    default_cluster = "scran_quick_cluster"
 )
 
 ## Example for Xenium object
