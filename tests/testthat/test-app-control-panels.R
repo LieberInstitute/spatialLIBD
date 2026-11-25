@@ -24,6 +24,8 @@ test_that("each plotting or editing tab owns its controls and documentation has 
     }
     expect_length(xml2::xml_find_all(tab("documentation"), ".//*[contains(concat(' ', normalize-space(@class), ' '), ' well ')]"), 0)
     expect_gte(length(xml2::xml_find_all(tab("edit_image"), ".//button[contains(@aria-label, 'About ')]")), 18)
+    expect_match(xml2::xml_text(xml2::xml_find_first(tab("edit_image"), ".//*[@id='editImg_quantize_dither-help']")),
+        "Floyd\u2013Steinberg error diffusion", fixed = TRUE)
     # Plot actions stay beside the plots rather than in the settings sidebar.
     sidebar <- function(value) xml2::xml_find_first(tab(value), ".//*[contains(concat(' ', normalize-space(@class), ' '), ' well ')]")
     expect_length(xml2::xml_find_all(sidebar("interactive"), ".//*[@id='label_manual_ann'] | .//*[@role='toolbar']"), 0)

@@ -33,7 +33,7 @@ app_image_editor_ui <- function(spe) {
                 numericInput("editImg_quantize_max", label("quantize_max", "Maximum colors",
                     "Reduce the number of colors. Leave blank to retain the current colors; try 256, or a smaller value such as 25 or 40."), defaults$quantize_max, min = 1),
                 checkboxInput("editImg_quantize_dither", label("quantize_dither", "Dither reduced colors",
-                    "When reducing colors, use Floyd–Steinberg error diffusion to spread quantization error across neighboring pixels."), defaults$quantize_dither),
+                    "When reducing colors, use Floyd\u2013Steinberg error diffusion to spread quantization error across neighboring pixels."), defaults$quantize_dither),
                 textInput("editImg_transparent_color", label("transparent_color", "Transparent color",
                     "Make pixels matching this R color name or hex value transparent. Leave blank to skip. Color tolerance includes nearby colors; for example, try purple with a tolerance of 25."), defaults$transparent_color),
                 numericInput("editImg_transparent_fuzz", label("transparent_fuzz", "Color tolerance (%)",
