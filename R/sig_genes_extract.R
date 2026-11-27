@@ -103,6 +103,9 @@ sig_genes_extract <- function(
         grep("logFC_", colnames(model_results)),
         drop = FALSE
     ]
+    if (reverse && ncol(logFC) > 0) {
+        logFC <- logFC * -1
+    }
 
     sig_genes <- apply(tstats, 2, function(x) {
         rowData(sce_layer)[[gene_name]][order(x, decreasing = TRUE)[seq_len(n)]]
